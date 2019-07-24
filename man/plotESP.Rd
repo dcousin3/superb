@@ -7,9 +7,9 @@
 plotESP(data, bsFactor = NULL, wsFactor = NULL, factorOrder, variables,
   statistic = "mean", errorbar = "CI", gamma = 0.95,
   adjustments = list(purpose = "single", popSize = Inf, decorrelation =
-  "none", samplingScheme = "SRS"), showPlot = TRUE, plotType = "bar",
+  "none", samplingScheme = "SRS"), showPlot = TRUE, plotStyle = "bar",
   errorParams = list(width = 0.8), pointParams = list(),
-  Debug = FALSE)
+  Debug = FALSE, preprocessfct = NULL, postprocessfct = NULL)
 }
 \arguments{
 \item{data}{Dataframe in wide format}
@@ -34,7 +34,7 @@ any function name. Defaults to "SE"}
 
 \item{showPlot}{Defaults to TRUE. Set to FALSE if you want the output to be the summary statistics and intervals.}
 
-\item{plotType}{The type of object to plot on the graph. Can be either "bar" or "line".
+\item{plotStyle}{The type of object to plot on the graph. Can be either "bar" or "line".
 Defaults to "bar".}
 
 \item{errorParams}{a list of ggplot2 parameters for geom_errobar (see ?geom_errorbar)}
@@ -42,6 +42,10 @@ Defaults to "bar".}
 \item{pointParams}{a list of ggplot2 parameters to input inside geoms (see ?geom_bar2)}
 
 \item{Debug}{export internal information into global environment. Default is FALSE}
+
+\item{preprocessfct}{is a transform (or vector of) to be performed first on data matrix of each group}
+
+\item{postprocessfct}{is a transform (or vector of)}
 
 \item{adjustments$popsize}{Size of the population under study. Defaults to Inf}
 
@@ -54,7 +58,7 @@ Default is adjustments = list(purpose = "single", popSize = Inf, decorrelation =
 }
 \value{
 a plot with the correct error bars or a table of those summary statistics.
-        The plot is a ggplot2 objects with can be modified with additional declarations.
+        The plot is a ggplot2 object with can be modified with additional declarations.
 }
 \description{
 Plots standard error or confidence interval for various descriptive 
