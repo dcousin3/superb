@@ -71,21 +71,43 @@ Plots standard error or confidence interval for various descriptive
 plotESP(ToothGrowth, bsFactor = c("dose", "supp"), 
   variables = "len") 
 
-# exampled changing the summary statistics to the median and
+# example changing the summary statistics to the median and
 # the error bar to 90\% confidence intervals
 plotESP(ToothGrowth, bsFactor = c("dose", "supp"), 
   variables = "len", statistic = "median", errorbar = "CI", gamma = .90) 
 
-# exampled introducing adjustments
-# for pairwise comparisons and assuming that the whole population is limited to 200 persons
+# example introducing adjustments for pairwise comparisons 
+# and assuming that the whole population is limited to 200 persons
 plotESP(ToothGrowth, bsFactor = c("dose", "supp"), 
   variables = "len",  
   adjustments = list( purpose = "difference", popSize = 200) )
 
-# This example add ggplots directives to the plot produced
+# This example add ggplot directives to the plot produced
 plotESP(ToothGrowth, bsFactor = c("dose", "supp"), 
   variables = "len") + 
   xlab("Dose") + ylab("Tooth Growth") +
   theme_bw()
+
+# This example is based on repeated measures
+library(lsr)
+library(gridExtra)
+# define shorter column names...
+names(Orange) <- c("Tree","age","circ")
+# turn the data into a wide format
+Orange.wide <- longToWide(Orange, circ ~ age)
+p1=plotESP( Orange.wide, wsFactor = "age(7)",
+  variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
+  adjustments = list(purpose = "difference", decorrelation = "none")
+) + 
+  xlab("Age level") + ylab("Trunk diameter (mm)") +
+  coord_cartesian( ylim = c(0,250) ) + labs(title="Basic confidence intervals")
+p2=plotESP( Orange.wide, wsFactor = "age(7)",
+  variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
+  adjustments = list(purpose = "difference", decorrelation = "CM")
+) + 
+  xlab("Age level") + ylab("Trunk diameter (mm)") +
+  coord_cartesian( ylim = c(0,250) ) + labs(title="Decorrelated confidence intervals")
+grid.arrange(p1,p2,ncol=2)
+
 
 }

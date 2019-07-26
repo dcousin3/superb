@@ -1,3 +1,5 @@
+#' @export WinerCompoundSymmetryTest
+
 WinerCompoundSymmetryTest <- function(dta, cols) {
 	# This function requires a data frame dta as input with the 
 	# repeated-measure variables cols. It assesses the significance of the 
@@ -20,12 +22,13 @@ WinerCompoundSymmetryTest <- function(dta, cols) {
 	# M is a shortcut for the likelihood ratio
 	# cf is a correction factor for small samples
 	# df is the degree of freedom of the test distribution
+
+    # M  <- -(n-1) * log( det(S1) / det(S0) )
     suppressWarnings(if(is.na(log(det(S1)/det(S0)))) 
         M  <- +1000
     else
         M  <- -(n-1) * log( det(S1) / det(S0) )
     )
-#	M  <- -(n-1) * log( det(S1) / det(S0) )
 	cf <- (p * (p+1)^2 * (2*p-3) )/(6 * (n-1) * (p-1) * (p^2 + p -4))
 	df <- p*(p+1)/2-2
 	W  <- M * (1 - cf)

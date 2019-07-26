@@ -1,3 +1,5 @@
+#' @export MauchlySphericityTest
+
 MauchlySphericityTest <- function(dta, cols) {
 	# This function requires a data frame dta as input with the 
 	# repeated-measure variables cols. It assesses the significance of the 
@@ -15,7 +17,13 @@ MauchlySphericityTest <- function(dta, cols) {
     W   <- prod(lam[1:p-1])/(1/(p-1) * sum(lam[1:p-1]))^(p-1)
     f   <- (2 * (p - 1)^2 + p + 1)/(6 * (p - 1) * (n - 1))  
     df  <- p * (p - 1)/2 - 1
-    chiW <- -(1 - f) * (n - 1) * log(W)
+
+    #chiW <- -(1 - f) * (n - 1) * log(W)
+    suppressWarnings(if(is.na(log(W)))
+        chiW <- -(1 - f) * (n - 1) * log(abs(W))
+    else
+        chiW <- -(1 - f) * (n - 1) * log(W)
+    )
     
     pW   <- 1 - pchisq(chiW, df)
   

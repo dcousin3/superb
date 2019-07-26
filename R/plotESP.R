@@ -41,22 +41,44 @@
 #' plotESP(ToothGrowth, bsFactor = c("dose", "supp"), 
 #'   variables = "len") 
 #'
-#' # exampled changing the summary statistics to the median and
+#' # example changing the summary statistics to the median and
 #' # the error bar to 90% confidence intervals
 #' plotESP(ToothGrowth, bsFactor = c("dose", "supp"), 
 #'   variables = "len", statistic = "median", errorbar = "CI", gamma = .90) 
 #'
-#' # exampled introducing adjustments
-#' # for pairwise comparisons and assuming that the whole population is limited to 200 persons
+#' # example introducing adjustments for pairwise comparisons 
+#' # and assuming that the whole population is limited to 200 persons
 #' plotESP(ToothGrowth, bsFactor = c("dose", "supp"), 
 #'   variables = "len",  
 #'   adjustments = list( purpose = "difference", popSize = 200) )
 #'
-#' # This example add ggplots directives to the plot produced
+#' # This example add ggplot directives to the plot produced
 #' plotESP(ToothGrowth, bsFactor = c("dose", "supp"), 
 #'   variables = "len") + 
 #'   xlab("Dose") + ylab("Tooth Growth") +
 #'   theme_bw()
+#'
+#' # This example is based on repeated measures
+#' library(lsr)
+#' library(gridExtra)
+#' # define shorter column names...
+#' names(Orange) <- c("Tree","age","circ")
+#' # turn the data into a wide format
+#' Orange.wide <- longToWide(Orange, circ ~ age)
+#' p1=plotESP( Orange.wide, wsFactor = "age(7)",
+#'   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
+#'   adjustments = list(purpose = "difference", decorrelation = "none")
+#' ) + 
+#'   xlab("Age level") + ylab("Trunk diameter (mm)") +
+#'   coord_cartesian( ylim = c(0,250) ) + labs(title="Basic confidence intervals")
+#' p2=plotESP( Orange.wide, wsFactor = "age(7)",
+#'   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
+#'   adjustments = list(purpose = "difference", decorrelation = "CM")
+#' ) + 
+#'   xlab("Age level") + ylab("Trunk diameter (mm)") +
+#'   coord_cartesian( ylim = c(0,250) ) + labs(title="Decorrelated confidence intervals")
+#' grid.arrange(p1,p2,ncol=2)
+#'
 #'
 #' @export plotESP
 ######################################################################################
@@ -180,6 +202,13 @@ plotESP <- function(data,
     if ( !(is.exists.function(widthfct)) )
             stop("ERROR: The function ", widthfct, " is not a known function for error bars. Exiting...")
 
+    # 1.9: if cluster randomized sampling, check that column cluster is set
+print("check here")
+    if (adjustments$samplingScheme == "CRS") {
+        # make sure that column cluster is defined.
+    
+    } 
+    
     # We're clear to go!
     runDebug(Debug, "End of Step 1: Input validation", 
         c("measure2","design2","bsFactor2","wsFactor2","wsLevels2","wslevel2","factorOrder2","adjustments2"), 
@@ -285,6 +314,17 @@ plotESP <- function(data,
     # 5.3: Adjust for cluster-randomized sampling
     sadj <- if (adjustments$samplingScheme == "CRS") {
         #### TODO
+print("check here")
+#
+#       ICCs <- plyr::ddply(dta, .fun = ShroutFleissICC1k, 
+#            .variables = bsFactor, wsFactor, "cluster" )
+#
+#lambda2 <- function(k, ns, r) {
+#    M <- sum(ns^2)
+#    N <- sum(ns) nbar <- mean(ns)
+#    return(sqrt((1+(M/N-1) * r) / (1 - (nbar-1)/(N-1) * r)))
+# }
+
     } else {1}
 
     # 5.4: Adjust for correlation if decorrelation == "CA"
@@ -337,6 +377,8 @@ plotESP <- function(data,
     # 6.3: if samplingScheme is CRS: print ICC, check that more than 8 clusters
     if (adjustments$samplingScheme == "CRS") {
         warning("icc not yet programmed...", call. = FALSE)
+        warning(paste("FYI: The ICC(1,k) per group are ", paste(ICCs, collapse=" ")), call. = FALSE)
+
     }
     
     

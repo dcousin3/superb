@@ -1,3 +1,5 @@
+#' @export epsilon
+
 # from Chartier & Cousineau, TMJ, 2011
 epsilon <- function(dta, cols) {
     # takes as input a data frame and column names of the measures
