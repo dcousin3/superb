@@ -6,7 +6,7 @@ bibentry(bibtype = "Manual",
                     person("Felix", "Chiasson"),
                    ),
          year = 2019,
-         version = 0.85,
+         version = 0.92,
          note = "R package",
          url = "https://github.com/dcousin3/superb"
 )

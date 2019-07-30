@@ -87,24 +87,25 @@
 plotESP <- function(data, 
     bsFactor      = NULL,              # vector of the between-subject factor columns
     wsFactor      = NULL,              # vector of the names of the within-subject factors
-    factorOrder,                      # order of the factors for plots
-    variables,                        # dependent variable name(s)
+    factorOrder,                       # order of the factors for plots
+    variables,                         # dependent variable name(s)
     statistic     = "mean",            # descriptive statistics
     errorbar      = "CI",              # content of the error bars
     gamma         = 0.95,              # coverage if confidence intervals
     adjustments   = list(
-        purpose        = "single",    # is "single" or "difference"
-        popSize        = Inf,         # is Inf or a specific positive integer
-        decorrelation  = "none",      # is "CM", "LM", "CA" or "none"
-        samplingScheme = "SRS"        # is "SRS" or "CRS"
+        purpose        = "single",     # is "single" or "difference"
+        popSize        = Inf,          # is Inf or a specific positive integer
+        decorrelation  = "none",       # is "CM", "LM", "CA" or "none"
+        samplingDesign = "SRS"         # is "SRS" or "CRS" (in which case use clusterColumn)
     ),
     showPlot      = TRUE,              # show a plot or else statistics
-    plotStyle      = "bar",             # type of plot
+    plotStyle      = "bar",            # type of plot
     errorParams   = list(width = .8),  # sent to ggplot/error bars
     pointParams   = list(),            # sent to ggplot/summary results
     Debug         = FALSE,             # dump named variables into global env for debugging
     preprocessfct = NULL,              # run preprocessing on the matrix
-    postprocessfct= NULL               # run post-processing on the matrix
+    postprocessfct= NULL,              # run post-processing on the matrix
+    clusterColumn = ""                 # if samplineScheme = CRS
 ) {
 
     ##############################################################################
@@ -122,10 +123,10 @@ plotESP <- function(data,
     if(is.null(adjustments$purpose))        {adjustments$purpose        <- "single"}
     if(is.null(adjustments$popSize))        {adjustments$popSize        <- Inf}
     if(is.null(adjustments$decorrelation))  {adjustments$decorrelation  <- "none"}
-    if(is.null(adjustments$samplingScheme)) {adjustments$samplingScheme <- "SRS"}
+    if(is.null(adjustments$samplingDesign)) {adjustments$samplingDesign <- "SRS"}
 
     # 1.2: unknown adjustments listed
-    if (!all(names(adjustments) %in% c("purpose","popSize","decorrelation","samplingScheme")))
+    if (!all(names(adjustments) %in% c("purpose","popSize","decorrelation","samplingDesign")))
             stop("ERROR: one of the adjustment is unknown. Exiting...")
 
     # 1.3: invalid choice in a list of possible choices
@@ -135,8 +136,8 @@ plotESP <- function(data,
             stop("ERROR: Invalid purpose. Did you mean 'difference'? Exiting...")
     if (!(adjustments$decorrelation %in% c("none","CM","LM","CA"))) 
             stop("ERROR: Invalid decorrelation method. Did you mean 'CM'? Exiting...")
-    if (!(adjustments$samplingScheme %in% c("SRS","CRS"))) 
-            stop("ERROR: Invalid samplingScheme. Did you mean 'SRS'? Exiting...")
+    if (!(adjustments$samplingDesign %in% c("SRS","CRS"))) 
+            stop("ERROR: Invalid samplingDesign. Did you mean 'SRS'? Exiting...")
 
     # 1.4a: innapropriate choice for between-subject specifications
     bsLevels <- dim(unique(data[bsFactor]))[1]
@@ -203,12 +204,12 @@ plotESP <- function(data,
             stop("ERROR: The function ", widthfct, " is not a known function for error bars. Exiting...")
 
     # 1.9: if cluster randomized sampling, check that column cluster is set
-print("check here")
-    if (adjustments$samplingScheme == "CRS") {
+    if (adjustments$samplingDesign == "CRS") {
         # make sure that column cluster is defined.
-    
-    } 
-    
+        if(!(clusterColumn %in% names(data))) 
+            stop("ERROR: With samplingDesign = \"CRS\", you must specify a valid column with ClusterColumn. Exiting...")
+    }
+
     # We're clear to go!
     runDebug(Debug, "End of Step 1: Input validation", 
         c("measure2","design2","bsFactor2","wsFactor2","wsLevels2","wslevel2","factorOrder2","adjustments2"), 
@@ -312,18 +313,18 @@ print("check here")
     padj <- if (adjustments$purpose == "difference") { sqrt(2) } else {1}
     
     # 5.3: Adjust for cluster-randomized sampling
-    sadj <- if (adjustments$samplingScheme == "CRS") {
-        #### TODO
-print("check here")
-#
-#       ICCs <- plyr::ddply(dta, .fun = ShroutFleissICC1k, 
-#            .variables = bsFactor, wsFactor, "cluster" )
-#
-#lambda2 <- function(k, ns, r) {
-#    M <- sum(ns^2)
-#    N <- sum(ns) nbar <- mean(ns)
-#    return(sqrt((1+(M/N-1) * r) / (1 - (nbar-1)/(N-1) * r)))
-# }
+    sadj <- if (adjustments$samplingDesign == "CRS") {
+        ICCs <- plyr::ddply(data, .fun = ShroutFleissICC1, .variables = bsFactor, clusterColumn, variables )
+        KNSs <- plyr::ddply(data, .fun = getKNs, .variables = bsFactor, clusterColumn )
+        ICCs <- ICCs[-1:-length(bsFactor)] # drop bsFactor columns
+        KNSs <- KNSs[-1:-length(bsFactor)] # drop bsFactor columns
+
+        ICCsKNNs <- cbind(ICCs, KNSs)
+        lambdas  <- apply(ICCsKNNs, 1, lambda) # one lambda per group
+        # the lambdas must be expanded for each repeated measures
+        lambdas  <- rep(lambdas, wslevel)
+        ICCs     <- ICCs$V1 # downcast to a vector for latter display
+        lambdas
 
     } else {1}
 
@@ -374,11 +375,9 @@ print("check here")
             warning("FYI: Some of the groups' data are not spherical. Use error bars with caution.", call. = FALSE)
     }
     
-    # 6.3: if samplingScheme is CRS: print ICC, check that more than 8 clusters
-    if (adjustments$samplingScheme == "CRS") {
-        warning("icc not yet programmed...", call. = FALSE)
-        warning(paste("FYI: The ICC(1,k) per group are ", paste(ICCs, collapse=" ")), call. = FALSE)
-
+    # 6.3: if samplingDesign is CRS: print ICC, check that more than 8 clusters
+    if (adjustments$samplingDesign == "CRS") {
+        warning(paste("FYI: The ICC1 per group are ", paste(ICCs, collapse=" ")), call. = FALSE)
     }
     
     

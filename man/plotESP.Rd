@@ -7,9 +7,10 @@
 plotESP(data, bsFactor = NULL, wsFactor = NULL, factorOrder, variables,
   statistic = "mean", errorbar = "CI", gamma = 0.95,
   adjustments = list(purpose = "single", popSize = Inf, decorrelation =
-  "none", samplingScheme = "SRS"), showPlot = TRUE, plotStyle = "bar",
+  "none", samplingDesign = "SRS"), showPlot = TRUE, plotStyle = "bar",
   errorParams = list(width = 0.8), pointParams = list(),
-  Debug = FALSE, preprocessfct = NULL, postprocessfct = NULL)
+  Debug = FALSE, preprocessfct = NULL, postprocessfct = NULL,
+  clusterColumn = "")
 }
 \arguments{
 \item{data}{Dataframe in wide format}
