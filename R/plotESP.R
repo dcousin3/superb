@@ -493,7 +493,7 @@ subject_centering_transform <- function(dta, variables) {
     dta [ variables ] = Y
     return(dta)
 }
-bais_correction_transform <- function(dta, variables) {
+bias_correction_transform <- function(dta, variables) {
     # from O'Brien and Cousineau (2014) The Quantitative Methods for Psychology
     Y <- dta[ variables ]
     C <- ncol(Y)
