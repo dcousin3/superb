@@ -1,7 +1,7 @@
 Package: superb
 Type: Package
 Title: Computes standard error and confidence interval of means under various designs and sampling schemes
-Version: 0.9.1
+Version: 0.9.2
 Date: 2019-07-30
 Authors@R: c(
             person("Denis", "Cousineau", email = "denis.cousineau@uottawa.ca",
