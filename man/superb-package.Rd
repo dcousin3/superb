@@ -4,27 +4,38 @@
 \name{superb-package}
 \alias{superb}
 \alias{superb-package}
-\title{superb: Computes standard error and confidence interval of means under various designs and sampling schemes}
+\title{superb: Computes Standard Error and Confidence Interval of Means Under Various Designs and Sampling Schemes}
 \description{
 Computes standard error and confidence interval of means under various designs and sampling schemes
 }
 \details{
 suberb is a library to perform descriptive statistics plots
 based on the ESP framework.
-The unique function is
+The main function is
 
-plotESP(df,  ...)  
+   plotESP(df,  ...)  
 
 where df is a dataframe.
 
 See help(plotESP) for more details.
+
+A second function is
+
+   GRD( ...)
+
+which generates random datasets. This function is described in 
+ Calderini, Matias, Harding, Bradley (2019) 
+     GRD for R: An intuitive tool for generating random data in R.
+     The Quantitative Methods for Psychology, 15(1), 1-11.
+     doi: 10.20982/tqmp.15.1.p001
 }
 \author{
 \strong{Maintainer}: Denis Cousineau \email{denis.cousineau@uottawa.ca}
 
-Authors:
+Other contributors:
 \itemize{
-  \item Felix Chiasson \email{felix@chiasson.co}
+  \item Bradley Harding \email{bradley.harding@umoncton.ca} [contributor]
+  \item Marc-André Goulet \email{magoulet101@gmail.com} [contributor]
 }
 
 }

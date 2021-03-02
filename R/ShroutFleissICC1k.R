@@ -6,14 +6,16 @@
 #
 #
 # A quick sum of the squared differences to the mean function
-SS <- function(v) { sum((v[,2] - mean(v[,2]))^2) }
+SS <- function(v) {
+    sum((v[,2] - mean(v[,2]))^2) 
+}
 
 ShroutFleissICC1 <- function(dta, clustercol, cols) {
 
     if (is.factor(dta[,clustercol])) {
       clusters = as.numeric(levels(dta[,clustercol]))[dta[,clustercol]]
     } else {
-      clusters = as.vector(as.matrix(dta[clustercol]))
+      clusters = as.numeric(as.vector(as.matrix(dta[clustercol])))
     }
 
     if (length(cols)==1)
@@ -31,11 +33,10 @@ ShroutFleissICC11 <- function(clusters, scores) {
     # for a measurement.
     # clusters MUST be a vector
     # scores MUST be a vector
-
     SStotal <- SS(cbind(clusters, scores))
-    SSerror <-  sum(ddply(as.data.frame(cbind(clusters,scores)),
-                    .variables = "clusters",
-                    .fun = SS
+    SSerror <-  sum(
+                    plyr::ddply(as.data.frame(cbind(clusters,scores)),
+                    .variables = "clusters", .fun = SS
                 )[,2])
     SSeffect <- SStotal-SSerror
     dleffect <- length(unique(clusters)) - 1
@@ -55,14 +56,12 @@ ShroutFleissICC1k <- function(clusters, multiplescores) {
     # clusters MUST be a vector
     # scores MUST be a matrix
 
-    temp        <- as.data.frame(cbind(clusters,rowMeans(multiplescores)))
+    temp        <- as.data.frame( cbind(clusters,rowMeans(multiplescores)) )
     names(temp) <- c("clus", "score")
     
     SStotal  <- SS(temp)
-    SSerror  <-  sum(ddply(
-                    temp,
-                    .variables = "clus",
-                    .fun = SS
+    SSerror  <-  sum(
+                    plyr::ddply( temp, .variables = "clus", .fun = SS
                 )[,2])
     SSeffect <- SStotal-SSerror
     dleffect <- length(unique(clusters)) - 1
@@ -72,8 +71,6 @@ ShroutFleissICC1k <- function(clusters, multiplescores) {
     ICC      <- (MSeffect - MSerror)/ MSeffect 
     ICC
 }
-
-# ShroutFleissICC1(as.data.frame(Orange),"circ","Tree")
 
 # compute the correction factor as per Cousineau & Laurencelle, 2015, Psyck Methods
 lambda <- function(paramvector) {
@@ -90,7 +87,7 @@ lambda <- function(paramvector) {
 
 # extract the number of clusters k and the number of subjects per cluster ns.
 getKNs<-function(dta, clustercol) {
-    k=length(unique(dta[,clustercol]))
-    ns=ddply(as.data.frame(dta[clustercol]), .fun = dim, .variables = clustercol)$V1
-    return(c(k,ns))
+    k  <- length(unique(dta[,clustercol]))
+    ns <- plyr::ddply(as.data.frame(dta[clustercol]), .fun = dim, .variables = clustercol)$V1
+    return( c(k, ns) )
 }

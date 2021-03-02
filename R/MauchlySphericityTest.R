@@ -18,7 +18,6 @@ MauchlySphericityTest <- function(dta, cols) {
     f   <- (2 * (p - 1)^2 + p + 1)/(6 * (p - 1) * (n - 1))  
     df  <- p * (p - 1)/2 - 1
 
-    #chiW <- -(1 - f) * (n - 1) * log(W)
     suppressWarnings(if(is.na(log(W)))
         chiW <- -(1 - f) * (n - 1) * log(abs(W))
     else

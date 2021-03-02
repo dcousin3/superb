@@ -1,0 +1,29 @@
+---
+title: "This is a test vignette"
+output: rmarkdown::html_vignette
+description: >
+  put a desription of this vignette here
+vignette: >
+  %\VignetteIndexEntry{This is a test vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+
+```{r, echo = FALSE, message = FALSE}
+cat("this will be hidden; use for general initializations.")
+```
+
+
+#test
+
+
+some text.
+
+```{r}
+x <- c(1,2,3)
+x
+```
+
+
+

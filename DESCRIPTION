@@ -1,19 +1,27 @@
 Package: superb
 Type: Package
-Title: Computes standard error and confidence interval of means under various designs and sampling schemes
-Version: 0.9.2
-Date: 2019-07-30
+Title: Computes Standard Error and Confidence Interval of Means Under Various Designs and Sampling Schemes
+Version: 0.9.3
+Date: 2021-02-28
 Authors@R: c(
-            person("Denis", "Cousineau", email = "denis.cousineau@uottawa.ca",
+             person("Denis", "Cousineau", email = "denis.cousineau@uottawa.ca",
                     role = c("aut", "cre")),
-            person("Felix", "Chiasson", email = "felix@chiasson.co",
-                    role = c("aut"))
-            )
+             person("Bradley", "Harding", email = "bradley.harding@umoncton.ca",
+                    role = c("ctb")),
+             person("Marc-André", "Goulet", email = "magoulet101@gmail.com",
+                    role = c("ctb"))
+           )
+Author: Denis Cousineau [aut, cre]
+    Bradley Harding
+    Marc-André Goulet
+Maintainer: Denis cousineau <denis.cousineau@uottawa.ca>
 Description: Computes standard error and confidence interval of means under various designs and sampling schemes
-License: GNU
+License: GPL-3
 Encoding: UTF-8
+Suggests: knitr, rmarkdown
+VignetteBuilder: knitr
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1
 Imports: 
     plyr (>= 1.8.4),
     ggplot2 (>= 3.1.0),

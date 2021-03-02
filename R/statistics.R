@@ -116,7 +116,7 @@ CI.sd <- function(x, gamma = 0.95){
 
 
 ################### MEDIAN DEVIATION ###################
-# note that mad is already part of R with a slightly different definition
+# note that mad (lowercase) is already part of R with a slightly different definition
 MAD <- function(x) {
   median(abs(x-median(x)))
 }
@@ -165,8 +165,8 @@ CI.IQR <- function(x, gamma = 0.95){
 fisherskew <- function(x) {
   vrx <- var(x)
   n   <- length(x)
-  skbias <- (1/n) * (sum((x - mean(x))^3)) / ((n-1)/n * vrx)^(3/2)
-  sqrt(n * (n-1)) / (n-2) * skbias
+  skbiased <- (1/n) * (sum((x - mean(x))^3)) / ((n-1)/n * vrx)^(3/2)
+  sqrt(n * (n-1)) / (n-2) * skbiased
 }
 SE.fisherskew <- function(x){
   n    <- length(x)

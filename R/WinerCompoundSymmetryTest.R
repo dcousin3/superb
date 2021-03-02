@@ -7,23 +7,22 @@ WinerCompoundSymmetryTest <- function(dta, cols) {
 	# This test is given without demonstration in 
 	# Winer, Browns, & Michels, 1991, p. 517.
 
-    X <- dta[cols]
+    X  <- dta[cols]
 	# Get basic descriptive statistics
-	p <- length(X)
-	n <- dim(X)[1]
-	S1  <- cov(X)
+	p  <- length(X)
+	n  <- dim(X)[1]
+	S1 <- cov(X)
 
 	# get H0 statistics
 	vbar <- mean(diag(S1))
 	cbar <- mean(S1[upper.tri(S1)])
-	S0 <- vbar * diag(p) + (1-diag(p)) * cbar
+	S0   <- vbar * diag(p) + (1-diag(p)) * cbar
 
 	# the chi-square test corrected for small sample; 
 	# M is a shortcut for the likelihood ratio
 	# cf is a correction factor for small samples
 	# df is the degree of freedom of the test distribution
 
-    # M  <- -(n-1) * log( det(S1) / det(S0) )
     suppressWarnings(if(is.na(log(det(S1)/det(S0)))) 
         M  <- +1000
     else

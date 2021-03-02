@@ -1,9 +1,9 @@
 ######################################################################################
-#' @title plotESP 
+#' @title plotsuperb 
 #'
-#' @description Plots standard error or confidence interval for various descriptive 
+#' @description plotsuberb plots standard error or confidence interval for various descriptive 
 #'      statistics under various designs, sampling schemes, population size and purposes,
-#'      according to the ESP framework.
+#'      according to the suberb framework.
 #'
 #' @param data Dataframe in wide format
 #' @param bsFactor The name of the columns containing the between-subject factor(s)
@@ -80,11 +80,11 @@
 #' grid.arrange(p1,p2,ncol=2)
 #'
 #'
-#' @export plotESP
+#' @export plotsuperb
 ######################################################################################
 
 
-plotESP <- function(data, 
+plotsuperb <- function(data, 
     bsFactor      = NULL,              # vector of the between-subject factor columns
     wsFactor      = NULL,              # vector of the names of the within-subject factors
     factorOrder,                       # order of the factors for plots
@@ -119,6 +119,10 @@ plotESP <- function(data,
     ##############################################################################
     # STEP 1: Input validation
     ##############################################################################
+    # 1.0: is the data actually data!
+    if(!(is.data.frame(data)))
+            stop("ERROR: data is not a data.frame. Exiting...")
+
     # 1.1: missing adjustements
     if(is.null(adjustments$purpose))        {adjustments$purpose        <- "single"}
     if(is.null(adjustments$popSize))        {adjustments$popSize        <- Inf}
@@ -418,7 +422,6 @@ plotESP <- function(data,
 
 
 
-
 #################################################################################
 # logical functions:    is.interval.function; is.gamma.required; is.exists.function
 #################################################################################
@@ -514,22 +517,6 @@ pool_sd_transform <- function(dta, variables) {
 }
 
 
-#################################################################################
-# debugging function:   runDebug; 
-#################################################################################
-
-runDebug <- function(state, title, vars, vals) { 
-    # runDebug provides traces of the vars and
-    # reassign them in the globalenv so that we can try commands
-    if (state) {
-        cat(paste("==>",title,"<==\n"))
-        for (i in 1:length(vars)) {
-            cat(paste("-",vars[i],"-\n"))
-            print(vals[[i]])
-            assign(vars[i], vals[[i]], envir = globalenv())
-        }
-    }
-}
 
 
 #################################################################################
@@ -603,3 +590,6 @@ make_plot <- function(data, type,
 }
 
 
+##################################################################   
+# End of plotsuberb.
+##################################################################   
