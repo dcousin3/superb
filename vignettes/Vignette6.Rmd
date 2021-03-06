@@ -1,0 +1,55 @@
+---
+title: "Devising custom plot layouts"
+output: rmarkdown::html_vignette
+description: >
+  superbPlot can generate either line plots, barcharts, or point plots. However, additional layout
+  can be programmed. In this vignette, we show how to add custom layouts in superbPlot. As an example,
+  we show how to implement a plot showing jitter dots and smoothed distributions along with 
+  summary statistics.
+vignette: >
+  %\VignetteIndexEntry{Devising custom plot layouts}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+
+```{r, echo = FALSE, message = FALSE}
+cat("this will be hidden; use for general initializations.")
+```
+
+
+#test
+
+
+some text.
+
+```{r}
+
+#########################################
+# testing bootstrap of mean
+#########################################
+
+
+    setwd("C:\\Users\\DenisCousineau\\Documents\\1_Publications\\Mes Articles\\FC01=64=MAG03-MeanPlot\\64=MAG03\\MAG03-JoVe-CIwithAllSortsOfDesigns")
+    fig1 <- read.table(file = "figure1.dta", sep = "\t", col.names = c("id","grp","score") )
+
+    bootstrapCI.mean <- function(X, gamma = 0.95) {
+      res = c()
+      for (i in 1:10000) {
+        res[i] <- mean(sample(X, length(X), replace = T))
+      }
+      quantile(res, c(1/2 - gamma/2, 1/2 + gamma/2))
+    }
+
+    p <- superbPlot(fig1, BSFactor = "grp", 
+      variable = c("score"), plotStyle="line",
+      statistic = "mean", errorbar = "bootstrapCI",
+      adjustments = list(purpose = "difference")
+    )
+
+
+
+```
+
+
+

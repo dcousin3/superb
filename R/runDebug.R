@@ -1,14 +1,14 @@
-﻿######################################################################################
+######################################################################################
 #' @title runDebug 
 #'
-#' @description Plots standard error or confidence interval for various descriptive 
-#'      statistics under various designs, sampling schemes, population size and purposes,
-#'      according to the ESP framework.
+#' @description runDebug is an internal function used by GRD and superbPlot
+#'      to help in debugging the functions. It assigns in the global environment
+#'      the variables that are local in a function so that they become visible.
 #'
-#' @param state sd fasdf
-#' @param title sadfasdf
-#' @param vars asdfasdf
-#' @param vals asdfasdf
+#' @param state boolean (TRUE to activate runDebug)
+#' @param title string text to be displayed when this function is triggered
+#' @param vars strings names of the variables to be placed in the globalenvironment
+#' @param vals numeric values to be given to the variables.
 #'
 #' @return 
 #'

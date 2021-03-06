@@ -1,0 +1,105 @@
+---
+title: "Three steps to make your plot"
+output: rmarkdown::html_vignette
+description: >
+  This vignette reviews the steps needed to realize your summary plot with correct
+  error bars.
+vignette: >
+  %\VignetteIndexEntry{Three steps to make your plot}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+
+```{r, echo = FALSE, message = FALSE}
+cat("this will be hidden; use for general initializations.")
+```
+
+
+#test
+
+
+some text.
+
+```{r}
+#########################################
+# test of figure 1: THIS WAS DELETED FROM TEXT
+#########################################
+
+    library(superb)
+    library(grid)
+    library(gridExtra)
+
+    dta <- matrix( c(
+    45, 50,  59,
+    47, 58,  64,
+    53, 63,  72,
+    57, 64,  81,
+    58, 67,  86,
+    61, 70,  98,
+    61, 75, 104,
+    63, 79, 100,
+    63, 79,  84,
+    71, 81,  96,
+    72, 83,  82,
+    74, 84,  82,
+    76, 86,  93,
+    84, 90,  85,
+    90, 96,  89), ncol=3, byrow=T)
+    colnames(dta) = c("M1", "M2", "M3")
+    dta=as.data.frame(dta)
+     
+
+    t.test(dta$M1, mu=75)
+    t.test(dta$M1, dta$M2, var.equal=T)
+    t.test(dta$M1, dta$M2, paired=T)
+
+
+    p11 <- superbPlot(dta, WSFactor="Group(3)",
+      variables = c("M1", "M2", "M3"),
+      plotStyle="line", errorbar = "CI",
+      adjustments = list(purpose = "single")
+    ) + coord_cartesian( ylim = c(50,100) ) +
+    ylab("Mean +- 95% CI") +
+    geom_hline(yintercept = 75, colour = "black", size = 0.5, linetype=2) + 
+    labs(title="(Basic) 95% confidence interval\n")
+
+    p12 <- superbPlot(dta, WSFactor="Group(3)",
+      variables = c("M1", "M2", "M3"),
+      plotStyle="line", errorbar = "CI",
+      adjustments = list(purpose = "difference")
+    ) + coord_cartesian( ylim = c(50,100) ) +
+    ylab("Mean +- 95% CI") +
+    geom_hline(yintercept = 65, colour = "gray", size = 0.5, linetype=2) + 
+    geom_hline(yintercept = 75, colour = "gray", size = 0.5, linetype=2) + 
+    geom_hline(yintercept = 85, colour = "gray", size = 0.5, linetype=2) + 
+    labs(title="Difference-adjusted\n95% confidence interval")
+
+    zap <- function(dta, cols) {dta * 0}
+    p21 <- superbPlot(dta, WSFactor="Moment(3)",
+      variables = c("M1", "M2", "M3"),
+      plotStyle="line", errorbar = "CI",
+      preprocessfct= "zap",
+      adjustments = list(purpose = "single", decorrelation = "CA")
+    ) + coord_cartesian( ylim = c(50,100) ) +
+    ylab("Mean +- 95% CI") +
+    annotation_custom(grid.text("Not a legitimate\ncombination",x=.5,y=.5,gp=gpar(fontsize=16, col="black"))) +
+    labs(title="Correlation-adjusted\n95% confidence interval")
+
+    p22 <- superbPlot(dta, WSFactor="Moment(3)",
+      variables = c("M1", "M2", "M3"),
+      plotStyle="line", errorbar = "CI",
+      adjustments = list(purpose = "difference", decorrelation = "CA")
+    ) + coord_cartesian( ylim = c(50,100) ) +
+    ylab("Mean +- 95% CI") +
+    geom_hline(yintercept = 65, colour = "gray", size = 0.5, linetype=2) + 
+    geom_hline(yintercept = 75, colour = "gray", size = 0.5, linetype=2) + 
+    geom_hline(yintercept = 85, colour = "gray", size = 0.5, linetype=2) + 
+    labs(title="Correlation and difference adjusted\n95% confidence interval")
+
+    plt <- grid.arrange(p11, p12, p21, p22, ncol=2)
+
+```
+
+
+

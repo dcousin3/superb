@@ -1,0 +1,85 @@
+---
+title: "Why use difference-adjusted confidence intervals?"
+output: rmarkdown::html_vignette
+description: >
+  This vignette explains the difference between a regular confidence interval
+  and a difference-adjusted confidence interval.
+vignette: >
+  %\VignetteIndexEntry{Why use difference-adjusted confidence intervals?}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+
+```{r, echo = FALSE, message = FALSE}
+cat("this will be hidden; use for general initializations.")
+```
+
+
+#test
+
+
+some text.
+
+```{r}
+#########################################
+# testing cohen's d
+#########################################
+
+    setwd("C:\\Users\\DenisCousineau\\Documents\\1_Publications\\Mes Articles\\FC01=64=MAG03-MeanPlot\\64=MAG03\\MAG03-JoVe-CIwithAllSortsOfDesigns")
+    source("C:\\Users\\DenisCousineau\\Documents\\1_Publications\\Mes Articles\\_4_Publié (95x)\\Collaborators (46x)\\_JCGouletPelletier(2x)\\GP01-CIofEffectSizes\\Text\\gethedgesg.r")
+
+    library(gridExtra)
+
+    fig1 <- read.table(file = "figure1.dta", sep = "\t", col.names = c("id","grp","score") )
+
+    grp1 <- fig1$score[fig1$grp==1]
+    grp2 <- fig1$score[fig1$grp==2]
+    gethedgesg(grp1, grp2)
+
+    g1 <- function(X) {
+      mean(X-100)/sd(X) # * (1-3/(4*(length(X)-1)-1)) for Hedges' g
+    } 
+    g1(grp1)
+    g1(grp2)
+
+    CI.g1 <- function(X, gamma = .95) {
+        n      <- length(X)
+        lambda <- g1(X) * sqrt( n )
+        tlow   <- qt(1/2 - gamma/2, df = n-1, ncp = lambda )
+        thig   <- qt(1/2 + gamma/2, df = n-1, ncp = lambda )
+
+        glow   <- tlow / sqrt(n)
+        ghig   <- thig / sqrt(n) 
+        c(glow, ghig)
+    }    
+    CI.g1(grp1)  
+    CI.g1(grp2)
+
+
+    plt1 <- superbPlot(fig1, BSFactor = "grp", 
+      statistic = "mean", errorbar = "CI",
+      showPlot=T, plotStyle="line",
+      adjustments = list(purpose = "difference"),
+      variable = c("score") 
+    )+ ylab("Mean +- 95% CI") +
+    labs(title="Mean with difference adjusted\n95% confidence interval")
+
+    plt2 <- superbPlot(fig1, BSFactor = "grp", 
+      statistic = "g1", errorbar = "CI",
+      showPlot=T, plotStyle="line",
+      postprocessfct = "pool_sd_transform",
+      adjustments = list(purpose = "difference"),
+      variable = c("score") 
+    )+ ylab("Cohen's d_1 +- 95% CI") +
+    labs(title="Cohen's d_1 with difference adjusted\n95% confidence interval") + 
+    annotation_custom(grid.text("Cohen's d_p = 0.49\n95% CI = [-0.06, +1.09]",
+        x=.66,y=.75,gp=gpar(fontsize=12, col="black"),
+        rot = 0)) 
+    plt12 <- grid.arrange(plt1, plt2, ncol=2)
+
+
+```
+
+
+

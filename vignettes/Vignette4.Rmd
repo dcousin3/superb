@@ -1,0 +1,56 @@
+---
+title: "Using a custom statistic with its error bar"
+output: rmarkdown::html_vignette
+description: >
+  In superb, it is possible to summarize your data set with any descriptive statistics.
+  The most common descriptive statistics are built-in superbPlot, but if you wish to 
+  use a different descriptive statistics, it can easily be added to superbPlot. This
+  vignette explains how to add a custom descriptive statistic and how to add its 
+  precision interval to superbPlot.
+vignette: >
+  %\VignetteIndexEntry{Using a custom statistic with its error bar}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+
+```{r, echo = FALSE, message = FALSE}
+cat("this will be hidden; use for general initializations.")
+```
+
+
+#test
+
+
+some text.
+
+```{r}
+
+#########################################
+# testing bootstrap of mean
+#########################################
+
+
+    setwd("C:\\Users\\DenisCousineau\\Documents\\1_Publications\\Mes Articles\\FC01=64=MAG03-MeanPlot\\64=MAG03\\MAG03-JoVe-CIwithAllSortsOfDesigns")
+    fig1 <- read.table(file = "figure1.dta", sep = "\t", col.names = c("id","grp","score") )
+
+    bootstrapCI.mean <- function(X, gamma = 0.95) {
+      res = c()
+      for (i in 1:10000) {
+        res[i] <- mean(sample(X, length(X), replace = T))
+      }
+      quantile(res, c(1/2 - gamma/2, 1/2 + gamma/2))
+    }
+
+    p <- superbPlot(fig1, BSFactor = "grp", 
+      variable = c("score"), plotStyle="line",
+      statistic = "mean", errorbar = "bootstrapCI",
+      adjustments = list(purpose = "difference")
+    )
+
+
+
+```
+
+
+

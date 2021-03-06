@@ -7,19 +7,19 @@
 runDebug(state, title, vars, vals)
 }
 \arguments{
-\item{state}{sd fasdf}
+\item{state}{boolean (TRUE to activate runDebug)}
 
-\item{title}{sadfasdf}
+\item{title}{string text to be displayed when this function is triggered}
 
-\item{vars}{asdfasdf}
+\item{vars}{strings names of the variables to be placed in the globalenvironment}
 
-\item{vals}{asdfasdf}
+\item{vals}{numeric values to be given to the variables.}
 }
 \value{
 
 }
 \description{
-Plots standard error or confidence interval for various descriptive 
-     statistics under various designs, sampling schemes, population size and purposes,
-     according to the ESP framework.
+runDebug is an internal function used by GRD and superbPlot
+     to help in debugging the functions. It assigns in the global environment
+     the variables that are local in a function so that they become visible.
 }

@@ -1,3 +1,31 @@
+######################################################################################
+#' @title WinerCompoundSymmetryTest
+#'
+#' @description Run a test of compound symmetry.
+#'   generates a data frame of random data suitable for analyses.
+#'   It assesses the significance of the null hypothesis that
+#'   the covariance matrix is compound symmetric. 
+#'   This test is given without demonstration in 
+#'   Winer, Browns, & Michels, 1991, p. 517.
+#'
+#'
+#' @param dta A data frame contining within-subject measures, one participant per line; 
+#' @param cols A vector indicating the columns containing the measures. 
+#'
+#' @return p the p-value of the null hypothesis that the data are compound symmetric.
+#'
+#' @examples
+#' # creates a small data frames with 4 subject's scores for 5 measures:
+#' dta <- data.frame(cbind(
+#'         col1 <- c(3., 6., 2., 2., 5.),
+#'         col2 <- c(4., 5., 4., 4., 3.),
+#'         col3 <- c(2., 7., 7., 8., 6.),
+#'         col4 <- c(6., 8., 4., 6., 5.)
+#'     ))
+#' # performs the test (here p = 0.6733)
+#' WinerCompoundSymmetryTest(dta)
+#' # 0.6733123
+#'
 #' @export WinerCompoundSymmetryTest
 
 WinerCompoundSymmetryTest <- function(dta, cols) {
@@ -6,6 +34,8 @@ WinerCompoundSymmetryTest <- function(dta, cols) {
 	# null hypothesis that the covariance matrix is compound symmetric. 
 	# This test is given without demonstration in 
 	# Winer, Browns, & Michels, 1991, p. 517.
+    # It computes the statistic M, the test statistics W(df), its p value
+    # Herein, only the p-value is returned.
 
     X  <- dta[cols]
 	# Get basic descriptive statistics
@@ -17,7 +47,6 @@ WinerCompoundSymmetryTest <- function(dta, cols) {
 	vbar <- mean(diag(S1))
 	cbar <- mean(S1[upper.tri(S1)])
 	S0   <- vbar * diag(p) + (1-diag(p)) * cbar
-
 	# the chi-square test corrected for small sample; 
 	# M is a shortcut for the likelihood ratio
 	# cf is a correction factor for small samples

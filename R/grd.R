@@ -1,71 +1,70 @@
-﻿######################################################################################
+######################################################################################
 #' @title GRD
 #'
 #' @description Generate Random Data (GRD) is a function that
-#' generates a data frame of random data suitable for analyses.
+#' generates a data frame containing random data suitable for analyses.
+#' The data can be from within-subject or between-group designs.
+#' Within-subject designs are in wide format. The function was originally
+#' presented in \insertCite{ch19;textual}{superb}.
+#'
+#' @param RenameDV provide a name for the dependent variable (default DV) 
+#' @param SubjectsPerGroup indicates the number of simulated scores per group (default 100 in each group) 
+#' @param BSFactors a string indicating the between-subject factor(s) with, between parenthesis, the number of levels or the list of level names. Multiple factors are separated with a colon ":"
+#' @param WSFactors a string indicating the within-subject factor(s) in the same format as the between-subject factors
+#' @param Effects a list detailing the effects to apply to the data
+#' @param Population a list providing the population characteristics (default is a normal distribution with a mean of 0 and standard deviation of 1)
+#' @param Contaminant a list providing the contaminant characteristics and the proportion of contaminant (default 0)
+#' @param Debug a boolean to produced detailed debugging information (default FALSE); useful for the maintainer only really
+#' @param Summary a boolean printing a summary of the design (default FALSE)
 #'
 #'
+#' @return a data.frame with the simulated scores.
 #'
-#' @param asdf asf 
-#' @param asfd adsf 
-#' @param asdf adf 
-#' @param adsff adf asdf
-#' @param asdf asfdasdf
-#' @param asdf adfsasdf
-#' @param adsf adfsasdf
-#' @param adsf asdfasdf
+#' @note Note that the \code{range} effect specification has been renamed
+#'    \code{extent} to avoid masking the base function \code{base::range}.
 #'
-#'
-#'
-#' @return 
-#'
+#' @references
+#'   \insertAllCited{} 
+#' 
 #'
 #' @examples
-#' # basic example using a built-in dataframe as data; 
-#' # by default, the mean is computed and the error bar are 95% confidence intervals
-#' plotESP(ToothGrowth, bsFactor = c("dose", "supp"), 
-#'   variables = "len") 
+#' # Simplest example using all the default arguments: 
+#' dta <- GRD()
+#' head(dta)
+#' hist(dta$DV)
 #'
-#' # example changing the summary statistics to the median and
-#' # the error bar to 90% confidence intervals
-#' plotESP(ToothGrowth, bsFactor = c("dose", "supp"), 
-#'   variables = "len", statistic = "median", errorbar = "CI", gamma = .90) 
+#' # Renaming the dependant variable and setting the group size:
+#' dta <- GRD( RenameDV = "score", SubjectsPerGroup = 1000 )
+#' hist(dta$score )
 #'
-#' # example introducing adjustments for pairwise comparisons 
-#' # and assuming that the whole population is limited to 200 persons
-#' plotESP(ToothGrowth, bsFactor = c("dose", "supp"), 
-#'   variables = "len",  
-#'   adjustments = list( purpose = "difference", popSize = 200) )
+#' # Examples for a between-subject design and for a within-subject design: 
+#' dtaBS <- GRD( BSFactors = '3')
+#' dtaWS <- GRD( WSFactors = "Moment (2)")
 #'
-#' # This example add ggplot directives to the plot produced
-#' plotESP(ToothGrowth, bsFactor = c("dose", "supp"), 
-#'   variables = "len") + 
-#'   xlab("Dose") + ylab("Tooth Growth") +
-#'   theme_bw()
+#' # A complex, 3 x 2 x (2) mixed design with a variable amount of participants in the 6 groups:
+#' dta <- GRD(BSFactors = "difficulty(3) : gender (2)", 
+#'          WSFactors="day(2)",
+#'          SubjectsPerGroup=c(20,24,12,13,28,29)
+#'        )
 #'
-#' # This example is based on repeated measures
-#' library(lsr)
-#' library(gridExtra)
-#' # define shorter column names...
-#' names(Orange) <- c("Tree","age","circ")
-#' # turn the data into a wide format
-#' Orange.wide <- longToWide(Orange, circ ~ age)
-#' p1=plotESP( Orange.wide, wsFactor = "age(7)",
-#'   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
-#'   adjustments = list(purpose = "difference", decorrelation = "none")
-#' ) + 
-#'   xlab("Age level") + ylab("Trunk diameter (mm)") +
-#'   coord_cartesian( ylim = c(0,250) ) + labs(title="Basic confidence intervals")
-#' p2=plotESP( Orange.wide, wsFactor = "age(7)",
-#'   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
-#'   adjustments = list(purpose = "difference", decorrelation = "CM")
-#' ) + 
-#'   xlab("Age level") + ylab("Trunk diameter (mm)") +
-#'   coord_cartesian( ylim = c(0,250) ) + labs(title="Decorrelated confidence intervals")
-#' grid.arrange(p1,p2,ncol=2)
+#' # Defining population characteristics :
+#' dta <- GRD( 
+#'          RenameDV = "IQ",
+#'          Population=list(
+#'                       mean=100,  # will set GM to 100
+#'                       stddev=15  # will set STDDEV to 15
+#'                     ) 
+#'         )
+#' hist(dta$IQ)
 #'
 #'
+#' @importFrom Rdpack reprompt
 #' @export GRD
+#' @export extent
+#' @export slope
+#' @export custom
+#' @export Rexpression
+#'
 ######################################################################################
 
 GRD <- function(
@@ -328,7 +327,7 @@ GRD <- function(
 
 # These provide nicer inputs to grd
 slope       <- function(s)   { c(-97, s)   }
-range       <- function(s)   { c(-98, s)   }
+extent      <- function(s)   { c(-98, s)   }
 custom      <- function(...) { c(-99,...)  }
 Rexpression <- function(s)   { c("-96", paste(c(s),collapse="") ) }
 
@@ -359,7 +358,7 @@ grdMakeEffect <- function (fnumber, name, details, WBSList, data, allfactors, De
         if (details[1] == -97) { # slope effect 
             eff = (0:(pfaclevel-1))*details[2]-details[2]*(pfaclevel-1)/2
         }
-        if (details[1] == -98) { # range effect 
+        if (details[1] == -98) { # extent effect 
             eff = (0:(pfaclevel-1))*details[2]/(pfaclevel-1)-details[2]/2
         }
         if (details[1] == -99) { # custom effect 

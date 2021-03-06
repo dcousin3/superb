@@ -1,10 +1,39 @@
+######################################################################################
+#' @title MauchlySphericityTest
+#'
+#' @description Performs a test of sphericity on a dataframe with
+#'   multiple measures, one subject per line. It assesses the significance of the 
+#'   null hypothesis that the covariance matrix is spherical. 
+#'   This test is described in Abdi, The Greenhouse-Geisser Correction.
+#'   In Neil Salkind (Ed.), Encyclopedia of Research Design.
+#'   Thousand Oaks, CA: Sage. 2010
+#'
+#' @param dta A data frame contining within-subject measures, one participant per line; 
+#' @param cols A vector indicating the columns containing the measures. 
+#'
+#' @return p the p-value of the null hypothesis that the data are spherical.
+#'
+#' @examples
+#' # creates a small data frames with 4 subject's scores for 5 measures:
+#' dta <- data.frame(cbind(
+#'         col1 <- c(3., 6., 2., 2., 5.),
+#'         col2 <- c(4., 5., 4., 4., 3.),
+#'         col3 <- c(2., 7., 7., 8., 6.),
+#'         col4 <- c(6., 8., 4., 6., 5.)
+#'     ))
+#' # performs the test (here p = 0.5824)
+#' MauchlySphericityTest(dta)
+#' # 0.582443
+#'
 #' @export MauchlySphericityTest
 
 MauchlySphericityTest <- function(dta, cols) {
 	# This function requires a data frame dta as input with the 
 	# repeated-measure variables cols. It assesses the significance of the 
 	# null hypothesis that the covariance matrix is spherical. 
-	# This test is described in Abdi, 2010.
+	# This test is described in Abdi, The Greenhouse-Geisser Correction.
+    # In Neil Salkind (Ed.), Encyclopedia of Research Design.
+    # Thousand Oaks, CA: Sage. 2010
     X   <- dta[cols]
 
 	# Get basic descriptive statistics
