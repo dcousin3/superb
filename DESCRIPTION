@@ -26,5 +26,6 @@ Imports:
     plyr (>= 1.8.4),
     ggplot2 (>= 3.1.0),
     lsr (>= 0.5),
-    Rdpack (>= 0.7)
+    Rdpack (>= 0.7),
+    ggsci
 RdMacros: Rdpack

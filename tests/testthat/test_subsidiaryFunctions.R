@@ -48,6 +48,53 @@ test_that("Testing Shrout and Fleiss functions", {
 
 
 
+context("Testing the plotting sub-functions")
+
+test_that("Testing is.stat.function", {
+    expect_equal(superb:::is.stat.function("superbPlot.bar"), FALSE)
+    expect_equal(superb:::is.stat.function("mean"), TRUE)
+})
+
+
+test_that("Testing is.plot.function", {
+    expect_equal(superb:::is.plot.function("adsff"), FALSE)
+    expect_equal(superb:::is.plot.function("superbPlot"), FALSE)
+    expect_equal(superb:::is.plot.function("superbPlot.bar"), TRUE)
+    expect_equal(superb:::is.plot.function("superbPlot.line"), TRUE)
+    expect_equal(superb:::is.plot.function("superbPlot.point"), TRUE)
+    expect_equal(superb:::is.plot.function("superbPlot.pointjitter"), TRUE)
+    expect_equal(superb:::is.plot.function("superbPlot.pointjitterdensity"), TRUE)
+})
+
+
+test_that("Testing the built-in plotting function", {
+    dta <- data.frame( 
+                    dose       = cbind(c(0.5,0.5,1,1,2,2)),
+                    supp       = cbind(c("OJ","VC","OJ","VC","OJ","VC")),
+                    center     = cbind(c(13,8,22,17,26,26)),
+                    lowerwidth = cbind(c(-3,-2,-3,-2,-2,-4)),
+                    upperwidth = cbind(c(+3,+2,+3,+2,+2,+4))
+            )
+
+    p1 <- superbPlot.bar(dta, "dose", #"center", "center+lowerwidth", "center+upperwidth",
+        "supp", c(NULL,NULL), list(color="black"), list(color="purple") )
+    p2 <- superbPlot.line(dta,"dose", #"center", "center+lowerwidth", "center+upperwidth",
+        "supp", c(NULL, NULL), list(color="black"), list(color="purple") )
+    p3 <- superbPlot.point(dta,"dose", #"center", "center+lowerwidth", "center+upperwidth",
+        "supp", c(NULL, NULL), list(), list() )
+    p4 <- superbPlot.pointjitter(dta,"dose", #"center", "center+lowerwidth", "center+upperwidth",
+        "supp", c(NULL, NULL), list(color="black"), list(color="purple"),
+        ToothGrowth, "len")
+    p5 <- superbPlot.pointjitterdensity(dta,"dose", #"center", "center+lowerwidth", "center+upperwidth",
+         "supp", ".~dose", list(color="black"), list(color="purple"),
+        ToothGrowth, "len") +
+        scale_x_continuous("mean ratings")
+    expect_output( str(p1), "List of 9")
+    expect_output( str(p2), "List of 9")
+    expect_output( str(p3), "List of 9")
+    expect_output( str(p4), "List of 9")
+    expect_output( str(p5), "List of 9")
+})
 
 
 

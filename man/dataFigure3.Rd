@@ -21,6 +21,7 @@ The paradoxical result is resovled by using adjusted confidence intervals,
 here the cluster- and different-adjusted confidence interval.
 }
 \examples{
+library(gridExtra)
 data(dataFigure3)
 
 ## realize the plot with unadjusted (left) and ajusted (right) 95\% confidence intervals

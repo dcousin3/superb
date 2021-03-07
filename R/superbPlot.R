@@ -183,8 +183,6 @@ superbPlot <- function(data,
             stop("ERROR: Too few factors named on factorOrder. Exiting...")
     if ((gamma <0)||(gamma>1))
             stop("ERROR: gamma is not within 0 and 1. Exiting...")
-    if (!(plotStyle %in% c("bar","line"))) 
-            stop("ERROR: plotStyle must be 'bar' or 'line'. Exiting...")
     if (!is.logical(showPlot))
             stop("ERROR: showPlot must be TRUE or FALSE. Exiting...")
 
@@ -201,12 +199,15 @@ superbPlot <- function(data,
       print( design[,c(WSFactor, "variable") ]) 
     }
 
-    # 1.8: invalid statistical functions 
+    # 1.8: invalid functions 
     widthfct <- paste(errorbar, statistic, sep = ".")
-    if ( !(is.exists.function(statistic)) )
+    if ( !(is.stat.function(statistic)) )
             stop("ERROR: The function ", statistic, " is not a known descriptive statistic function. Exiting...")
-    if ( !(is.exists.function(widthfct)) )
+    if ( !(is.stat.function(widthfct)) )
             stop("ERROR: The function ", widthfct, " is not a known function for error bars. Exiting...")
+    pltfct <- paste("superbPlot", plotStyle, sep = ".")
+    if ( !(is.plot.function(pltfct)) )
+            stop("ERROR: The function ", pltfct, " is not a known function for making plots with superbPlot. Exiting...")
 
     # 1.9: if cluster randomized sampling, check that column cluster is set
     if (adjustments$samplingDesign == "CRS") {
@@ -389,20 +390,43 @@ superbPlot <- function(data,
     ##############################################################################
     # ALL DONE! Output the plot(s) or the summary data
     ##############################################################################
-
     if (showPlot == TRUE) {
+#runDebug(T,"when showPlot is true", c("factorOrder2"),list(factorOrder) )
         # generate the plot
-        plot <- make_plot(data = summaryStatistics, 
-            type = plotStyle,
-            x = factorOrder[1],
-            y = "center",
-            ymin = "center + lowerwidth",
-            ymax = "center + upperwidth",
-            groupingfac = ifelse(!is.na(factorOrder[2]), factorOrder[2], "1"),
-            addfactors = factorOrder[3:4][!is.na(factorOrder[3:4])],
-            pointParams = pointParams,
-            errorParams = errorParams
-        )
+        groupingfac = if(!is.na(factorOrder[2])) {factorOrder[2]}else{ NULL}
+#runDebug(T,"just before plottingA", c("groupingfact2"),list(groupingfact) )
+        # if present, make the grouping variable a factor
+        if (!is.null(groupingfac)) {
+#print(paste("begin factor, groupingfac = ", groupingfac))
+            summaryStatistics[[groupingfac]] = as.factor(summaryStatistics[[groupingfac]])
+            data.long[[groupingfac]] = as.factor(data.long[[groupingfac]])
+#print("done factor")
+        }
+#runDebug(T,"just before plottingB", c("ss"),list(summaryStatistics) )
+runDebug(T,"Kit for testing plotting function", 
+    c("ss","factorOrder2","dl"),list(summaryStatistics,factorOrder,data.long) )
+
+#a quick ggplot for tests:
+#ggplot(data.long2,aes_string(x="Group", y="DV"))+
+#geom_point(aes_string(color="id"))#"id", NULL works
+
+#runDebug(T,"getting raw",c("rawdata2"), list(data.long))
+#print("sfdjasfdta")
+
+        # first get the facets
+        facets <- factorOrder[3:4][!is.na(factorOrder[3:4])]
+        facets <- c(facets, ".",".")
+        facets <- paste(facets, collapse="~")
+print(facets)
+        # produce the plot
+        plot <- do.call( pltfct, list(data = summaryStatistics,
+                    xvar = factorOrder[1],
+                    groupingfac = groupingfac,
+                    addfactors = facets,
+                    pointParams = pointParams,
+                    errorParams = errorParams,
+                    rawdata = data.long
+        ))
         return(plot)
     } else {
         # do some renaming of the columns for clearer results
@@ -424,9 +448,18 @@ superbPlot <- function(data,
 
 
 #################################################################################
-# logical functions:    is.interval.function; is.gamma.required; is.exists.function
+# logical functions:    is.interval.function; is.gamma.required; is.stat.function
 #################################################################################
 
+is.stat.function <- function(fctname) {
+    # does the function provided by the user exists and compute from a list of data? 
+    res <- tryCatch(
+        {do.call(fctname, list( c(1,2,3) ) ); TRUE},
+        error = function(cond) {return(FALSE)} 
+    )
+    res
+}
+    
 is.interval.function <- function(fctname) {
     # is the function provided by the user an interval (e.g., CI) 
     # or a single width (e.g., SE)?
@@ -444,15 +477,37 @@ is.gamma.required <- function(fctname) {
     res
 }
 
-is.exists.function <- function(fctname) {
-    # does the function provided by the user exists?
-    res <- tryCatch(
-        {do.call(fctname, list( c(1,2,3) ) ); TRUE},
-        error = function(cond) {return(FALSE)} 
-    )
+is.plot.function <- function(fctname) {
+    # does the plot function provided by the user exists?
+    res <- TRUE
+print("begin is.plot.function")
+    if (!exists(fctname)) {
+        res <- FALSE
+    } else {
+        # if the symbol exists, run a fake call to see if it works...
+        dta <- data.frame( 
+                dose       = cbind(c(0.5,0.5,1,1,2,2)),
+                supp       = cbind(c("A","B","A","B","A","B")),
+                center     = cbind(c(13,8,22,17,26,26)),
+                lowerwidth = cbind(c(-3,-2,-3,-2,-2,-4)),
+                upperwidth = cbind(c(+3,+2,+3,+2,+2,+4))
+        )
+        fake = ToothGrowth;
+        fake = cbind(fake, DV = fake$len)
+
+        res <- tryCatch(
+            {test <- suppressWarnings(do.call(fctname, 
+                    list(dta,"dose", #"center", "center+lowerwidth", "center+upperwidth",
+                    "supp", ".~.", 
+                    list(), list(), fake ) ) ); 
+            "ggplot" %in% class(test)},
+            error = function(cond) {return(FALSE)} 
+        )
+    }
+print(paste("end is.plot.function; res = ", res))
     res
 }
-    
+
 
 #################################################################################
 # statistics functions: colSDs; meanCorrelation
@@ -518,79 +573,6 @@ pool_sd_transform <- function(dta, variables) {
 }
 
 
-
-
-#################################################################################
-# plotting functions:    make_plot, build_graph
-#################################################################################
-
-make_plot <- function(data, type, 
-    x, y, ymin, ymax, 
-    groupingfac, addfactors,
-    pointParams = list(), 
-    errorParams = list()
-) {
-    # some prefer "1", others NULL
-    groupingfac2 <- if(groupingfac=="1") NULL else groupingfac
-
-    # make all components separately in a list, then reduce the list to a +    
-    plot <- Reduce(`+`, list(
-        # the global setup of the plot
-        ggplot(
-            data, 
-            aes_string(
-                x = x, y = y, ymin = ymin, ymax = ymax, 
-                fill = groupingfac2, 
-                shape = groupingfac2, 
-                colour = groupingfac2
-            )
-        ),
-
-        if(type=="bar") {
-            # the histograms
-            do.call(geom_bar, modifyList(
-                list(position = position_dodge(width = .95),
-                    stat = "identity" ),
-                pointParams
-            ))
-        } else { list(
-            # the points ...
-            do.call(geom_point, modifyList(
-                list(position = position_dodge(width = .25), 
-                    stat = "identity", 
-                    mapping = aes_string(group = groupingfac) ),
-                pointParams
-            )),
-            # ... and the lines connecting the points
-            do.call(geom_line, modifyList(
-                list(position = position_dodge(width = .25), 
-                    stat = "identity", 
-                    mapping = aes_string(group = groupingfac) ),
-                pointParams
-            ))
-        )},
-
-        # the error bars
-        do.call(geom_errorbar, modifyList(
-             list(position = position_dodge(ifelse(type=="bar",.95,.25))),
-             errorParams
-        )),
-    
-        # the panels (rows or both rows and columns)
-        if (!identical(addfactors,character(0))) {
-            if (length(addfactors)==1) {
-               do.call(facet_grid, list(paste("~ ",addfactors[1], sep="")))
-            } else {
-               do.call(facet_grid, list(paste(addfactors[2], "~ ",addfactors[1], sep="")))            
-            }
-        }
-    
-    ))
-    
-    return(plot)
-}
-
-
 ##################################################################   
-# End of plotsuberb.
+# End of suberbPlot.
 ##################################################################   

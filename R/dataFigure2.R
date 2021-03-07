@@ -20,6 +20,7 @@
 #' @source \href{https://doi.org/10.5709#acp-0214-z}{doi}
 #'
 #' @examples
+#' library(gridExtra)
 #' data(dataFigure2)
 #' 
 #' ## realize the plot with unadjusted (left) and ajusted (right) 95% confidence intervals

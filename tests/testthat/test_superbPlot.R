@@ -11,7 +11,7 @@ test_that("PRELIMINARY TESTS (1/4)", {
     plt <- superbPlot(ToothGrowth, BSFactor = c("dose","supp"), variables = "len",
       statistic = "mean", Debug=F, plotStyle="bar" )
 
-    expect_equal( "ggplot" %in% class(p), TRUE)
+    expect_equal( "ggplot" %in% class(plt), TRUE)
 })
 
 
