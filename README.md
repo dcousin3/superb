@@ -15,25 +15,28 @@ aov or plotting procedures such as superbPlot.
 
 # Example
 
-`
-# This simple example
+```{r}
+# This is a simple example
 superbPlot(ToothGrowth, 
     BSFactor = c("dose","supp"), 
     variables = "len" )
-`
+```
 
 
-`# This explicitely indicates to display the 
+```{r}
+# This explicitely indicates to display the 
 # median instead of the default mean statistics
 superbPlot(ToothGrowth, 
     BSFactor = c("dose","supp"), 
     variables = "len",
     statistic = "median")
-`
+````
 
 # Installation
 
-`install.packages("superb")`
+```{r}
+install.packages("superb")
+```
 
 # For more
 
