@@ -6,13 +6,16 @@
 #'   It assesses the significance of the null hypothesis that
 #'   the covariance matrix is compound symmetric. 
 #'   This test is given without demonstration in 
-#'   Winer, Browns, & Michels, 1991, p. 517.
+#'   \insertCite{w91}{superb}, p. 517.
 #'
 #'
 #' @param dta A data frame contining within-subject measures, one participant per line; 
 #' @param cols A vector indicating the columns containing the measures. 
 #'
 #' @return p the p-value of the null hypothesis that the data are compound symmetric.
+#'
+#' @references
+#'      \insertAllCited{}
 #'
 #' @examples
 #' # creates a small data frames with 4 subject's scores for 5 measures:

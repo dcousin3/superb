@@ -1,6 +1,11 @@
 ---
 title: "Three steps to make your plot"
-output: rmarkdown::html_vignette
+author: "Denis Cousineau"
+bibliography: "../inst/REFERENCES.bib"
+csl: "../inst/apa-6th.csl"
+output: 
+  html_document:
+    toc: TRUE
 description: >
   This vignette reviews the steps needed to realize your summary plot with correct
   error bars.
@@ -11,26 +16,61 @@ vignette: >
 ---
 
 
-```{r, echo = FALSE, message = FALSE}
+```{r, echo = FALSE, message = FALSE, results = 'hide'}
 cat("this will be hidden; use for general initializations.")
+library(superb)
+library(ggplot2)
 ```
 
+The package ``superb`` facilites the production of 
+summary statistics having the correct error bars. Error bars are
+measures of precisions; they are meant to convey some indications of
+the trust we can place in a given results. Those results that come
+will large error bars (wide intervals) should be considered less
+trustable that those with short error bars. 
 
-#test
+Error bars (and measures of precision) comes in many flavors. There is
+the simple *standard error* (SE), the more famous *confidence interval* (CI), and 
+new proposals such as the *high density interval* (HDI). The package ``superb``
+has build-in functions for both the SE and CI, but any other measure of precision
+can be added (as shown in Vignette 4).
 
+All measures of precision are tailored for a given statistics. Hence, we have the
+*standard error of the mean*, the *standard error of the median*, the *confidence
+interval of the skew*, etc. for every and all statistic, there is a corresponding
+measure of precision.  In what follows, we discuss the confidence interval, but
+everything that follows apply equally well to any measure of precision.
 
-some text.
+The basic confidence interval can be termed a "stand-alone" confidence interval 
+because it indicates the precision of a statistic in isolation. It is useful to
+compare this statistics to --say-- criterion performance or any *a priori*-determined
+value. As shown in Vignettes 2 and 3, such "stand-alone" measures are inadequate
+when an observed result is to be compared to other observed results [also see 
+@c05; @c17].
+
+In order to use ``superb``, four choices need to be made, described next. Prior to 
+that, it is necessary to check the data format. Herein we illustrate the means with 
+95% confidence intervals; this can be changed, as see in Vignette 5. We begin with data
+format.
+
+## Data format
+
+The format of the data in ``superb`` follows the general convention "1 subject = 
+1 line", that is, all the information regarding a given participant must stand 
+on a single line. This format is called in R the **wide format**; in SPSS, SAS
+and other statistics software, this is the standard data organization. Further, the data
+must be contained within a ``data.frame`` with named columns.
+
+Note that it is easy to go from **wide format** to **long format**, with, e.g.,
+Navarro's ``wideToLong`` excellent function [@n15].
+
+As an illustration, we use the following ficticious data set showing the 
+performance of 15 participants on their motivation scores on Week 1, Week 2 
+and Week 3 for a program to stop smoking.
 
 ```{r}
-#########################################
-# test of figure 1: THIS WAS DELETED FROM TEXT
-#########################################
-
-    library(superb)
-    library(grid)
-    library(gridExtra)
-
-    dta <- matrix( c(
+#Motivation data for 15 participants over three weeks in wide format:
+dta <- matrix( c(
     45, 50,  59,
     47, 58,  64,
     53, 63,  72,
@@ -45,61 +85,206 @@ some text.
     74, 84,  82,
     76, 86,  93,
     84, 90,  85,
-    90, 96,  89), ncol=3, byrow=T)
-    colnames(dta) = c("M1", "M2", "M3")
-    dta=as.data.frame(dta)
-     
+    90, 96,  89
+), ncol=3, byrow=T)
 
-    t.test(dta$M1, mu=75)
-    t.test(dta$M1, dta$M2, var.equal=T)
-    t.test(dta$M1, dta$M2, paired=T)
-
-
-    p11 <- superbPlot(dta, WSFactor="Group(3)",
-      variables = c("M1", "M2", "M3"),
-      plotStyle="line", errorbar = "CI",
-      adjustments = list(purpose = "single")
-    ) + coord_cartesian( ylim = c(50,100) ) +
-    ylab("Mean +- 95% CI") +
-    geom_hline(yintercept = 75, colour = "black", size = 0.5, linetype=2) + 
-    labs(title="(Basic) 95% confidence interval\n")
-
-    p12 <- superbPlot(dta, WSFactor="Group(3)",
-      variables = c("M1", "M2", "M3"),
-      plotStyle="line", errorbar = "CI",
-      adjustments = list(purpose = "difference")
-    ) + coord_cartesian( ylim = c(50,100) ) +
-    ylab("Mean +- 95% CI") +
-    geom_hline(yintercept = 65, colour = "gray", size = 0.5, linetype=2) + 
-    geom_hline(yintercept = 75, colour = "gray", size = 0.5, linetype=2) + 
-    geom_hline(yintercept = 85, colour = "gray", size = 0.5, linetype=2) + 
-    labs(title="Difference-adjusted\n95% confidence interval")
-
-    zap <- function(dta, cols) {dta * 0}
-    p21 <- superbPlot(dta, WSFactor="Moment(3)",
-      variables = c("M1", "M2", "M3"),
-      plotStyle="line", errorbar = "CI",
-      preprocessfct= "zap",
-      adjustments = list(purpose = "single", decorrelation = "CA")
-    ) + coord_cartesian( ylim = c(50,100) ) +
-    ylab("Mean +- 95% CI") +
-    annotation_custom(grid.text("Not a legitimate\ncombination",x=.5,y=.5,gp=gpar(fontsize=16, col="black"))) +
-    labs(title="Correlation-adjusted\n95% confidence interval")
-
-    p22 <- superbPlot(dta, WSFactor="Moment(3)",
-      variables = c("M1", "M2", "M3"),
-      plotStyle="line", errorbar = "CI",
-      adjustments = list(purpose = "difference", decorrelation = "CA")
-    ) + coord_cartesian( ylim = c(50,100) ) +
-    ylab("Mean +- 95% CI") +
-    geom_hline(yintercept = 65, colour = "gray", size = 0.5, linetype=2) + 
-    geom_hline(yintercept = 75, colour = "gray", size = 0.5, linetype=2) + 
-    geom_hline(yintercept = 85, colour = "gray", size = 0.5, linetype=2) + 
-    labs(title="Correlation and difference adjusted\n95% confidence interval")
-
-    plt <- grid.arrange(p11, p12, p21, p22, ncol=2)
-
+# put column names then convert to data.frame:
+colnames(dta) <- c("Week 1", "Week 2", "Week 3")
+dta           <- as.data.frame(dta)
 ```
 
+The mean scores per week is illustrated below:
+
+```{r, message=FALSE, echo=FALSE, fig.cap="Figure 1: Mean scores along with 95% confidence interval per week for a program to stop smoking."}
+superbPlot(dta, WSFactor="Moment(3)",
+        variables = c("Week 1", "Week 2", "Week 3"),
+        statistic = "mean", errorbar = "CI",
+        adjustments = list(purpose = "single", decorrelation = "none"),
+        plotStyle="line",
+        errorbarParams = list(width = .2)
+    ) + 
+    coord_cartesian( ylim = c(50,100) ) +
+    ylab("Mean +- 95% CI") +
+    labs(title="(stand-alone)\n95% confidence interval\n")+
+    theme_gray(base_size=16) +
+    scale_x_discrete(labels=c("1" = "Week 1", "2" = "Week 2", "3"="Week 3"))
+``` 
 
 
+## Step 1: Decide of the purpose of the plot
+
+In Figure 1 above, did you look at the result of, say, Week 1, in isolation? or did you compare 
+it to the results obtained in the other weeks? The second perspective is actually to look at
+the __difference__ between the results. if such is the case, the error bar shown on this plot
+are actually misleading because they are too short. The reason for that is further explored in
+Vignette 2.
+
+In most experiments, one condition is **compared** to other conditions. 
+In that case, we are interested in **pair-wise** differences between means, not
+by single results in isolation. Yet, the regular confidence intervals are valid only for results
+in isolation. Whenever you wish to compare a result to other comparison, to examine differences
+between conditions (which is, most of the time), you need to adjust the confidence interval 
+length so that they remain adequate inference tools.
+
+In ``superb``, you obtain an adjustment to error bar length with an option 
+for the purpose of the plot. The default ``purpose = "single"`` returns standalone error 
+bars (as in Figure 1); ``purpose = "difference"`` returns error bars valid for pair-wise 
+comparisons. The minimum specification for the data frame above would therefore be
+
+```{r, message=FALSE, echo=TRUE, results='hide', fig.show='hide'}
+superbPlot(dta, 
+    WSFactor="Moment(3)",
+    variables = c("Week 1", "Week 2", "Week 3"),
+    adjustments = list(purpose = "difference"),
+    plotStyle="line"
+    )
+```
+```{r, message=FALSE, echo=FALSE, , fig.cap="Figure 2: Mean scores along with difference-adjusted 95% confidence interval per week for a program to stop smoking."}
+superbPlot(dta, 
+    WSFactor="Moment(3)",
+    variables = c("Week 1", "Week 2", "Week 3"),
+    statistic = "mean", errorbar = "CI",
+    adjustments = list(purpose = "difference"),
+    plotStyle="line",
+    errorbarParams = list(width = .2)
+) + 
+coord_cartesian( ylim = c(50,100) ) +
+ylab("Mean +- 95% CI") +
+labs(title="Difference-adjusted\n95% confidence interval\n")+
+theme_gray(base_size=16) +
+scale_x_discrete(labels=c("1" = "Week 1", "2" = "Week 2", "3"="Week 3"))
+``` 
+
+The first argument is the data.frame, in wide format (here ``dta``). The second argument
+describe the experimental design. Here, there is a single within-subject factor (WSFactor), 
+here called ``Moment``. In within-subject factors, it is necessary to indicate how many
+level the factor has (here 3).
+The third argument indicates the columns in the data.frame
+containing the measurements. Three columns are involved. The name must match the column
+names in the data.frame. If unsure, check with
+
+```{r}
+head(dta)
+```
+
+The argument in which the adjustments will be listed is called ``adjustments`` which is
+a list with ---for the moment--- an adjustment for the purpose of the plot: ``purpose =
+ "difference"``. The standalone CI is the default (it can be obtained explicitely with 
+``purpose= single``). These two expressions, *single* and *difference*, are from @b12. 
+
+Note that the plot obtained is a ``ggplot`` object to which additional graphing
+directives can be added. Figure 2 was actually obtained with these commands:
+
+```{r, message=FALSE, echo=TRUE, results='hide', fig.show='hide'}
+superbPlot(dta, 
+    WSFactor="Moment(3)",
+    variables = c("Week 1", "Week 2", "Week 3"),
+    statistic = "mean", errorbar = "CI",
+    adjustments = list(purpose = "difference"),
+    plotStyle="line",
+    errorbarParams = list(width = .2)
+) + 
+coord_cartesian( ylim = c(50,100) ) +
+ylab("Mean +- 95% CI") +
+labs(title="Difference-adjusted\n95% confidence interval\n")+
+theme_gray(base_size=16) +
+scale_x_discrete(labels=c("1" = "Week 1", "2" = "Week 2", "3"="Week 3"))
+``` 
+
+The directives in ``errorbarParams`` are injected inside the ``geom_errorbar`` in charge of 
+drawing the error bars whereas the remaining directives are applied to the whole plot.
+The reader is refered to the package ``ggplot2`` for more on these graphing directives.
+
+
+## Step 2: Decide how to handle the within-subject measures
+
+Is is known that within-subject designs are more powerful at detecting differences.
+The implication of this is that they afford more statistical power and consequently
+the error bars should be shorter. The stand-alone CI are oblivious to this fact; it
+is however possible to inform them that you used within-subject design.
+
+The method to handle within-subject data comes from the observation that repeated 
+measures tends to be correlated [e.g., @gc19]. Informing the CI of this
+correlation is a process called **decorrelation**. To this day, there exists 
+three methods for decorrelation:
+
+* ``CM``: this method, called from the two authors Cousineau and Morey [@c05;@m08], will
+decorrelate the data but each measurement may have different adjustments;
+* ``LM``: this method, the first developped by Loftus and Masson [-@lm94], will 
+make all the error bars have the same length;
+* ``CA``: this method, called *correlation-based adjustment* was proposed in @c19. 
+As per CM, the error bars can be different in length.
+
+The three methods were compared in @c19 and shown to be mathematically based on the
+same concepts and estimating the same precision. It is therefore a matter of 
+personal preference which one you use.
+
+Figure 2 above will become Figure 3 if you add a decorrelation adjustment:
+
+```{r, message=FALSE, echo=TRUE}
+superbPlot(dta, 
+    WSFactor="Moment(3)",
+    variables = c("Week 1", "Week 2", "Week 3"),
+    statistic = "mean", errorbar = "CI",
+    adjustments = list(purpose = "difference", decorrelation = "CM"),
+    plotStyle="line",
+    errorbarParams = list(width = .2)
+) + 
+coord_cartesian( ylim = c(50,100) ) +
+ylab("Mean +- 95% CI") +
+labs(title="Correlation- and Difference-adjusted\n95% confidence interval\n")+
+theme_gray(base_size=16) +
+scale_x_discrete(labels=c("1" = "Week 1", "2" = "Week 2", "3"="Week 3"))
+``` 
+
+Unless you add the option ``Quiet = TRUE``, the command will issue some additional
+information. In the present data set, $\varepsilon$ is 0.54 which is low. A Mauchly test
+of sphericity indicates rejection of sphericity, so interprete the error bars with caution.
+
+
+## Step 3: Specify the sampling procedure and the population size
+
+The stand-alone confidence intervals are appropriate when your sample was obtained
+randomly, a method formally called *Simple Randomize Sampling* (SRS). However, this
+is not the only sampling method possible. Another commonly employed sampling procedure 
+is cluster sampling (formally *Cluster Randomized Sampling*, CRS). The CRS is the
+only one (beyond SRS) where the exact adjustment is known [@cl16] and thus SRS (no 
+adustment) and CRS (adjustments that tend to widen the error bars) are the
+only two sampling adjustments currently implemented in ``superb``. 
+
+Other sampling methods includes *Stratified Sampling*, *Snowball Sampling*, *Convenience
+Sampling*, etc., none of which have a known impact on the precision of the measures.
+
+Also, determine if the population size is finite or infinite.
+When the population under scrutiny is finite, you may have a sizeable proportion of 
+the population in your sample, which improves precision. In this case, the error bars will
+be shortened.
+
+These adjustments are implemented in ``superb`` with additional adjustements, such as
+
+```{r, message=FALSE, echo=TRUE , results='hide'}
+# add (ficticious) cluster membership for each participant in the column "cluster"
+dta$cluster <- sort(rep(1:5, 3))
+
+superbPlot(dta, 
+    WSFactor="Moment(3)",
+    variables = c("Week 1", "Week 2", "Week 3"),
+    adjustments = list(purpose = "difference", decorrelation = "CM",
+                       samplingDesign = "CRS", popSize = 100),
+    plotStyle = "line",
+    clusterColumn = "cluster",  # identify the column containing cluster membership
+    errorbarParams = list(width = .2)
+) + 
+coord_cartesian( ylim = c(50,100) ) +
+ylab("Mean +- 95% CI") +
+labs(title="Cluster- Correlation, and Difference-adjusted\n95% confidence interval\n")+
+theme_gray(base_size=16) +
+scale_x_discrete(labels=c("1" = "Week 1", "2" = "Week 2", "3"="Week 3"))
+``` 
+
+As you can see, the adjustments can be obtained with a single option inside the ``adjusments``
+list. They are cumulative, i.e., more than one adjustment can be used, depending on the 
+situation.
+
+
+# References

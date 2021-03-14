@@ -18,11 +18,14 @@ The functions lambda returns the correction factor
   for cluster-randomized sampling. This correction is then used
   in a variety of ways, for example, to get the effective number of
   participants (in a power study) or to correct a t-test.
-  See Cousineau & Laurencelle (2016) Psychological Methods, 21, 121-135.
+  See \insertCite{cl16}{superb}.
 }
 \examples{
 # Example from Cousineau & Laurencelle, 2017, p. 124:
 lambda( c(0.2, 5, 20, 20, 20, 20, 20) )
 # 2.234188  
 
+}
+\references{
+\insertAllCited{}
 }

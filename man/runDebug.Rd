@@ -16,10 +16,10 @@ runDebug(state, title, vars, vals)
 \item{vals}{numeric values to be given to the variables.}
 }
 \value{
-
+puts in the globalenvironment the variables named "vars"
 }
 \description{
 runDebug is an internal function used by GRD and superbPlot
      to help in debugging the functions. It assigns in the global environment
-     the variables that are local in a function so that they become visible.
+     the variables that are local to a function so that they become visible.
 }

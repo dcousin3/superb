@@ -1,17 +1,22 @@
 ######################################################################################
 #' @title Shrout and Fleiss intra-class correlation functions
 #'
+#' @aliases ShroutFleissICC1 ShroutFleissICC11 ShroutFleissICC1k
+#'
 #' @description The functions ShroutFleissICC1, ShroutFleissICC11
 #'   and ShroutFleissICC1k computes the intra-class correlation ICC
 #'   for a given data frame containing repeated measures in columns cols
 #'   when the measures are in distinct clusters, identified in column clustercol.
-#'   See Shrout & Fleiss (1979) Psychological Bulletin, 86, 420-428.
+#'   See \insertCite{sf79}{superb}.
 #' 
 #' @param dta A data frame contining within-subject measures, one participant per line; 
 #' @param clustercol is the column index where cluster belonging are given;
 #' @param cols A vector indicating the columns containing the measures. 
 #'
 #' @return ICC the intra-class measure of association.
+#'
+#' @references
+#'      \insertAllCited{}
 #'
 #' @examples
 #' # creates a small data frames with 4 subject's scores for 5 measures:
@@ -20,22 +25,22 @@
 #'         col1 <- c(2, 4, 4, 6, 4, 5, 8, 8, 5, 8, 9, 9)
 #'     ))
 #' 
-#'  ShroutFleissICC1(dta, 1, 2)
-#'  # 0.434343434 
-#'  ShroutFleissICC11(dta[, 1], dta[,2])
-#'  # 0.434343434 
+#' ShroutFleissICC1(dta, 1, 2)
+#' # 0.434343434 
+#' ShroutFleissICC11(dta[, 1], dta[,2])
+#' # 0.434343434 
 #' 
-#'  dta2 <- data.frame(cbind(
+#' dta2 <- data.frame(cbind(
 #'         clus <- c(1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3),
 #'         col1 <- c(1, 3, 3, 5, 3, 4, 7, 7, 4, 7, 8, 8),
 #'         col1 <- c(2, 4, 4, 6, 4, 5, 8, 8, 5, 8, 9, 9),
 #'         col1 <- c(3, 5, 5, 7, 5, 6, 9, 9, 6, 9, 10, 10)
 #'     ))
 #'  
-#'  ShroutFleissICC1(dta2, 1, 2:4)
-#'  # 0.7543859649 
-#'  ShroutFleissICC1k(dta2[, 1], dta2[,2:4])
-#'  # 0.7543859649 
+#' ShroutFleissICC1(dta2, 1, 2:4)
+#' # 0.7543859649 
+#' ShroutFleissICC1k(dta2[, 1], dta2[,2:4])
+#' # 0.7543859649 
 #'   
 #'
 #' @export ShroutFleissICC1

@@ -5,12 +5,15 @@
 #'   for cluster-randomized sampling. This correction is then used
 #'   in a variety of ways, for example, to get the effective number of
 #'   participants (in a power study) or to correct a t-test.
-#'   See Cousineau & Laurencelle (2016) Psychological Methods, 21, 121-135.
+#'   See \insertCite{cl16}{superb}.
 #' 
 #' @param paramvector A vector with, in that order, the intra-class correlation r, 
 #'   the number of clusters, then the number of participants in all the clusters.
 #'
 #' @return lambda the correction factor for cluster-randomized sampling.
+#'
+#' @references
+#'      \insertAllCited{}
 #'
 #' @examples
 #' # Example from Cousineau & Laurencelle, 2017, p. 124:

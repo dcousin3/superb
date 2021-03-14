@@ -17,13 +17,12 @@ superbPlot(
     samplingDesign = "SRS"),
   showPlot = TRUE,
   plotStyle = "bar",
-  errorParams = list(width = 0.8),
-  pointParams = list(),
   Debug = FALSE,
   Quiet = FALSE,
   preprocessfct = NULL,
   postprocessfct = NULL,
-  clusterColumn = ""
+  clusterColumn = "",
+  ...
 )
 }
 \arguments{
@@ -45,31 +44,36 @@ any function name. Defaults to "SE"}
 
 \item{gamma}{The converage factor; necessary when errorbar == "CI". Default is 0.95.}
 
-\item{adjustments}{List of adjustments as described below:}
+\item{adjustments}{List of adjustments as described below:
+ popsize: Size of the population under study. Defaults to Inf
+ purpose: The purpose of the comparisons. Defaults to "single". 
+     Can be "single" or "difference".
+decorrelation: Decorrelation method for repeated measure designs. 
+     Chooses among the methods ("CM", "LM", "CA" or "none"). Defaults to "none".
+samplingDesign: Sampling method to obtain the sample. implemented 
+         sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Sampling).
+Default is adjustments = list(purpose = "single", popSize = Inf, decorrelation = "none",
+             samplingDesign = "SRS")}
 
 \item{showPlot}{Defaults to TRUE. Set to FALSE if you want the output to be the summary statistics and intervals.}
 
 \item{plotStyle}{The type of object to plot on the graph. Can be either "bar" or "line".
 Defaults to "bar".}
 
-\item{errorParams}{a list of ggplot2 parameters for geom_errobar (see ?geom_errorbar)}
-
-\item{pointParams}{a list of ggplot2 parameters to input inside geoms (see ?geom_bar2)}
-
 \item{Debug}{export internal information into global environment. Default is FALSE}
+
+\item{Quiet}{Defaut to False, a boolean to inhibit showing additional information as warnings}
 
 \item{preprocessfct}{is a transform (or vector of) to be performed first on data matrix of each group}
 
 \item{postprocessfct}{is a transform (or vector of)}
 
-\item{adjustments$popsize}{Size of the population under study. Defaults to Inf}
+\item{clusterColumn}{used in conjunction with samplingDesign = "CRS", indicates which column contains the cluster membership}
 
-\item{adjustments$purpose}{The purpose of the comparisons. Defaults to "single". 
-Can be "single" or "difference".}
-
-\item{adjustments$decorrelation}{Decorrelation method for repeated measure designs. 
-     Chooses among the methods ("CM", "LM", "CA" or "none"). Defaults to "none".
-Default is adjustments = list(purpose = "single", popSize = Inf, decorrelation = "none")}
+\item{...}{In addition to the parameters above, superbPlot also accept a number of 
+optional arguments that will betransmitted to the plotting function, such as
+pointParams (a list of ggplot2 parameters to input inside geoms; see ?geom_bar2) and
+errorbarParams (a list of ggplot2 parameters for geom_errobar; see ?geom_errorbar)}
 }
 \value{
 a plot with the correct error bars or a table of those summary statistics.
@@ -78,7 +82,7 @@ a plot with the correct error bars or a table of those summary statistics.
 \description{
 plotsuberb plots standard error or confidence interval for various descriptive 
      statistics under various designs, sampling schemes, population size and purposes,
-     according to the suberb framework.
+     according to the suberb framework. See \insertCite{c17}{superb} for more.
 }
 \examples{
 # basic example using a built-in dataframe as data; 
@@ -98,6 +102,7 @@ superbPlot(ToothGrowth, BSFactor = c("dose", "supp"),
   adjustments = list( purpose = "difference", popSize = 200) )
 
 # This example add ggplot directives to the plot produced
+library(ggplot2)
 superbPlot(ToothGrowth, BSFactor = c("dose", "supp"), 
   variables = "len") + 
   xlab("Dose") + ylab("Tooth Growth") +
@@ -112,17 +117,20 @@ names(Orange) <- c("Tree","age","circ")
 Orange.wide <- longToWide(Orange, circ ~ age)
 p1=superbPlot( Orange.wide, WSFactor = "age(7)",
   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
-  adjustments = list(purpose = "difference", decorrelation = "none")
+  adjustments = list(purpose = "difference", decorrelation = "none"), Quiet = TRUE
 ) + 
   xlab("Age level") + ylab("Trunk diameter (mm)") +
   coord_cartesian( ylim = c(0,250) ) + labs(title="Basic confidence intervals")
 p2=superbPlot( Orange.wide, WSFactor = "age(7)",
   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
-  adjustments = list(purpose = "difference", decorrelation = "CM")
+  adjustments = list(purpose = "difference", decorrelation = "CM"), Quiet = TRUE
 ) + 
   xlab("Age level") + ylab("Trunk diameter (mm)") +
   coord_cartesian( ylim = c(0,250) ) + labs(title="Decorrelated confidence intervals")
 grid.arrange(p1,p2,ncol=2)
 
 
+}
+\references{
+\insertAllCited{}
 }

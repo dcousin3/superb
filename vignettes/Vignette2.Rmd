@@ -1,85 +1,212 @@
 ---
-title: "Why use difference-adjusted confidence intervals?"
-output: rmarkdown::html_vignette
+title: "Why use difference-adjusted confidence intervals"
+author: "Denis Cousineau"
+bibliography: "../inst/REFERENCES.bib"
+csl: "../inst/apa-6th.csl"
+output: 
+  html_document:
+    toc: TRUE
 description: >
   This vignette explains the difference between a regular confidence interval
   and a difference-adjusted confidence interval.
 vignette: >
-  %\VignetteIndexEntry{Why use difference-adjusted confidence intervals?}
+  %\VignetteIndexEntry{Why use difference-adjusted confidence intervals}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
 
 
-```{r, echo = FALSE, message = FALSE}
+```{r, echo = FALSE, message = FALSE, results = 'hide'}
 cat("this will be hidden; use for general initializations.")
+library(superb)
+library(ggplot2)
 ```
 
+Most studies examine the effect of a certain factor on a measure. However, very rarely 
+do we have hypotheses stating what would be the expected result. Instead, we find 
+in the study a control group to which the results of the treatment group will be compared.
 
-#test
+## A paradoxical example
 
+Imagine a study in a school examining the impact of playing collaborative games 
+before begining the classes. This study most likely will have two groups, one where
+the students are playing collaborative games and one where the students will have non-
+structured activities prior to classes. Then, the objective of the study is to
+*compare* the two groups.
 
-some text.
+Consider the results obtained, where 100 is the usual score obtained by students prior 
+to the study.
 
-```{r}
-#########################################
-# testing cohen's d
-#########################################
-
-    setwd("C:\\Users\\DenisCousineau\\Documents\\1_Publications\\Mes Articles\\FC01=64=MAG03-MeanPlot\\64=MAG03\\MAG03-JoVe-CIwithAllSortsOfDesigns")
-    source("C:\\Users\\DenisCousineau\\Documents\\1_Publications\\Mes Articles\\_4_Publié (95x)\\Collaborators (46x)\\_JCGouletPelletier(2x)\\GP01-CIofEffectSizes\\Text\\gethedgesg.r")
-
-    library(gridExtra)
-
-    fig1 <- read.table(file = "figure1.dta", sep = "\t", col.names = c("id","grp","score") )
-
-    grp1 <- fig1$score[fig1$grp==1]
-    grp2 <- fig1$score[fig1$grp==2]
-    gethedgesg(grp1, grp2)
-
-    g1 <- function(X) {
-      mean(X-100)/sd(X) # * (1-3/(4*(length(X)-1)-1)) for Hedges' g
-    } 
-    g1(grp1)
-    g1(grp2)
-
-    CI.g1 <- function(X, gamma = .95) {
-        n      <- length(X)
-        lambda <- g1(X) * sqrt( n )
-        tlow   <- qt(1/2 - gamma/2, df = n-1, ncp = lambda )
-        thig   <- qt(1/2 + gamma/2, df = n-1, ncp = lambda )
-
-        glow   <- tlow / sqrt(n)
-        ghig   <- thig / sqrt(n) 
-        c(glow, ghig)
-    }    
-    CI.g1(grp1)  
-    CI.g1(grp2)
-
-
-    plt1 <- superbPlot(fig1, BSFactor = "grp", 
-      statistic = "mean", errorbar = "CI",
-      showPlot=T, plotStyle="line",
-      adjustments = list(purpose = "difference"),
-      variable = c("score") 
-    )+ ylab("Mean +- 95% CI") +
-    labs(title="Mean with difference adjusted\n95% confidence interval")
-
-    plt2 <- superbPlot(fig1, BSFactor = "grp", 
-      statistic = "g1", errorbar = "CI",
-      showPlot=T, plotStyle="line",
-      postprocessfct = "pool_sd_transform",
-      adjustments = list(purpose = "difference"),
-      variable = c("score") 
-    )+ ylab("Cohen's d_1 +- 95% CI") +
-    labs(title="Cohen's d_1 with difference adjusted\n95% confidence interval") + 
-    annotation_custom(grid.text("Cohen's d_p = 0.49\n95% CI = [-0.06, +1.09]",
-        x=.66,y=.75,gp=gpar(fontsize=12, col="black"),
-        rot = 0)) 
-    plt12 <- grid.arrange(plt1, plt2, ncol=2)
-
-
+```{r, message=FALSE, echo=FALSE, fig.cap="Figure 1: Mean scores along with 95% confidence interval for two groups of students on the quality of learning behavior."}
+superbPlot(dataFigure1, 
+        BSFactor = "grp", 
+        variables = "score", 
+        plotStyle="line" ) + 
+    xlab("Group") + ylab("Score") + 
+    labs(title="(stand-alone)\n95% confidence intervals") +
+    coord_cartesian( ylim = c(85,115) ) +
+    theme_gray(base_size=16) +
+    scale_x_discrete(labels=c("1" = "Collaborative games", "2" = "Unstructured activity"))
 ```
 
+As seen, there seems to be a better score for students playing collaborative games. 
+Taking into accound the confidence interval, the manipulation seems to improve
+significantly the learning behavior as the lower end of the *Collaborative games* group
+is above the *Unstructured activity* mean (and vice versa).
 
+What a surprise to discover that a *t-test* will **NOT** confirm this impression! (t(48) = 1.76, p = .085) Here, 
+I use the *schoRsch* ``t_out`` function only to get human-readable outputs [@pj16].
+
+```{r, message=FALSE, warning=FALSE, echo=TRUE}
+library(schoRsch)
+
+t_out(t.test(dataFigure1$score[dataFigure1$grp==1], 
+        dataFigure1$score[dataFigure1$grp==2],
+        var.equal=T))
+```
+
+## The origin of the paradox 
+
+The reason is that the confidence intervals used are "stand-alone": They can be used to
+examine, say, the firt group to the value 100. As this value is outside the interval,
+we are correct in concluding that 100 is significantly different (with level $\alpha$
+ of .05) from 100, as confirmed by a single-group t-test:
+
+```{r, message=FALSE, echo=TRUE}
+t_out(t.test(dataFigure1$score[dataFigure1$grp==1], mu=100))
+```
+
+Likewise, the second group' mean is significantly different from 105 (which happens
+to be the first group's mean):
+
+```{r, message=FALSE, echo=TRUE}
+t_out(t.test(dataFigure1$score[dataFigure1$grp==2], mu=105))
+```
+
+This is precisely the purpose of **stand-alone** intervals: to compare a single result
+to a fix value. The fix value (here 100 for the first group and 105 for the second group)
+has no uncertainty, it is a constant. 
+
+In contrast, the two-group t-test compares two means, the two of which are uncertain.
+Therefore, in making a confidence interval, it is necessary that the basic, stand-alone,
+confidence interval be *informed* that it is going to be compared ---not to fix
+values--- to a second quantity which is itself uncertain.
+
+In the language of analyses of variance, we can say that when the purpose of the plot
+is to compare means to other means, there is more variances in the comparisons than there
+is in single groups in isolation.
+
+## Adjusting the error bars
+
+Assuming that the variances are roughly homogeneous between group (an assumption made by 
+the t-test), there is a simple adjustment that can be brougth to the error bars: just
+increase their length by $\sqrt(2)$. As $\sqrt(2) \approx 1.41$ it means increasing 
+their length by 41%.
+
+With ``superbPlot``, this so-called *difference adjustment* [@b12] is obtained easily
+by additing an adjustment to the list of adjustments with ``adjustments = list(purpose = 
+"difference")``, as seen below.
+
+```{r, message=FALSE, echo=TRUE, fig.cap="Figure 2: Mean scores along with difference-adjusted 95% confidence interval for two groups of students on the quality of learning behavior."}
+superbPlot(dataFigure1, 
+        BSFactor = "grp", 
+        adjustments=list(purpose = "difference"),  # the only new thing here
+        variables = "score", 
+        plotStyle="line" ) + 
+    xlab("Group") + ylab("Score") + 
+    labs(title="Difference-adjusted\n95% confidence intervals") +
+    coord_cartesian( ylim = c(85,115) ) + 
+    theme_gray(base_size=16) +
+    scale_x_discrete(labels=c("1" = "Collaborative games", "2" = "Unstructured activity"))
+```
+
+This is where the usefullness of ``superb`` is apparent: it only required an option to 
+mutate the plot from a plot showing means with stand-alone confidence intervals to a plot
+showing means with difference-adjusted confidence intervals.
+
+## Illustrating the impact of the adjustments
+
+Just for comparison purposes, I show both plots side-by-side.
+
+```{r, message=FALSE, echo=TRUE, fig.cap="Figure 3: Two representation of the data with unadjusted (left) and adjusted (right) 95% confidence intervals"}
+library(gridExtra)
+plt1 <- superbPlot(dataFigure1, 
+        BSFactor = "grp", 
+        variables = "score", 
+        plotStyle="line" ) + 
+    xlab("Group") + ylab("Score") + 
+    labs(title="(stand-alone)\n95% confidence intervals") +
+    coord_cartesian( ylim = c(85,115) ) +
+    theme_gray(base_size=16) +
+    scale_x_discrete(labels=c("1" = "Collaborative games", "2" = "Unstructured activity")) 
+
+plt2 <- superbPlot(dataFigure1, 
+        BSFactor = "grp", 
+        adjustments=list(purpose = "difference"), 
+        variables = "score", 
+        plotStyle="line" ) + 
+    xlab("Group") + ylab("Score") + 
+    labs(title="Difference-adjusted\n95% confidence intervals") +
+    coord_cartesian( ylim = c(85,115) ) + 
+    theme_gray(base_size=16) +
+    scale_x_discrete(labels=c("1" = "Collaborative games", "2" = "Unstructured activity")) 
+
+plt <- grid.arrange(plt1, plt2, ncol=2)
+```
+
+A second way to compare the two plots is to superimpse them, as in Figure 4:
+
+```{r, message=FALSE, echo=TRUE, fig.cap="Figure 4: Two representations of the results with adjusted and unadjusted error bars on the same plot"}
+# generate the two plots, nudging the error bars, using distinct colors, and having the background transparent
+plt1 <- superbPlot(dataFigure1, 
+        BSFactor = "grp", 
+        variables = "score", 
+        errorbarParams = list(color="blue",position = position_nudge(-0.05) ),
+        plotStyle="line" ) + 
+    xlab("Group") + ylab("Score") + 
+    labs(title="(red) Difference-adjusted 95% confidence intervals\n(blue) (stand-alone) 95% confidence intervals") +
+    coord_cartesian( ylim = c(85,115) ) +
+    theme_gray(base_size=16) +
+    scale_x_discrete(labels=c("1" = "Collaborative games", "2" = "Unstructured activity")) +
+    theme(panel.background = element_rect(fill = "transparent"),
+         plot.background = element_rect(fill = "transparent", color = "white"))
+
+plt2 <- superbPlot(dataFigure1, 
+        BSFactor = "grp", 
+        adjustments=list(purpose = "difference"), 
+        variables = "score", 
+        errorbarParams = list(color="red",position = position_nudge(0.05) ),
+        plotStyle="line" ) + 
+    xlab("Group") + ylab("Score") + 
+    labs(title="(red) Difference-adjusted 95% confidence intervals\n(blue) (stand-alone) 95% confidence intervals") +
+    coord_cartesian( ylim = c(85,115) ) + 
+    theme_gray(base_size=16) +
+    scale_x_discrete(labels=c("1" = "Collaborative games", "2" = "Unstructured activity")) +
+    theme(panel.background = element_rect(fill = "transparent"),
+        plot.background = element_rect(fill = "transparent", color = "white"))
+
+# transform the ggplots into "grob" so that they can be manipulated
+plt1g <- ggplotGrob(plt1)
+plt2g <- ggplotGrob(plt2)
+
+# put the two grob onto an empty ggplot (as the positions are the same, they will be overlayed)
+ggplot() + 
+    annotation_custom(grob=plt1g) + 
+    annotation_custom(grob=plt2g)
+```
+
+## In conclusion
+
+Adjusting the confidence intervals is important to have coherence between the text 
+and the figure. If you are to claim that there is no difference but show Figure 1,
+an examinator (you know, a reviewer) may raise a red flag and cast doubt on your
+conclusions (opening the door to many rounds of reviews or rejection if this is a 
+submitted work). 
+
+Having coherence between the figures and the tests reported in your document is one
+way to improve the clarity of your work. Coherence here comes cheap: You just need 
+to add in the figure caption "Difference-adjusted" before "95% confidence intervals".
+
+
+# References
 

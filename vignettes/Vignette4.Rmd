@@ -1,6 +1,11 @@
 ---
 title: "Using a custom statistic with its error bar"
-output: rmarkdown::html_vignette
+author: "Denis Cousineau"
+bibliography: "../inst/REFERENCES.bib"
+csl: "../inst/apa-6th.csl"
+output: 
+  html_document:
+    toc: TRUE
 description: >
   In superb, it is possible to summarize your data set with any descriptive statistics.
   The most common descriptive statistics are built-in superbPlot, but if you wish to 
@@ -14,26 +19,225 @@ vignette: >
 ---
 
 
-```{r, echo = FALSE, message = FALSE}
+```{r, echo = FALSE, message = FALSE, results = 'hide'}
 cat("this will be hidden; use for general initializations.")
+library(superb)
+library(ggplot2)
+```
+
+## Changing the summary funtion to be plotted
+
+By default, ``superbPlot`` generates mean plots along with 95% confidence intervals of 
+the mean. However, these choices can be changed.
+
+* To change the summary statistics, use the option ``statistic =``;
+
+* To change the confidence level, use the option ``gamma = ``;
+
+* To change the interval function, use the option ``errorbar = ``. The abbreviation
+``CI`` stands for confidence interval; ``SE`` stands for standard error.
+
+The defaults are ``statistic = "mean", errorbar = "CI", gamma = 0.95``. For error bar
+functions that accept a gamma parameter (e.g., CI, the gamma parameter is automatically 
+transfer to the function). For other functions that do not accept a gamma parameter 
+(e.g., SE), the gamma parameter is unused.
+
+In what follow, we use GRD to generate a random dataset with an interaction 
+then make plots varying the statistics displayed.
+
+```{r, message=FALSE, echo=TRUE, fig.cap="Figure 1: Various statistics and various measures of precisions"}
+# Generate a random dataset from a (3 x 2) design, entirely within subject.
+# The sample size is very small (n=5) and the crrelation between scores is high (rho = .8)
+dta <- GRD( 
+    WSFactors  = "Moment(3): Dose(2)", 
+    Effects    = list("Dose*Moment"=custom(0,0,0,1,1,3)), 
+    SubjectsPerGroup = 50, 
+    Population = list( mean=10, stddev = 5, rho = .80)
+)
+
+# a quick function to call superbPlot
+makeplot <- function(statfct, errorbarfct, g, ttl) {
+    superbPlot(dta, 
+        WSFactor  = c("Moment(3)","Dose(2)"), 
+        variables = c("DV.1.1","DV.2.1","DV.3.1","DV.1.2","DV.2.2","DV.3.2"), 
+        statistic = statfct, 
+        errorbar  = errorbarfct, 
+        gamma     = g, 
+        plotStyle = "line",
+        adjustments = list(purpose="difference", decorrelation="CM"),
+        Quiet     = TRUE # to supress design confirmation; unneeded 
+    )
+} + labs(title = ttl)
+
+p1 <- makeplot("mean",      "CI", .95, "Mean +- 95% confidence intervals of the mean")
+p2 <- makeplot("mean",      "SE", .00, "Mean +- standard error of the mean")
+p3 <- makeplot("median",    "CI", .95, "Median +- 95% confidence interval of the mean")
+p4 <- makeplot("fisherskew","CI", .95, "Fisher skew +- 95% confidence interval")
+
+library(gridExtra)
+p <- grid.arrange(p1,p2,p3,p4, ncol=2)
 ```
 
 
-#test
 
+## Determining that a summary function is valid to use in superbPlot
 
-some text.
+Any summary function can be accepted by superbPlot, as long as it is given
+within double-quote. The built-in statistics functions such as ``mean`` and 
+``median`` can be given. Actually, any descriptive statistics, not just central
+tendancy, can be provided. That includes ``IQR``, ``mad``, etc. To be valid,
+the function must return a number when given a vector of numbers.
+
+In doubt, you can test if the function is valid for superbPlot with
 
 ```{r}
+superb:::is.stat.function("mean")
+```
 
-#########################################
-# testing bootstrap of mean
-#########################################
+Any error bar function can be accepted by superbPlot. These functions must be
+named "interval function"."descriptive statistic". For example, the following
+``CI.mean`` is the confidence interval of the mean. Other functions are 
+``SE.mean``, ``SE.median``, ``CI.fisherskew``, etc. The ``superb`` library
+provides some 20+ such functions. @htc14 and @htc15 review some of these 
+functions.
+
+The error bar functions can be of three types: 
+
+* a function that returns a width. Standard error functions are example
+of this type of function. With width function, the error bar extend  plus and minus
+that width around the descriptive statistics.
+
+* an interval function. Such functions returns the actual lower and upper limits of the
+interval and therefore are used as is to draw the bar (i.e., they are not relative
+to the descriptive statistics). Confidence interval functions are of this type (as
+they are not necessarily symmetrical about the descriptive statistics).
+
+* ``"none"``. This keyword produces an error bar of null width.
+
+The interval function can be tested to see if it exists:
+```{r}
+superb:::is.errorbar.function("SE.mean")
+```
+
+To see if a gamma is accepted for a certain interval function, you can try
+```{r}
+superb:::is.gamma.required("SE.mean")
+```
 
 
-    setwd("C:\\Users\\DenisCousineau\\Documents\\1_Publications\\Mes Articles\\FC01=64=MAG03-MeanPlot\\64=MAG03\\MAG03-JoVe-CIwithAllSortsOfDesigns")
-    fig1 <- read.table(file = "figure1.dta", sep = "\t", col.names = c("id","grp","score") )
+## Creating a custom-made descriptive statistic function to be used in superbPlot
 
+As an example, we create from scratch a descriptive statistic function that will
+be fed to ``superbPlot``. Following @gc18 , we implement the single-group design
+Cohen's d ($d_1$). This descriptive statistic is computed relative to an
+hypothetical population mean. Herein, we use the data from ``dataFigure1`` and
+assume that the population mean is 100.
+
+```{r, message=FALSE, echo=TRUE}
+    # create a descriptive statistics
+    d1 <- function(X) {
+      mean(X-100)/sd(X) 
+    } 
+
+    # we can test it with the data from group 1...
+    grp1 <- dataFigure1$score[dataFigure1$grp==1]
+    grp2 <- dataFigure1$score[dataFigure1$grp==2]
+    d1(grp1)
+
+    # or check that it is a valid statistic function
+    superb:::is.stat.function("d1")
+```
+
+Once we have the function, we can ask for a plot of this function with
+
+```{r, message=FALSE, echo=TRUE, fig.cap="Figure 2: superbPlot with a custom-made descriptive sttistic function "}
+    superbPlot(dataFigure1, 
+        BSFactor = "grp", 
+        statistic = "d1", errorbar = "none",
+        plotStyle="line",
+        adjustments = list(purpose = "difference"),
+        variable = "score",
+        errorbarParams = list(width=0) # so that the null-width error bar is invisible
+    )+ ylab("Cohen's d_1") +
+    labs(title="d_1 with no error bars") +
+    coord_cartesian( ylim = c(-0.5,+1.5) ) 
+```
+
+
+## Creating a custom-made interval function to be used in superbPlot
+
+It is also possible to create custom-made confidence interval functions.
+
+Hereafter, we add a confidence interval for the Cohen's $d_1$. We use the predictive 
+approach documented in Lecoutre [@l99; @cg20] which requires the lambda-prime distribution
+[@p20].
+
+```{r}
+    library(sadists)
+
+    CI.d1 <- function(X, gamma = .95) {
+        n    <- length(X)
+        dlow <- qlambdap(1/2-gamma/2, df = n-1, t = d1(X) * sqrt(n) ) 
+        dhig <- qlambdap(1/2+gamma/2, df = n-1, t = d1(X) * sqrt(n) ) 
+        c(dlow, dhig) / sqrt(n)
+    }
+
+    # we test as an example the data from group 1
+    CI.d1(grp1)  
+
+    # or check that it is a valid interval function
+    superb:::is.interval.function("CI.d1")
+```
+
+We have all we need to make a plot with error bars!
+
+```{r, message=FALSE, echo=TRUE, fig.cap="Figure 3: superbPlot with a custom-made descriptive sttistic function "}
+    superbPlot(dataFigure1, 
+        BSFactor = "grp", 
+        statistic = "d1", errorbar = "CI",
+        plotStyle="line",
+        adjustments = list(purpose = "single"),
+        variable = "score"
+    )+ ylab("Cohen's d_1") +
+    labs(title="d_1 with 95% confidence interval of d_1") +
+    coord_cartesian( ylim = c(-0.5,+1.5) ) 
+```
+
+Note that this difference-adjusted confidence interval is fully compatible with 
+the Cohen's dp (between the two groups) as it is 0.498 with a 95% confidence 
+interval of [-0.068, +1.059] [all the formulas from @gc18,@cg20].
+
+```{r}
+    # compute the Cohen's dp
+    dp <- (mean(grp1)-mean(grp2))/ sqrt((var(grp1)+var(grp2))/2)
+    dp
+
+    # get the confidence interval of this 
+    lecoutre2007 <- function(dp, n, gamma = .95) {
+        dlow <- qlambdap(1/2-gamma/2, df = 2*(n-1), t = dp * sqrt(n/2) ) 
+        dhig <- qlambdap(1/2+gamma/2, df = 2*(n-1), t = dp * sqrt(n/2) ) 
+        limits <- c(dlow, dhig) / sqrt(n/2)
+        limits
+    }
+    lecoutre2007(dp, length(grp1) )
+```
+
+
+## Creating bootstrap-based confidence intervals 
+
+It is also possible to create bootstrap estimates of confidence intervals and integrate
+these into ``superb``.
+
+The general idea is to subsample with replacement the sample and compute on this 
+subsample the descriptive statistics. This process is repeated a large number of
+times (here, 10,000) and the quantiles containing, say, 95% of the results is
+a 95% confidence interval.
+
+Here, we illustrate this process with the mean. The function must be name
+"*interval function*.mean", so we choose to call it ``bootstrapCI.mean``.
+
+```{r}
+    # we define a bootstrapCI which subsample the whole sample, here called X
     bootstrapCI.mean <- function(X, gamma = 0.95) {
       res = c()
       for (i in 1:10000) {
@@ -42,15 +246,68 @@ some text.
       quantile(res, c(1/2 - gamma/2, 1/2 + gamma/2))
     }
 
-    p <- superbPlot(fig1, BSFactor = "grp", 
-      variable = c("score"), plotStyle="line",
-      statistic = "mean", errorbar = "bootstrapCI",
-      adjustments = list(purpose = "difference")
-    )
-
-
-
+    # we check that it is a valid interval function
+    superb:::is.interval.function("bootstrapCI.mean")
 ```
 
+This is all we need to make the plot which we can compare with the formula CI
+
+```{r, message=FALSE, echo=TRUE, fig.cap="Figure 4: superbPlot with a custom-made descriptive sttistic function "}
+    plt1 <- superbPlot(dataFigure1, 
+        BSFactor = "grp", 
+        variable = c("score"), 
+        plotStyle="line",
+        statistic = "mean", errorbar = "bootstrapCI",
+        adjustments = list(purpose = "difference")
+    ) + 
+    xlab("Group") + ylab("Score") + 
+    labs(title="means and difference-adjusted\n95% confidence intervals") +
+    coord_cartesian( ylim = c(85,115) ) +
+    theme_gray(base_size=10) +
+    scale_x_discrete(labels=c("1" = "Collaborative games", "2" = "Unstructured activity"))
+
+    plt2 <- superbPlot(dataFigure1, 
+        BSFactor = "grp", 
+        variable = c("score"), 
+        plotStyle="line",
+        statistic = "mean", errorbar = "CI",
+        adjustments = list(purpose = "difference")
+    ) + 
+    xlab("Group") + ylab("Score") + 
+    labs(title="means and difference-adjusted\n95% bootstrap confidence intervals") +
+    coord_cartesian( ylim = c(85,115) ) +
+    theme_gray(base_size=10) +
+    scale_x_discrete(labels=c("1" = "Collaborative games", "2" = "Unstructured activity"))
+
+    library(gridExtra)
+    plt <- grid.arrange(plt1, plt2, ncol=2)
+```
+
+As seen, there is not much difference between the two. This was expected as when the 
+normality assumption and the homogeneity of variances assumption are not invalid, 
+the *parametric* approach (the formula is based on these assumptions) is identical
+on average to the bootstrap approach.
 
 
+## In summary
+
+The function ``superbPlot`` is entirely customizable: you can put any decriptive statistic
+function and any interval function into ``superbPlot``. In a sense, ``superbPlot`` is 
+simply a proxy that manage the dataset and produces standardized dataframes apt to be
+transmitted to a ggplot specification. It is also possible to obtain the summary
+dataframe by issuing the option ``showPlot=FALSE``
+
+The function ``superbPlot`` is also customizable with regards to the plot produced. 
+Included in the package are 
+* ``superbPlot.line`` : shows the results as points and lines, 
+* ``superbPlot.point``: shows the results as points only, 
+* ``superbPlot.bar`` : shows the results using bars, 
+* ``superbPlot.pointjitter``: shows the results with points, and the raw data with jittered points, 
+* ``superbPlot.pointjitterviolin``: also shows violin plot behind the jitter points, and 
+* ``superbPlot.pointindividualline``: show the results with fat points, and individual results with thin lines, 
+
+Vignette 5 shows how to create new plotting functions. Proposals are welcome.
+
+
+
+# References

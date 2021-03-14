@@ -3,7 +3,7 @@
 #'
 #' @description plotsuberb plots standard error or confidence interval for various descriptive 
 #'      statistics under various designs, sampling schemes, population size and purposes,
-#'      according to the suberb framework.
+#'      according to the suberb framework. See \insertCite{c17}{superb} for more.
 #'
 #' @param data Dataframe in wide format
 #' @param BSFactor The name of the columns containing the between-subject factor(s)
@@ -16,24 +16,34 @@
 #'      any function name. Defaults to "SE"
 #' @param gamma The converage factor; necessary when errorbar == "CI". Default is 0.95.
 #' @param adjustments List of adjustments as described below:
-#' @param adjustments$popsize Size of the population under study. Defaults to Inf
-#' @param adjustments$purpose The purpose of the comparisons. Defaults to "single". 
+#'  popsize: Size of the population under study. Defaults to Inf
+#'  purpose: The purpose of the comparisons. Defaults to "single". 
 #'      Can be "single" or "difference".
-#' @param adjustments$decorrelation Decorrelation method for repeated measure designs. 
+#' decorrelation: Decorrelation method for repeated measure designs. 
 #'      Chooses among the methods ("CM", "LM", "CA" or "none"). Defaults to "none".
-#' Default is adjustments = list(purpose = "single", popSize = Inf, decorrelation = "none")
+#' samplingDesign: Sampling method to obtain the sample. implemented 
+#'          sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Sampling).
+#' Default is adjustments = list(purpose = "single", popSize = Inf, decorrelation = "none",
+#'              samplingDesign = "SRS")
 #' @param showPlot Defaults to TRUE. Set to FALSE if you want the output to be the summary statistics and intervals.
 #' @param plotStyle The type of object to plot on the graph. Can be either "bar" or "line".
 #'      Defaults to "bar".
-#' @param pointParams a list of ggplot2 parameters to input inside geoms (see ?geom_bar2)
-#' @param errorParams a list of ggplot2 parameters for geom_errobar (see ?geom_errorbar)
+#' @param Quiet Defaut to False, a boolean to inhibit showing additional information as warnings
+#' @param clusterColumn used in conjunction with samplingDesign = "CRS", indicates which column contains the cluster membership
 #' @param Debug export internal information into global environment. Default is FALSE
 #' @param preprocessfct  is a transform (or vector of) to be performed first on data matrix of each group
 #' @param postprocessfct is a transform (or vector of)
+#' @param ...  In addition to the parameters above, superbPlot also accept a number of 
+#'  optional arguments that will betransmitted to the plotting function, such as
+#'  pointParams (a list of ggplot2 parameters to input inside geoms; see ?geom_bar2) and
+#'  errorbarParams (a list of ggplot2 parameters for geom_errobar; see ?geom_errorbar)
 #'
 #'
 #' @return a plot with the correct error bars or a table of those summary statistics.
 #'         The plot is a ggplot2 object with can be modified with additional declarations.
+#'
+#' @references
+#'      \insertAllCited{}
 #'
 #' @examples
 #' # basic example using a built-in dataframe as data; 
@@ -53,6 +63,7 @@
 #'   adjustments = list( purpose = "difference", popSize = 200) )
 #'
 #' # This example add ggplot directives to the plot produced
+#' library(ggplot2)
 #' superbPlot(ToothGrowth, BSFactor = c("dose", "supp"), 
 #'   variables = "len") + 
 #'   xlab("Dose") + ylab("Tooth Growth") +
@@ -67,13 +78,13 @@
 #' Orange.wide <- longToWide(Orange, circ ~ age)
 #' p1=superbPlot( Orange.wide, WSFactor = "age(7)",
 #'   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
-#'   adjustments = list(purpose = "difference", decorrelation = "none")
+#'   adjustments = list(purpose = "difference", decorrelation = "none"), Quiet = TRUE
 #' ) + 
 #'   xlab("Age level") + ylab("Trunk diameter (mm)") +
 #'   coord_cartesian( ylim = c(0,250) ) + labs(title="Basic confidence intervals")
 #' p2=superbPlot( Orange.wide, WSFactor = "age(7)",
 #'   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
-#'   adjustments = list(purpose = "difference", decorrelation = "CM")
+#'   adjustments = list(purpose = "difference", decorrelation = "CM"), Quiet = TRUE
 #' ) + 
 #'   xlab("Age level") + ylab("Trunk diameter (mm)") +
 #'   coord_cartesian( ylim = c(0,250) ) + labs(title="Decorrelated confidence intervals")
@@ -81,40 +92,49 @@
 #'
 #'
 #' @export superbPlot
+#' @importFrom lsr wideToLong
+#' @importFrom plyr ddply
+#' @import ggplot2
+#
 ######################################################################################
 
 
 superbPlot <- function(data, 
-    BSFactor      = NULL,              # vector of the between-subject factor columns
-    WSFactor      = NULL,              # vector of the names of the within-subject factors
-    factorOrder,                       # order of the factors for plots
-    variables,                         # dependent variable name(s)
-    statistic     = "mean",            # descriptive statistics
-    errorbar      = "CI",              # content of the error bars
-    gamma         = 0.95,              # coverage if confidence intervals
+    BSFactor      = NULL,            # vector of the between-subject factor columns
+    WSFactor      = NULL,            # vector of the names of the within-subject factors
+    factorOrder,                     # order of the factors for plots
+    variables,                       # dependent variable name(s)
+    statistic     = "mean",          # descriptive statistics
+    errorbar      = "CI",            # content of the error bars
+    gamma         = 0.95,            # coverage if confidence intervals
     adjustments   = list(
-        purpose        = "single",     # is "single" or "difference"
-        popSize        = Inf,          # is Inf or a specific positive integer
-        decorrelation  = "none",       # is "CM", "LM", "CA" or "none"
-        samplingDesign = "SRS"         # is "SRS" or "CRS" (in which case use clusterColumn)
+        purpose        = "single",   # is "single" or "difference"
+        popSize        = Inf,        # is Inf or a specific positive integer
+        decorrelation  = "none",     # is "CM", "LM", "CA" or "none"
+        samplingDesign = "SRS"       # is "SRS" or "CRS" (in which case use clusterColumn)
     ),
-    showPlot      = TRUE,              # show a plot or else statistics
-    plotStyle      = "bar",            # type of plot
-    errorParams   = list(width = .8),  # sent to ggplot/error bars
-    pointParams   = list(),            # sent to ggplot/summary results
-    Debug         = FALSE,             # dump named variables into global env for debugging (NULL will suppress all information)
-    Quiet         = FALSE,             # clarify the variables in within-subject design
-    preprocessfct = NULL,              # run preprocessing on the matrix
-    postprocessfct= NULL,              # run post-processing on the matrix
-    clusterColumn = ""                 # if samplineScheme = CRS
+    showPlot      = TRUE,            # show a plot or else summary statistics
+    plotStyle     = "bar",           # type of plot (so far, bar, line, point, pointjitter and pointjitterviolin
+    Debug         = FALSE,           # dump named variables into global env for debugging
+    Quiet         = FALSE,           # clarify the variables in within-subject design
+    preprocessfct = NULL,            # run preprocessing on the matrix
+    postprocessfct= NULL,            # run post-processing on the matrix
+    clusterColumn = "",              # if samplineScheme = CRS
+    ...
+    # the following are optional list of graphic directives...
+    # errorbarParams,                # merged into ggplot/geom_errorbar
+    # pointParams,                   # merged into ggplot/geom_point
+    # lineParams,                    # merged into ggplot/geom_line
+    # barParams,                     # merged into ggplot/geom_bar
+    # etc.
 ) {
 
     ##############################################################################
     # STEP 0: Load required libraries
     ##############################################################################
-    require(ggplot2)
-    require(lsr)        # only function wideToLong is used
-    require(plyr)       # only function ddply is used
+    #require(ggplot2)    # all of it
+    #require(lsr)        # only function wideToLong is used
+    #require(plyr)       # only function ddply is used
     
     
     ##############################################################################
@@ -158,7 +178,7 @@ superbPlot <- function(data,
         WSFactor <- wsMissing
     } else {
         for (i in 1:length(WSFactor)) {
-            wsLevels[i] <- as.integer(unlist(strsplit(WSFactor[i], '[()]'))[2])
+            wsLevels[i] <- as.integer(unlist(strsplit(WSFactor[i], '[()]'))[2]) 
             WSFactor[i] <-            unlist(strsplit(WSFactor[i], '[()]'))[1]
         }
     }
@@ -201,12 +221,15 @@ superbPlot <- function(data,
 
     # 1.8: invalid functions 
     widthfct <- paste(errorbar, statistic, sep = ".")
+    if (errorbar == "none") { # create a fake function
+         eval(parse(text=paste(widthfct, "<-function(X) 0",sep="")), envir = globalenv())
+    }
     if ( !(is.stat.function(statistic)) )
             stop("ERROR: The function ", statistic, " is not a known descriptive statistic function. Exiting...")
-    if ( !(is.stat.function(widthfct)) )
+    if ( !(is.errorbar.function(widthfct)) )
             stop("ERROR: The function ", widthfct, " is not a known function for error bars. Exiting...")
     pltfct <- paste("superbPlot", plotStyle, sep = ".")
-    if ( !(is.plot.function(pltfct)) )
+    if ( !(is.superbPlot.function(pltfct)) )
             stop("ERROR: The function ", pltfct, " is not a known function for making plots with superbPlot. Exiting...")
 
     # 1.9: if cluster randomized sampling, check that column cluster is set
@@ -226,6 +249,7 @@ superbPlot <- function(data,
     # STEP 2: Decorrelate repeated-measure variables if needed; apply transforms
     ##############################################################################
 
+    data.unchanged <- data
     data.wide <- data
     # We do this step for each group and only on columns with repeated measures.
     if (adjustments$decorrelation == "CM" || adjustments$decorrelation == "LM") {
@@ -255,9 +279,11 @@ superbPlot <- function(data,
     ##############################################################################
 
     # replace variable names with names based on design...
+    colnames(data.unchanged)[grep(paste(variables,collapse="|"),names(data.unchanged))] = newnames
     colnames(data.wide)[grep(paste(variables,collapse="|"),names(data.wide))] = newnames
     # set data to long format using lsr (Navarro, 2015)
     # if no unique identifier is found, a column ".id" may be added; don't bother
+    data.unchanged.long <- suppressWarnings(lsr::wideToLong(data.unchanged, within = WSFactor, sep = weird))
     data.long <- suppressWarnings(lsr::wideToLong(data.wide, within = WSFactor, sep = weird))
 
     # if there was no within-subject factor, a dummy had been added
@@ -354,89 +380,79 @@ superbPlot <- function(data,
     # STEP 6: Issue warnings
     ##############################################################################
 
-    # 6.1: if deccorrelate is CA: show rbar, test Winer
-    if (adjustments$decorrelation == "CA") {
-        warning(paste("FYI: The average correlation per group are ", paste(unique(rs), collapse=" ")), call. = FALSE)
+    if (!Quiet) {
+        # 6.1: if deccorrelate is CA: show rbar, test Winer
+        if (adjustments$decorrelation == "CA") {
+            warning(paste("FYI: The average correlation per group are ", paste(unique(rs), collapse=" ")), call. = FALSE)
 
-        winers <- suppressWarnings(plyr::ddply(data, .fun = "WinerCompoundSymmetryTest", .variables= BSFactor, variables)) 
-        winers <- winers[,length(winers)]
-        if (any(winers<.05, na.rm = TRUE))
-            warning("Some of the groups' data are not compound symmetric. Consider using CM.", call. = FALSE)
-    }
-    
-    # 6.2: if decorrelate is CM or LM: show epsilon, test Winer and Mauchly
-    if (adjustments$decorrelation %in% c("CM","LM")) {
-        epsGG <- suppressWarnings(plyr::ddply(data, .fun = "epsilon", .variables= BSFactor, variables)) 
-        epsGG <- epsGG[,length(epsGG)]
-        warning(paste("FYI: The epsilon measure of sphericity per group are ", paste(epsGG, collapse=" ")), call. = FALSE)
+            winers <- suppressWarnings(plyr::ddply(data, .fun = "WinerCompoundSymmetryTest", .variables= BSFactor, variables)) 
+            winers <- winers[,length(winers)]
+            if (any(winers<.05, na.rm = TRUE))
+                warning("Some of the groups' data are not compound symmetric. Consider using CM.", call. = FALSE)
+        }
+        
+        # 6.2: if decorrelate is CM or LM: show epsilon, test Winer and Mauchly
+        if (adjustments$decorrelation %in% c("CM","LM")) {
+            epsGG <- suppressWarnings(plyr::ddply(data, .fun = "epsilon", .variables= BSFactor, variables)) 
+            epsGG <- epsGG[,length(epsGG)]
+            warning(paste("FYI: The epsilon measure of sphericity per group are ", paste(epsGG, collapse=" ")), call. = FALSE)
 
-        winers <- suppressWarnings(plyr::ddply(data, .fun = "WinerCompoundSymmetryTest", .variables= BSFactor, variables) )
-        winers <- winers[,length(winers)]
-        if (all(winers>.05, na.rm = TRUE))
-            warning("FYI: All the groups' data are compound symmetric. Consider using CA.", call. = FALSE)
+            winers <- suppressWarnings(plyr::ddply(data, .fun = "WinerCompoundSymmetryTest", .variables= BSFactor, variables) )
+            winers <- winers[,length(winers)]
+            if (all(winers>.05, na.rm = TRUE))
+                warning("FYI: All the groups' data are compound symmetric. Consider using CA.", call. = FALSE)
 
-        mauchlys <- plyr::ddply(data, .fun = "MauchlySphericityTest", .variables= BSFactor, variables) 
-        mauchlys <- mauchlys[,length(mauchlys)]
-        if (any(mauchlys<.05, na.rm = TRUE))
-            warning("FYI: Some of the groups' data are not spherical. Use error bars with caution.", call. = FALSE)
+            mauchlys <- plyr::ddply(data, .fun = "MauchlySphericityTest", .variables= BSFactor, variables) 
+            mauchlys <- mauchlys[,length(mauchlys)]
+            if (any(mauchlys<.05, na.rm = TRUE))
+                warning("FYI: Some of the groups' data are not spherical. Use error bars with caution.", call. = FALSE)
+        }
+        
+        # 6.3: if samplingDesign is CRS: print ICC, check that more than 8 clusters
+        if (adjustments$samplingDesign == "CRS") {
+            warning(paste("FYI: The ICC1 per group are ", paste(ICCs, collapse=" ")), call. = FALSE)
+        }
     }
-    
-    # 6.3: if samplingDesign is CRS: print ICC, check that more than 8 clusters
-    if (adjustments$samplingDesign == "CRS") {
-        warning(paste("FYI: The ICC1 per group are ", paste(ICCs, collapse=" ")), call. = FALSE)
-    }
-    
     
     ##############################################################################
     # ALL DONE! Output the plot(s) or the summary data
     ##############################################################################
+
     if (showPlot == TRUE) {
-#runDebug(T,"when showPlot is true", c("factorOrder2"),list(factorOrder) )
         # generate the plot
         groupingfac = if(!is.na(factorOrder[2])) {factorOrder[2]}else{ NULL}
-#runDebug(T,"just before plottingA", c("groupingfact2"),list(groupingfact) )
         # if present, make the grouping variable a factor
         if (!is.null(groupingfac)) {
-#print(paste("begin factor, groupingfac = ", groupingfac))
-            summaryStatistics[[groupingfac]] = as.factor(summaryStatistics[[groupingfac]])
-            data.long[[groupingfac]] = as.factor(data.long[[groupingfac]])
-#print("done factor")
+            data.unchanged.long[[groupingfac]] = as.factor(data.unchanged.long[[groupingfac]])
         }
-#runDebug(T,"just before plottingB", c("ss"),list(summaryStatistics) )
-runDebug(T,"Kit for testing plotting function", 
-    c("ss","factorOrder2","dl"),list(summaryStatistics,factorOrder,data.long) )
-
-#a quick ggplot for tests:
-#ggplot(data.long2,aes_string(x="Group", y="DV"))+
-#geom_point(aes_string(color="id"))#"id", NULL works
-
-#runDebug(T,"getting raw",c("rawdata2"), list(data.long))
-#print("sfdjasfdta")
+        runDebug(Debug, "Kit for testing plotting function", c("ss","factorOrder2","dl"),list(summaryStatistics, factorOrder, data.unchanged.long) )
 
         # first get the facets
         facets <- factorOrder[3:4][!is.na(factorOrder[3:4])]
         facets <- c(facets, ".",".")
-        facets <- paste(facets, collapse="~")
-print(facets)
+        facets <- paste(facets[1:2], collapse="~")
+
         # produce the plot
-        plot <- do.call( pltfct, list(data = summaryStatistics,
-                    xvar = factorOrder[1],
+        plot <- do.call( pltfct, list(
+                    summarydata = summaryStatistics,
+                    xvar        = factorOrder[1],
                     groupingfac = groupingfac,
-                    addfactors = facets,
-                    pointParams = pointParams,
-                    errorParams = errorParams,
-                    rawdata = data.long
+                    addfactors  = facets,
+                    Debug       = Debug,
+                    rawdata     = data.unchanged.long,
+                    ...
         ))
         return(plot)
     } else {
         # do some renaming of the columns for clearer results
-        verbosecol <- c(
-            statistic,
-            if (errorbar == "SE") c("- 1 * SE", "+ 1 * SE") 
-            else if (errorbar == "CI") c(paste("-", gamma* 100, "% CI width"), paste("+", gamma* 100, "% CI width") ) 
-            else c(paste("-", widthfct), paste("+", widthfct) )
-        )
-        colnames(summaryStatistics)[(length(factorOrder)+1):(length(factorOrder)+3)] <- verbosecol
+        #verbosecol <- c(
+        #    statistic,
+        #    if (errorbar == "SE") c("- 1 * SE", "+ 1 * SE") 
+        #    else if (errorbar == "CI") c(paste("-", gamma* 100, "% CI width"), paste("+", gamma* 100, "% CI width") ) 
+        #    else if (errorbar == "PI") c(paste("-", gamma* 100, "% PI width"), paste("+", gamma* 100, "% PI width") ) 
+        #    else c(paste("-", widthfct), paste("+", widthfct) )
+        #)
+        #colnames(summaryStatistics)[(length(factorOrder)+1):(length(factorOrder)+3)] <- verbosecol
         return(summaryStatistics)
     }
 
@@ -459,12 +475,28 @@ is.stat.function <- function(fctname) {
     )
     res
 }
+
+is.errorbar.function <- function(fctname) {
+    # does the function provided by the user exists and compute from a list of data? 
+    if (is.gamma.required(fctname)) {
+        TRUE
+    } else {
+        is.stat.function(fctname)
+    }
+}
     
 is.interval.function <- function(fctname) {
-    # is the function provided by the user an interval (e.g., CI) 
+    # is the function provided by the user an interval, i.e., two numbers (e.g., CI) 
     # or a single width (e.g., SE)?
     res <- do.call(fctname, list( c(1,2,3)) )
     if (length(res) == 2) TRUE else FALSE
+}
+
+is.width.function <- function(fctname) {
+    # is the function provided by the user an interval, i.e., two numbers (e.g., CI) 
+    # or a single width (e.g., SE)?
+    res <- do.call(fctname, list( c(1,2,3)) )
+    if (length(res) == 1) TRUE else FALSE
 }
 
 is.gamma.required <- function(fctname) {
@@ -477,10 +509,9 @@ is.gamma.required <- function(fctname) {
     res
 }
 
-is.plot.function <- function(fctname) {
+is.superbPlot.function <- function(fctname) {
     # does the plot function provided by the user exists?
     res <- TRUE
-print("begin is.plot.function")
     if (!exists(fctname)) {
         res <- FALSE
     } else {
@@ -492,19 +523,20 @@ print("begin is.plot.function")
                 lowerwidth = cbind(c(-3,-2,-3,-2,-2,-4)),
                 upperwidth = cbind(c(+3,+2,+3,+2,+2,+4))
         )
-        fake = ToothGrowth;
+        fake = datasets::ToothGrowth;
         fake = cbind(fake, DV = fake$len)
 
         res <- tryCatch(
             {test <- suppressWarnings(do.call(fctname, 
-                    list(dta,"dose", #"center", "center+lowerwidth", "center+upperwidth",
-                    "supp", ".~.", 
-                    list(), list(), fake ) ) ); 
+                    list(dta,
+                        "dose", 
+                        "supp", ".~.", 
+                        FALSE,
+                        fake ) ) ); 
             "ggplot" %in% class(test)},
             error = function(cond) {return(FALSE)} 
         )
     }
-print(paste("end is.plot.function; res = ", res))
     res
 }
 

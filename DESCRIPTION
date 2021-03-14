@@ -12,20 +12,38 @@ Authors@R: c(
                     role = c("ctb"))
            )
 Author: Denis Cousineau [aut, cre]
-    Bradley Harding
-    Marc-André Goulet
+    Bradley Harding [cbt]
+    Marc-André Goulet [cbt]
 Maintainer: Denis cousineau <denis.cousineau@uottawa.ca>
-Description: Computes standard error and confidence interval of means under various designs and sampling schemes
+Description: Computes standard error and confidence interval of means under various designs and sampling schemes.
 License: GPL-3
 Encoding: UTF-8
-Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
 LazyData: true
 RoxygenNote: 7.1.1
+Depends:
+    R (>= 3.5.0)
 Imports: 
     plyr (>= 1.8.4),
     ggplot2 (>= 3.1.0),
     lsr (>= 0.5),
     Rdpack (>= 0.7),
-    ggsci
+    stats,
+    ggsci,
+    MASS,
+    matrixcalc
+Suggests: 
+    grid,
+    gridExtra,
+    knitr, 
+    rmarkdown,
+    car,
+    fMultivar,
+    lattice,
+    lawstat,
+    reshape2,
+    testthat,
+    schoRsch,
+    emojifont,
+    sadists
 RdMacros: Rdpack

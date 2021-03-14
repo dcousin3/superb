@@ -20,7 +20,7 @@ Run a test of compound symmetry.
   It assesses the significance of the null hypothesis that
   the covariance matrix is compound symmetric. 
   This test is given without demonstration in 
-  Winer, Browns, & Michels, 1991, p. 517.
+  \insertCite{w91}{superb}, p. 517.
 }
 \examples{
 # creates a small data frames with 4 subject's scores for 5 measures:
@@ -34,4 +34,7 @@ dta <- data.frame(cbind(
 WinerCompoundSymmetryTest(dta)
 # 0.6733123
 
+}
+\references{
+\insertAllCited{}
 }

@@ -4,14 +4,16 @@
 #' @description Performs a test of sphericity on a dataframe with
 #'   multiple measures, one subject per line. It assesses the significance of the 
 #'   null hypothesis that the covariance matrix is spherical. 
-#'   This test is described in Abdi, The Greenhouse-Geisser Correction.
-#'   In Neil Salkind (Ed.), Encyclopedia of Research Design.
-#'   Thousand Oaks, CA: Sage. 2010
+#'   This test is described in \insertCite{a10}{superb}
 #'
 #' @param dta A data frame contining within-subject measures, one participant per line; 
 #' @param cols A vector indicating the columns containing the measures. 
 #'
 #' @return p the p-value of the null hypothesis that the data are spherical.
+#'
+#' @references
+#'      \insertAllCited{}
+#'
 #'
 #' @examples
 #' # creates a small data frames with 4 subject's scores for 5 measures:

@@ -18,9 +18,7 @@ p the p-value of the null hypothesis that the data are spherical.
 Performs a test of sphericity on a dataframe with
   multiple measures, one subject per line. It assesses the significance of the 
   null hypothesis that the covariance matrix is spherical. 
-  This test is described in Abdi, The Greenhouse-Geisser Correction.
-  In Neil Salkind (Ed.), Encyclopedia of Research Design.
-  Thousand Oaks, CA: Sage. 2010
+  This test is described in \insertCite{a10}{superb}
 }
 \examples{
 # creates a small data frames with 4 subject's scores for 5 measures:
@@ -34,4 +32,7 @@ dta <- data.frame(cbind(
 MauchlySphericityTest(dta)
 # 0.582443
 
+}
+\references{
+\insertAllCited{}
 }

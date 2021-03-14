@@ -14,25 +14,26 @@ An object of class data.frame.
 data(dataFigure4)
 }
 \description{
-The data, inspired from Cousineau, 2017, shows an example where the
+The data, inspired from \insertCite{c17}{superb}, shows an example where the
 "stand-alone" 95% confidence interval of the means returns
 a result in contradiction with the result of a statistical test.
 The paradoxical result is resovled by using adjusted confidence intervals,
 here the population size-adjusted confidence interval.
 }
 \examples{
+library(ggplot2)
 library(gridExtra)
 data(dataFigure4)
 
 ## realize the plot with unadjusted (left) and ajusted (right) 95\% confidence intervals
 plt4a = superbPlot(dataFigure4, BSFactor = "group", 
-    adjustments=list(purpose = "single", popSize = Inf),
+    adjustments=list(purpose = "single", popSize = Inf), Quiet = TRUE,
     variables = c("score"), plotStyle="bar" ) + 
   xlab("Group") + ylab("Score") + labs(title="Difference-adjusted 95\% CI\n") +
   coord_cartesian( ylim = c(85,115) ) +
   geom_hline(yintercept = 100, colour = "black", size = 0.5, linetype=2)
 plt4b = superbPlot(dataFigure4, BSFactor = "group",
-    adjustments=list(purpose = "single", popSize = 50 ),
+    adjustments=list(purpose = "single", popSize = 50 ), Quiet = TRUE,
     variables = c("score"), plotStyle="bar" ) + 
   xlab("Group") + ylab("Score") + labs(title="Population size and difference-\nadjusted 95\% CI") +
   coord_cartesian( ylim = c(85,115) ) + 
@@ -48,7 +49,6 @@ c(tcorr, pcorr)
 
 }
 \references{
-Cousineau, D. (2017) Advances in cognitive psychology, 13:140-155
-(\href{https://doi.org/10.5709#acp-0214-z}{doi})
+\insertAllCited{}
 }
 \keyword{datasets}

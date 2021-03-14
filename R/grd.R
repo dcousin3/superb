@@ -28,42 +28,69 @@
 #' 
 #'
 #' @examples
-#' # Simplest example using all the default arguments: 
-#' dta <- GRD()
-#' head(dta)
-#' hist(dta$DV)
+#'  # Simplest example using all the default arguments: 
+#'  dta <- GRD()
+#'  head(dta)
+#'  hist(dta$DV)
 #'
-#' # Renaming the dependant variable and setting the group size:
-#' dta <- GRD( RenameDV = "score", SubjectsPerGroup = 1000 )
-#' hist(dta$score )
+#'  # Renaming the dependant variable and setting the group size:
+#'  dta <- GRD( RenameDV = "score", SubjectsPerGroup = 1000 )
+#'  hist(dta$score )
 #'
-#' # Examples for a between-subject design and for a within-subject design: 
-#' dtaBS <- GRD( BSFactors = '3')
-#' dtaWS <- GRD( WSFactors = "Moment (2)")
+#'  # Examples for a between-subject design and for a within-subject design: 
+#'  dtaBS <- GRD( BSFactors = '3')
+#'  dtaWS <- GRD( WSFactors = "Moment (2)")
 #'
-#' # A complex, 3 x 2 x (2) mixed design with a variable amount of participants in the 6 groups:
-#' dta <- GRD(BSFactors = "difficulty(3) : gender (2)", 
+#'  # A complex, 3 x 2 x (2) mixed design with a variable amount of participants in the 6 groups:
+#'  dta <- GRD(BSFactors = "difficulty(3) : gender (2)", 
 #'          WSFactors="day(2)",
 #'          SubjectsPerGroup=c(20,24,12,13,28,29)
 #'        )
 #'
-#' # Defining population characteristics :
-#' dta <- GRD( 
+#'  # Defining population characteristics :
+#'  dta <- GRD( 
 #'          RenameDV = "IQ",
 #'          Population=list(
 #'                       mean=100,  # will set GM to 100
 #'                       stddev=15  # will set STDDEV to 15
 #'                     ) 
 #'         )
-#' hist(dta$IQ)
+#'  hist(dta$IQ)
 #'
-#'
+#'  # This example adds an effect along the "Difficulty" factor with a slope of 15
+#'  dta <- GRD(BSFactors="Difficulty(5)", SubjectsPerGroup = 1000,
+#'      Population=list(mean=50,stddev=5), 
+#'      Effects = list("Difficulty" = slope(15) )  )
+#'  # show the mean performance as a function of difficulty:
+#'  superbPlot(dta, BSFactor = "Difficulty", variables="DV")
+#' 
+#'  # an example in which the moments are correlated
+#'  dta <- GRD( BSFactors = "Difficulty(2)",WSFactors = "Moment (2)", 
+#'     SubjectsPerGroup = 1000,
+#'      Effects = list("Difficulty" = slope(3), "Moment" = slope(1) ),
+#'      Population=list(mean=50,stddev=20,rho=0.85)
+#'  )
+#'  # the mean plot on the raw data
+#'  superbPlot(dta, BSFactor = "Difficulty", WSFactor = "Moment(2)", 
+#'      variables=c("DV.1","DV.2"), plotStyle="line",
+#'      adjustments = list (purpose="difference") )
+#'  # the mean plot on the decorrelated data; 
+#'  # because of correlation, the error bars are markedly different
+#'  superbPlot(dta, BSFactor = "Difficulty", WSFactor = "Moment(2)", 
+#'      variables=c("DV.1","DV.2"), plotStyle="line",
+#'      adjustments = list (purpose="difference", decorrelation = "CM") )
+#'  
+#' 
+#' 
+#' 
 #' @importFrom Rdpack reprompt
 #' @export GRD
 #' @export extent
 #' @export slope
 #' @export custom
 #' @export Rexpression
+#' @import stats
+#' @import MASS
 #'
 ######################################################################################
 
@@ -81,10 +108,9 @@ GRD <- function(
     #####################################################
     # STEP 0: Load required library
     #####################################################
-    require(stats)
-    require(MASS)
-    require(matrixcalc)
-    
+    #require(stats)      # all the statistics function
+    #require(MASS)       # for mvrnorm
+
     #####################################################
     # STEP 1: Determining experimental design
     #####################################################
@@ -266,11 +292,11 @@ GRD <- function(
     ############################################
     # runs F0 effect
     if (multivariate) {
-        temp <- function(args) { do.call(what="F0",args=as.list(args),quote=FALSE)}
-        deltaDV  <- as.vector( t(apply(data[1:subj,], 1, temp)) ) 
+        temp1    <- function(args) { do.call(what="F0",args=as.list(args),quote=FALSE)}
+        deltaDV  <- as.vector( t(apply(data[1:subj,], 1, temp1)) ) 
     } else {
-        temp <- function(args) { do.call(what="F0",args=as.list(args),quote=FALSE)}
-        deltaDV  <- apply(data, 1, temp)    
+        temp1    <- function(args) { do.call(what="F0",args=as.list(args),quote=FALSE)}
+        deltaDV  <- apply(data, 1, temp1)    
     }
     data$DV <- data$DV + deltaDV
     
@@ -278,27 +304,27 @@ GRD <- function(
     if (neffects > 0) {
         for (effect in 1 : neffects) {
             f <- paste("F", effect, sep="")
-            temp <- function(args) { do.call(what=f,args=as.list(args),quote=FALSE)}
-            deltaDV  <- apply(data, 1, temp)    
+            temp2 <- function(args) { do.call(what=f,args=as.list(args),quote=FALSE)}
+            deltaDV  <- apply(data, 1, temp2)    
             data$DV <- data$DV + deltaDV
         }
     } 
 
     # runs CO, the contaminant function
     if (cmultivariate) {
-        temp   <- function(args) { do.call(what="C0",args=as.list(args),quote=FALSE)}
-        contam <- t(apply(data[1:subj,], 1, temp) )
+        temp3   <- function(args) { do.call(what="C0",args=as.list(args),quote=FALSE)}
+        contam <- t(apply(data[1:subj,], 1, temp3) )
         popula <- matrix(data$DV, nrow = subj, byrow= FALSE)
         ps     <- runif(subj)
-        temp   <- function(de, a, b, p) {if(de < p) {a} else {b} }
-        ttt    <- t(mapply(temp, ps, contam, popula, p=PROP))
+        temp4   <- function(de, a, b, p) {if(de < p) {a} else {b} }
+        ttt    <- t(mapply(temp4, ps, contam, popula, p=PROP))
         data$DV <- as.vector(ttt)
     } else {
-        temp   <- function(args) { do.call(what="C0",args=as.list(args),quote=FALSE)}
-        contam <- apply(data, 1, temp)    
+        temp3   <- function(args) { do.call(what="C0",args=as.list(args),quote=FALSE)}
+        contam <- apply(data, 1, temp3)    
         ps     <- runif(rows)
-        temp   <- function(de, a, b, p) {if(de < p) {a} else {b} }
-        data$DV <- mapply(temp, ps, contam, data$DV, p=PROP)
+        temp4   <- function(de, a, b, p) {if(de < p) {a} else {b} }
+        data$DV <- mapply(temp4, ps, contam, data$DV, p=PROP)
     }
 
   
@@ -319,6 +345,31 @@ GRD <- function(
     #####################################################
     return(data)
 }
+
+
+
+
+######################################################################################
+#' @title effect description
+#'
+#' @aliases slope extent custom Rexpression
+#'
+#' @description There is four ways that effects can be defined
+#' in GRD. "factor = slope(s)" will vary the means by an amount of s for 
+#' each step of the factor; "factor = extent(s)" will vary the means
+#' uniformly so that there is a difference of s between the first and
+#' the last factor level; "factor = custom(a,b,c..)" will alter each
+#' means by an amount of a for the first, b for the second, etc. Finally
+#' "factor = Rexpression("R code")" will apply R code to all levels of 
+#' the factors. R code result alters the base mean.
+#'
+#' @param s the size of the effet or a R code string
+#'
+#'
+#' @return These internal functions are not meant to be used in 
+#' isolation in any meaningful way...
+#'
+#'
 
 
 ##################################################################   

@@ -85,14 +85,14 @@ test_that("test 2a: 1 facteur à 3 mesures répétées; (3)", {
 test_that("test 2b: 2 facteurs à mesures répétées; (3 x 2)", {
     dta2b <- GRD( WSFactors = "Moment(3): Dose(2)", SubjectsPerGroup = 5, Population = list( mean=10, stddev = 5, rho = .80))
     # write.table(dta2b, file = "test2b.dat", sep = "\t", col.names = FALSE)
-    expect_warning( p <- superbPlot(dta2b, WSFactor = c("moment(3)","Dose(2)"), 
+    p <- superbPlot(dta2b, WSFactor = c("moment(3)","Dose(2)"), 
       variables = c("DV.1.1","DV.2.1","DV.3.1","DV.1.2","DV.2.2","DV.3.2"), 
       statistic="mean", errorbar = "CI", gamma = 0.90, plotStyle = "line",
-      adjustments = list(purpose="single", decorrelation="CM"),
-      errorParams = list(position = position_dodge(width = .15)),
+      adjustments = list(purpose="difference", decorrelation="CM"),
+      errorbarParams = list(position = position_dodge(width = .15)),
       pointParams = list(position = position_dodge(width = .15)),
       Quiet=T # to supress design confirmation; unneeded in tests
-    ))
+    )
 
     expect_equal( "ggplot" %in% class(p), TRUE)
 })
@@ -135,13 +135,13 @@ test_that("test 5a: schème à quatre facteurs; 5 x 4 (3 x 2)", {
       Debug=FALSE, Summary=FALSE, Population = list( mean=10, stddev = 5, rho = .90),
       Effects = list("Moment" = slope(5), "Hand" = slope(10)) )
     # write.table(dta5a, file = "test5a.dat", sep = "\t", col.names = FALSE)
-    expect_warning( p <- superbPlot(dta5a, plotStyle="line",
+    p <- superbPlot(dta5a, plotStyle="line",
         WSFactor = c("Moment(3)","Hand(2)"), 
         BSFactor= c("Group","Dose"),
         variables = c("DV.1.1","DV.2.1","DV.3.1","DV.1.2","DV.2.2","DV.3.2"), 
         statistic = "mean", errorbar = "CI", gamma = .9999,
         adjustments = list(purpose="difference", decorrelation="CM"), Debug=F, Quiet=T
-    ))
+    )
 
     expect_equal( "ggplot" %in% class(p), TRUE)
 })
@@ -190,21 +190,21 @@ test_that("test 6b: adjustments CA vs CM vs LM", {
         SubjectsPerGroup = 6,
         Population = list (mean = 20, stddev = 5, rho = 0.8) )
     # adjustments CA vs CM vs LM
-    expect_warning( p1 <- superbPlot(dta6, 
+    p1 <- superbPlot(dta6, 
         WSFactor = c("Moment(3)","Hand(2)"), Quiet=T, 
         variables = c("DV.1.1","DV.2.1","DV.3.1","DV.1.2","DV.2.2","DV.3.2"), 
         adjustments = list(purpose="difference", decorrelation="CA") )+
-      coord_cartesian( ylim = c(8,30) ) + labs(title="CA") )
-    expect_warning( p2 <- superbPlot(dta6, 
+      coord_cartesian( ylim = c(8,30) ) + labs(title="CA") 
+    p2 <- superbPlot(dta6, 
         WSFactor = c("Moment(3)","Hand(2)"), Quiet=T, 
         variables = c("DV.1.1","DV.2.1","DV.3.1","DV.1.2","DV.2.2","DV.3.2"), 
         adjustments = list(purpose="difference", decorrelation="CM") )+
-      coord_cartesian( ylim = c(8,30) ) + labs(title="CM") )
-    expect_warning( p3 <- superbPlot(dta6, 
+      coord_cartesian( ylim = c(8,30) ) + labs(title="CM") 
+    p3 <- superbPlot(dta6, 
         WSFactor = c("Moment(3)","Hand(2)"), Quiet=T, 
         variables = c("DV.1.1","DV.2.1","DV.3.1","DV.1.2","DV.2.2","DV.3.2"), 
         adjustments = list(purpose="difference", decorrelation="LM") )+
-      coord_cartesian( ylim = c(8,30) ) + labs(title="LM") )
+      coord_cartesian( ylim = c(8,30) ) + labs(title="LM") 
     p <- grid.arrange(p1,p2,p3,ncol=3)
 
     expect_equal( "ggplot" %in% class(p1), TRUE)
@@ -285,9 +285,9 @@ test_that("test 6f: adding ggplot options to the error bars, to the points", {
       statistic = "mean", errorbar = "CI", gamma = .999,
       adjustments = list(purpose = "difference"),
       # see geom_errorbar for the possible arguments
-      errorParams = list(width = .2, size = 3, colour = "gray"),
+      errorbarParams = list(width = .2, size = 3, colour = "gray"),
       # see geom_point or geom_bar for possible arguments
-      pointParams = list(linetype = 3, colour = "black", size = .5)  
+      barParams = list(linetype = 3, colour = "black", size = .5)  
     )
 
     expect_equal( "ggplot" %in% class(p), TRUE)
@@ -300,7 +300,7 @@ test_that("test 6g: adding ggplot options to the error bars, to the points (bis)
       adjustments = list(purpose = "difference"),
       plotStyle = "line",
       # see geom_errorbar for the possible arguments
-      errorParams = list(width = .02, size = 0.1, colour = "gray"),
+      errorbarParams = list(width = .02, size = 0.1, colour = "gray"),
       # see geom_point or geom_bar for possible arguments
       pointParams = list(colour = "gray", size = 10.5)  
     )
@@ -379,31 +379,36 @@ test_that("Verifying CA and popSize ", {
 #########################################
 
 test_that("Testing pre and post processing", {
+    library(ggplot2)
     library(gridExtra)
     dta9 <- GRD( WSFactors = "Moment(3)", SubjectsPerGroup = 5, 
         Population = list( mean=20, stddev = 5),
         Effects = list("Moment" = slope(3) ) )
     # write.table(dta9, file = "file9.dat", sep = "\t", col.names = FALSE)
 
-    expect_warning( truecm <- superbPlot(dta9, WSFactor = "moment(3)",
-      adjustments=list(decorrelation="CM"),
-      errorbar = "CI", showPlot=T,
-      variables = c("DV.1","DV.2","DV.3") 
-    )+ labs(title="With decorrelation = CM") )
+    expect_warning( 
+        truecm <- superbPlot(dta9, WSFactor = "moment(3)",
+          adjustments=list(decorrelation="CM"),
+          errorbar = "CI", showPlot=T,
+          variables = c("DV.1","DV.2","DV.3") 
+        )+ labs(title="With decorrelation = CM") 
+    )
     altcm <- superbPlot(dta9, WSFactor = "moment(3)", 
       adjustments=list(decorrelation="none"),
-      preprocessfct = "subject_centering_transform",
-      postprocessfct = c("bias_correction_transform"),
+      preprocessfct = "superb:::subject_centering_transform",
+      postprocessfct = c("superb:::bias_correction_transform"),
       errorbar = "CI", showPlot=T,
       variables = c("DV.1","DV.2","DV.3") 
     )+ labs(title="with pre and post processing")
     pcm <- grid.arrange(truecm,altcm,ncol=2)
 
-    expect_warning( truelm <- superbPlot(dta9, WSFactor = "moment(3)", 
-      adjustments=list(decorrelation="LM"),
-      errorbar = "CI", showPlot=T,
-      variables = c("DV.1","DV.2","DV.3") 
-    )+ labs(title="with decorrelation = LM") )
+    expect_warning( 
+        truelm <- superbPlot(dta9, WSFactor = "moment(3)", 
+          adjustments=list(decorrelation="LM"),
+          errorbar = "CI", showPlot=T,
+          variables = c("DV.1","DV.2","DV.3") 
+        )+ labs(title="with decorrelation = LM") 
+    )
     altlm <- superbPlot(dta9, WSFactor = "moment(3)", 
       adjustments=list(decorrelation="none"),
       preprocessfct = "subject_centering_transform",
@@ -413,19 +418,22 @@ test_that("Testing pre and post processing", {
     )+ labs(title="with pre and post processing")
     plm <- grid.arrange(truelm,altlm,ncol=2)
 
-    expect_warning( truecmvslm <- superbPlot(dta9, WSFactor = "moment(3)", 
-      adjustments=list(decorrelation="LM"),
-      errorbar = "CI", showPlot=T,
-      variables = c("DV.1","DV.2","DV.3") 
-    )+ labs(title="with decorrelation = LM") )
+    expect_warning( 
+        truecmvslm <- superbPlot(dta9, WSFactor = "moment(3)", 
+          adjustments=list(decorrelation="LM"),
+          errorbar = "CI", showPlot=T,
+          variables = c("DV.1","DV.2","DV.3") 
+        )+ labs(title="with decorrelation = LM") 
+    )
     expect_warning( altcmvslm <- superbPlot(dta9, WSFactor = "moment(3)", 
-      adjustments=list(decorrelation="CM"),
-      postprocessfct = c("pool_sd_transform"),
-      errorbar = "CI", showPlot=T,
-      variables = c("DV.1","DV.2","DV.3") 
-    )+ labs(title="with decorrelation = CM and pooling") )
+        adjustments=list(decorrelation="CM"),
+        postprocessfct = c("pool_sd_transform"),
+        errorbar = "CI", showPlot=T,
+        variables = c("DV.1","DV.2","DV.3") 
+        )+ labs(title="with decorrelation = CM and pooling") 
+    )
     pcmvslm <- grid.arrange(truecmvslm,altcmvslm,ncol=2)
-
+    
     expect_equal( "ggplot" %in% class(truecm), TRUE)
     expect_equal( "ggplot" %in% class(altcm), TRUE)
     expect_equal( "ggplot" %in% class(truelm), TRUE)

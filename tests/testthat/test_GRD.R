@@ -489,18 +489,13 @@ test_that("page 17", {
 
 test_that("page 18", {
     library(fMultivar)
-    xi <- c(0,0)
-    assign("xi", c(0,0), envir = globalenv())
-    omega <- diag(2)
-    omega[1,2] <- omega[2,1] <- 0.5
-    assign("omega", omega, envir = globalenv())
-    alpha <- c(2,-6)
-    assign("alpha", c(2,-6), envir = globalenv())
+    # the parameters of the rmsn distribution are
+    # xi, omega, alpha
     dta <- GRD(
       WSFactors = "Difficulty(2)",
       SubjectsPerGroup = 1000,
       Population = list(rho = 99,
-        scores = 'sn::rmsn(1,xi,omega,alpha)'
+        scores = 'sn::rmsn(1, c(0,0), as.array(cbind(c(1,0.5),c(0.5,1))), c(2,-6))'
       )
     )
     plot(dta$DV.1, dta$DV.2)
@@ -646,18 +641,13 @@ test_that("figure 3:", {
     plot(dta$DV.1, dta$DV.2)
     # panel 3: multivariate skew normal 
     library(fMultivar)
-    xi    <- c(0,0)
-    assign("xi", c(0,0), envir = globalenv())
-    Omega <- diag(2)
-    Omega[1,2] <- Omega[2,1] <- 0.5
-    assign("Omega", Omega, envir = globalenv())
-    alpha <- c(2,-6)
-    assign("alpha", c(2,-6), envir = globalenv())
+    # the parameters of the rmsn distribution are
+    # xi, omega, alpha
 
     dta <- GRD( 
       WSFactors = 'Difficulty(1, 2)',
       SubjectsPerGroup = 1000,
-      Population=list(rho=99,scores="sn::rmsn(1,xi,Omega,alpha)")
+      Population=list(rho=99,scores="sn::rmsn(1, c(0,0), as.array(cbind(c(1,0.5),c(0.5,1))), c(2,-6) )")
     )
     plot(dta$DV.1, dta$DV.2)
     dev.off()

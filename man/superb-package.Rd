@@ -6,7 +6,7 @@
 \alias{superb-package}
 \title{superb: Computes Standard Error and Confidence Interval of Means Under Various Designs and Sampling Schemes}
 \description{
-Computes standard error and confidence interval of means under various designs and sampling schemes
+Computes standard error and confidence interval of means under various designs and sampling schemes.
 }
 \details{
 \code{suberb} is a library to perform descriptive statistics plots
@@ -23,7 +23,7 @@ These classic confidence intervals are oblivious to most relevant information.
 
 The superb framework is based on the idea that correct, well-informed, confidence 
 intevals can be obtained with a succession of simple corrections. I call these
-"adjusted confidence intervals".
+"adjusted confidence intervals". 
 
 The main function is
 
@@ -31,7 +31,8 @@ The main function is
 
 where \code{df} is a dataframe.
 
-See \code{help(superbPlot)} for more details.
+For more details on the underlying math, see
+\insertCite{c05,c19,c17,cl16,m08,b12,lm94,gc19}{superb}
 
 A second function inserted in this package is \insertCite{ch19}{superb}
 
@@ -39,6 +40,7 @@ A second function inserted in this package is \insertCite{ch19}{superb}
 
 which generates random datasets. It easily generate ficticious dataset
 so that superbPlot can be tested rapidly. This function is described in 
+\insertCite{ch19}{superb}.
 
  @references
      \insertAllCited{}

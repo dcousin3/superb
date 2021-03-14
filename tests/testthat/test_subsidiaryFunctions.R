@@ -57,13 +57,13 @@ test_that("Testing is.stat.function", {
 
 
 test_that("Testing is.plot.function", {
-    expect_equal(superb:::is.plot.function("adsff"), FALSE)
-    expect_equal(superb:::is.plot.function("superbPlot"), FALSE)
-    expect_equal(superb:::is.plot.function("superbPlot.bar"), TRUE)
-    expect_equal(superb:::is.plot.function("superbPlot.line"), TRUE)
-    expect_equal(superb:::is.plot.function("superbPlot.point"), TRUE)
-    expect_equal(superb:::is.plot.function("superbPlot.pointjitter"), TRUE)
-    expect_equal(superb:::is.plot.function("superbPlot.pointjitterdensity"), TRUE)
+    expect_equal(superb:::is.superbPlot.function("adsff"), FALSE)
+    expect_equal(superb:::is.superbPlot.function("superbPlot"), FALSE)
+    expect_equal(superb:::is.superbPlot.function("superbPlot.bar"), TRUE)
+    expect_equal(superb:::is.superbPlot.function("superbPlot.line"), TRUE)
+    expect_equal(superb:::is.superbPlot.function("superbPlot.point"), TRUE)
+    expect_equal(superb:::is.superbPlot.function("superbPlot.pointjitter"), TRUE)
+    expect_equal(superb:::is.superbPlot.function("superbPlot.pointjitterviolin"), TRUE)
 })
 
 
@@ -75,19 +75,19 @@ test_that("Testing the built-in plotting function", {
                     lowerwidth = cbind(c(-3,-2,-3,-2,-2,-4)),
                     upperwidth = cbind(c(+3,+2,+3,+2,+2,+4))
             )
+    tg  <- ToothGrowth
+    tg$DV <- tg$len
 
-    p1 <- superbPlot.bar(dta, "dose", #"center", "center+lowerwidth", "center+upperwidth",
-        "supp", c(NULL,NULL), list(color="black"), list(color="purple") )
-    p2 <- superbPlot.line(dta,"dose", #"center", "center+lowerwidth", "center+upperwidth",
-        "supp", c(NULL, NULL), list(color="black"), list(color="purple") )
-    p3 <- superbPlot.point(dta,"dose", #"center", "center+lowerwidth", "center+upperwidth",
-        "supp", c(NULL, NULL), list(), list() )
-    p4 <- superbPlot.pointjitter(dta,"dose", #"center", "center+lowerwidth", "center+upperwidth",
-        "supp", c(NULL, NULL), list(color="black"), list(color="purple"),
-        ToothGrowth, "len")
-    p5 <- superbPlot.pointjitterdensity(dta,"dose", #"center", "center+lowerwidth", "center+upperwidth",
-         "supp", ".~dose", list(color="black"), list(color="purple"),
-        ToothGrowth, "len") +
+    p1 <- superbPlot.bar(dta, "dose", 
+        "supp", ".~.", FALSE, tg, list(color="black"), list(color="purple") )
+    p2 <- superbPlot.line(dta, "dose", 
+        "supp", ".~.", FALSE, tg, list(color="black"), list(color="purple") )
+    p3 <- superbPlot.point(dta, "dose", 
+        "supp", ".~.", FALSE, tg, list(), list() )
+    p4 <- superbPlot.pointjitter(dta, "dose", 
+        "supp", ".~.", FALSE, tg, list(color="black"), list(color="purple") )
+    p5 <- superbPlot.pointjitterviolin(dta, "dose", 
+         "supp", ".~dose", FALSE, tg, list(color="black"), list(color="purple") ) +
         scale_x_continuous("mean ratings")
     expect_output( str(p1), "List of 9")
     expect_output( str(p2), "List of 9")
