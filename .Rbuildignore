@@ -2,3 +2,4 @@
 ^doc$
 ^Meta$
 cran-comments.md
+.travis.yml

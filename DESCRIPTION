@@ -12,10 +12,11 @@ Authors@R: c(
                     role = c("ctb"))
            )
 Author: Denis Cousineau [aut, cre]
-    Bradley Harding [cbt]
-    Marc-André Goulet [cbt]
+    Bradley Harding [ctb]
+    Marc-André Goulet [ctb]
 Maintainer: Denis cousineau <denis.cousineau@uottawa.ca>
-Description: Computes standard error and confidence interval of means under various designs and sampling schemes.
+Description: 
+    Computes standard error and confidence interval of means under various designs and sampling schemes.
 License: GPL-3
 Encoding: UTF-8
 VignetteBuilder: knitr

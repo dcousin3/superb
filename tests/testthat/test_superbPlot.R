@@ -395,8 +395,8 @@ test_that("Testing pre and post processing", {
     )
     altcm <- superbPlot(dta9, WSFactor = "moment(3)", 
       adjustments=list(decorrelation="none"),
-      preprocessfct = "superb:::subject_centering_transform",
-      postprocessfct = c("superb:::bias_correction_transform"),
+      preprocessfct = "subject_centering_transform",
+      postprocessfct = c("bias_correction_transform"),
       errorbar = "CI", showPlot=T,
       variables = c("DV.1","DV.2","DV.3") 
     )+ labs(title="with pre and post processing")

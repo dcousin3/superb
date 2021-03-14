@@ -322,7 +322,7 @@ superbPlot.simple(summary, "T", "Condition", ".~.", FALSE, raw)
 In what follow, we create a toy example where the raw data
 will be shown with smileys. Note that this example may not
 work in Rstudio (see "limitation" on emojifont 
-[page](https://cran.r-project.org/web/packages/emojifont/vignettes/emojifont.html)
+[page](https://CRAN.R-project.org/package=emojifont)
 )
 
 We first need the ``emojifont`` library

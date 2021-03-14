@@ -92,6 +92,10 @@
 #'
 #'
 #' @export superbPlot
+#' @export two_step_transform
+#' @export subject_centering_transform 
+#' @export bias_correction_transform 
+#' @export pool_sd_transform
 #' @importFrom lsr wideToLong
 #' @importFrom plyr ddply
 #' @import ggplot2
@@ -564,6 +568,28 @@ colSDs = function (x) {
 # tranform functions:   two_step_transform; pool_sd_transform;
 #                       bias_correction_transform; subject_centering_transform;
 #################################################################################
+
+
+
+######################################################################################
+#' @title transformations
+#'
+#' @aliases two_step_transform subject_centering_transform bias_correction_transform pool_sd_transform
+#'
+#' @description two_step_transform, subject_centering_transform, 
+#' bias_correction_transform and pool_sd_transform are four 
+#' transformations that can be applied to a matrix of data.
+#'
+#' @param dta a data.frame containing the data in wide format;
+#' @param variables a vector of column names on which the transformation will be applied.
+#'     the remaining columns will be left unchanged
+#'
+#' @return a data.frame of the same form as dta with the variables transformed.
+#'
+#'
+
+
+
 
 two_step_transform <- function(dta, variables) {
     # from O'Brien and Cousineau (2014) The Quantitative Methods for Psychology
