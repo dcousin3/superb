@@ -22,7 +22,7 @@ are paired? Of course, not! Why use the classic "stand-alone" confidence interva
 These classic confidence intervals are oblivious to most relevant information.
 
 The superb framework is based on the idea that correct, well-informed, confidence 
-intevals can be obtained with a succession of simple corrections. I call these
+intervals can be obtained with a succession of simple corrections. I call these
 "adjusted confidence intervals". 
 
 The main function is
@@ -41,9 +41,9 @@ A second function inserted in this package is \insertCite{ch19}{superb}
 which generates random datasets. It easily generate ficticious dataset
 so that superbPlot can be tested rapidly. This function is described in 
 \insertCite{ch19}{superb}.
-
- @references
-     \insertAllCited{}
+}
+\references{
+\insertAllCited{}
 
 The package includes additional, helper, functions: \itemize{
      \item{\code{ShroutFleissICC1}} to compute intra-class correlation;

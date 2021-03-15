@@ -9,7 +9,7 @@ epsilon(dta, cols)
 \arguments{
 \item{dta}{a data.frame}
 
-\item{cols}{a vector of colum names indicating the relevant
+\item{cols}{a vector of column names indicating the relevant
 columns on which to compute epsilon. Any other columns are ignored.}
 }
 \value{

@@ -6,7 +6,7 @@
 #'   null hypothesis that the covariance matrix is spherical. 
 #'   This test is described in \insertCite{a10}{superb}
 #'
-#' @param dta A data frame contining within-subject measures, one participant per line; 
+#' @param dta A data frame containing within-subject measures, one participant per line; 
 #' @param cols A vector indicating the columns containing the measures. 
 #'
 #' @return p the p-value of the null hypothesis that the data are spherical.

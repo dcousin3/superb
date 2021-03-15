@@ -29,7 +29,7 @@ in the study a control group to which the results of the treatment group will be
 ## A paradoxical example
 
 Imagine a study in a school examining the impact of playing collaborative games 
-before begining the classes. This study most likely will have two groups, one where
+before beginning the classes. This study most likely will have two groups, one where
 the students are playing collaborative games and one where the students will have non-
 structured activities prior to classes. Then, the objective of the study is to
 *compare* the two groups.
@@ -50,7 +50,7 @@ superbPlot(dataFigure1,
 ```
 
 As seen, there seems to be a better score for students playing collaborative games. 
-Taking into accound the confidence interval, the manipulation seems to improve
+Taking into account the confidence interval, the manipulation seems to improve
 significantly the learning behavior as the lower end of the *Collaborative games* group
 is above the *Unstructured activity* mean (and vice versa).
 
@@ -68,7 +68,7 @@ t_out(t.test(dataFigure1$score[dataFigure1$grp==1],
 ## The origin of the paradox 
 
 The reason is that the confidence intervals used are "stand-alone": They can be used to
-examine, say, the firt group to the value 100. As this value is outside the interval,
+examine, say, the first group to the value 100. As this value is outside the interval,
 we are correct in concluding that 100 is significantly different (with level $\alpha$
  of .05) from 100, as confirmed by a single-group t-test:
 
@@ -99,12 +99,12 @@ is in single groups in isolation.
 ## Adjusting the error bars
 
 Assuming that the variances are roughly homogeneous between group (an assumption made by 
-the t-test), there is a simple adjustment that can be brougth to the error bars: just
+the t-test), there is a simple adjustment that can be brought to the error bars: just
 increase their length by $\sqrt(2)$. As $\sqrt(2) \approx 1.41$ it means increasing 
 their length by 41%.
 
 With ``superbPlot``, this so-called *difference adjustment* [@b12] is obtained easily
-by additing an adjustment to the list of adjustments with ``adjustments = list(purpose = 
+by adding an adjustment to the list of adjustments with ``adjustments = list(purpose = 
 "difference")``, as seen below.
 
 ```{r, message=FALSE, echo=TRUE, fig.cap="Figure 2: Mean scores along with difference-adjusted 95% confidence interval for two groups of students on the quality of learning behavior."}
@@ -120,7 +120,7 @@ superbPlot(dataFigure1,
     scale_x_discrete(labels=c("1" = "Collaborative games", "2" = "Unstructured activity"))
 ```
 
-This is where the usefullness of ``superb`` is apparent: it only required an option to 
+This is where the usefulness of ``superb`` is apparent: it only required an option to 
 mutate the plot from a plot showing means with stand-alone confidence intervals to a plot
 showing means with difference-adjusted confidence intervals.
 
@@ -154,7 +154,7 @@ plt2 <- superbPlot(dataFigure1,
 plt <- grid.arrange(plt1, plt2, ncol=2)
 ```
 
-A second way to compare the two plots is to superimpse them, as in Figure 4:
+A second way to compare the two plots is to superimpose them, as in Figure 4:
 
 ```{r, message=FALSE, echo=TRUE, fig.cap="Figure 4: Two representations of the results with adjusted and unadjusted error bars on the same plot"}
 # generate the two plots, nudging the error bars, using distinct colors, and having the background transparent

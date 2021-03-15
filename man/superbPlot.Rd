@@ -42,7 +42,7 @@ panels, vertical panels)}
 \item{errorbar}{The function that computes the error bar. Should be "CI" or "SE" or 
 any function name. Defaults to "SE"}
 
-\item{gamma}{The converage factor; necessary when errorbar == "CI". Default is 0.95.}
+\item{gamma}{The coverage factor; necessary when errorbar == "CI". Default is 0.95.}
 
 \item{adjustments}{List of adjustments as described below:
  popsize: Size of the population under study. Defaults to Inf
@@ -62,7 +62,7 @@ Defaults to "bar".}
 
 \item{Debug}{export internal information into global environment. Default is FALSE}
 
-\item{Quiet}{Defaut to False, a boolean to inhibit showing additional information as warnings}
+\item{Quiet}{Default to False, a boolean to inhibit showing additional information as warnings}
 
 \item{preprocessfct}{is a transform (or vector of) to be performed first on data matrix of each group}
 
@@ -71,9 +71,9 @@ Defaults to "bar".}
 \item{clusterColumn}{used in conjunction with samplingDesign = "CRS", indicates which column contains the cluster membership}
 
 \item{...}{In addition to the parameters above, superbPlot also accept a number of 
-optional arguments that will betransmitted to the plotting function, such as
+optional arguments that will be transmitted to the plotting function, such as
 pointParams (a list of ggplot2 parameters to input inside geoms; see ?geom_bar2) and
-errorbarParams (a list of ggplot2 parameters for geom_errobar; see ?geom_errorbar)}
+errorbarParams (a list of ggplot2 parameters for geom_errorbar; see ?geom_errorbar)}
 }
 \value{
 a plot with the correct error bars or a table of those summary statistics.

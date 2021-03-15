@@ -12,7 +12,7 @@
 #' These classic confidence intervals are oblivious to most relevant information.
 #' 
 #' The superb framework is based on the idea that correct, well-informed, confidence 
-#' intevals can be obtained with a succession of simple corrections. I call these
+#' intervals can be obtained with a succession of simple corrections. I call these
 #' "adjusted confidence intervals". 
 #' 
 #' The main function is
@@ -32,7 +32,7 @@
 #' so that superbPlot can be tested rapidly. This function is described in 
 #' \insertCite{ch19}{superb}.
 #' 
-#'  @references
+#' @references
 #'      \insertAllCited{}
 #' 
 #' The package includes additional, helper, functions: \itemize{

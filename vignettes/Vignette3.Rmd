@@ -31,7 +31,7 @@ concluded that the factor influenced the group of participants.
 
 ## An example
 
-Consider a study trying to establish the benefit of using exercices to improve 
+Consider a study trying to establish the benefit of using exercises to improve 
 visuo-spatial abilities onto scores in statistics reasoning, as measured by a standardized 
 test with scores ranging from 50 to 150. The design is a within-subject design,
 specifically a pre-exercices measure and a post-exercices measure of statistics reasoning.
@@ -106,7 +106,7 @@ t_out(t.test(dataFigure2$pre, dataFigure2$post, paired=TRUE))
 
 ## What is the impact on confidence intervals?
 
-The above suggests that within-subject designs can be much more powerfull than between-
+The above suggests that within-subject designs can be much more powerful than between-
 subject design. As long as there is a general trend visible in most participants, the
 paired design will afford more statistical power. How to we know that there is a
 general trend? An easy solution is to compute the correlation across the pairs of 

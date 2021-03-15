@@ -14,7 +14,7 @@
 #' @param statistic The summary statistic function to use
 #' @param errorbar The function that computes the error bar. Should be "CI" or "SE" or 
 #'      any function name. Defaults to "SE"
-#' @param gamma The converage factor; necessary when errorbar == "CI". Default is 0.95.
+#' @param gamma The coverage factor; necessary when errorbar == "CI". Default is 0.95.
 #' @param adjustments List of adjustments as described below:
 #'  popsize: Size of the population under study. Defaults to Inf
 #'  purpose: The purpose of the comparisons. Defaults to "single". 
@@ -28,15 +28,15 @@
 #' @param showPlot Defaults to TRUE. Set to FALSE if you want the output to be the summary statistics and intervals.
 #' @param plotStyle The type of object to plot on the graph. Can be either "bar" or "line".
 #'      Defaults to "bar".
-#' @param Quiet Defaut to False, a boolean to inhibit showing additional information as warnings
+#' @param Quiet Default to False, a boolean to inhibit showing additional information as warnings
 #' @param clusterColumn used in conjunction with samplingDesign = "CRS", indicates which column contains the cluster membership
 #' @param Debug export internal information into global environment. Default is FALSE
 #' @param preprocessfct  is a transform (or vector of) to be performed first on data matrix of each group
 #' @param postprocessfct is a transform (or vector of)
 #' @param ...  In addition to the parameters above, superbPlot also accept a number of 
-#'  optional arguments that will betransmitted to the plotting function, such as
+#'  optional arguments that will be transmitted to the plotting function, such as
 #'  pointParams (a list of ggplot2 parameters to input inside geoms; see ?geom_bar2) and
-#'  errorbarParams (a list of ggplot2 parameters for geom_errobar; see ?geom_errorbar)
+#'  errorbarParams (a list of ggplot2 parameters for geom_errorbar; see ?geom_errorbar)
 #'
 #'
 #' @return a plot with the correct error bars or a table of those summary statistics.

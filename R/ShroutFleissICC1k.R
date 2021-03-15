@@ -9,7 +9,7 @@
 #'   when the measures are in distinct clusters, identified in column clustercol.
 #'   See \insertCite{sf79}{superb}.
 #' 
-#' @param dta A data frame contining within-subject measures, one participant per line; 
+#' @param dta A data frame containing within-subject measures, one participant per line; 
 #' @param clustercol is the column index where cluster belonging are given;
 #' @param cols A vector indicating the columns containing the measures. 
 #'

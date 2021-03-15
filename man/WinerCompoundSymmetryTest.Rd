@@ -7,7 +7,7 @@
 WinerCompoundSymmetryTest(dta, cols)
 }
 \arguments{
-\item{dta}{A data frame contining within-subject measures, one participant per line;}
+\item{dta}{A data frame containing within-subject measures, one participant per line;}
 
 \item{cols}{A vector indicating the columns containing the measures.}
 }

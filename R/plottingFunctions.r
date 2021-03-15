@@ -17,7 +17,7 @@
 #'
 #'
 #' @param summarydata a data.frame with columns "center", "lowerwidth" and "upperwidth" for each level of the factors;
-#' @param xvar a string with the name of the colum where the factor going on the horizontal axis is given;
+#' @param xvar a string with the name of the column where the factor going on the horizontal axis is given;
 #' @param groupingfac a string with the name of the column for which the data will be grouped on the plot;
 #' @param addfactors a string with up to two additional factors to make the rows and columns panels, in the form "fact1 ~ fact2";
 #' @param Debug a boolean to display or not debugging information 

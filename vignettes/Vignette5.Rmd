@@ -49,7 +49,7 @@ The six layout available in  ``superbPlot`` package are :
 
 * ``superbPlot.pointindividualline``: show the results with fat points, and individual results with thin lines, 
 
-To determine if a certain fonction is ``superbPlot``-compatible, 
+To determine if a certain function is ``superbPlot``-compatible, 
 use the following function:
 
 ```{r}
@@ -71,7 +71,7 @@ the interval) and that, for each level of the factors;
 
 * applies all the adjustments needed in producing the summary;
 
-* ``superbPlot`` also transform to discret factors (using 
+* ``superbPlot`` also transform to discrete factors (using 
 ``as.factor``) all the factors. If some of the factors are
 within-subject, the information is to be found in distinct column (
 remember that ``superbPlot`` assumes a wide-format data frame); for
@@ -113,7 +113,7 @@ The arguments are:
 indicating the statistic's value, ``lowerwidth`` and ``upperwidth``
 indicating how many units below and above ``center`` the error bar
 extends. The data frame will also have columns for all the factors, 
-and there will be as many lines as there are combinaisons of factors.
+and there will be as many lines as there are combinations of factors.
 
 * ``xvar`` is the factor to put on the horizontal axis;
 
@@ -273,10 +273,10 @@ superbPlot(TMB1964r,
 
 ## Getting Debug information
 
-It is sometimes usefull to extract variables out of the function
+It is sometimes useful to extract variables out of the function
 when debugging the code. A useful function is to use ``runDebug``.
 This function (shipped with ``suberb``) will display text and
-transfer any variables you want into the global environnement.
+transfer any variables you want into the global environment.
 
 ```{r, eval=FALSE, message=FALSE, echo=TRUE, results='hide'}
 runDebug( Debug, "Text to show",

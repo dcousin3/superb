@@ -22,9 +22,9 @@ library(superb)
 library(ggplot2)
 ```
 
-The package ``superb`` facilites the production of 
+The package ``superb`` faciliti es the production of 
 summary statistics having the correct error bars. Error bars are
-measures of precisions; they are meant to convey some indications of
+measures of precision; they are meant to convey some indications of
 the trust we can place in a given results. Those results that come
 will large error bars (wide intervals) should be considered less
 trustable that those with short error bars. 
@@ -169,7 +169,7 @@ head(dta)
 
 The argument in which the adjustments will be listed is called ``adjustments`` which is
 a list with ---for the moment--- an adjustment for the purpose of the plot: ``purpose =
- "difference"``. The standalone CI is the default (it can be obtained explicitely with 
+ "difference"``. The standalone CI is the default (it can be obtained explicitly with 
 ``purpose= single``). These two expressions, *single* and *difference*, are from @b12. 
 
 Note that the plot obtained is a ``ggplot`` object to which additional graphing
@@ -193,7 +193,7 @@ scale_x_discrete(labels=c("1" = "Week 1", "2" = "Week 2", "3"="Week 3"))
 
 The directives in ``errorbarParams`` are injected inside the ``geom_errorbar`` in charge of 
 drawing the error bars whereas the remaining directives are applied to the whole plot.
-The reader is refered to the package ``ggplot2`` for more on these graphing directives.
+The reader is referred to the package ``ggplot2`` for more on these graphing directives.
 
 
 ## Step 2: Decide how to handle the within-subject measures
@@ -210,7 +210,7 @@ three methods for decorrelation:
 
 * ``CM``: this method, called from the two authors Cousineau and Morey [@c05;@m08], will
 decorrelate the data but each measurement may have different adjustments;
-* ``LM``: this method, the first developped by Loftus and Masson [-@lm94], will 
+* ``LM``: this method, the first developed by Loftus and Masson [-@lm94], will 
 make all the error bars have the same length;
 * ``CA``: this method, called *correlation-based adjustment* was proposed in @c19. 
 As per CM, the error bars can be different in length.
@@ -239,7 +239,7 @@ scale_x_discrete(labels=c("1" = "Week 1", "2" = "Week 2", "3"="Week 3"))
 
 Unless you add the option ``Quiet = TRUE``, the command will issue some additional
 information. In the present data set, $\varepsilon$ is 0.54 which is low. A Mauchly test
-of sphericity indicates rejection of sphericity, so interprete the error bars with caution.
+of sphericity indicates rejection of sphericity, so interpret the error bars with caution.
 
 
 ## Step 3: Specify the sampling procedure and the population size
@@ -249,7 +249,7 @@ randomly, a method formally called *Simple Randomize Sampling* (SRS). However, t
 is not the only sampling method possible. Another commonly employed sampling procedure 
 is cluster sampling (formally *Cluster Randomized Sampling*, CRS). The CRS is the
 only one (beyond SRS) where the exact adjustment is known [@cl16] and thus SRS (no 
-adustment) and CRS (adjustments that tend to widen the error bars) are the
+adjustment) and CRS (adjustments that tend to widen the error bars) are the
 only two sampling adjustments currently implemented in ``superb``. 
 
 Other sampling methods includes *Stratified Sampling*, *Snowball Sampling*, *Convenience
@@ -260,7 +260,7 @@ When the population under scrutiny is finite, you may have a sizeable proportion
 the population in your sample, which improves precision. In this case, the error bars will
 be shortened.
 
-These adjustments are implemented in ``superb`` with additional adjustements, such as
+These adjustments are implemented in ``superb`` with additional adjustments, such as
 
 ```{r, message=FALSE, echo=TRUE , results='hide'}
 # add (ficticious) cluster membership for each participant in the column "cluster"

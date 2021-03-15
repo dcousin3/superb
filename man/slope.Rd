@@ -10,7 +10,7 @@
 slope(s)
 }
 \arguments{
-\item{s}{the size of the effet or a R code string}
+\item{s}{the size of the effect or a R code string}
 }
 \value{
 These internal functions are not meant to be used in 

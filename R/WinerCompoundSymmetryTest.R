@@ -9,7 +9,7 @@
 #'   \insertCite{w91}{superb}, p. 517.
 #'
 #'
-#' @param dta A data frame contining within-subject measures, one participant per line; 
+#' @param dta A data frame containing within-subject measures, one participant per line; 
 #' @param cols A vector indicating the columns containing the measures. 
 #'
 #' @return p the p-value of the null hypothesis that the data are compound symmetric.

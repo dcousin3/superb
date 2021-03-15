@@ -23,7 +23,7 @@ superbPlot.bar(
 \arguments{
 \item{summarydata}{a data.frame with columns "center", "lowerwidth" and "upperwidth" for each level of the factors;}
 
-\item{xvar}{a string with the name of the colum where the factor going on the horizontal axis is given;}
+\item{xvar}{a string with the name of the column where the factor going on the horizontal axis is given;}
 
 \item{groupingfac}{a string with the name of the column for which the data will be grouped on the plot;}
 

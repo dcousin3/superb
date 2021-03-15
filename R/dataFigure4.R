@@ -3,7 +3,7 @@
 #' The data, inspired from \insertCite{c17}{superb}, shows an example where the
 #' "stand-alone" 95% confidence interval of the means returns
 #' a result in contradiction with the result of a statistical test.
-#' The paradoxical result is resovled by using adjusted confidence intervals,
+#' The paradoxical result is resolved by using adjusted confidence intervals,
 #' here the population size-adjusted confidence interval.
 #'
 #' @docType data
@@ -17,7 +17,7 @@
 #' @references 
 #'          \insertAllCited{}
 #'
-#' @source \href{https://doi.org/10.5709#acp-0214-z}{doi}
+#' @source \doi{10.5709/acp-0214-z}
 #'
 #' @examples
 #' library(ggplot2)

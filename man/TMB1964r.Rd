@@ -7,9 +7,6 @@
 \format{
 An object of class data.frame.
 }
-\source{
-\href{https://doi.org/10.20982/tqmp.17.02.p0xx}{doi: 10.20982/tqmp.17.02.p0xx}
-}
 \usage{
 data(TMB1964r)
 }
@@ -20,8 +17,8 @@ study from \insertCite{tmb64}{superb}.
 \details{
 The design is a (7) x 4 with:  7 levels of stimulus duration (within-subject) and
 4 between-subject conditions.
-Additional variables included in the reproduction is the primary language of the particpant
-in which he/she participanted (mainly francophones and anglophones; 
+Additional variables included in the reproduction is the primary language of the participant
+in which he/she participated (mainly francophones and anglophones; 
 and the gender (mainly male and female).
 }
 \examples{

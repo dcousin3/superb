@@ -25,7 +25,7 @@ library(superb)
 library(ggplot2)
 ```
 
-## Changing the summary funtion to be plotted
+## Changing the summary function to be plotted
 
 By default, ``superbPlot`` generates mean plots along with 95% confidence intervals of 
 the mean. However, these choices can be changed.
@@ -85,7 +85,7 @@ p <- grid.arrange(p1,p2,p3,p4, ncol=2)
 Any summary function can be accepted by superbPlot, as long as it is given
 within double-quote. The built-in statistics functions such as ``mean`` and 
 ``median`` can be given. Actually, any descriptive statistics, not just central
-tendancy, can be provided. That includes ``IQR``, ``mad``, etc. To be valid,
+tendency, can be provided. That includes ``IQR``, ``mad``, etc. To be valid,
 the function must return a number when given a vector of numbers.
 
 In doubt, you can test if the function is valid for superbPlot with

@@ -363,7 +363,7 @@ GRD <- function(
 #' "factor = Rexpression("R code")" will apply R code to all levels of 
 #' the factors. R code result alters the base mean.
 #'
-#' @param s the size of the effet or a R code string
+#' @param s the size of the effect or a R code string
 #'
 #'
 #' @return These internal functions are not meant to be used in 

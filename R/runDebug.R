@@ -7,7 +7,7 @@
 #'
 #' @param state boolean (TRUE to activate runDebug)
 #' @param title string text to be displayed when this function is triggered
-#' @param vars strings names of the variables to be placed in the globalenvironment
+#' @param vars strings names of the variables to be placed in the global environment
 #' @param vals numeric values to be given to the variables.
 #'
 #' @return puts in the globalenvironment the variables named "vars"

@@ -11,7 +11,7 @@ runDebug(state, title, vars, vals)
 
 \item{title}{string text to be displayed when this function is triggered}
 
-\item{vars}{strings names of the variables to be placed in the globalenvironment}
+\item{vars}{strings names of the variables to be placed in the global environment}
 
 \item{vals}{numeric values to be given to the variables.}
 }

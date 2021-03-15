@@ -8,7 +8,7 @@
 An object of class data.frame.
 }
 \source{
-\href{https://doi.org/10.1037/met0000055}{doi}
+\doi{10.5709/acp-0214-z}
 }
 \usage{
 data(dataFigure3)
@@ -17,7 +17,7 @@ data(dataFigure3)
 The data, inspired from \insertCite{cl16}{superb}, is an example where the
 "stand-alone" 95% confidence interval of the means returns
 a result in contradiction with the result of a statistical test.
-The paradoxical result is resovled by using adjusted confidence intervals,
+The paradoxical result is resolved by using adjusted confidence intervals,
 here the cluster- and different-adjusted confidence interval.
 }
 \examples{

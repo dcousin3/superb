@@ -9,7 +9,7 @@
 #' 
 #' 
 #' @param dta a data.frame
-#' @param cols a vector of colum names indicating the relevant
+#' @param cols a vector of column names indicating the relevant
 #' columns on which to compute epsilon. Any other columns are ignored.
 #' 
 #' @return returns the Hyunh-Feldt estimate of sphericity epsilon

@@ -9,7 +9,7 @@
 ShroutFleissICC1(dta, clustercol, cols)
 }
 \arguments{
-\item{dta}{A data frame contining within-subject measures, one participant per line;}
+\item{dta}{A data frame containing within-subject measures, one participant per line;}
 
 \item{clustercol}{is the column index where cluster belonging are given;}
 

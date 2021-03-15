@@ -1,7 +1,7 @@
 Package: superb
 Type: Package
 Title: Computes Standard Error and Confidence Interval of Means Under Various Designs and Sampling Schemes
-Version: 0.9.3
+Version: 0.9.4
 Date: 2021-02-28
 Authors@R: c(
              person("Denis", "Cousineau", email = "denis.cousineau@uottawa.ca",
@@ -11,10 +11,10 @@ Authors@R: c(
              person("Marc-André", "Goulet", email = "magoulet101@gmail.com",
                     role = c("ctb"))
            )
-Author: Denis Cousineau [aut, cre]
-    Bradley Harding [ctb]
+Author: Denis Cousineau [aut, cre],
+    Bradley Harding [ctb],
     Marc-André Goulet [ctb]
-Maintainer: Denis cousineau <denis.cousineau@uottawa.ca>
+Maintainer: Denis Cousineau <denis.cousineau@uottawa.ca>
 Description: 
     Computes standard error and confidence interval of means under various designs and sampling schemes.
 License: GPL-3
