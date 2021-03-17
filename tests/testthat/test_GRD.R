@@ -251,10 +251,13 @@ test_that("Generating multivariate normal data (2/2)", {
        Population=list(mean=0,stddev=20,rho=-0.85), 
        Contaminant=list(mean=100,stddev=4,rho=-0.99,proportion=0.25)
     )
-    par(mfrow=c(1,2))
+    oldpar <- par(mfrow=c(1,2))
     plot(dta[dta$grp == 1,]$DV.1,dta[dta$grp==1,]$DV.2, ylim=c(-150,150), xlim=c(-150,150))
     plt2 <- plot(dta[dta$grp == 2,]$DV.1,dta[dta$grp==2,]$DV.2, ylim=c(-150,150), xlim=c(-150,150)) 
     expect_output( str(plt2), "NULL")
+
+    # restores parameters
+    par(oldpar)
 })
 
 
@@ -526,12 +529,15 @@ test_that("page 19", {
       Population = list(mean = 0, stddev = 15, rho=-0.85 ),
       Contaminant = list(mean =100, stddev = 4, rho = -0.99, proportion = 0.1) 
     )
-    par(mfrow=c(1,2))
+    oldpar <- par(mfrow=c(1,2))
     plot(dta[dta$grp ==1,]$DV.1,dta[dta$grp==1,]$DV.2,
       ylim = c(-150,150), xlim = c(-150,150))
     plot(dta[dta$grp ==2,]$DV.1,dta[dta$grp==2,]$DV.2,
       ylim = c(-150,150), xlim = c(-150,150))
     expect_equal( dim(dta), c(2000,4))
+
+    # restores parameters
+    par(oldpar)
 })
 
 
@@ -555,7 +561,7 @@ test_that("page 20", {
 
 test_that("figure 1", {
     png('figure1.png',width=800,height=300,res=96)
-    par(mfrow=c(1,3))
+    oldpar <- par(mfrow=c(1,3))
     # panel 1: unaffected (p. 4)
     dta <- GRD( SubjectsPerGroup = 1000 )
     hist(dta$DV )
@@ -575,6 +581,9 @@ test_that("figure 1", {
     hist(dta$RT,breaks=seq(min(dta$DV,245)-5,max(dta$DV,410)+5,by=5))
     dev.off()
     expect_equal( dim(dta), c(5000,2))
+
+    # restores parameters
+    par(oldpar)
 })
 
 
@@ -624,7 +633,7 @@ test_that("figure 2:", {
 
 test_that("figure 3:", {
     png('figure3.png',width=800,height=300,res=96)
-    par(mfrow=c(1,3))
+    oldpar <- par(mfrow=c(1,3))
     # panel 1: multivariate normal
     dta <- GRD( 
       WSFactors = 'Difficulty(1,2)',
@@ -652,12 +661,15 @@ test_that("figure 3:", {
     plot(dta$DV.1, dta$DV.2)
     dev.off()
     expect_equal( dim(dta), c(1000,3))
+
+    # restores parameters
+    par(oldpar)
 })
 
 
 test_that("figure 4:", {
     png('figure4.png',width=800,height=300,res=96)
-    par(mfrow=c(1,4))
+    oldpar <- par(mfrow=c(1,4))
     # panel 1
     dta <- GRD(SubjectsPerGroup = 5000, 
       Population=list( mean=100, stddev = 15 ), 
@@ -684,5 +696,8 @@ test_that("figure 4:", {
     #done
     dev.off()
     expect_equal( dim(dta), c(2000,4))
+
+    # restores parameters
+    par(oldpar)
 })
 

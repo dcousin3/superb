@@ -4,9 +4,15 @@
 \name{superb-package}
 \alias{superb}
 \alias{superb-package}
-\title{superb: Computes Standard Error and Confidence Interval of Means Under Various Designs and Sampling Schemes}
+\title{superb: Get Precision of Means Under Various Designs and Sampling Schemes}
 \description{
-Computes standard error and confidence interval of means under various designs and sampling schemes.
+Computes standard error and confidence interval of various descriptive statistics under 
+    various designs and sampling schemes. The main function superbPlot can either return a plot 
+    or a dataframe with the statistic and its precision interval so that other plotting package
+    can be used. See Cousineau (2017) <doi:10.5709/acp-0214-z> for a review or Cousineau (2005)
+    <doi:10.20982/tqmp.01.1.p042>, Morey (2008) <doi:10.20982/tqmp.04.2.p061>, Baguley (2012)
+    <doi:10.3758/s13428-011-0123-7>, Cousineau & Laurencelle (2016) <doi:10.1037/met0000055>,
+    Cousineau & O'Brien (2014) <doi:10.3758/s13428-013-0441-z>.
 }
 \details{
 \code{suberb} is a library to perform descriptive statistics plots

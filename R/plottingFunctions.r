@@ -24,6 +24,7 @@
 #' @param rawdata always contains "DV" for each participants and each level of the factors
 #' @param barParams (optional) list of graphic directives that are sent to the geom_bar layer
 #' @param errorbarParams (optional) list of graphic directives that are sent to the geom_errorbar layer
+#' @param facetParams (optional) list of graphic directives that are sent to the facet_grid layer
 #'
 #' @return a ggplot object
 #'
@@ -54,7 +55,8 @@ superbPlot.bar <- function(
     rawdata        = NULL,     # unused
     # what follows are optional
     barParams      = list(),   # merged into geom_bar
-    errorbarParams = list()    # merged into geom_errorbar
+    errorbarParams = list(),   # merged into geom_errorbar
+    facetParams    = list()    # merged into facet_grid
 ) {
     runDebug(Debug, "Entering superbPlot.bar", c("xvar2", "groupingfac2", "addfactors2"), list(xvar, groupingfac, addfactors))
 
@@ -78,7 +80,10 @@ superbPlot.bar <- function(
         errorbarParams
     )) +
     # the panels (rows or both rows and columns, NULL if no facet)
-    facet_grid( addfactors)
+    do.call( facet_grid, modifyList(
+        list( rows = addfactors ),
+        facetParams
+    ))
         
     return(plot)
 }
@@ -98,7 +103,8 @@ superbPlot.line <- function(
     # what follows are optional
     pointParams     = list(), 
     lineParams      = list(), 
-    errorbarParams  = list()
+    errorbarParams  = list(),
+    facetParams     = list()    
 ) {
     runDebug(Debug, "Entering superbPlot.line", c("xvar2", "groupingfac2", "addfactors2"), list(xvar, groupingfac, addfactors))
 
@@ -130,7 +136,10 @@ superbPlot.line <- function(
         )
     ) + 
     # the panels (rows or both rows and columns, NULL if no facet)
-    facet_grid( addfactors )
+    do.call( facet_grid, modifyList(
+        list( rows = addfactors ),
+        facetParams
+    ))
         
     return(plot)
 }
@@ -149,7 +158,8 @@ superbPlot.point <- function(
     rawdata        = NULL,     # unused
     # what follows are optional
     pointParams     = list(), 
-    errorbarParams  = list()
+    errorbarParams  = list(),
+    facetParams     = list()    
 ) {
     runDebug(Debug, "Entering superbPlot.point", c("xvar2", "groupingfac2", "addfactors2"), list(xvar, groupingfac, addfactors))
 
@@ -173,7 +183,10 @@ superbPlot.point <- function(
          errorbarParams
     )) +
     # the panels (rows or both rows and columns, NULL if no facet)
-    facet_grid( addfactors )
+    do.call( facet_grid, modifyList(
+        list( rows = addfactors ),
+        facetParams
+    ))
     
     return(plot)
 }
@@ -197,7 +210,8 @@ superbPlot.pointjitter <- function(
     # what follows are optional
     pointParams     = list(), 
     jitterParams    = list(),  
-    errorbarParams  = list()
+    errorbarParams  = list(),
+    facetParams     = list()    
 ) {
     runDebug(Debug, "Entering superbPlot.pointjitter", 
         c("xvar2", "groupingfac2", "addfactors2","pointParams2","jitterParams2","errorbarParams2"), list(xvar, groupingfac, addfactors, pointParams, jitterParams, errorbarParams))
@@ -230,7 +244,10 @@ superbPlot.pointjitter <- function(
         jitterParams
     )) +
     # the panels (rows or both rows and columns, NULL if no facet)
-    facet_grid( addfactors )
+    do.call( facet_grid, modifyList(
+        list( rows = addfactors ),
+        facetParams
+    ))
 
     return(plot)
 }
@@ -251,12 +268,13 @@ superbPlot.pointjitterviolin <- function(
     pointParams     = list(), 
     jitterParams    = list(), 
     violinParams    = list(), 
-    errorbarParams  = list()
+    errorbarParams  = list(),
+    facetParams     = list()
 ) {
     runDebug(Debug, "Entering superbPlot.pointjitterviolin", 
         c("xvar2", "groupingfac2", "addfactors2","pointParams2","jitterParams2","violinParams2","errorbarParams2"), list(xvar, groupingfac, addfactors, pointParams, jitterParams, violinParams, errorbarParams))
 
-    plot<- ggplot(data    = summarydata, 
+    plot <- ggplot(data    = summarydata, 
                   mapping = aes_string(x = xvar )
         ) +
         do.call( geom_violin, modifyList(
@@ -277,7 +295,10 @@ superbPlot.pointjitterviolin <- function(
                 mapping = aes_string(y = "DV", colour = groupingfac),
                 position = position_jitterdodge(jitter.width=0.15, dodge.width=0.9) ),
             jitterParams) ) +
-        facet_grid( addfactors ) 
+        do.call( facet_grid, modifyList(
+            list( rows = addfactors ),
+            facetParams
+        ))
 
     return(plot)
 }
@@ -298,7 +319,8 @@ superbPlot.pointindividualline <- function(
     # what follows are optional
     pointParams    = list(), 
     lineParams     = list(),  
-    errorbarParams = list()
+    errorbarParams = list(),
+    facetParams    = list()  
 ) {
     runDebug(Debug, "Entering superbPlot.pointindividualline", 
         c("xvar2", "groupingfac2", "addfactors2","pointParams2","lineParams2","errorbarParams2"), list(xvar, groupingfac, addfactors, pointParams, lineParams, errorbarParams))
@@ -331,7 +353,10 @@ superbPlot.pointindividualline <- function(
         errorbarParams
     )) + 
     # the panels (rows or both rows and columns, NULL if no facet)
-    facet_grid( addfactors )
+    do.call( facet_grid, modifyList(
+        list( rows = addfactors ),
+        facetParams
+    ))
 
     return(plot)
 }

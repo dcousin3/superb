@@ -17,7 +17,8 @@ superbPlot.bar(
   Debug = FALSE,
   rawdata = NULL,
   barParams = list(),
-  errorbarParams = list()
+  errorbarParams = list(),
+  facetParams = list()
 )
 }
 \arguments{
@@ -36,6 +37,8 @@ superbPlot.bar(
 \item{barParams}{(optional) list of graphic directives that are sent to the geom_bar layer}
 
 \item{errorbarParams}{(optional) list of graphic directives that are sent to the geom_errorbar layer}
+
+\item{facetParams}{(optional) list of graphic directives that are sent to the facet_grid layer}
 }
 \value{
 a ggplot object
