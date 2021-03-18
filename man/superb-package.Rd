@@ -72,6 +72,7 @@ Other contributors:
 \itemize{
   \item Bradley Harding \email{bradley.harding@umoncton.ca} [contributor]
   \item Marc-André Goulet \email{magoulet101@gmail.com} [contributor]
+  \item Jesika Walker \email{jwalk050@uottawa.ca} [artist]
 }
 
 }
