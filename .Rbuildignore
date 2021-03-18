@@ -1,6 +1,6 @@
 ^.git$
 ^doc$
 ^Meta$
-cran-comments.md
-.travis.yml
+^cran-comments.md
+^.travis.yml
 ^CRAN-RELEASE$
