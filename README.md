@@ -26,18 +26,6 @@ as `aov()` or plotting procedures such as `superbPlot()`.
 
 ``` r
 install.packages("superb")
-```
-
-    ## Installing package into 'C:/Users/DenisCousineau/AppData/Local/Temp/RtmpkLpGCy/temp_libpath17f7c2f63449d'
-    ## (as 'lib' is unspecified)
-
-    ## Warning: package 'superb' is not available for this version of R
-    ## 
-    ## A version of this package for your version of R might be available elsewhere,
-    ## see the ideas at
-    ## https://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Installing-packages
-
-``` r
 library(superb)
 ```
 
@@ -53,7 +41,7 @@ superbPlot(ToothGrowth,
     variables = "len" )
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 This explicitely indicates to display the median instead of the default
 mean statistics
@@ -65,7 +53,7 @@ superbPlot(ToothGrowth,
     statistic = "median")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 This example generates scores for 3000 simulated participants in a 3 x 2
 design with repeated-measures on days. The factor day is belived to
@@ -84,12 +72,12 @@ head(testdata)
 ```
 
     ##   id Difficulty  score.1  score.2
-    ## 1  1          1 44.90375 61.27902
-    ## 2  2          1 70.66386 56.72789
-    ## 3  3          1 92.24386 92.96150
-    ## 4  4          1 73.87552 79.91657
-    ## 5  5          1 75.95869 54.88111
-    ## 6  6          1 88.30228 81.54658
+    ## 1  1          1 44.36149 52.33782
+    ## 2  2          1 62.54696 61.97709
+    ## 3  3          1 77.13658 69.43967
+    ## 4  4          1 74.79975 64.34213
+    ## 5  5          1 76.36133 62.76585
+    ## 6  6          1 81.24775 76.45837
 
 ``` r
 superbPlot(testdata, 
@@ -100,7 +88,7 @@ superbPlot(testdata,
 )
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 # For more
 

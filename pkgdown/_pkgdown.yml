@@ -24,7 +24,7 @@ reference:
     contents:
       - '`epsilon`'
       - '`lambda`'
-      - '`MauchlySpericityTest`'
+      - '`MauchlySphericityTest`'
       - '`runDebug`'
       - '`ShroutFleissICC1`'
       - '`slope`'
