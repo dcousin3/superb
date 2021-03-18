@@ -14,6 +14,7 @@ Authors@R: c(
 Author: Denis Cousineau [aut, cre],
     Bradley Harding [ctb],
     Marc-André Goulet [ctb]
+    Jesika Walker [art]
 Maintainer: Denis Cousineau <denis.cousineau@uottawa.ca>
 Description: 
     Computes standard error and confidence interval of various descriptive statistics under 

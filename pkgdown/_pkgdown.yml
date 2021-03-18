@@ -7,6 +7,10 @@ reference:
     contents:
       - '`superbPlot`'
       - '`GRD`'
+  - title: plots
+    desc: built-in templates for plots
+    contents:
+      - '`superbPlot.bar`'
   - title: Datasets
     desc: Examples of data sets
     contents:
@@ -16,7 +20,7 @@ reference:
       - '`dataFigure4`'
       - '`TMB1964r`'
   - title: Internals
-    desc: Internal functions and helpers
+    desc: Internal functions
     contents:
       - '`epsilon`'
       - '`lambda`'
@@ -26,8 +30,3 @@ reference:
       - '`slope`'
       - '`two_step_transform`'
       - '`WinerCompoundSymmetryTest`'
-  - title: plots
-    desc: built-in templates for plots
-    contents:
-      - '`superbPlot.bar`'
-navbar: 
