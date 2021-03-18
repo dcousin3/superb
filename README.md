@@ -16,35 +16,37 @@ effect sizes. GRD is useful to test statistical procedures such as
 
 # Installation
 
-```{r, eval=FALSE}
+```{r}
 install.packages("superb")
 library(superb)
 ```
 
 # Examples
 
-```{r, fig.cap = "Example of a simple mean plot with 95% confidence interval"}
-# This is a simple example illustrating the ToothGrowth of rats
-# as a function of the dose of vitamin and the form of the vitamin (pills or juice)
+This is a simple example illustrating the ToothGrowth of rats
+as a function of the dose of vitamin and the form of the vitamin (pills or juice)
+
+```{r}
 superbPlot(ToothGrowth, 
     BSFactor = c("dose","supp"), 
     variables = "len" )
 ```
 
+This explicitely indicates to display the 
+median instead of the default mean statistics
 
-```{r, fig.cap ="Example of a median plot with 95% confidence interval of the median"}
-# This explicitely indicates to display the 
-# median instead of the default mean statistics
+```{r}
 superbPlot(ToothGrowth, 
     BSFactor = c("dose","supp"), 
     variables = "len",
     statistic = "median")
 ```
 
+This example generates scores for 3000 simulated participants in 
+a 3 x 2 design with repeated-measures on days.
+The factor day is belived to improve the scores (reducing it)
+
 ```{r}
-# This example generates scores for 3000 simulated participants in 
-# a 3 x 2 design with repeated-measures on days.
-# The factor day is belived to improve the scores (reducing it)
 testdata <- GRD(
     RenameDV   = "score", 
     SubjectsPerGroup = 1000, 
