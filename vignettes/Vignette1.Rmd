@@ -1,6 +1,5 @@
 ---
-title: "Three steps to make your plot"
-author: "Denis Cousineau"
+title: "Four steps to make your plot"
 bibliography: "../inst/REFERENCES.bib"
 csl: "../inst/apa-6th.csl"
 output: 
@@ -22,14 +21,14 @@ library(superb)
 library(ggplot2)
 ```
 
-The package ``superb`` faciliti es the production of 
-summary statistics having the correct error bars. Error bars are
+The package ``superb`` facilitates the production of 
+summary statistics plots having the correct error bars. Error bars are
 measures of precision; they are meant to convey some indications of
 the trust we can place in a given results. Those results that come
 will large error bars (wide intervals) should be considered less
-trustable that those with short error bars. 
+reliable that those with short error bars. 
 
-Error bars (and measures of precision) comes in many flavors. There is
+Error bars, which are drawn from measures of precision, comes in many flavors. There is
 the simple *standard error* (SE), the more famous *confidence interval* (CI), and 
 new proposals such as the *high density interval* (HDI). The package ``superb``
 has build-in functions for both the SE and CI, but any other measure of precision
@@ -37,7 +36,7 @@ can be added (as shown in Vignette 4).
 
 All measures of precision are tailored for a given statistics. Hence, we have the
 *standard error of the mean*, the *standard error of the median*, the *confidence
-interval of the skew*, etc. for every and all statistic, there is a corresponding
+interval of the skew*, etc. For every and all statistic, there is a corresponding
 measure of precision.  In what follows, we discuss the confidence interval, but
 everything that follows apply equally well to any measure of precision.
 
@@ -50,7 +49,7 @@ when an observed result is to be compared to other observed results [also see
 
 In order to use ``superb``, four choices need to be made, described next. Prior to 
 that, it is necessary to check the data format. Herein we illustrate the means with 
-95% confidence intervals; this can be changed, as see in Vignette 5. We begin with data
+95% confidence intervals; these can be changed, as shown in Vignette 4. We begin with data
 format.
 
 ## Data format

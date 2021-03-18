@@ -1,4 +1,12 @@
-## Resubmission
+## Resubmission 2
+This is the second resubmission. 
+* I added () to the only function
+name given in the Description field of the DESCRIPTION file which
+now read "The main function, superbPlot(), can either..."
+(I hope I understood correctly the comment);
+* I took this opportunity to rephrase a few sentences in the Vignettes.
+
+## Resubmission 1
 This is the first resubmission. In this version I have:
 * shorten the title to 65 chars.
 * expand DESCRIPTION with refs and their doi

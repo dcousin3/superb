@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Three steps to make your plot • superb</title>
+<title>Four steps to make your plot • superb</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Three steps to make your plot">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Four steps to make your plot">
 <meta property="og:description" content="This vignette reviews the steps needed to realize your summary plot with correct error bars.
 ">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.2</span>
       </span>
     </div>
 
@@ -55,10 +55,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/Vignette1.html">Three steps to make your plot</a>
+      <a href="../articles/Vignette1.html">Four steps to make your plot</a>
     </li>
     <li>
-      <a href="../articles/Vignette2.html">Why use difference-adjusted confidence intervals</a>
+      <a href="../articles/Vignette2.html">Why use difference-adjusted confidence intervals?</a>
     </li>
     <li>
       <a href="../articles/Vignette3.html">Why use correlation-adjusted confidence intervals?</a>
@@ -88,8 +88,7 @@
       </header><script src="Vignette1_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Three steps to make your plot</h1>
-                        <h4 class="author">Denis Cousineau</h4>
+      <h1 data-toc-skip>Four steps to make your plot</h1>
             
       
       
@@ -99,11 +98,11 @@
 
     
     
-<p>The package <code>superb</code> faciliti es the production of summary statistics having the correct error bars. Error bars are measures of precision; they are meant to convey some indications of the trust we can place in a given results. Those results that come will large error bars (wide intervals) should be considered less trustable that those with short error bars.</p>
-<p>Error bars (and measures of precision) comes in many flavors. There is the simple <em>standard error</em> (SE), the more famous <em>confidence interval</em> (CI), and new proposals such as the <em>high density interval</em> (HDI). The package <code>superb</code> has build-in functions for both the SE and CI, but any other measure of precision can be added (as shown in Vignette 4).</p>
-<p>All measures of precision are tailored for a given statistics. Hence, we have the <em>standard error of the mean</em>, the <em>standard error of the median</em>, the <em>confidence interval of the skew</em>, etc. for every and all statistic, there is a corresponding measure of precision. In what follows, we discuss the confidence interval, but everything that follows apply equally well to any measure of precision.</p>
+<p>The package <code>superb</code> facilitates the production of summary statistics plots having the correct error bars. Error bars are measures of precision; they are meant to convey some indications of the trust we can place in a given results. Those results that come will large error bars (wide intervals) should be considered less reliable that those with short error bars.</p>
+<p>Error bars, which are drawn from measures of precision, comes in many flavors. There is the simple <em>standard error</em> (SE), the more famous <em>confidence interval</em> (CI), and new proposals such as the <em>high density interval</em> (HDI). The package <code>superb</code> has build-in functions for both the SE and CI, but any other measure of precision can be added (as shown in Vignette 4).</p>
+<p>All measures of precision are tailored for a given statistics. Hence, we have the <em>standard error of the mean</em>, the <em>standard error of the median</em>, the <em>confidence interval of the skew</em>, etc. For every and all statistic, there is a corresponding measure of precision. In what follows, we discuss the confidence interval, but everything that follows apply equally well to any measure of precision.</p>
 <p>The basic confidence interval can be termed a “stand-alone” confidence interval because it indicates the precision of a statistic in isolation. It is useful to compare this statistics to –say– criterion performance or any <em>a priori</em>-determined value. As shown in Vignettes 2 and 3, such “stand-alone” measures are inadequate when an observed result is to be compared to other observed results <span class="citation">(also see Cousineau, 2005, 2017)</span>.</p>
-<p>In order to use <code>superb</code>, four choices need to be made, described next. Prior to that, it is necessary to check the data format. Herein we illustrate the means with 95% confidence intervals; this can be changed, as see in Vignette 5. We begin with data format.</p>
+<p>In order to use <code>superb</code>, four choices need to be made, described next. Prior to that, it is necessary to check the data format. Herein we illustrate the means with 95% confidence intervals; these can be changed, as shown in Vignette 4. We begin with data format.</p>
 <div id="data-format" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data-format" class="anchor"></a>Data format</h2>

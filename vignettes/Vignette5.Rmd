@@ -165,7 +165,7 @@ superbPlot(TMB1964r,
      WSFactor = "T(7)",      
      BSFactor = "Condition",
      variables = c("T1","T2","T3","T4","T5","T6","T7"),
-     plotStyle = "simple", Quiet = TRUE, Debug=T
+     plotStyle = "simple", Quiet = TRUE, Debug=FALSE
 )
 ```
 

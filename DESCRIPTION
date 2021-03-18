@@ -1,7 +1,7 @@
 Package: superb
 Type: Package
 Title: Get Precision of Means Under Various Designs and Sampling Schemes
-Version: 0.9.4.1
+Version: 0.9.4.2
 Date: 2021-03-17
 Authors@R: c(
              person("Denis", "Cousineau", email = "denis.cousineau@uottawa.ca",
@@ -17,7 +17,7 @@ Author: Denis Cousineau [aut, cre],
 Maintainer: Denis Cousineau <denis.cousineau@uottawa.ca>
 Description: 
     Computes standard error and confidence interval of various descriptive statistics under 
-    various designs and sampling schemes. The main function superbPlot can either return a plot 
+    various designs and sampling schemes. The main function, superbPlot(), can either return a plot 
     or a dataframe with the statistic and its precision interval so that other plotting package
     can be used. See Cousineau (2017) <doi:10.5709/acp-0214-z> for a review or Cousineau (2005)
     <doi:10.20982/tqmp.01.1.p042>, Morey (2008) <doi:10.20982/tqmp.04.2.p061>, Baguley (2012)

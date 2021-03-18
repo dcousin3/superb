@@ -1,6 +1,5 @@
 ---
-title: "Why use difference-adjusted confidence intervals"
-author: "Denis Cousineau"
+title: "Why use difference-adjusted confidence intervals?"
 bibliography: "../inst/REFERENCES.bib"
 csl: "../inst/apa-6th.csl"
 output: 
@@ -10,7 +9,7 @@ description: >
   This vignette explains the difference between a regular confidence interval
   and a difference-adjusted confidence interval.
 vignette: >
-  %\VignetteIndexEntry{Why use difference-adjusted confidence intervals}
+  %\VignetteIndexEntry{Why use difference-adjusted confidence intervals?}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
@@ -23,8 +22,8 @@ library(ggplot2)
 ```
 
 Most studies examine the effect of a certain factor on a measure. However, very rarely 
-do we have hypotheses stating what would be the expected result. Instead, we find 
-in the study a control group to which the results of the treatment group will be compared.
+do we have hypotheses stating what would be the expected result. Instead, we have a 
+control group to which the results of the treatment group will be compared.
 
 ## A paradoxical example
 

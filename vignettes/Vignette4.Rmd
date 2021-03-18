@@ -1,6 +1,5 @@
 ---
 title: "Using a custom statistic with its error bar"
-author: "Denis Cousineau"
 bibliography: "../inst/REFERENCES.bib"
 csl: "../inst/apa-6th.csl"
 output: 
@@ -47,7 +46,7 @@ then make plots varying the statistics displayed.
 
 ```{r, message=FALSE, echo=TRUE, fig.cap="Figure 1: Various statistics and various measures of precisions"}
 # Generate a random dataset from a (3 x 2) design, entirely within subject.
-# The sample size is very small (n=5) and the crrelation between scores is high (rho = .8)
+# The sample size is very small (n=5) and the correlation between scores is high (rho = .8)
 dta <- GRD( 
     WSFactors  = "Moment(3): Dose(2)", 
     Effects    = list("Dose*Moment"=custom(0,0,0,1,1,3)), 
@@ -291,7 +290,7 @@ on average to the bootstrap approach.
 
 ## In summary
 
-The function ``superbPlot`` is entirely customizable: you can put any decriptive statistic
+The function ``superbPlot`` is entirely customizable: you can put any descriptive statistic
 function and any interval function into ``superbPlot``. In a sense, ``superbPlot`` is 
 simply a proxy that manage the dataset and produces standardized dataframes apt to be
 transmitted to a ggplot specification. It is also possible to obtain the summary

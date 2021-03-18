@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.2</span>
       </span>
     </div>
 
@@ -55,10 +55,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/Vignette1.html">Three steps to make your plot</a>
+      <a href="../articles/Vignette1.html">Four steps to make your plot</a>
     </li>
     <li>
-      <a href="../articles/Vignette2.html">Why use difference-adjusted confidence intervals</a>
+      <a href="../articles/Vignette2.html">Why use difference-adjusted confidence intervals?</a>
     </li>
     <li>
       <a href="../articles/Vignette3.html">Why use correlation-adjusted confidence intervals?</a>
@@ -89,7 +89,6 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Using a custom statistic with its error bar</h1>
-                        <h4 class="author">Denis Cousineau</h4>
             
       
       
@@ -112,7 +111,7 @@
 <p>In what follow, we use GRD to generate a random dataset with an interaction then make plots varying the statistics displayed.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Generate a random dataset from a (3 x 2) design, entirely within subject.</span>
-<span class="co"># The sample size is very small (n=5) and the crrelation between scores is high (rho = .8)</span>
+<span class="co"># The sample size is very small (n=5) and the correlation between scores is high (rho = .8)</span>
 <span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span> 
     WSFactors  <span class="op">=</span> <span class="st">"Moment(3): Dose(2)"</span>, 
     Effects    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"Dose*Moment"</span><span class="op">=</span><span class="fu"><a href="../reference/slope.html">custom</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span>, 
@@ -322,7 +321,7 @@ Figure 4: superbPlot with a custom-made descriptive sttistic function
 <div id="in-summary" class="section level2">
 <h2 class="hasAnchor">
 <a href="#in-summary" class="anchor"></a>In summary</h2>
-<p>The function <code>superbPlot</code> is entirely customizable: you can put any decriptive statistic function and any interval function into <code>superbPlot</code>. In a sense, <code>superbPlot</code> is simply a proxy that manage the dataset and produces standardized dataframes apt to be transmitted to a ggplot specification. It is also possible to obtain the summary dataframe by issuing the option <code>showPlot=FALSE</code></p>
+<p>The function <code>superbPlot</code> is entirely customizable: you can put any descriptive statistic function and any interval function into <code>superbPlot</code>. In a sense, <code>superbPlot</code> is simply a proxy that manage the dataset and produces standardized dataframes apt to be transmitted to a ggplot specification. It is also possible to obtain the summary dataframe by issuing the option <code>showPlot=FALSE</code></p>
 <p>The function <code>superbPlot</code> is also customizable with regards to the plot produced. Included in the package are * <code>superbPlot.line</code> : shows the results as points and lines, * <code>superbPlot.point</code>: shows the results as points only, * <code>superbPlot.bar</code> : shows the results using bars, * <code>superbPlot.pointjitter</code>: shows the results with points, and the raw data with jittered points, * <code>superbPlot.pointjitterviolin</code>: also shows violin plot behind the jitter points, and * <code>superbPlot.pointindividualline</code>: show the results with fat points, and individual results with thin lines,</p>
 <p>Vignette 5 shows how to create new plotting functions. Proposals are welcome.</p>
 </div>

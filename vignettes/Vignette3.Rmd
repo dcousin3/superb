@@ -1,6 +1,5 @@
 ---
 title: "Why use correlation-adjusted confidence intervals?"
-author: "Denis Cousineau"
 bibliography: "../inst/REFERENCES.bib"
 csl: "../inst/apa-6th.csl"
 output: 
@@ -34,7 +33,7 @@ concluded that the factor influenced the group of participants.
 Consider a study trying to establish the benefit of using exercises to improve 
 visuo-spatial abilities onto scores in statistics reasoning, as measured by a standardized 
 test with scores ranging from 50 to 150. The design is a within-subject design,
-specifically a pre-exercices measure and a post-exercices measure of statistics reasoning.
+specifically a pre-exercises measure and a post-exercises measure of statistics reasoning.
 
 The data are available in ``dataFigure2``; here is a snapshot of it
 
