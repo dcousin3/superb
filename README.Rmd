@@ -3,7 +3,7 @@ output: github_document
 ---
 
 # superb: Summary statistics plotted with correct error bars
- <img src="docs/logo.png" align="right" alt="" width="120" />
+ <img src="logo.png" align="right" alt="" width="120" />
 
 <!-- badges: start -->
 [![CRAN Status](https://www.r-pkg.org/badges/version/superb)](https://cran.r-project.org/package=superb)

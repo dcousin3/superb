@@ -1,7 +1,7 @@
 
 # superb: Summary statistics plotted with correct error bars
 
-<img src="docs/logo.png" align="right" alt="" width="120" />
+<img src="logo.png" align="right" alt="" width="120" />
 
 <!-- badges: start -->
 
@@ -72,12 +72,12 @@ head(testdata)
 ```
 
     ##   id Difficulty  score.1  score.2
-    ## 1  1          1 44.36149 52.33782
-    ## 2  2          1 62.54696 61.97709
-    ## 3  3          1 77.13658 69.43967
-    ## 4  4          1 74.79975 64.34213
-    ## 5  5          1 76.36133 62.76585
-    ## 6  6          1 81.24775 76.45837
+    ## 1  1          1 62.49679 69.72102
+    ## 2  2          1 81.75847 79.13177
+    ## 3  3          1 79.96406 49.84184
+    ## 4  4          1 62.37338 69.49319
+    ## 5  5          1 79.74607 69.16255
+    ## 6  6          1 67.03875 78.16241
 
 ``` r
 superbPlot(testdata, 

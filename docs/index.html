@@ -104,7 +104,7 @@
 <div id="superb-summary-statistics-plotted-with-correct-error-bars" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#superb-summary-statistics-plotted-with-correct-error-bars" class="anchor"></a>superb: Summary statistics plotted with correct error bars</h1></div>
-<p><img src="docs/logo.png" align="right" alt="" width="120"></p>
+<p><img src="logo.png" align="right" alt="" width="120"></p>
 <!-- badges: start -->
 <p><a href="https://cran.r-project.org/package=superb"><img src="https://www.r-pkg.org/badges/version/superb" alt="CRAN Status"></a> <!-- badges: end --></p>
 <p>The library <code>superb</code> offers two main functions, <code><a href="reference/superbPlot.html">superbPlot()</a></code> and <code><a href="reference/GRD.html">GRD()</a></code>. The purpose of <code><a href="reference/superbPlot.html">superbPlot()</a></code> is to provide a plot with summary statistics and correct error bars. With simple adjustments, the error bar are adjusted to the design (within or between), to the purpose (single or pair-wise differences), to the sampling method (simple randomized samples or cluster randomized samples) and to the population size (infinite or of a specific size).</p>
@@ -145,12 +145,12 @@
 <span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">testdata</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">##   id Difficulty  score.1  score.2</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1  1          1 44.36149 52.33782</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2  2          1 62.54696 61.97709</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3  3          1 77.13658 69.43967</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4  4          1 74.79975 64.34213</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5  5          1 76.36133 62.76585</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6  6          1 81.24775 76.45837</span></span></code></pre></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1  1          1 62.49679 69.72102</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2  2          1 81.75847 79.13177</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3  3          1 79.96406 49.84184</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4  4          1 62.37338 69.49319</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5  5          1 79.74607 69.16255</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6  6          1 67.03875 78.16241</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">testdata</span>, 
     BSFactor  <span class="op">=</span> <span class="st">"Difficulty"</span>, 
