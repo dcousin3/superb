@@ -1,0 +1,33 @@
+title: superb
+url: http://dcousin3.github.io/superb
+
+reference:
+  - title: Exported Functions
+    desc: Main functions
+    contents:
+      - '`superbPlot`'
+      - '`GRD`'
+  - title: Datasets
+    desc: Examples of data sets
+    contents:
+      - '`dataFigure1`'
+      - '`dataFigure2`'
+      - '`dataFigure3`'
+      - '`dataFigure4`'
+      - '`TMB1964r`'
+  - title: Internals
+    desc: Internal functions and helpers
+    contents:
+      - '`epsilon`'
+      - '`lambda`'
+      - '`MauchlySpericityTest`'
+      - '`runDebug`'
+      - '`ShroutFleissICC1`'
+      - '`slope`'
+      - '`two_step_transform`'
+      - '`WinerCompoundSymmetryTest`'
+  - title: plots
+    desc: built-in templates for plots
+    contents:
+      - '`superbPlot.bar`'
+navbar: 
