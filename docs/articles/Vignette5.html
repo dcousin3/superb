@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.3</span>
       </span>
     </div>
 
@@ -142,7 +142,6 @@
     <span class="va">xvar</span>,       
     <span class="va">groupingfac</span>,
     <span class="va">addfactors</span>, 
-    <span class="va">Debug</span>, 
     <span class="va">rawdata</span>        
     <span class="co"># any optional argument you wish</span>
 <span class="op">)</span> <span class="op">{</span>
@@ -155,7 +154,6 @@
 <li><p><code>xvar</code> is the factor to put on the horizontal axis;</p></li>
 <li><p><code>groupingfac</code> is the factor used to create groups of points;</p></li>
 <li><p><code>addfactors</code> are up to two additional factors to create the rows and columns of panels. <code>addfactors</code> is formatted for facetting (e.g., for factors “A” and “B”, <code>addfactors</code> would be “A~B”);</p></li>
-<li><p><code>Debug</code> (a boolean) can be used when testing your code; it is set to TRUE with the <code>superbPlot</code> argument <code>Debug = TRUE</code>;</p></li>
 <li><p><code>rawdata</code> : this data.frame contains the raw data with factors being transformed <code>as.factor</code> and the dependent column being renamed <code>DV</code>. When the data are in wide format, <code>rawdata</code> is reshaped to long format.</p></li>
 <li><p><code>{optional arguments}</code> can be used. They must be named here; when calling <code>superbPlot</code>, any argument whose name match your optional argument will be transmitted to your custom-made function.</p></li>
 </ul>
@@ -173,7 +171,7 @@ Figure 1: Mean score with 95% confidence interval using the <code>simple</code> 
 <p>To make this plot, we design a function <code>superbPlot.simple</code> as:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">superbPlot.simple</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span>
-    <span class="va">summarydata</span>, <span class="va">xvar</span>, <span class="va">groupingfac</span>, <span class="va">addfactors</span>, <span class="va">Debug</span>, <span class="va">rawdata</span> 
+    <span class="va">summarydata</span>, <span class="va">xvar</span>, <span class="va">groupingfac</span>, <span class="va">addfactors</span>, <span class="va">rawdata</span> 
 <span class="op">)</span> <span class="op">{</span>
     <span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>
         data <span class="op">=</span> <span class="va">summarydata</span>, 
@@ -198,7 +196,7 @@ Figure 1: Mean score with 95% confidence interval using the <code>simple</code> 
      WSFactor <span class="op">=</span> <span class="st">"T(7)"</span>,      
      BSFactor <span class="op">=</span> <span class="st">"Condition"</span>,
      variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"T1"</span>,<span class="st">"T2"</span>,<span class="st">"T3"</span>,<span class="st">"T4"</span>,<span class="st">"T5"</span>,<span class="st">"T6"</span>,<span class="st">"T7"</span><span class="op">)</span>,
-     plotStyle <span class="op">=</span> <span class="st">"simple"</span>, Quiet <span class="op">=</span> <span class="cn">TRUE</span>
+     plotStyle <span class="op">=</span> <span class="st">"simple"</span>
 <span class="op">)</span></code></pre></div>
 </div>
 <div id="optional-arguments" class="section level2">
@@ -209,7 +207,7 @@ Figure 1: Mean score with 95% confidence interval using the <code>simple</code> 
 <p>A full example it therefore</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">superbPlot.simpleWithOptions</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span>
-    <span class="va">summarydata</span>, <span class="va">xvar</span>, <span class="va">groupingfac</span>, <span class="va">addfactors</span>, <span class="va">Debug</span>, <span class="va">rawdata</span>,
+    <span class="va">summarydata</span>, <span class="va">xvar</span>, <span class="va">groupingfac</span>, <span class="va">addfactors</span>, <span class="va">rawdata</span>,
     <span class="va">myownParams</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span>  <span class="co">## add the optional arguments to the function</span>
 <span class="op">)</span> <span class="op">{</span>
     <span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>
@@ -232,7 +230,7 @@ Figure 1: Mean score with 95% confidence interval using the <code>simple</code> 
     WSFactor <span class="op">=</span> <span class="st">"T(7)"</span>,      
     BSFactor <span class="op">=</span> <span class="st">"Condition"</span>,
     variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"T1"</span>,<span class="st">"T2"</span>,<span class="st">"T3"</span>,<span class="st">"T4"</span>,<span class="st">"T5"</span>,<span class="st">"T6"</span>,<span class="st">"T7"</span><span class="op">)</span>,
-    plotStyle <span class="op">=</span> <span class="st">"simpleWithOptions"</span>, Quiet <span class="op">=</span> <span class="cn">TRUE</span>,
+    plotStyle <span class="op">=</span> <span class="st">"simpleWithOptions"</span>, 
     myownParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">12</span>, color<span class="op">=</span><span class="st">"red"</span><span class="op">)</span> <span class="co">## here goes the optional arguments</span>
 <span class="op">)</span></code></pre></div>
 <div class="figure">
@@ -246,30 +244,32 @@ Figure 2: A simple figure with optional arguments
 <a href="#getting-debug-information" class="anchor"></a>Getting Debug information</h2>
 <p>It is sometimes useful to extract variables out of the function when debugging the code. A useful function is to use <code>runDebug</code>. This function (shipped with <code>suberb</code>) will display text and transfer any variables you want into the global environment.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/runDebug.html">runDebug</a></span><span class="op">(</span> <span class="va">Debug</span>, <span class="st">"Text to show"</span>,
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>superb.debug <span class="op">=</span> <span class="st">'all'</span><span class="op">)</span>
+<span class="fu"><a href="../reference/runDebug.html">runDebug</a></span><span class="op">(</span> <span class="st">'test'</span>, <span class="st">"Text to show"</span>,
   <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"variable1"</span>, <span class="st">"variable2"</span>, <span class="st">"etc"</span><span class="op">)</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span> <span class="va">var1InTheFct</span>, <span class="va">var2InTheFct</span>, <span class="va">varetcInTheFct</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span> <span class="st">"var1InTheFct"</span>, <span class="st">"var2InTheFct"</span>, <span class="st">"varetcInTheFct"</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <p>For example, the following will get the dataframes:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">superbPlot.empty</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span>
-    <span class="va">summarydata</span>, <span class="va">xvar</span>, <span class="va">groupingfac</span>, <span class="va">addfactors</span>, <span class="va">Debug</span>, <span class="va">rawdata</span> 
+    <span class="va">summarydata</span>, <span class="va">xvar</span>, <span class="va">groupingfac</span>, <span class="va">addfactors</span>, <span class="va">rawdata</span> 
 <span class="op">)</span> <span class="op">{</span>
-    <span class="fu"><a href="../reference/runDebug.html">runDebug</a></span><span class="op">(</span> <span class="va">Debug</span>, <span class="st">"Getting the dataframes"</span>,
+    <span class="fu"><a href="../reference/runDebug.html">runDebug</a></span><span class="op">(</span> <span class="st">'inempty'</span>, <span class="st">"Getting the dataframes"</span>,
         <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"summary"</span>,<span class="st">"raw"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">summarydata</span>, <span class="va">rawdata</span><span class="op">)</span><span class="op">)</span>
 
     <span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># an empty plot        </span>
     <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">plot</span><span class="op">)</span>
 <span class="op">}</span>
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>superb.debug <span class="op">=</span> <span class="st">'inempty'</span><span class="op">)</span>  <span class="co">## turn on Debug when entering plot function</span>
 <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">TMB1964r</span>,
      WSFactor <span class="op">=</span> <span class="st">"T(7)"</span>,      
      BSFactor <span class="op">=</span> <span class="st">"Condition"</span>,
      variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"T1"</span>,<span class="st">"T2"</span>,<span class="st">"T3"</span>,<span class="st">"T4"</span>,<span class="st">"T5"</span>,<span class="st">"T6"</span>,<span class="st">"T7"</span><span class="op">)</span>,
-     plotStyle <span class="op">=</span> <span class="st">"empty"</span>, Quiet <span class="op">=</span> <span class="cn">TRUE</span>, Debug <span class="op">=</span> <span class="cn">TRUE</span> <span class="co">## turn on Debug</span>
+     plotStyle <span class="op">=</span> <span class="st">"empty"</span> 
 <span class="op">)</span></code></pre></div>
-<p>(I inhibited the output, but you will get pages of debug information) Browsing the information displayed, you will see at the end <code>Getting the dataframes</code> followed by <code>summary</code> and <code>raw</code>. These two variables are not in the global environment and you can manipulate them. You can also use them in plotting functions, for example</p>
+<p>You will see <code>Getting the dataframes</code> followed by <code>summary</code> and <code>raw</code>. These two variables are not in the global environment and you can manipulate them. You can also use them in testing your plotting functions, for example</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">superbPlot.simple</span><span class="op">(</span><span class="va">summary</span>, <span class="st">"T"</span>, <span class="st">"Condition"</span>, <span class="st">".~."</span>, <span class="cn">FALSE</span>, <span class="va">raw</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">superbPlot.simple</span><span class="op">(</span><span class="va">summary</span>, <span class="st">"T"</span>, <span class="st">"Condition"</span>, <span class="st">".~."</span>, <span class="va">raw</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="an-example" class="section level2">
 <h2 class="hasAnchor">
@@ -283,7 +283,7 @@ Figure 2: A simple figure with optional arguments
 <p>Then we define a <code>"smiley"</code> layout where the emojis are shown with <code>geom_text</code> layer:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">superbPlot.smiley</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span>
-    <span class="va">summarydata</span>, <span class="va">xvar</span>, <span class="va">groupingfac</span>, <span class="va">addfactors</span>, <span class="va">Debug</span>, <span class="va">rawdata</span> 
+    <span class="va">summarydata</span>, <span class="va">xvar</span>, <span class="va">groupingfac</span>, <span class="va">addfactors</span>, <span class="va">rawdata</span> 
 <span class="op">)</span> <span class="op">{</span>
     <span class="co"># the early part bears on summary data with variable "center"</span>
     <span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>
@@ -301,7 +301,7 @@ Figure 2: A simple figure with optional arguments
     <span class="co"># this part bears on the rawdata only with variable "DV"</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">rawdata</span>, 
               position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html">position_jitter</a></span><span class="op">(</span><span class="fl">0.5</span><span class="op">)</span>,
-              family<span class="op">=</span><span class="st">"EmojiOne"</span>, label<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/emojifont/man/emoji.html">emoji</a></span><span class="op">(</span><span class="st">"smile"</span><span class="op">)</span>, size<span class="op">=</span><span class="fl">3</span>, 
+              family<span class="op">=</span><span class="st">"EmojiOne"</span>, label<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/emojifont/man/emoji.html">emoji</a></span><span class="op">(</span><span class="st">"smile"</span><span class="op">)</span>, size<span class="op">=</span><span class="fl">6</span>, 
               mapping<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_.html">aes_string</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">xvar</span>, y<span class="op">=</span><span class="st">"DV"</span>, group <span class="op">=</span> <span class="va">groupingfac</span><span class="op">)</span>
     <span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span><span class="op">(</span> <span class="va">addfactors</span> <span class="op">)</span>
@@ -318,7 +318,7 @@ Figure 2: A simple figure with optional arguments
      WSFactor <span class="op">=</span> <span class="st">"T(7)"</span>,      
      BSFactor <span class="op">=</span> <span class="st">"Condition"</span>, 
      variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"T1"</span>,<span class="st">"T2"</span>,<span class="st">"T3"</span>,<span class="st">"T4"</span>,<span class="st">"T5"</span>,<span class="st">"T6"</span>,<span class="st">"T7"</span><span class="op">)</span>,
-     plotStyle <span class="op">=</span> <span class="st">"smiley"</span>, Quiet <span class="op">=</span> <span class="cn">TRUE</span>
+     plotStyle <span class="op">=</span> <span class="st">"smiley"</span>
 <span class="op">)</span></code></pre></div>
 <p><img src="Vignette5_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
 </div>

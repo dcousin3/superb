@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.3</span>
       </span>
     </div>
 
@@ -195,14 +195,15 @@ Figure 1: Representation of the <em>subject-centered</em> individual participant
 <p>With <code>suberb</code>, all the decorrelation techniques are available using the adjustment <code>decorrelation</code>.</p>
 <p>Consider the following</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>superb.debug <span class="op">=</span> <span class="st">'none'</span><span class="op">)</span> <span class="co"># shut down 'warnings' and 'design' interpretation messages</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span>
 
 <span class="co">## realize the plot with unadjusted (left) and ajusted (right) 95\% confidence intervals</span>
 <span class="va">plt2a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure2</span>, 
         WSFactor    <span class="op">=</span> <span class="st">"Moment(2)"</span>, 
         adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>, 
         variables   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"pre"</span>,<span class="st">"post"</span><span class="op">)</span>, 
-        plotStyle   <span class="op">=</span> <span class="st">"line"</span>, Quiet <span class="op">=</span> <span class="cn">TRUE</span> <span class="op">)</span> <span class="op">+</span> 
+        plotStyle   <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> <span class="op">+</span> 
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Group"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"Score"</span><span class="op">)</span> <span class="op">+</span> 
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"Difference-adjusted\n95% confidence intervals"</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">85</span>,<span class="fl">115</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span>
@@ -212,7 +213,7 @@ Figure 1: Representation of the <em>subject-centered</em> individual participant
         WSFactor    <span class="op">=</span> <span class="st">"Moment(2)"</span>, 
         adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span>, decorrelation <span class="op">=</span> <span class="st">"CA"</span><span class="op">)</span>,  <span class="co">#only difference</span>
         variables   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"pre"</span>,<span class="st">"post"</span><span class="op">)</span>, 
-        plotStyle   <span class="op">=</span> <span class="st">"line"</span>, Quiet <span class="op">=</span> <span class="cn">TRUE</span> <span class="op">)</span> <span class="op">+</span> 
+        plotStyle   <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> <span class="op">+</span> 
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Group"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"Score"</span><span class="op">)</span> <span class="op">+</span> 
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"Correlation and difference-adjusted\n95% confidence intervals"</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">85</span>,<span class="fl">115</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span> 
@@ -241,8 +242,7 @@ Figure 4: All three decorelation techniques on the same plot along with un-decor
     WSFactor    <span class="op">=</span> <span class="st">"Moment(2)"</span>, 
     adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span>, decorrelation <span class="op">=</span> <span class="st">"CM"</span><span class="op">)</span>, 
     variables   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"pre"</span>,<span class="st">"post"</span><span class="op">)</span>, 
-    plotStyle   <span class="op">=</span> <span class="st">"pointindividualline"</span>, 
-    Quiet       <span class="op">=</span> <span class="cn">TRUE</span> <span class="op">)</span> <span class="op">+</span> 
+    plotStyle   <span class="op">=</span> <span class="st">"pointindividualline"</span> <span class="op">)</span> <span class="op">+</span> 
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Group"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"Score"</span><span class="op">)</span> <span class="op">+</span> 
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"Correlation- and Difference-adjusted\n95% confidence intervals"</span><span class="op">)</span> <span class="op">+</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">70</span>,<span class="fl">150</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span>

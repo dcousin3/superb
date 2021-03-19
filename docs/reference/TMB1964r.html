@@ -82,7 +82,7 @@ study from (Tulving et al. 1964)
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.3</span>
       </span>
     </div>
 
@@ -178,6 +178,8 @@ and the gender (mainly male and female).</p>
 
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>TMB1964r</span><span class='op'>)</span>
 
+<span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>superb.debug <span class='op'>=</span> <span class='st'>'none'</span><span class='op'>)</span> <span class='co'># shut down 'warnings' and 'design' interpretation messages</span>
+
 <span class='co'># general plot ignoring covariates sex and languages with only defaults</span>
 <span class='co'># We illustrate correlation- and difference-adjusted 95% confidence intervals of the mean</span>
 <span class='fu'><a href='superbPlot.html'>superbPlot</a></span><span class='op'>(</span><span class='va'>TMB1964r</span>,
@@ -185,7 +187,7 @@ and the gender (mainly male and female).</p>
     BSFactor <span class='op'>=</span> <span class='st'>"Condition"</span>, <span class='co'># the between-subject factor (4 levels)</span>
     variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"T1"</span>,<span class='st'>"T2"</span>,<span class='st'>"T3"</span>,<span class='st'>"T4"</span>,<span class='st'>"T5"</span>,<span class='st'>"T6"</span>,<span class='st'>"T7"</span><span class='op'>)</span>,
     adjustments <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>purpose<span class='op'>=</span><span class='st'>"difference"</span>, decorrelation<span class='op'>=</span><span class='st'>"CM"</span><span class='op'>)</span>,
-    plotStyle <span class='op'>=</span> <span class='st'>"line"</span>, Quiet <span class='op'>=</span> <span class='cn'>TRUE</span>
+    plotStyle <span class='op'>=</span> <span class='st'>"line"</span>
 <span class='op'>)</span>
 </div><div class='img'><img src='TMB1964r-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># We add directives for the error bars (thick), for the points (larger) and for the lines (thick)</span>
@@ -194,7 +196,7 @@ and the gender (mainly male and female).</p>
     BSFactor <span class='op'>=</span> <span class='st'>"Condition"</span>,
     variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"T1"</span>,<span class='st'>"T2"</span>,<span class='st'>"T3"</span>,<span class='st'>"T4"</span>,<span class='st'>"T5"</span>,<span class='st'>"T6"</span>,<span class='st'>"T7"</span><span class='op'>)</span>,
     adjustments <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>purpose<span class='op'>=</span><span class='st'>"difference"</span>, decorrelation<span class='op'>=</span><span class='st'>"CM"</span><span class='op'>)</span>,
-    plotStyle <span class='op'>=</span> <span class='st'>"line"</span>, Quiet <span class='op'>=</span> <span class='cn'>TRUE</span>,
+    plotStyle <span class='op'>=</span> <span class='st'>"line"</span>, 
     errorbarParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>0.5</span>, size<span class='op'>=</span><span class='fl'>1.25</span>, position <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge</a></span><span class='op'>(</span><span class='fl'>.5</span><span class='op'>)</span> <span class='op'>)</span>,
     pointParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>size<span class='op'>=</span><span class='fl'>2.5</span>, position <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge</a></span><span class='op'>(</span><span class='fl'>.5</span><span class='op'>)</span><span class='op'>)</span>,
     lineParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>size<span class='op'>=</span><span class='fl'>1.25</span><span class='op'>)</span>
@@ -223,7 +225,7 @@ and the gender (mainly male and female).</p>
     BSFactor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Condition"</span>,<span class='st'>"Sex"</span><span class='op'>)</span>,
     variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"T1"</span>,<span class='st'>"T2"</span>,<span class='st'>"T3"</span>,<span class='st'>"T4"</span>,<span class='st'>"T5"</span>,<span class='st'>"T6"</span>,<span class='st'>"T7"</span><span class='op'>)</span>,
     adjustments <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>purpose<span class='op'>=</span><span class='st'>"difference"</span>, decorrelation<span class='op'>=</span><span class='st'>"CM"</span><span class='op'>)</span>,
-    plotStyle <span class='op'>=</span> <span class='st'>"line"</span>, Quiet<span class='op'>=</span><span class='cn'>TRUE</span>,
+    plotStyle <span class='op'>=</span> <span class='st'>"line"</span>, 
     errorbarParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>size<span class='op'>=</span><span class='fl'>0.05</span>, position <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge</a></span><span class='op'>(</span><span class='fl'>.5</span><span class='op'>)</span> <span class='op'>)</span>,
     pointParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>size<span class='op'>=</span><span class='fl'>2.5</span>, position <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge</a></span><span class='op'>(</span><span class='fl'>.5</span><span class='op'>)</span><span class='op'>)</span>,
     lineParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>size<span class='op'>=</span><span class='fl'>0.25</span><span class='op'>)</span>
@@ -251,7 +253,7 @@ and the gender (mainly male and female).</p>
     WSFactor <span class='op'>=</span> <span class='st'>"T(7)"</span>,
     BSFactor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Condition"</span>,<span class='st'>"Language"</span><span class='op'>)</span>,
     variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"T1"</span>,<span class='st'>"T2"</span>,<span class='st'>"T3"</span>,<span class='st'>"T4"</span>,<span class='st'>"T5"</span>,<span class='st'>"T6"</span>,<span class='st'>"T7"</span><span class='op'>)</span>,
-    adjustments <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>purpose<span class='op'>=</span><span class='st'>"difference"</span>, decorrelation<span class='op'>=</span><span class='st'>"CM"</span><span class='op'>)</span>, Quiet <span class='op'>=</span> <span class='cn'>TRUE</span>,
+    adjustments <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>purpose<span class='op'>=</span><span class='st'>"difference"</span>, decorrelation<span class='op'>=</span><span class='st'>"CM"</span><span class='op'>)</span>, 
     plotStyle <span class='op'>=</span> <span class='st'>"pointjitter"</span>,
     jitterParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0.25</span><span class='op'>)</span> <span class='co'>#near transparent jitter points</span>
 <span class='op'>)</span> <span class='op'>+</span> 
@@ -276,7 +278,7 @@ and the gender (mainly male and female).</p>
     WSFactor <span class='op'>=</span> <span class='st'>"T(7)"</span>,
     BSFactor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Condition"</span>,<span class='st'>"Language"</span><span class='op'>)</span>,
     variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"T1"</span>,<span class='st'>"T2"</span>,<span class='st'>"T3"</span>,<span class='st'>"T4"</span>,<span class='st'>"T5"</span>,<span class='st'>"T6"</span>,<span class='st'>"T7"</span><span class='op'>)</span>,
-    adjustments <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>purpose<span class='op'>=</span><span class='st'>"difference"</span>, decorrelation<span class='op'>=</span><span class='st'>"CM"</span><span class='op'>)</span>, Quiet <span class='op'>=</span> <span class='cn'>TRUE</span>,
+    adjustments <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>purpose<span class='op'>=</span><span class='st'>"difference"</span>, decorrelation<span class='op'>=</span><span class='st'>"CM"</span><span class='op'>)</span>, 
     plotStyle <span class='op'>=</span> <span class='st'>"pointjitterviolin"</span>,
     jitterParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0.4</span><span class='op'>)</span>, <span class='co'>#near transparent jitter points</span>
     violinParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>)</span>

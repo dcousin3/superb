@@ -14,7 +14,7 @@ vignette: >
 
 
 ```{r, echo = FALSE, message = FALSE, results = 'hide'}
-cat("this will be hidden; use for general initializations.")
+cat("this will be hidden; use for general initializations.\n")
 library(superb)
 library(ggplot2)
 ```
@@ -144,24 +144,22 @@ black and white (no color instruction) and superimposed
 The result will be:
 
 ```{r, message=FALSE, echo=FALSE, fig.cap="Figure 1: Mean score with 95% confidence interval using the ``simple`` plot layout."}
-superbPlot.simple <- function(
-    summarydata, xvar, groupingfac, addfactors, rawdata 
-) {
+superbPlot.simple <- function( summarydata, xvar, groupingfac, addfactors, rawdata ) {
     plot <- ggplot(
-        data = summarydata, 
+        data = summarydata,
         mapping = aes_string( x = xvar, y = "center")
     ) +
     geom_point( ) +
-    geom_errorbar( mapping = aes_string(ymin = "center + lowerwidth", ymax = "center + upperwidth")  )+ 
+    geom_errorbar( mapping = aes_string(ymin = "center + lowerwidth", ymax = "center + upperwidth")  )+
     facet_grid( addfactors )
-        
+       
     return(plot)
 }
 superbPlot(TMB1964r,
-     WSFactor = "T(7)",      
-     BSFactor = "Condition",
-     variables = c("T1","T2","T3","T4","T5","T6","T7"),
-     plotStyle = "simple"
+    WSFactor = "T(7)",
+    BSFactor = "Condition",
+    variables = c("T1","T2","T3","T4","T5","T6","T7"),
+    plotStyle = "bar"
 )
 ```
 
@@ -352,7 +350,7 @@ superbPlot.smiley <- function(
     # this part bears on the rawdata only with variable "DV"
     geom_text(data = rawdata, 
               position = position_jitter(0.5),
-              family="EmojiOne", label=emoji("smile"), size=3, 
+              family="EmojiOne", label=emoji("smile"), size=6, 
               mapping=aes_string(x=xvar, y="DV", group = groupingfac)
     ) +
     facet_grid( addfactors )
