@@ -92,7 +92,6 @@ superbPlot.foo <- function(
     xvar,       
     groupingfac,
     addfactors, 
-    Debug, 
     rawdata        
     # any optional argument you wish
 ) {
@@ -123,9 +122,6 @@ and there will be as many lines as there are combinations of factors.
 rows and columns of panels. ``addfactors`` is formatted for facetting
 (e.g., for factors "A" and "B", ``addfactors`` would be "A~B");
 
-* ``Debug`` (a boolean) can be used when testing your code; it is
-set to TRUE with the ``superbPlot`` argument ``Debug = TRUE``;
-
 * ``rawdata`` : this data.frame contains the raw data with factors
 being transformed ``as.factor`` and the dependent column being renamed
 ``DV``. When the data are in wide format, ``rawdata`` is reshaped to
@@ -149,7 +145,7 @@ The result will be:
 
 ```{r, message=FALSE, echo=FALSE, fig.cap="Figure 1: Mean score with 95% confidence interval using the ``simple`` plot layout."}
 superbPlot.simple <- function(
-    summarydata, xvar, groupingfac, addfactors, Debug, rawdata 
+    summarydata, xvar, groupingfac, addfactors, rawdata 
 ) {
     plot <- ggplot(
         data = summarydata, 
@@ -165,7 +161,7 @@ superbPlot(TMB1964r,
      WSFactor = "T(7)",      
      BSFactor = "Condition",
      variables = c("T1","T2","T3","T4","T5","T6","T7"),
-     plotStyle = "simple", Quiet = TRUE, Debug=FALSE
+     plotStyle = "simple"
 )
 ```
 
@@ -173,7 +169,7 @@ To make this plot, we design a function ``superbPlot.simple`` as:
 
 ```{r}
 superbPlot.simple <- function(
-    summarydata, xvar, groupingfac, addfactors, Debug, rawdata 
+    summarydata, xvar, groupingfac, addfactors, rawdata 
 ) {
     plot <- ggplot(
         data = summarydata, 
@@ -215,7 +211,7 @@ superbPlot(TMB1964r,
      WSFactor = "T(7)",      
      BSFactor = "Condition",
      variables = c("T1","T2","T3","T4","T5","T6","T7"),
-     plotStyle = "simple", Quiet = TRUE
+     plotStyle = "simple"
 )
 ```
 
@@ -239,7 +235,7 @@ A full example it therefore
 
 ```{r}
 superbPlot.simpleWithOptions <- function(
-    summarydata, xvar, groupingfac, addfactors, Debug, rawdata,
+    summarydata, xvar, groupingfac, addfactors, rawdata,
     myownParams = list()  ## add the optional arguments to the function
 ) {
     plot <- ggplot(
@@ -263,7 +259,7 @@ superbPlot(TMB1964r,
     WSFactor = "T(7)",      
     BSFactor = "Condition",
     variables = c("T1","T2","T3","T4","T5","T6","T7"),
-    plotStyle = "simpleWithOptions", Quiet = TRUE,
+    plotStyle = "simpleWithOptions", 
     myownParams = list(size=12, color="red") ## here goes the optional arguments
 )
 ```
@@ -279,9 +275,10 @@ This function (shipped with ``suberb``) will display text and
 transfer any variables you want into the global environment.
 
 ```{r, eval=FALSE, message=FALSE, echo=TRUE, results='hide'}
-runDebug( Debug, "Text to show",
+options(superb.debug = 'all')
+runDebug( 'test', "Text to show",
   c("variable1", "variable2", "etc"),
-  list( var1InTheFct, var2InTheFct, varetcInTheFct)
+  list( "var1InTheFct", "var2InTheFct", "varetcInTheFct")
 )
 ```
 
@@ -289,30 +286,30 @@ For example, the following will get the dataframes:
 
 ```{r, message=FALSE, echo=TRUE, results='hide', fig.show='hide'}
 superbPlot.empty <- function(
-    summarydata, xvar, groupingfac, addfactors, Debug, rawdata 
+    summarydata, xvar, groupingfac, addfactors, rawdata 
 ) {
-    runDebug( Debug, "Getting the dataframes",
+    runDebug( 'inempty', "Getting the dataframes",
         c("summary","raw"), list(summarydata, rawdata))
 
     plot <- ggplot() # an empty plot        
     return(plot)
 }
+options(superb.debug = 'inempty')  ## turn on Debug when entering plot function
 superbPlot(TMB1964r,
      WSFactor = "T(7)",      
      BSFactor = "Condition",
      variables = c("T1","T2","T3","T4","T5","T6","T7"),
-     plotStyle = "empty", Quiet = TRUE, Debug = TRUE ## turn on Debug
+     plotStyle = "empty" 
 )
 ```
 
-(I inhibited the output, but you will get pages of debug information)
-Browsing the information displayed, you will see at the end ``Getting the
+You will see  ``Getting the
 dataframes`` followed by ``summary`` and ``raw``. These two variables
 are not in the global environment and you can manipulate them. 
-You can also use them in plotting functions, for example
+You can also use them in testing your plotting functions, for example
 
 ```{r, message=FALSE, echo=TRUE, results='hide', fig.show='hide'}
-superbPlot.simple(summary, "T", "Condition", ".~.", FALSE, raw)
+superbPlot.simple(summary, "T", "Condition", ".~.", raw)
 ``` 
 
 
@@ -337,7 +334,7 @@ with ``geom_text`` layer:
 
 ```{r}
 superbPlot.smiley <- function(
-    summarydata, xvar, groupingfac, addfactors, Debug, rawdata 
+    summarydata, xvar, groupingfac, addfactors, rawdata 
 ) {
     # the early part bears on summary data with variable "center"
     plot <- ggplot(
@@ -377,7 +374,7 @@ superbPlot(TMB1964r,
      WSFactor = "T(7)",      
      BSFactor = "Condition", 
      variables = c("T1","T2","T3","T4","T5","T6","T7"),
-     plotStyle = "smiley", Quiet = TRUE
+     plotStyle = "smiley"
 )
 ```
 

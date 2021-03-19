@@ -14,7 +14,6 @@ superbPlot.bar(
   xvar,
   groupingfac,
   addfactors,
-  Debug = FALSE,
   rawdata = NULL,
   barParams = list(),
   errorbarParams = list(),
@@ -29,8 +28,6 @@ superbPlot.bar(
 \item{groupingfac}{a string with the name of the column for which the data will be grouped on the plot;}
 
 \item{addfactors}{a string with up to two additional factors to make the rows and columns panels, in the form "fact1 ~ fact2";}
-
-\item{Debug}{a boolean to display or not debugging information}
 
 \item{rawdata}{always contains "DV" for each participants and each level of the factors}
 

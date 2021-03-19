@@ -1,8 +1,8 @@
 Package: superb
 Type: Package
 Title: Get Precision of Means Under Various Designs and Sampling Schemes
-Version: 0.9.4.2
-Date: 2021-03-17
+Version: 0.9.4.3
+Date: 2021-03-18
 Authors@R: c(
              person("Denis", "Cousineau", email = "denis.cousineau@uottawa.ca",
                     role = c("aut", "cre")),
@@ -25,7 +25,8 @@ Description:
     can be used. See Cousineau (2017) <doi:10.5709/acp-0214-z> for a review or Cousineau (2005)
     <doi:10.20982/tqmp.01.1.p042>, Morey (2008) <doi:10.20982/tqmp.04.2.p061>, Baguley (2012)
     <doi:10.3758/s13428-011-0123-7>, Cousineau & Laurencelle (2016) <doi:10.1037/met0000055>,
-    Cousineau & O'Brien (2014) <doi:10.3758/s13428-013-0441-z>.
+    Cousineau & O'Brien (2014) <doi:10.3758/s13428-013-0441-z>, Calderini & Harding 
+    <doi:10.20982/tqmp.15.1.p001>.
 License: GPL-3
 Encoding: UTF-8
 VignetteBuilder: knitr

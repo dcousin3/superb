@@ -79,15 +79,15 @@ test_that("Testing the built-in plotting function", {
     tg$DV <- tg$len
 
     p1 <- superbPlot.bar(dta, "dose", 
-        "supp", ".~.", FALSE, tg, list(color="black"), list(color="purple") )
+        "supp", ".~.", tg, list(color="black"), list(color="purple") )
     p2 <- superbPlot.line(dta, "dose", 
-        "supp", ".~.", FALSE, tg, list(color="black"), list(color="purple") )
+        "supp", ".~.", tg, list(color="black"), list(color="purple") )
     p3 <- superbPlot.point(dta, "dose", 
-        "supp", ".~.", FALSE, tg, list(), list() )
+        "supp", ".~.", tg, list(), list() )
     p4 <- superbPlot.pointjitter(dta, "dose", 
-        "supp", ".~.", FALSE, tg, list(color="black"), list(color="purple") )
+        "supp", ".~.", tg, list(color="black"), list(color="purple") )
     p5 <- superbPlot.pointjitterviolin(dta, "dose", 
-         "supp", ".~dose", FALSE, tg, list(color="black"), list(color="purple") ) +
+         "supp", ".~dose", tg, list(color="black"), list(color="purple") ) +
         scale_x_continuous("mean ratings")
     expect_output( str(p1), "List of 9")
     expect_output( str(p2), "List of 9")
@@ -97,5 +97,9 @@ test_that("Testing the built-in plotting function", {
 })
 
 
+test_that("Testing the runDebug functions", {
+    expect_equal( getOption("superb.debug"), c("design","warnings") )
 
+    expect_equal( runDebug("design","THIS IS A TEST OF runDebug",c(),list()), NULL)
 
+})

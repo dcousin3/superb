@@ -5,7 +5,7 @@
 #'      to help in debugging the functions. It assigns in the global environment
 #'      the variables that are local to a function so that they become visible.
 #'
-#' @param state boolean (TRUE to activate runDebug)
+#' @param where indicates where in the program runDebug was called
 #' @param title string text to be displayed when this function is triggered
 #' @param vars strings names of the variables to be placed in the global environment
 #' @param vals numeric values to be given to the variables.
@@ -15,16 +15,20 @@
 #' @export runDebug
 ######################################################################################
 
-runDebug <- function(state, title, vars, vals) { 
+runDebug <- function(where, title, vars, vals) { 
     # runDebug provides traces of the vars and
     # reassign them in the globalenv so that I can test commands
-    if (state) {
+    if ( (where %in% getOption("superb.debug")) | ('all' %in% getOption("superb.debug") ) ){
         cat(paste("==>",title,"<==\n"))
-        for (i in 1:length(vars)) {
-            cat(paste("-",vars[i],"- "))
-            print(vals[[i]])
-            envrt = globalenv() # done in two steps for CRAN
-            assign(vars[i], vals[[i]], envir = envrt)
+        envrt = globalenv() # done in two steps for CRAN
+        if (length(vars) > 0) {
+            for (i in 1:length(vars)) {
+                # echo the values dumped in globalenv()
+                # cat(paste("-",vars[i],"- "))
+                # print(vals[[i]])
+                assign(vars[i], vals[[i]], envir = envrt)
+            }
+            cat(paste("    variables dumped in: ", paste(vars ,collapse=", "), "\n", sep=""))
         }
     }
 }

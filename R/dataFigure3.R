@@ -24,15 +24,17 @@
 #' library(gridExtra)
 #' data(dataFigure3)
 #' 
+#' options(superb.debug = 'none') # shut down 'warnings' and 'design' interpretation messages
+#' 
 #' ## realize the plot with unadjusted (left) and ajusted (right) 95% confidence intervals
 #' plt3a <- superbPlot(dataFigure3, BSFactor = "grp", 
-#'     adjustments=list(purpose = "difference", samplingDesign = "SRS"), Quiet = TRUE,
+#'     adjustments=list(purpose = "difference", samplingDesign = "SRS"), 
 #'     variables = c("VD"), plotStyle="bar" ) + 
 #'   xlab("Group") + ylab("Score") + labs(title="Difference-adjusted 95% CI\n") +
 #'   coord_cartesian( ylim = c(85,115) ) +
 #'   geom_hline(yintercept = 100, colour = "black", size = 0.5, linetype=2)
 #' plt3b <- superbPlot(dataFigure3, BSFactor = "grp", 
-#'     adjustments=list(purpose = "difference", samplingDesign = "CRS"), Quiet = TRUE,
+#'     adjustments=list(purpose = "difference", samplingDesign = "CRS"), 
 #'     variables = c("VD"), plotStyle="bar", clusterColumn = "cluster" ) + 
 #'   xlab("Group") + ylab("Score") + labs(title="Cluster and difference-adjusted\n95% CI") +
 #'   coord_cartesian( ylim = c(85,115) ) + 

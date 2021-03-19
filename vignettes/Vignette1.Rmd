@@ -16,7 +16,7 @@ vignette: >
 
 
 ```{r, echo = FALSE, message = FALSE, results = 'hide'}
-cat("this will be hidden; use for general initializations.")
+cat("this will be hidden; use for general initializations.\n")
 library(superb)
 library(ggplot2)
 ```

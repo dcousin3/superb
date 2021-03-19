@@ -9,7 +9,7 @@ test_that("PRELIMINARY TESTS (1/4)", {
     # write.table(ToothGrowth, file = "file0.dat", sep = "\t", col.names = FALSE)
 
     plt <- superbPlot(ToothGrowth, BSFactor = c("dose","supp"), variables = "len",
-      statistic = "mean", Debug=F, plotStyle="bar" )
+      statistic = "mean", plotStyle="bar" )
 
     expect_equal( "ggplot" %in% class(plt), TRUE)
 })
@@ -53,7 +53,7 @@ test_that("test 1a: 3 groupes inpépendants", {
     dta1a <- GRD( BSFactors = "Group(3)", Population = list( mean=10, stddev = 5) )
     # write.table(dta1a, file = "test1a.dat", sep = "\t", col.names = FALSE)
     p <- superbPlot(dta1a, BSFactor = "Group", variables = "DV",
-      statistic = "mean", errorbar = "SE", plotStyle="line", Debug=F )
+      statistic = "mean", errorbar = "SE", plotStyle="line")
 
     expect_equal( "ggplot" %in% class(p), TRUE)
 })
@@ -83,6 +83,7 @@ test_that("test 2a: 1 facteur à 3 mesures répétées; (3)", {
 
 
 test_that("test 2b: 2 facteurs à mesures répétées; (3 x 2)", {
+    options(superb.debug = "none") # to supress design confirmation; unneeded in tests
     dta2b <- GRD( WSFactors = "Moment(3): Dose(2)", SubjectsPerGroup = 5, Population = list( mean=10, stddev = 5, rho = .80))
     # write.table(dta2b, file = "test2b.dat", sep = "\t", col.names = FALSE)
     p <- superbPlot(dta2b, WSFactor = c("moment(3)","Dose(2)"), 
@@ -91,10 +92,10 @@ test_that("test 2b: 2 facteurs à mesures répétées; (3 x 2)", {
       adjustments = list(purpose="difference", decorrelation="CM"),
       errorbarParams = list(position = position_dodge(width = .15)),
       pointParams = list(position = position_dodge(width = .15)),
-      Quiet=T # to supress design confirmation; unneeded in tests
     )
 
     expect_equal( "ggplot" %in% class(p), TRUE)
+    options(superb.debug = c("design","warnings") ) # restores to default
 })
 
 
@@ -131,8 +132,9 @@ test_that("test 4a: schème à trois facteurs, 2 étant between  3 x 3 x (3)", {
     
   
 test_that("test 5a: schème à quatre facteurs; 5 x 4 (3 x 2)", {
+    options(superb.debug = "none") # to supress design confirmation; unneeded in tests
     dta5a <- GRD( BSFactors = "Group(5) : Dose(4)", WSFactors = "Moment(3):Hand(2)", 
-      Debug=FALSE, Summary=FALSE, Population = list( mean=10, stddev = 5, rho = .90),
+      Summary=FALSE, Population = list( mean=10, stddev = 5, rho = .90),
       Effects = list("Moment" = slope(5), "Hand" = slope(10)) )
     # write.table(dta5a, file = "test5a.dat", sep = "\t", col.names = FALSE)
     p <- superbPlot(dta5a, plotStyle="line",
@@ -140,10 +142,11 @@ test_that("test 5a: schème à quatre facteurs; 5 x 4 (3 x 2)", {
         BSFactor= c("Group","Dose"),
         variables = c("DV.1.1","DV.2.1","DV.3.1","DV.1.2","DV.2.2","DV.3.2"), 
         statistic = "mean", errorbar = "CI", gamma = .9999,
-        adjustments = list(purpose="difference", decorrelation="CM"), Debug=F, Quiet=T
+        adjustments = list(purpose="difference", decorrelation="CM")
     )
 
     expect_equal( "ggplot" %in% class(p), TRUE)
+    options(superb.debug = c("design","warnings") ) # restores to default
 })
 
 
@@ -162,6 +165,7 @@ test_that("test 6: Some data", {
 
 
 test_that("test 6a: factorOrder", {
+    options(superb.debug = "none") # to supress design confirmation; unneeded in tests
     library(gridExtra)
     dta6 <- GRD( WSFactors = "Moment(3):Hand(2)",
         Effects = list("Moment" = slope(5), "Hand" = slope(3)),
@@ -169,21 +173,23 @@ test_that("test 6a: factorOrder", {
         Population = list (mean = 20, stddev = 5, rho = 0.8) )
     # factorOrder
     p1 <- superbPlot(dta6, 
-        WSFactor = c("Moment(3)","Hand(2)"), Quiet=T, 
+        WSFactor = c("Moment(3)","Hand(2)"),  
         variables = c("DV.1.1","DV.2.1","DV.3.1","DV.1.2","DV.2.2","DV.3.2"), 
         statistic = "mean", errorbar = "SE", factorOrder = c("Moment", "Hand") )
     p2 <- superbPlot(dta6, 
-        WSFactor = c("Moment(3)","Hand(2)"), Quiet=T, 
+        WSFactor = c("Moment(3)","Hand(2)"),  
         variables = c("DV.1.1","DV.2.1","DV.3.1","DV.1.2","DV.2.2","DV.3.2"), 
         statistic = "mean", errorbar = "SE", factorOrder = c("Hand","Moment") )
     p <- grid.arrange(p1,p2,ncol=2)
 
     expect_equal( "ggplot" %in% class(p1), TRUE)
     expect_equal( "ggplot" %in% class(p2), TRUE)
+    options(superb.debug = c("design","warnings") ) # restores to default
 })
 
 
 test_that("test 6b: adjustments CA vs CM vs LM", {
+    options(superb.debug = "none") # to supress design confirmation; unneeded in tests
     library(gridExtra)
     dta6 <- GRD( WSFactors = "Moment(3):Hand(2)", 
         Effects = list("Moment" = slope(5), "Hand" = slope(3)),
@@ -191,17 +197,17 @@ test_that("test 6b: adjustments CA vs CM vs LM", {
         Population = list (mean = 20, stddev = 5, rho = 0.8) )
     # adjustments CA vs CM vs LM
     p1 <- superbPlot(dta6, 
-        WSFactor = c("Moment(3)","Hand(2)"), Quiet=T, 
+        WSFactor = c("Moment(3)","Hand(2)"),  
         variables = c("DV.1.1","DV.2.1","DV.3.1","DV.1.2","DV.2.2","DV.3.2"), 
         adjustments = list(purpose="difference", decorrelation="CA") )+
       coord_cartesian( ylim = c(8,30) ) + labs(title="CA") 
     p2 <- superbPlot(dta6, 
-        WSFactor = c("Moment(3)","Hand(2)"), Quiet=T, 
+        WSFactor = c("Moment(3)","Hand(2)"),  
         variables = c("DV.1.1","DV.2.1","DV.3.1","DV.1.2","DV.2.2","DV.3.2"), 
         adjustments = list(purpose="difference", decorrelation="CM") )+
       coord_cartesian( ylim = c(8,30) ) + labs(title="CM") 
     p3 <- superbPlot(dta6, 
-        WSFactor = c("Moment(3)","Hand(2)"), Quiet=T, 
+        WSFactor = c("Moment(3)","Hand(2)"),  
         variables = c("DV.1.1","DV.2.1","DV.3.1","DV.1.2","DV.2.2","DV.3.2"), 
         adjustments = list(purpose="difference", decorrelation="LM") )+
       coord_cartesian( ylim = c(8,30) ) + labs(title="LM") 
@@ -210,27 +216,29 @@ test_that("test 6b: adjustments CA vs CM vs LM", {
     expect_equal( "ggplot" %in% class(p1), TRUE)
     expect_equal( "ggplot" %in% class(p2), TRUE)
     expect_equal( "ggplot" %in% class(p3), TRUE)
+    options(superb.debug = c("design","warnings") ) # restores to default
 })
 
 
 test_that("test 6c: statistics of central tendency mean, median and gmean", {
+    options(superb.debug = "none") # to supress design confirmation; unneeded in tests
     library(gridExtra)
     dta6 <- GRD( WSFactors = "Moment(3):Hand(2)",  
         Effects = list("Moment" = slope(5), "Hand" = slope(3)),
         SubjectsPerGroup = 6,
         Population = list (mean = 20, stddev = 5, rho = 0.8) )
     p1 <- superbPlot(dta6, 
-        WSFactor = c("Moment(3)","Hand(2)"), Quiet=T, 
+        WSFactor = c("Moment(3)","Hand(2)"),  
         variables = c("DV.1.1","DV.2.1","DV.3.1","DV.1.2","DV.2.2","DV.3.2"), 
         statistic = "mean", errorbar = "CI"  ) +
       coord_cartesian( ylim = c(8,30) ) + labs(title="mean") 
     p2 <- superbPlot(dta6, 
-        WSFactor = c("Moment(3)","Hand(2)"), Quiet=T, 
+        WSFactor = c("Moment(3)","Hand(2)"),  
         variables = c("DV.1.1","DV.2.1","DV.3.1","DV.1.2","DV.2.2","DV.3.2"), 
         statistic = "median", errorbar = "CI"  ) +
       coord_cartesian( ylim = c(8,30) ) + labs(title="median") 
     p3 <- superbPlot(dta6, 
-        WSFactor = c("Moment(3)","Hand(2)"), Quiet=T, 
+        WSFactor = c("Moment(3)","Hand(2)"),  
         variables = c("DV.1.1","DV.2.1","DV.3.1","DV.1.2","DV.2.2","DV.3.2"), 
         statistic = "gmean", errorbar = "CI"  ) +
       coord_cartesian( ylim = c(8,30) ) + labs(title="geometric mean")
@@ -239,10 +247,12 @@ test_that("test 6c: statistics of central tendency mean, median and gmean", {
     expect_equal( "ggplot" %in% class(p1), TRUE)
     expect_equal( "ggplot" %in% class(p2), TRUE)
     expect_equal( "ggplot" %in% class(p3), TRUE)
+    options(superb.debug = c("design","warnings") ) # restores to default
 })
 
 
 test_that("test 6d: statistics of dispersion sd and MAD", {
+    options(superb.debug = "none") # to supress design confirmation; unneeded in tests
     library(gridExtra)
     dta6 <- GRD( WSFactors = "Moment(3):Hand(2)",  
         Effects = list("Moment" = slope(5), "Hand" = slope(3)),
@@ -251,17 +261,18 @@ test_that("test 6d: statistics of dispersion sd and MAD", {
     # fisherkurtosis is less stable; MAD should be about 2.5;
     # gmean requires only positive data;
     p1 <- superbPlot(dta6, 
-        WSFactor = c("Moment(3)","Hand(2)"), Quiet=T, 
+        WSFactor = c("Moment(3)","Hand(2)"),  
         variables = c("DV.1.1","DV.2.1","DV.3.1","DV.1.2","DV.2.2","DV.3.2"), 
         statistic = "sd", errorbar = "CI"  )
     p2 <- superbPlot(dta6, 
-        WSFactor = c("Moment(3)","Hand(2)"), Quiet=T, 
+        WSFactor = c("Moment(3)","Hand(2)"),  
         variables = c("DV.1.1","DV.2.1","DV.3.1","DV.1.2","DV.2.2","DV.3.2"), 
         statistic = "MAD", errorbar = "CI"  )
     p <- grid.arrange(p1,p2,ncol=2)
 
     expect_equal( "ggplot" %in% class(p1), TRUE)
     expect_equal( "ggplot" %in% class(p2), TRUE)
+    options(superb.debug = c("design","warnings") ) # restores to default
 })
 
 
@@ -360,13 +371,13 @@ test_that("Verifying CA and popSize ", {
     expect_warning( p1 <- superbPlot(dta3, WSFactor = "Moment(3)", BSFactor = "Group", 
         variables = c("DV.1","DV.2","DV.3"), 
         statistic = "mean", errorbar = "SE",
-        adjustments = list(purpose="single", decorrelation="CM", popSize = Inf ),
-        Debug = F ) + labs(title="Infinite populations") )
+        adjustments = list(purpose="single", decorrelation="CM", popSize = Inf )
+      ) + labs(title="Infinite populations") )
     expect_warning( p2 <- superbPlot(dta3, WSFactor = "Moment(3)", BSFactor = "Group", 
         variables = c("DV.1","DV.2","DV.3"), 
         statistic = "mean", errorbar = "SE",
-        adjustments = list(purpose="single", decorrelation="CM", popSize = c(Inf,6) ),
-        Debug = F ) + labs(title="population of 6 in grp 2") )
+        adjustments = list(purpose="single", decorrelation="CM", popSize = c(Inf,6) )
+      ) + labs(title="population of 6 in grp 2") )
     p <- grid.arrange(p1,p2,ncol=2)
 
     expect_equal( "ggplot" %in% class(p1), TRUE)

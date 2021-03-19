@@ -17,8 +17,6 @@ superbPlot(
     samplingDesign = "SRS"),
   showPlot = TRUE,
   plotStyle = "bar",
-  Debug = FALSE,
-  Quiet = FALSE,
   preprocessfct = NULL,
   postprocessfct = NULL,
   clusterColumn = "",
@@ -59,10 +57,6 @@ Default is adjustments = list(purpose = "single", popSize = Inf, decorrelation =
 
 \item{plotStyle}{The type of object to plot on the graph. Can be either "bar" or "line".
 Defaults to "bar".}
-
-\item{Debug}{export internal information into global environment. Default is FALSE}
-
-\item{Quiet}{Default to False, a boolean to inhibit showing additional information as warnings}
 
 \item{preprocessfct}{is a transform (or vector of) to be performed first on data matrix of each group}
 
@@ -111,19 +105,21 @@ superbPlot(ToothGrowth, BSFactor = c("dose", "supp"),
 # This example is based on repeated measures
 library(lsr)
 library(gridExtra)
+options(superb.debug = 'none') # shut down 'warnings' and 'design' interpretation messages
+
 # define shorter column names...
 names(Orange) <- c("Tree","age","circ")
 # turn the data into a wide format
 Orange.wide <- longToWide(Orange, circ ~ age)
 p1=superbPlot( Orange.wide, WSFactor = "age(7)",
   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
-  adjustments = list(purpose = "difference", decorrelation = "none"), Quiet = TRUE
+  adjustments = list(purpose = "difference", decorrelation = "none")
 ) + 
   xlab("Age level") + ylab("Trunk diameter (mm)") +
   coord_cartesian( ylim = c(0,250) ) + labs(title="Basic confidence intervals")
 p2=superbPlot( Orange.wide, WSFactor = "age(7)",
   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
-  adjustments = list(purpose = "difference", decorrelation = "CM"), Quiet = TRUE
+  adjustments = list(purpose = "difference", decorrelation = "CM")
 ) + 
   xlab("Age level") + ylab("Trunk diameter (mm)") +
   coord_cartesian( ylim = c(0,250) ) + labs(title="Decorrelated confidence intervals")

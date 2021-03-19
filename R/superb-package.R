@@ -53,4 +53,14 @@
 "_PACKAGE"
 #> [1] "_PACKAGE"
 
+.onLoad <- function(libname, pkgname) {    
+    # set the default scenario displayed to all:
+    options( superb.debug = c('design','warnings') )
+}
+
+.onDetach <- function(libpath) {
+        # remove the option
+    options( superb.debug = NULL )
+}
+
 

@@ -20,7 +20,6 @@
 #' @param xvar a string with the name of the column where the factor going on the horizontal axis is given;
 #' @param groupingfac a string with the name of the column for which the data will be grouped on the plot;
 #' @param addfactors a string with up to two additional factors to make the rows and columns panels, in the form "fact1 ~ fact2";
-#' @param Debug a boolean to display or not debugging information 
 #' @param rawdata always contains "DV" for each participants and each level of the factors
 #' @param barParams (optional) list of graphic directives that are sent to the geom_bar layer
 #' @param errorbarParams (optional) list of graphic directives that are sent to the geom_errorbar layer
@@ -50,7 +49,6 @@ superbPlot.bar <- function(
     xvar,                      # the factor on the horizontal axis  
     groupingfac,               # the factor for multiple lines/bars within the plot
     addfactors,                # the factor(s) (1 or 2 only) to make multiple panels
-    Debug          = FALSE,    # TRUE to dump variables into global env()
     # what follows is unused and optional
     rawdata        = NULL,     # unused
     # what follows are optional
@@ -58,7 +56,7 @@ superbPlot.bar <- function(
     errorbarParams = list(),   # merged into geom_errorbar
     facetParams    = list()    # merged into facet_grid
 ) {
-    runDebug(Debug, "Entering superbPlot.bar", c("xvar2", "groupingfac2", "addfactors2"), list(xvar, groupingfac, addfactors))
+    runDebug("bar", "Entering superbPlot.bar", c("xvar2", "groupingfac2", "addfactors2"), list(xvar, groupingfac, addfactors))
 
     plot <- ggplot(
         summarydata, 
@@ -97,7 +95,6 @@ superbPlot.line <- function(
     xvar,                      # the factor on the horizontal axis  
     groupingfac,               # the factor for multiple lines/bars within the plot
     addfactors,                # the factor(s) to make multiple panels
-    Debug          = FALSE,    # TRUE to dump variables into global env()
     # what follows is unused and optional
     rawdata        = NULL,     # unused
     # what follows are optional
@@ -106,7 +103,7 @@ superbPlot.line <- function(
     errorbarParams  = list(),
     facetParams     = list()    
 ) {
-    runDebug(Debug, "Entering superbPlot.line", c("xvar2", "groupingfac2", "addfactors2"), list(xvar, groupingfac, addfactors))
+    runDebug("line", "Entering superbPlot.line", c("xvar2", "groupingfac2", "addfactors2"), list(xvar, groupingfac, addfactors))
 
     plot <- ggplot(
         summarydata, 
@@ -153,7 +150,6 @@ superbPlot.point <- function(
     xvar,                      # the factor on the horizontal axis  
     groupingfac,               # the factor for multiple lines/bars within the plot
     addfactors,                # the factor(s) to make multiple panels
-    Debug          = FALSE,    # TRUE to dump variables into global env()
     # what follows is unused and optional
     rawdata        = NULL,     # unused
     # what follows are optional
@@ -161,7 +157,7 @@ superbPlot.point <- function(
     errorbarParams  = list(),
     facetParams     = list()    
 ) {
-    runDebug(Debug, "Entering superbPlot.point", c("xvar2", "groupingfac2", "addfactors2"), list(xvar, groupingfac, addfactors))
+    runDebug("point", "Entering superbPlot.point", c("xvar2", "groupingfac2", "addfactors2"), list(xvar, groupingfac, addfactors))
 
     plot <- ggplot(
         summarydata, 
@@ -204,7 +200,6 @@ superbPlot.pointjitter <- function(
     xvar,                      # the factor on the horizontal axis  
     groupingfac,               # the factor for multiple lines/bars within the plot
     addfactors,                # the factor(s) to make multiple panels
-    Debug          = FALSE,    # TRUE to dump variables into global env()
     # what follows is unused and optional
     rawdata        = NULL,     # unused
     # what follows are optional
@@ -213,7 +208,7 @@ superbPlot.pointjitter <- function(
     errorbarParams  = list(),
     facetParams     = list()    
 ) {
-    runDebug(Debug, "Entering superbPlot.pointjitter", 
+    runDebug("pointjitter", "Entering superbPlot.pointjitter", 
         c("xvar2", "groupingfac2", "addfactors2","pointParams2","jitterParams2","errorbarParams2"), list(xvar, groupingfac, addfactors, pointParams, jitterParams, errorbarParams))
 
     plot <- ggplot(
@@ -261,7 +256,6 @@ superbPlot.pointjitterviolin <- function(
     xvar,                      # the factor on the horizontal axis  
     groupingfac,               # the factor for multiple lines/bars within the plot
     addfactors,                # the factor(s) to make multiple panels
-    Debug          = FALSE,    # TRUE to dump variables into global env()
     # what follows is unused and optional
     rawdata        = NULL,     # unused
     # what follows are optional
@@ -271,7 +265,7 @@ superbPlot.pointjitterviolin <- function(
     errorbarParams  = list(),
     facetParams     = list()
 ) {
-    runDebug(Debug, "Entering superbPlot.pointjitterviolin", 
+    runDebug("pointjitterviolin", "Entering superbPlot.pointjitterviolin", 
         c("xvar2", "groupingfac2", "addfactors2","pointParams2","jitterParams2","violinParams2","errorbarParams2"), list(xvar, groupingfac, addfactors, pointParams, jitterParams, violinParams, errorbarParams))
 
     plot <- ggplot(data    = summarydata, 
@@ -313,7 +307,6 @@ superbPlot.pointindividualline <- function(
     xvar,                      # the factor on the horizontal axis  
     groupingfac,               # the factor for multiple lines/bars within the plot
     addfactors,                # the factor(s) to make multiple panels
-    Debug          = FALSE,    # TRUE to dump variables into global env()
     # what follows is unused and optional
     rawdata        = NULL,     # unused
     # what follows are optional
@@ -322,7 +315,7 @@ superbPlot.pointindividualline <- function(
     errorbarParams = list(),
     facetParams    = list()  
 ) {
-    runDebug(Debug, "Entering superbPlot.pointindividualline", 
+    runDebug("pointindividualline", "Entering superbPlot.pointindividualline", 
         c("xvar2", "groupingfac2", "addfactors2","pointParams2","lineParams2","errorbarParams2"), list(xvar, groupingfac, addfactors, pointParams, lineParams, errorbarParams))
 
     plot <- ggplot(

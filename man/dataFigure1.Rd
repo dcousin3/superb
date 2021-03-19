@@ -25,15 +25,17 @@ library(ggplot2)
 library(gridExtra)
 data(dataFigure1)
 
+options(superb.debug = 'none') # shut down 'warnings' and 'design' interpretation messages
+
 ## realize the plot with unadjusted (left) and ajusted (right) 95\% confidence intervals
 plt1a <- superbPlot(dataFigure1, BSFactor = "grp", 
-    adjustments=list(purpose = "single"), Quiet = TRUE,
+    adjustments=list(purpose = "single"), 
     variables = c("score"), plotStyle="bar" ) + 
   xlab("Group") + ylab("Score") + labs(title="95\% CI\n") +
   coord_cartesian( ylim = c(85,115) ) +
   geom_hline(yintercept = 100, colour = "black", size = 0.5, linetype=2)
 plt1b <- superbPlot(dataFigure1, BSFactor = "grp", 
-    adjustments=list(purpose = "difference"), Quiet = TRUE,
+    adjustments=list(purpose = "difference"), 
     variables = c("score"), plotStyle="bar" ) + 
   xlab("Group") + ylab("Score") + labs(title="Difference-adjusted 95\% CI\n") +
   coord_cartesian( ylim = c(85,115) ) + 

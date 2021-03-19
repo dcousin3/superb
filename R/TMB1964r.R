@@ -25,6 +25,8 @@
 #'
 #' data(TMB1964r)
 #' 
+#' options(superb.debug = 'none') # shut down 'warnings' and 'design' interpretation messages
+#'
 #' # general plot ignoring covariates sex and languages with only defaults
 #' # We illustrate correlation- and difference-adjusted 95% confidence intervals of the mean
 #' superbPlot(TMB1964r,
@@ -32,7 +34,7 @@
 #'     BSFactor = "Condition", # the between-subject factor (4 levels)
 #'     variables = c("T1","T2","T3","T4","T5","T6","T7"),
 #'     adjustments = list(purpose="difference", decorrelation="CM"),
-#'     plotStyle = "line", Quiet = TRUE
+#'     plotStyle = "line"
 #' )
 #' 
 #' # We add directives for the error bars (thick), for the points (larger) and for the lines (thick)
@@ -41,7 +43,7 @@
 #'     BSFactor = "Condition",
 #'     variables = c("T1","T2","T3","T4","T5","T6","T7"),
 #'     adjustments = list(purpose="difference", decorrelation="CM"),
-#'     plotStyle = "line", Quiet = TRUE,
+#'     plotStyle = "line", 
 #'     errorbarParams = list(width = 0.5, size=1.25, position = position_dodge(.5) ),
 #'     pointParams = list(size=2.5, position = position_dodge(.5)),
 #'     lineParams = list(size=1.25)
@@ -70,7 +72,7 @@
 #'     BSFactor = c("Condition","Sex"),
 #'     variables = c("T1","T2","T3","T4","T5","T6","T7"),
 #'     adjustments = list(purpose="difference", decorrelation="CM"),
-#'     plotStyle = "line", Quiet=TRUE,
+#'     plotStyle = "line", 
 #'     errorbarParams = list(size=0.05, position = position_dodge(.5) ),
 #'     pointParams = list(size=2.5, position = position_dodge(.5)),
 #'     lineParams = list(size=0.25)
@@ -98,7 +100,7 @@
 #'     WSFactor = "T(7)",
 #'     BSFactor = c("Condition","Language"),
 #'     variables = c("T1","T2","T3","T4","T5","T6","T7"),
-#'     adjustments = list(purpose="difference", decorrelation="CM"), Quiet = TRUE,
+#'     adjustments = list(purpose="difference", decorrelation="CM"), 
 #'     plotStyle = "pointjitter",
 #'     jitterParams = list(alpha = 0.25) #near transparent jitter points
 #' ) + 
@@ -123,7 +125,7 @@
 #'     WSFactor = "T(7)",
 #'     BSFactor = c("Condition","Language"),
 #'     variables = c("T1","T2","T3","T4","T5","T6","T7"),
-#'     adjustments = list(purpose="difference", decorrelation="CM"), Quiet = TRUE,
+#'     adjustments = list(purpose="difference", decorrelation="CM"), 
 #'     plotStyle = "pointjitterviolin",
 #'     jitterParams = list(alpha = 0.4), #near transparent jitter points
 #'     violinParams = list(alpha = 0.2)

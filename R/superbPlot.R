@@ -28,9 +28,7 @@
 #' @param showPlot Defaults to TRUE. Set to FALSE if you want the output to be the summary statistics and intervals.
 #' @param plotStyle The type of object to plot on the graph. Can be either "bar" or "line".
 #'      Defaults to "bar".
-#' @param Quiet Default to False, a boolean to inhibit showing additional information as warnings
 #' @param clusterColumn used in conjunction with samplingDesign = "CRS", indicates which column contains the cluster membership
-#' @param Debug export internal information into global environment. Default is FALSE
 #' @param preprocessfct  is a transform (or vector of) to be performed first on data matrix of each group
 #' @param postprocessfct is a transform (or vector of)
 #' @param ...  In addition to the parameters above, superbPlot also accept a number of 
@@ -72,19 +70,21 @@
 #' # This example is based on repeated measures
 #' library(lsr)
 #' library(gridExtra)
+#' options(superb.debug = 'none') # shut down 'warnings' and 'design' interpretation messages
+#' 
 #' # define shorter column names...
 #' names(Orange) <- c("Tree","age","circ")
 #' # turn the data into a wide format
 #' Orange.wide <- longToWide(Orange, circ ~ age)
 #' p1=superbPlot( Orange.wide, WSFactor = "age(7)",
 #'   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
-#'   adjustments = list(purpose = "difference", decorrelation = "none"), Quiet = TRUE
+#'   adjustments = list(purpose = "difference", decorrelation = "none")
 #' ) + 
 #'   xlab("Age level") + ylab("Trunk diameter (mm)") +
 #'   coord_cartesian( ylim = c(0,250) ) + labs(title="Basic confidence intervals")
 #' p2=superbPlot( Orange.wide, WSFactor = "age(7)",
 #'   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
-#'   adjustments = list(purpose = "difference", decorrelation = "CM"), Quiet = TRUE
+#'   adjustments = list(purpose = "difference", decorrelation = "CM")
 #' ) + 
 #'   xlab("Age level") + ylab("Trunk diameter (mm)") +
 #'   coord_cartesian( ylim = c(0,250) ) + labs(title="Decorrelated confidence intervals")
@@ -119,8 +119,6 @@ superbPlot <- function(data,
     ),
     showPlot      = TRUE,            # show a plot or else summary statistics
     plotStyle     = "bar",           # type of plot (so far, bar, line, point, pointjitter and pointjitterviolin
-    Debug         = FALSE,           # dump named variables into global env for debugging
-    Quiet         = FALSE,           # clarify the variables in within-subject design
     preprocessfct = NULL,            # run preprocessing on the matrix
     postprocessfct= NULL,            # run post-processing on the matrix
     clusterColumn = "",              # if samplineScheme = CRS
@@ -218,9 +216,9 @@ superbPlot <- function(data,
     colnames(design)[1:length(WSFactor)] <- WSFactor
     colnames(design)[length(WSFactor)+1] <- "variable"
     colnames(design)[length(WSFactor)+2] <- "newvars"
-    if ((length(wsLevels)>1)&&(!(Quiet)))  {
-      cat("Here is how the within-subject variables are understood:\n")
-      print( design[,c(WSFactor, "variable") ]) 
+    if ( (length(wsLevels)>1) & ('design' %in% getOption("superb.debug") ) ) {
+        cat("Here is how the within-subject variables are understood:\n")
+        print( design[,c(WSFactor, "variable") ]) 
     }
 
     # 1.8: invalid functions 
@@ -244,7 +242,7 @@ superbPlot <- function(data,
     }
 
     # We're clear to go!
-    runDebug(Debug, "End of Step 1: Input validation", 
+    runDebug("superb.1", "End of Step 1: Input validation", 
         c("measure2","design2","BSFactor2","WSFactor2","wsLevels2","wslevel2","factorOrder2","adjustments2"), 
         list(variables, design, BSFactor, WSFactor, wsLevels, wslevel, factorOrder, adjustments) )
 
@@ -274,7 +272,7 @@ superbPlot <- function(data,
             data.wide <- plyr::ddply(data.wide, .fun = fct, .variables= BSFactor, variables) 
     }
     
-    runDebug(Debug, "End of Step 2: Data post decorrelation", 
+    runDebug("superb.2", "End of Step 2: Data post decorrelation", 
         c("data.wide2"), list(data.wide) )
 
 
@@ -298,7 +296,7 @@ superbPlot <- function(data,
         factorOrder = factorOrder[ factorOrder != wsMissing]
     }
     
-    runDebug(Debug, "End of Step 3: Reformat data frame into long format", 
+    runDebug("superb.3", "End of Step 3: Reformat data frame into long format", 
         c("data.long2","factorOrder3"), list(data.long,factorOrder) )
 
 
@@ -328,7 +326,7 @@ superbPlot <- function(data,
     summaryStatistics <- plyr::ddply( data.long, .fun = aggregatefct, .variables = factorOrder ) 
     summaryStatistics[factorOrder] <- lapply(summaryStatistics[factorOrder], as.factor)
 
-    runDebug(Debug, "End of Step 4: Statistics obtained", 
+    runDebug("superb.4", "End of Step 4: Statistics obtained", 
         c("summaryStatistics2"), list( summaryStatistics) )
 
 
@@ -376,7 +374,7 @@ superbPlot <- function(data,
     summaryStatistics$lowerwidth <- nadj*padj*sadj*radj*summaryStatistics$lowerwidth
     summaryStatistics$upperwidth <- nadj*padj*sadj*radj*summaryStatistics$upperwidth
 
-    runDebug(Debug, "End of Step 5: Getting adjustments", 
+    runDebug("superb.5", "End of Step 5: Getting adjustments", 
         c("nadj2","padj2","sadj2","radj2","summaryStatistics3"), list(nadj,padj,sadj,radj,summaryStatistics) )
 
 
@@ -384,7 +382,7 @@ superbPlot <- function(data,
     # STEP 6: Issue warnings
     ##############################################################################
 
-    if (!Quiet) {
+    if ('warnings' %in% getOption("superb.debug") ) {
         # 6.1: if deccorrelate is CA: show rbar, test Winer
         if (adjustments$decorrelation == "CA") {
             warning(paste("FYI: The average correlation per group are ", paste(unique(rs), collapse=" ")), call. = FALSE)
@@ -422,6 +420,7 @@ superbPlot <- function(data,
     # ALL DONE! Output the plot(s) or the summary data
     ##############################################################################
 
+    runDebug("beforeplot", "Kit for testing plotting function", c("ss","factorOrder2","dl"),list(summaryStatistics, factorOrder, data.unchanged.long) )
     if (showPlot == TRUE) {
         # generate the plot
         groupingfac = if(!is.na(factorOrder[2])) {factorOrder[2]}else{ NULL}
@@ -429,7 +428,6 @@ superbPlot <- function(data,
         if (!is.null(groupingfac)) {
             data.unchanged.long[[groupingfac]] = as.factor(data.unchanged.long[[groupingfac]])
         }
-        runDebug(Debug, "Kit for testing plotting function", c("ss","factorOrder2","dl"),list(summaryStatistics, factorOrder, data.unchanged.long) )
 
         # first get the facets
         facets <- factorOrder[3:4][!is.na(factorOrder[3:4])]
@@ -442,7 +440,6 @@ superbPlot <- function(data,
                     xvar        = factorOrder[1],
                     groupingfac = groupingfac,
                     addfactors  = facets,
-                    Debug       = Debug,
                     rawdata     = data.unchanged.long,
                     ...
         ))
@@ -515,6 +512,7 @@ is.gamma.required <- function(fctname) {
 
 is.superbPlot.function <- function(fctname) {
     # does the plot function provided by the user exists?
+    runDebug("is.superbPlotfunction", "entering is.superbPlotfunction", c(),list() )
     res <- TRUE
     if (!exists(fctname)) {
         res <- FALSE
@@ -535,12 +533,12 @@ is.superbPlot.function <- function(fctname) {
                     list(dta,
                         "dose", 
                         "supp", ".~.", 
-                        FALSE,
                         fake ) ) ); 
             "ggplot" %in% class(test)},
             error = function(cond) {return(FALSE)} 
         )
     }
+    runDebug("is.superbPlotfunction", "exiting is.superbPlotfunction", c(),list() )
     res
 }
 

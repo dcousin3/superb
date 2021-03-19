@@ -4,10 +4,10 @@
 \alias{runDebug}
 \title{runDebug}
 \usage{
-runDebug(state, title, vars, vals)
+runDebug(where, title, vars, vals)
 }
 \arguments{
-\item{state}{boolean (TRUE to activate runDebug)}
+\item{where}{indicates where in the program runDebug was called}
 
 \item{title}{string text to be displayed when this function is triggered}
 

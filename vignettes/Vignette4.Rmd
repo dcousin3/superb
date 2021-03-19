@@ -54,6 +54,8 @@ dta <- GRD(
     Population = list( mean=10, stddev = 5, rho = .80)
 )
 
+options(superb.debug = 'none') # shut down 'warnings' and 'design' interpretation messages
+
 # a quick function to call superbPlot
 makeplot <- function(statfct, errorbarfct, g, ttl) {
     superbPlot(dta, 
@@ -63,8 +65,7 @@ makeplot <- function(statfct, errorbarfct, g, ttl) {
         errorbar  = errorbarfct, 
         gamma     = g, 
         plotStyle = "line",
-        adjustments = list(purpose="difference", decorrelation="CM"),
-        Quiet     = TRUE # to supress design confirmation; unneeded 
+        adjustments = list(purpose="difference", decorrelation="CM")
     )
 } + labs(title = ttl)
 

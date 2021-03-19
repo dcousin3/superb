@@ -1,3 +1,8 @@
+# superb 0.9.4.3 (March 2021)
+
+* Changed debug process
+* Created a logo and improved web pages
+
 # superb 0.9.4.2 (March 2021)
 
 * Initial release of the R version on CRAN
@@ -9,15 +14,24 @@
 
 * Beta release of superb on github
 * Renamed to superb (SUmmary Plot with ERror Bars)
+* packaged together GRD and MeanPlot
 * Added pre and post-processing operators
-* Transcoded from Mathematica to R
+* Transcoded MeanPlot from Mathematica to R
+
+# GRD for R (version 1.0; January 2019)
+
+* Initial release of GRD 2.0 for the R platform
 
 # MeanPlot 0.5.0 (March 2017)
 
 * Last stable version maintained on Mathematica
 * Updated legend manipulation following the release of Mathematica 9.0
 
-# MeanPlot 0.4.x and prior (2009-2016)
+# GRD for SPSS (versions 1.0 and 2.0; July 2014 and October 2015)
+
+* Release of GRD 1.0 and 2.0 for SPSS
+
+# MeanPlot 0.4.x and prior (2009-2015)
 
 * Development versions of MeanPlot on the Mathematica framework; Cousineau (2017) doi:10.5709/acp-0214-z
 * Added "popSize" and "CRS" from Cousineau & Laurencelle (2016) doi:10.1037/met0000055

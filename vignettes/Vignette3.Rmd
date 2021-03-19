@@ -153,6 +153,7 @@ With ``suberb``, all the decorrelation techniques are available using the adjust
 Consider the following
 
 ```{r, message=FALSE, warning=FALSE, echo=TRUE, fig.cap="Figure 3: Means and 95% confidence intervals on raw data (left) and on decorrelated data (right)"}
+options(superb.debug = 'none') # shut down 'warnings' and 'design' interpretation messages
 library(gridExtra)
 
 ## realize the plot with unadjusted (left) and ajusted (right) 95\% confidence intervals
@@ -160,7 +161,7 @@ plt2a <- superbPlot(dataFigure2,
         WSFactor    = "Moment(2)", 
         adjustments = list(purpose = "difference"), 
         variables   = c("pre","post"), 
-        plotStyle   = "line", Quiet = TRUE ) + 
+        plotStyle   = "line" ) + 
     xlab("Group") + ylab("Score") + 
     labs(title="Difference-adjusted\n95% confidence intervals") +
     coord_cartesian( ylim = c(85,115) ) +
@@ -170,7 +171,7 @@ plt2b <- superbPlot(dataFigure2,
         WSFactor    = "Moment(2)", 
         adjustments = list(purpose = "difference", decorrelation = "CA"),  #only difference
         variables   = c("pre","post"), 
-        plotStyle   = "line", Quiet = TRUE ) + 
+        plotStyle   = "line" ) + 
     xlab("Group") + ylab("Score") + 
     labs(title="Correlation and difference-adjusted\n95% confidence intervals") +
     coord_cartesian( ylim = c(85,115) ) + 
@@ -187,53 +188,53 @@ the green lines all have the same length.
 
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.cap="Figure 4: All three decorelation techniques on the same plot along with un-decorrelated error bars"}
-    # using GRD to generate data with correlation of .8 and a moderate effect
-    test <- GRD(WSFactor = "Moment(5)", 
-                Effects = list("Moment" = extent(10) ),
-                Population = list(mean = 100, stddev = 25, rho = 0.8) ) 
+# using GRD to generate data with correlation of .8 and a moderate effect
+options(superb.debug = 'none') # shut down 'warnings' and 'design' interpretation messages
+test <- GRD(WSFactor = "Moment(5)", 
+            Effects = list("Moment" = extent(10) ),
+            Population = list(mean = 100, stddev = 25, rho = 0.8) ) 
 
-    # the common label to all 4 plots
-    tlbl <- paste( "(red) Difference-adjusted only\n",
-                "(blue) Difference adjusted and decorrelated with CM\n",
-                "(green) Difference-adjusted and decorrelated with LM\n",
-                "(orange) Difference-adjusted and decorrelated with CA", sep="")
+# the common label to all 4 plots
+tlbl <- paste( "(red) Difference-adjusted only\n",
+            "(blue) Difference adjusted and decorrelated with CM\n",
+            "(green) Difference-adjusted and decorrelated with LM\n",
+            "(orange) Difference-adjusted and decorrelated with CA", sep="")
 
-    # to make the plots all identical except for the decorrelation method
-    makeplot <- function(dataset, decorrelationmethod, color, nudge) {
-        superbPlot(dataset, 
-                WSFactor = "Moment(5)",  
-                variables   = c("DV.1","DV.2","DV.3","DV.4","DV.5"), 
-                Quiet = TRUE, # shut down messages
-                adjustments=list(purpose = "difference", decorrelation = decorrelationmethod), 
-                errorbarParams = list(color=color, width= 0.1, position = position_nudge(nudge) ),
-                plotStyle="line" ) + 
-            xlab("Group") + ylab("Score") + 
-            labs(subtitle=tlbl) +
-            coord_cartesian( ylim = c(85,115) ) +
-            theme_gray(base_size=16) +
-            theme(plot.subtitle=element_text(size=12, color="black"), 
-                  panel.background = element_rect(fill = "transparent"),
-                  plot.background = element_rect(fill = "transparent", color = "white"))
-    }
+# to make the plots all identical except for the decorrelation method
+makeplot <- function(dataset, decorrelationmethod, color, nudge) {
+    superbPlot(dataset, 
+            WSFactor = "Moment(5)",  
+            variables   = c("DV.1","DV.2","DV.3","DV.4","DV.5"), 
+            adjustments=list(purpose = "difference", decorrelation = decorrelationmethod), 
+            errorbarParams = list(color=color, width= 0.1, position = position_nudge(nudge) ),
+            plotStyle="line" ) + 
+        xlab("Group") + ylab("Score") + 
+        labs(subtitle=tlbl) +
+        coord_cartesian( ylim = c(85,115) ) +
+        theme_gray(base_size=16) +
+        theme(plot.subtitle=element_text(size=12, color="black"), 
+              panel.background = element_rect(fill = "transparent"),
+              plot.background = element_rect(fill = "transparent", color = "white"))
+}
 
-    # generate the plots, nudging the error bars and using distinct colors
-    pltrw <- makeplot(test, "none", "red",    -0.15)
-    pltCM <- makeplot(test, "CM",   "blue",   -0.05)
-    pltLM <- makeplot(test, "LM",   "chartreuse3",  +0.05)
-    pltCA <- makeplot(test, "CA",   "orange", +0.15)
+# generate the plots, nudging the error bars and using distinct colors
+pltrw <- makeplot(test, "none", "red",    -0.15)
+pltCM <- makeplot(test, "CM",   "blue",   -0.05)
+pltLM <- makeplot(test, "LM",   "chartreuse3",  +0.05)
+pltCA <- makeplot(test, "CA",   "orange", +0.15)
 
-    # transform the ggplots into "grob" so that they can be manipulated
-    pltrwg <- ggplotGrob(pltrw)
-    pltCMg <- ggplotGrob(pltCM)
-    pltLMg <- ggplotGrob(pltLM)
-    pltCAg <- ggplotGrob(pltCA)
+# transform the ggplots into "grob" so that they can be manipulated
+pltrwg <- ggplotGrob(pltrw)
+pltCMg <- ggplotGrob(pltCM)
+pltLMg <- ggplotGrob(pltLM)
+pltCAg <- ggplotGrob(pltCA)
 
-    # put the grobs onto an empty ggplot 
-    ggplot() + 
-        annotation_custom(grob=pltrwg) + 
-        annotation_custom(grob=pltCMg) + 
-        annotation_custom(grob=pltLMg) + 
-        annotation_custom(grob=pltCAg)
+# put the grobs onto an empty ggplot 
+ggplot() + 
+    annotation_custom(grob=pltrwg) + 
+    annotation_custom(grob=pltCMg) + 
+    annotation_custom(grob=pltLMg) + 
+    annotation_custom(grob=pltCAg)
 ```
 
 
@@ -254,8 +255,7 @@ superbPlot(dataFigure2,
     WSFactor    = "Moment(2)", 
     adjustments = list(purpose = "difference", decorrelation = "CM"), 
     variables   = c("pre","post"), 
-    plotStyle   = "pointindividualline", 
-    Quiet       = TRUE ) + 
+    plotStyle   = "pointindividualline" ) + 
 xlab("Group") + ylab("Score") + 
 labs(subtitle="Correlation- and Difference-adjusted\n95% confidence intervals") +
 coord_cartesian( ylim = c(70,150) ) +
