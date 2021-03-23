@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5.0</span>
       </span>
     </div>
 
@@ -121,14 +121,20 @@
 ## 6  6  86   99</code></pre>
 <p>There is a large variation in the scores obtained and as such a t-test where the scores are treated as independent will fail to detect a difference:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.tqmp.org/RegularArticles/vol12-2/p147/index.html">schoRsch</a></span><span class="op">)</span></code></pre></div>
-<pre><code>## Warning: package 'schoRsch' was built under R version 4.0.4</code></pre>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/schoRsch/man/t_out.html">t_out</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">dataFigure2</span><span class="op">$</span><span class="va">pre</span>, <span class="va">dataFigure2</span><span class="op">$</span><span class="va">post</span>, var.equal<span class="op">=</span><span class="cn">T</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>##                  Test                            Results
-## 1  Two Sample t-test: t(48) = -1.17, p = .246, d = -0.33</code></pre>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">dataFigure2</span><span class="op">$</span><span class="va">pre</span>, <span class="va">dataFigure2</span><span class="op">$</span><span class="va">post</span>, var.equal<span class="op">=</span><span class="cn">T</span><span class="op">)</span></code></pre></div>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  dataFigure2$pre and dataFigure2$post
+## t = -1.1741, df = 48, p-value = 0.2462
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -13.562724   3.562724
+## sample estimates:
+## mean of x mean of y 
+##       100       105</code></pre>
 <p>However, examining the data, in which each participant’s scores are shown with a line, we get this:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/reshape">reshape2</a></span><span class="op">)</span>
 
 <span class="co"># first transform the data in long format; the pre-post scores will go into column "variable"</span>
@@ -150,11 +156,13 @@ Figure 1: Representation of the individual participants
 <a href="#centering-the-participants-to-better-see-the-trend" class="anchor"></a>Centering the participants to better see the trend</h2>
 <p>One solution advocated in <span class="citation">Cousineau (2005)</span> is to center the participants’ data on the participants’ mean. It consists in computing for each participant their mean score and replace that participant’s mean score with the overall mean. With this manipulation, all the participants will now hover around the overall mean (here 102.5, shown with a red dashed line).</p>
 <p>The following realizes this <em>subject-centered</em> plot for each participant.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># use superb:::subject_centering_transform function </span>
-<span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu">superb</span><span class="fu">:::</span><span class="fu"><a href="../reference/two_step_transform.html">subject_centering_transform</a></span><span class="op">(</span><span class="va">dataFigure2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"pre"</span>,<span class="st">"post"</span><span class="op">)</span><span class="op">)</span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># use subjectCenteringTransform function </span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">superb</span><span class="op">)</span>
+<span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/subjectCenteringTransform.html">subjectCenteringTransform</a></span><span class="op">(</span><span class="va">dataFigure2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"pre"</span>,<span class="st">"post"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># tranform into long format</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/reshape">reshape2</a></span><span class="op">)</span>
 <span class="va">dl2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/reshape2/man/melt.html">melt</a></span><span class="op">(</span><span class="va">df2</span>, id<span class="op">=</span><span class="st">"id"</span><span class="op">)</span>
 
 <span class="co"># make the plot</span>
@@ -168,19 +176,26 @@ Figure 1: Representation of the <em>subject-centered</em> individual participant
 </div>
 <p>Here again, we see that for 5 participants, their scores went down. For the 20 remaining ones, the trend is upward. Thus, there is clear tendency for the exercices to be beneficial.</p>
 <p>Running the adequate paired-t test, we find indeed that the difference is strongly significant (t(24) = 2.9, p = .008):</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/schoRsch/man/t_out.html">t_out</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">dataFigure2</span><span class="op">$</span><span class="va">pre</span>, <span class="va">dataFigure2</span><span class="op">$</span><span class="va">post</span>, paired<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>##             Test                            Results
-## 1 Paired t-test: t(24) = -2.90, p = .008, d = -0.58
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">dataFigure2</span><span class="op">$</span><span class="va">pre</span>, <span class="va">dataFigure2</span><span class="op">$</span><span class="va">post</span>, paired<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<pre><code>## 
+##  Paired t-test
 ## 
-## NOTE: Reporting unadjusted estimate for Cohen's d.</code></pre>
+## data:  dataFigure2$pre and dataFigure2$post
+## t = -2.9046, df = 24, p-value = 0.007776
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -8.552864 -1.447136
+## sample estimates:
+## mean of the differences 
+##                      -5</code></pre>
 </div>
 <div id="what-is-the-impact-on-confidence-intervals" class="section level2">
 <h2 class="hasAnchor">
 <a href="#what-is-the-impact-on-confidence-intervals" class="anchor"></a>What is the impact on confidence intervals?</h2>
 <p>The above suggests that within-subject designs can be much more powerful than between- subject design. As long as there is a general trend visible in most participants, the paired design will afford more statistical power. How to we know that there is a general trend? An easy solution is to compute the correlation across the pairs of scores.</p>
 <p>In R, you can run the following:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">dataFigure2</span><span class="op">$</span><span class="va">pre</span>, <span class="va">dataFigure2</span><span class="op">$</span><span class="va">post</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 0.836611</code></pre>
 <p>and you find out that in the present dataset, correlation is actually quite high, with <span class="math inline">\(r \approx .8\)</span>. Whenever correlation is positive, statistical power benefits from correlation.</p>
@@ -194,7 +209,7 @@ Figure 1: Representation of the <em>subject-centered</em> individual participant
 <a href="#making-it-simple" class="anchor"></a>Making it simple</h2>
 <p>With <code>suberb</code>, all the decorrelation techniques are available using the adjustment <code>decorrelation</code>.</p>
 <p>Consider the following</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>superb.debug <span class="op">=</span> <span class="st">'none'</span><span class="op">)</span> <span class="co"># shut down 'warnings' and 'design' interpretation messages</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span>
 
@@ -237,7 +252,7 @@ Figure 4: All three decorelation techniques on the same plot along with un-decor
 <a href="#illustrating-individual-differences" class="anchor"></a>Illustrating individual differences</h2>
 <p>In <code>superb</code>, it is possible to ask a certain type of plot. The <code>plotStyle</code> used so far is <code>"line"</code> (the default is <code>"bar"</code>). Another basic style is <code>"point"</code> (no line connecting the means).</p>
 <p>Other types of plot exists that are apt at showing the summary statistics but also the individual scores (the 6th vignettes shows how to develop custom-made styles). For illustrating individual differences, a style proposed is <code>pointindividualline</code> which — as per Figure 1— will show the individual scores along with the summary statistics and the error bars. For example:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure2</span>, 
     WSFactor    <span class="op">=</span> <span class="st">"Moment(2)"</span>, 
     adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span>, decorrelation <span class="op">=</span> <span class="st">"CM"</span><span class="op">)</span>, 

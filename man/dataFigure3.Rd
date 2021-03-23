@@ -47,7 +47,7 @@ res   <- t.test(dataFigure3$VD[dataFigure3$grp==1],
                dataFigure3$VD[dataFigure3$grp==2],
                var.equal=TRUE)
 micc  <- mean(c(0.491334683772226, 0.20385744842838)) # mean ICC given by superbPlot
-lam   <- lambda(c(micc, 5,5,5,5,5,5))
+lam   <- CousineauLaurencelleLambda(c(micc, 5,5,5,5,5,5))
 tcorr <- res$statistic / lam
 pcorr <- 1-pt(tcorr,4)#' 
 

@@ -6,11 +6,17 @@ reference:
     desc: Main functions
     contents:
       - '`superbPlot`'
+      - '`superbData`'
       - '`GRD`'
   - title: plots
     desc: built-in templates for plots
     contents:
       - '`superbPlot.bar`'
+      - '`superbPlot.point`'
+      - '`superbPlot.line`'
+      - '`superbPlot.pointjitter`'
+      - '`superbPlot.pointjitterviolin`'
+      - '`superbPlot.pointindividualline`'
   - title: Datasets
     desc: Examples of data sets
     contents:
@@ -19,14 +25,31 @@ reference:
       - '`dataFigure3`'
       - '`dataFigure4`'
       - '`TMB1964r`'
+  - title: Tests
+    desc: Statistics
+    contents:
+      - '`summaryStatistics`'
+      - '`precisionMeasures`'
+      - '`HyunhFeldtEpsilon`'
+      - '`CousineauLaurencelleLambda`'
+      - '`ShroutFleissICC1`'
+  - title: Tests
+    desc: Statistical tests
+    contents:
+      - '`MauchlySphericityTest`'
+      - '`WinerCompoundSymmetryTest`'
+  - title: Transformations 
+    desc: Transformation functions
+    contents:
+      - '`twoStepTransform`'
+      - '`subjectCenteringTransform`'
+      - '`biasCorrectionTransform`'
+      - '`poolSDTransform`'
   - title: Internals
     desc: Internal functions
     contents:
-      - '`epsilon`'
-      - '`lambda`'
-      - '`MauchlySphericityTest`'
       - '`runDebug`'
-      - '`ShroutFleissICC1`'
       - '`slope`'
-      - '`two_step_transform`'
-      - '`WinerCompoundSymmetryTest`'
+      - '`extent`'
+      - '`custom`'
+      - '`Rexpression`'

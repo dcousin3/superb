@@ -84,7 +84,7 @@ here the cluster- and different-adjusted confidence interval." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5.0</span>
       </span>
     </div>
 
@@ -200,7 +200,7 @@ doi: <a href='https://doi.org/10.1037/met0000055'>10.1037/met0000055</a>
                <span class='va'>dataFigure3</span><span class='op'>$</span><span class='va'>VD</span><span class='op'>[</span><span class='va'>dataFigure3</span><span class='op'>$</span><span class='va'>grp</span><span class='op'>==</span><span class='fl'>2</span><span class='op'>]</span>,
                var.equal<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='va'>micc</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.491334683772226</span>, <span class='fl'>0.20385744842838</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># mean ICC given by superbPlot</span>
-<span class='va'>lam</span>   <span class='op'>&lt;-</span> <span class='fu'><a href='lambda.html'>lambda</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>micc</span>, <span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>lam</span>   <span class='op'>&lt;-</span> <span class='fu'><a href='CousineauLaurencelleLambda.html'>CousineauLaurencelleLambda</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>micc</span>, <span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>tcorr</span> <span class='op'>&lt;-</span> <span class='va'>res</span><span class='op'>$</span><span class='va'>statistic</span> <span class='op'>/</span> <span class='va'>lam</span>
 <span class='va'>pcorr</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/stats/TDist.html'>pt</a></span><span class='op'>(</span><span class='va'>tcorr</span>,<span class='fl'>4</span><span class='op'>)</span><span class='co'>#' </span>
 

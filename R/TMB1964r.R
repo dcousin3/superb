@@ -1,7 +1,9 @@
-#' Data of Tulving, Mandler, & Baumal, 1964 (reproduction of 2021)
+#' @name TMB1964r
 #'
-#' The data comes from \insertCite{b21;textual}{superb}. It is a near exact replication of the original
-#' study from \insertCite{tmb64}{superb}.
+#' @title Data of Tulving, Mandler, & Baumal, 1964 (reproduction of 2021)
+#'
+#' @description The data comes from \insertCite{b21;textual}{superb}. It is a near exact 
+#' replication of the original study from \insertCite{tmb64}{superb}.
 #' 
 #' The design is a (7) x 4 with:  7 levels of stimulus duration (within-subject) and
 #' 4 between-subject conditions.

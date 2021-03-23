@@ -1,21 +1,20 @@
+######################################################
+######################################################
+##  the basic plot formats: bar, line, point
+######################################################
+######################################################
+
+
 ######################################################################################
-#' @title superbPlot templates
+#' @name superbPlot.bar
 #'
-#' @aliases superbPlot.bar superbPlot.line superbPlot.point superbPlot.pointjitter superbPlot.pointjitterviolin superbPlot.pointindividualline
+#' @title superbPlot.bar
 #'
-#' @description superbPlot comes with a few built-in templates for
-#' for making the final plots. All produces ggplot objects that
-#' can be further customized. Additionally, it is possible to add
-#' custom-make templates (see vignette 6). The functions, to be 
+#' @description superbPlot comes with a few built-in templates for making the final plots.
+#' All produces ggplot objects that can be further customized. Additionally, it is
+#' possible to add custom-make templates (see vignette 6). The functions, to be
 #' "superbPlot-compatible", must have these parameters:
 #' 
-#' If you have useful styles, do contribute github.com/dcousin3/superb
-#' by opening an issue.
-#' Finally, any number of optional list of parameters with default value set to list()
-#' can be provided depending on the template style. These includes errorbarParams,
-#' pointParams, barParams, etc.
-#'
-#'
 #' @param summarydata a data.frame with columns "center", "lowerwidth" and "upperwidth" for each level of the factors;
 #' @param xvar a string with the name of the column where the factor going on the horizontal axis is given;
 #' @param groupingfac a string with the name of the column for which the data will be grouped on the plot;
@@ -27,22 +26,9 @@
 #'
 #' @return a ggplot object
 #'
-#'
 #' @export superbPlot.bar
-#' @export superbPlot.line
-#' @export superbPlot.point
-#' @export superbPlot.pointjitter
-#' @export superbPlot.pointjitterviolin
-#' @export superbPlot.pointindividualline
-#' @importFrom utils modifyList
 #'
-
-######################################################
-######################################################
-##  the basic plot formats: bar, line, point
-######################################################
-######################################################
-
+######################################################################################
 
 superbPlot.bar <- function(
     summarydata,               # a summary result data.frame
@@ -87,8 +73,32 @@ superbPlot.bar <- function(
 }
 
  
-######################################################
 
+######################################################################################
+#' @name superbPlot.line
+#'
+#' @title superbPlot.line
+#'
+#' @description superbPlot comes with a few built-in templates for making the final plots.
+#' All produces ggplot objects that can be further customized. Additionally, it is
+#' possible to add custom-make templates (see vignette 6). The functions, to be
+#' "superbPlot-compatible", must have these parameters:
+#' 
+#' @param summarydata a data.frame with columns "center", "lowerwidth" and "upperwidth" for each level of the factors;
+#' @param xvar a string with the name of the column where the factor going on the horizontal axis is given;
+#' @param groupingfac a string with the name of the column for which the data will be grouped on the plot;
+#' @param addfactors a string with up to two additional factors to make the rows and columns panels, in the form "fact1 ~ fact2";
+#' @param rawdata always contains "DV" for each participants and each level of the factors
+#' @param pointParams (optional) list of graphic directives that are sent to the geom_bar layer
+#' @param lineParams (optional) list of graphic directives that are sent to the geom_bar layer
+#' @param errorbarParams (optional) list of graphic directives that are sent to the geom_errorbar layer
+#' @param facetParams (optional) list of graphic directives that are sent to the facet_grid layer
+#'
+#' @return a ggplot object
+#'
+#' @export superbPlot.line
+#'
+######################################################################################
 
 superbPlot.line <- function(
     summarydata,               # a summary result data.frame
@@ -142,8 +152,31 @@ superbPlot.line <- function(
 }
 
  
-######################################################
 
+######################################################################################
+#' @name superbPlot.point
+#'
+#' @title superbPlot.point
+#'
+#' @description superbPlot comes with a few built-in templates for making the final plots.
+#' All produces ggplot objects that can be further customized. Additionally, it is
+#' possible to add custom-make templates (see vignette 6). The functions, to be
+#' "superbPlot-compatible", must have these parameters:
+#' 
+#' @param summarydata a data.frame with columns "center", "lowerwidth" and "upperwidth" for each level of the factors;
+#' @param xvar a string with the name of the column where the factor going on the horizontal axis is given;
+#' @param groupingfac a string with the name of the column for which the data will be grouped on the plot;
+#' @param addfactors a string with up to two additional factors to make the rows and columns panels, in the form "fact1 ~ fact2";
+#' @param rawdata always contains "DV" for each participants and each level of the factors
+#' @param pointParams (optional) list of graphic directives that are sent to the geom_bar layer
+#' @param errorbarParams (optional) list of graphic directives that are sent to the geom_errorbar layer
+#' @param facetParams (optional) list of graphic directives that are sent to the facet_grid layer
+#'
+#' @return a ggplot object
+#'
+#' @export superbPlot.point
+#'
+######################################################################################
 
 superbPlot.point <- function(
     summarydata,               # a summary result data.frame
@@ -194,6 +227,32 @@ superbPlot.point <- function(
 ######################################################
 ######################################################
 
+
+######################################################################################
+#' @name superbPlot.pointjitter
+#'
+#' @title superbPlot.pointjitter
+#'
+#' @description superbPlot comes with a few built-in templates for making the final plots.
+#' All produces ggplot objects that can be further customized. Additionally, it is
+#' possible to add custom-make templates (see vignette 6). The functions, to be
+#' "superbPlot-compatible", must have these parameters:
+#' 
+#' @param summarydata a data.frame with columns "center", "lowerwidth" and "upperwidth" for each level of the factors;
+#' @param xvar a string with the name of the column where the factor going on the horizontal axis is given;
+#' @param groupingfac a string with the name of the column for which the data will be grouped on the plot;
+#' @param addfactors a string with up to two additional factors to make the rows and columns panels, in the form "fact1 ~ fact2";
+#' @param rawdata always contains "DV" for each participants and each level of the factors
+#' @param pointParams (optional) list of graphic directives that are sent to the geom_bar layer
+#' @param jitterParams (optional) list of graphic directives that are sent to the geom_bar layer
+#' @param errorbarParams (optional) list of graphic directives that are sent to the geom_errorbar layer
+#' @param facetParams (optional) list of graphic directives that are sent to the facet_grid layer
+#'
+#' @return a ggplot object
+#'
+#' @export superbPlot.pointjitter
+#'
+######################################################################################
 
 superbPlot.pointjitter <- function(
     summarydata,               # a summary result data.frame
@@ -248,8 +307,33 @@ superbPlot.pointjitter <- function(
 }
 
 
-######################################################
 
+######################################################################################
+#' @name superbPlot.pointjitterviolin
+#'
+#' @title superbPlot.pointjitterviolin
+#'
+#' @description superbPlot comes with a few built-in templates for making the final plots.
+#' All produces ggplot objects that can be further customized. Additionally, it is
+#' possible to add custom-make templates (see vignette 6). The functions, to be
+#' "superbPlot-compatible", must have these parameters:
+#' 
+#' @param summarydata a data.frame with columns "center", "lowerwidth" and "upperwidth" for each level of the factors;
+#' @param xvar a string with the name of the column where the factor going on the horizontal axis is given;
+#' @param groupingfac a string with the name of the column for which the data will be grouped on the plot;
+#' @param addfactors a string with up to two additional factors to make the rows and columns panels, in the form "fact1 ~ fact2";
+#' @param rawdata always contains "DV" for each participants and each level of the factors
+#' @param pointParams (optional) list of graphic directives that are sent to the geom_bar layer
+#' @param jitterParams (optional) list of graphic directives that are sent to the geom_bar layer
+#' @param violinParams (optional) list of graphic directives that are sent to the geom_bar layer
+#' @param errorbarParams (optional) list of graphic directives that are sent to the geom_errorbar layer
+#' @param facetParams (optional) list of graphic directives that are sent to the facet_grid layer
+#'
+#' @return a ggplot object
+#'
+#' @export superbPlot.pointjitterviolin
+#'
+######################################################################################
 
 superbPlot.pointjitterviolin <- function(
     summarydata,               # a summary result data.frame
@@ -299,9 +383,35 @@ superbPlot.pointjitterviolin <- function(
 
 
 
-######################################################
-
  
+######################################################################################
+#' @name superbPlot.pointindividualline
+#'
+#' @title superbPlot.pointindividualline
+#'
+#' @description superbPlot comes with a few built-in templates for making the final plots.
+#' All produces ggplot objects that can be further customized. Additionally, it is
+#' possible to add custom-make templates (see vignette 6). The functions, to be
+#' "superbPlot-compatible", must have these parameters:
+#' 
+#' @param summarydata a data.frame with columns "center", "lowerwidth" and "upperwidth" for each level of the factors;
+#' @param xvar a string with the name of the column where the factor going on the horizontal axis is given;
+#' @param groupingfac a string with the name of the column for which the data will be grouped on the plot;
+#' @param addfactors a string with up to two additional factors to make the rows and columns panels, in the form "fact1 ~ fact2";
+#' @param rawdata always contains "DV" for each participants and each level of the factors
+#' @param pointParams (optional) list of graphic directives that are sent to the geom_bar layer
+#' @param lineParams (optional) list of graphic directives that are sent to the geom_bar layer
+#' @param errorbarParams (optional) list of graphic directives that are sent to the geom_errorbar layer
+#' @param facetParams (optional) list of graphic directives that are sent to the facet_grid layer
+#'
+#' @return a ggplot object
+#'
+#' @export superbPlot.pointindividualline
+#'
+#' @importFrom utils modifyList
+#'
+######################################################################################
+
 superbPlot.pointindividualline <- function(
     summarydata,               # a summary result data.frame
     xvar,                      # the factor on the horizontal axis  
@@ -355,4 +465,9 @@ superbPlot.pointindividualline <- function(
 }
 
 
+
+######################################################
+######################################################
+## end of the built-in templates
+######################################################
 ######################################################

@@ -1,4 +1,4 @@
-context("Testing suberb")
+context("Testing suberbPlot")
 
 
 test_that("PRELIMINARY TESTS (1/4)", {
@@ -406,8 +406,8 @@ test_that("Testing pre and post processing", {
     )
     altcm <- superbPlot(dta9, WSFactor = "moment(3)", 
       adjustments=list(decorrelation="none"),
-      preprocessfct = "subject_centering_transform",
-      postprocessfct = c("bias_correction_transform"),
+      preprocessfct = "subjectCenteringTransform",
+      postprocessfct = c("biasCorrectionTransform"),
       errorbar = "CI", showPlot=T,
       variables = c("DV.1","DV.2","DV.3") 
     )+ labs(title="with pre and post processing")
@@ -422,8 +422,8 @@ test_that("Testing pre and post processing", {
     )
     altlm <- superbPlot(dta9, WSFactor = "moment(3)", 
       adjustments=list(decorrelation="none"),
-      preprocessfct = "subject_centering_transform",
-      postprocessfct = c("bias_correction_transform","pool_sd_transform"),
+      preprocessfct = "subjectCenteringTransform",
+      postprocessfct = c("biasCorrectionTransform","poolSDTransform"),
       errorbar = "CI", showPlot=T,
       variables = c("DV.1","DV.2","DV.3") 
     )+ labs(title="with pre and post processing")
@@ -438,7 +438,7 @@ test_that("Testing pre and post processing", {
     )
     expect_warning( altcmvslm <- superbPlot(dta9, WSFactor = "moment(3)", 
         adjustments=list(decorrelation="CM"),
-        postprocessfct = c("pool_sd_transform"),
+        postprocessfct = c("poolSDTransform"),
         errorbar = "CI", showPlot=T,
         variables = c("DV.1","DV.2","DV.3") 
         )+ labs(title="with decorrelation = CM and pooling") 
@@ -454,4 +454,71 @@ test_that("Testing pre and post processing", {
 })
 
 
+#########################################
+# testing multiple formats!
+#########################################
 
+test_that("Many tests with TMB1964r", {
+    library(ggplot2)
+    options(superb.debug = "none")
+    mee = TMB1964r[TMB1964r$Language == "English"|TMB1964r$Language == "French",]
+
+    mp <- function(style, ...) {
+        superbPlot(mee,
+            WSFactor = "T(7)",
+            BSFactor = c("Condition","Sex"),
+            variables = c("T1","T2","T3","T4","T5","T6","T7"),
+            adjustments = list(purpose="difference", decorrelation="CM"),
+            plotStyle = style,
+            ...
+        ) 
+    }
+    ###### BASIC PLOTS ######
+    plt1 <- mp("bar",
+        errorbarParams = list(size=0.75, position = position_dodge(.95) ),
+        barParams = list(size=0.5)
+    ) + 
+    scale_colour_manual( name = "asdf", 
+        labels = c("Context 0", "Context 2", "Context 4", "Context 8"), 
+        values = c("blue", "black", "purple", "red")) +
+    scale_fill_manual( name = "asdf", 
+        labels = c("Context 0", "Context 2", "Context 4", "Context 8"), 
+        values = c("blue", "black", "purple", "red")) +
+    theme_bw(base_size = 16) +
+    labs(x = "Exposure duration (ms)", y = "Mean of correct responses" )+ 
+    scale_x_discrete(labels=c("1" = "16.67", "2" = "33.33",
+        "3"="50.00", "4" = "66.67", "5"="83.33", "6"="100.00", "7"="116.67"))
+
+    plt2 <- mp("line",
+        errorbarParams = list(size=0.75, width = 0.2, position = position_dodge(.5) ),
+        pointParams = list(size=2.5, position = position_dodge(.5)),
+        lineParams = list(size=0.25)
+    )
+
+    plt3 <- mp("point",
+        errorbarParams = list(position = position_dodge(.5) ),
+        pointParams = list(size=2.5, position = position_dodge(.5))
+    )
+
+    ###### ADVANCED PLOTS ######
+    plt4 <- mp("pointjitter",
+        errorbarParams = list(position = position_dodge(.5) ),
+        pointParams = list(size=3.5, position = position_dodge(.5)),
+        jitterParams = list(size = 0.5)
+    )
+
+    plt5 <- mp("pointjitterviolin",
+        errorbarParams = list(position = position_dodge(.5) ),
+        pointParams = list(size=3.5, position = position_dodge(.5)),
+        jitterParams = list(size = 0.5),
+        violinParams = list(alpha =0.7)
+    )
+
+    expect_equal( "ggplot" %in% class(plt1), TRUE)
+    expect_equal( "ggplot" %in% class(plt2), TRUE)
+    expect_equal( "ggplot" %in% class(plt3), TRUE)
+    expect_equal( "ggplot" %in% class(plt4), TRUE)
+    expect_equal( "ggplot" %in% class(plt5), TRUE)
+
+
+})

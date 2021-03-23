@@ -53,15 +53,12 @@ Taking into account the confidence interval, the manipulation seems to improve
 significantly the learning behavior as the lower end of the *Collaborative games* group
 is above the *Unstructured activity* mean (and vice versa).
 
-What a surprise to discover that a *t-test* will **NOT** confirm this impression! (t(48) = 1.76, p = .085) Here, 
-I use the *schoRsch* ``t_out`` function only to get human-readable outputs [@pj16].
+What a surprise to discover that a *t-test* will **NOT** confirm this impression! (t(48) = 1.76, p = .085) 
 
 ```{r, message=FALSE, warning=FALSE, echo=TRUE}
-library(schoRsch)
-
-t_out(t.test(dataFigure1$score[dataFigure1$grp==1], 
+t.test(dataFigure1$score[dataFigure1$grp==1], 
         dataFigure1$score[dataFigure1$grp==2],
-        var.equal=T))
+        var.equal=T)
 ```
 
 ## The origin of the paradox 
@@ -72,14 +69,14 @@ we are correct in concluding that 100 is significantly different (with level $\a
  of .05) from 100, as confirmed by a single-group t-test:
 
 ```{r, message=FALSE, echo=TRUE}
-t_out(t.test(dataFigure1$score[dataFigure1$grp==1], mu=100))
+t.test(dataFigure1$score[dataFigure1$grp==1], mu=100)
 ```
 
 Likewise, the second group' mean is significantly different from 105 (which happens
 to be the first group's mean):
 
 ```{r, message=FALSE, echo=TRUE}
-t_out(t.test(dataFigure1$score[dataFigure1$grp==2], mu=105))
+t.test(dataFigure1$score[dataFigure1$grp==2], mu=105)
 ```
 
 This is precisely the purpose of **stand-alone** intervals: to compare a single result

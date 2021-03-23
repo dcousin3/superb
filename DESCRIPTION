@@ -1,8 +1,8 @@
 Package: superb
 Type: Package
 Title: Get Precision of Means Under Various Designs and Sampling Schemes
-Version: 0.9.4.3
-Date: 2021-03-18
+Version: 0.9.5.0
+Date: 2021-03-21
 Authors@R: c(
              person("Denis", "Cousineau", email = "denis.cousineau@uottawa.ca",
                     role = c("aut", "cre")),
@@ -54,7 +54,6 @@ Suggests:
     lawstat,
     reshape2,
     testthat,
-    schoRsch,
     emojifont,
     sadists
 RdMacros: Rdpack

@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5.0</span>
       </span>
     </div>
 
@@ -116,33 +116,54 @@ Figure 1: Mean scores along with 95% confidence interval for two groups of stude
 </p>
 </div>
 <p>As seen, there seems to be a better score for students playing collaborative games. Taking into account the confidence interval, the manipulation seems to improve significantly the learning behavior as the lower end of the <em>Collaborative games</em> group is above the <em>Unstructured activity</em> mean (and vice versa).</p>
-<p>What a surprise to discover that a <em>t-test</em> will <strong>NOT</strong> confirm this impression! (t(48) = 1.76, p = .085) Here, I use the <em>schoRsch</em> <code>t_out</code> function only to get human-readable outputs <span class="citation">(Pfister &amp; Janczyk, 2016)</span>.</p>
+<p>What a surprise to discover that a <em>t-test</em> will <strong>NOT</strong> confirm this impression! (t(48) = 1.76, p = .085)</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.tqmp.org/RegularArticles/vol12-2/p147/index.html">schoRsch</a></span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/pkg/schoRsch/man/t_out.html">t_out</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">dataFigure1</span><span class="op">$</span><span class="va">score</span><span class="op">[</span><span class="va">dataFigure1</span><span class="op">$</span><span class="va">grp</span><span class="op">==</span><span class="fl">1</span><span class="op">]</span>, 
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">dataFigure1</span><span class="op">$</span><span class="va">score</span><span class="op">[</span><span class="va">dataFigure1</span><span class="op">$</span><span class="va">grp</span><span class="op">==</span><span class="fl">1</span><span class="op">]</span>, 
         <span class="va">dataFigure1</span><span class="op">$</span><span class="va">score</span><span class="op">[</span><span class="va">dataFigure1</span><span class="op">$</span><span class="va">grp</span><span class="op">==</span><span class="fl">2</span><span class="op">]</span>,
-        var.equal<span class="op">=</span><span class="cn">T</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>##                  Test                          Results
-## 1  Two Sample t-test: t(48) = 1.76, p = .085, d = 0.50</code></pre>
+        var.equal<span class="op">=</span><span class="cn">T</span><span class="op">)</span></code></pre></div>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  dataFigure1$score[dataFigure1$grp == 1] and dataFigure1$score[dataFigure1$grp == 2]
+## t = 1.7612, df = 48, p-value = 0.08458
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.7082201 10.7082201
+## sample estimates:
+## mean of x mean of y 
+##       105       100</code></pre>
 </div>
 <div id="the-origin-of-the-paradox" class="section level2">
 <h2 class="hasAnchor">
 <a href="#the-origin-of-the-paradox" class="anchor"></a>The origin of the paradox</h2>
 <p>The reason is that the confidence intervals used are “stand-alone”: They can be used to examine, say, the first group to the value 100. As this value is outside the interval, we are correct in concluding that 100 is significantly different (with level <span class="math inline">\(\alpha\)</span> of .05) from 100, as confirmed by a single-group t-test:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/schoRsch/man/t_out.html">t_out</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">dataFigure1</span><span class="op">$</span><span class="va">score</span><span class="op">[</span><span class="va">dataFigure1</span><span class="op">$</span><span class="va">grp</span><span class="op">==</span><span class="fl">1</span><span class="op">]</span>, mu<span class="op">=</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>##                 Test                          Results
-## 1 One Sample t-test: t(24) = 2.50, p = .020, d = 0.50
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">dataFigure1</span><span class="op">$</span><span class="va">score</span><span class="op">[</span><span class="va">dataFigure1</span><span class="op">$</span><span class="va">grp</span><span class="op">==</span><span class="fl">1</span><span class="op">]</span>, mu<span class="op">=</span><span class="fl">100</span><span class="op">)</span></code></pre></div>
+<pre><code>## 
+##  One Sample t-test
 ## 
-## NOTE: Reporting unadjusted estimate for Cohen's d.</code></pre>
+## data:  dataFigure1$score[dataFigure1$grp == 1]
+## t = 2.5021, df = 24, p-value = 0.01956
+## alternative hypothesis: true mean is not equal to 100
+## 95 percent confidence interval:
+##  100.8756 109.1244
+## sample estimates:
+## mean of x 
+##       105</code></pre>
 <p>Likewise, the second group’ mean is significantly different from 105 (which happens to be the first group’s mean):</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/schoRsch/man/t_out.html">t_out</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">dataFigure1</span><span class="op">$</span><span class="va">score</span><span class="op">[</span><span class="va">dataFigure1</span><span class="op">$</span><span class="va">grp</span><span class="op">==</span><span class="fl">2</span><span class="op">]</span>, mu<span class="op">=</span><span class="fl">105</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>##                 Test                            Results
-## 1 One Sample t-test: t(24) = -2.48, p = .021, d = -0.50
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">dataFigure1</span><span class="op">$</span><span class="va">score</span><span class="op">[</span><span class="va">dataFigure1</span><span class="op">$</span><span class="va">grp</span><span class="op">==</span><span class="fl">2</span><span class="op">]</span>, mu<span class="op">=</span><span class="fl">105</span><span class="op">)</span></code></pre></div>
+<pre><code>## 
+##  One Sample t-test
 ## 
-## NOTE: Reporting unadjusted estimate for Cohen's d.</code></pre>
+## data:  dataFigure1$score[dataFigure1$grp == 2]
+## t = -2.4794, df = 24, p-value = 0.02057
+## alternative hypothesis: true mean is not equal to 105
+## 95 percent confidence interval:
+##   95.83795 104.16205
+## sample estimates:
+## mean of x 
+##       100</code></pre>
 <p>This is precisely the purpose of <strong>stand-alone</strong> intervals: to compare a single result to a fix value. The fix value (here 100 for the first group and 105 for the second group) has no uncertainty, it is a constant.</p>
 <p>In contrast, the two-group t-test compares two means, the two of which are uncertain. Therefore, in making a confidence interval, it is necessary that the basic, stand-alone, confidence interval be <em>informed</em> that it is going to be compared —not to fix values— to a second quantity which is itself uncertain.</p>
 <p>In the language of analyses of variance, we can say that when the purpose of the plot is to compare means to other means, there is more variances in the comparisons than there is in single groups in isolation.</p>
@@ -259,9 +280,6 @@ Figure 4: Two representations of the results with adjusted and unadjusted error 
 <div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
 <div id="ref-b12" class="csl-entry">
 Baguley, T. (2012). Calculating and graphing within-subject confidence intervals for ANOVA. <em>Behavior Research Methods</em>, <em>44</em>, 158–175. <a href="https://doi.org/10.3758/s13428-011-0123-7">https://doi.org/10.3758/s13428-011-0123-7</a>
-</div>
-<div id="ref-pj16" class="csl-entry">
-Pfister, R., &amp; Janczyk, M. (2016). schoRsch: An <span>R</span> package for analyzing and reporting factorial experiments. <em>The Quantitative Methods for Psychology</em>, <em>12</em>(2), 147–151. <a href="https://doi.org/10.20982/tqmp.12.2.p147">https://doi.org/10.20982/tqmp.12.2.p147</a>
 </div>
 </div>
 </div>

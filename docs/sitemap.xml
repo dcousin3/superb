@@ -4,6 +4,12 @@
     <loc>http://dcousin3.github.io/superb/index.html</loc>
   </url>
   <url>
+    <loc>http://dcousin3.github.io/superb/reference/biasCorrectionTransform.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/reference/CousineauLaurencelleLambda.html</loc>
+  </url>
+  <url>
     <loc>http://dcousin3.github.io/superb/reference/dataFigure1.html</loc>
   </url>
   <url>
@@ -16,16 +22,19 @@
     <loc>http://dcousin3.github.io/superb/reference/dataFigure4.html</loc>
   </url>
   <url>
-    <loc>http://dcousin3.github.io/superb/reference/epsilon.html</loc>
-  </url>
-  <url>
     <loc>http://dcousin3.github.io/superb/reference/GRD.html</loc>
   </url>
   <url>
-    <loc>http://dcousin3.github.io/superb/reference/lambda.html</loc>
+    <loc>http://dcousin3.github.io/superb/reference/HyunhFeldtEpsilon.html</loc>
   </url>
   <url>
     <loc>http://dcousin3.github.io/superb/reference/MauchlySphericityTest.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/reference/poolSDTransform.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/reference/precisionMeasures.html</loc>
   </url>
   <url>
     <loc>http://dcousin3.github.io/superb/reference/runDebug.html</loc>
@@ -37,10 +46,34 @@
     <loc>http://dcousin3.github.io/superb/reference/slope.html</loc>
   </url>
   <url>
+    <loc>http://dcousin3.github.io/superb/reference/subjectCenteringTransform.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/reference/summaryStatistics.html</loc>
+  </url>
+  <url>
     <loc>http://dcousin3.github.io/superb/reference/superb-package.html</loc>
   </url>
   <url>
+    <loc>http://dcousin3.github.io/superb/reference/superbData.html</loc>
+  </url>
+  <url>
     <loc>http://dcousin3.github.io/superb/reference/superbPlot.bar.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/reference/superbPlot.line.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/reference/superbPlot.point.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/reference/superbPlot.pointindividualline.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/reference/superbPlot.pointjitter.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/reference/superbPlot.pointjitterviolin.html</loc>
   </url>
   <url>
     <loc>http://dcousin3.github.io/superb/reference/superbPlot.html</loc>
@@ -49,7 +82,7 @@
     <loc>http://dcousin3.github.io/superb/reference/TMB1964r.html</loc>
   </url>
   <url>
-    <loc>http://dcousin3.github.io/superb/reference/two_step_transform.html</loc>
+    <loc>http://dcousin3.github.io/superb/reference/twoStepTransform.html</loc>
   </url>
   <url>
     <loc>http://dcousin3.github.io/superb/reference/WinerCompoundSymmetryTest.html</loc>

@@ -92,10 +92,6 @@
 #'
 #'
 #' @export superbPlot
-#' @export two_step_transform
-#' @export subject_centering_transform 
-#' @export bias_correction_transform 
-#' @export pool_sd_transform
 #' @importFrom lsr wideToLong
 #' @importFrom plyr ddply
 #' @import ggplot2
@@ -255,11 +251,11 @@ superbPlot <- function(data,
     data.wide <- data
     # We do this step for each group and only on columns with repeated measures.
     if (adjustments$decorrelation == "CM" || adjustments$decorrelation == "LM") {
-        data.wide <- plyr::ddply(data.wide, .fun = two_step_transform, .variables= BSFactor, variables)    
+        data.wide <- plyr::ddply(data.wide, .fun = twoStepTransform, .variables= BSFactor, variables)    
     }
     # is LM (pooled standard error) needed?
     if (adjustments$decorrelation == "LM") {
-        data.wide <- plyr::ddply(data.wide, .fun = pool_sd_transform, .variables= BSFactor, variables) 
+        data.wide <- plyr::ddply(data.wide, .fun = poolSDTransform, .variables= BSFactor, variables) 
     }
     # other custom pre-processing of the data matrix per group
     if (!is.null(preprocessfct)) {
@@ -354,7 +350,7 @@ superbPlot <- function(data,
         KNSs <- KNSs[-1:-length(BSFactor)] # drop BSFactor columns
 
         ICCsKNNs <- cbind(ICCs, KNSs)
-        lambdas  <- apply(ICCsKNNs, 1, lambda) # one lambda per group
+        lambdas  <- apply(ICCsKNNs, 1, CousineauLaurencelleLambda) # one lambda per group
         # the lambdas must be expanded for each repeated measures
         lambdas  <- rep(lambdas, wslevel)
         ICCs     <- ICCs$V1 # downcast to a vector for latter display
@@ -395,9 +391,9 @@ superbPlot <- function(data,
         
         # 6.2: if decorrelate is CM or LM: show epsilon, test Winer and Mauchly
         if (adjustments$decorrelation %in% c("CM","LM")) {
-            epsGG <- suppressWarnings(plyr::ddply(data, .fun = "epsilon", .variables= BSFactor, variables)) 
+            epsGG <- suppressWarnings(plyr::ddply(data, .fun = "HyunhFeldtEpsilon", .variables= BSFactor, variables)) 
             epsGG <- epsGG[,length(epsGG)]
-            warning(paste("FYI: The epsilon measure of sphericity per group are ", paste(epsGG, collapse=" ")), call. = FALSE)
+            warning(paste("FYI: The HyunhFeldtEpsilon measure of sphericity per group are ", paste(epsGG, collapse=" ")), call. = FALSE)
 
             winers <- suppressWarnings(plyr::ddply(data, .fun = "WinerCompoundSymmetryTest", .variables= BSFactor, variables) )
             winers <- winers[,length(winers)]
@@ -445,15 +441,6 @@ superbPlot <- function(data,
         ))
         return(plot)
     } else {
-        # do some renaming of the columns for clearer results
-        #verbosecol <- c(
-        #    statistic,
-        #    if (errorbar == "SE") c("- 1 * SE", "+ 1 * SE") 
-        #    else if (errorbar == "CI") c(paste("-", gamma* 100, "% CI width"), paste("+", gamma* 100, "% CI width") ) 
-        #    else if (errorbar == "PI") c(paste("-", gamma* 100, "% PI width"), paste("+", gamma* 100, "% PI width") ) 
-        #    else c(paste("-", widthfct), paste("+", widthfct) )
-        #)
-        #colnames(summaryStatistics)[(length(factorOrder)+1):(length(factorOrder)+3)] <- verbosecol
         return(summaryStatistics)
     }
 
@@ -463,91 +450,12 @@ superbPlot <- function(data,
 }
 
 
-
-#################################################################################
-# logical functions:    is.interval.function; is.gamma.required; is.stat.function
-#################################################################################
-
-is.stat.function <- function(fctname) {
-    # does the function provided by the user exists and compute from a list of data? 
-    res <- tryCatch(
-        {do.call(fctname, list( c(1,2,3) ) ); TRUE},
-        error = function(cond) {return(FALSE)} 
-    )
-    res
-}
-
-is.errorbar.function <- function(fctname) {
-    # does the function provided by the user exists and compute from a list of data? 
-    if (is.gamma.required(fctname)) {
-        TRUE
-    } else {
-        is.stat.function(fctname)
-    }
-}
-    
-is.interval.function <- function(fctname) {
-    # is the function provided by the user an interval, i.e., two numbers (e.g., CI) 
-    # or a single width (e.g., SE)?
-    res <- do.call(fctname, list( c(1,2,3)) )
-    if (length(res) == 2) TRUE else FALSE
-}
-
-is.width.function <- function(fctname) {
-    # is the function provided by the user an interval, i.e., two numbers (e.g., CI) 
-    # or a single width (e.g., SE)?
-    res <- do.call(fctname, list( c(1,2,3)) )
-    if (length(res) == 1) TRUE else FALSE
-}
-
-is.gamma.required <- function(fctname) {
-    # is the function provided by the user requires a coverage factor
-    # gamma (e.g., CI) or not (e.g., SE)?
-    res <- tryCatch(
-        {do.call(fctname, list( c(1,2,3), gamma = 0.95) ); TRUE},
-        error = function(cond) {return(FALSE)}
-    )
-    res
-}
-
-is.superbPlot.function <- function(fctname) {
-    # does the plot function provided by the user exists?
-    runDebug("is.superbPlotfunction", "entering is.superbPlotfunction", c(),list() )
-    res <- TRUE
-    if (!exists(fctname)) {
-        res <- FALSE
-    } else {
-        # if the symbol exists, run a fake call to see if it works...
-        dta <- data.frame( 
-                dose       = cbind(c(0.5,0.5,1,1,2,2)),
-                supp       = cbind(c("A","B","A","B","A","B")),
-                center     = cbind(c(13,8,22,17,26,26)),
-                lowerwidth = cbind(c(-3,-2,-3,-2,-2,-4)),
-                upperwidth = cbind(c(+3,+2,+3,+2,+2,+4))
-        )
-        fake = datasets::ToothGrowth;
-        fake = cbind(fake, DV = fake$len)
-
-        res <- tryCatch(
-            {test <- suppressWarnings(do.call(fctname, 
-                    list(dta,
-                        "dose", 
-                        "supp", ".~.", 
-                        fake ) ) ); 
-            "ggplot" %in% class(test)},
-            error = function(cond) {return(FALSE)} 
-        )
-    }
-    runDebug("is.superbPlotfunction", "exiting is.superbPlotfunction", c(),list() )
-    res
-}
-
-
 #################################################################################
 # statistics functions: colSDs; meanCorrelation
 #################################################################################
 
 meanCorrelation <- function(X, cols) {
+    # the mean pair-wise correlations from many columns of the dataframe X
     rs   <- cor(X[cols])
     rbar <- mean(rs[upper.tri(rs)])
     rbar
@@ -559,73 +467,6 @@ colSDs = function (x) {
     else if (is.matrix(x))     apply(x, 2, sd)
     else if (is.data.frame(x)) apply(x, 2, sd)
     else "what the fuck??"
-}
-
-
-#################################################################################
-# tranform functions:   two_step_transform; pool_sd_transform;
-#                       bias_correction_transform; subject_centering_transform;
-#################################################################################
-
-
-
-######################################################################################
-#' @title transformations
-#'
-#' @aliases two_step_transform subject_centering_transform bias_correction_transform pool_sd_transform
-#'
-#' @description two_step_transform, subject_centering_transform, 
-#' bias_correction_transform and pool_sd_transform are four 
-#' transformations that can be applied to a matrix of data.
-#'
-#' @param dta a data.frame containing the data in wide format;
-#' @param variables a vector of column names on which the transformation will be applied.
-#'     the remaining columns will be left unchanged
-#'
-#' @return a data.frame of the same form as dta with the variables transformed.
-#'
-#'
-
-
-
-
-two_step_transform <- function(dta, variables) {
-    # from O'Brien and Cousineau (2014) The Quantitative Methods for Psychology
-    # It merges together subject_centering_transform and bias_correction_transform
-    X <- dta[ variables ]
-    C <- ncol(X)
-    Y <- X - rowMeans(X) + mean(rowMeans(X))
-    Z <- sqrt(C / (C - 1)) * (t(Y) - colMeans(Y)) + colMeans(Y)
-    Z <- as.data.frame(t(Z))
-    dta [ variables ] = Z
-    return(dta)
-}
-subject_centering_transform <- function(dta, variables) {
-    # from O'Brien and Cousineau (2014) The Quantitative Methods for Psychology
-    X <- dta[ variables ]
-    C <- ncol(X)
-    Y <- X - rowMeans(X) + mean(rowMeans(X))
-    dta [ variables ] = Y
-    return(dta)
-}
-bias_correction_transform <- function(dta, variables) {
-    # from O'Brien and Cousineau (2014) The Quantitative Methods for Psychology
-    Y <- dta[ variables ]
-    C <- ncol(Y)
-    Z <- sqrt(C / (C - 1)) * (t(Y) - colMeans(Y)) + colMeans(Y)
-    Z <- as.data.frame(t(Z))
-    dta [ variables ] = Z
-    return(dta)
-}
-pool_sd_transform <- function(dta, variables) {
-    # from Cousineau, in prep.
-    Z   <- dta[ variables ]
-    sds <- colSDs(Z)
-    sdp <- sqrt(mean(sds^2))
-    W   <- sdp / sds * (t(Z) - colMeans(Z)) + colMeans(Z)
-    W <- as.data.frame(t(W))
-    dta [ variables ] = W
-    return(dta)
 }
 
 

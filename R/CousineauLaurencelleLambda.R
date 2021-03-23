@@ -1,7 +1,7 @@
 ######################################################################################
-#' @title lambda factor for cluster-randomized sampling
+#' @title CousineauLaurencelleLambda factor for cluster-randomized sampling
 #'
-#' @description The functions lambda returns the correction factor
+#' @description The functions CousineauLaurencelleLambda() returns the correction factor
 #'   for cluster-randomized sampling. This correction is then used
 #'   in a variety of ways, for example, to get the effective number of
 #'   participants (in a power study) or to correct a t-test.
@@ -17,15 +17,15 @@
 #'
 #' @examples
 #' # Example from Cousineau & Laurencelle, 2017, p. 124:
-#' lambda( c(0.2, 5, 20, 20, 20, 20, 20) )
+#' CousineauLaurencelleLambda( c(0.2, 5, 20, 20, 20, 20, 20) )
 #' # 2.234188  
 #'
-#' @export lambda
+#' @export CousineauLaurencelleLambda
 #
 
 
 # compute the correction factor as per Cousineau & Laurencelle, 2016, Psyck Methods
-lambda <- function(paramvector) {
+CousineauLaurencelleLambda <- function(paramvector) {
     r  <- paramvector[1]          # i.e. ICC
     r  <- max(-0.2, r)
     k  <- paramvector[2]          # number of clusters

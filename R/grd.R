@@ -85,8 +85,8 @@
 #' 
 #' @importFrom Rdpack reprompt
 #' @export GRD
-#' @export extent
 #' @export slope
+#' @export extent
 #' @export custom
 #' @export Rexpression
 #' @import stats

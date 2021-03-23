@@ -45,9 +45,7 @@ There is a large variation in the scores obtained and as such a t-test where the
 are treated as independent will fail to detect a difference:
 
 ```{r}
-library(schoRsch)
-
-t_out(t.test(dataFigure2$pre, dataFigure2$post, var.equal=T))
+t.test(dataFigure2$pre, dataFigure2$post, var.equal=T)
 ```
 
 However, examining the data, in which each participant's scores are shown with 
@@ -80,10 +78,12 @@ dashed line).
 The following realizes this *subject-centered* plot for each participant.
 
 ```{r, message=FALSE, echo=TRUE, fig.cap="Figure 1: Representation of the *subject-centered* individual participants"}
-# use superb:::subject_centering_transform function 
-df2 <- superb:::subject_centering_transform(dataFigure2, c("pre","post"))
+# use subjectCenteringTransform function 
+library(superb)
+df2 <- subjectCenteringTransform(dataFigure2, c("pre","post"))
 
 # tranform into long format
+library(reshape2)
 dl2 <- melt(df2, id="id")
 
 # make the plot
@@ -100,7 +100,7 @@ Running the adequate paired-t test, we find indeed that the difference is strong
 significant (t(24) = 2.9, p = .008):
 
 ```{r}
-t_out(t.test(dataFigure2$pre, dataFigure2$post, paired=TRUE))
+t.test(dataFigure2$pre, dataFigure2$post, paired=TRUE)
 ```
 
 ## What is the impact on confidence intervals?
