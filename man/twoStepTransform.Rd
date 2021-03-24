@@ -2,7 +2,7 @@
 % Please edit documentation in R/functionsTransformation.R
 \name{twoStepTransform}
 \alias{twoStepTransform}
-\title{twoStepTransform}
+\title{two-step transform for subject centering and bias correction}
 \usage{
 twoStepTransform(dta, variables)
 }
@@ -16,6 +16,11 @@ the remaining columns will be left unchanged}
 a data.frame of the same form as dta with the variables transformed.
 }
 \description{
-twoStepTransform, is a  
-transformation that can be applied to a matrix of data.
+twoStepTransform, is a transformation that can
+ be applied to a matrix of data. The resulting matrix is both 
+ subject-centered and bias corrected, a technique called
+ the CM technique \insertCite{b12,c05,m08}{superb}
+}
+\references{
+\insertAllCited{}
 }

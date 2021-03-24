@@ -2,7 +2,7 @@
 % Please edit documentation in R/superbData.R
 \name{superbData}
 \alias{superbData}
-\title{superbData}
+\title{superbData to obtain summary statistics with correct error bar intervals.}
 \usage{
 superbData(
   data,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/functionsTransformation.R
 \name{subjectCenteringTransform}
 \alias{subjectCenteringTransform}
-\title{subjectCenteringTransform}
+\title{subject-centering transform}
 \usage{
 subjectCenteringTransform(dta, variables)
 }
@@ -16,6 +16,10 @@ the remaining columns will be left unchanged}
 a data.frame of the same form as dta with the variables transformed.
 }
 \description{
-subjectCenteringTransform is a 
-transformations that can be applied to a matrix of data.
+subjectCenteringTransform is a transformation that can
+ be applied to a matrix of data. the resulting matrix have means
+ that are centered on the grand mean, subject-wise \insertCite{c05}{superb}.
+}
+\references{
+\insertAllCited{}
 }

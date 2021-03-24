@@ -89,8 +89,8 @@ plot style called, say, *foo* (``plotStyle = "foo"``):
 ```{r}
 superbPlot.foo <- function(
     summarydata,
-    xvar,       
-    groupingfac,
+    xfactor,       
+    groupingfactor,
     addfactors, 
     rawdata        
     # any optional argument you wish
@@ -114,9 +114,9 @@ indicating how many units below and above ``center`` the error bar
 extends. The data frame will also have columns for all the factors, 
 and there will be as many lines as there are combinations of factors.
 
-* ``xvar`` is the factor to put on the horizontal axis;
+* ``xfactor`` is the factor to put on the horizontal axis;
 
-* ``groupingfac`` is the factor used to create groups of points;
+* ``groupingfactor`` is the factor used to create groups of points;
 
 * ``addfactors`` are up to two additional factors to create the 
 rows and columns of panels. ``addfactors`` is formatted for facetting
@@ -144,10 +144,10 @@ black and white (no color instruction) and superimposed
 The result will be:
 
 ```{r, message=FALSE, echo=FALSE, fig.cap="Figure 1: Mean score with 95% confidence interval using the ``simple`` plot layout."}
-superbPlot.simple <- function( summarydata, xvar, groupingfac, addfactors, rawdata ) {
+superbPlot.simple <- function( summarydata, xfactor, groupingfactor, addfactors, rawdata ) {
     plot <- ggplot(
         data = summarydata,
-        mapping = aes_string( x = xvar, y = "center")
+        mapping = aes_string( x = xfactor, y = "center")
     ) +
     geom_point( ) +
     geom_errorbar( mapping = aes_string(ymin = "center + lowerwidth", ymax = "center + upperwidth")  )+
@@ -167,11 +167,11 @@ To make this plot, we design a function ``superbPlot.simple`` as:
 
 ```{r}
 superbPlot.simple <- function(
-    summarydata, xvar, groupingfac, addfactors, rawdata 
+    summarydata, xfactor, groupingfactor, addfactors, rawdata 
 ) {
     plot <- ggplot(
         data = summarydata, 
-        mapping = aes_string( x = xvar, y = "center")
+        mapping = aes_string( x = xfactor, y = "center")
     ) +
     geom_point( ) +
     geom_errorbar( mapping = aes_string(ymin = "center + lowerwidth", ymax = "center + upperwidth")  )+ 
@@ -182,7 +182,7 @@ superbPlot.simple <- function(
 ```
 
 The first instruction, ``ggplot`` defines the source data to be 
-``summarydata`` with horizontal axis being in the string ``xvar``
+``summarydata`` with horizontal axis being in the string ``xfactor``
 (this is the reason that ``mapping`` must be given with ``aes_string``).
 The position of the descriptive statistics will be in ``"center"``.
 
@@ -233,12 +233,12 @@ A full example it therefore
 
 ```{r}
 superbPlot.simpleWithOptions <- function(
-    summarydata, xvar, groupingfac, addfactors, rawdata,
+    summarydata, xfactor, groupingfactor, addfactors, rawdata,
     myownParams = list()  ## add the optional arguments to the function
 ) {
     plot <- ggplot(
         data = summarydata, 
-        mapping = aes_string( x = xvar, y = "center")
+        mapping = aes_string( x = xfactor, y = "center")
     ) +
     do.call( geom_point, modifyList(
        list( color ="black" ),
@@ -284,7 +284,7 @@ For example, the following will get the dataframes:
 
 ```{r, message=FALSE, echo=TRUE, results='hide', fig.show='hide'}
 superbPlot.empty <- function(
-    summarydata, xvar, groupingfac, addfactors, rawdata 
+    summarydata, xfactor, groupingfactor, addfactors, rawdata 
 ) {
     runDebug( 'inempty', "Getting the dataframes",
         c("summary","raw"), list(summarydata, rawdata))
@@ -332,16 +332,16 @@ with ``geom_text`` layer:
 
 ```{r}
 superbPlot.smiley <- function(
-    summarydata, xvar, groupingfac, addfactors, rawdata 
+    summarydata, xfactor, groupingfactor, addfactors, rawdata 
 ) {
     # the early part bears on summary data with variable "center"
     plot <- ggplot(
         data = summarydata, 
         mapping = aes_string(
-            x = xvar, y = "center", 
-            fill = groupingfac, 
-            shape = groupingfac, 
-            colour = groupingfac)
+            x = xfactor, y = "center", 
+            fill = groupingfactor, 
+            shape = groupingfactor, 
+            colour = groupingfactor)
     ) +
     geom_point(position = position_dodge(width = .95)) +
     geom_errorbar( width = .6, position = position_dodge(.95), 
@@ -351,7 +351,7 @@ superbPlot.smiley <- function(
     geom_text(data = rawdata, 
               position = position_jitter(0.5),
               family="EmojiOne", label=emoji("smile"), size=6, 
-              mapping=aes_string(x=xvar, y="DV", group = groupingfac)
+              mapping=aes_string(x=xfactor, y="DV", group = groupingfactor)
     ) +
     facet_grid( addfactors )
         

@@ -1,16 +1,21 @@
 ######################################################################################
 #' @name twoStepTransform
 #'
-#' @title twoStepTransform
+#' @title two-step transform for subject centering and bias correction
 #'
-#' @description twoStepTransform, is a  
-#' transformation that can be applied to a matrix of data.
+#' @description twoStepTransform, is a transformation that can
+#'  be applied to a matrix of data. The resulting matrix is both 
+#'  subject-centered and bias corrected, a technique called
+#'  the CM technique \insertCite{b12,c05,m08}{superb}
 #'
 #' @param dta a data.frame containing the data in wide format;
 #' @param variables a vector of column names on which the transformation will be applied.
 #'     the remaining columns will be left unchanged
 #'
 #' @return a data.frame of the same form as dta with the variables transformed.
+#'
+#' @references
+#'      \insertAllCited{}
 #'
 #' @export twoStepTransform
 #'
@@ -29,16 +34,21 @@ twoStepTransform <- function(dta, variables) {
 
 ######################################################################################
 #' @name subjectCenteringTransform
-#' @title subjectCenteringTransform  
+#' @title subject-centering transform  
 #'
-#' @description subjectCenteringTransform is a 
-#' transformations that can be applied to a matrix of data.
+#' @description subjectCenteringTransform is a transformation that can
+#'  be applied to a matrix of data. the resulting matrix have means
+#'  that are centered on the grand mean, subject-wise \insertCite{c05}{superb}.
 #'
 #' @param dta a data.frame containing the data in wide format;
 #' @param variables a vector of column names on which the transformation will be applied.
 #'     the remaining columns will be left unchanged
 #'
 #' @return a data.frame of the same form as dta with the variables transformed.
+#'
+#' @references
+#'      \insertAllCited{}
+#'
 #' @export subjectCenteringTransform
 #'
 subjectCenteringTransform <- function(dta, variables) {
@@ -54,16 +64,21 @@ subjectCenteringTransform <- function(dta, variables) {
 ######################################################################################
 #' @name biasCorrectionTransform
 #'
-#' @title biasCorrectionTransform 
+#' @title bias-correction transform 
 #'
-#' @description biasCorrectionTransform  is a 
-#' transformations that can be applied to a matrix of data.
+#' @description biasCorrectionTransform  is a transformation that can
+#'  be applied to a matrix of data. The resulting matrix's variance
+#'  is corrected for bias \insertCite{m08}{superb}
 #'
 #' @param dta a data.frame containing the data in wide format;
 #' @param variables a vector of column names on which the transformation will be applied.
 #'     the remaining columns will be left unchanged
 #'
 #' @return a data.frame of the same form as dta with the variables transformed.
+#'
+#' @references
+#'      \insertAllCited{}
+#'
 #' @export biasCorrectionTransform 
 #'
 biasCorrectionTransform <- function(dta, variables) {
@@ -81,16 +96,22 @@ biasCorrectionTransform <- function(dta, variables) {
 ######################################################################################
 #' @name poolSDTransform
 #'
-#' @title poolSDTransform 
+#' @title pooled standard deviation transform 
 #'
-#' @description poolSDTransform  is a 
-#' transformations that can be applied to a matrix of data.
+#' @description poolSDTransform  is a transformations that can
+#'  be applied to a matrix of data. The resulting matrix has the column-
+#'  standard deviations equal to the pool standard deviations of the 
+#'  individual columns, the solution adopted by \insertCite{lm94}{superb}.
 #'
 #' @param dta a data.frame containing the data in wide format;
 #' @param variables a vector of column names on which the transformation will be applied.
 #'     the remaining columns will be left unchanged
 #'
 #' @return a data.frame of the same form as dta with the variables transformed.
+#'
+#' @references
+#'      \insertAllCited{}
+#'   
 #' @export poolSDTransform 
 #'
 poolSDTransform <- function(dta, variables) {

@@ -23,10 +23,6 @@
 #' @note Note that the \code{range} effect specification has been renamed
 #'    \code{extent} to avoid masking the base function \code{base::range}.
 #'
-#' @references
-#'   \insertAllCited{} 
-#' 
-#'
 #' @examples
 #'  # Simplest example using all the default arguments: 
 #'  dta <- GRD()
@@ -80,15 +76,11 @@
 #'      variables=c("DV.1","DV.2"), plotStyle="line",
 #'      adjustments = list (purpose="difference", decorrelation = "CM") )
 #'  
-#' 
-#' 
+#' @references
+#'   \insertAllCited{} 
 #' 
 #' @importFrom Rdpack reprompt
 #' @export GRD
-#' @export slope
-#' @export extent
-#' @export custom
-#' @export Rexpression
 #' @import stats
 #' @import MASS
 #'
@@ -369,6 +361,10 @@ GRD <- function(
 #' @return These internal functions are not meant to be used in 
 #' isolation in any meaningful way...
 #'
+#' @export slope
+#' @export extent
+#' @export custom
+#' @export Rexpression
 #'
 
 

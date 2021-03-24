@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>superbPlot.pointjitter — superbPlot.pointjitter • superb</title>
+<title>superbPlot point-and-jitter dots layout — superbPlot.pointjitter • superb</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,11 +46,12 @@
 
 
 
-<meta property="og:title" content="superbPlot.pointjitter — superbPlot.pointjitter" />
+<meta property="og:title" content="superbPlot point-and-jitter dots layout — superbPlot.pointjitter" />
 <meta property="og:description" content="superbPlot comes with a few built-in templates for making the final plots.
 All produces ggplot objects that can be further customized. Additionally, it is
 possible to add custom-make templates (see vignette 6). The functions, to be
 &quot;superbPlot-compatible&quot;, must have these parameters:" />
+<meta property="og:image" content="http://dcousin3.github.io/superb/logo.png" />
 
 
 
@@ -140,7 +141,7 @@ possible to add custom-make templates (see vignette 6). The functions, to be
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>superbPlot.pointjitter</h1>
+    <h1>superbPlot point-and-jitter dots layout</h1>
     
     <div class="hidden name"><code>superbPlot.pointjitter.Rd</code></div>
     </div>
@@ -154,8 +155,8 @@ possible to add custom-make templates (see vignette 6). The functions, to be
 
     <pre class="usage"><span class='fu'>superbPlot.pointjitter</span><span class='op'>(</span>
   <span class='va'>summarydata</span>,
-  <span class='va'>xvar</span>,
-  <span class='va'>groupingfac</span>,
+  <span class='va'>xfactor</span>,
+  <span class='va'>groupingfactor</span>,
   <span class='va'>addfactors</span>,
   rawdata <span class='op'>=</span> <span class='cn'>NULL</span>,
   pointParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
@@ -172,11 +173,11 @@ possible to add custom-make templates (see vignette 6). The functions, to be
       <td><p>a data.frame with columns "center", "lowerwidth" and "upperwidth" for each level of the factors;</p></td>
     </tr>
     <tr>
-      <th>xvar</th>
+      <th>xfactor</th>
       <td><p>a string with the name of the column where the factor going on the horizontal axis is given;</p></td>
     </tr>
     <tr>
-      <th>groupingfac</th>
+      <th>groupingfactor</th>
       <td><p>a string with the name of the column for which the data will be grouped on the plot;</p></td>
     </tr>
     <tr>

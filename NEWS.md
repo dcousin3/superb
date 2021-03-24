@@ -1,3 +1,8 @@
+# superb 0.9.5.0 (April 2021)
+
+* Expanded documentation
+* Expanded function names
+
 # superb 0.9.4.3 (March 2021)
 
 * Changed debug process

@@ -2,7 +2,7 @@
 % Please edit documentation in R/HyunhFeldtEpsilon.R
 \name{HyunhFeldtEpsilon}
 \alias{HyunhFeldtEpsilon}
-\title{HyunhFeldtEpsilon}
+\title{Hyunh and Feldt's epsilon measure of sphericity}
 \usage{
 HyunhFeldtEpsilon(dta, cols)
 }
@@ -17,8 +17,11 @@ returns the Hyunh-Feldt estimate of sphericity epsilon
 }
 \description{
 HyunhFeldtEpsilon() is a measure of sphericity created by 
-Greenhouse and Geiser (1958). The original measure was biased
-and therefore, Hyunh and Feldt (1976) produced a revised version
+\insertCite{gg58;textual}{superb}. The original measure was biased
+and therefore, \insertCite{hf76;textual}{superb} produced a revised version
 (note that the 1976 paper contained typos that were uncorrected
-in SPSS; Lecoutre, 1991)
+in SPSS; \insertCite{l91;textual}{superb})
+}
+\references{
+\insertAllCited{}
 }

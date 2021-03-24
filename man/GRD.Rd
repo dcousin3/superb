@@ -104,9 +104,6 @@ Note that the \code{range} effect specification has been renamed
      variables=c("DV.1","DV.2"), plotStyle="line",
      adjustments = list (purpose="difference", decorrelation = "CM") )
  
-
-
-
 }
 \references{
 \insertAllCited{}

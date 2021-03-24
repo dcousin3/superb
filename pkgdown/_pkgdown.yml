@@ -8,7 +8,7 @@ reference:
       - '`superbPlot`'
       - '`superbData`'
       - '`GRD`'
-  - title: plots
+  - title: Plots
     desc: built-in templates for plots
     contents:
       - '`superbPlot.bar`'
@@ -17,15 +17,7 @@ reference:
       - '`superbPlot.pointjitter`'
       - '`superbPlot.pointjitterviolin`'
       - '`superbPlot.pointindividualline`'
-  - title: Datasets
-    desc: Examples of data sets
-    contents:
-      - '`dataFigure1`'
-      - '`dataFigure2`'
-      - '`dataFigure3`'
-      - '`dataFigure4`'
-      - '`TMB1964r`'
-  - title: Tests
+  - title: Statistics
     desc: Statistics
     contents:
       - '`summaryStatistics`'
@@ -45,6 +37,14 @@ reference:
       - '`subjectCenteringTransform`'
       - '`biasCorrectionTransform`'
       - '`poolSDTransform`'
+  - title: Datasets
+    desc: Examples of data sets
+    contents:
+      - '`dataFigure1`'
+      - '`dataFigure2`'
+      - '`dataFigure3`'
+      - '`dataFigure4`'
+      - '`TMB1964r`'
   - title: Internals
     desc: Internal functions
     contents:

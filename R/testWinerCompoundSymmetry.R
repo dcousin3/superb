@@ -1,5 +1,5 @@
 ######################################################################################
-#' @title WinerCompoundSymmetryTest
+#' @title Winer's test of compound symmetry
 #'
 #' @description Run a test of compound symmetry.
 #'   generates a data frame of random data suitable for analyses.
@@ -14,9 +14,6 @@
 #'
 #' @return p the p-value of the null hypothesis that the data are compound symmetric.
 #'
-#' @references
-#'      \insertAllCited{}
-#'
 #' @examples
 #' # creates a small data frames with 4 subject's scores for 5 measures:
 #' dta <- data.frame(cbind(
@@ -28,6 +25,9 @@
 #' # performs the test (here p = 0.6733)
 #' WinerCompoundSymmetryTest(dta)
 #' # 0.6733123
+#'
+#' @references
+#'      \insertAllCited{}
 #'
 #' @export WinerCompoundSymmetryTest
 

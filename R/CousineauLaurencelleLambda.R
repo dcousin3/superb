@@ -1,5 +1,5 @@
 ######################################################################################
-#' @title CousineauLaurencelleLambda factor for cluster-randomized sampling
+#' @title Cousineau and Laurencelle's lambda correction factor for cluster-randomized sampling
 #'
 #' @description The functions CousineauLaurencelleLambda() returns the correction factor
 #'   for cluster-randomized sampling. This correction is then used
@@ -19,6 +19,9 @@
 #' # Example from Cousineau & Laurencelle, 2017, p. 124:
 #' CousineauLaurencelleLambda( c(0.2, 5, 20, 20, 20, 20, 20) )
 #' # 2.234188  
+#'
+#' @references
+#'      \insertAllCited{}
 #'
 #' @export CousineauLaurencelleLambda
 #

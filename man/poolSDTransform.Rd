@@ -2,7 +2,7 @@
 % Please edit documentation in R/functionsTransformation.R
 \name{poolSDTransform}
 \alias{poolSDTransform}
-\title{poolSDTransform}
+\title{pooled standard deviation transform}
 \usage{
 poolSDTransform(dta, variables)
 }
@@ -16,6 +16,11 @@ the remaining columns will be left unchanged}
 a data.frame of the same form as dta with the variables transformed.
 }
 \description{
-poolSDTransform  is a 
-transformations that can be applied to a matrix of data.
+poolSDTransform  is a transformations that can
+ be applied to a matrix of data. The resulting matrix has the column-
+ standard deviations equal to the pool standard deviations of the 
+ individual columns, the solution adopted by \insertCite{lm94}{superb}.
+}
+\references{
+\insertAllCited{}
 }

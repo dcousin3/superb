@@ -48,6 +48,7 @@
 #' micc  <- mean(c(0.491334683772226, 0.20385744842838)) # mean ICC given by superbPlot
 #' lam   <- CousineauLaurencelleLambda(c(micc, 5,5,5,5,5,5))
 #' tcorr <- res$statistic / lam
-#' pcorr <- 1-pt(tcorr,4)#' 
+#' pcorr <- 1-pt(tcorr,4)
+#' 
 #' 
 "dataFigure3"

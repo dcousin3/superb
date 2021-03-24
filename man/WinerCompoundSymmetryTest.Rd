@@ -2,7 +2,7 @@
 % Please edit documentation in R/testWinerCompoundSymmetry.R
 \name{WinerCompoundSymmetryTest}
 \alias{WinerCompoundSymmetryTest}
-\title{WinerCompoundSymmetryTest}
+\title{Winer's test of compound symmetry}
 \usage{
 WinerCompoundSymmetryTest(dta, cols)
 }

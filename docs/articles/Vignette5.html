@@ -20,6 +20,7 @@
 <script src="../pkgdown.js"></script><meta property="og:title" content="Devising custom plot layouts">
 <meta property="og:description" content="superbPlot can generate either line plots, barcharts, or point plots.  However, additional layout can be programmed. In this vignette, we  show how to add custom layouts in superbPlot. As an example, we show how to implement additional layouts.
 ">
+<meta property="og:image" content="http://dcousin3.github.io/superb/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -139,8 +140,8 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">superbPlot.foo</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span>
     <span class="va">summarydata</span>,
-    <span class="va">xvar</span>,       
-    <span class="va">groupingfac</span>,
+    <span class="va">xfactor</span>,       
+    <span class="va">groupingfactor</span>,
     <span class="va">addfactors</span>, 
     <span class="va">rawdata</span>        
     <span class="co"># any optional argument you wish</span>
@@ -151,8 +152,8 @@
 <p>(in what follow, I assume that one factor is placed on the horizontal axis, another one is used to group the point, and up to two additional factors will results in columns and rows of panels. Of course, in devising your own template, you may use different placement.)</p>
 <p>The arguments are: * <code>summarydata</code>: this data frame will contain the column <code>center</code> indicating the statistic’s value, <code>lowerwidth</code> and <code>upperwidth</code> indicating how many units below and above <code>center</code> the error bar extends. The data frame will also have columns for all the factors, and there will be as many lines as there are combinations of factors.</p>
 <ul>
-<li><p><code>xvar</code> is the factor to put on the horizontal axis;</p></li>
-<li><p><code>groupingfac</code> is the factor used to create groups of points;</p></li>
+<li><p><code>xfactor</code> is the factor to put on the horizontal axis;</p></li>
+<li><p><code>groupingfactor</code> is the factor used to create groups of points;</p></li>
 <li><p><code>addfactors</code> are up to two additional factors to create the rows and columns of panels. <code>addfactors</code> is formatted for facetting (e.g., for factors “A” and “B”, <code>addfactors</code> would be “A~B”);</p></li>
 <li><p><code>rawdata</code> : this data.frame contains the raw data with factors being transformed <code>as.factor</code> and the dependent column being renamed <code>DV</code>. When the data are in wide format, <code>rawdata</code> is reshaped to long format.</p></li>
 <li><p><code>{optional arguments}</code> can be used. They must be named here; when calling <code>superbPlot</code>, any argument whose name match your optional argument will be transmitted to your custom-made function.</p></li>
@@ -171,11 +172,11 @@ Figure 1: Mean score with 95% confidence interval using the <code>simple</code> 
 <p>To make this plot, we design a function <code>superbPlot.simple</code> as:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">superbPlot.simple</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span>
-    <span class="va">summarydata</span>, <span class="va">xvar</span>, <span class="va">groupingfac</span>, <span class="va">addfactors</span>, <span class="va">rawdata</span> 
+    <span class="va">summarydata</span>, <span class="va">xfactor</span>, <span class="va">groupingfactor</span>, <span class="va">addfactors</span>, <span class="va">rawdata</span> 
 <span class="op">)</span> <span class="op">{</span>
     <span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>
         data <span class="op">=</span> <span class="va">summarydata</span>, 
-        mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_.html">aes_string</a></span><span class="op">(</span> x <span class="op">=</span> <span class="va">xvar</span>, y <span class="op">=</span> <span class="st">"center"</span><span class="op">)</span>
+        mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_.html">aes_string</a></span><span class="op">(</span> x <span class="op">=</span> <span class="va">xfactor</span>, y <span class="op">=</span> <span class="st">"center"</span><span class="op">)</span>
     <span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span> <span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span> mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_.html">aes_string</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="st">"center + lowerwidth"</span>, ymax <span class="op">=</span> <span class="st">"center + upperwidth"</span><span class="op">)</span>  <span class="op">)</span><span class="op">+</span> 
@@ -183,7 +184,7 @@ Figure 1: Mean score with 95% confidence interval using the <code>simple</code> 
         
     <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">plot</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<p>The first instruction, <code>ggplot</code> defines the source data to be <code>summarydata</code> with horizontal axis being in the string <code>xvar</code> (this is the reason that <code>mapping</code> must be given with <code>aes_string</code>). The position of the descriptive statistics will be in <code>"center"</code>.</p>
+<p>The first instruction, <code>ggplot</code> defines the source data to be <code>summarydata</code> with horizontal axis being in the string <code>xfactor</code> (this is the reason that <code>mapping</code> must be given with <code>aes_string</code>). The position of the descriptive statistics will be in <code>"center"</code>.</p>
 <p>The second instruction put points for each <code>"center"</code>, and the third instruction places error bars. In that case, the <code>ymin</code> and <code>ymax</code> information are contained in <code>center+lowerwidth</code> and <code>center+upperwidth</code> where <code>lowerwidth</code> and <code>upperwidth</code> are in the summarydata dataframe.</p>
 <p>The last instructions generates distinct panels for each level of the remaining factors.</p>
 <p>You can check that this function is <code>superbPlot</code>-compatible with:</p>
@@ -207,12 +208,12 @@ Figure 1: Mean score with 95% confidence interval using the <code>simple</code> 
 <p>A full example it therefore</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">superbPlot.simpleWithOptions</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span>
-    <span class="va">summarydata</span>, <span class="va">xvar</span>, <span class="va">groupingfac</span>, <span class="va">addfactors</span>, <span class="va">rawdata</span>,
+    <span class="va">summarydata</span>, <span class="va">xfactor</span>, <span class="va">groupingfactor</span>, <span class="va">addfactors</span>, <span class="va">rawdata</span>,
     <span class="va">myownParams</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span>  <span class="co">## add the optional arguments to the function</span>
 <span class="op">)</span> <span class="op">{</span>
     <span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>
         data <span class="op">=</span> <span class="va">summarydata</span>, 
-        mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_.html">aes_string</a></span><span class="op">(</span> x <span class="op">=</span> <span class="va">xvar</span>, y <span class="op">=</span> <span class="st">"center"</span><span class="op">)</span>
+        mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_.html">aes_string</a></span><span class="op">(</span> x <span class="op">=</span> <span class="va">xfactor</span>, y <span class="op">=</span> <span class="st">"center"</span><span class="op">)</span>
     <span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span> <span class="va">geom_point</span>, <span class="fu"><a href="https://rdrr.io/r/utils/modifyList.html">modifyList</a></span><span class="op">(</span>
        <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span> color <span class="op">=</span><span class="st">"black"</span> <span class="op">)</span>,
@@ -252,7 +253,7 @@ Figure 2: A simple figure with optional arguments
 <p>For example, the following will get the dataframes:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">superbPlot.empty</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span>
-    <span class="va">summarydata</span>, <span class="va">xvar</span>, <span class="va">groupingfac</span>, <span class="va">addfactors</span>, <span class="va">rawdata</span> 
+    <span class="va">summarydata</span>, <span class="va">xfactor</span>, <span class="va">groupingfactor</span>, <span class="va">addfactors</span>, <span class="va">rawdata</span> 
 <span class="op">)</span> <span class="op">{</span>
     <span class="fu"><a href="../reference/runDebug.html">runDebug</a></span><span class="op">(</span> <span class="st">'inempty'</span>, <span class="st">"Getting the dataframes"</span>,
         <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"summary"</span>,<span class="st">"raw"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">summarydata</span>, <span class="va">rawdata</span><span class="op">)</span><span class="op">)</span>
@@ -283,16 +284,16 @@ Figure 2: A simple figure with optional arguments
 <p>Then we define a <code>"smiley"</code> layout where the emojis are shown with <code>geom_text</code> layer:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">superbPlot.smiley</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span>
-    <span class="va">summarydata</span>, <span class="va">xvar</span>, <span class="va">groupingfac</span>, <span class="va">addfactors</span>, <span class="va">rawdata</span> 
+    <span class="va">summarydata</span>, <span class="va">xfactor</span>, <span class="va">groupingfactor</span>, <span class="va">addfactors</span>, <span class="va">rawdata</span> 
 <span class="op">)</span> <span class="op">{</span>
     <span class="co"># the early part bears on summary data with variable "center"</span>
     <span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>
         data <span class="op">=</span> <span class="va">summarydata</span>, 
         mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_.html">aes_string</a></span><span class="op">(</span>
-            x <span class="op">=</span> <span class="va">xvar</span>, y <span class="op">=</span> <span class="st">"center"</span>, 
-            fill <span class="op">=</span> <span class="va">groupingfac</span>, 
-            shape <span class="op">=</span> <span class="va">groupingfac</span>, 
-            colour <span class="op">=</span> <span class="va">groupingfac</span><span class="op">)</span>
+            x <span class="op">=</span> <span class="va">xfactor</span>, y <span class="op">=</span> <span class="st">"center"</span>, 
+            fill <span class="op">=</span> <span class="va">groupingfactor</span>, 
+            shape <span class="op">=</span> <span class="va">groupingfactor</span>, 
+            colour <span class="op">=</span> <span class="va">groupingfactor</span><span class="op">)</span>
     <span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">position_dodge</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.95</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span> width <span class="op">=</span> <span class="fl">.6</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">position_dodge</a></span><span class="op">(</span><span class="fl">.95</span><span class="op">)</span>, 
@@ -302,7 +303,7 @@ Figure 2: A simple figure with optional arguments
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">rawdata</span>, 
               position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html">position_jitter</a></span><span class="op">(</span><span class="fl">0.5</span><span class="op">)</span>,
               family<span class="op">=</span><span class="st">"EmojiOne"</span>, label<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/emojifont/man/emoji.html">emoji</a></span><span class="op">(</span><span class="st">"smile"</span><span class="op">)</span>, size<span class="op">=</span><span class="fl">6</span>, 
-              mapping<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_.html">aes_string</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">xvar</span>, y<span class="op">=</span><span class="st">"DV"</span>, group <span class="op">=</span> <span class="va">groupingfac</span><span class="op">)</span>
+              mapping<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_.html">aes_string</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">xfactor</span>, y<span class="op">=</span><span class="st">"DV"</span>, group <span class="op">=</span> <span class="va">groupingfactor</span><span class="op">)</span>
     <span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span><span class="op">(</span> <span class="va">addfactors</span> <span class="op">)</span>
         

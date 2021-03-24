@@ -49,8 +49,9 @@ ShroutFleissICC1(dta2, 1, 2:4)
 ShroutFleissICC1k(dta2[, 1], dta2[,2:4])
 # 0.7543859649 
   
-
 }
 \references{
+\insertAllCited{}
+
 \insertAllCited{}
 }

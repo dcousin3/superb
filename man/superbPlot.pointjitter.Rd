@@ -2,12 +2,12 @@
 % Please edit documentation in R/functionsPlotting.R
 \name{superbPlot.pointjitter}
 \alias{superbPlot.pointjitter}
-\title{superbPlot.pointjitter}
+\title{superbPlot point-and-jitter dots layout}
 \usage{
 superbPlot.pointjitter(
   summarydata,
-  xvar,
-  groupingfac,
+  xfactor,
+  groupingfactor,
   addfactors,
   rawdata = NULL,
   pointParams = list(),
@@ -19,9 +19,9 @@ superbPlot.pointjitter(
 \arguments{
 \item{summarydata}{a data.frame with columns "center", "lowerwidth" and "upperwidth" for each level of the factors;}
 
-\item{xvar}{a string with the name of the column where the factor going on the horizontal axis is given;}
+\item{xfactor}{a string with the name of the column where the factor going on the horizontal axis is given;}
 
-\item{groupingfac}{a string with the name of the column for which the data will be grouped on the plot;}
+\item{groupingfactor}{a string with the name of the column for which the data will be grouped on the plot;}
 
 \item{addfactors}{a string with up to two additional factors to make the rows and columns panels, in the form "fact1 ~ fact2";}
 

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>poolSDTransform — poolSDTransform • superb</title>
+<title>pooled standard deviation transform — poolSDTransform • superb</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,13 @@
 
 
 
-<meta property="og:title" content="poolSDTransform — poolSDTransform" />
-<meta property="og:description" content="poolSDTransform  is a 
-transformations that can be applied to a matrix of data." />
+<meta property="og:title" content="pooled standard deviation transform — poolSDTransform" />
+<meta property="og:description" content="poolSDTransform  is a transformations that can
+ be applied to a matrix of data. The resulting matrix has the column-
+ standard deviations equal to the pool standard deviations of the 
+ individual columns, the solution adopted by (Loftus and Masson 1994)
+." />
+<meta property="og:image" content="http://dcousin3.github.io/superb/logo.png" />
 
 
 
@@ -138,14 +142,17 @@ transformations that can be applied to a matrix of data." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>poolSDTransform</h1>
+    <h1>pooled standard deviation transform</h1>
     
     <div class="hidden name"><code>poolSDTransform.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>poolSDTransform  is a 
-transformations that can be applied to a matrix of data.</p>
+    <p>poolSDTransform  is a transformations that can
+ be applied to a matrix of data. The resulting matrix has the column-
+ standard deviations equal to the pool standard deviations of the 
+ individual columns, the solution adopted by (Loftus and Masson 1994)
+.</p>
     </div>
 
     <pre class="usage"><span class='fu'>poolSDTransform</span><span class='op'>(</span><span class='va'>dta</span>, <span class='va'>variables</span><span class='op'>)</span></pre>
@@ -167,6 +174,13 @@ the remaining columns will be left unchanged</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a data.frame of the same form as dta with the variables transformed.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Loftus GR, Masson MEJ (1994).
+&#8220;Using confidence intervals in within-subject designs.&#8221;
+<em>Psychonomic Bulletin &amp; Review</em>, <b>1</b>, 476--490.
+doi: <a href='https://doi.org/10.3758/BF03210951'>10.3758/BF03210951</a>
+, <a href='https://doi.org/10.3758/BF03210951'>https://doi.org/10.3758/BF03210951</a>.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

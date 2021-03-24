@@ -8,7 +8,7 @@
 ######################################################################################
 #' @name superbPlot.bar
 #'
-#' @title superbPlot.bar
+#' @title superbPlot 'bar' layout
 #'
 #' @description superbPlot comes with a few built-in templates for making the final plots.
 #' All produces ggplot objects that can be further customized. Additionally, it is
@@ -16,8 +16,8 @@
 #' "superbPlot-compatible", must have these parameters:
 #' 
 #' @param summarydata a data.frame with columns "center", "lowerwidth" and "upperwidth" for each level of the factors;
-#' @param xvar a string with the name of the column where the factor going on the horizontal axis is given;
-#' @param groupingfac a string with the name of the column for which the data will be grouped on the plot;
+#' @param xfactor a string with the name of the column where the factor going on the horizontal axis is given;
+#' @param groupingfactor a string with the name of the column for which the data will be grouped on the plot;
 #' @param addfactors a string with up to two additional factors to make the rows and columns panels, in the form "fact1 ~ fact2";
 #' @param rawdata always contains "DV" for each participants and each level of the factors
 #' @param barParams (optional) list of graphic directives that are sent to the geom_bar layer
@@ -32,8 +32,8 @@
 
 superbPlot.bar <- function(
     summarydata,               # a summary result data.frame
-    xvar,                      # the factor on the horizontal axis  
-    groupingfac,               # the factor for multiple lines/bars within the plot
+    xfactor,                   # the factor on the horizontal axis  
+    groupingfactor,            # the factor for multiple lines/bars within the plot
     addfactors,                # the factor(s) (1 or 2 only) to make multiple panels
     # what follows is unused and optional
     rawdata        = NULL,     # unused
@@ -42,15 +42,15 @@ superbPlot.bar <- function(
     errorbarParams = list(),   # merged into geom_errorbar
     facetParams    = list()    # merged into facet_grid
 ) {
-    runDebug("bar", "Entering superbPlot.bar", c("xvar2", "groupingfac2", "addfactors2"), list(xvar, groupingfac, addfactors))
+    runDebug("bar", "Entering superbPlot.bar", c("xfactor2", "groupingfactor2", "addfactors2"), list(xfactor, groupingfactor, addfactors))
 
     plot <- ggplot(
         summarydata, 
         aes_string(
-            x = xvar, y = "center", 
-            fill = groupingfac, 
-            shape = groupingfac, 
-            colour = groupingfac
+            x = xfactor, y = "center", 
+            fill = groupingfactor, 
+            shape = groupingfactor, 
+            colour = groupingfactor
     )) +
     # the histograms; do.call so that pointParams can be integrated
     do.call( geom_bar, modifyList(
@@ -77,7 +77,7 @@ superbPlot.bar <- function(
 ######################################################################################
 #' @name superbPlot.line
 #'
-#' @title superbPlot.line
+#' @title superbPlot 'line' layout
 #'
 #' @description superbPlot comes with a few built-in templates for making the final plots.
 #' All produces ggplot objects that can be further customized. Additionally, it is
@@ -85,8 +85,8 @@ superbPlot.bar <- function(
 #' "superbPlot-compatible", must have these parameters:
 #' 
 #' @param summarydata a data.frame with columns "center", "lowerwidth" and "upperwidth" for each level of the factors;
-#' @param xvar a string with the name of the column where the factor going on the horizontal axis is given;
-#' @param groupingfac a string with the name of the column for which the data will be grouped on the plot;
+#' @param xfactor a string with the name of the column where the factor going on the horizontal axis is given;
+#' @param groupingfactor a string with the name of the column for which the data will be grouped on the plot;
 #' @param addfactors a string with up to two additional factors to make the rows and columns panels, in the form "fact1 ~ fact2";
 #' @param rawdata always contains "DV" for each participants and each level of the factors
 #' @param pointParams (optional) list of graphic directives that are sent to the geom_bar layer
@@ -102,8 +102,8 @@ superbPlot.bar <- function(
 
 superbPlot.line <- function(
     summarydata,               # a summary result data.frame
-    xvar,                      # the factor on the horizontal axis  
-    groupingfac,               # the factor for multiple lines/bars within the plot
+    xfactor,                   # the factor on the horizontal axis  
+    groupingfactor,            # the factor for multiple lines/bars within the plot
     addfactors,                # the factor(s) to make multiple panels
     # what follows is unused and optional
     rawdata        = NULL,     # unused
@@ -113,27 +113,27 @@ superbPlot.line <- function(
     errorbarParams  = list(),
     facetParams     = list()    
 ) {
-    runDebug("line", "Entering superbPlot.line", c("xvar2", "groupingfac2", "addfactors2"), list(xvar, groupingfac, addfactors))
+    runDebug("line", "Entering superbPlot.line", c("xfactor2", "groupingfactor2", "addfactors2"), list(xfactor, groupingfactor, addfactors))
 
     plot <- ggplot(
         summarydata, 
         aes_string(
-            x = xvar, y = "center", ymin = "center + lowerwidth", ymax = "center + upperwidth", 
-            shape = groupingfac, 
-            colour = groupingfac
+            x = xfactor, y = "center", ymin = "center + lowerwidth", ymax = "center + upperwidth", 
+            shape = groupingfactor, 
+            colour = groupingfactor
     )) +
     # the points ...
     do.call(geom_point, modifyList(
         list(position = position_dodge(width = .15), 
             stat = "identity", 
-            mapping = aes_string(group = groupingfac) ),
+            mapping = aes_string(group = groupingfactor) ),
         pointParams
     )) +
     # ... and the lines connecting the points
     do.call(geom_line, modifyList(
         list(position = position_dodge(width = .15), 
             stat = "identity", 
-            mapping = aes_string(group = ifelse(is.null(groupingfac),1,groupingfac) ) ),
+            mapping = aes_string(group = ifelse(is.null(groupingfactor),1,groupingfactor) ) ),
         lineParams
     )) +
     # the error bars
@@ -156,7 +156,7 @@ superbPlot.line <- function(
 ######################################################################################
 #' @name superbPlot.point
 #'
-#' @title superbPlot.point
+#' @title superbPlot 'point' layout
 #'
 #' @description superbPlot comes with a few built-in templates for making the final plots.
 #' All produces ggplot objects that can be further customized. Additionally, it is
@@ -164,8 +164,8 @@ superbPlot.line <- function(
 #' "superbPlot-compatible", must have these parameters:
 #' 
 #' @param summarydata a data.frame with columns "center", "lowerwidth" and "upperwidth" for each level of the factors;
-#' @param xvar a string with the name of the column where the factor going on the horizontal axis is given;
-#' @param groupingfac a string with the name of the column for which the data will be grouped on the plot;
+#' @param xfactor a string with the name of the column where the factor going on the horizontal axis is given;
+#' @param groupingfactor a string with the name of the column for which the data will be grouped on the plot;
 #' @param addfactors a string with up to two additional factors to make the rows and columns panels, in the form "fact1 ~ fact2";
 #' @param rawdata always contains "DV" for each participants and each level of the factors
 #' @param pointParams (optional) list of graphic directives that are sent to the geom_bar layer
@@ -180,8 +180,8 @@ superbPlot.line <- function(
 
 superbPlot.point <- function(
     summarydata,               # a summary result data.frame
-    xvar,                      # the factor on the horizontal axis  
-    groupingfac,               # the factor for multiple lines/bars within the plot
+    xfactor,                   # the factor on the horizontal axis  
+    groupingfactor,            # the factor for multiple lines/bars within the plot
     addfactors,                # the factor(s) to make multiple panels
     # what follows is unused and optional
     rawdata        = NULL,     # unused
@@ -190,20 +190,20 @@ superbPlot.point <- function(
     errorbarParams  = list(),
     facetParams     = list()    
 ) {
-    runDebug("point", "Entering superbPlot.point", c("xvar2", "groupingfac2", "addfactors2"), list(xvar, groupingfac, addfactors))
+    runDebug("point", "Entering superbPlot.point", c("xfactor2", "groupingfactor2", "addfactors2"), list(xfactor, groupingfactor, addfactors))
 
     plot <- ggplot(
         summarydata, 
         aes_string(
-            x = xvar, y = "center", 
-            shape = groupingfac, 
-            colour = groupingfac
+            x = xfactor, y = "center", 
+            shape = groupingfactor, 
+            colour = groupingfactor
     )) + 
     # the points 
     do.call(geom_point, modifyList(
         list(position = position_dodge(width = .15), 
             stat = "identity", 
-            mapping = aes_string(group = groupingfac) ),
+            mapping = aes_string(group = groupingfactor) ),
         pointParams
     )) +
     # the error bars
@@ -231,7 +231,7 @@ superbPlot.point <- function(
 ######################################################################################
 #' @name superbPlot.pointjitter
 #'
-#' @title superbPlot.pointjitter
+#' @title superbPlot point-and-jitter dots layout
 #'
 #' @description superbPlot comes with a few built-in templates for making the final plots.
 #' All produces ggplot objects that can be further customized. Additionally, it is
@@ -239,8 +239,8 @@ superbPlot.point <- function(
 #' "superbPlot-compatible", must have these parameters:
 #' 
 #' @param summarydata a data.frame with columns "center", "lowerwidth" and "upperwidth" for each level of the factors;
-#' @param xvar a string with the name of the column where the factor going on the horizontal axis is given;
-#' @param groupingfac a string with the name of the column for which the data will be grouped on the plot;
+#' @param xfactor a string with the name of the column where the factor going on the horizontal axis is given;
+#' @param groupingfactor a string with the name of the column for which the data will be grouped on the plot;
 #' @param addfactors a string with up to two additional factors to make the rows and columns panels, in the form "fact1 ~ fact2";
 #' @param rawdata always contains "DV" for each participants and each level of the factors
 #' @param pointParams (optional) list of graphic directives that are sent to the geom_bar layer
@@ -256,8 +256,8 @@ superbPlot.point <- function(
 
 superbPlot.pointjitter <- function(
     summarydata,               # a summary result data.frame
-    xvar,                      # the factor on the horizontal axis  
-    groupingfac,               # the factor for multiple lines/bars within the plot
+    xfactor,                   # the factor on the horizontal axis  
+    groupingfactor,            # the factor for multiple lines/bars within the plot
     addfactors,                # the factor(s) to make multiple panels
     # what follows is unused and optional
     rawdata        = NULL,     # unused
@@ -268,33 +268,33 @@ superbPlot.pointjitter <- function(
     facetParams     = list()    
 ) {
     runDebug("pointjitter", "Entering superbPlot.pointjitter", 
-        c("xvar2", "groupingfac2", "addfactors2","pointParams2","jitterParams2","errorbarParams2"), list(xvar, groupingfac, addfactors, pointParams, jitterParams, errorbarParams))
+        c("xfactor2", "groupingfactor2", "addfactors2","pointParams2","jitterParams2","errorbarParams2"), list(xfactor, groupingfactor, addfactors, pointParams, jitterParams, errorbarParams))
 
     plot <- ggplot(
         summarydata, 
         aes_string(
-            x = xvar,   
-            shape = groupingfac, 
-            colour = groupingfac
+            x = xfactor,   
+            shape = groupingfactor, 
+            colour = groupingfactor
     )) + 
     # the points 
     do.call(geom_point, modifyList(
         list(position = position_dodge(width = .5), 
             stat = "identity", size=3,
-            mapping = aes_string(y = "center", group = groupingfac) ),
+            mapping = aes_string(y = "center", group = groupingfactor) ),
         pointParams
     )) + 
     # the error bars; define ymin, ymax only in errorbar
     do.call(geom_errorbar, modifyList(
         list(position = position_dodge(.5), 
-            mapping = aes_string(group = groupingfac, ymin = "center + lowerwidth", ymax = "center + upperwidth") ),
+            mapping = aes_string(group = groupingfactor, ymin = "center + lowerwidth", ymax = "center + upperwidth") ),
         errorbarParams
     )) + 
     # the jitters 
     do.call(geom_point, modifyList(
         list(data = rawdata, 
             position = position_jitterdodge(jitter.width=0.1, dodge.width=0.5),
-            mapping = aes_string(y = "DV", group = groupingfac ) ),
+            mapping = aes_string(y = "DV", group = groupingfactor ) ),
         jitterParams
     )) +
     # the panels (rows or both rows and columns, NULL if no facet)
@@ -311,7 +311,7 @@ superbPlot.pointjitter <- function(
 ######################################################################################
 #' @name superbPlot.pointjitterviolin
 #'
-#' @title superbPlot.pointjitterviolin
+#' @title superbPlot point, jitter and violin plot layout
 #'
 #' @description superbPlot comes with a few built-in templates for making the final plots.
 #' All produces ggplot objects that can be further customized. Additionally, it is
@@ -319,8 +319,8 @@ superbPlot.pointjitter <- function(
 #' "superbPlot-compatible", must have these parameters:
 #' 
 #' @param summarydata a data.frame with columns "center", "lowerwidth" and "upperwidth" for each level of the factors;
-#' @param xvar a string with the name of the column where the factor going on the horizontal axis is given;
-#' @param groupingfac a string with the name of the column for which the data will be grouped on the plot;
+#' @param xfactor a string with the name of the column where the factor going on the horizontal axis is given;
+#' @param groupingfactor a string with the name of the column for which the data will be grouped on the plot;
 #' @param addfactors a string with up to two additional factors to make the rows and columns panels, in the form "fact1 ~ fact2";
 #' @param rawdata always contains "DV" for each participants and each level of the factors
 #' @param pointParams (optional) list of graphic directives that are sent to the geom_bar layer
@@ -337,8 +337,8 @@ superbPlot.pointjitter <- function(
 
 superbPlot.pointjitterviolin <- function(
     summarydata,               # a summary result data.frame
-    xvar,                      # the factor on the horizontal axis  
-    groupingfac,               # the factor for multiple lines/bars within the plot
+    xfactor,                   # the factor on the horizontal axis  
+    groupingfactor,            # the factor for multiple lines/bars within the plot
     addfactors,                # the factor(s) to make multiple panels
     # what follows is unused and optional
     rawdata        = NULL,     # unused
@@ -350,27 +350,27 @@ superbPlot.pointjitterviolin <- function(
     facetParams     = list()
 ) {
     runDebug("pointjitterviolin", "Entering superbPlot.pointjitterviolin", 
-        c("xvar2", "groupingfac2", "addfactors2","pointParams2","jitterParams2","violinParams2","errorbarParams2"), list(xvar, groupingfac, addfactors, pointParams, jitterParams, violinParams, errorbarParams))
+        c("xfactor2", "groupingfactor2", "addfactors2","pointParams2","jitterParams2","violinParams2","errorbarParams2"), list(xfactor, groupingfactor, addfactors, pointParams, jitterParams, violinParams, errorbarParams))
 
     plot <- ggplot(data    = summarydata, 
-                  mapping = aes_string(x = xvar )
+                  mapping = aes_string(x = xfactor )
         ) +
         do.call( geom_violin, modifyList(
             list(data   = rawdata, 
-                mapping = aes_string(y = "DV", fill = groupingfac), 
+                mapping = aes_string(y = "DV", fill = groupingfactor), 
                 scale   = "area", trim = F, alpha = 0.7),
             violinParams) )+
         do.call( geom_point, modifyList(
-            list(mapping = aes_string(colour = groupingfac, group = groupingfac, y = "center"), 
+            list(mapping = aes_string(colour = groupingfactor, group = groupingfactor, y = "center"), 
                 size = 4, position = position_dodge(.9) ),
             pointParams) ) +
         do.call( geom_errorbar, modifyList(
-            list(mapping = aes_string(group = groupingfac, colour= groupingfac, ymin = "center+lowerwidth", ymax = "center+upperwidth"), 
+            list(mapping = aes_string(group = groupingfactor, colour= groupingfactor, ymin = "center+lowerwidth", ymax = "center+upperwidth"), 
                 position = position_dodge(.9), width = 0.4),
             errorbarParams) )+
         do.call( geom_point, modifyList(
             list(data = rawdata, 
-                mapping = aes_string(y = "DV", colour = groupingfac),
+                mapping = aes_string(y = "DV", colour = groupingfactor),
                 position = position_jitterdodge(jitter.width=0.15, dodge.width=0.9) ),
             jitterParams) ) +
         do.call( facet_grid, modifyList(
@@ -387,7 +387,7 @@ superbPlot.pointjitterviolin <- function(
 ######################################################################################
 #' @name superbPlot.pointindividualline
 #'
-#' @title superbPlot.pointindividualline
+#' @title superbPlot point and individual-line layout for within-subject design
 #'
 #' @description superbPlot comes with a few built-in templates for making the final plots.
 #' All produces ggplot objects that can be further customized. Additionally, it is
@@ -395,8 +395,8 @@ superbPlot.pointjitterviolin <- function(
 #' "superbPlot-compatible", must have these parameters:
 #' 
 #' @param summarydata a data.frame with columns "center", "lowerwidth" and "upperwidth" for each level of the factors;
-#' @param xvar a string with the name of the column where the factor going on the horizontal axis is given;
-#' @param groupingfac a string with the name of the column for which the data will be grouped on the plot;
+#' @param xfactor a string with the name of the column where the factor going on the horizontal axis is given;
+#' @param groupingfactor a string with the name of the column for which the data will be grouped on the plot;
 #' @param addfactors a string with up to two additional factors to make the rows and columns panels, in the form "fact1 ~ fact2";
 #' @param rawdata always contains "DV" for each participants and each level of the factors
 #' @param pointParams (optional) list of graphic directives that are sent to the geom_bar layer
@@ -414,8 +414,8 @@ superbPlot.pointjitterviolin <- function(
 
 superbPlot.pointindividualline <- function(
     summarydata,               # a summary result data.frame
-    xvar,                      # the factor on the horizontal axis  
-    groupingfac,               # the factor for multiple lines/bars within the plot
+    xfactor,                   # the factor on the horizontal axis  
+    groupingfactor,            # the factor for multiple lines/bars within the plot
     addfactors,                # the factor(s) to make multiple panels
     # what follows is unused and optional
     rawdata        = NULL,     # unused
@@ -426,14 +426,14 @@ superbPlot.pointindividualline <- function(
     facetParams    = list()  
 ) {
     runDebug("pointindividualline", "Entering superbPlot.pointindividualline", 
-        c("xvar2", "groupingfac2", "addfactors2","pointParams2","lineParams2","errorbarParams2"), list(xvar, groupingfac, addfactors, pointParams, lineParams, errorbarParams))
+        c("xfactor2", "groupingfactor2", "addfactors2","pointParams2","lineParams2","errorbarParams2"), list(xfactor, groupingfactor, addfactors, pointParams, lineParams, errorbarParams))
 
     plot <- ggplot(
         summarydata, 
         aes_string(
-            x = xvar,   
-            shape = groupingfac, 
-            colour = groupingfac
+            x = xfactor,   
+            shape = groupingfactor, 
+            colour = groupingfactor
     )) + 
     # the individual lines 
     do.call(geom_line, modifyList(
@@ -446,13 +446,13 @@ superbPlot.pointindividualline <- function(
     do.call(geom_point, modifyList(
         list(position = position_dodge(width = .5), 
             stat = "identity", size=3,
-            mapping = aes_string(y = "center", group = groupingfac) ),
+            mapping = aes_string(y = "center", group = groupingfactor) ),
         pointParams
     )) + 
     # the error bars; define ymin, ymax only in errorbar
     do.call(geom_errorbar, modifyList(
         list(position = position_dodge(.5), width = 0.1,
-            mapping = aes_string(group = groupingfac, ymin = "center + lowerwidth", ymax = "center + upperwidth") ),
+            mapping = aes_string(group = groupingfactor, ymin = "center + lowerwidth", ymax = "center + upperwidth") ),
         errorbarParams
     )) + 
     # the panels (rows or both rows and columns, NULL if no facet)

@@ -47,6 +47,7 @@
 
 
 <meta property="og:title" content="Function reference" />
+<meta property="og:image" content="http://dcousin3.github.io/superb/logo.png" />
 
 
 
@@ -164,13 +165,13 @@
         <td>
           <p><code><a href="superbPlot.html">superbPlot()</a></code> </p>
         </td>
-        <td><p>superbPlot</p></td>
+        <td><p>superbPlot to plot summary statistics with correct error bars.</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="superbData.html">superbData()</a></code> </p>
         </td>
-        <td><p>superbData</p></td>
+        <td><p>superbData to obtain summary statistics with correct error bar intervals.</p></td>
       </tr><tr>
         
         <td>
@@ -181,7 +182,7 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-plots" class="hasAnchor"><a href="#section-plots" class="anchor"></a>plots</h2>
+          <h2 id="section-plots" class="hasAnchor"><a href="#section-plots" class="anchor"></a>Plots</h2>
           <p class="section-desc"><p>built-in templates for plots</p></p>
         </th>
       </tr>
@@ -195,37 +196,142 @@
         <td>
           <p><code><a href="superbPlot.bar.html">superbPlot.bar()</a></code> </p>
         </td>
-        <td><p>superbPlot.bar</p></td>
+        <td><p>superbPlot 'bar' layout</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="superbPlot.point.html">superbPlot.point()</a></code> </p>
         </td>
-        <td><p>superbPlot.point</p></td>
+        <td><p>superbPlot 'point' layout</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="superbPlot.line.html">superbPlot.line()</a></code> </p>
         </td>
-        <td><p>superbPlot.line</p></td>
+        <td><p>superbPlot 'line' layout</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="superbPlot.pointjitter.html">superbPlot.pointjitter()</a></code> </p>
         </td>
-        <td><p>superbPlot.pointjitter</p></td>
+        <td><p>superbPlot point-and-jitter dots layout</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="superbPlot.pointjitterviolin.html">superbPlot.pointjitterviolin()</a></code> </p>
         </td>
-        <td><p>superbPlot.pointjitterviolin</p></td>
+        <td><p>superbPlot point, jitter and violin plot layout</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="superbPlot.pointindividualline.html">superbPlot.pointindividualline()</a></code> </p>
         </td>
-        <td><p>superbPlot.pointindividualline</p></td>
+        <td><p>superbPlot point and individual-line layout for within-subject design</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-statistics" class="hasAnchor"><a href="#section-statistics" class="anchor"></a>Statistics</h2>
+          <p class="section-desc"><p>Statistics</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="summaryStatistics.html">hmean()</a></code> <code><a href="summaryStatistics.html">gmean()</a></code> <code><a href="summaryStatistics.html">MAD()</a></code> <code><a href="summaryStatistics.html">fisherskew()</a></code> <code><a href="summaryStatistics.html">pearsonskew()</a></code> <code><a href="summaryStatistics.html">fisherkurtosis()</a></code> </p>
+        </td>
+        <td><p>Additional summary statistics</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="precisionMeasures.html">SE.mean()</a></code> <code><a href="precisionMeasures.html">CI.mean()</a></code> <code><a href="precisionMeasures.html">SE.median()</a></code> <code><a href="precisionMeasures.html">CI.median()</a></code> <code><a href="precisionMeasures.html">SE.hmean()</a></code> <code><a href="precisionMeasures.html">CI.hmean()</a></code> <code><a href="precisionMeasures.html">SE.gmean()</a></code> <code><a href="precisionMeasures.html">CI.gmean()</a></code> <code><a href="precisionMeasures.html">SE.var()</a></code> <code><a href="precisionMeasures.html">CI.var()</a></code> <code><a href="precisionMeasures.html">SE.sd()</a></code> <code><a href="precisionMeasures.html">CI.sd()</a></code> <code><a href="precisionMeasures.html">SE.MAD()</a></code> <code><a href="precisionMeasures.html">CI.MAD()</a></code> <code><a href="precisionMeasures.html">SE.IQR()</a></code> <code><a href="precisionMeasures.html">CI.IQR()</a></code> <code><a href="precisionMeasures.html">SE.fisherskew()</a></code> <code><a href="precisionMeasures.html">CI.fisherskew()</a></code> <code><a href="precisionMeasures.html">SE.pearsonskew()</a></code> <code><a href="precisionMeasures.html">CI.pearsonskew()</a></code> <code><a href="precisionMeasures.html">SE.fisherkurtosis()</a></code> <code><a href="precisionMeasures.html">CI.fisherkurtosis()</a></code> </p>
+        </td>
+        <td><p>Precision measures</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="HyunhFeldtEpsilon.html">HyunhFeldtEpsilon()</a></code> </p>
+        </td>
+        <td><p>Hyunh and Feldt's epsilon measure of sphericity</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="CousineauLaurencelleLambda.html">CousineauLaurencelleLambda()</a></code> </p>
+        </td>
+        <td><p>Cousineau and Laurencelle's lambda correction factor for cluster-randomized sampling</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ShroutFleissICC1.html">ShroutFleissICC1()</a></code> </p>
+        </td>
+        <td><p>Shrout and Fleiss intra-class correlation functions</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-tests" class="hasAnchor"><a href="#section-tests" class="anchor"></a>Tests</h2>
+          <p class="section-desc"><p>Statistical tests</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="MauchlySphericityTest.html">MauchlySphericityTest()</a></code> </p>
+        </td>
+        <td><p>Mauchly's test of Sphericity</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="WinerCompoundSymmetryTest.html">WinerCompoundSymmetryTest()</a></code> </p>
+        </td>
+        <td><p>Winer's test of compound symmetry</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-transformations" class="hasAnchor"><a href="#section-transformations" class="anchor"></a>Transformations</h2>
+          <p class="section-desc"><p>Transformation functions</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="twoStepTransform.html">twoStepTransform()</a></code> </p>
+        </td>
+        <td><p>two-step transform for subject centering and bias correction</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="subjectCenteringTransform.html">subjectCenteringTransform()</a></code> </p>
+        </td>
+        <td><p>subject-centering transform</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="biasCorrectionTransform.html">biasCorrectionTransform()</a></code> </p>
+        </td>
+        <td><p>bias-correction transform</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="poolSDTransform.html">poolSDTransform()</a></code> </p>
+        </td>
+        <td><p>pooled standard deviation transform</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -269,111 +375,6 @@
           <p><code><a href="TMB1964r.html">TMB1964r</a></code> </p>
         </td>
         <td><p>Data of Tulving, Mandler, &amp; Baumal, 1964 (reproduction of 2021)</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-tests" class="hasAnchor"><a href="#section-tests" class="anchor"></a>Tests</h2>
-          <p class="section-desc"><p>Statistics</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="summaryStatistics.html">hmean()</a></code> <code><a href="summaryStatistics.html">gmean()</a></code> <code><a href="summaryStatistics.html">MAD()</a></code> <code><a href="summaryStatistics.html">fisherskew()</a></code> <code><a href="summaryStatistics.html">pearsonskew()</a></code> <code><a href="summaryStatistics.html">fisherkurtosis()</a></code> </p>
-        </td>
-        <td><p>Additional summary statistics</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="precisionMeasures.html">SE.mean()</a></code> <code><a href="precisionMeasures.html">CI.mean()</a></code> <code><a href="precisionMeasures.html">SE.median()</a></code> <code><a href="precisionMeasures.html">CI.median()</a></code> <code><a href="precisionMeasures.html">SE.hmean()</a></code> <code><a href="precisionMeasures.html">CI.hmean()</a></code> <code><a href="precisionMeasures.html">SE.gmean()</a></code> <code><a href="precisionMeasures.html">CI.gmean()</a></code> <code><a href="precisionMeasures.html">SE.var()</a></code> <code><a href="precisionMeasures.html">CI.var()</a></code> <code><a href="precisionMeasures.html">SE.sd()</a></code> <code><a href="precisionMeasures.html">CI.sd()</a></code> <code><a href="precisionMeasures.html">SE.MAD()</a></code> <code><a href="precisionMeasures.html">CI.MAD()</a></code> <code><a href="precisionMeasures.html">SE.IQR()</a></code> <code><a href="precisionMeasures.html">CI.IQR()</a></code> <code><a href="precisionMeasures.html">SE.fisherskew()</a></code> <code><a href="precisionMeasures.html">CI.fisherskew()</a></code> <code><a href="precisionMeasures.html">SE.pearsonskew()</a></code> <code><a href="precisionMeasures.html">CI.pearsonskew()</a></code> <code><a href="precisionMeasures.html">SE.fisherkurtosis()</a></code> <code><a href="precisionMeasures.html">CI.fisherkurtosis()</a></code> </p>
-        </td>
-        <td><p>Precision measures</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="HyunhFeldtEpsilon.html">HyunhFeldtEpsilon()</a></code> </p>
-        </td>
-        <td><p>HyunhFeldtEpsilon</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="CousineauLaurencelleLambda.html">CousineauLaurencelleLambda()</a></code> </p>
-        </td>
-        <td><p>CousineauLaurencelleLambda factor for cluster-randomized sampling</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ShroutFleissICC1.html">ShroutFleissICC1()</a></code> </p>
-        </td>
-        <td><p>Shrout and Fleiss intra-class correlation functions</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-tests" class="hasAnchor"><a href="#section-tests" class="anchor"></a>Tests</h2>
-          <p class="section-desc"><p>Statistical tests</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="MauchlySphericityTest.html">MauchlySphericityTest()</a></code> </p>
-        </td>
-        <td><p>MauchlySphericityTest</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="WinerCompoundSymmetryTest.html">WinerCompoundSymmetryTest()</a></code> </p>
-        </td>
-        <td><p>WinerCompoundSymmetryTest</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-transformations" class="hasAnchor"><a href="#section-transformations" class="anchor"></a>Transformations</h2>
-          <p class="section-desc"><p>Transformation functions</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="twoStepTransform.html">twoStepTransform()</a></code> </p>
-        </td>
-        <td><p>twoStepTransform</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="subjectCenteringTransform.html">subjectCenteringTransform()</a></code> </p>
-        </td>
-        <td><p>subjectCenteringTransform</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="biasCorrectionTransform.html">biasCorrectionTransform()</a></code> </p>
-        </td>
-        <td><p>biasCorrectionTransform</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="poolSDTransform.html">poolSDTransform()</a></code> </p>
-        </td>
-        <td><p>poolSDTransform</p></td>
       </tr>
     </tbody><tbody>
       <tr>

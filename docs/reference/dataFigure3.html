@@ -53,6 +53,7 @@
 a result in contradiction with the result of a statistical test.
 The paradoxical result is resolved by using adjusted confidence intervals,
 here the cluster- and different-adjusted confidence interval." />
+<meta property="og:image" content="http://dcousin3.github.io/superb/logo.png" />
 
 
 
@@ -202,7 +203,8 @@ doi: <a href='https://doi.org/10.1037/met0000055'>10.1037/met0000055</a>
 <span class='va'>micc</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.491334683772226</span>, <span class='fl'>0.20385744842838</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># mean ICC given by superbPlot</span>
 <span class='va'>lam</span>   <span class='op'>&lt;-</span> <span class='fu'><a href='CousineauLaurencelleLambda.html'>CousineauLaurencelleLambda</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>micc</span>, <span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>tcorr</span> <span class='op'>&lt;-</span> <span class='va'>res</span><span class='op'>$</span><span class='va'>statistic</span> <span class='op'>/</span> <span class='va'>lam</span>
-<span class='va'>pcorr</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/stats/TDist.html'>pt</a></span><span class='op'>(</span><span class='va'>tcorr</span>,<span class='fl'>4</span><span class='op'>)</span><span class='co'>#' </span>
+<span class='va'>pcorr</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/stats/TDist.html'>pt</a></span><span class='op'>(</span><span class='va'>tcorr</span>,<span class='fl'>4</span><span class='op'>)</span>
+
 
 </div></pre>
   </div>

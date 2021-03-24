@@ -2,7 +2,7 @@
 % Please edit documentation in R/functionsTransformation.R
 \name{biasCorrectionTransform}
 \alias{biasCorrectionTransform}
-\title{biasCorrectionTransform}
+\title{bias-correction transform}
 \usage{
 biasCorrectionTransform(dta, variables)
 }
@@ -16,6 +16,10 @@ the remaining columns will be left unchanged}
 a data.frame of the same form as dta with the variables transformed.
 }
 \description{
-biasCorrectionTransform  is a 
-transformations that can be applied to a matrix of data.
+biasCorrectionTransform  is a transformation that can
+ be applied to a matrix of data. The resulting matrix's variance
+ is corrected for bias \insertCite{m08}{superb}
+}
+\references{
+\insertAllCited{}
 }

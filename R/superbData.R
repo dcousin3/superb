@@ -1,5 +1,5 @@
 ######################################################################################
-#' @title superbData 
+#' @title superbData to obtain summary statistics with correct error bar intervals.
 #'
 #' @name superbData
 #'

@@ -17,23 +17,36 @@ bar are adjusted to the design (within or between), to the purpose
 randomized samples or cluster randomized samples) and to the population
 size (infinite or of a specific size).
 
-`GRD()` can easily generate random data from any design (within or
-between) using any population distribution with any parameters, and with
-various effect sizes. GRD is useful to test statistical procedures such
-as `aov()` or plotting procedures such as `superbPlot()`.
+The `superbData()` function does not generate the plot but returns the
+summary statistics and the interval boundaries. These can afterwards be
+output to other plotting environment.
+
+`GRD()` is used to easily generate random data from any design (within
+or between) using any population distribution with any parameters, and
+with various effect sizes. GRD is useful to test statistical procedures
+such as `aov()` or plotting procedures such as `superbPlot()`.
 
 # Installation
+
+The official **CRAN** version can be installed with
 
 ``` r
 install.packages("superb")
 library(superb)
 ```
 
+The development version can be accessed through GitHub:
+
+``` r
+devtools::install_github("dcousin3/superb")
+library(superb)
+```
+
 # Examples
 
-This is a simple example illustrating the ToothGrowth of rats as a
-function of the dose of vitamin and the form of the vitamin (pills or
-juice)
+This is a simple example illustrating the ToothGrowth (dependent
+variable is `len`) of rats as a function of the `dose` of vitamin and
+the form of the vitamin `supp` (pills or juice)
 
 ``` r
 superbPlot(ToothGrowth, 
@@ -41,10 +54,15 @@ superbPlot(ToothGrowth,
     variables = "len" )
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
-This explicitely indicates to display the median instead of the default
-mean statistics
+In the above, the defautl summary statistic, the mean, is used. The
+error bars are, by default, the 95% confidence intervals. These two
+choices can be changed with the `statistic` and the `errorbar`
+arguments.
+
+This second example explicitely indicates to display the `median`
+instead of the default `mean` summary statistics
 
 ``` r
 superbPlot(ToothGrowth, 
@@ -53,16 +71,32 @@ superbPlot(ToothGrowth,
     statistic = "median")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
-This example generates scores for 3000 simulated participants in a 3 x 2
-design with repeated-measures on days. The factor day is belived to
-improve the scores (reducing it)
+As a third example, we illustrate the harmonic means `hmedian` along
+with 99.9% confidence intervals using lines:
+
+``` r
+superbPlot(ToothGrowth, 
+    BSFactor = c("dose","supp"), 
+    variables = "len",
+    statistic = "hmean", 
+    errorbar = "CI", gamma = 0.999,
+    plotStyle = "line")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+
+The second function, `GRD`, can be used to generate random data from
+designs with various within- and between-subject factors. This example
+generates scores for 300 simulated participants in a 3 x 2 design with
+repeated-measures on `Day`s. Only the factor `Day` is simulated to
+improve the scores by reducing it:
 
 ``` r
 testdata <- GRD(
     RenameDV   = "score", 
-    SubjectsPerGroup = 1000, 
+    SubjectsPerGroup = 100, 
     BSFactors  = "Difficulty(3)", 
     WSFactors  = "Day(2)",
     Population = list(mean = 75,stddev = 12,rho = 0.5),
@@ -72,27 +106,35 @@ head(testdata)
 ```
 
     ##   id Difficulty  score.1  score.2
-    ## 1  1          1 72.17338 70.94419
-    ## 2  2          1 73.08895 54.78463
-    ## 3  3          1 81.38117 65.09155
-    ## 4  4          1 80.86181 85.89882
-    ## 5  5          1 68.77854 59.97810
-    ## 6  6          1 77.44821 88.37266
+    ## 1  1          1 77.41706 83.21001
+    ## 2  2          1 72.63189 82.72655
+    ## 3  3          1 86.05087 71.07737
+    ## 4  4          1 63.68760 71.25382
+    ## 5  5          1 78.19190 87.32919
+    ## 6  6          1 82.03752 84.70999
+
+The simulated scores are illustrated using jitter dots as well as a
+violin plot to show the distributions:
 
 ``` r
 superbPlot(testdata, 
     BSFactor  = "Difficulty", 
     WSFactor  = "Day(2)",
     variables = c("score.1","score.2"),
-    plotStyle = "line"
+    plotStyle = "pointjitterviolin"
 )
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
+As seen, `superb` can be used to illustrate summary statistics but also
+some characteristics of the raw data.
 
 # For more
 
-Consult the documentation, of the vignettes.
+The complete documentation is available on this
+[site](https://dcousin3.github.io/superb).
 
-A general introduction to the `superb` framework is under consideration
-at *Advances in Methods and Practices in Psychological Sciences*.
+A general introduction to the `superb` framework underlying this library
+is under consideration at *Advances in Methods and Practices in
+Psychological Sciences*.

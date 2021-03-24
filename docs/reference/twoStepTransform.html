@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>twoStepTransform — twoStepTransform • superb</title>
+<title>two-step transform for subject centering and bias correction — twoStepTransform • superb</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,12 @@
 
 
 
-<meta property="og:title" content="twoStepTransform — twoStepTransform" />
-<meta property="og:description" content="twoStepTransform, is a  
-transformation that can be applied to a matrix of data." />
+<meta property="og:title" content="two-step transform for subject centering and bias correction — twoStepTransform" />
+<meta property="og:description" content="twoStepTransform, is a transformation that can
+ be applied to a matrix of data. The resulting matrix is both 
+ subject-centered and bias corrected, a technique called
+ the CM technique (Baguley 2012; Cousineau 2005; Morey 2008)" />
+<meta property="og:image" content="http://dcousin3.github.io/superb/logo.png" />
 
 
 
@@ -138,14 +141,16 @@ transformation that can be applied to a matrix of data." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>twoStepTransform</h1>
+    <h1>two-step transform for subject centering and bias correction</h1>
     
     <div class="hidden name"><code>twoStepTransform.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>twoStepTransform, is a  
-transformation that can be applied to a matrix of data.</p>
+    <p>twoStepTransform, is a transformation that can
+ be applied to a matrix of data. The resulting matrix is both 
+ subject-centered and bias corrected, a technique called
+ the CM technique (Baguley 2012; Cousineau 2005; Morey 2008)</p>
     </div>
 
     <pre class="usage"><span class='fu'>twoStepTransform</span><span class='op'>(</span><span class='va'>dta</span>, <span class='va'>variables</span><span class='op'>)</span></pre>
@@ -167,6 +172,21 @@ the remaining columns will be left unchanged</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a data.frame of the same form as dta with the variables transformed.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Baguley T (2012).
+&#8220;Calculating and graphing within-subject confidence intervals for ANOVA.&#8221;
+<em>Behavior Research Methods</em>, <b>44</b>, 158--175.
+doi: <a href='https://doi.org/10.3758/s13428-011-0123-7'>10.3758/s13428-011-0123-7</a>
+, <a href='https://doi.org/10.3758/s13428-011-0123-7'>https://doi.org/10.3758/s13428-011-0123-7</a>.<br /><br /> Cousineau D (2005).
+&#8220;Confidence intervals in within-subject designs: A simpler solution to Loftus and Masson's method.&#8221;
+<em>Tutorials in Quantitative Methods for Psychology</em>, <b>1</b>, 42--45.
+doi: <a href='https://doi.org/10.20982/tqmp.01.1.p042'>10.20982/tqmp.01.1.p042</a>
+, <a href='https://doi.org/10.20982/tqmp.01.1.p042'>https://doi.org/10.20982/tqmp.01.1.p042</a>.<br /><br /> Morey RD (2008).
+&#8220;Confidence Intervals from Normalized Data: A correction to Cousineau (2005).&#8221;
+<em>Tutorials in Quantitative Methods for Psychology</em>, <b>4</b>, 61--64.
+doi: <a href='https://doi.org/10.20982/tqmp.04.2.p061'>10.20982/tqmp.04.2.p061</a>
+, <a href='https://doi.org/10.20982/tqmp.04.2.p061'>https://doi.org/10.20982/tqmp.04.2.p061</a>.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

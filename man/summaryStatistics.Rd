@@ -44,3 +44,6 @@ fisherkurtosis( c(1,2,3) ) # the Fisher kurtosis corrected for sample size
 pearsonskew( c(1,2,3) )    # the Pearson skew
 
 }
+\references{
+\insertAllCited{}
+}

@@ -1,5 +1,5 @@
 ######################################################################################
-#' @title superbPlot 
+#' @title superbPlot to plot summary statistics with correct error bars.
 #'
 #' @description plotsuberb plots standard error or confidence interval for various descriptive 
 #'      statistics under various designs, sampling schemes, population size and purposes,
@@ -419,10 +419,10 @@ superbPlot <- function(data,
     runDebug("beforeplot", "Kit for testing plotting function", c("ss","factorOrder2","dl"),list(summaryStatistics, factorOrder, data.unchanged.long) )
     if (showPlot == TRUE) {
         # generate the plot
-        groupingfac = if(!is.na(factorOrder[2])) {factorOrder[2]}else{ NULL}
+        groupingfactor = if(!is.na(factorOrder[2])) {factorOrder[2]}else{ NULL}
         # if present, make the grouping variable a factor
-        if (!is.null(groupingfac)) {
-            data.unchanged.long[[groupingfac]] = as.factor(data.unchanged.long[[groupingfac]])
+        if (!is.null(groupingfactor)) {
+            data.unchanged.long[[groupingfactor]] = as.factor(data.unchanged.long[[groupingfactor]])
         }
 
         # first get the facets
@@ -432,11 +432,11 @@ superbPlot <- function(data,
 
         # produce the plot
         plot <- do.call( pltfct, list(
-                    summarydata = summaryStatistics,
-                    xvar        = factorOrder[1],
-                    groupingfac = groupingfac,
-                    addfactors  = facets,
-                    rawdata     = data.unchanged.long,
+                    summarydata    = summaryStatistics,
+                    xfactor        = factorOrder[1],
+                    groupingfactor = groupingfactor,
+                    addfactors     = facets,
+                    rawdata        = data.unchanged.long,
                     ...
         ))
         return(plot)

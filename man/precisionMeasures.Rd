@@ -95,5 +95,7 @@ SE.sd( c(1,2,3) )
 SE.MAD( c(1,2,3) )
 SE.fisherskew( c(1,2,3) )
 
-
+}
+\references{
+\insertAllCited{}
 }

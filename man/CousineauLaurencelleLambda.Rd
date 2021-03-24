@@ -2,7 +2,7 @@
 % Please edit documentation in R/CousineauLaurencelleLambda.R
 \name{CousineauLaurencelleLambda}
 \alias{CousineauLaurencelleLambda}
-\title{CousineauLaurencelleLambda factor for cluster-randomized sampling}
+\title{Cousineau and Laurencelle's lambda correction factor for cluster-randomized sampling}
 \usage{
 CousineauLaurencelleLambda(paramvector)
 }
@@ -27,5 +27,7 @@ CousineauLaurencelleLambda( c(0.2, 5, 20, 20, 20, 20, 20) )
 
 }
 \references{
+\insertAllCited{}
+
 \insertAllCited{}
 }

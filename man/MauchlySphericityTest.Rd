@@ -2,7 +2,7 @@
 % Please edit documentation in R/testMauchlySphericity.R
 \name{MauchlySphericityTest}
 \alias{MauchlySphericityTest}
-\title{MauchlySphericityTest}
+\title{Mauchly's test of Sphericity}
 \usage{
 MauchlySphericityTest(dta, cols)
 }
@@ -34,5 +34,7 @@ MauchlySphericityTest(dta)
 
 }
 \references{
+\insertAllCited{}
+
 \insertAllCited{}
 }

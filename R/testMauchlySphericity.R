@@ -1,5 +1,5 @@
 ######################################################################################
-#' @title MauchlySphericityTest
+#' @title Mauchly's test of Sphericity
 #'
 #' @description Performs a test of sphericity on a dataframe with
 #'   multiple measures, one subject per line. It assesses the significance of the 
@@ -26,6 +26,9 @@
 #' # performs the test (here p = 0.5824)
 #' MauchlySphericityTest(dta)
 #' # 0.582443
+#'
+#' @references
+#'      \insertAllCited{}
 #'
 #' @export MauchlySphericityTest
 
