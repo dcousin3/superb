@@ -187,7 +187,7 @@ Figure 2: Mean scores along with difference-adjusted 95% confidence interval per
 <span class="op">)</span> <span class="op">+</span> 
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">50</span>,<span class="fl">100</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"Mean +- 95% CI"</span><span class="op">)</span> <span class="op">+</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"Difference-adjusted\n95% confidence interval\n"</span><span class="op">)</span><span class="op">+</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"Difference-adjusted\n95% confidence interval"</span><span class="op">)</span><span class="op">+</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_gray</a></span><span class="op">(</span>base_size<span class="op">=</span><span class="fl">16</span><span class="op">)</span> <span class="op">+</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span> <span class="op">=</span> <span class="st">"Week 1"</span>, <span class="st">"2"</span> <span class="op">=</span> <span class="st">"Week 2"</span>, <span class="st">"3"</span><span class="op">=</span><span class="st">"Week 3"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>The directives in <code>errorbarParams</code> are injected inside the <code>geom_errorbar</code> in charge of drawing the error bars whereas the remaining directives are applied to the whole plot. The reader is referred to the package <code>ggplot2</code> for more on these graphing directives.</p>
@@ -218,7 +218,7 @@ Figure 2: Mean scores along with difference-adjusted 95% confidence interval per
 <span class="op">)</span> <span class="op">+</span> 
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">50</span>,<span class="fl">100</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"Mean +- 95% CI"</span><span class="op">)</span> <span class="op">+</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"Correlation- and Difference-adjusted\n95% confidence interval\n"</span><span class="op">)</span><span class="op">+</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"Correlation- and Difference-adjusted\n95% confidence interval"</span><span class="op">)</span><span class="op">+</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_gray</a></span><span class="op">(</span>base_size<span class="op">=</span><span class="fl">16</span><span class="op">)</span> <span class="op">+</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span> <span class="op">=</span> <span class="st">"Week 1"</span>, <span class="st">"2"</span> <span class="op">=</span> <span class="st">"Week 2"</span>, <span class="st">"3"</span><span class="op">=</span><span class="st">"Week 3"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## Warning: FYI: The HyunhFeldtEpsilon measure of sphericity per group are
@@ -226,7 +226,7 @@ Figure 2: Mean scores along with difference-adjusted 95% confidence interval per
 <pre><code>## Warning: FYI: Some of the groups' data are not spherical. Use error bars with
 ## caution.</code></pre>
 <p><img src="Vignette1_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
-<p>Unless you add the option <code>Quiet = TRUE</code>, the command will issue some additional information. In the present data set, <span class="math inline">\(\varepsilon\)</span> is 0.54 which is low. A Mauchly test of sphericity indicates rejection of sphericity, so interpret the error bars with caution.</p>
+<p>Unless you change the options to <code><a href="https://rdrr.io/r/base/options.html">options(superb.debug = 'none')</a></code>, the command will issue some additional information. In the present data set, <span class="math inline">\(\varepsilon\)</span> is 0.54 which is low. A Mauchly test of sphericity indicates rejection of sphericity, so interpret the error bars with caution. All the warnings issued begining with <code>"FYI"</code> are just information. Hereafter, the warnings are inhibited.</p>
 </div>
 <div id="step-3-specify-the-sampling-procedure-and-the-population-size" class="section level2">
 <h2 class="hasAnchor">
@@ -250,15 +250,10 @@ Figure 2: Mean scores along with difference-adjusted 95% confidence interval per
 <span class="op">)</span> <span class="op">+</span> 
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">50</span>,<span class="fl">100</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"Mean +- 95% CI"</span><span class="op">)</span> <span class="op">+</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"Cluster- Correlation, and Difference-adjusted\n95% confidence interval\n"</span><span class="op">)</span><span class="op">+</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"Cluster- Correlation, and Difference-adjusted\n95% confidence interval"</span><span class="op">)</span><span class="op">+</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_gray</a></span><span class="op">(</span>base_size<span class="op">=</span><span class="fl">16</span><span class="op">)</span> <span class="op">+</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span> <span class="op">=</span> <span class="st">"Week 1"</span>, <span class="st">"2"</span> <span class="op">=</span> <span class="st">"Week 2"</span>, <span class="st">"3"</span><span class="op">=</span><span class="st">"Week 3"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## Warning: FYI: The HyunhFeldtEpsilon measure of sphericity per group are
-## 0.544961809473707</code></pre>
-<pre><code>## Warning: FYI: Some of the groups' data are not spherical. Use error bars with
-## caution.</code></pre>
-<pre><code>## Warning: FYI: The ICC1 per group are 0.962324433475432</code></pre>
-<p><img src="Vignette1_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
+<p><img src="Vignette1_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
 <p>As you can see, the adjustments can be obtained with a single option inside the <code>adjusments</code> list. They are cumulative, i.e., more than one adjustment can be used, depending on the situation.</p>
 </div>
 <div id="references" class="section level1 unnumbered">

@@ -104,7 +104,7 @@ superbPlot(dta, WSFactor="Moment(3)",
     ) + 
     coord_cartesian( ylim = c(50,100) ) +
     ylab("Mean +- 95% CI") +
-    labs(title="(stand-alone)\n95% confidence interval\n")+
+    labs(title="(stand-alone)\n95% confidence interval")+
     theme_gray(base_size=16) +
     scale_x_discrete(labels=c("1" = "Week 1", "2" = "Week 2", "3"="Week 3"))
 ``` 
@@ -150,7 +150,7 @@ superbPlot(dta,
 ) + 
 coord_cartesian( ylim = c(50,100) ) +
 ylab("Mean +- 95% CI") +
-labs(title="Difference-adjusted\n95% confidence interval\n")+
+labs(title="Difference-adjusted\n95% confidence interval")+
 theme_gray(base_size=16) +
 scale_x_discrete(labels=c("1" = "Week 1", "2" = "Week 2", "3"="Week 3"))
 ``` 
@@ -186,7 +186,7 @@ superbPlot(dta,
 ) + 
 coord_cartesian( ylim = c(50,100) ) +
 ylab("Mean +- 95% CI") +
-labs(title="Difference-adjusted\n95% confidence interval\n")+
+labs(title="Difference-adjusted\n95% confidence interval")+
 theme_gray(base_size=16) +
 scale_x_discrete(labels=c("1" = "Week 1", "2" = "Week 2", "3"="Week 3"))
 ``` 
@@ -232,14 +232,16 @@ superbPlot(dta,
 ) + 
 coord_cartesian( ylim = c(50,100) ) +
 ylab("Mean +- 95% CI") +
-labs(title="Correlation- and Difference-adjusted\n95% confidence interval\n")+
+labs(title="Correlation- and Difference-adjusted\n95% confidence interval")+
 theme_gray(base_size=16) +
 scale_x_discrete(labels=c("1" = "Week 1", "2" = "Week 2", "3"="Week 3"))
 ``` 
 
-Unless you add the option ``Quiet = TRUE``, the command will issue some additional
+Unless you change the options to ``options(superb.debug = 'none')``, the command will issue some additional
 information. In the present data set, $\varepsilon$ is 0.54 which is low. A Mauchly test
-of sphericity indicates rejection of sphericity, so interpret the error bars with caution.
+of sphericity indicates rejection of sphericity, so interpret the error bars with caution. 
+All the warnings issued begining with ``"FYI"`` are just information. Hereafter, the warnings
+are inhibited.
 
 
 ## Step 3: Specify the sampling procedure and the population size
@@ -262,6 +264,10 @@ be shortened.
 
 These adjustments are implemented in ``superb`` with additional adjustments, such as
 
+```{r, echo = FALSE}
+options(superb.debug = 'none')
+```
+
 ```{r, message=FALSE, echo=TRUE , results='hide'}
 # add (ficticious) cluster membership for each participant in the column "cluster"
 dta$cluster <- sort(rep(1:5, 3))
@@ -277,7 +283,7 @@ superbPlot(dta,
 ) + 
 coord_cartesian( ylim = c(50,100) ) +
 ylab("Mean +- 95% CI") +
-labs(title="Cluster- Correlation, and Difference-adjusted\n95% confidence interval\n")+
+labs(title="Cluster- Correlation, and Difference-adjusted\n95% confidence interval")+
 theme_gray(base_size=16) +
 scale_x_discrete(labels=c("1" = "Week 1", "2" = "Week 2", "3"="Week 3"))
 ``` 

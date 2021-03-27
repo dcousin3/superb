@@ -19,6 +19,7 @@ vignette: >
 cat("this will be hidden; use for general initializations.\n")
 library(superb)
 library(ggplot2)
+options(superb.debug = 'none')
 ```
 
 ``superbPlot`` comes with six built-in layouts for plotting your data.

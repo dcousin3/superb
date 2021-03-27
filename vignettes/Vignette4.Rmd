@@ -27,11 +27,11 @@ library(ggplot2)
 By default, ``superbPlot`` generates mean plots along with 95% confidence intervals of 
 the mean. However, these choices can be changed.
 
-* To change the summary statistics, use the option ``statistic =``;
+* To change the summary statistics, use the argument ``statistic =``;
 
-* To change the confidence level, use the option ``gamma = ``;
+* To change the confidence level, use the argument ``gamma = ``;
 
-* To change the interval function, use the option ``errorbar = ``. The abbreviation
+* To change the interval function, use the argument ``errorbar = ``. The abbreviation
 ``CI`` stands for confidence interval; ``SE`` stands for standard error.
 
 The defaults are ``statistic = "mean", errorbar = "CI", gamma = 0.95``. For error bar
@@ -45,6 +45,9 @@ In what follow, we use ``GRD()`` to generate a random dataset with an interactio
 then make plots varying the statistics displayed.
 
 ```{r, message=FALSE, echo=TRUE, fig.cap="Figure 1: Various statistics and various measures of precisions"}
+# shut down 'warnings', 'design' and 'summary' messages
+options(superb.debug = 'none') 
+
 # Generate a random dataset from a (3 x 2) design, entirely within subject.
 # The sample size is very small (n=5) and the correlation between scores is high (rho = .8)
 dta <- GRD( 
@@ -53,8 +56,6 @@ dta <- GRD(
     SubjectsPerGroup = 50, 
     Population = list( mean=10, stddev = 5, rho = .80)
 )
-
-options(superb.debug = 'none') # shut down 'warnings' and 'design' messages
 
 # a quick function to call superbPlot
 makeplot <- function(statfct, errorbarfct, gam, rg, subttl) {

@@ -119,13 +119,13 @@ testdata <- GRD(
 head(testdata)
 ```
 
-    ##   id Difficulty   score.1   score.2
-    ## 1  1          1  51.72929  87.62986
-    ## 2  2          1  99.50193  78.04142
-    ## 3  3          1  78.06004  54.87688
-    ## 4  4          1 102.88696 112.47852
-    ## 5  5          1 113.55758  74.83040
-    ## 6  6          1  74.00008  64.75683
+    ##   id Difficulty  score.1  score.2
+    ## 1  1          1 83.75090 75.66201
+    ## 2  2          1 74.12895 67.18510
+    ## 3  3          1 69.75250 79.95957
+    ## 4  4          1 75.88334 64.63258
+    ## 5  5          1 70.29325 65.05246
+    ## 6  6          1 78.53272 95.44238
 
 The simulated scores are illustrated using jitter dots as well as a
 violin plot to show the distributions:
