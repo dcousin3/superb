@@ -8,42 +8,60 @@ context("Testing GRD")
 
 
 test_that("This is the minimum specification", {
+    options(superb.debug = 'none')
     dta <- GRD()
     head(dta)
     tail(dta)
     expect_output( str(hist(dta$DV)), "List of 6" )
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("Renaming the dependant variable and setting the group size", {
+    options(superb.debug = 'none')
     dta <- GRD( RenameDV = "score", SubjectsPerGroup = 1000 )
     expect_output( str(hist(dta$score )), "List of 6" )
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("Selecting a between-group experimental design...", {
+    options(superb.debug = 'none')
     expect_output( str(dta <- GRD( BSFactors = '3')), "data.frame")
     expect_output( str( GRD( BSFactors = "3 : 2")), "data.frame")
     expect_output( str( GRD( BSFactors = "(yes,no) : (CBT, Control, Exercice)")), "data.frame")
     expect_output( str( GRD( BSFactors = "Stress(3)")), "data.frame")
     expect_output( str( GRD( WSFactors = "Moment (2)")), "data.frame")
     expect_output( str( GRD( BSFactors = "Group(3)", WSFactors = "2 : 3")), "data.frame")
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("Obtaining debug information (not required) and a summary", {
-    expect_output( str( GRD( BSFactors = "Group(3)", Debug=TRUE, Summary=TRUE)), "data.frame")
+    # turns on all debug information
+    options(superb.debug = 'all')
+    expect_output( str( GRD( BSFactors = "Group(3)")), "data.frame")
+    # turns only summary information on the design (recommended)
+    options(superb.debug = 'summary')
+    expect_output( str( GRD( BSFactors = "Group(3)")), "data.frame")
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("A complete test with plots and anova", {
+    options(superb.debug = 'none')
     library(lattice)
     library("reshape2")
     library(car)
 
-    dta <- GRD(BSFactors = "difficulty(3) : gender (2)", 
-      WSFactors="day(2)",
-      SubjectsPerGroup=c(2,2,3,3,2,2)
+    dta <- GRD(
+        BSFactors = "difficulty(3) : gender (2)", 
+        WSFactors="day(2)",
+        SubjectsPerGroup=c(2,2,3,3,2,2)
     )
       
     Day = factor(c("DV.1", "DV.2")) # good for anova but not for plot
@@ -60,10 +78,13 @@ test_that("A complete test with plots and anova", {
     dta3$gender = factor(dta3$gender, labels=c(1, 2))
     expect_output( str(histogram(~ value | difficulty, data = dta3)), "List of 45" )
     expect_output( str(histogram(~ value | difficulty + gender + variable, data = dta3)), "List of 45" )
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("Defining population characteristics (ex. 1/2)", {
+    options(superb.debug = 'none')
     dta <- GRD( 
       RenameDV = "IQ",
       Population=list(
@@ -72,29 +93,38 @@ test_that("Defining population characteristics (ex. 1/2)", {
       ) 
     )
     expect_output( str(hist(dta$IQ)), "List of 6") 
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("Defining population characteristics (ex. 2/2)", {
+    options(superb.debug = 'none')
     library(lattice)
     dta <- GRD(BSFactors="difficulty(2)", SubjectsPerGroup = 1000,
       Population=list(mean=100,stddev=15)
     )
     expect_output( str(histogram(~ DV | difficulty, data = dta)), "List of 45")
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("Adding effects (ex. 1/5)", {
+    options(superb.debug = 'none')
     library(lattice)
     dta <- GRD(BSFactors="difficulty(2)", SubjectsPerGroup = 1000,
       Population=list(mean=100,stddev=15),
       Effects = list("difficulty" = extent(50) )
     )
     expect_output( str(histogram(~ DV | difficulty, data = dta)), "List of 45")
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("Adding effects (ex. 2/5)", {
+    options(superb.debug = 'none')
     library(lattice)
     dta <- GRD(BSFactors="difficulty(5)", SubjectsPerGroup = 1000,
       Population=list(mean=0,stddev=5), 
@@ -102,10 +132,13 @@ test_that("Adding effects (ex. 2/5)", {
     )
     expect_output( str(histogram(~ DV | difficulty, data = dta)), "List of 45")
     expect_output( str(hist(dta$DV, breaks=seq(-150,150,by=5) )), "List of 6")
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("Adding effects (ex. 3/5)", {
+    options(superb.debug = 'none')
     library(lattice)
     dta <- GRD(BSFactors="difficulty(3):gender(2)", 
       Population=list(mean=100,stddev=15), SubjectsPerGroup = 1000,
@@ -121,10 +154,13 @@ test_that("Adding effects (ex. 3/5)", {
       type="density",breaks=seq(-300,400,by=10)
     )
     expect_output( str(plt), "List of 45")
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("Adding effects (ex. 4/5)", {
+    options(superb.debug = 'none')
     library(lattice)
     dta <- GRD(
       BSFactors = 'Reply(yes, no) : Therapy(CBT, Exercise, Control)',
@@ -137,10 +173,13 @@ test_that("Adding effects (ex. 4/5)", {
       type="density",breaks=seq(-20,20,by=1)
     )
     expect_output( str(plt), "List of 45")
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("Adding effects (ex. 5/5)", {
+    options(superb.debug = 'none')
     library(lattice)
     # The Rexpression effects are given arbitrary names 
     # instead of factors on which to operate
@@ -158,19 +197,25 @@ test_that("Adding effects (ex. 5/5)", {
     # Rexpression can be any expression which can be applied to the 
     # subject "id", the factor(s) values, and the DV itself
     expect_output( str(plt), "List of 45")
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("Specifying underlying distributions (ex. 1/3)", {
+    options(superb.debug = 'none')
     dta <- GRD(SubjectsPerGroup = 1000, 
       Population=list(mean=100,stddev=15)
     )
     plt <- hist(dta$DV,breaks=seq(min(dta$DV,40)-5,max(dta$DV,160)+5,by=2.5))
     expect_output( str(plt), "List of 6")
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("Specifying underlying distributions (ex. 2/3)", {
+    options(superb.debug = 'none')
     library(lattice)
     # heterogeneous variances across groups
     dta <- GRD(SubjectsPerGroup = 1000, 
@@ -184,10 +229,13 @@ test_that("Specifying underlying distributions (ex. 2/3)", {
     plt <- histogram(~ DV | Group, data = dta,
       type="density", breaks=seq(min(dta$DV)-5,max(dta$DV)+5,by=2.5) )
     expect_output( str(plt), "List of 45")
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("Specifying underlying distributions (ex. 3/3)", {
+    options(superb.debug = 'none')
     dta <- GRD(SubjectsPerGroup = 1000, 
       Population=list(
         scores = "rweibull(1, shape=2, scale=40)"
@@ -197,10 +245,13 @@ test_that("Specifying underlying distributions (ex. 3/3)", {
     # When using random number generator, always generate the numbers
     # one by one (so that the first argument must be 1) unless rho is set
     expect_output( str(plt), "List of 6")
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("Introducing contaminants (1/2)", {
+    options(superb.debug = 'none')
     dta <- GRD(SubjectsPerGroup = 1000, 
       Population=list(
         mean=100, stddev = 15  
@@ -211,10 +262,13 @@ test_that("Introducing contaminants (1/2)", {
     )
     plt <- hist(dta$DV,breaks=seq(min(dta$DV,5)-5,max(dta$DV,260)+5,by=2.5))
     expect_output( str(plt), "List of 6")
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("Introducing contaminants (2/2)", {
+    options(superb.debug = 'none')
     dta <- GRD(SubjectsPerGroup = 10000, 
       Population=list(
         mean=100, stddev = 15  
@@ -225,10 +279,13 @@ test_that("Introducing contaminants (2/2)", {
     )
     plt <- hist(dta$DV,breaks=seq(min(dta$DV,5)-5,max(dta$DV,260)+5,by=2.5))
     expect_output( str(plt), "List of 6")
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("Generating multivariate normal data (1/2)", {
+    options(superb.debug = 'none')
     library(lattice)
     dta <- GRD( BSFactors="grp(2)",WSFactors = "Moment (2)", 
        SubjectsPerGroup = 1000,
@@ -241,10 +298,13 @@ test_that("Generating multivariate normal data (1/2)", {
     plt2 <- plot(dta$DV.1, dta$DV.2)
     expect_output( str(plt1), "List of 45")
     expect_output( str(plt2), "NULL")
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })     
 
 
 test_that("Generating multivariate normal data (2/2)", {
+    options(superb.debug = 'none')
     dta <- GRD( BSFactors="grp(2)",WSFactors = "Moment (2)", 
        SubjectsPerGroup = 1000,
        Effects = list("grp" = slope(100) ),
@@ -258,6 +318,7 @@ test_that("Generating multivariate normal data (2/2)", {
 
     # restores parameters
     par(oldpar)
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
@@ -269,13 +330,17 @@ test_that("Generating multivariate normal data (2/2)", {
 
 
 test_that("page 4", {
+    options(superb.debug = 'none')
     dta <- GRD()
     expect_output( str(dta), "data.frame")
     expect_equal( dim(dta), c(100,2))
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("page 5", {
+    options(superb.debug = 'none')
     dta <- GRD()
     top <- head(dta,2)
     bot <- tail (dta,2)
@@ -284,17 +349,23 @@ test_that("page 5", {
     expect_output( str(top), "data.frame")
     expect_output( str(bot), "data.frame")
     expect_output( str(plt), "List of 6")
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("page 6", {
+    options(superb.debug = 'none')
     dta <- GRD( RenameDV = "score")
     expect_output( str(dta), "data.frame")
     expect_equal( dim(dta), c(100,2))
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("page 7", { 
+    options(superb.debug = 'none')
     dta1 <- GRD( BSFactors = "3")
     head(dta1,2)
     dta2 <- GRD( BSFactors = "2 : 3")
@@ -302,10 +373,13 @@ test_that("page 7", {
     expect_equal( dim(dta1), c(300,3))
     expect_equal( dim(dta2), c(600,4))
     expect_equal( dim(dta3), c(600,4))
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("page 8", {
+    options(superb.debug = 'none')
     dta <- GRD( BSFactors = "Surgery(2) : Therapy(3)")
     expect_equal( dim(dta), c(600,4))
     dta <- GRD( BSFactors = "Surgery(yes,no) : Therapy(CBT, Control, Exercice)")
@@ -317,10 +391,13 @@ test_that("page 8", {
     dta <- GRD( WSFactors = "Contrast(Low,Medium,High)")
     head(dta, 2)
     expect_equal( dim(dta), c(100,4))
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("page 9", {
+    options(superb.debug = 'none')
     dta <- GRD(
       BSFactors = "Surgery(yes,no) : Therapy(CBT, Control, Exercice)",
       WSFactors = "Contrast(Low,Medium,High)"  
@@ -330,10 +407,13 @@ test_that("page 9", {
     expect_equal( dim(dta), c(1000,2))
     dta <- GRD( BSFactors = "3", SubjectsPerGroup = c(20,25,50) )
     expect_equal( dim(dta), c(95,3))
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("page 10", {
+    options(superb.debug = 'none')
     dta <- GRD(
       RenameDV = "IQ", 
       Population = list(mean = 100, stddev = 15)
@@ -345,10 +425,13 @@ test_that("page 10", {
       Population = list(scores = "1")
     )
     expect_equal( dim(dta), c(200,3))
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("page 11", {
+    options(superb.debug = 'none')
     dta <- GRD(
       BSFactors = "Group(2)",
       Population = list(scores = "Group")
@@ -373,10 +456,13 @@ test_that("page 11", {
     library(lawstat)
     tt <- levene.test(dta$DV, dta$Group, location="mean")
     expect_output( str(tt), "List of 5" )
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("page 12", {
+    options(superb.debug = 'none')
     dta <- GRD( SubjectsPerGroup = 5000,
       RenameDV = "RT", 
       Population = list(
@@ -385,10 +471,13 @@ test_that("page 12", {
     )
     plt <- hist(dta$RT, breaks = seq(250, 425, by = 5) ) 
     expect_output( str(plt), "List of 6" )
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("page 14", {
+    options(superb.debug = 'none')
     dta <- GRD(
       BSFactors = "Therapy(CBT, Control, Exercice)",
       WSFactors = "Contrast(3)",
@@ -413,10 +502,13 @@ test_that("page 14", {
       ylab="Percent total"
     )
     expect_output( str(plt), "List of 45" )
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("page 15", {
+    options(superb.debug = 'none')
     dta <- GRD(
       BSFactors = "Therapy(CBT, Control, Exercice)",
       WSFactors = "Contrast(3)",
@@ -441,10 +533,13 @@ test_that("page 15", {
         )
     )
     expect_equal( dim(dta), c(30,5))
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("# page 16", {
+    options(superb.debug = 'none')
     dta <- GRD(
       BSFactors = "Therapy(CBT, Control, Exercice)",
       WSFactors = "Contrast(3)",
@@ -476,10 +571,13 @@ test_that("# page 16", {
     )
     expect_equal( dim(dta), c(1000,3))
     plot(dta$DV.1, dta$DV.2)
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("page 17", {
+    options(superb.debug = 'none')
     dta <- GRD(
       WSFactors = "Difficulty(2)",
       SubjectsPerGroup = 1000,
@@ -487,10 +585,13 @@ test_that("page 17", {
     )
     plot(dta$DV.1, dta$DV.2)
     expect_equal( dim(dta), c(1000,3))
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("page 18", {
+    options(superb.debug = 'none')
     library(fMultivar)
     # the parameters of the rmsn distribution are
     # xi, omega, alpha
@@ -503,10 +604,13 @@ test_that("page 18", {
     )
     plot(dta$DV.1, dta$DV.2)
     expect_equal( dim(dta), c(1000,3))
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("page 19", {
+    options(superb.debug = 'none')
     dta <- GRD(
       SubjectsPerGroup = 5000,
       Population = list(mean = 100, stddev = 15 ),
@@ -538,16 +642,20 @@ test_that("page 19", {
 
     # restores parameters
     par(oldpar)
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("page 20", {
+    options(superb.debug = 'none')
     dta <- GRD(
       SubjectsPerGroup = 5000,
       Population = list(mean = 100, stddev = 15 ),
       Contaminant = list(scores = 'NA', proportion = 0.1) 
     )
     expect_equal( dim(dta), c(5000,2))
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
@@ -560,6 +668,7 @@ test_that("page 20", {
 
 
 test_that("figure 1", {
+    options(superb.debug = 'none')
     png('figure1.png',width=800,height=300,res=96)
     oldpar <- par(mfrow=c(1,3))
     # panel 1: unaffected (p. 4)
@@ -584,10 +693,12 @@ test_that("figure 1", {
 
     # restores parameters
     par(oldpar)
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("figure 2:", {
+    options(superb.debug = 'none')
     # panel 1: a slope of 2 on Therapy (p. 14)
     dta <- GRD(
       BSFactors = 'Surgery(yes, no) : Therapy(CBT, Control, Exercise)',
@@ -628,10 +739,13 @@ test_that("figure 2:", {
     print(p3, position=c(0.25, 0.00, 0.75, 0.50))
     dev.off()
     expect_equal( dim(dta), c(600,6))
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("figure 3:", {
+    options(superb.debug = 'none')
     png('figure3.png',width=800,height=300,res=96)
     oldpar <- par(mfrow=c(1,3))
     # panel 1: multivariate normal
@@ -664,10 +778,12 @@ test_that("figure 3:", {
 
     # restores parameters
     par(oldpar)
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("figure 4:", {
+    options(superb.debug = 'none')
     png('figure4.png',width=800,height=300,res=96)
     oldpar <- par(mfrow=c(1,4))
     # panel 1
@@ -699,5 +815,7 @@ test_that("figure 4:", {
 
     # restores parameters
     par(oldpar)
+    options(superb.debug = c('design','warnings','summary'))
 })
+
 

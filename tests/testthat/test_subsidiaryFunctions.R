@@ -98,7 +98,7 @@ test_that("Testing the built-in plotting function", {
 
 
 test_that("Testing the runDebug functions", {
-    expect_equal( getOption("superb.debug"), c("design","warnings") )
+    expect_equal( getOption("superb.debug"), c("design","warnings","summary") )
 
     expect_equal( runDebug("design","THIS IS A TEST OF runDebug",c(),list()), NULL)
 

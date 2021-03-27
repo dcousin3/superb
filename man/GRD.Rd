@@ -13,29 +13,30 @@ GRD(
   Population = list(mean = 0, stddev = 1, rho = 0, scores =
     "rnorm(1, mean = GM, sd = STDDEV)"),
   Contaminant = list(mean = 0, stddev = 1, rho = 0, scores =
-    "rnorm(1, mean = CGM, sd = CSTDDEV)", proportion = 0),
-  Debug = FALSE,
-  Summary = FALSE
+    "rnorm(1, mean = CGM, sd = CSTDDEV)", proportion = 0)
 )
 }
 \arguments{
 \item{RenameDV}{provide a name for the dependent variable (default DV)}
 
-\item{SubjectsPerGroup}{indicates the number of simulated scores per group (default 100 in each group)}
+\item{SubjectsPerGroup}{indicates the number of simulated scores per 
+group (default 100 in each group)}
 
-\item{BSFactors}{a string indicating the between-subject factor(s) with, between parenthesis, the number of levels or the list of level names. Multiple factors are separated with a colon ":"}
+\item{BSFactors}{a string indicating the between-subject factor(s) 
+with, between parenthesis, the number of levels or the list of 
+level names. Multiple factors are separated with a colon ":" or 
+enumerated in a vector of strings.}
 
-\item{WSFactors}{a string indicating the within-subject factor(s) in the same format as the between-subject factors}
+\item{WSFactors}{a string indicating the within-subject factor(s) in 
+the same format as the between-subject factors}
 
 \item{Effects}{a list detailing the effects to apply to the data}
 
-\item{Population}{a list providing the population characteristics (default is a normal distribution with a mean of 0 and standard deviation of 1)}
+\item{Population}{a list providing the population characteristics 
+(default is a normal distribution with a mean of 0 and standard deviation of 1)}
 
-\item{Contaminant}{a list providing the contaminant characteristics and the proportion of contaminant (default 0)}
-
-\item{Debug}{a boolean to produced detailed debugging information (default FALSE); useful for the maintainer only really}
-
-\item{Summary}{a boolean printing a summary of the design (default FALSE)}
+\item{Contaminant}{a list providing the contaminant characteristics 
+and the proportion of contaminant (default 0)}
 }
 \value{
 a data.frame with the simulated scores.

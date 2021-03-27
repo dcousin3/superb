@@ -20,7 +20,7 @@
 #' @param adjustments List of adjustments as described below:
 #'  popsize: Size of the population under study. Defaults to Inf
 #'  purpose: The purpose of the comparisons. Defaults to "single". 
-#'      Can be "single" or "difference".
+#'      Can be "single", "difference" or "tryon".
 #' decorrelation: Decorrelation method for repeated measure designs. 
 #'      Chooses among the methods ("CM", "LM", "CA" or "none"). Defaults to "none".
 #' samplingDesign: Sampling method to obtain the sample. implemented 

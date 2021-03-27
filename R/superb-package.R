@@ -54,12 +54,16 @@
 #> [1] "_PACKAGE"
 
 .onLoad <- function(libname, pkgname) {    
-    # set the default scenario displayed to all:
-    options( superb.debug = c('design','warnings') )
+    # Set the default debug traces displayed to all:
+    #   summary:  in GRD, shows a summary of the design;
+    #   design:   in superbPlot, shows information on how the within-subject variables are understood
+    #   warnings: in superbPlot, returns 'FYI' messages about the data to help decide if the appropriate error bars were used
+    # You can use 'all' to see all the debug informations.
+    options( superb.debug = c('design','warnings','summary') )
 }
 
 .onDetach <- function(libpath) {
-        # remove the option
+    # remove the option
     options( superb.debug = NULL )
 }
 

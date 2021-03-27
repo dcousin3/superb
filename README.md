@@ -102,16 +102,30 @@ testdata <- GRD(
     Population = list(mean = 75,stddev = 12,rho = 0.5),
     Effects    = list("Day" = slope(-3) )
 )
+```
+
+    ## ------------------------------------------------------------ 
+    ## Design is: 3 x ( 2 ) with 3 independent groups.
+    ## ------------------------------------------------------------
+    ## 1.Between-Subject Factors ( 3 groups ) :
+    ##  Difficulty; levels: 1, 2, 3
+    ## 2.Within-Subject Factors ( 2 repeated measures ):
+    ##  Day; levels : 1, 2
+    ## 3.Subjects per group ( 300 total subjects ):
+    ##   100
+    ##  ------------------------------------------------------------
+
+``` r
 head(testdata)
 ```
 
-    ##   id Difficulty  score.1  score.2
-    ## 1  1          1 77.41706 83.21001
-    ## 2  2          1 72.63189 82.72655
-    ## 3  3          1 86.05087 71.07737
-    ## 4  4          1 63.68760 71.25382
-    ## 5  5          1 78.19190 87.32919
-    ## 6  6          1 82.03752 84.70999
+    ##   id Difficulty   score.1   score.2
+    ## 1  1          1  51.72929  87.62986
+    ## 2  2          1  99.50193  78.04142
+    ## 3  3          1  78.06004  54.87688
+    ## 4  4          1 102.88696 112.47852
+    ## 5  5          1 113.55758  74.83040
+    ## 6  6          1  74.00008  64.75683
 
 The simulated scores are illustrated using jitter dots as well as a
 violin plot to show the distributions:
@@ -121,7 +135,9 @@ superbPlot(testdata,
     BSFactor  = "Difficulty", 
     WSFactor  = "Day(2)",
     variables = c("score.1","score.2"),
-    plotStyle = "pointjitterviolin"
+    plotStyle = "pointjitterviolin",
+    errorbarParams = list(color = "black"),
+    pointParams = list( size = 3, color = "black")
 )
 ```
 

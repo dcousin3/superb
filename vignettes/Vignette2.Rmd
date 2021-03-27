@@ -191,6 +191,26 @@ ggplot() +
     annotation_custom(grob=plt2g)
 ```
 
+## Two options
+
+There are two methods to adjust for the purpose of the error bars:
+
+* ``"difference"``: This method is the simplest. It increases the 
+error bars by a factor of $\sqrt{2}$ on the premise that the variances
+are homogeneous
+
+* ``"tryon"``: This method, proposed in @t01, is used when the variances
+are inhomogeneous. It replaces the $\sqrt{2}$ correction factor by a 
+factor $2 \times E$ based on the heterogeneity of the variances. In the
+case where the error bars are roughly homogeneous, there is no visible 
+difference with ``"difference"``.
+
+The option ``"single"`` is used if the purpose is obtain "stand-alone" 
+error bars or error bars that are to be compared to an *a priori* 
+determine value. Such error bars are inapt to perform pair-wise 
+comparisons.
+
+
 ## In conclusion
 
 Adjusting the confidence intervals is important to have coherence between the text 

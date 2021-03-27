@@ -23,9 +23,6 @@ runDebug <- function(where, title, vars, vals) {
         envrt = globalenv() # done in two steps for CRAN
         if (length(vars) > 0) {
             for (i in 1:length(vars)) {
-                # echo the values dumped in globalenv()
-                # cat(paste("-",vars[i],"- "))
-                # print(vals[[i]])
                 assign(vars[i], vals[[i]], envir = envrt)
             }
             cat(paste("    variables dumped in: ", paste(vars ,collapse=", "), "\n", sep=""))

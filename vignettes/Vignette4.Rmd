@@ -24,8 +24,6 @@ library(superb)
 library(ggplot2)
 ```
 
-## Changing the summary function to be plotted
-
 By default, ``superbPlot`` generates mean plots along with 95% confidence intervals of 
 the mean. However, these choices can be changed.
 
@@ -37,11 +35,13 @@ the mean. However, these choices can be changed.
 ``CI`` stands for confidence interval; ``SE`` stands for standard error.
 
 The defaults are ``statistic = "mean", errorbar = "CI", gamma = 0.95``. For error bar
-functions that accept a gamma parameter (e.g., CI, the gamma parameter is automatically 
+functions that accept a gamma parameter (e.g., ``CI``, the gamma parameter is automatically 
 transfer to the function). For other functions that do not accept a gamma parameter 
-(e.g., SE), the gamma parameter is unused.
+(e.g., ``SE``), the gamma parameter is unused.
 
-In what follow, we use GRD to generate a random dataset with an interaction 
+## Changing the summary function to be plotted
+
+In what follow, we use ``GRD()`` to generate a random dataset with an interaction 
 then make plots varying the statistics displayed.
 
 ```{r, message=FALSE, echo=TRUE, fig.cap="Figure 1: Various statistics and various measures of precisions"}
@@ -54,25 +54,25 @@ dta <- GRD(
     Population = list( mean=10, stddev = 5, rho = .80)
 )
 
-options(superb.debug = 'none') # shut down 'warnings' and 'design' interpretation messages
+options(superb.debug = 'none') # shut down 'warnings' and 'design' messages
 
 # a quick function to call superbPlot
-makeplot <- function(statfct, errorbarfct, g, ttl) {
+makeplot <- function(statfct, errorbarfct, gam, rg, subttl) {
     superbPlot(dta, 
         WSFactor  = c("Moment(3)","Dose(2)"), 
         variables = c("DV.1.1","DV.2.1","DV.3.1","DV.1.2","DV.2.2","DV.3.2"), 
         statistic = statfct, 
         errorbar  = errorbarfct, 
-        gamma     = g, 
+        gamma     = gam, 
         plotStyle = "line",
         adjustments = list(purpose="difference", decorrelation="CM")
-    )
-} + labs(title = ttl)
+    ) + ylab(subttl) + coord_cartesian( ylim = rg )
+} 
 
-p1 <- makeplot("mean",      "CI", .95, "Mean +- 95% confidence intervals of the mean")
-p2 <- makeplot("mean",      "SE", .00, "Mean +- standard error of the mean")
-p3 <- makeplot("median",    "CI", .95, "Median +- 95% confidence interval of the mean")
-p4 <- makeplot("fisherskew","CI", .95, "Fisher skew +- 95% confidence interval")
+p1 <- makeplot("mean",      "CI", .95, c(6,14), "Mean +- 95% CI of the mean")
+p2 <- makeplot("mean",      "SE", .00, c(6,14), "Mean +- SE of the mean")
+p3 <- makeplot("median",    "CI", .95, c(6,14), "Median +- 95% CI of the median")
+p4 <- makeplot("fisherskew","CI", .95, c(-2,+2), "Fisher skew +- 95% CI")
 
 library(gridExtra)
 p <- grid.arrange(p1,p2,p3,p4, ncol=2)
@@ -88,7 +88,8 @@ within double-quote. The built-in statistics functions such as ``mean`` and
 tendency, can be provided. That includes ``IQR``, ``mad``, etc. To be valid,
 the function must return a number when given a vector of numbers.
 
-In doubt, you can test if the function is valid for superbPlot with
+In doubt, you can test if the function is valid for ``superbPlot`` with (note the triple 
+colon):
 
 ```{r}
 superb:::is.stat.function("mean")
@@ -150,7 +151,7 @@ assume that the population mean is 100.
 
 Once we have the function, we can ask for a plot of this function with
 
-```{r, message=FALSE, echo=TRUE, fig.cap="Figure 2: superbPlot with a custom-made descriptive sttistic function "}
+```{r, message=FALSE, echo=TRUE, fig.cap="Figure 2: ``superbPlot`` with a custom-made descriptive sttistic function "}
     superbPlot(dataFigure1, 
         BSFactor = "grp", 
         statistic = "d1", errorbar = "none",
@@ -164,7 +165,7 @@ Once we have the function, we can ask for a plot of this function with
 ```
 
 
-## Creating a custom-made interval function to be used in superbPlot
+## Creating a custom-made interval function to be used in ``superbPlot``
 
 It is also possible to create custom-made confidence interval functions.
 
@@ -252,7 +253,7 @@ Here, we illustrate this process with the mean. The function must be name
 
 This is all we need to make the plot which we can compare with the formula CI
 
-```{r, message=FALSE, echo=TRUE, fig.cap="Figure 4: superbPlot with a custom-made descriptive sttistic function "}
+```{r, message=FALSE, echo=TRUE, fig.cap="Figure 4: superbPlot with a custom-made interval function."}
     plt1 <- superbPlot(dataFigure1, 
         BSFactor = "grp", 
         variable = c("score"), 
@@ -283,7 +284,7 @@ This is all we need to make the plot which we can compare with the formula CI
     plt <- grid.arrange(plt1, plt2, ncol=2)
 ```
 
-As seen, there is not much difference between the two. This was expected as when the 
+As seen, there is not much difference between the two. This was expected:  when the 
 normality assumption and the homogeneity of variances assumption are not invalid, 
 the *parametric* approach (the formula is based on these assumptions) is identical
 on average to the bootstrap approach.

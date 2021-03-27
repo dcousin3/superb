@@ -166,9 +166,7 @@ presented in Calderini and Harding (2019)
   Population <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>0</span>, stddev <span class='op'>=</span> <span class='fl'>1</span>, rho <span class='op'>=</span> <span class='fl'>0</span>, scores <span class='op'>=</span>
     <span class='st'>"rnorm(1, mean = GM, sd = STDDEV)"</span><span class='op'>)</span>,
   Contaminant <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>0</span>, stddev <span class='op'>=</span> <span class='fl'>1</span>, rho <span class='op'>=</span> <span class='fl'>0</span>, scores <span class='op'>=</span>
-    <span class='st'>"rnorm(1, mean = CGM, sd = CSTDDEV)"</span>, proportion <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>,
-  Debug <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  Summary <span class='op'>=</span> <span class='cn'>FALSE</span>
+    <span class='st'>"rnorm(1, mean = CGM, sd = CSTDDEV)"</span>, proportion <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -180,15 +178,20 @@ presented in Calderini and Harding (2019)
     </tr>
     <tr>
       <th>SubjectsPerGroup</th>
-      <td><p>indicates the number of simulated scores per group (default 100 in each group)</p></td>
+      <td><p>indicates the number of simulated scores per 
+group (default 100 in each group)</p></td>
     </tr>
     <tr>
       <th>BSFactors</th>
-      <td><p>a string indicating the between-subject factor(s) with, between parenthesis, the number of levels or the list of level names. Multiple factors are separated with a colon ":"</p></td>
+      <td><p>a string indicating the between-subject factor(s) 
+with, between parenthesis, the number of levels or the list of 
+level names. Multiple factors are separated with a colon ":" or 
+enumerated in a vector of strings.</p></td>
     </tr>
     <tr>
       <th>WSFactors</th>
-      <td><p>a string indicating the within-subject factor(s) in the same format as the between-subject factors</p></td>
+      <td><p>a string indicating the within-subject factor(s) in 
+the same format as the between-subject factors</p></td>
     </tr>
     <tr>
       <th>Effects</th>
@@ -196,19 +199,13 @@ presented in Calderini and Harding (2019)
     </tr>
     <tr>
       <th>Population</th>
-      <td><p>a list providing the population characteristics (default is a normal distribution with a mean of 0 and standard deviation of 1)</p></td>
+      <td><p>a list providing the population characteristics 
+(default is a normal distribution with a mean of 0 and standard deviation of 1)</p></td>
     </tr>
     <tr>
       <th>Contaminant</th>
-      <td><p>a list providing the contaminant characteristics and the proportion of contaminant (default 0)</p></td>
-    </tr>
-    <tr>
-      <th>Debug</th>
-      <td><p>a boolean to produced detailed debugging information (default FALSE); useful for the maintainer only really</p></td>
-    </tr>
-    <tr>
-      <th>Summary</th>
-      <td><p>a boolean printing a summary of the design (default FALSE)</p></td>
+      <td><p>a list providing the contaminant characteristics 
+and the proportion of contaminant (default 0)</p></td>
     </tr>
     </table>
 

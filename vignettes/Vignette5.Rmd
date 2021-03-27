@@ -1,6 +1,8 @@
 ---
 title: "Devising custom plot layouts"
-output: rmarkdown::html_vignette
+output: 
+  html_document:
+    toc: TRUE
 description: >
   superbPlot can generate either line plots, barcharts, or point plots. 
   However, additional layout can be programmed. In this vignette, we 
@@ -61,9 +63,89 @@ own, custom-made function, it is a gook thing to check that it is
 superbPlot-compatible.
 
 
+## Illustrating the built-in layouts
+
+To get a sense of the currently available layouts, we first generate 
+a dataset composed of randomly generated scores mimicking a 3 $\times$
+2 design with three degrees of Difficulties (as a between-group 
+factor) and two days of testing (as a within-subject factor). It
+is believed (and simulated) that all two factors have main effets on
+the scores.
+
+```{r}
+testdata <- GRD(
+    RenameDV   = "score", 
+    SubjectsPerGroup = 25, 
+    BSFactors  = "Difficulty(3)", 
+    WSFactors  = "Day(day1, day2)",
+    Population = list(mean = 65,stddev = 12,rho = 0.5),
+    Effects    = list("Day" = slope(-5), "Difficulty" = slope(3) )
+)
+head(testdata)
+```
+
+For simplicity, we define a function whose arguments are the dataset and the layout:
+
+```{r}
+    mp <- function(data, style, ...) {
+        superbPlot(data,
+            WSFactor = "Day(2)",
+            BSFactor = "Difficulty",
+            variables = c("score.day1", "score.day2"),
+           adjustments = list(purpose="difference", decorrelation="CM"),
+            plotStyle = style,
+            ...
+        )+labs(title = paste("Layout is ''",style,"''",sep=""))
+    }
+```
+
+Lets compute the plots will all six built-in layouts and show them
+
+```{r, fig.width= 7, fig.height = 7, fig.cap = "Figure 1: Look of the six built-in layouts on the same random dataset"}
+p1 <- mp(testdata, "bar")
+p2 <- mp(testdata, "point")
+p3 <- mp(testdata, "line")
+p4 <- mp(testdata, "pointjitter" )
+p5 <- mp(testdata, "pointjitterviolin")
+p6 <- mp(testdata, "pointindividualline")
+
+library(gridExtra)
+grid.arrange(p1,p2,p3,p4,p5,p6,ncol=2)
+```
+
+For more controls, you can manually set the colors, the fills and/or
+the shapes, as done here in a list:
+
+```{r, fig.width= 7, fig.height = 7, fig.cap = "Figure 2: The six built-in template with ornamental styling added."}
+ornate = list( 
+    scale_colour_manual( name = "Difference", 
+        labels = c("Easy", "Hard", "Unthinkable"), 
+        values = c("blue", "black", "purple")) ,
+    scale_fill_manual( name = "Difference", 
+        labels = c("Easy", "Hard", "Unthinkable"), 
+        values = c("blue", "black", "purple")) ,
+    scale_shape_manual( name = "Difference", 
+        labels = c("Easy", "Hard", "Unthinkable") ,
+        values = c(0, 10, 13)) ,
+    theme_bw(base_size = 9) ,
+    labs(x = "Days of test", y = "Score in points" ),
+    scale_x_discrete(labels=c("1" = "Former day", "2" = "Latter day"))
+)
+grid.arrange(
+    p1+ornate, p2+ornate, p3+ornate,
+    p4+ornate, p5+ornate, p6+ornate,
+    ncol=2)
+```
+
+These are just a few examples. However, if these layouts do not fit
+yours needs, it is possible to devise a custom-made layout and 
+inform ``superbPlot`` to use it. To that end, see the instructions
+below.
+
+
 ## Devising a custom-made plot layout
 
-The purpose of ``superbPlot`` is to 
+In a nutshell, the purpose of ``superbPlot`` is to 
 
 * compile the summary information
 (location of the summary statistic, upper width and lower width of 
@@ -80,7 +162,8 @@ between-group factors, a column indicate the current group;
 * and finally, calls the plot function accepting pre-defined 
 arguments
 
-In devising your own plot function, it is important that the
+In devising your own plot function, it is important that (i) the 
+function name begins with ``superbPlot.``; (ii) the
 function accept very specific arguments with very precise names.
 
 Here is the header for a function corresponding to a
@@ -100,14 +183,16 @@ superbPlot.foo <- function(
 }
 ```
 
-(in what follow, I assume that one factor is placed on the
-horizontal axis, another one is used to group the point,
-and up to two additional factors will results in columns
-and rows of panels. Of course, in devising your own template,
+In what follow, it is assumed that one factor is placed on the
+horizontal axis (``xfactor``), another one is used to group the 
+point (``groupingfactor``), and up to two additional
+ factors will results in columns and rows of panels
+ (``addfactors). (Of course, in devising your own template,
 you may use different placement.) 
 
 
 The arguments are:
+
 * ``summarydata``: this data frame will contain the column ``center``
 indicating the statistic's value, ``lowerwidth`` and ``upperwidth``
 indicating how many units below and above ``center`` the error bar
@@ -143,7 +228,7 @@ black and white (no color instruction) and superimposed
 
 The result will be:
 
-```{r, message=FALSE, echo=FALSE, fig.cap="Figure 1: Mean score with 95% confidence interval using the ``simple`` plot layout."}
+```{r, message=FALSE, echo=FALSE, fig.cap="Figure 3: Mean score with 95% confidence interval using the ``simple`` plot layout."}
 superbPlot.simple <- function( summarydata, xfactor, groupingfactor, addfactors, rawdata ) {
     plot <- ggplot(
         data = summarydata,
@@ -202,7 +287,7 @@ superb:::is.superbPlot.function("superbPlot.simple")
 ```
 
 If ``TRUE``, then we are ready to use this layout, here with the
-demo dataset ``TMB1964r``:
+demo dataset ``TMB1964r`` whose result was shown above in Figure 3:
 
 ```{r, message=FALSE, echo=TRUE, results='hide', fig.show='hide'}
 superbPlot(TMB1964r,
@@ -220,9 +305,9 @@ The above ``simple`` layout does not accept optional arguments. To
 integrate optional arguments, one method is to insert graphic
 directives inside the layers, e.g., inside ``geom_point``. 
 
-A convenient method is with ``do.call`` and ``modifyList``, for example
+A convenient method is with ``do.call`` and ``modifyList``, for example:
 
-```{r, eval = FALSE, message=FALSE, echo=FALSE, error=FALSE, results='hide'}
+```{r, eval = FALSE, message=FALSE, echo=TRUE, error=FALSE, results='hide'}
     do.call( geom_point, modifyList(
        list( size= 3 ##etc., the default directives##
        ), myownParams
@@ -252,7 +337,7 @@ superbPlot.simpleWithOptions <- function(
 superb:::is.superbPlot.function("superbPlot.simpleWithOptions")
 ```
 
-```{r, message=FALSE, echo=TRUE, results='hide', fig.show='show', fig.cap="Figure 2: A simple figure with optional arguments"}
+```{r, message=FALSE, echo=TRUE, results='hide', fig.show='show', fig.cap="Figure 4: A simple figure with optional arguments"}
 superbPlot(TMB1964r,
     WSFactor = "T(7)",      
     BSFactor = "Condition",
@@ -274,7 +359,7 @@ transfer any variables you want into the global environment.
 
 ```{r, eval=FALSE, message=FALSE, echo=TRUE, results='hide'}
 options(superb.debug = 'all')
-runDebug( 'test', "Text to show",
+runDebug( 'where are we?', "Text to show when we get there",
   c("variable1", "variable2", "etc"),
   list( "var1InTheFct", "var2InTheFct", "varetcInTheFct")
 )
@@ -286,13 +371,13 @@ For example, the following will get the dataframes:
 superbPlot.empty <- function(
     summarydata, xfactor, groupingfactor, addfactors, rawdata 
 ) {
-    runDebug( 'inempty', "Getting the dataframes",
+    runDebug( 'inempty', "Dumping the two dataframes",
         c("summary","raw"), list(summarydata, rawdata))
 
     plot <- ggplot() # an empty plot        
     return(plot)
 }
-options(superb.debug = 'inempty')  ## turn on Debug when entering plot function
+options(superb.debug = 'inempty')  ## turn on Debug when reaching 'inempty'
 superbPlot(TMB1964r,
      WSFactor = "T(7)",      
      BSFactor = "Condition",
@@ -301,9 +386,9 @@ superbPlot(TMB1964r,
 )
 ```
 
-You will see  ``Getting the
-dataframes`` followed by ``summary`` and ``raw``. These two variables
-are not in the global environment and you can manipulate them. 
+You will see  ``Dumping the two dataframes``
+ followed by ``summary`` and ``raw``. These two variables
+are now in the global environment and you can manipulate them. 
 You can also use them in testing your plotting functions, for example
 
 ```{r, message=FALSE, echo=TRUE, results='hide', fig.show='hide'}
@@ -367,7 +452,7 @@ superb:::is.superbPlot.function("superbPlot.smiley")
 
 It is all we need! It can be inserted in a ``superbPlot`` call:
 
-```{r}
+```{r, fig.width= 7, fig.height = 6, fig.cap = "Figure 5: smile!" }
 superbPlot(TMB1964r,
      WSFactor = "T(7)",      
      BSFactor = "Condition", 
@@ -376,6 +461,4 @@ superbPlot(TMB1964r,
 )
 ```
 
-
-# References
 

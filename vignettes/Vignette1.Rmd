@@ -138,6 +138,7 @@ superbPlot(dta,
     plotStyle="line"
     )
 ```
+
 ```{r, message=FALSE, echo=FALSE, , fig.cap="Figure 2: Mean scores along with difference-adjusted 95% confidence interval per week for a program to stop smoking."}
 superbPlot(dta, 
     WSFactor="Moment(3)",

@@ -18,9 +18,9 @@
 #' @param adjustments List of adjustments as described below:
 #'  popsize: Size of the population under study. Defaults to Inf
 #'  purpose: The purpose of the comparisons. Defaults to "single". 
-#'      Can be "single" or "difference".
+#'      Can be "single", "difference", or "tryon".
 #' decorrelation: Decorrelation method for repeated measure designs. 
-#'      Chooses among the methods ("CM", "LM", "CA" or "none"). Defaults to "none".
+#'      Chooses among the methods "CM", "LM", "CA" or "none". Defaults to "none".
 #' samplingDesign: Sampling method to obtain the sample. implemented 
 #'          sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Sampling).
 #' Default is adjustments = list(purpose = "single", popSize = Inf, decorrelation = "none",
@@ -155,7 +155,7 @@ superbPlot <- function(data,
     # 1.3: invalid choice in a list of possible choices
     if (is.character(adjustments$popSize)||!(all(adjustments$popSize >0)))  
             stop("ERROR: popSize should be a positive number or Inf (or a list of these). Exiting...")
-    if (!(adjustments$purpose %in% c("single","difference"))) 
+    if (!(adjustments$purpose %in% c("single","difference","tryon"))) 
             stop("ERROR: Invalid purpose. Did you mean 'difference'? Exiting...")
     if (!(adjustments$decorrelation %in% c("none","CM","LM","CA"))) 
             stop("ERROR: Invalid decorrelation method. Did you mean 'CM'? Exiting...")
@@ -340,8 +340,18 @@ superbPlot <- function(data,
     } else {1}
 
     # 5.2: Adjust for purpose if "difference"
-    padj <- if (adjustments$purpose == "difference") { sqrt(2) } else {1}
-    
+    padj <- if (adjustments$purpose == "difference") { 
+        sqrt(2) 
+    } else if  (adjustments$purpose == "tryon") {
+        # extension of Tryon, 2001, for heterogeneous variances in between-group design
+        Ns  <- plyr::ddply(data.long, .fun = dim, .variables = c(WSFactor,BSFactor) )$V1
+        sds <- suppressWarnings(plyr::ddply(data.long, .fun = colSDs, .variables = c(WSFactor,BSFactor) )$DV)
+        es <- sqrt(sum(sds^2/Ns)) / sum(sqrt(sds^2/Ns))
+        # the es must be expanded for each repeated measures
+        es  <- rep(es, wslevel)
+        2 * es * sqrt(length(Ns)) / sqrt(2) # 2 because contrary to Tryon, 2001, superb does not want to avoid overlap
+    } else {1}
+
     # 5.3: Adjust for cluster-randomized sampling
     sadj <- if (adjustments$samplingDesign == "CRS") {
         ICCs <- plyr::ddply(data, .fun = ShroutFleissICC1, .variables = BSFactor, clusterColumn, variables )
@@ -378,8 +388,21 @@ superbPlot <- function(data,
     # STEP 6: Issue warnings
     ##############################################################################
 
-    if ('warnings' %in% getOption("superb.debug") ) {
-        # 6.1: if deccorrelate is CA: show rbar, test Winer
+    if (('warnings' %in% getOption("superb.debug") ) | ('all' %in% getOption("superb.debug")) )  {
+        # 6.1: if option is difference, test heterogeneity of variances
+        if ((adjustments$purpose == "difference") & (!is.null(BSFactor)) ) {
+            crit <- data[,BSFactor]
+            ps   <- c()
+            for (var in variables ) {
+                out <- split(data[,var], crit )
+                p   <- stats::bartlett.test(out)$p.value
+                ps  <- c(ps, p)
+            }
+            if (any(p < .01)) 
+                warning("Some of the groups' variances are heterogeneous. Consider using purpose=\"tryon\".", call. = FALSE)
+        }
+
+        # 6.2: if deccorrelate is CA: show rbar, test Winer
         if (adjustments$decorrelation == "CA") {
             warning(paste("FYI: The average correlation per group are ", paste(unique(rs), collapse=" ")), call. = FALSE)
 
@@ -389,7 +412,7 @@ superbPlot <- function(data,
                 warning("Some of the groups' data are not compound symmetric. Consider using CM.", call. = FALSE)
         }
         
-        # 6.2: if decorrelate is CM or LM: show epsilon, test Winer and Mauchly
+        # 6.3: if decorrelate is CM or LM: show epsilon, test Winer and Mauchly
         if (adjustments$decorrelation %in% c("CM","LM")) {
             epsGG <- suppressWarnings(plyr::ddply(data, .fun = "HyunhFeldtEpsilon", .variables= BSFactor, variables)) 
             epsGG <- epsGG[,length(epsGG)]
@@ -406,7 +429,7 @@ superbPlot <- function(data,
                 warning("FYI: Some of the groups' data are not spherical. Use error bars with caution.", call. = FALSE)
         }
         
-        # 6.3: if samplingDesign is CRS: print ICC, check that more than 8 clusters
+        # 6.4: if samplingDesign is CRS: print ICC, check that more than 8 clusters
         if (adjustments$samplingDesign == "CRS") {
             warning(paste("FYI: The ICC1 per group are ", paste(ICCs, collapse=" ")), call. = FALSE)
         }
@@ -441,6 +464,7 @@ superbPlot <- function(data,
         ))
         return(plot)
     } else {
+        # returns the summary statistsics as is
         return(summaryStatistics)
     }
 

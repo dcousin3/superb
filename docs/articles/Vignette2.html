@@ -269,6 +269,16 @@ Figure 4: Two representations of the results with adjusted and unadjusted error 
 </p>
 </div>
 </div>
+<div id="two-options" class="section level2">
+<h2 class="hasAnchor">
+<a href="#two-options" class="anchor"></a>Two options</h2>
+<p>There are two methods to adjust for the purpose of the error bars:</p>
+<ul>
+<li><p><code>"difference"</code>: This method is the simplest. It increases the error bars by a factor of <span class="math inline">\(\sqrt{2}\)</span> on the premise that the variances are homogeneous</p></li>
+<li><p><code>"tryon"</code>: This method, proposed in <span class="citation">Tryon (2001)</span>, is used when the variances are inhomogeneous. It replaces the <span class="math inline">\(\sqrt{2}\)</span> correction factor by a factor <span class="math inline">\(2 \times E\)</span> based on the heterogeneity of the variances. In the case where the error bars are roughly homogeneous, there is no visible difference with <code>"difference"</code>.</p></li>
+</ul>
+<p>The option <code>"single"</code> is used if the purpose is obtain “stand-alone” error bars or error bars that are to be compared to an <em>a priori</em> determine value. Such error bars are inapt to perform pair-wise comparisons.</p>
+</div>
 <div id="in-conclusion" class="section level2">
 <h2 class="hasAnchor">
 <a href="#in-conclusion" class="anchor"></a>In conclusion</h2>
@@ -281,6 +291,9 @@ Figure 4: Two representations of the results with adjusted and unadjusted error 
 <div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
 <div id="ref-b12" class="csl-entry">
 Baguley, T. (2012). Calculating and graphing within-subject confidence intervals for ANOVA. <em>Behavior Research Methods</em>, <em>44</em>, 158–175. <a href="https://doi.org/10.3758/s13428-011-0123-7">https://doi.org/10.3758/s13428-011-0123-7</a>
+</div>
+<div id="ref-t01" class="csl-entry">
+Tryon, W. W. (2001). Evaluating statistical difference, equivalence, and indeterminacy using inferential confidence intervals: An integrated alternative method of conducting null hypothesis statistical tests. <em>Psychological Methods</em>, <em>6</em>, 371–386. <a href="https://doi.org/10.1037/1082-989X.6.4.371">https://doi.org/10.1037/1082-989X.6.4.371</a>
 </div>
 </div>
 </div>

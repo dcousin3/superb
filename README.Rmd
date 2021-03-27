@@ -112,7 +112,9 @@ superbPlot(testdata,
     BSFactor  = "Difficulty", 
     WSFactor  = "Day(2)",
     variables = c("score.1","score.2"),
-    plotStyle = "pointjitterviolin"
+    plotStyle = "pointjitterviolin",
+    errorbarParams = list(color = "black"),
+    pointParams = list( size = 3, color = "black")
 )
 ```
 

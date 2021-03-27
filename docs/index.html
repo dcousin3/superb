@@ -159,22 +159,35 @@
     WSFactors  <span class="op">=</span> <span class="st">"Day(2)"</span>,
     Population <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fl">75</span>,stddev <span class="op">=</span> <span class="fl">12</span>,rho <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>,
     Effects    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"Day"</span> <span class="op">=</span> <span class="fu"><a href="reference/slope.html">slope</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span><span class="op">)</span> <span class="op">)</span>
-<span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">testdata</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">##   id Difficulty  score.1  score.2</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1  1          1 77.41706 83.21001</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2  2          1 72.63189 82.72655</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3  3          1 86.05087 71.07737</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4  4          1 63.68760 71.25382</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5  5          1 78.19190 87.32919</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6  6          1 82.03752 84.70999</span></span></code></pre></div>
-<p>The simulated scores are illustrated using jitter dots as well as a violin plot to show the distributions:</p>
+<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ------------------------------------------------------------ </span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Design is: 3 x ( 2 ) with 3 independent groups.</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ------------------------------------------------------------</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 1.Between-Subject Factors ( 3 groups ) :</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  Difficulty; levels: 1, 2, 3</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 2.Within-Subject Factors ( 2 repeated measures ):</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  Day; levels : 1, 2</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 3.Subjects per group ( 300 total subjects ):</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   100</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  ------------------------------------------------------------</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">testdata</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">##   id Difficulty   score.1   score.2</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1  1          1  51.72929  87.62986</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2  2          1  99.50193  78.04142</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3  3          1  78.06004  54.87688</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4  4          1 102.88696 112.47852</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5  5          1 113.55758  74.83040</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6  6          1  74.00008  64.75683</span></span></code></pre></div>
+<p>The simulated scores are illustrated using jitter dots as well as a violin plot to show the distributions:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">testdata</span>, 
     BSFactor  <span class="op">=</span> <span class="st">"Difficulty"</span>, 
     WSFactor  <span class="op">=</span> <span class="st">"Day(2)"</span>,
     variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"score.1"</span>,<span class="st">"score.2"</span><span class="op">)</span>,
-    plotStyle <span class="op">=</span> <span class="st">"pointjitterviolin"</span>
+    plotStyle <span class="op">=</span> <span class="st">"pointjitterviolin"</span>,
+    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span>,
+    pointParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span> size <span class="op">=</span> <span class="fl">3</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <p><img src="README_files/figure-gfm/unnamed-chunk-8-1.png"><!-- --></p>
 <p>As seen, <code>superb</code> can be used to illustrate summary statistics but also some characteristics of the raw data.</p>

@@ -47,7 +47,10 @@ is.gamma.required <- function(fctname) {
 
 is.superbPlot.function <- function(fctname) {
     # does the plot function provided by the user exists?
-    runDebug("is.superbPlotfunction", "entering is.superbPlotfunction", c("fcttested"),list(fctname) )
+    runDebug("is.superbPlot.function", "Entering is.superbPlot.function", c("fcttested"),list(fctname) )
+    opts <- getOption("superb.debug")
+    options(superb.debug = 'none')
+
     res <- TRUE
     if (!exists(fctname)) {
         res <- FALSE
@@ -73,7 +76,10 @@ is.superbPlot.function <- function(fctname) {
             error = function(cond) {return(FALSE)} 
         )
     }
-    runDebug("is.superbPlotfunction", "exiting is.superbPlotfunction", c(),list() )
+
+    # restores debug
+    options(superb.debug = opts)
+    runDebug("is.superbPlot.function", "Exiting is.superbPlot.function", c(),list() )
     res
 }
 

@@ -20,6 +20,7 @@ test_that("TESTS (2/4)", {
     expect_equal( res[1,3], 13.23)
 })
 
+
 test_that("TESTS (3/4)", {
     res <- superbData(ToothGrowth, BSFactor = c("dose","supp"), 
         variables = "len",
@@ -27,6 +28,7 @@ test_that("TESTS (3/4)", {
     expect_output( str(res), "data.frame")
     expect_equal( res[1,3], 12.25)
 })
+
 
 test_that("TESTS (4/4)", {
     res <- superbData(ToothGrowth, BSFactor = c("dose","supp"), 
@@ -44,32 +46,38 @@ test_that("TESTS (4/4)", {
 #########################################
 
 test_that("test 1a: 3 groupes inpépendants", { 
+    options(superb.debug = 'none')
     dta1a <- GRD( BSFactors = "Group(3)", Population = list( mean=10, stddev = 5) )
-    # write.table(dta1a, file = "test1a.dat", sep = "\t", col.names = FALSE)
     res <- superbData(dta1a, BSFactor = "Group", variables = "DV",
       statistic = "mean", errorbar = "SE")
     expect_output( str(res), "data.frame")
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("test 1b: factorielle à grps indépendants; 3 x 2", {
+    options(superb.debug = 'none')
     dta1b <- GRD( BSFactors = "Group(3): Sex(2)", Population = list( mean=10, stddev = 5))
-    # write.table(dta1b, file = "test1b.dat", sep = "\t", col.names = FALSE)
     res <- superbData(dta1b, BSFactor = c("Group","Sex"), variables = "DV",
       statistic = "mean", errorbar = "SE" )
     expect_output( str(res), "data.frame")
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("test 2a: 1 facteur à 3 mesures répétées; (3)", {
+    options(superb.debug = c('design','warnings'))
     dta2a <- GRD( WSFactors = "Moment(3)", SubjectsPerGroup = 5, Population = list( mean=10, stddev = 5))
-    # write.table(dta2a, file = "test2a.dat", sep = "\t", col.names = FALSE)
     expect_warning( res <- superbData(dta2a, WSFactor = "moment(3)", 
       adjustments=list(decorrelation="CA"),
       errorbar = "CI",
       variables = c("DV.1","DV.2","DV.3") 
     ))
     expect_output( str(res), "data.frame")
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
@@ -83,10 +91,13 @@ test_that("test 2b: 2 facteurs à mesures répétées; (3 x 2)", {
     )
     expect_output( str(res), "data.frame")
     options(superb.debug = c("design","warnings") ) # restores to default
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("test 3: schème mixte; 3 x (3)", {
+    options(superb.debug = c('design','warnings'))
     dta3 <- GRD( BSFactors = "Group(3)", WSFactors = "Moment(3)", 
       SubjectsPerGroup = 5, Population = list( mean=10, stddev = 5),
       Effects = list("Moment" = slope(5))
@@ -97,10 +108,13 @@ test_that("test 3: schème mixte; 3 x (3)", {
         adjustments = list(purpose="single", decorrelation="CM")
     ))
     expect_output( str(res), "data.frame")
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 
 test_that("test 4a: schème à trois facteurs, 2 étant between  3 x 3 x (3)", {
+    options(superb.debug = 'none')
     dta4a <- GRD( BSFactors = "Group(3) : Dose(3)", WSFactors = "Moment(3)", 
       SubjectsPerGroup = 4, Population = list( mean=10, stddev = 5),
       Effects = list("Moment" = slope(5))
@@ -111,14 +125,16 @@ test_that("test 4a: schème à trois facteurs, 2 étant between  3 x 3 x (3)", {
         adjustments = list(purpose="difference", decorrelation="none"),
         factorOrder = c("Dose","Group","Moment"))
     expect_output( str(res), "data.frame")
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
     
   
 test_that("test 5a: schème à quatre facteurs; 5 x 4 (3 x 2)", {
     options(superb.debug = "none") # to supress design confirmation; unneeded in tests
     dta5a <- GRD( BSFactors = "Group(5) : Dose(4)", WSFactors = "Moment(3):Hand(2)", 
-      Summary=FALSE, Population = list( mean=10, stddev = 5, rho = .90),
-      Effects = list("Moment" = slope(5), "Hand" = slope(10)) )
+        Population = list( mean=10, stddev = 5, rho = .90),
+        Effects = list("Moment" = slope(5), "Hand" = slope(10)) )
     res <- superbData(dta5a,
         WSFactor = c("Moment(3)","Hand(2)"), 
         BSFactor= c("Group","Dose"),
@@ -127,7 +143,8 @@ test_that("test 5a: schème à quatre facteurs; 5 x 4 (3 x 2)", {
         adjustments = list(purpose="difference", decorrelation="CM")
     )
     expect_output( str(res), "data.frame")
-    options(superb.debug = c("design","warnings") ) # restores to default
+    # restores default information
+    options(superb.debug = c('design','warnings','summary'))
 })
 
 

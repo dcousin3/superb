@@ -124,10 +124,10 @@ superbPlot.line <- function(
     )) +
     # the points ...
     do.call(geom_point, modifyList(
+        pointParams, 
         list(position = position_dodge(width = .15), 
             stat = "identity", 
-            mapping = aes_string(group = groupingfactor) ),
-        pointParams
+            mapping = aes_string(group = groupingfactor) )
     )) +
     # ... and the lines connecting the points
     do.call(geom_line, modifyList(
@@ -274,9 +274,15 @@ superbPlot.pointjitter <- function(
         summarydata, 
         aes_string(
             x = xfactor,   
-            shape = groupingfactor, 
-            colour = groupingfactor
+            shape = groupingfactor
     )) + 
+    # the jitters 
+    do.call(geom_point, modifyList(
+        list(data = rawdata, 
+            position = position_jitterdodge(jitter.width=0.1, dodge.width=0.5),
+            mapping = aes_string(y = "DV", colour = groupingfactor, group = groupingfactor ) ),
+        jitterParams
+    )) +
     # the points 
     do.call(geom_point, modifyList(
         list(position = position_dodge(width = .5), 
@@ -290,13 +296,6 @@ superbPlot.pointjitter <- function(
             mapping = aes_string(group = groupingfactor, ymin = "center + lowerwidth", ymax = "center + upperwidth") ),
         errorbarParams
     )) + 
-    # the jitters 
-    do.call(geom_point, modifyList(
-        list(data = rawdata, 
-            position = position_jitterdodge(jitter.width=0.1, dodge.width=0.5),
-            mapping = aes_string(y = "DV", group = groupingfactor ) ),
-        jitterParams
-    )) +
     # the panels (rows or both rows and columns, NULL if no facet)
     do.call( facet_grid, modifyList(
         list( rows = addfactors ),
@@ -355,24 +354,27 @@ superbPlot.pointjitterviolin <- function(
     plot <- ggplot(data    = summarydata, 
                   mapping = aes_string(x = xfactor )
         ) +
+        # violin in the back
         do.call( geom_violin, modifyList(
             list(data   = rawdata, 
                 mapping = aes_string(y = "DV", fill = groupingfactor), 
-                scale   = "area", trim = F, alpha = 0.7),
+                scale   = "area", trim = F, alpha = 0.25),
             violinParams) )+
-        do.call( geom_point, modifyList(
-            list(mapping = aes_string(colour = groupingfactor, group = groupingfactor, y = "center"), 
-                size = 4, position = position_dodge(.9) ),
-            pointParams) ) +
-        do.call( geom_errorbar, modifyList(
-            list(mapping = aes_string(group = groupingfactor, colour= groupingfactor, ymin = "center+lowerwidth", ymax = "center+upperwidth"), 
-                position = position_dodge(.9), width = 0.4),
-            errorbarParams) )+
+        # jitter second
         do.call( geom_point, modifyList(
             list(data = rawdata, 
                 mapping = aes_string(y = "DV", colour = groupingfactor),
                 position = position_jitterdodge(jitter.width=0.15, dodge.width=0.9) ),
             jitterParams) ) +
+        # and finally the point and the error bars
+        do.call( geom_point, modifyList(
+            list(mapping = aes_string(group = groupingfactor, y = "center"), 
+                size = 4, position = position_dodge(.9) ),
+            pointParams) ) +
+        do.call( geom_errorbar, modifyList(
+            list(mapping = aes_string(group = groupingfactor, ymin = "center+lowerwidth", ymax = "center+upperwidth"), 
+                position = position_dodge(.9), width = 0.4),
+            errorbarParams) )+
         do.call( facet_grid, modifyList(
             list( rows = addfactors ),
             facetParams
@@ -438,8 +440,9 @@ superbPlot.pointindividualline <- function(
     # the individual lines 
     do.call(geom_line, modifyList(
         list(data = rawdata,
-            color="gray", size=0.2,
-            mapping = aes_string(y = "DV", group = "id" ) ),
+            #color="gray", 
+            size=0.2, alpha = 0.25,
+            mapping = aes_string(y = "DV", group = "id", color = groupingfactor ) ),
         lineParams
     )) +
     # the points 

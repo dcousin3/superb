@@ -1,12 +1,19 @@
 # superb 0.9.5.0 (April 2021)
 
-* Expanded documentation
-* Expanded function names
+* Expanded documentation once more
+* Expanded function names lambda, epsilon
+
+# superb 0.9.4.4 (March 2021)
+
+* Changed debug information for GRD
+* Converted in GRD the level ranges, e.g., "diff(1,5)", into numeric levels
 
 # superb 0.9.4.3 (March 2021)
 
-* Changed debug process
+* Added superbData as a shortcut to superbPlot(... showPlot = FALSE)
+* Changed debug information for suberbPlot and superbData
 * Created a logo and improved web pages
+* Revised documentation
 
 # superb 0.9.4.2 (March 2021)
 
