@@ -19,7 +19,7 @@ vignette: >
 cat("this will be hidden; use for general initializations.\n")
 library(superb)
 library(ggplot2)
-options(superb.debug = 'none')
+options(superb.feedback = 'none')
 ```
 
 ``superbPlot`` comes with six built-in layouts for plotting your data.
@@ -88,16 +88,16 @@ head(testdata)
 For simplicity, we define a function whose arguments are the dataset and the layout:
 
 ```{r}
-    mp <- function(data, style, ...) {
-        superbPlot(data,
-            WSFactor = "Day(2)",
-            BSFactor = "Difficulty",
-            variables = c("score.day1", "score.day2"),
-           adjustments = list(purpose="difference", decorrelation="CM"),
-            plotStyle = style,
-            ...
-        )+labs(title = paste("Layout is ''",style,"''",sep=""))
-    }
+mp <- function(data, style, ...) {
+    superbPlot(data,
+        WSFactor = "Day(2)",
+        BSFactor = "Difficulty",
+        variables = c("score.day1", "score.day2"),
+        adjustments = list(purpose="difference", decorrelation="CM"),
+        plotStyle = style,
+        ...
+    )+labs(title = paste("Layout is ''",style,"''",sep=""))
+}
 ```
 
 Lets compute the plots will all six built-in layouts and show them
@@ -132,6 +132,7 @@ ornate = list(
     labs(x = "Days of test", y = "Score in points" ),
     scale_x_discrete(labels=c("1" = "Former day", "2" = "Latter day"))
 )
+library(gridExtra)
 grid.arrange(
     p1+ornate, p2+ornate, p3+ornate,
     p4+ornate, p5+ornate, p6+ornate,
@@ -351,7 +352,7 @@ superbPlot(TMB1964r,
 
 
 
-## Getting Debug information
+## Getting feedback information
 
 It is sometimes useful to extract variables out of the function
 when debugging the code. A useful function is to use ``runDebug``.
@@ -359,7 +360,7 @@ This function (shipped with ``suberb``) will display text and
 transfer any variables you want into the global environment.
 
 ```{r, eval=FALSE, message=FALSE, echo=TRUE, results='hide'}
-options(superb.debug = 'all')
+options(superb.feedback = 'all')
 runDebug( 'where are we?', "Text to show when we get there",
   c("variable1", "variable2", "etc"),
   list( "var1InTheFct", "var2InTheFct", "varetcInTheFct")
@@ -378,7 +379,7 @@ superbPlot.empty <- function(
     plot <- ggplot() # an empty plot        
     return(plot)
 }
-options(superb.debug = 'inempty')  ## turn on Debug when reaching 'inempty'
+options(superb.feedback = 'inempty')  ## turn on feedback when reaching 'inempty'
 superbPlot(TMB1964r,
      WSFactor = "T(7)",      
      BSFactor = "Condition",

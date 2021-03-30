@@ -70,7 +70,7 @@
 #' # This example is based on repeated measures
 #' library(lsr)
 #' library(gridExtra)
-#' options(superb.debug = 'none') # shut down 'warnings' and 'design' interpretation messages
+#' options(superb.feedback = 'none') # shut down 'warnings' and 'design' interpretation messages
 #' 
 #' # define shorter column names...
 #' names(Orange) <- c("Tree","age","circ")
@@ -186,7 +186,13 @@ superbPlot <- function(data,
             stop("ERROR: The number of levels of the within-subject level(s) does not match the number of variables. Exiting...")
     if ((wslevel == 1)&&(!(adjustments$decorrelation == "none"))) 
             stop("ERROR: Decorrelation is not to be used when there is no within-subject factors. Exiting...")
-    if(missing(factorOrder))  {factorOrder <- c(WSFactor, BSFactor)}
+    if(missing(factorOrder))  {
+        factorOrder <- c(WSFactor, BSFactor)
+        if ('design' %in% getOption("superb.feedback") )  
+                cat(paste("NOTE: The variables will be plotted in that order: ",
+                          paste(factorOrder[factorOrder != wsMissing],collapse=", "),
+                          " (use factorOrder to change).\n", sep=""))
+    }
 
     # 1.5: invalid column names where column names must be listed
     if (!(all(variables %in% names(data)))) 
@@ -212,8 +218,8 @@ superbPlot <- function(data,
     colnames(design)[1:length(WSFactor)] <- WSFactor
     colnames(design)[length(WSFactor)+1] <- "variable"
     colnames(design)[length(WSFactor)+2] <- "newvars"
-    if ( (length(wsLevels)>1) & ('design' %in% getOption("superb.debug") ) ) {
-        cat("Here is how the within-subject variables are understood:\n")
+    if ( (length(wsLevels)>1) & ('design' %in% getOption("superb.feedback") ) ) {
+        cat("NOTE: Here is how the within-subject variables are understood:\n")
         print( design[,c(WSFactor, "variable") ]) 
     }
 
@@ -247,29 +253,31 @@ superbPlot <- function(data,
     # STEP 2: Decorrelate repeated-measure variables if needed; apply transforms
     ##############################################################################
 
-    data.unchanged <- data
-    data.wide <- data
+    # keep a copy before transforming the data
+    data.untransformed <- data
+    data.transformed   <- data
+
     # We do this step for each group and only on columns with repeated measures.
     if (adjustments$decorrelation == "CM" || adjustments$decorrelation == "LM") {
-        data.wide <- plyr::ddply(data.wide, .fun = twoStepTransform, .variables= BSFactor, variables)    
+        data.transformed <- plyr::ddply(data.transformed, .fun = twoStepTransform, .variables= BSFactor, variables)    
     }
     # is LM (pooled standard error) needed?
     if (adjustments$decorrelation == "LM") {
-        data.wide <- plyr::ddply(data.wide, .fun = poolSDTransform, .variables= BSFactor, variables) 
+        data.transformed <- plyr::ddply(data.transformed, .fun = poolSDTransform, .variables= BSFactor, variables) 
     }
     # other custom pre-processing of the data matrix per group
     if (!is.null(preprocessfct)) {
         for (fct in preprocessfct)
-            data.wide <- plyr::ddply(data.wide, .fun = fct, .variables= BSFactor, variables) 
+            data.transformed <- plyr::ddply(data.transformed, .fun = fct, .variables= BSFactor, variables) 
     }
     # other custom post-processing of the data matrix per group
     if (!is.null(postprocessfct)) {
         for (fct in postprocessfct)
-            data.wide <- plyr::ddply(data.wide, .fun = fct, .variables= BSFactor, variables) 
+            data.transformed <- plyr::ddply(data.transformed, .fun = fct, .variables= BSFactor, variables) 
     }
     
     runDebug("superb.2", "End of Step 2: Data post decorrelation", 
-        c("data.wide2"), list(data.wide) )
+        c("data.transformed2"), list(data.transformed) )
 
 
     ##############################################################################
@@ -277,23 +285,24 @@ superbPlot <- function(data,
     ##############################################################################
 
     # replace variable names with names based on design...
-    colnames(data.unchanged)[grep(paste(variables,collapse="|"),names(data.unchanged))] = newnames
-    colnames(data.wide)[grep(paste(variables,collapse="|"),names(data.wide))] = newnames
+    colnames(data.untransformed)[grep(paste(variables,collapse="|"),names(data.untransformed))] = newnames
+    colnames(data.transformed)[grep(paste(variables,collapse="|"),names(data.transformed))] = newnames
+
     # set data to long format using lsr (Navarro, 2015)
-    # if no unique identifier is found, a column ".id" may be added; don't bother
-    data.unchanged.long <- suppressWarnings(lsr::wideToLong(data.unchanged, within = WSFactor, sep = weird))
-    data.long <- suppressWarnings(lsr::wideToLong(data.wide, within = WSFactor, sep = weird))
+    data.untransformed.long <- suppressWarnings(lsr::wideToLong(data.untransformed, within = WSFactor, sep = weird))
+    data.transformed.long   <- suppressWarnings(lsr::wideToLong(data.transformed, within = WSFactor, sep = weird))
 
     # if there was no within-subject factor, a dummy had been added
     if (WSFactor[1]  == wsMissing) {
         # removing all traces of the dummy
-        data.long[[wsMissing]] = NULL # remove the column 
-        WSFactor = NULL # remove the dummy factor
-        factorOrder = factorOrder[ factorOrder != wsMissing]
+        data.transformed.long[[wsMissing]]   <- NULL # remove the column 
+        data.untransformed.long[[wsMissing]] <- NULL # remove the column 
+        WSFactor    <- NULL # remove the dummy factor
+        factorOrder <- factorOrder[ factorOrder != wsMissing]
     }
     
     runDebug("superb.3", "End of Step 3: Reformat data frame into long format", 
-        c("data.long2","factorOrder3"), list(data.long,factorOrder) )
+        c("data.transformed.long2","factorOrder3"), list(data.transformed.long,factorOrder) )
 
 
     ##############################################################################
@@ -319,8 +328,10 @@ superbPlot <- function(data,
         return( c(center=center, lowerwidth=lowerwidth, upperwidth=upperwidth) )
     }
 
-    summaryStatistics <- plyr::ddply( data.long, .fun = aggregatefct, .variables = factorOrder ) 
-    summaryStatistics[factorOrder] <- lapply(summaryStatistics[factorOrder], as.factor)
+    ### put into FACTORs
+    summaryStatistics <- plyr::ddply( data.transformed.long, .fun = aggregatefct, .variables = factorOrder ) 
+    summaryStatistics[factorOrder]       <- lapply(summaryStatistics[factorOrder], as.factor)
+    data.untransformed.long[factorOrder] <- lapply(data.untransformed.long[factorOrder], as.factor)
 
     runDebug("superb.4", "End of Step 4: Statistics obtained", 
         c("summaryStatistics2"), list( summaryStatistics) )
@@ -344,8 +355,8 @@ superbPlot <- function(data,
         sqrt(2) 
     } else if  (adjustments$purpose == "tryon") {
         # extension of Tryon, 2001, for heterogeneous variances in between-group design
-        Ns  <- plyr::ddply(data.long, .fun = dim, .variables = c(WSFactor,BSFactor) )$V1
-        sds <- suppressWarnings(plyr::ddply(data.long, .fun = colSDs, .variables = c(WSFactor,BSFactor) )$DV)
+        Ns  <- plyr::ddply(data.transformed.long, .fun = dim, .variables = c(WSFactor,BSFactor) )$V1
+        sds <- suppressWarnings(plyr::ddply(data.transformed.long, .fun = colSDs, .variables = c(WSFactor,BSFactor) )$DV)
         es <- sqrt(sum(sds^2/Ns)) / sum(sqrt(sds^2/Ns))
         # the es must be expanded for each repeated measures
         es  <- rep(es, wslevel)
@@ -388,7 +399,7 @@ superbPlot <- function(data,
     # STEP 6: Issue warnings
     ##############################################################################
 
-    if (('warnings' %in% getOption("superb.debug") ) | ('all' %in% getOption("superb.debug")) )  {
+    if (('warnings' %in% getOption("superb.feedback") ) | ('all' %in% getOption("superb.feedback")) )  {
         # 6.1: if option is difference, test heterogeneity of variances
         if ((adjustments$purpose == "difference") & (!is.null(BSFactor)) ) {
             crit <- data[,BSFactor]
@@ -439,19 +450,15 @@ superbPlot <- function(data,
     # ALL DONE! Output the plot(s) or the summary data
     ##############################################################################
 
-    runDebug("beforeplot", "Kit for testing plotting function", c("ss","factorOrder2","dl"),list(summaryStatistics, factorOrder, data.unchanged.long) )
-    if (showPlot == TRUE) {
-        # generate the plot
-        groupingfactor = if(!is.na(factorOrder[2])) {factorOrder[2]}else{ NULL}
-        # if present, make the grouping variable a factor
-        if (!is.null(groupingfactor)) {
-            data.unchanged.long[[groupingfactor]] = as.factor(data.unchanged.long[[groupingfactor]])
-        }
+    runDebug("beforeplot", "Kit for testing plotting function", c("ss","factorOrder2","dl"),list(summaryStatistics, factorOrder, data.untransformed.long) )
 
-        # first get the facets
+    if (showPlot == TRUE) {
+        # get the grouping factor
+        groupingfactor = if(!is.na(factorOrder[2])) {factorOrder[2]} else { NULL}
+
+        # get the facet factor(s)
         facets <- factorOrder[3:4][!is.na(factorOrder[3:4])]
-        facets <- c(facets, ".",".")
-        facets <- paste(facets[1:2], collapse="~")
+        facets <- paste( c(facets, ".",".")[1:2], collapse="~")
 
         # produce the plot
         plot <- do.call( pltfct, list(
@@ -459,13 +466,13 @@ superbPlot <- function(data,
                     xfactor        = factorOrder[1],
                     groupingfactor = groupingfactor,
                     addfactors     = facets,
-                    rawdata        = data.unchanged.long,
+                    rawdata        = data.untransformed.long,
                     ...
         ))
         return(plot)
     } else {
-        # returns the summary statistsics as is
-        return(summaryStatistics)
+        # returns a list with summary statistsics as is and rawdata
+        return( list(summaryStatistics = summaryStatistics, rawData = data.untransformed.long))
     }
 
     ##############################################################################

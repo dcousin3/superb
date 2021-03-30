@@ -60,11 +60,11 @@ superbPlot(ToothGrowth,
     variables = "len" )
 ```
 
-In the above, the defautl summary statistic, the mean, is used. The error
+In the above, the default summary statistic, the mean, is used. The error
 bars are, by default, the 95% confidence intervals. These two choices
 can be changed with the `statistic` and the `errorbar` arguments.
 
-This second example explicitely indicates to display the 
+This second example explicitsly indicates to display the 
 `median` instead of the default `mean` summary statistics
 
 ```{r}

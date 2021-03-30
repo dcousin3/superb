@@ -48,17 +48,17 @@ is.gamma.required <- function(fctname) {
 is.superbPlot.function <- function(fctname) {
     # does the plot function provided by the user exists?
     runDebug("is.superbPlot.function", "Entering is.superbPlot.function", c("fcttested"),list(fctname) )
-    opts <- getOption("superb.debug")
-    options(superb.debug = 'none')
+    opts <- getOption("superb.feedback")
+    options(superb.feedback = 'none')
 
     res <- TRUE
     if (!exists(fctname)) {
         res <- FALSE
     } else {
         # if the symbol exists, run a fake call to see if it works...
-        dta <- data.frame( 
+        stg <- data.frame( 
                 dose       = cbind(c(0.5,0.5,1,1,2,2)),
-                supp       = cbind(c("A","B","A","B","A","B")),
+                supp       = cbind(c("VC","OJ","VC","OJ","VC","OJ")),
                 center     = cbind(c(13,8,22,17,26,26)),
                 lowerwidth = cbind(c(-3,-2,-3,-2,-2,-4)),
                 upperwidth = cbind(c(+3,+2,+3,+2,+2,+4))
@@ -68,7 +68,7 @@ is.superbPlot.function <- function(fctname) {
 
         res <- tryCatch(
             {test <- suppressWarnings(do.call(fctname, 
-                    list(dta,
+                    list(stg,
                         "dose", 
                         "supp", ".~.", 
                         fake ) ) ); 
@@ -77,8 +77,8 @@ is.superbPlot.function <- function(fctname) {
         )
     }
 
-    # restores debug
-    options(superb.debug = opts)
+    # restores feedback information
+    options(superb.feedback = opts)
     runDebug("is.superbPlot.function", "Exiting is.superbPlot.function", c(),list() )
     res
 }

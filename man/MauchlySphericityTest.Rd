@@ -30,7 +30,6 @@ dta <- data.frame(cbind(
     ))
 # performs the test (here p = 0.5824)
 MauchlySphericityTest(dta)
-# 0.582443
 
 }
 \references{

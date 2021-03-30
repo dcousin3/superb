@@ -27,7 +27,7 @@
 #'
 #' data(TMB1964r)
 #' 
-#' options(superb.debug = 'none') # shut down 'warnings' and 'design' interpretation messages
+#' options(superb.feedback = 'none') # shut down 'warnings' and 'design' interpretation messages
 #'
 #' # general plot ignoring covariates sex and languages with only defaults
 #' # We illustrate correlation- and difference-adjusted 95% confidence intervals of the mean

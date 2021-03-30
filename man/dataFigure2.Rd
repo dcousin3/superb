@@ -25,7 +25,7 @@ library(ggplot2)
 library(gridExtra)
 data(dataFigure2)
 
-options(superb.debug = 'none') # shut down 'warnings' and 'design' interpretation messages
+options(superb.feedback = 'none') # shut down 'warnings' and 'design' interpretation messages
 
 ## realize the plot with unadjusted (left) and ajusted (right) 95\% confidence intervals
 plt2a <- superbPlot(dataFigure2, WSFactor = "Moment(2)", 

@@ -32,7 +32,6 @@ dta <- data.frame(cbind(
     ))
 # performs the test (here p = 0.6733)
 WinerCompoundSymmetryTest(dta)
-# 0.6733123
 
 }
 \references{

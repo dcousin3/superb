@@ -23,6 +23,7 @@
 #' @param barParams (optional) list of graphic directives that are sent to the geom_bar layer
 #' @param errorbarParams (optional) list of graphic directives that are sent to the geom_errorbar layer
 #' @param facetParams (optional) list of graphic directives that are sent to the facet_grid layer
+#' @param xAsFactor (optional) Boolean to indicate if the factor on the horizontal should continuous or discrete (default is discrete)
 #'
 #' @return a ggplot object
 #'
@@ -40,10 +41,16 @@ superbPlot.bar <- function(
     # what follows are optional
     barParams      = list(),   # merged into geom_bar
     errorbarParams = list(),   # merged into geom_errorbar
-    facetParams    = list()    # merged into facet_grid
+    facetParams    = list(),   # merged into facet_grid
+    xAsFactor      = TRUE      # should the horizontal axis be continuous?
 ) {
     runDebug("bar", "Entering superbPlot.bar", c("xfactor2", "groupingfactor2", "addfactors2"), list(xfactor, groupingfactor, addfactors))
 
+    # depending on the scale of the x-axis.
+    if (!xAsFactor) 
+        summarydata[[xfactor]] = as.numeric(summarydata[[xfactor]])
+
+    # let's do the plot!
     plot <- ggplot(
         summarydata, 
         aes_string(
@@ -93,6 +100,7 @@ superbPlot.bar <- function(
 #' @param lineParams (optional) list of graphic directives that are sent to the geom_bar layer
 #' @param errorbarParams (optional) list of graphic directives that are sent to the geom_errorbar layer
 #' @param facetParams (optional) list of graphic directives that are sent to the facet_grid layer
+#' @param xAsFactor (optional) Boolean to indicate if the factor on the horizontal should continuous or discrete (default is discrete)
 #'
 #' @return a ggplot object
 #'
@@ -108,13 +116,19 @@ superbPlot.line <- function(
     # what follows is unused and optional
     rawdata        = NULL,     # unused
     # what follows are optional
-    pointParams     = list(), 
-    lineParams      = list(), 
-    errorbarParams  = list(),
-    facetParams     = list()    
+    pointParams    = list(), 
+    lineParams     = list(), 
+    errorbarParams = list(),
+    facetParams    = list(),
+    xAsFactor = TRUE      # should the horizontal axis be continuous?
 ) {
     runDebug("line", "Entering superbPlot.line", c("xfactor2", "groupingfactor2", "addfactors2"), list(xfactor, groupingfactor, addfactors))
 
+    # depending on the scale of the x-axis.
+    if (!xAsFactor) 
+        summarydata[[xfactor]] = as.numeric(summarydata[[xfactor]])
+
+    # let's do the plot!
     plot <- ggplot(
         summarydata, 
         aes_string(
@@ -126,13 +140,11 @@ superbPlot.line <- function(
     do.call(geom_point, modifyList(
         pointParams, 
         list(position = position_dodge(width = .15), 
-            stat = "identity", 
             mapping = aes_string(group = groupingfactor) )
     )) +
     # ... and the lines connecting the points
     do.call(geom_line, modifyList(
         list(position = position_dodge(width = .15), 
-            stat = "identity", 
             mapping = aes_string(group = ifelse(is.null(groupingfactor),1,groupingfactor) ) ),
         lineParams
     )) +
@@ -171,6 +183,7 @@ superbPlot.line <- function(
 #' @param pointParams (optional) list of graphic directives that are sent to the geom_bar layer
 #' @param errorbarParams (optional) list of graphic directives that are sent to the geom_errorbar layer
 #' @param facetParams (optional) list of graphic directives that are sent to the facet_grid layer
+#' @param xAsFactor (optional) Boolean to indicate if the factor on the horizontal should continuous or discrete (default is discrete)
 #'
 #' @return a ggplot object
 #'
@@ -186,12 +199,18 @@ superbPlot.point <- function(
     # what follows is unused and optional
     rawdata        = NULL,     # unused
     # what follows are optional
-    pointParams     = list(), 
-    errorbarParams  = list(),
-    facetParams     = list()    
+    pointParams    = list(), 
+    errorbarParams = list(),
+    facetParams    = list(),
+    xAsFactor      = TRUE      # should the horizontal axis be continuous?
 ) {
     runDebug("point", "Entering superbPlot.point", c("xfactor2", "groupingfactor2", "addfactors2"), list(xfactor, groupingfactor, addfactors))
 
+    # depending on the scale of the x-axis.
+    if (!xAsFactor) 
+        summarydata[[xfactor]] = as.numeric(summarydata[[xfactor]])
+
+    # let's do the plot!
     plot <- ggplot(
         summarydata, 
         aes_string(
@@ -202,7 +221,6 @@ superbPlot.point <- function(
     # the points 
     do.call(geom_point, modifyList(
         list(position = position_dodge(width = .15), 
-            stat = "identity", 
             mapping = aes_string(group = groupingfactor) ),
         pointParams
     )) +
@@ -247,6 +265,7 @@ superbPlot.point <- function(
 #' @param jitterParams (optional) list of graphic directives that are sent to the geom_bar layer
 #' @param errorbarParams (optional) list of graphic directives that are sent to the geom_errorbar layer
 #' @param facetParams (optional) list of graphic directives that are sent to the facet_grid layer
+#' @param xAsFactor (optional) Boolean to indicate if the factor on the horizontal should continuous or discrete (default is discrete)
 #'
 #' @return a ggplot object
 #'
@@ -259,40 +278,56 @@ superbPlot.pointjitter <- function(
     xfactor,                   # the factor on the horizontal axis  
     groupingfactor,            # the factor for multiple lines/bars within the plot
     addfactors,                # the factor(s) to make multiple panels
-    # what follows is unused and optional
-    rawdata        = NULL,     # unused
+    rawdata,                   # the raw data in long format
     # what follows are optional
-    pointParams     = list(), 
-    jitterParams    = list(),  
-    errorbarParams  = list(),
-    facetParams     = list()    
+    pointParams    = list(), 
+    jitterParams   = list(),  
+    errorbarParams = list(),
+    facetParams    = list(),   
+    xAsFactor      = TRUE      # should the horizontal axis be continuous?
 ) {
     runDebug("pointjitter", "Entering superbPlot.pointjitter", 
         c("xfactor2", "groupingfactor2", "addfactors2","pointParams2","jitterParams2","errorbarParams2"), list(xfactor, groupingfactor, addfactors, pointParams, jitterParams, errorbarParams))
 
+    # depending on the scale of the x-axis.
+    if (!xAsFactor) {
+        summarydata[[xfactor]] = as.numeric(summarydata[[xfactor]])
+        rawdata[[xfactor]] = as.numeric(rawdata[[xfactor]])
+    }
+
+    # determining the type of jitter based on the presence or not of a groupingfac
+    if (is.null(groupingfactor)) {
+        do_jitters = do.call(geom_jitter, modifyList(
+                        list(data = rawdata, alpha = 0.2, width = 0.2, height = 0.0,
+                             mapping = aes_string(y = "DV" ) ),
+                        jitterParams
+                    ) )
+    } else {
+        do_jitters = do.call(geom_point, modifyList(
+                        list(data = rawdata , alpha = 0.2,
+                            position = position_jitterdodge(jitter.width=0.1 , dodge.width=0.5 ),
+                            mapping = aes_string(y = "DV", color = groupingfactor  ) ),
+                        jitterParams
+                    ) )
+    }
+
+    # let's do the plot!
     plot <- ggplot(
         summarydata, 
-        aes_string(
-            x = xfactor,   
-            shape = groupingfactor
-    )) + 
+        aes_string( x = xfactor, color = groupingfactor )
+    ) + 
     # the jitters 
-    do.call(geom_point, modifyList(
-        list(data = rawdata, 
-            position = position_jitterdodge(jitter.width=0.1, dodge.width=0.5),
-            mapping = aes_string(y = "DV", colour = groupingfactor, group = groupingfactor ) ),
-        jitterParams
-    )) +
+    do_jitters +
     # the points 
     do.call(geom_point, modifyList(
         list(position = position_dodge(width = .5), 
-            stat = "identity", size=3,
-            mapping = aes_string(y = "center", group = groupingfactor) ),
+            size=3,
+            mapping = aes_string(group = groupingfactor, y = "center" ) ),
         pointParams
     )) + 
     # the error bars; define ymin, ymax only in errorbar
     do.call(geom_errorbar, modifyList(
-        list(position = position_dodge(.5), 
+        list(position = position_dodge(.5), width = 0.5, size = 0.5,
             mapping = aes_string(group = groupingfactor, ymin = "center + lowerwidth", ymax = "center + upperwidth") ),
         errorbarParams
     )) + 
@@ -339,41 +374,62 @@ superbPlot.pointjitterviolin <- function(
     xfactor,                   # the factor on the horizontal axis  
     groupingfactor,            # the factor for multiple lines/bars within the plot
     addfactors,                # the factor(s) to make multiple panels
-    # what follows is unused and optional
-    rawdata        = NULL,     # unused
+    rawdata,                   # the raw data in long format
     # what follows are optional
-    pointParams     = list(), 
-    jitterParams    = list(), 
-    violinParams    = list(), 
-    errorbarParams  = list(),
-    facetParams     = list()
+    pointParams    = list(), 
+    jitterParams   = list(), 
+    violinParams   = list(), 
+    errorbarParams = list(),
+    facetParams    = list()
 ) {
     runDebug("pointjitterviolin", "Entering superbPlot.pointjitterviolin", 
         c("xfactor2", "groupingfactor2", "addfactors2","pointParams2","jitterParams2","violinParams2","errorbarParams2"), list(xfactor, groupingfactor, addfactors, pointParams, jitterParams, violinParams, errorbarParams))
 
+    # determining the type of jitter based on the presence or not of a groupingfac
+    if (is.null(groupingfactor)) {
+        do_jitters = do.call(geom_jitter, modifyList(
+                        list(data = rawdata, alpha = 0.2, width = 0.2, height = 0.0,
+                             mapping = aes_string( y = "DV" ) ),
+                        jitterParams
+                    ) )
+        do_violins = do.call( geom_violin, modifyList(
+                        list(data     = rawdata,
+                             mapping  = aes_string( y = "DV" ), 
+                             scale    = "area", trim = FALSE, alpha = 0.25),
+                        violinParams
+                    ) )
+    } else {
+        do_jitters = do.call(geom_point, modifyList(
+                        list(data = rawdata , alpha = 0.2,
+                            position = position_jitterdodge(jitter.width=0.1 , dodge.width=.75 ),
+                            mapping = aes_string(y = "DV", group = groupingfactor  ) ),
+                        jitterParams
+                    ) )
+        do_violins = do.call( geom_violin, modifyList(
+                        list(data    = rawdata, 
+                             position= position_dodge(.75), #"dodge",
+                             mapping = aes_string( y = "DV", fill = groupingfactor), 
+                             scale   = "area", trim = FALSE, alpha = 0.25),
+                        violinParams
+                    ) )
+    }
+
+    # let's do the plot!
     plot <- ggplot(data    = summarydata, 
-                  mapping = aes_string(x = xfactor )
+                   mapping = aes_string(x = xfactor, colour = groupingfactor )
         ) +
         # violin in the back
-        do.call( geom_violin, modifyList(
-            list(data   = rawdata, 
-                mapping = aes_string(y = "DV", fill = groupingfactor), 
-                scale   = "area", trim = F, alpha = 0.25),
-            violinParams) )+
+        do_violins +
         # jitter second
-        do.call( geom_point, modifyList(
-            list(data = rawdata, 
-                mapping = aes_string(y = "DV", colour = groupingfactor),
-                position = position_jitterdodge(jitter.width=0.15, dodge.width=0.9) ),
-            jitterParams) ) +
+        do_jitters +
         # and finally the point and the error bars
         do.call( geom_point, modifyList(
             list(mapping = aes_string(group = groupingfactor, y = "center"), 
-                size = 4, position = position_dodge(.9) ),
+                size = 4, position = position_dodge(.75) ),
             pointParams) ) +
         do.call( geom_errorbar, modifyList(
             list(mapping = aes_string(group = groupingfactor, ymin = "center+lowerwidth", ymax = "center+upperwidth"), 
-                position = position_dodge(.9), width = 0.4),
+                position = position_dodge(.75), width = 0.4),
             errorbarParams) )+
         do.call( facet_grid, modifyList(
             list( rows = addfactors ),
@@ -419,36 +475,40 @@ superbPlot.pointindividualline <- function(
     xfactor,                   # the factor on the horizontal axis  
     groupingfactor,            # the factor for multiple lines/bars within the plot
     addfactors,                # the factor(s) to make multiple panels
-    # what follows is unused and optional
-    rawdata        = NULL,     # unused
+    rawdata,                   # the raw data in long format
     # what follows are optional
     pointParams    = list(), 
     lineParams     = list(),  
     errorbarParams = list(),
-    facetParams    = list()  
+    facetParams    = list() 
 ) {
     runDebug("pointindividualline", "Entering superbPlot.pointindividualline", 
         c("xfactor2", "groupingfactor2", "addfactors2","pointParams2","lineParams2","errorbarParams2"), list(xfactor, groupingfactor, addfactors, pointParams, lineParams, errorbarParams))
 
+    # let's do the plot!
     plot <- ggplot(
-        summarydata, 
+        data = summarydata, 
         aes_string(
             x = xfactor,   
-            shape = groupingfactor, 
             colour = groupingfactor
     )) + 
     # the individual lines 
     do.call(geom_line, modifyList(
         list(data = rawdata,
-            #color="gray", 
             size=0.2, alpha = 0.25,
-            mapping = aes_string(y = "DV", group = "id", color = groupingfactor ) ),
+            mapping = aes_string( y = "DV", group = "id" ) ),
         lineParams
     )) +
+    # the individual points 
+    do.call(geom_point, modifyList(
+        list(data = rawdata, alpha = 0.25,
+            mapping = aes_string(y = "DV", group = "id") ),
+        pointParams
+    )) + 
     # the points 
     do.call(geom_point, modifyList(
         list(position = position_dodge(width = .5), 
-            stat = "identity", size=3,
+            size=4,
             mapping = aes_string(y = "center", group = groupingfactor) ),
         pointParams
     )) + 

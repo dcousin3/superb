@@ -237,10 +237,10 @@ theme_gray(base_size=16) +
 scale_x_discrete(labels=c("1" = "Week 1", "2" = "Week 2", "3"="Week 3"))
 ``` 
 
-Unless you change the options to ``options(superb.debug = 'none')``, the command will issue some additional
+Unless you change the options to ``options(superb.feedback = 'none')``, the command will issue some additional
 information. In the present data set, $\varepsilon$ is 0.54 which is low. A Mauchly test
 of sphericity indicates rejection of sphericity, so interpret the error bars with caution. 
-All the warnings issued begining with ``"FYI"`` are just information. Hereafter, the warnings
+All the warnings issued beginning with ``"FYI"`` are just information. Hereafter, the warnings
 are inhibited.
 
 
@@ -265,7 +265,7 @@ be shortened.
 These adjustments are implemented in ``superb`` with additional adjustments, such as
 
 ```{r, echo = FALSE}
-options(superb.debug = 'none')
+options(superb.feedback = 'none')
 ```
 
 ```{r, message=FALSE, echo=TRUE , results='hide'}

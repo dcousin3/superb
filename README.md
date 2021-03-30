@@ -54,14 +54,16 @@ superbPlot(ToothGrowth,
     variables = "len" )
 ```
 
+    ## NOTE: The variables will be plotted in that order: dose, supp (use factorOrder to change).
+
 ![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
-In the above, the defautl summary statistic, the mean, is used. The
+In the above, the default summary statistic, the mean, is used. The
 error bars are, by default, the 95% confidence intervals. These two
 choices can be changed with the `statistic` and the `errorbar`
 arguments.
 
-This second example explicitely indicates to display the `median`
+This second example explicitsly indicates to display the `median`
 instead of the default `mean` summary statistics
 
 ``` r
@@ -70,6 +72,8 @@ superbPlot(ToothGrowth,
     variables = "len",
     statistic = "median")
 ```
+
+    ## NOTE: The variables will be plotted in that order: dose, supp (use factorOrder to change).
 
 ![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
@@ -84,6 +88,8 @@ superbPlot(ToothGrowth,
     errorbar = "CI", gamma = 0.999,
     plotStyle = "line")
 ```
+
+    ## NOTE: The variables will be plotted in that order: dose, supp (use factorOrder to change).
 
 ![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
@@ -120,12 +126,12 @@ head(testdata)
 ```
 
     ##   id Difficulty  score.1  score.2
-    ## 1  1          1 83.75090 75.66201
-    ## 2  2          1 74.12895 67.18510
-    ## 3  3          1 69.75250 79.95957
-    ## 4  4          1 75.88334 64.63258
-    ## 5  5          1 70.29325 65.05246
-    ## 6  6          1 78.53272 95.44238
+    ## 1  1          1 81.72248 70.43958
+    ## 2  2          1 72.78984 68.65203
+    ## 3  3          1 79.09375 68.97941
+    ## 4  4          1 77.30452 94.34071
+    ## 5  5          1 61.22034 73.23213
+    ## 6  6          1 94.17877 83.85484
 
 The simulated scores are illustrated using jitter dots as well as a
 violin plot to show the distributions:
@@ -140,6 +146,8 @@ superbPlot(testdata,
     pointParams = list( size = 3, color = "black")
 )
 ```
+
+    ## NOTE: The variables will be plotted in that order: Day, Difficulty (use factorOrder to change).
 
 ![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 

@@ -105,7 +105,7 @@ superbPlot(ToothGrowth, BSFactor = c("dose", "supp"),
 # This example is based on repeated measures
 library(lsr)
 library(gridExtra)
-options(superb.debug = 'none') # shut down 'warnings' and 'design' interpretation messages
+options(superb.feedback = 'none') # shut down 'warnings' and 'design' interpretation messages
 
 # define shorter column names...
 names(Orange) <- c("Tree","age","circ")

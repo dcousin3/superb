@@ -153,7 +153,7 @@ With ``suberb``, all the decorrelation techniques are available using the adjust
 Consider the following
 
 ```{r, message=FALSE, warning=FALSE, echo=TRUE, fig.cap="Figure 3: Means and 95% confidence intervals on raw data (left) and on decorrelated data (right)"}
-options(superb.debug = 'none') # shut down 'warnings' and 'design' interpretation messages
+options(superb.feedback = 'none') # shut down 'warnings' and 'design' interpretation messages
 library(gridExtra)
 
 ## realize the plot with unadjusted (left) and ajusted (right) 95\% confidence intervals
@@ -189,7 +189,7 @@ the green lines all have the same length.
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.cap="Figure 4: All three decorelation techniques on the same plot along with un-decorrelated error bars"}
 # using GRD to generate data with correlation of .8 and a moderate effect
-options(superb.debug = 'none') # shut down 'warnings' and 'design' interpretation messages
+options(superb.feedback = 'none') # shut down 'warnings' and 'design' interpretation messages
 test <- GRD(WSFactor = "Moment(5)", 
             Effects = list("Moment" = extent(10) ),
             Population = list(mean = 100, stddev = 25, rho = 0.8) ) 

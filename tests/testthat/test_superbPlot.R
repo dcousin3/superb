@@ -2,6 +2,7 @@ context("Testing suberbPlot")
 
 
 test_that("PRELIMINARY TESTS (1/4)", {
+    options(superb.feedback = 'none')
     library(grid)
     library(gridExtra)
 
@@ -12,10 +13,13 @@ test_that("PRELIMINARY TESTS (1/4)", {
       statistic = "mean", plotStyle="bar" )
 
     expect_equal( "ggplot" %in% class(plt), TRUE)
+    # restores default information
+    options(superb.feedback = c('design','warnings','summary'))
 })
 
 
 test_that("PRELIMINARY TESTS (2/4)", {
+    options(superb.feedback = 'none')
     library(grid)
     g0 <- superbPlot(ToothGrowth, BSFactor = c("dose","supp"), variables = "len",
       statistic = "mean", 
@@ -26,20 +30,28 @@ test_that("PRELIMINARY TESTS (2/4)", {
     g2 <- g1 + theme(axis.text.x = element_text(size=30, colour="red") ) + coord_cartesian(ylim=c(5,45))
 
     expect_equal( "ggplot" %in% class(g2), TRUE)
+    # restores default information
+    options(superb.feedback = c('design','warnings','summary'))
 })
 
 test_that("PRELIMINARY TESTS (3/4)", {
+    options(superb.feedback = 'none')
     res <- superbPlot(ToothGrowth, BSFactor = c("dose","supp"), 
       variables = "len", showPlot=FALSE )
 
     expect_output( str(res), "data.frame")
+    # restores default information
+    options(superb.feedback = c('design','warnings','summary'))
 })
 
 test_that("PRELIMINARY TESTS (4/4)", {
+    options(superb.feedback = 'none')
     p <- superbPlot(ToothGrowth, BSFactor = c("dose","supp"), variables = "len",
       statistic = "mean", plotStyle="line" )
 
     expect_equal( "ggplot" %in% class(p), TRUE)
+    # restores default information
+    options(superb.feedback = c('design','warnings','summary'))
 })
 
 
@@ -50,7 +62,7 @@ test_that("PRELIMINARY TESTS (4/4)", {
 #########################################
 
 test_that("test 1a: 3 groupes inpépendants", { 
-    options(superb.debug = c('none'))
+    options(superb.feedback = c('none'))
     dta1a <- GRD( BSFactors = "Group(3)", Population = list( mean=10, stddev = 5) )
     # write.table(dta1a, file = "test1a.dat", sep = "\t", col.names = FALSE)
     p <- superbPlot(dta1a, BSFactor = "Group", variables = "DV",
@@ -58,12 +70,12 @@ test_that("test 1a: 3 groupes inpépendants", {
 
     expect_equal( "ggplot" %in% class(p), TRUE)
     # restores default information
-    options(superb.debug = c('design','warnings','summary'))
+    options(superb.feedback = c('design','warnings','summary'))
 })
 
 
 test_that("test 1b: factorielle à grps indépendants; 3 x 2", {
-    options(superb.debug = c('none'))
+    options(superb.feedback = c('none'))
     dta1b <- GRD( BSFactors = "Group(3): Sex(2)", Population = list( mean=10, stddev = 5))
     # write.table(dta1b, file = "test1b.dat", sep = "\t", col.names = FALSE)
     p <- superbPlot(dta1b, BSFactor = c("Group","Sex"), variables = "DV",
@@ -71,12 +83,12 @@ test_that("test 1b: factorielle à grps indépendants; 3 x 2", {
 
     expect_equal( "ggplot" %in% class(p), TRUE)
     # restores default information
-    options(superb.debug = c('design','warnings','summary'))
+    options(superb.feedback = c('design','warnings','summary'))
 })
 
 
 test_that("test 2a: 1 facteur à 3 mesures répétées; (3)", {
-    options(superb.debug = c('design','warnings'))
+    options(superb.feedback = c('warnings'))
     dta2a <- GRD( WSFactors = "Moment(3)", SubjectsPerGroup = 5, Population = list( mean=10, stddev = 5))
     # write.table(dta2a, file = "test2a.dat", sep = "\t", col.names = FALSE)
     expect_warning( p <- superbPlot(dta2a, WSFactor = "moment(3)", 
@@ -87,12 +99,12 @@ test_that("test 2a: 1 facteur à 3 mesures répétées; (3)", {
 
     expect_equal( "ggplot" %in% class(p), TRUE)
     # restores default information
-    options(superb.debug = c('design','warnings','summary'))
+    options(superb.feedback = c('design','warnings','summary'))
 })
 
 
 test_that("test 2b: 2 facteurs à mesures répétées; (3 x 2)", {
-    options(superb.debug = "none") # to supress design confirmation; unneeded in tests
+    options(superb.feedback = "none") # to supress design confirmation; unneeded in tests
     dta2b <- GRD( WSFactors = "Moment(3): Dose(2)", SubjectsPerGroup = 5, Population = list( mean=10, stddev = 5, rho = .80))
     # write.table(dta2b, file = "test2b.dat", sep = "\t", col.names = FALSE)
     p <- superbPlot(dta2b, WSFactor = c("moment(3)","Dose(2)"), 
@@ -104,12 +116,12 @@ test_that("test 2b: 2 facteurs à mesures répétées; (3 x 2)", {
     )
 
     expect_equal( "ggplot" %in% class(p), TRUE)
-    options(superb.debug = c("design","warnings") ) # restores to default
+    options(superb.feedback = c("design","warnings") ) # restores to default
 })
 
 
 test_that("test 3: schème mixte; 3 x (3)", {
-    options(superb.debug = c('design','warnings'))
+    options(superb.feedback = c('warnings'))
     dta3 <- GRD( BSFactors = "Group(3)", WSFactors = "Moment(3)", 
       SubjectsPerGroup = 5, Population = list( mean=10, stddev = 5),
       Effects = list("Moment" = slope(5))
@@ -123,12 +135,12 @@ test_that("test 3: schème mixte; 3 x (3)", {
 
     expect_equal( "ggplot" %in% class(p), TRUE)
     # restores default information
-    options(superb.debug = c('design','warnings','summary'))
+    options(superb.feedback = c('design','warnings','summary'))
 })
 
 
 test_that("test 4a: schème à trois facteurs, 2 étant between  3 x 3 x (3)", {
-    options(superb.debug = c('design','warnings'))
+    options(superb.feedback = c('design','warnings'))
     dta4a <- GRD( BSFactors = "Group(3) : Dose(3)", WSFactors = "Moment(3)", 
       SubjectsPerGroup = 4, Population = list( mean=10, stddev = 5),
       Effects = list("Moment" = slope(5))
@@ -142,12 +154,12 @@ test_that("test 4a: schème à trois facteurs, 2 étant between  3 x 3 x (3)", {
 
     expect_equal( "ggplot" %in% class(p), TRUE)
     # restores default information
-    options(superb.debug = c('design','warnings','summary'))
+    options(superb.feedback = c('design','warnings','summary'))
 })
     
   
 test_that("test 5a: schème à quatre facteurs; 5 x 4 (3 x 2)", {
-    options(superb.debug = "none") # to supress design confirmation; unneeded in tests
+    options(superb.feedback = "none") # to supress design confirmation; unneeded in tests
     dta5a <- GRD( BSFactors = "Group(5) : Dose(4)", WSFactors = "Moment(3):Hand(2)", 
         Population = list( mean=10, stddev = 5, rho = .90),
         Effects = list("Moment" = slope(5), "Hand" = slope(10)) )
@@ -161,7 +173,7 @@ test_that("test 5a: schème à quatre facteurs; 5 x 4 (3 x 2)", {
     )
 
     expect_equal( "ggplot" %in% class(p), TRUE)
-    options(superb.debug = c("design","warnings") ) # restores to default
+    options(superb.feedback = c("design","warnings") ) # restores to default
 })
 
 
@@ -170,7 +182,7 @@ test_that("test 5a: schème à quatre facteurs; 5 x 4 (3 x 2)", {
 #########################################
 
 test_that("test 6: Some data", {
-    options(superb.debug = c('none'))
+    options(superb.feedback = c('none'))
     dta6 <- GRD( WSFactors = "Moment(3):Hand(2)",
         Effects = list("Moment" = slope(5), "Hand" = slope(3)),
         SubjectsPerGroup = 6,
@@ -178,12 +190,12 @@ test_that("test 6: Some data", {
 
     expect_output( str(dta6), "data.frame")
     # restores default information
-    options(superb.debug = c('design','warnings','summary'))
+    options(superb.feedback = c('design','warnings','summary'))
 })
 
 
 test_that("test 6a: factorOrder", {
-    options(superb.debug = "none") # to supress design confirmation; unneeded in tests
+    options(superb.feedback = "none") # to supress design confirmation; unneeded in tests
     library(gridExtra)
     dta6 <- GRD( WSFactors = "Moment(3):Hand(2)",
         Effects = list("Moment" = slope(5), "Hand" = slope(3)),
@@ -203,12 +215,12 @@ test_that("test 6a: factorOrder", {
     expect_equal( "ggplot" %in% class(p1), TRUE)
     expect_equal( "ggplot" %in% class(p2), TRUE)
     # restores default information
-    options(superb.debug = c('design','warnings','summary'))
+    options(superb.feedback = c('design','warnings','summary'))
 })
 
 
 test_that("test 6b: adjustments CA vs CM vs LM", {
-    options(superb.debug = "none") # to supress design confirmation; unneeded in tests
+    options(superb.feedback = "none") # to supress design confirmation; unneeded in tests
     library(gridExtra)
     dta6 <- GRD( WSFactors = "Moment(3):Hand(2)", 
         Effects = list("Moment" = slope(5), "Hand" = slope(3)),
@@ -236,12 +248,12 @@ test_that("test 6b: adjustments CA vs CM vs LM", {
     expect_equal( "ggplot" %in% class(p2), TRUE)
     expect_equal( "ggplot" %in% class(p3), TRUE)
     # restores default information
-    options(superb.debug = c('design','warnings','summary'))
+    options(superb.feedback = c('design','warnings','summary'))
 })
 
 
 test_that("test 6c: statistics of central tendency mean, median and gmean", {
-    options(superb.debug = "none") # to supress design confirmation; unneeded in tests
+    options(superb.feedback = "none") # to supress design confirmation; unneeded in tests
     library(gridExtra)
     dta6 <- GRD( WSFactors = "Moment(3):Hand(2)",  
         Effects = list("Moment" = slope(5), "Hand" = slope(3)),
@@ -268,12 +280,12 @@ test_that("test 6c: statistics of central tendency mean, median and gmean", {
     expect_equal( "ggplot" %in% class(p2), TRUE)
     expect_equal( "ggplot" %in% class(p3), TRUE)
     # restores default information
-    options(superb.debug = c('design','warnings','summary'))
+    options(superb.feedback = c('design','warnings','summary'))
 })
 
 
 test_that("test 6d: statistics of dispersion sd and MAD", {
-    options(superb.debug = "none") # to supress design confirmation; unneeded in tests
+    options(superb.feedback = "none") # to supress design confirmation; unneeded in tests
     library(gridExtra)
     dta6 <- GRD( WSFactors = "Moment(3):Hand(2)",  
         Effects = list("Moment" = slope(5), "Hand" = slope(3)),
@@ -294,12 +306,13 @@ test_that("test 6d: statistics of dispersion sd and MAD", {
     expect_equal( "ggplot" %in% class(p1), TRUE)
     expect_equal( "ggplot" %in% class(p2), TRUE)
     # restores default information
-    options(superb.debug = c('design','warnings','summary'))
+    options(superb.feedback = c('design','warnings','summary'))
 })
 
 
 
 test_that("test 6e: adding ggplot options", {
+    options(superb.feedback = 'none')
     # ggplot options
     p1 <- superbPlot(ToothGrowth, BSFactor = c("dose","supp"), variables = "len",
       statistic = "mean", errorbar = "CI", gamma = .999,
@@ -310,10 +323,13 @@ test_that("test 6e: adding ggplot options", {
       theme_light(base_size=14 )
 
     expect_equal( "ggplot" %in% class(p2), TRUE)
+    # restores default information
+    options(superb.feedback = c('design','warnings','summary'))
 })
 
       
 test_that("test 6f: adding ggplot options to the error bars, to the points", {
+    options(superb.feedback = 'none')
     p <- superbPlot(ToothGrowth, BSFactor = c("dose","supp"), variables = "len",
       statistic = "mean", errorbar = "CI", gamma = .999,
       adjustments = list(purpose = "difference"),
@@ -324,10 +340,13 @@ test_that("test 6f: adding ggplot options to the error bars, to the points", {
     )
 
     expect_equal( "ggplot" %in% class(p), TRUE)
+    # restores default information
+    options(superb.feedback = c('design','warnings','summary'))
 })
 
 
 test_that("test 6g: adding ggplot options to the error bars, to the points (bis)", {
+    options(superb.feedback = 'none')
     p <- superbPlot(ToothGrowth, BSFactor = c("dose","supp"), variables = "len",
       statistic = "mean", errorbar = "CI", gamma = .999,
       adjustments = list(purpose = "difference"),
@@ -339,6 +358,8 @@ test_that("test 6g: adding ggplot options to the error bars, to the points (bis)
     )
 
     expect_equal( "ggplot" %in% class(p), TRUE)
+    # restores default information
+    options(superb.feedback = c('design','warnings','summary'))
 })
 
 
@@ -347,7 +368,7 @@ test_that("test 6g: adding ggplot options to the error bars, to the points (bis)
 #########################################
 
 test_that("Explorations for ICC", {
-    options(superb.debug = c('design','warnings'))
+    options(superb.feedback = c('warnings'))
     library(gridExtra)
     dta99 <- GRD( WSFactors = "Moment(3)", SubjectsPerGroup = 15, 
         Population = list( mean=20, stddev = 5),
@@ -377,7 +398,7 @@ test_that("Explorations for ICC", {
     expect_equal( "ggplot" %in% class(noncluster), TRUE)
     expect_equal( "ggplot" %in% class(yescluster), TRUE)
     # restores default information
-    options(superb.debug = c('design','warnings','summary'))
+    options(superb.feedback = c('design','warnings','summary'))
 })
 
 
@@ -387,7 +408,7 @@ test_that("Explorations for ICC", {
 ########################################################
 
 test_that("Verifying CA and popSize ", {
-    options(superb.debug = c('design','warnings'))
+    options(superb.feedback = c('warnings'))
     library(gridExtra)
     dta3 <- GRD( BSFactors = "Group(2)", WSFactors = "Moment(3)", 
       SubjectsPerGroup = 5, Population = list (mean = 20, stddev = 5, rho = 0.8),
@@ -409,7 +430,7 @@ test_that("Verifying CA and popSize ", {
     expect_equal( "ggplot" %in% class(p1), TRUE)
     expect_equal( "ggplot" %in% class(p2), TRUE)
     # restores default information
-    options(superb.debug = c('design','warnings','summary'))
+    options(superb.feedback = c('design','warnings','summary'))
 })
 
 
@@ -418,7 +439,7 @@ test_that("Verifying CA and popSize ", {
 #########################################
 
 test_that("Testing pre and post processing", {
-    options(superb.debug = c('design','warnings'))
+    options(superb.feedback = c('warnings'))
     library(ggplot2)
     library(gridExtra)
     dta9 <- GRD( WSFactors = "Moment(3)", SubjectsPerGroup = 5, 
@@ -481,7 +502,7 @@ test_that("Testing pre and post processing", {
     expect_equal( "ggplot" %in% class(truecmvslm), TRUE)
     expect_equal( "ggplot" %in% class(altcmvslm), TRUE)
     # restores default information
-    options(superb.debug = c('design','warnings','summary'))
+    options(superb.feedback = c('design','warnings','summary'))
 })
 
 
@@ -490,9 +511,8 @@ test_that("Testing pre and post processing", {
 #########################################
 
 test_that("Many tests with TMB1964r", {
-    options(superb.debug = c('none'))
+    options(superb.feedback = c('none'))
     library(ggplot2)
-    options(superb.debug = "none")
     mee = TMB1964r[TMB1964r$Language == "English"|TMB1964r$Language == "French",]
 
     mp <- function(style, ...) {
@@ -553,12 +573,12 @@ test_that("Many tests with TMB1964r", {
     expect_equal( "ggplot" %in% class(plt5), TRUE)
 
     # restores default information
-    options(superb.debug = c('design','warnings','summary'))
+    options(superb.feedback = c('design','warnings','summary'))
 })
 
 
 test_that("Heterogeneous variances", {
-    options(superb.debug = c('none'))
+    options(superb.feedback = c('none'))
     dta <- GRD(
         BSFactors = "dif(3) : grp (2)", 
         WSFactors="day(1,2)",
@@ -568,7 +588,7 @@ test_that("Heterogeneous variances", {
             scores = "rnorm(1, mean = GM, sd = 100 * (grp-1) +0.1)"
         )
     )
-    options(superb.debug = c('design','warnings'))
+    options(superb.feedback = c('warnings'))
     expect_warning( 
         superbPlot(dta,
             BSFactor = c("dif","grp"),
@@ -585,12 +605,12 @@ test_that("Heterogeneous variances", {
 
     expect_equal( "ggplot" %in% class(plt), TRUE )
     # restores default information
-    options(superb.debug = c('design','warnings','summary'))
+    options(superb.feedback = c('design','warnings','summary'))
 })
 
 
 test_that("Tryon vs. difference", {
-    options(superb.debug = c('design','warnings'))
+    options(superb.feedback = c('warnings'))
     #lets have data with massively heterogeneous variances
     dta <-GRD( BSFactors="grp(3)",
         RenameDV = "score",
@@ -630,7 +650,7 @@ test_that("Tryon vs. difference", {
         annotation_custom(grob=plt2g)
     expect_equal( "ggplot" %in% class(plt), TRUE)
     # restores default information
-    options(superb.debug = c('design','warnings','summary'))
+    options(superb.feedback = c('design','warnings','summary'))
 })
 
 

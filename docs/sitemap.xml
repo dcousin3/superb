@@ -7,6 +7,9 @@
     <loc>http://dcousin3.github.io/superb/reference/biasCorrectionTransform.html</loc>
   </url>
   <url>
+    <loc>http://dcousin3.github.io/superb/reference/bootstrapPrecisionMeasures.html</loc>
+  </url>
+  <url>
     <loc>http://dcousin3.github.io/superb/reference/CousineauLaurencelleLambda.html</loc>
   </url>
   <url>
@@ -101,5 +104,8 @@
   </url>
   <url>
     <loc>http://dcousin3.github.io/superb/articles/Vignette5.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/articles/Vignette6.html</loc>
   </url>
 </urlset>

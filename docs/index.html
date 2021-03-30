@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.4</span>
       </span>
     </div>
 
@@ -82,6 +82,9 @@
     </li>
     <li>
       <a href="articles/Vignette5.html">Devising custom plot layouts</a>
+    </li>
+    <li>
+      <a href="articles/Vignette6.html">Generating ready-to-analyze datasets with GRD</a>
     </li>
   </ul>
 </li>
@@ -132,26 +135,29 @@
 <code class="sourceCode R"><span class="fu"><a href="reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">ToothGrowth</span>, 
     BSFactor <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dose"</span>,<span class="st">"supp"</span><span class="op">)</span>, 
     variables <span class="op">=</span> <span class="st">"len"</span> <span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## </span><span class="al">NOTE</span><span class="do">: The variables will be plotted in that order: dose, supp (use factorOrder to change).</span></span></code></pre></div>
 <p><img src="README_files/figure-gfm/unnamed-chunk-4-1.png"><!-- --></p>
-<p>In the above, the defautl summary statistic, the mean, is used. The error bars are, by default, the 95% confidence intervals. These two choices can be changed with the <code>statistic</code> and the <code>errorbar</code> arguments.</p>
-<p>This second example explicitely indicates to display the <code>median</code> instead of the default <code>mean</code> summary statistics</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<p>In the above, the default summary statistic, the mean, is used. The error bars are, by default, the 95% confidence intervals. These two choices can be changed with the <code>statistic</code> and the <code>errorbar</code> arguments.</p>
+<p>This second example explicitsly indicates to display the <code>median</code> instead of the default <code>mean</code> summary statistics</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">ToothGrowth</span>, 
     BSFactor <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dose"</span>,<span class="st">"supp"</span><span class="op">)</span>, 
     variables <span class="op">=</span> <span class="st">"len"</span>,
     statistic <span class="op">=</span> <span class="st">"median"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## </span><span class="al">NOTE</span><span class="do">: The variables will be plotted in that order: dose, supp (use factorOrder to change).</span></span></code></pre></div>
 <p><img src="README_files/figure-gfm/unnamed-chunk-5-1.png"><!-- --></p>
 <p>As a third example, we illustrate the harmonic means <code>hmedian</code> along with 99.9% confidence intervals using lines:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">ToothGrowth</span>, 
     BSFactor <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dose"</span>,<span class="st">"supp"</span><span class="op">)</span>, 
     variables <span class="op">=</span> <span class="st">"len"</span>,
     statistic <span class="op">=</span> <span class="st">"hmean"</span>, 
     errorbar <span class="op">=</span> <span class="st">"CI"</span>, gamma <span class="op">=</span> <span class="fl">0.999</span>,
     plotStyle <span class="op">=</span> <span class="st">"line"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">## </span><span class="al">NOTE</span><span class="do">: The variables will be plotted in that order: dose, supp (use factorOrder to change).</span></span></code></pre></div>
 <p><img src="README_files/figure-gfm/unnamed-chunk-6-1.png"><!-- --></p>
 <p>The second function, <code>GRD</code>, can be used to generate random data from designs with various within- and between-subject factors. This example generates scores for 300 simulated participants in a 3 x 2 design with repeated-measures on <code>Day</code>s. Only the factor <code>Day</code> is simulated to improve the scores by reducing it:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">testdata</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/GRD.html">GRD</a></span><span class="op">(</span>
     RenameDV   <span class="op">=</span> <span class="st">"score"</span>, 
     SubjectsPerGroup <span class="op">=</span> <span class="fl">100</span>, 
@@ -160,27 +166,27 @@
     Population <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fl">75</span>,stddev <span class="op">=</span> <span class="fl">12</span>,rho <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>,
     Effects    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"Day"</span> <span class="op">=</span> <span class="fu"><a href="reference/slope.html">slope</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span><span class="op">)</span> <span class="op">)</span>
 <span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ------------------------------------------------------------ </span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Design is: 3 x ( 2 ) with 3 independent groups.</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ------------------------------------------------------------</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 1.Between-Subject Factors ( 3 groups ) :</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  Difficulty; levels: 1, 2, 3</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 2.Within-Subject Factors ( 2 repeated measures ):</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  Day; levels : 1, 2</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 3.Subjects per group ( 300 total subjects ):</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   100</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  ------------------------------------------------------------</span></span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ------------------------------------------------------------ </span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Design is: 3 x ( 2 ) with 3 independent groups.</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ------------------------------------------------------------</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 1.Between-Subject Factors ( 3 groups ) :</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  Difficulty; levels: 1, 2, 3</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 2.Within-Subject Factors ( 2 repeated measures ):</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  Day; levels : 1, 2</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 3.Subjects per group ( 300 total subjects ):</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   100</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  ------------------------------------------------------------</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">testdata</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">##   id Difficulty  score.1  score.2</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1  1          1 83.75090 75.66201</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2  2          1 74.12895 67.18510</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3  3          1 69.75250 79.95957</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4  4          1 75.88334 64.63258</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5  5          1 70.29325 65.05246</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6  6          1 78.53272 95.44238</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">##   id Difficulty  score.1  score.2</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1  1          1 81.72248 70.43958</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2  2          1 72.78984 68.65203</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3  3          1 79.09375 68.97941</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4  4          1 77.30452 94.34071</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5  5          1 61.22034 73.23213</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6  6          1 94.17877 83.85484</span></span></code></pre></div>
 <p>The simulated scores are illustrated using jitter dots as well as a violin plot to show the distributions:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">testdata</span>, 
     BSFactor  <span class="op">=</span> <span class="st">"Difficulty"</span>, 
     WSFactor  <span class="op">=</span> <span class="st">"Day(2)"</span>,
@@ -189,6 +195,7 @@
     errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span>,
     pointParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span> size <span class="op">=</span> <span class="fl">3</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="do">## </span><span class="al">NOTE</span><span class="do">: The variables will be plotted in that order: Day, Difficulty (use factorOrder to change).</span></span></code></pre></div>
 <p><img src="README_files/figure-gfm/unnamed-chunk-8-1.png"><!-- --></p>
 <p>As seen, <code>superb</code> can be used to illustrate summary statistics but also some characteristics of the raw data.</p>
 </div>

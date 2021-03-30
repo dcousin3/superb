@@ -57,8 +57,8 @@ Default is adjustments = list(purpose = "single", popSize = Inf, decorrelation =
 \item{clusterColumn}{used in conjunction with samplingDesign = "CRS", indicates which column contains the cluster membership}
 }
 \value{
-a plot with the correct error bars or a table of those summary statistics.
-        The plot is a ggplot2 object with can be modified with additional declarations.
+a list with (1) the summary statistics in summaryStatistics
+        (2) the raw data in long format, with standardized levels in rawData.
 }
 \description{
 plotsuberb plots standard error or confidence interval for various descriptive 
@@ -68,7 +68,7 @@ plotsuberb plots standard error or confidence interval for various descriptive
 \examples{
 # basic example using a built-in dataframe as data; 
 # by default, the mean is computed and the error bar are 95\% confidence intervals
-superbPlot(ToothGrowth, BSFactor = c("dose", "supp"), 
+superbData(ToothGrowth, BSFactor = c("dose", "supp"), 
   variables = "len") 
 
 # example changing the summary statistics to the median and
@@ -84,8 +84,7 @@ superbData(ToothGrowth, BSFactor = c("dose", "supp"),
 
 # This example is based on repeated measures
 library(lsr)
-library(gridExtra)
-options(superb.debug = 'none') # shut down 'warnings' and 'design' interpretation messages
+options(superb.feedback = 'none') # shut down 'warnings' and 'design' interpretation messages
 
 # define shorter column names...
 names(Orange) <- c("Tree","age","circ")

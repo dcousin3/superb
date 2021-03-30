@@ -9,7 +9,7 @@ superbPlot.pointindividualline(
   xfactor,
   groupingfactor,
   addfactors,
-  rawdata = NULL,
+  rawdata,
   pointParams = list(),
   lineParams = list(),
   errorbarParams = list(),

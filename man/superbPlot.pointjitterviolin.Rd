@@ -9,7 +9,7 @@ superbPlot.pointjitterviolin(
   xfactor,
   groupingfactor,
   addfactors,
-  rawdata = NULL,
+  rawdata,
   pointParams = list(),
   jitterParams = list(),
   violinParams = list(),

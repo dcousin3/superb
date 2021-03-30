@@ -76,7 +76,7 @@ CI.fisherkurtosis(x, gamma)
 \item{gamma}{a confidence level for CI (default 0.95).}
 }
 \value{
-a measure of precision (SE) or an interval of precsion (CI).
+a measure of precision (SE) or an interval of precision (CI).
 }
 \description{
 superb comes with a few built-in measures of 

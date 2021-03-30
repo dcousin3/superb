@@ -46,7 +46,7 @@ then make plots varying the statistics displayed.
 
 ```{r, message=FALSE, echo=TRUE, fig.cap="Figure 1: Various statistics and various measures of precisions"}
 # shut down 'warnings', 'design' and 'summary' messages
-options(superb.debug = 'none') 
+options(superb.feedback = 'none') 
 
 # Generate a random dataset from a (3 x 2) design, entirely within subject.
 # The sample size is very small (n=5) and the correlation between scores is high (rho = .8)
@@ -152,7 +152,7 @@ assume that the population mean is 100.
 
 Once we have the function, we can ask for a plot of this function with
 
-```{r, message=FALSE, echo=TRUE, fig.cap="Figure 2: ``superbPlot`` with a custom-made descriptive sttistic function "}
+```{r, message=FALSE, echo=TRUE, fig.cap="Figure 2: ``superbPlot`` with a custom-made descriptive statistic function "}
     superbPlot(dataFigure1, 
         BSFactor = "grp", 
         statistic = "d1", errorbar = "none",

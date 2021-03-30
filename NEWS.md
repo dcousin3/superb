@@ -1,10 +1,13 @@
 # superb 0.9.5.0 (April 2021)
 
 * Expanded documentation once more
-* Expanded function names lambda, epsilon
+* Second release on CRAN, certified at 95%!
 
 # superb 0.9.4.4 (March 2021)
 
+* Expanded function names lambda, epsilon
+* Made built-in bootstrap estimators for SE and CI
+* Renamed option "debug" into "feedback"
 * Changed debug information for GRD
 * Converted in GRD the level ranges, e.g., "diff(1,5)", into numeric levels
 
@@ -24,7 +27,7 @@
 
 # superb 0.9.4.0 (September 2020)
 
-* Beta release of superb on github
+* Beta release of superb on GitHub
 * Renamed to superb (SUmmary Plot with ERror Bars)
 * packaged together GRD and MeanPlot
 * Added pre and post-processing operators

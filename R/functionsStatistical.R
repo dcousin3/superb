@@ -104,7 +104,7 @@ fisherkurtosis <- function(x) {
 #' @param x a vector of numbers, the sample data (mandatory);
 #' @param gamma a confidence level for CI (default 0.95).
 #'
-#' @return a measure of precision (SE) or an interval of precsion (CI).
+#' @return a measure of precision (SE) or an interval of precision (CI).
 #'
 #' @examples
 #' # the confidence interval of the mean for default 95% and 90% confidence level
@@ -332,6 +332,187 @@ CI.fisherkurtosis <- function(x, gamma = 0.95){
   ci <- fisherkurtosis(x) + 2 * lnc ^ (se / 2) - minbx
   ci
 }
+
+
+
+######################################################################################
+#' @name bootstrapPrecisionMeasures
+#'
+#' @title Bootstrapped measures of precision 
+#'
+#' @aliases bootstrapSE.mean bootstrapCI.mean bootstrapSE.median bootstrapCI.median 
+#'      bootstrapSE.hmean bootstrapCI.hmean bootstrapSE.gmean bootstrapCI.gmean
+#'      bootstrapSE.var bootstrapCI.var bootstrapSE.sd bootstrapCI.sd 
+#'
+#' @description superb also comes with a few built-in measures of 
+#' precisions that uses bootstrap. More can be added based on users needs.
+#' All bootstrapSE.fct() functions produces an interval width;
+#' all bootstrapCI.fct() produces the lower and upper limits of an interval.
+#' These estimates are based on 5,000 sub-samples by default. Change this 
+#' default with``options("superb.bootstrapIter" = number )``.
+#' See \insertCite{et94}{superb} for a comprehensive introduction.
+#' All "superbPlot-compatible" precision measures must have these parameters:
+#' 
+#' @usage bootstrapSE.mean(x)
+#' @usage bootstrapCI.mean(x, gamma)
+#' @usage bootstrapSE.median(x)
+#' @usage bootstrapCI.median(x, gamma)
+#' @usage bootstrapSE.hmean(x)
+#' @usage bootstrapCI.hmean(x, gamma)
+#' @usage bootstrapSE.gmean(x)
+#' @usage bootstrapCI.gmean(x, gamma)
+#' @usage bootstrapSE.var(x)
+#' @usage bootstrapCI.var(x, gamma)
+#' @usage bootstrapSE.sd(x)
+#' @usage bootstrapCI.sd(x, gamma)
+#' 
+#' @param x a vector of numbers, the sample data (mandatory);
+#' @param gamma a confidence level for CI (default 0.95).
+#'
+#' @return a measure of precision (SE) or an interval of precision (CI).
+#'
+#' @examples
+#' # the confidence interval of the mean for default 95% and 90% confidence level
+#' bootstrapCI.mean( c(1,2,3) )
+#' bootstrapCI.mean( c(1,2,3), gamma = 0.90)
+#'
+#' # Standard errors for standard deviation or variance
+#' bootstrapSE.sd( c(1,2,3) )
+#' bootstrapSE.var( c(1,2,3) )
+#'
+#' @references
+#'      \insertAllCited{}
+#'
+#' @export bootstrapSE.mean
+#' @export bootstrapCI.mean
+#' @export bootstrapSE.median
+#' @export bootstrapCI.median
+#' @export bootstrapSE.hmean
+#' @export bootstrapCI.hmean
+#' @export bootstrapSE.gmean
+#' @export bootstrapCI.gmean
+#' @export bootstrapSE.var
+#' @export bootstrapCI.var
+#' @export bootstrapSE.sd
+#' @export bootstrapCI.sd
+#'
+bootstrapSE.mean <- function(x){
+    res = c()
+    for (i in 1:getOption("superb.bootstrapIter")) {
+        res[i] <- mean(sample(x, length(x), replace = TRUE))
+    }
+    se <- sd(res)
+    se
+}
+bootstrapCI.mean <- function(x, gamma = 0.95){
+    res = c()
+    for (i in 1:getOption("superb.bootstrapIter")) {
+        res[i] <- mean(sample(x, length(x), replace = TRUE))
+    }
+    ci <- stats::quantile(res, probs = c(1/2-gamma/2, 1/2+gamma/2) )
+    ci
+}
+
+
+######################## MEDIAN ########################
+bootstrapSE.median <- function(x){
+    res = c()
+    for (i in 1:getOption("superb.bootstrapIter")) {
+        res[i] <- median(sample(x, length(x), replace = TRUE))
+    }
+    se <- sd(res)
+    se
+}
+bootstrapCI.median <- function(x, gamma = 0.95){
+    res = c()
+    for (i in 1:getOption("superb.bootstrapIter")) {
+        res[i] <- median(sample(x, length(x), replace = TRUE))
+    }
+    ci <- stats::quantile(res, probs = c(1/2-gamma/2, 1/2+gamma/2) )
+    ci
+}
+
+
+#################### HARMONIC MEAN #####################
+bootstrapSE.hmean <- function(x){
+    res = c()
+    for (i in 1:getOption("superb.bootstrapIter")) {
+        res[i] <- hmean(sample(x, length(x), replace = TRUE))
+    }
+    se <- sd(res)
+    se
+}
+bootstrapCI.hmean <- function(x, gamma = 0.95){
+    res = c()
+    for (i in 1:getOption("superb.bootstrapIter")) {
+        res[i] <- hmean(sample(x, length(x), replace = TRUE))
+    }
+    ci <- stats::quantile(res, probs = c(1/2-gamma/2, 1/2+gamma/2) )
+    ci
+}
+
+
+#################### GEOMETRIC MEAN ####################
+bootstrapSE.gmean <- function(x){
+    res = c()
+    for (i in 1:getOption("superb.bootstrapIter")) {
+        res[i] <- gmean(sample(x, length(x), replace = TRUE))
+    }
+    se <- sd(res)
+    se
+}
+bootstrapCI.gmean <- function(x, gamma = 0.95) {
+    res = c()
+    for (i in 1:getOption("superb.bootstrapIter")) {
+        res[i] <- gmean(sample(x, length(x), replace = TRUE))
+    }
+    ci <- stats::quantile(res, probs = c(1/2-gamma/2, 1/2+gamma/2) )
+    ci
+}
+
+
+########################################################
+################## SPREAD DESCRIPTION ##################
+########################################################
+
+
+####################### VARIANCE #######################
+bootstrapSE.var <- function(x){
+    res = c()
+    for (i in 1:getOption("superb.bootstrapIter")) {
+        res[i] <- var(sample(x, length(x), replace = TRUE))
+    }
+    se <- sd(res)
+    se
+}
+bootstrapCI.var <- function(x, gamma = 0.95){
+    res = c()
+    for (i in 1:getOption("superb.bootstrapIter")) {
+        res[i] <- var(sample(x, length(x), replace = TRUE))
+    }
+    ci <- stats::quantile(res, probs = c(1/2-gamma/2, 1/2+gamma/2) )
+    ci
+}
+
+
+################## STANDARD DEVIATION ##################
+bootstrapSE.sd <- function(x){
+    res = c()
+    for (i in 1:getOption("superb.bootstrapIter")) {
+        res[i] <- sd(sample(x, length(x), replace = TRUE))
+    }
+    se <- sd(res)
+    se
+}
+bootstrapCI.sd <- function(x, gamma = 0.95){
+    res = c()
+    for (i in 1:getOption("superb.bootstrapIter")) {
+        res[i] <- sd(sample(x, length(x), replace = TRUE))
+    }
+    ci <- stats::quantile(res, probs = c(1/2-gamma/2, 1/2+gamma/2) )
+    ci
+}
+
 
 
 

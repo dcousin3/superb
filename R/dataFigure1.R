@@ -24,7 +24,7 @@
 #' library(gridExtra)
 #' data(dataFigure1)
 #' 
-#' options(superb.debug = 'none') # shut down 'warnings' and 'design' interpretation messages
+#' options(superb.feedback = 'none') # shut down 'warnings' and 'design' interpretation messages
 #' 
 #' ## realize the plot with unadjusted (left) and ajusted (right) 95% confidence intervals
 #' plt1a <- superbPlot(dataFigure1, BSFactor = "grp", 

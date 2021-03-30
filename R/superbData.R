@@ -32,8 +32,8 @@
 #' @param postprocessfct is a transform (or vector of)
 #'
 #'
-#' @return a plot with the correct error bars or a table of those summary statistics.
-#'         The plot is a ggplot2 object with can be modified with additional declarations.
+#' @return a list with (1) the summary statistics in summaryStatistics
+#'         (2) the raw data in long format, with standardized levels in rawData.
 #'
 #' @references
 #'      \insertAllCited{}
@@ -41,7 +41,7 @@
 #' @examples
 #' # basic example using a built-in dataframe as data; 
 #' # by default, the mean is computed and the error bar are 95% confidence intervals
-#' superbPlot(ToothGrowth, BSFactor = c("dose", "supp"), 
+#' superbData(ToothGrowth, BSFactor = c("dose", "supp"), 
 #'   variables = "len") 
 #'
 #' # example changing the summary statistics to the median and
@@ -57,8 +57,7 @@
 #'
 #' # This example is based on repeated measures
 #' library(lsr)
-#' library(gridExtra)
-#' options(superb.debug = 'none') # shut down 'warnings' and 'design' interpretation messages
+#' options(superb.feedback = 'none') # shut down 'warnings' and 'design' interpretation messages
 #' 
 #' # define shorter column names...
 #' names(Orange) <- c("Tree","age","circ")
@@ -102,7 +101,7 @@ superbData <- function(data,
     # All DONE: just send this to the main function superbPlot with showPlot=FALSE
     ##############################################################################
 
-    summaryStatistics <- superbPlot(data    = data, 
+    results <- superbPlot(data    = data, 
         BSFactor       = BSFactor,
         WSFactor       = WSFactor,
         factorOrder    = factorOrder,
@@ -116,6 +115,8 @@ superbData <- function(data,
         clusterColumn  = clusterColumn,
         showPlot       = FALSE
     )    
+    summaryStatistics = results[[1]]
+    rawData = results[[2]]
 
     if(missing(factorOrder))  {factorOrder <- c(WSFactor, BSFactor)}
     widthfct <- paste(errorbar, statistic, sep = ".")
@@ -130,7 +131,7 @@ superbData <- function(data,
     )
     colnames(summaryStatistics)[(length(factorOrder)+1):(length(factorOrder)+3)] <- verbosecol
 
-    return(summaryStatistics)
+    return(list(summaryStatistics = summaryStatistics, rawData = rawData) )
 
 }
 

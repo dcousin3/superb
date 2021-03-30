@@ -1,7 +1,7 @@
 Package: superb
 Type: Package
 Title: Get Precision of Means Under Various Designs and Sampling Schemes
-Version: 0.9.5.0
+Version: 0.9.4.4
 Date: 2021-03-21
 Authors@R: c(
              person("Denis", "Cousineau", email = "denis.cousineau@uottawa.ca",
@@ -37,23 +37,23 @@ Depends:
 Imports: 
     plyr (>= 1.8.4),
     ggplot2 (>= 3.1.0),
-    lsr (>= 0.5),
-    Rdpack (>= 0.7),
-    stats,
     ggsci,
     MASS,
-    matrixcalc
+    matrixcalc,
+    lsr (>= 0.5),
+    Rdpack (>= 0.7),
+    stats
 Suggests: 
+    car,
+    emojifont,
+    fMultivar,
     grid,
     gridExtra,
     knitr, 
-    rmarkdown,
-    car,
-    fMultivar,
     lattice,
     lawstat,
     reshape2,
-    testthat,
-    emojifont,
-    sadists
+    rmarkdown,
+    sadists,
+    testthat
 RdMacros: Rdpack

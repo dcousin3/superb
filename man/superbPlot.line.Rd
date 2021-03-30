@@ -13,7 +13,8 @@ superbPlot.line(
   pointParams = list(),
   lineParams = list(),
   errorbarParams = list(),
-  facetParams = list()
+  facetParams = list(),
+  xAsFactor = TRUE
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ superbPlot.line(
 \item{errorbarParams}{(optional) list of graphic directives that are sent to the geom_errorbar layer}
 
 \item{facetParams}{(optional) list of graphic directives that are sent to the facet_grid layer}
+
+\item{xAsFactor}{(optional) Boolean to indicate if the factor on the horizontal should continuous or discrete (default is discrete)}
 }
 \value{
 a ggplot object

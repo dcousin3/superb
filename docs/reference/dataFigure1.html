@@ -85,7 +85,7 @@ here the different-adjusted confidence interval." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.4</span>
       </span>
     </div>
 
@@ -121,6 +121,9 @@ here the different-adjusted confidence interval." />
     </li>
     <li>
       <a href="../articles/Vignette5.html">Devising custom plot layouts</a>
+    </li>
+    <li>
+      <a href="../articles/Vignette6.html">Generating ready-to-analyze datasets with GRD</a>
     </li>
   </ul>
 </li>
@@ -179,7 +182,7 @@ doi: <a href='https://doi.org/10.5709/acp-0214-z'>10.5709/acp-0214-z</a>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>gridExtra</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>dataFigure1</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>superb.debug <span class='op'>=</span> <span class='st'>'none'</span><span class='op'>)</span> <span class='co'># shut down 'warnings' and 'design' interpretation messages</span>
+<span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>superb.feedback <span class='op'>=</span> <span class='st'>'none'</span><span class='op'>)</span> <span class='co'># shut down 'warnings' and 'design' interpretation messages</span>
 
 <span class='co'>## realize the plot with unadjusted (left) and ajusted (right) 95% confidence intervals</span>
 <span class='va'>plt1a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='superbPlot.html'>superbPlot</a></span><span class='op'>(</span><span class='va'>dataFigure1</span>, BSFactor <span class='op'>=</span> <span class='st'>"grp"</span>, 

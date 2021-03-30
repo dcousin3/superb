@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.4</span>
       </span>
     </div>
 
@@ -75,6 +75,9 @@
     </li>
     <li>
       <a href="../articles/Vignette5.html">Devising custom plot layouts</a>
+    </li>
+    <li>
+      <a href="../articles/Vignette6.html">Generating ready-to-analyze datasets with GRD</a>
     </li>
   </ul>
 </li>
@@ -118,7 +121,7 @@
 <p>In what follow, we use <code><a href="../reference/GRD.html">GRD()</a></code> to generate a random dataset with an interaction then make plots varying the statistics displayed.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># shut down 'warnings', 'design' and 'summary' messages</span>
-<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>superb.debug <span class="op">=</span> <span class="st">'none'</span><span class="op">)</span> 
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>superb.feedback <span class="op">=</span> <span class="st">'none'</span><span class="op">)</span> 
 
 <span class="co"># Generate a random dataset from a (3 x 2) design, entirely within subject.</span>
 <span class="co"># The sample size is very small (n=5) and the correlation between scores is high (rho = .8)</span>
@@ -211,8 +214,8 @@ Figure 1: Various statistics and various measures of precisions
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"d_1 with no error bars"</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.5</span>,<span class="op">+</span><span class="fl">1.5</span><span class="op">)</span> <span class="op">)</span> </code></pre></div>
 <div class="figure">
-<img src="Vignette4_files/figure-html/unnamed-chunk-7-1.png" alt="Figure 2: ``superbPlot`` with a custom-made descriptive sttistic function " width="700"><p class="caption">
-Figure 2: <code>superbPlot</code> with a custom-made descriptive sttistic function
+<img src="Vignette4_files/figure-html/unnamed-chunk-7-1.png" alt="Figure 2: ``superbPlot`` with a custom-made descriptive statistic function " width="700"><p class="caption">
+Figure 2: <code>superbPlot</code> with a custom-made descriptive statistic function
 </p>
 </div>
 </div>

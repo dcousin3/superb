@@ -54,17 +54,20 @@
 #> [1] "_PACKAGE"
 
 .onLoad <- function(libname, pkgname) {    
-    # Set the default debug traces displayed to all:
+    # Set the default feedback traces displayed to all:
     #   summary:  in GRD, shows a summary of the design;
     #   design:   in superbPlot, shows information on how the within-subject variables are understood
     #   warnings: in superbPlot, returns 'FYI' messages about the data to help decide if the appropriate error bars were used
-    # You can use 'all' to see all the debug informations.
-    options( superb.debug = c('design','warnings','summary') )
+    # You can use 'all' to see all the feedback informations.
+    options( superb.feedback = c('design','warnings','summary') )
+    # Set the default bootstrap number of iterations to 5000; this is a minimum, avoid reducing it.
+    options( superb.bootstrapIter = 5000)
 }
 
 .onDetach <- function(libpath) {
-    # remove the option
-    options( superb.debug = NULL )
+    # remove the options
+    options( superb.feedback = NULL )
+    options( superb.bootstrapIter = NULL )
 }
 
 

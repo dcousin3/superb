@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.4</span>
       </span>
     </div>
 
@@ -76,6 +76,9 @@
     <li>
       <a href="../articles/Vignette5.html">Devising custom plot layouts</a>
     </li>
+    <li>
+      <a href="../articles/Vignette6.html">Generating ready-to-analyze datasets with GRD</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -111,6 +114,7 @@
 <a href="#a-paradoxical-example" class="anchor"></a>A paradoxical example</h2>
 <p>Imagine a study in a school examining the impact of playing collaborative games before beginning the classes. This study most likely will have two groups, one where the students are playing collaborative games and one where the students will have non- structured activities prior to classes. Then, the objective of the study is to <em>compare</em> the two groups.</p>
 <p>Consider the results obtained, where 100 is the usual score obtained by students prior to the study.</p>
+<pre><code>## NOTE: The variables will be plotted in that order: grp (use factorOrder to change).</code></pre>
 <div class="figure">
 <img src="Vignette2_files/figure-html/unnamed-chunk-2-1.png" alt="Figure 1: Mean scores along with 95% confidence interval for two groups of students on the quality of learning behavior." width="700"><p class="caption">
 Figure 1: Mean scores along with 95% confidence interval for two groups of students on the quality of learning behavior.
@@ -118,7 +122,7 @@ Figure 1: Mean scores along with 95% confidence interval for two groups of stude
 </div>
 <p>As seen, there seems to be a better score for students playing collaborative games. Taking into account the confidence interval, the manipulation seems to improve significantly the learning behavior as the lower end of the <em>Collaborative games</em> group is above the <em>Unstructured activity</em> mean (and vice versa).</p>
 <p>What a surprise to discover that a <em>t-test</em> will <strong>NOT</strong> confirm this impression! (t(48) = 1.76, p = .085)</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">dataFigure1</span><span class="op">$</span><span class="va">score</span><span class="op">[</span><span class="va">dataFigure1</span><span class="op">$</span><span class="va">grp</span><span class="op">==</span><span class="fl">1</span><span class="op">]</span>, 
         <span class="va">dataFigure1</span><span class="op">$</span><span class="va">score</span><span class="op">[</span><span class="va">dataFigure1</span><span class="op">$</span><span class="va">grp</span><span class="op">==</span><span class="fl">2</span><span class="op">]</span>,
         var.equal<span class="op">=</span><span class="cn">T</span><span class="op">)</span></code></pre></div>
@@ -138,7 +142,7 @@ Figure 1: Mean scores along with 95% confidence interval for two groups of stude
 <h2 class="hasAnchor">
 <a href="#the-origin-of-the-paradox" class="anchor"></a>The origin of the paradox</h2>
 <p>The reason is that the confidence intervals used are “stand-alone”: They can be used to examine, say, the first group to the value 100. As this value is outside the interval, we are correct in concluding that 100 is significantly different (with level <span class="math inline">\(\alpha\)</span> of .05) from 100, as confirmed by a single-group t-test:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">dataFigure1</span><span class="op">$</span><span class="va">score</span><span class="op">[</span><span class="va">dataFigure1</span><span class="op">$</span><span class="va">grp</span><span class="op">==</span><span class="fl">1</span><span class="op">]</span>, mu<span class="op">=</span><span class="fl">100</span><span class="op">)</span></code></pre></div>
 <pre><code>## 
 ##  One Sample t-test
@@ -152,7 +156,7 @@ Figure 1: Mean scores along with 95% confidence interval for two groups of stude
 ## mean of x 
 ##       105</code></pre>
 <p>Likewise, the second group’ mean is significantly different from 105 (which happens to be the first group’s mean):</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">dataFigure1</span><span class="op">$</span><span class="va">score</span><span class="op">[</span><span class="va">dataFigure1</span><span class="op">$</span><span class="va">grp</span><span class="op">==</span><span class="fl">2</span><span class="op">]</span>, mu<span class="op">=</span><span class="fl">105</span><span class="op">)</span></code></pre></div>
 <pre><code>## 
 ##  One Sample t-test
@@ -174,7 +178,7 @@ Figure 1: Mean scores along with 95% confidence interval for two groups of stude
 <a href="#adjusting-the-error-bars" class="anchor"></a>Adjusting the error bars</h2>
 <p>Assuming that the variances are roughly homogeneous between group (an assumption made by the t-test), there is a simple adjustment that can be brought to the error bars: just increase their length by <span class="math inline">\(\sqrt(2)\)</span>. As <span class="math inline">\(\sqrt(2) \approx 1.41\)</span> it means increasing their length by 41%.</p>
 <p>With <code>superbPlot</code>, this so-called <em>difference adjustment</em> <span class="citation">(Baguley, 2012)</span> is obtained easily by adding an adjustment to the list of adjustments with <code>adjustments = list(purpose =  "difference")</code>, as seen below.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, 
         BSFactor <span class="op">=</span> <span class="st">"grp"</span>, 
         adjustments<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>,  <span class="co"># the only new thing here</span>
@@ -185,6 +189,7 @@ Figure 1: Mean scores along with 95% confidence interval for two groups of stude
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">85</span>,<span class="fl">115</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span> 
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_gray</a></span><span class="op">(</span>base_size<span class="op">=</span><span class="fl">16</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span> <span class="op">=</span> <span class="st">"Collaborative games"</span>, <span class="st">"2"</span> <span class="op">=</span> <span class="st">"Unstructured activity"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## NOTE: The variables will be plotted in that order: grp (use factorOrder to change).</code></pre>
 <div class="figure">
 <img src="Vignette2_files/figure-html/unnamed-chunk-6-1.png" alt="Figure 2: Mean scores along with difference-adjusted 95% confidence interval for two groups of students on the quality of learning behavior." width="700"><p class="caption">
 Figure 2: Mean scores along with difference-adjusted 95% confidence interval for two groups of students on the quality of learning behavior.
@@ -196,7 +201,7 @@ Figure 2: Mean scores along with difference-adjusted 95% confidence interval for
 <h2 class="hasAnchor">
 <a href="#illustrating-the-impact-of-the-adjustments" class="anchor"></a>Illustrating the impact of the adjustments</h2>
 <p>Just for comparison purposes, I show both plots side-by-side.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span>
 <span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, 
         BSFactor <span class="op">=</span> <span class="st">"grp"</span>, 
@@ -206,9 +211,10 @@ Figure 2: Mean scores along with difference-adjusted 95% confidence interval for
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"(stand-alone)\n95% confidence intervals"</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">85</span>,<span class="fl">115</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_gray</a></span><span class="op">(</span>base_size<span class="op">=</span><span class="fl">16</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span> <span class="op">=</span> <span class="st">"Collaborative games"</span>, <span class="st">"2"</span> <span class="op">=</span> <span class="st">"Unstructured activity"</span><span class="op">)</span><span class="op">)</span> 
-
-<span class="va">plt2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, 
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span> <span class="op">=</span> <span class="st">"Collaborative games"</span>, <span class="st">"2"</span> <span class="op">=</span> <span class="st">"Unstructured activity"</span><span class="op">)</span><span class="op">)</span> </code></pre></div>
+<pre><code>## NOTE: The variables will be plotted in that order: grp (use factorOrder to change).</code></pre>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">plt2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, 
         BSFactor <span class="op">=</span> <span class="st">"grp"</span>, 
         adjustments<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>, 
         variables <span class="op">=</span> <span class="st">"score"</span>, 
@@ -217,16 +223,17 @@ Figure 2: Mean scores along with difference-adjusted 95% confidence interval for
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"Difference-adjusted\n95% confidence intervals"</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">85</span>,<span class="fl">115</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span> 
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_gray</a></span><span class="op">(</span>base_size<span class="op">=</span><span class="fl">16</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span> <span class="op">=</span> <span class="st">"Collaborative games"</span>, <span class="st">"2"</span> <span class="op">=</span> <span class="st">"Unstructured activity"</span><span class="op">)</span><span class="op">)</span> 
-
-<span class="va">plt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html">grid.arrange</a></span><span class="op">(</span><span class="va">plt1</span>, <span class="va">plt2</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span> <span class="op">=</span> <span class="st">"Collaborative games"</span>, <span class="st">"2"</span> <span class="op">=</span> <span class="st">"Unstructured activity"</span><span class="op">)</span><span class="op">)</span> </code></pre></div>
+<pre><code>## NOTE: The variables will be plotted in that order: grp (use factorOrder to change).</code></pre>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">plt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html">grid.arrange</a></span><span class="op">(</span><span class="va">plt1</span>, <span class="va">plt2</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="Vignette2_files/figure-html/unnamed-chunk-7-1.png" alt="Figure 3: Two representation of the data with unadjusted (left) and adjusted (right) 95% confidence intervals" width="700"><p class="caption">
 Figure 3: Two representation of the data with unadjusted (left) and adjusted (right) 95% confidence intervals
 </p>
 </div>
 <p>A second way to compare the two plots is to superimpose them, as in Figure 4:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># generate the two plots, nudging the error bars, using distinct colors, and having the background transparent</span>
 <span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, 
         BSFactor <span class="op">=</span> <span class="st">"grp"</span>, 
@@ -239,9 +246,10 @@ Figure 3: Two representation of the data with unadjusted (left) and adjusted (ri
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_gray</a></span><span class="op">(</span>base_size<span class="op">=</span><span class="fl">16</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span> <span class="op">=</span> <span class="st">"Collaborative games"</span>, <span class="st">"2"</span> <span class="op">=</span> <span class="st">"Unstructured activity"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>panel.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"transparent"</span><span class="op">)</span>,
-         plot.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"transparent"</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">plt2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, 
+         plot.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"transparent"</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## NOTE: The variables will be plotted in that order: grp (use factorOrder to change).</code></pre>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">plt2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, 
         BSFactor <span class="op">=</span> <span class="st">"grp"</span>, 
         adjustments<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>, 
         variables <span class="op">=</span> <span class="st">"score"</span>, 
@@ -253,9 +261,10 @@ Figure 3: Two representation of the data with unadjusted (left) and adjusted (ri
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_gray</a></span><span class="op">(</span>base_size<span class="op">=</span><span class="fl">16</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span> <span class="op">=</span> <span class="st">"Collaborative games"</span>, <span class="st">"2"</span> <span class="op">=</span> <span class="st">"Unstructured activity"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>panel.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"transparent"</span><span class="op">)</span>,
-        plot.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"transparent"</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># transform the ggplots into "grob" so that they can be manipulated</span>
+        plot.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"transparent"</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## NOTE: The variables will be plotted in that order: grp (use factorOrder to change).</code></pre>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># transform the ggplots into "grob" so that they can be manipulated</span>
 <span class="va">plt1g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplotGrob.html">ggplotGrob</a></span><span class="op">(</span><span class="va">plt1</span><span class="op">)</span>
 <span class="va">plt2g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplotGrob.html">ggplotGrob</a></span><span class="op">(</span><span class="va">plt2</span><span class="op">)</span>
 

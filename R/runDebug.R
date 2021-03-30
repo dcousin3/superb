@@ -18,7 +18,7 @@
 runDebug <- function(where, title, vars, vals) { 
     # runDebug provides traces of the vars and
     # reassign them in the globalenv so that I can test commands
-    if ( (where %in% getOption("superb.debug")) | ('all' %in% getOption("superb.debug") ) ){
+    if ( (where %in% getOption("superb.feedback")) | ('all' %in% getOption("superb.feedback") ) ){
         cat(paste("==>",title,"<==\n"))
         envrt = globalenv() # done in two steps for CRAN
         if (length(vars) > 0) {

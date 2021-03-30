@@ -114,7 +114,7 @@ GRD <- function(
     BSList <- list()
     WSList <- list()
     # determining between-group factors
-    if (!(BSFactors=="")) {
+    if (!(all(BSFactors==""))) {
         BSList <- grdUnpacker(BSFactors, ':', 'BS')
     }
     ngroups <- prod(unlist(lapply(BSList,length)))
@@ -122,7 +122,7 @@ GRD <- function(
         c("BSList","ngroups"),list(BSList,ngroups))
 
     # determining repeated measures
-    if (!(WSFactors=="")) {
+    if (!(all(WSFactors==""))) {
         unpacked <- grdUnpacker(WSFactors, ':', 'WS')
         if (any(names(unpacked) %in% names(BSList))) 
             stop('Unique names across BSFactors and WSFactors list must be provided')
@@ -151,7 +151,7 @@ GRD <- function(
         c("BSnames","WSnames","facnames","cols","rows","subj"   ),
         list(BSnames,WSnames,facnames,cols,rows,subj))
 
-    if ('summary' %in% getOption("superb.debug") ) {
+    if ('summary' %in% getOption("superb.feedback") ) {
         grdShowDesign(BSList, WSList, ngroups, nreplic, subj, SubjectsPerGroup)
     }
 
