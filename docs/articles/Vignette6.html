@@ -108,7 +108,7 @@
 
     
     
-<p>The package <code>superb</code> includes the function GRD(). This function is used to easily generate random data sets. With a few options, it is possible to obtain data from any design, with any effects. This function, first created for SPSS <span class="citation">Harding &amp; Cousineau (2015)</span> was exported to R <span class="citation">(Calderini &amp; Harding, 2019)</span>. A brief report shows one possible use in the class for teaching statistics to undergrads [c20].</p>
+<p>The package <code>superb</code> includes the function <code><a href="../reference/GRD.html">GRD()</a></code>. This function is used to easily generate random data sets. With a few options, it is possible to obtain data from any design, with any effects. This function, first created for SPSS <span class="citation">Harding &amp; Cousineau (2015)</span> was exported to R <span class="citation">(Calderini &amp; Harding, 2019)</span>. A brief report shows one possible use in the class for teaching statistics to undergrads [c20].</p>
 <p>This vignette illustrate some of its use.</p>
 <div id="simplest-specification" class="section level2">
 <h2 class="hasAnchor">
@@ -127,12 +127,12 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">dta</span><span class="op">)</span></code></pre></div>
 <pre><code>##   id          DV
-## 1  1  0.24787257
-## 2  2  0.97442630
-## 3  3 -0.09824997
-## 4  4  0.86893043
-## 5  5 -2.10006111
-## 6  6  0.57589527</code></pre>
+## 1  1  1.07927946
+## 2  2  0.81363090
+## 3  3 -0.29724042
+## 4  4  1.40914436
+## 5  5 -0.02117169
+## 6  6  1.58602883</code></pre>
 <p>By default, one hundred scores are generated from a normal distribution with mean 0 and standard deviation of 1. In other words, it generate 100 z scores. The dependent variable, the last column in the dataframe that will be generated is called by default <code>DV</code>. The first column is an “id” column containing a number identifying each <em>simulated</em> participant. To change the dependent variable’s name, use</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span> RenameDV <span class="op">=</span> <span class="st">"score"</span> <span class="op">)</span></code></pre></div>
@@ -233,15 +233,15 @@
 ##  ------------------------------------------------------------</code></pre>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dta</span></code></pre></div>
-<pre><code>##   id Therapy          DV
-## 1  1       1  1.31783864
-## 2  2       1 -0.66650982
-## 3  3       2  0.57885594
-## 4  4       2 -0.47402365
-## 5  5       2  0.01811157
-## 6  6       2 -0.58629960
-## 7  7       2 -0.30289021
-## 8  8       3 -0.94135237</code></pre>
+<pre><code>##   id Therapy         DV
+## 1  1       1  0.2141669
+## 2  2       1 -0.5747895
+## 3  3       2  0.7099169
+## 4  4       2  0.8549199
+## 5  5       2  1.2635680
+## 6  6       2 -0.4830765
+## 7  7       2  0.4337764
+## 8  8       3  2.0091225</code></pre>
 </div>
 <div id="choosing-the-population-distribution" class="section level2">
 <h2 class="hasAnchor">
@@ -494,7 +494,7 @@
 <a href="#references" class="anchor"></a>References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
 <div id="ref-ch19" class="csl-entry">
-Calderini, M., &amp; Harding, B. (2019). GRD for r: An intuitive tool for generating random data in r. <em>The Quantitative Methods for Psychology</em>, <em>15</em>(1), 1–11. <a href="https://doi.org/10.20982/tqmp.15.1.p001">https://doi.org/10.20982/tqmp.15.1.p001</a>
+Calderini, M., &amp; Harding, B. (2019). <span>GRD</span> for <span>R</span>: An intuitive tool for generating random data in <span>R</span>. <em>The Quantitative Methods for Psychology</em>, <em>15</em>(1), 1–11. <a href="https://doi.org/10.20982/tqmp.15.1.p001">https://doi.org/10.20982/tqmp.15.1.p001</a>
 </div>
 <div id="ref-hc14" class="csl-entry">
 Harding, B., &amp; Cousineau, D. (2014). GRD: An SPSS extension command for generating random data. <em>The Quantitative Methods for Psychology</em>, <em>10</em>(2), 80–94. <a href="https://doi.org/10.20982/tqmp.10.2.p080">https://doi.org/10.20982/tqmp.10.2.p080</a>

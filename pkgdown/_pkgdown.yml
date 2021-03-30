@@ -22,6 +22,7 @@ reference:
     contents:
       - '`summaryStatistics`'
       - '`precisionMeasures`'
+      - '`bootstrapPrecisionMeasures`'
       - '`HyunhFeldtEpsilon`'
       - '`CousineauLaurencelleLambda`'
       - '`ShroutFleissICC1`'

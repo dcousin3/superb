@@ -22,7 +22,7 @@ library(superb)
 library(ggplot2)
 ```
 
-The package ``superb`` includes the function GRD(). This function is used to easily generate
+The package ``superb`` includes the function ``GRD()``. This function is used to easily generate
 random data sets. With a few options, it is possible to obtain data from any design, with
 any effects. This function, first created for SPSS [@hc14, @hc15] was exported to R [@ch19].
 A brief report shows one possible use in the class for teaching statistics to undergrads [c20].

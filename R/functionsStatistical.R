@@ -6,7 +6,7 @@
 #' @aliases hmean gmean MAD fisherskew pearsonskew fisherkurtosis
 #'
 #' @description superb adds a few summary statistics that can
-#' be used to characterize a dataset. All comes with SE and CI.
+#' be used to characterize a dataset. All comes with ``SE.fct()`` and ``CI.fct()``.
 #' See \insertCite{htc14,htc15}{superb} for more.
 #' "superbPlot-compatible" summary statistics functions must have one parameter:
 #' 
@@ -73,8 +73,8 @@ fisherkurtosis <- function(x) {
 #'      SE.fisherkurtosis CI.fisherkurtosis
 #'
 #' @description superb comes with a few built-in measures of 
-#' precisions. All SE.fct() functions produces an interval width;
-#' all CI.fct() produces the lower and upper limits of an interval.
+#' precisions. All ``SE.fct()`` functions produces an interval width;
+#' all ``CI.fct()`` produces the lower and upper limits of an interval.
 #' See \insertCite{htc14,htc15}{superb} for more.
 #' "superbPlot-compatible" precision measures must have these parameters:
 #' 
@@ -346,8 +346,8 @@ CI.fisherkurtosis <- function(x, gamma = 0.95){
 #'
 #' @description superb also comes with a few built-in measures of 
 #' precisions that uses bootstrap. More can be added based on users needs.
-#' All bootstrapSE.fct() functions produces an interval width;
-#' all bootstrapCI.fct() produces the lower and upper limits of an interval.
+#' All ``bootstrapSE.fct()`` functions produces an interval width;
+#' all ``bootstrapCI.fct()`` produces the lower and upper limits of an interval.
 #' These estimates are based on 5,000 sub-samples by default. Change this 
 #' default with``options("superb.bootstrapIter" = number )``.
 #' See \insertCite{et94}{superb} for a comprehensive introduction.
