@@ -54,8 +54,6 @@ superbPlot(ToothGrowth,
     variables = "len" )
 ```
 
-    ## NOTE: The variables will be plotted in that order: dose, supp (use factorOrder to change).
-
 ![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 In the above, the default summary statistic, the mean, is used. The
@@ -73,8 +71,6 @@ superbPlot(ToothGrowth,
     statistic = "median")
 ```
 
-    ## NOTE: The variables will be plotted in that order: dose, supp (use factorOrder to change).
-
 ![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 As a third example, we illustrate the harmonic means `hmedian` along
@@ -88,8 +84,6 @@ superbPlot(ToothGrowth,
     errorbar = "CI", gamma = 0.999,
     plotStyle = "line")
 ```
-
-    ## NOTE: The variables will be plotted in that order: dose, supp (use factorOrder to change).
 
 ![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
@@ -108,30 +102,16 @@ testdata <- GRD(
     Population = list(mean = 75,stddev = 12,rho = 0.5),
     Effects    = list("Day" = slope(-3) )
 )
-```
-
-    ## ------------------------------------------------------------ 
-    ## Design is: 3 x ( 2 ) with 3 independent groups.
-    ## ------------------------------------------------------------
-    ## 1.Between-Subject Factors ( 3 groups ) :
-    ##  Difficulty; levels: 1, 2, 3
-    ## 2.Within-Subject Factors ( 2 repeated measures ):
-    ##  Day; levels : 1, 2
-    ## 3.Subjects per group ( 300 total subjects ):
-    ##   100
-    ##  ------------------------------------------------------------
-
-``` r
 head(testdata)
 ```
 
-    ##   id Difficulty   score.1  score.2
-    ## 1  1          1  88.06996 78.01994
-    ## 2  2          1  87.90371 70.93341
-    ## 3  3          1  82.12760 66.00461
-    ## 4  4          1 100.50492 96.40709
-    ## 5  5          1  69.81583 73.52944
-    ## 6  6          1  82.95032 85.19845
+    ##   id Difficulty  score.1  score.2
+    ## 1  1          1 79.24015 73.66921
+    ## 2  2          1 90.22441 97.02647
+    ## 3  3          1 83.09390 79.58453
+    ## 4  4          1 81.97316 77.38912
+    ## 5  5          1 75.11573 71.09902
+    ## 6  6          1 92.71133 78.39087
 
 The simulated scores are illustrated using jitter dots as well as a
 violin plot to show the distributions:
@@ -146,8 +126,6 @@ superbPlot(testdata,
     pointParams = list( size = 3, color = "black")
 )
 ```
-
-    ## NOTE: The variables will be plotted in that order: Day, Difficulty (use factorOrder to change).
 
 ![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 

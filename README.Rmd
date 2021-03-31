@@ -11,8 +11,9 @@ output: github_document
 
 ```{r, echo = FALSE, message = FALSE, results = 'hide'}
 cat("this will be hidden; use for general initializations.\n")
-options("superb.feedback" = "none") # shut down all information
+library(superb)
 library(ggplot2)
+options("superb.feedback" = "none") # shut down all information
 ```
 
 The library `superb`  offers three main functions, `superbPlot()`, `superbData()` and `GRD()`. 
@@ -49,7 +50,7 @@ devtools::install_github("dcousin3/superb")
 library(superb)
 ```
 
-```{r, echo = FALSE, eval = TRUE, results = FALSE}
+```{r, echo = FALSE, eval = FALSE, results = FALSE}
 library(superb)
 ```
 
