@@ -135,12 +135,11 @@ GRD <- function(
     # validating groups sizes
     if ((length(SubjectsPerGroup)!= 1)&&(length(SubjectsPerGroup)!=ngroups)) 
         stop('There is ',ngroups, " groups to be created but only ",length(SubjectsPerGroup), " have been defined")
-  
+
     # setting matrix size, Columns and Rows
-    BSnames <- names(BSList)
-    WSnames <- names(WSList)
-    facnames <- c(BSnames, WSnames)
-    cols <- 2 + length(facnames) # variable "id" et "DV" ajoutée
+    BSnames  <- names(BSList)
+    WSnames  <- names(WSList)
+    facnames <- c(BSnames, WSnames); cols <- 2+ length(facnames) # variable "id" et "DV" ajout?e
     subj <- if(length(SubjectsPerGroup)==1) {
         SubjectsPerGroup * ngroups
     } else {

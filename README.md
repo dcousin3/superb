@@ -9,13 +9,13 @@
 Status](https://www.r-pkg.org/badges/version/superb)](https://cran.r-project.org/package=superb)
 <!-- badges: end -->
 
-The library `superb` offers two main functions, `superbPlot()` and
-`GRD()`. The purpose of `superbPlot()` is to provide a plot with summary
-statistics and correct error bars. With simple adjustments, the error
-bar are adjusted to the design (within or between), to the purpose
-(single or pair-wise differences), to the sampling method (simple
-randomized samples or cluster randomized samples) and to the population
-size (infinite or of a specific size).
+The library `superb` offers three main functions, `superbPlot()`,
+`superbData()` and `GRD()`. The purpose of `superbPlot()` is to provide
+a plot with summary statistics and correct error bars. With simple
+adjustments, the error bar are adjusted to the design (within or
+between), to the purpose (single or pair-wise differences), to the
+sampling method (simple randomized samples or cluster randomized
+samples) and to the population size (infinite or of a specific size).
 
 The `superbData()` function does not generate the plot but returns the
 summary statistics and the interval boundaries. These can afterwards be
@@ -23,8 +23,8 @@ output to other plotting environment.
 
 `GRD()` is used to easily generate random data from any design (within
 or between) using any population distribution with any parameters, and
-with various effect sizes. GRD is useful to test statistical procedures
-such as `aov()` or plotting procedures such as `superbPlot()`.
+with various effect sizes. `GRD()` is useful to test statistical
+procedures and plotting procedures such as `superbPlot()`.
 
 # Installation
 
@@ -56,7 +56,7 @@ superbPlot(ToothGrowth,
 
     ## NOTE: The variables will be plotted in that order: dose, supp (use factorOrder to change).
 
-![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 In the above, the default summary statistic, the mean, is used. The
 error bars are, by default, the 95% confidence intervals. These two
@@ -75,7 +75,7 @@ superbPlot(ToothGrowth,
 
     ## NOTE: The variables will be plotted in that order: dose, supp (use factorOrder to change).
 
-![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 As a third example, we illustrate the harmonic means `hmedian` along
 with 99.9% confidence intervals using lines:
@@ -91,7 +91,7 @@ superbPlot(ToothGrowth,
 
     ## NOTE: The variables will be plotted in that order: dose, supp (use factorOrder to change).
 
-![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 The second function, `GRD`, can be used to generate random data from
 designs with various within- and between-subject factors. This example
@@ -125,13 +125,13 @@ testdata <- GRD(
 head(testdata)
 ```
 
-    ##   id Difficulty  score.1   score.2
-    ## 1  1          1 89.49279  78.97258
-    ## 2  2          1 84.80917  68.90184
-    ## 3  3          1 83.82220  77.46771
-    ## 4  4          1 69.85948  50.02627
-    ## 5  5          1 66.89121  83.53818
-    ## 6  6          1 85.13827 102.40929
+    ##   id Difficulty   score.1  score.2
+    ## 1  1          1  88.06996 78.01994
+    ## 2  2          1  87.90371 70.93341
+    ## 3  3          1  82.12760 66.00461
+    ## 4  4          1 100.50492 96.40709
+    ## 5  5          1  69.81583 73.52944
+    ## 6  6          1  82.95032 85.19845
 
 The simulated scores are illustrated using jitter dots as well as a
 violin plot to show the distributions:
@@ -149,7 +149,7 @@ superbPlot(testdata,
 
     ## NOTE: The variables will be plotted in that order: Day, Difficulty (use factorOrder to change).
 
-![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 As seen, `superb` can be used to illustrate summary statistics but also
 some characteristics of the raw data.

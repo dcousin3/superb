@@ -80,8 +80,8 @@ a measure of precision (SE) or an interval of precision (CI).
 }
 \description{
 superb comes with a few built-in measures of 
-precisions. All SE.fct() functions produces an interval width;
-all CI.fct() produces the lower and upper limits of an interval.
+precisions. All ``SE.fct()`` functions produces an interval width;
+all ``CI.fct()`` produces the lower and upper limits of an interval.
 See \insertCite{htc14,htc15}{superb} for more.
 "superbPlot-compatible" precision measures must have these parameters:
 }

@@ -9,8 +9,13 @@ output: github_document
 [![CRAN Status](https://www.r-pkg.org/badges/version/superb)](https://cran.r-project.org/package=superb)
 <!-- badges: end -->
 
+```{r, echo = FALSE, message = FALSE, results = 'hide'}
+cat("this will be hidden; use for general initializations.\n")
+options("superb.feedback" = "none") # shut down all information
+library(ggplot2)
+```
 
-The library `superb`  offers two main functions, `superbPlot()` and `GRD()`. 
+The library `superb`  offers three main functions, `superbPlot()`, `superbData()` and `GRD()`. 
 The purpose of
 `superbPlot()` is to provide a plot with summary statistics and correct
 error bars. With simple adjustments, the error bar are adjusted
@@ -25,8 +30,8 @@ be output to other plotting environment.
 
 `GRD()` is used to easily generate random data from any design (within or between) using
 any population distribution with any parameters, and with various 
-effect sizes. GRD is useful to test statistical procedures such as 
-`aov()` or plotting procedures such as `superbPlot()`.
+effect sizes. `GRD()` is useful to test statistical procedures and plotting procedures 
+such as `superbPlot()`.
 
 # Installation
 
