@@ -92,7 +92,7 @@ superbPlot(ToothGrowth,
     plotStyle = "line")
 ```
 
-The second function, `GRD`, can be used to generate random data
+The second function, `GRD()`, can be used to generate random data
 from designs with various within- and between-subject factors.
 This example generates scores for 300 simulated participants in 
 a 3 x 2 design with repeated-measures on `Day`s. Only

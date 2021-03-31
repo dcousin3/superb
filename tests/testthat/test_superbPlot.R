@@ -61,7 +61,7 @@ test_that("PRELIMINARY TESTS (4/4)", {
 # SYSTEMATIC TESTS OF THE STATISTICS
 #########################################
 
-test_that("test 1a: 3 groupes inpépendants", { 
+test_that("test 1a: 3 groupes inpependants", { 
     options(superb.feedback = c('none'))
     dta1a <- GRD( BSFactors = "Group(3)", Population = list( mean=10, stddev = 5) )
     # write.table(dta1a, file = "test1a.dat", sep = "\t", col.names = FALSE)
@@ -74,7 +74,7 @@ test_that("test 1a: 3 groupes inpépendants", {
 })
 
 
-test_that("test 1b: factorielle à grps indépendants; 3 x 2", {
+test_that("test 1b: factorielle a grps independants; 3 x 2", {
     options(superb.feedback = c('none'))
     dta1b <- GRD( BSFactors = "Group(3): Sex(2)", Population = list( mean=10, stddev = 5))
     # write.table(dta1b, file = "test1b.dat", sep = "\t", col.names = FALSE)
@@ -87,7 +87,7 @@ test_that("test 1b: factorielle à grps indépendants; 3 x 2", {
 })
 
 
-test_that("test 2a: 1 facteur à 3 mesures répétées; (3)", {
+test_that("test 2a: 1 facteur a 3 mesures repetees; (3)", {
     options(superb.feedback = c('warnings'))
     dta2a <- GRD( WSFactors = "Moment(3)", SubjectsPerGroup = 5, Population = list( mean=10, stddev = 5))
     # write.table(dta2a, file = "test2a.dat", sep = "\t", col.names = FALSE)
@@ -103,7 +103,7 @@ test_that("test 2a: 1 facteur à 3 mesures répétées; (3)", {
 })
 
 
-test_that("test 2b: 2 facteurs à mesures répétées; (3 x 2)", {
+test_that("test 2b: 2 facteurs a mesures repetees; (3 x 2)", {
     options(superb.feedback = "none") # to supress design confirmation; unneeded in tests
     dta2b <- GRD( WSFactors = "Moment(3): Dose(2)", SubjectsPerGroup = 5, Population = list( mean=10, stddev = 5, rho = .80))
     # write.table(dta2b, file = "test2b.dat", sep = "\t", col.names = FALSE)
@@ -120,7 +120,7 @@ test_that("test 2b: 2 facteurs à mesures répétées; (3 x 2)", {
 })
 
 
-test_that("test 3: schème mixte; 3 x (3)", {
+test_that("test 3: scheme mixte; 3 x (3)", {
     options(superb.feedback = c('warnings'))
     dta3 <- GRD( BSFactors = "Group(3)", WSFactors = "Moment(3)", 
       SubjectsPerGroup = 5, Population = list( mean=10, stddev = 5),
@@ -139,7 +139,7 @@ test_that("test 3: schème mixte; 3 x (3)", {
 })
 
 
-test_that("test 4a: schème à trois facteurs, 2 étant between  3 x 3 x (3)", {
+test_that("test 4a: scheme a trois facteurs, 2 etant between  3 x 3 x (3)", {
     options(superb.feedback = c('design','warnings'))
     dta4a <- GRD( BSFactors = "Group(3) : Dose(3)", WSFactors = "Moment(3)", 
       SubjectsPerGroup = 4, Population = list( mean=10, stddev = 5),
@@ -158,7 +158,7 @@ test_that("test 4a: schème à trois facteurs, 2 étant between  3 x 3 x (3)", {
 })
     
   
-test_that("test 5a: schème à quatre facteurs; 5 x 4 (3 x 2)", {
+test_that("test 5a: scheme a quatre facteurs; 5 x 4 (3 x 2)", {
     options(superb.feedback = "none") # to supress design confirmation; unneeded in tests
     dta5a <- GRD( BSFactors = "Group(5) : Dose(4)", WSFactors = "Moment(3):Hand(2)", 
         Population = list( mean=10, stddev = 5, rho = .90),

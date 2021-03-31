@@ -87,7 +87,7 @@ superbPlot(ToothGrowth,
 
 ![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
-The second function, `GRD`, can be used to generate random data from
+The second function, `GRD()`, can be used to generate random data from
 designs with various within- and between-subject factors. This example
 generates scores for 300 simulated participants in a 3 x 2 design with
 repeated-measures on `Day`s. Only the factor `Day` is simulated to
@@ -106,12 +106,12 @@ head(testdata)
 ```
 
     ##   id Difficulty  score.1  score.2
-    ## 1  1          1 79.24015 73.66921
-    ## 2  2          1 90.22441 97.02647
-    ## 3  3          1 83.09390 79.58453
-    ## 4  4          1 81.97316 77.38912
-    ## 5  5          1 75.11573 71.09902
-    ## 6  6          1 92.71133 78.39087
+    ## 1  1          1 93.10302 82.03908
+    ## 2  2          1 77.31606 87.70924
+    ## 3  3          1 80.90919 78.34661
+    ## 4  4          1 73.11900 69.86264
+    ## 5  5          1 72.58291 51.31221
+    ## 6  6          1 76.29325 64.46768
 
 The simulated scores are illustrated using jitter dots as well as a
 violin plot to show the distributions:

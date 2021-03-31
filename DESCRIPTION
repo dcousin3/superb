@@ -8,14 +8,14 @@ Authors@R: c(
                     role = c("aut", "cre")),
              person("Bradley", "Harding", email = "bradley.harding@umoncton.ca",
                     role = c("ctb")),
-             person("Marc-André", "Goulet", email = "magoulet101@gmail.com",
+             person("Marc-Andre", "Goulet", email = "magoulet101@gmail.com",
                     role = c("ctb")),
              person("Jesika", "Walker", email = "jwalk050@uottawa.ca",
                     role = c("art"))
            )
 Author: Denis Cousineau [aut, cre],
     Bradley Harding [ctb],
-    Marc-André Goulet [ctb],
+    Marc-Andre Goulet [ctb],
     Jesika Walker [art]
 Maintainer: Denis Cousineau <denis.cousineau@uottawa.ca>
 Description: 

@@ -3,7 +3,7 @@ citHeader("To cite superb in publications use:")
 citEntry(
   entry    = "Article",
   title    = "Summary statistics plotted with correct error bars: The superb framework and library for {R}",
-  author   = personList(as.person("Denis Cousineau"), as.person("Marc-André Goulet"), as.person("Bradley Harding")),
+  author   = personList(as.person("Denis Cousineau"), as.person("Marc-Andre Goulet"), as.person("Bradley Harding")),
   journal  = "Advances in Methods and Practices in Psychological Science",
   year     = "Submitted",
   volume   = "Submitted",
