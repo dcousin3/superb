@@ -1,17 +1,5 @@
-## Resubmission 2
-This is the second resubmission. 
-* I added () to the only function
-name given in the Description field of the DESCRIPTION file which
-now read "The main function, superbPlot(), can either..."
-(I hope I understood correctly the comment);
-* I took this opportunity to rephrase a few sentences in the Vignettes.
-
-## Resubmission 1
-This is the first resubmission. In this version I have:
-* shorten the title to 65 chars.
-* expand DESCRIPTION with refs and their doi
-* save and restore ``par`` options
-* add a NEWS.md detailing history
+## Submission
+* New version 0.9.5.0
 
 ## Test environments
 * local WIN-64x install, R 4.0.3
@@ -20,7 +8,17 @@ This is the first resubmission. In this version I have:
 * Ubuntu 16.04.6 LTS R release (travis-ci.org)
 
 ## R CMD check results
-There were no ERRORs, no WARNINGs and no NOTEs. 
+
+* There were no ERRORs and no WARNINGs.
+
+* There was 1 NOTE from Travis-CI: Doc folder exceeds 1 Mb: as this package
+is about creating plots, it is difficult to generate documentations
+with less than 1 Mb (that would represents only 4 to 5 examples). 
+
+* There was 1 NOTE from win-builder about the maintainer and one 
+false-alarm NOTE about a possibly mispelled word 'Calderini'.
 
 ## Downstream dependencies
-All packages that I could install passed.
+
+* All packages that I could install passed.
+

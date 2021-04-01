@@ -61,8 +61,8 @@ error bars are, by default, the 95% confidence intervals. These two
 choices can be changed with the `statistic` and the `errorbar`
 arguments.
 
-This second example explicitsly indicates to display the `median`
-instead of the default `mean` summary statistics
+This second example explicitly indicates to display the `median` instead
+of the default `mean` summary statistics
 
 ``` r
 superbPlot(ToothGrowth, 
@@ -97,7 +97,7 @@ improve the scores by reducing it:
 testdata <- GRD(
     RenameDV   = "score", 
     SubjectsPerGroup = 100, 
-    BSFactors  = "Difficulty(3)", 
+    BSFactors  = "Difficulty(A,B,C)", 
     WSFactors  = "Day(2)",
     Population = list(mean = 75,stddev = 12,rho = 0.5),
     Effects    = list("Day" = slope(-3) )
@@ -106,15 +106,17 @@ head(testdata)
 ```
 
     ##   id Difficulty  score.1  score.2
-    ## 1  1          1 93.10302 82.03908
-    ## 2  2          1 77.31606 87.70924
-    ## 3  3          1 80.90919 78.34661
-    ## 4  4          1 73.11900 69.86264
-    ## 5  5          1 72.58291 51.31221
-    ## 6  6          1 76.29325 64.46768
+    ## 1  1          A 69.77442 93.42652
+    ## 2  2          A 86.84093 79.37230
+    ## 3  3          A 60.15977 44.57013
+    ## 4  4          A 88.54567 86.20956
+    ## 5  5          A 74.86175 56.42031
+    ## 6  6          A 79.04421 34.21869
 
-The simulated scores are illustrated using jitter dots as well as a
-violin plot to show the distributions:
+The simulated scores are illustrated using using a more elaborated
+layout, the `pointjitterviolin` which, in addition to the mean and
+confidence interval, shows the raw data using jitter dots and the
+distribution using a violin plot:
 
 ``` r
 superbPlot(testdata, 
@@ -122,17 +124,24 @@ superbPlot(testdata,
     WSFactor  = "Day(2)",
     variables = c("score.1","score.2"),
     plotStyle = "pointjitterviolin",
-    errorbarParams = list(color = "black"),
-    pointParams = list( size = 3, color = "black")
+    errorbarParams = list(color = "purple"),
+    pointParams = list( size = 3, color = "purple")
 )
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
-As seen, `superb` can be used to illustrate summary statistics but also
-some characteristics of the raw data.
+In the above example, optional arguments `errorbarParams` and
+`pointParams` are used to inject specifications in the error bars and
+the points respectively. When these arguments are used, they override
+the defaults from `superbPlot()`.
 
 # For more
+
+As seen, the library `superb` makes it easy to illustrate summary
+statistics along with the error bars. Some layouts can be used to
+visualize additional characteristics of the raw data. Finally, the
+resulting appearance can be customized in various ways.
 
 The complete documentation is available on this
 [site](https://dcousin3.github.io/superb).
