@@ -1,6 +1,8 @@
 ######################################################################################
 #' @title Mauchly's test of Sphericity
 #'
+#' @md
+#'
 #' @description Performs a test of sphericity on a dataframe with
 #'   multiple measures, one subject per line. It assesses the significance of the 
 #'   null hypothesis that the covariance matrix is spherical. 
@@ -12,8 +14,7 @@
 #' @return p the p-value of the null hypothesis that the data are spherical.
 #'
 #' @references
-#'      \insertAllCited{}
-#'
+#' \insertAllCited{}
 #'
 #' @examples
 #' # creates a small data frames with 4 subject's scores for 5 measures:
@@ -26,11 +27,8 @@
 #' # performs the test (here p = 0.5824)
 #' MauchlySphericityTest(dta)
 #'
-#' @references
-#'      \insertAllCited{}
-#'
 #' @export MauchlySphericityTest
-
+#'
 MauchlySphericityTest <- function(dta, cols) {
 	# This function requires a data frame dta as input with the 
 	# repeated-measure variables cols. It assesses the significance of the 

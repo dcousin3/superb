@@ -5,10 +5,12 @@
 #'
 #' @aliases hmean gmean MAD fisherskew pearsonskew fisherkurtosis
 #'
+#' @md
+#'
 #' @description superb adds a few summary statistics that can
 #' be used to characterize a dataset. All comes with ``SE.fct()`` and ``CI.fct()``.
 #' See \insertCite{htc14,htc15}{superb} for more.
-#' "superbPlot-compatible" summary statistics functions must have one parameter:
+#' *superbPlot-compatible* summary statistics functions must have one parameter:
 #' 
 #' @usage hmean(x)
 #' @usage gmean(x)
@@ -31,7 +33,7 @@
 #' pearsonskew( c(1,2,3) )    # the Pearson skew
 #'
 #' @references
-#'      \insertAllCited{}
+#' \insertAllCited{}
 #'
 #' @export hmean
 #' @export gmean
@@ -71,6 +73,8 @@ fisherkurtosis <- function(x) {
 #'      SE.var CI.var SE.sd CI.sd SE.MAD CI.MAD SE.IQR CI.IQR
 #'      SE.fisherskew CI.fisherskew SE.pearsonskew CI.pearsonskew
 #'      SE.fisherkurtosis CI.fisherkurtosis
+#'
+#' @md
 #'
 #' @description superb comes with a few built-in measures of 
 #' precisions. All ``SE.fct()`` functions produces an interval width;
@@ -117,7 +121,7 @@ fisherkurtosis <- function(x) {
 #' SE.fisherskew( c(1,2,3) )
 #'
 #' @references
-#'      \insertAllCited{}
+#' \insertAllCited{}
 #'
 #' @export SE.mean
 #' @export CI.mean
@@ -153,6 +157,22 @@ CI.mean <- function(x, gamma = 0.95){
   n  <- length(x)
   tc <- qt(c(1/2 - gamma/2, 1/2 + gamma/2), n-1)
   ci <- mean(x) + se * tc
+  ci
+}
+
+#Removal of the missing data built-in the functions: not recommended, you should deal with your missing data prior to making a plot
+meanNArm <- function(x) mean(x, na.rm = TRUE)
+SE.meanNArm <- function(x){
+  sdx <- sd(x, na.rm = TRUE)
+  n   <- length(x[!is.na(x)])
+  se  <- sdx / sqrt(n)
+  se
+}
+CI.meanNArm <- function(x, gamma = 0.95){
+  se <- SE.meanNArm(x)
+  n  <- length(x[!is.na(x)])
+  tc <- qt(c(1/2 - gamma/2, 1/2 + gamma/2), n-1)
+  ci <- mean(x, na.rm = TRUE) + se * tc
   ci
 }
 
@@ -344,6 +364,8 @@ CI.fisherkurtosis <- function(x, gamma = 0.95){
 #'      bootstrapSE.hmean bootstrapCI.hmean bootstrapSE.gmean bootstrapCI.gmean
 #'      bootstrapSE.var bootstrapCI.var bootstrapSE.sd bootstrapCI.sd 
 #'
+#' @md
+#'
 #' @description superb also comes with a few built-in measures of 
 #' precisions that uses bootstrap. More can be added based on users needs.
 #' All ``bootstrapSE.fct()`` functions produces an interval width;
@@ -381,7 +403,7 @@ CI.fisherkurtosis <- function(x, gamma = 0.95){
 #' bootstrapSE.var( c(1,2,3) )
 #'
 #' @references
-#'      \insertAllCited{}
+#' \insertAllCited{}
 #'
 #' @export bootstrapSE.mean
 #' @export bootstrapCI.mean

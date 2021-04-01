@@ -1,6 +1,8 @@
 ######################################################################################
 #' @title Cousineau and Laurencelle's lambda correction factor for cluster-randomized sampling
 #'
+#' @md
+#'
 #' @description The functions CousineauLaurencelleLambda() returns the correction factor
 #'   for cluster-randomized sampling. This correction is then used
 #'   in a variety of ways, for example, to get the effective number of
@@ -13,15 +15,12 @@
 #' @return lambda the correction factor for cluster-randomized sampling.
 #'
 #' @references
-#'      \insertAllCited{}
+#' \insertAllCited{}
 #'
 #' @examples
 #' # Example from Cousineau & Laurencelle, 2017, p. 124:
 #' CousineauLaurencelleLambda( c(0.2, 5, 20, 20, 20, 20, 20) )
 #' # 2.234188  
-#'
-#' @references
-#'      \insertAllCited{}
 #'
 #' @export CousineauLaurencelleLambda
 #

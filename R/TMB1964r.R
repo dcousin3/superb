@@ -1,5 +1,7 @@
 #' @name TMB1964r
 #'
+#' @md
+#'
 #' @title Data of Tulving, Mandler, & Baumal, 1964 (reproduction of 2021)
 #'
 #' @description The data comes from \insertCite{b21;textual}{superb}. It is a near exact 
@@ -20,7 +22,7 @@
 #' @keywords datasets
 #'
 #' @references 
-#'     \insertAllCited{}
+#' \insertAllCited{}
 #'
 #' @examples
 #' library(ggplot2)
