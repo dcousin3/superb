@@ -45,7 +45,7 @@ There is a large variation in the scores obtained and as such a t-test where the
 are treated as independent will fail to detect a difference:
 
 ```{r}
-t.test(dataFigure2$pre, dataFigure2$post, var.equal=T)
+t.test(dataFigure2$pre, dataFigure2$post, var.equal=TRUE)
 ```
 
 However, examining the data, in which each participant's scores are shown with 
@@ -57,10 +57,14 @@ library(reshape2)
 # first transform the data in long format; the pre-post scores will go into column "variable"
 dl <- melt(dataFigure2, id="id")
 
-# make a plot, with one color for each participant
-ggplot(data=dl, aes(x=variable, y=value, colour=id, group=id)) + geom_line() +
+# add transparency when pre is smaller or equal to post
+dl$trans = ifelse(dataFigure2$pre <= dataFigure2$post,0.9,1.0)
+
+# make a plot, with transparent lines when the score increased
+ggplot(data=dl, aes(x=variable, y=value, group=id, alpha = trans)) + 
+    geom_line( ) +
     coord_cartesian( ylim = c(70,150) ) +
-    geom_abline(intercept = 102.5, slope = 0, colour = "red", size = 0.5, linetype=2)
+    geom_abline(intercept = 102.5, slope = 0, colour = "red", linetype=2)
 ```
 
 As seen, except for 5 participants, a vast majority of the participants have an
@@ -96,7 +100,7 @@ Here again, we see that for 5 participants, their scores went down. For the 20 r
 ones, the trend is upward. Thus, there is clear tendency for the exercices to be 
 beneficial.
 
-Running the adequate paired-t test, we find indeed that the difference is strongly
+Running the adequate *paired*-t test, we find indeed that the difference is strongly
 significant (t(24) = 2.9, p = .008):
 
 ```{r}
@@ -126,16 +130,20 @@ shortened by positive correlation. Estimating the adjusted length of the error
 bars from correlation is a process called **decorrelation** [@c19].
 
 To this date, three techniques have been proposed to decorrelate the measures.
+
 * ``CM``: This method uses *subject-centering* followed by a bias-correction step (otherwise
 the error bars are slightly overestimated) [@c05; @m08].
+
 * ``LM``: This method also uses *subject-centering* but when there are more than two
 measurements, equalizes the length of the error bars using a technique akin to 
 pooled standard deviation measure [@lm94].
+
 * ``CA``: this is the newest proposal. It directly uses the correlation (or the mean
 pairwise correlation when there are more than two measurement) to adjust the error bar
 length. In a nutshell, the error bar length are adjusted using a multiplicative term
-$\sqrt(1-r)$. As an example, with $ r \approx .8$, the adjustment is $\sqrt(1-.8) = 0.44$.
-That means that the error bars are 44% the length of the unadjusted error bars.
+$\sqrt(1-r)$. As an example, when $ r = .8$, the adjustment is $\sqrt(1-.8) = 0.44$.
+That means that the error bars are 44% the length of the unadjusted error bars
+(that is, more than havlved).
 
 Whichever method you choose have very little bearing on the actual result. As shown in
 @c19, all three methods are based on the same general concepts and they generate very 
@@ -180,11 +188,15 @@ plt2b <- superbPlot(dataFigure2,
 plt2  <- grid.arrange(plt2a,plt2b,ncol=2)
 ```
 
-To see the differences between the techniques, I generated random data for 
-5 measures (when there is only 2, all the techniques are identical) with an
+In the above plot, I used ``decorrelation = "CA"``. When there is only two conditions, all the 
+techniques return identical error bars.
+
+As another example illustrating the differences between the techniques, I generated random data for 
+5 measures  with an
 amount of correlation of 0.8. In Figure 4 below, all error bars are superimposed on the 
 same plot. As seen, there is only minor differences between the three techniques. Note that
-the green lines all have the same length.
+the green lines all have the same length; this is the main characteristic of
+the Loftus and Masson approach, in contrast with the other two techniques.
 
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.cap="Figure 4: All three decorelation techniques on the same plot along with un-decorrelated error bars"}
@@ -245,12 +257,12 @@ far is ``"line"`` (the default is ``"bar"``). Another basic style is ``"point"``
 connecting the means). 
 
 Other types of plot exists that are apt at showing the summary statistics but also
-the individual scores (the 6th vignettes shows how to develop custom-made styles). 
+the individual scores (the 6th vignettes shows how to develop custom-made layouts). 
 For illustrating individual differences, a style proposed is ``pointindividualline``
 which --- as per Figure 1--- will show the individual scores along with the summary
 statistics and the error bars. For example:
 
-```{r, message=FALSE, warning=FALSE, echo=TRUE, fig.cap="Figure 3: Means and 95% confidence intervals on raw data (left) and on decorrelated data (right)"}
+```{r, message=FALSE, warning=FALSE, echo=TRUE, fig.cap="Figure 5: Means and 95% confidence intervals along with individual scores depicted as lines"}
 superbPlot(dataFigure2, 
     WSFactor    = "Moment(2)", 
     adjustments = list(purpose = "difference", decorrelation = "CM"), 
@@ -268,7 +280,7 @@ scale_x_discrete(labels=c("1" = "Collaborative games", "2" = "Unstructured activ
 The major obstacle to the use of adjusted error bars was the difficulty to obtain them.
 None of the statistical software (e.g., SPSS, SAS) provide these adjustments. A way
 around is to compute these manually. Although not that complicated, it requires manipulations,
-whether they are done in EXCEL, or macros [e.g., WSPlot, @oc14].
+whether they are done in EXCEL, or through macros [e.g., WSPlot, @oc14].
 
 The present function renders all the adjustments a mere option in a function. 
 

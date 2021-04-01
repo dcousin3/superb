@@ -29,10 +29,10 @@ the mean. However, these choices can be changed.
 
 * To change the summary statistics, use the argument ``statistic =``;
 
-* To change the confidence level, use the argument ``gamma = ``;
-
 * To change the interval function, use the argument ``errorbar = ``. The abbreviation
 ``CI`` stands for confidence interval; ``SE`` stands for standard error.
+
+* With ``CI``, to change the confidence level, use the argument ``gamma = ``;
 
 The defaults are ``statistic = "mean", errorbar = "CI", gamma = 0.95``. For error bar
 functions that accept a gamma parameter (e.g., ``CI``, the gamma parameter is automatically 
@@ -97,10 +97,10 @@ superb:::is.stat.function("mean")
 ```
 
 Any error bar function can be accepted by superbPlot. These functions must be
-named "interval function"."descriptive statistic". For example, the following
+named ``"interval function"."descriptive statistic"``. For example, the following
 ``CI.mean`` is the confidence interval of the mean. Other functions are 
 ``SE.mean``, ``SE.median``, ``CI.fisherskew``, etc. The ``superb`` library
-provides some 20+ such functions. @htc14 and @htc15 review some of these 
+provides some 20+ such functions. @htc14 and @htc15 reviewed some of these 
 functions.
 
 The error bar functions can be of three types: 
@@ -172,7 +172,7 @@ It is also possible to create custom-made confidence interval functions.
 
 Hereafter, we add a confidence interval for the Cohen's $d_1$. We use the predictive 
 approach documented in Lecoutre [@l99; @cg20] which requires the lambda-prime distribution
-[@p20].
+provided in the ``sadists`` library [@p20].
 
 ```{r}
     library(sadists)
@@ -188,7 +188,7 @@ approach documented in Lecoutre [@l99; @cg20] which requires the lambda-prime di
     CI.d1(grp1)  
 
     # or check that it is a valid interval function
-    superb:::is.interval.function("CI.d1")
+    superb:::is.errorbar.function("CI.d1")
 ```
 
 We have all we need to make a plot with error bars!
@@ -206,8 +206,8 @@ We have all we need to make a plot with error bars!
 ```
 
 Note that this difference-adjusted confidence interval is fully compatible with 
-the Cohen's dp (between the two groups) as it is 0.498 with a 95% confidence 
-interval of [-0.068, +1.059] [all the formulas from @gc18,@cg20].
+the Cohen's $d_p$ (between the two groups) as $d_p$ is 0.498 with a 95% confidence 
+interval of [-0.068, +1.059] [all the formulas are from @gc18;@cg20].
 
 ```{r}
     # compute the Cohen's dp
@@ -236,11 +236,11 @@ times (here, 10,000) and the quantiles containing, say, 95% of the results is
 a 95% confidence interval.
 
 Here, we illustrate this process with the mean. The function must be name
-"*interval function*.mean", so we choose to call it ``bootstrapCI.mean``.
+"*interval function*.mean", so we choose to call it ``myBootstrapCI.mean``.
 
 ```{r}
-    # we define a bootstrapCI which subsample the whole sample, here called X
-    bootstrapCI.mean <- function(X, gamma = 0.95) {
+    # we define myBootstrapCI which subsample the whole sample, here called X
+    myBootstrapCI.mean <- function(X, gamma = 0.95) {
       res = c()
       for (i in 1:10000) {
         res[i] <- mean(sample(X, length(X), replace = T))
@@ -249,17 +249,17 @@ Here, we illustrate this process with the mean. The function must be name
     }
 
     # we check that it is a valid interval function
-    superb:::is.interval.function("bootstrapCI.mean")
+    superb:::is.errorbar.function("myBootstrapCI.mean")
 ```
 
-This is all we need to make the plot which we can compare with the formula CI
+This is all we need to make the plot which we can compare with the parametric CI
 
 ```{r, message=FALSE, echo=TRUE, fig.cap="Figure 4: superbPlot with a custom-made interval function."}
     plt1 <- superbPlot(dataFigure1, 
         BSFactor = "grp", 
         variable = c("score"), 
         plotStyle="line",
-        statistic = "mean", errorbar = "bootstrapCI",
+        statistic = "mean", errorbar = "myBootstrapCI",
         adjustments = list(purpose = "difference")
     ) + 
     xlab("Group") + ylab("Score") + 
@@ -287,28 +287,37 @@ This is all we need to make the plot which we can compare with the formula CI
 
 As seen, there is not much difference between the two. This was expected:  when the 
 normality assumption and the homogeneity of variances assumption are not invalid, 
-the *parametric* approach (the formula is based on these assumptions) is identical
+the *parametric* approach (based on these assumptions) is identical
 on average to the bootstrap approach.
 
 
 ## In summary
 
-The function ``superbPlot`` is entirely customizable: you can put any descriptive statistic
-function and any interval function into ``superbPlot``. In a sense, ``superbPlot`` is 
+The function ``superbPlot()`` is entirely customizable: you can put any descriptive statistic
+function and any interval function into ``superbPlot()``. In a sense, ``superbPlot()`` is 
 simply a proxy that manage the dataset and produces standardized dataframes apt to be
-transmitted to a ggplot specification. It is also possible to obtain the summary
-dataframe by issuing the option ``showPlot=FALSE``
+transmitted to a ``ggplot()`` specification. It is also possible to obtain the summary
+dataframe by issuing the argument ``showPlot=FALSE`` or by using the related function ``superbData()``.
 
 The function ``superbPlot`` is also customizable with regards to the plot produced. 
 Included in the package are 
+
 * ``superbPlot.line`` : shows the results as points and lines, 
+
 * ``superbPlot.point``: shows the results as points only, 
+
 * ``superbPlot.bar`` : shows the results using bars, 
+
 * ``superbPlot.pointjitter``: shows the results with points, and the raw data with jittered points, 
+
 * ``superbPlot.pointjitterviolin``: also shows violin plot behind the jitter points, and 
+
 * ``superbPlot.pointindividualline``: show the results with fat points, and individual results with thin lines, 
 
-Vignette 5 shows how to create new plotting functions. Proposals are welcome.
+* ``superbPlot.raincloud``: show the results along with clouds (violin distributions) and rain drops (jittered raw data), 
+
+
+Vignette 5 shows how to create new layouts. Proposals are welcome!
 
 
 

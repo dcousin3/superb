@@ -6,6 +6,8 @@
 #' The paradoxical result is resolved by using adjusted confidence intervals,
 #' here the correlation- and different-adjusted confidence interval.
 #'
+#' @md
+#'
 #' @docType data
 #'
 #' @usage data(dataFigure2)
@@ -15,7 +17,7 @@
 #' @keywords datasets
 #'
 #' @references 
-#'          \insertAllCited{}
+#' \insertAllCited{}
 #'
 #' @source \doi{10.5709/acp-0214-z}
 #'

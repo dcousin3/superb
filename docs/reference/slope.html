@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>effect description — slope • superb</title>
+<title>Effect description — slope • superb</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="effect description — slope" />
+<meta property="og:title" content="Effect description — slope" />
 <meta property="og:description" content="There is four ways that effects can be defined
 in GRD. &quot;factor = slope(s)&quot; will vary the means by an amount of s for 
 each step of the factor; &quot;factor = extent(s)&quot; will vary the means
@@ -87,7 +87,7 @@ the factors. R code result alters the base mean." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.5</span>
       </span>
     </div>
 
@@ -148,7 +148,7 @@ the factors. R code result alters the base mean." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>effect description</h1>
+    <h1>Effect description</h1>
     
     <div class="hidden name"><code>slope.Rd</code></div>
     </div>
@@ -164,14 +164,28 @@ means by an amount of a for the first, b for the second, etc. Finally
 the factors. R code result alters the base mean.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>slope</span><span class='op'>(</span><span class='va'>s</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>slope</span><span class='op'>(</span><span class='va'>s</span><span class='op'>)</span>
+
+<span class='fu'>extent</span><span class='op'>(</span><span class='va'>s</span><span class='op'>)</span>
+
+<span class='fu'>custom</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>Rexpression</span><span class='op'>(</span><span class='va'>str</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>s</th>
-      <td><p>the size of the effect or a R code string</p></td>
+      <td><p>the size of the effect</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>a sequence with the sizes of the effects</p></td>
+    </tr>
+    <tr>
+      <th>str</th>
+      <td><p>R code string</p></td>
     </tr>
     </table>
 

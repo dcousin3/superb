@@ -17,8 +17,8 @@ a data.frame of the same form as dta with the variables transformed.
 }
 \description{
 biasCorrectionTransform  is a transformation that can
- be applied to a matrix of data. The resulting matrix's variance
- is corrected for bias \insertCite{m08}{superb}
+be applied to a matrix of data. The resulting matrix's variance
+is corrected for bias \insertCite{m08}{superb}
 }
 \references{
 \insertAllCited{}

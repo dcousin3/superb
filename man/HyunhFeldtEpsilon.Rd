@@ -16,7 +16,7 @@ columns on which to compute epsilon. Any other columns are ignored.}
 returns the Hyunh-Feldt estimate of sphericity epsilon
 }
 \description{
-HyunhFeldtEpsilon() is a measure of sphericity created by 
+HyunhFeldtEpsilon() is a measure of sphericity created by
 \insertCite{gg58;textual}{superb}. The original measure was biased
 and therefore, \insertCite{hf76;textual}{superb} produced a revised version
 (note that the 1976 paper contained typos that were uncorrected

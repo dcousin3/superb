@@ -1,7 +1,11 @@
-# superb 0.9.5.0 (April 2021)
+# superb 0.9.5.0 (April xth, 2021)
 
 * Expanded documentation once more
-* Second release on CRAN, certified at 95%!
+* Second release on CRAN, codename "95% confidence"
+
+# superb 0.9.4.5 (April 1st, 2021)
+
+* Implemented the raincloud plots
 
 # superb 0.9.4.4 (March 2021)
 

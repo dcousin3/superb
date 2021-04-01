@@ -2,7 +2,7 @@
 % Please edit documentation in R/superbPlot.R
 \name{superbPlot}
 \alias{superbPlot}
-\title{superbPlot to plot summary statistics with correct error bars.}
+\title{Plot summary statistics with correct error bars.}
 \usage{
 superbPlot(
   data,
@@ -30,32 +30,24 @@ superbPlot(
 
 \item{WSFactor}{The name of the within-subject factor(s)}
 
-\item{factorOrder}{Order of factors as shown in the graph (x axis, groups, horizontal 
-panels, vertical panels)}
+\item{factorOrder}{Order of factors as shown in the graph (in that order: x axis,
+groups, horizontal panels, vertical panels)}
 
-\item{variables}{The dependent variable(s)}
+\item{variables}{The dependent variable(s) as strings}
 
-\item{statistic}{The summary statistic function to use}
+\item{statistic}{The summary statistic function to use as a string}
 
-\item{errorbar}{The function that computes the error bar. Should be "CI" or "SE" or 
-any function name. Defaults to "SE"}
+\item{errorbar}{The function that computes the error bar. Should be "CI" or "SE" or
+any function name if you defined a custom function. Default to "CI"}
 
-\item{gamma}{The coverage factor; necessary when errorbar == "CI". Default is 0.95.}
+\item{gamma}{The coverage factor; necessary when \code{errorbar == "CI"}. Default is 0.95.}
 
-\item{adjustments}{List of adjustments as described below:
- popsize: Size of the population under study. Defaults to Inf
- purpose: The purpose of the comparisons. Defaults to "single". 
-     Can be "single", "difference", or "tryon".
-decorrelation: Decorrelation method for repeated measure designs. 
-     Chooses among the methods "CM", "LM", "CA" or "none". Defaults to "none".
-samplingDesign: Sampling method to obtain the sample. implemented 
-         sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Sampling).
-Default is adjustments = list(purpose = "single", popSize = Inf, decorrelation = "none",
-             samplingDesign = "SRS")}
+\item{adjustments}{List of adjustments as described below.
+Default is \code{adjustments = list(purpose = "single", popSize = Inf, decorrelation = "none", samplingDesign = "SRS")}}
 
 \item{showPlot}{Defaults to TRUE. Set to FALSE if you want the output to be the summary statistics and intervals.}
 
-\item{plotStyle}{The type of object to plot on the graph. Can be either "bar" or "line".
+\item{plotStyle}{The type of object to plot on the graph. See full list below.
 Defaults to "bar".}
 
 \item{preprocessfct}{is a transform (or vector of) to be performed first on data matrix of each group}
@@ -64,43 +56,66 @@ Defaults to "bar".}
 
 \item{clusterColumn}{used in conjunction with samplingDesign = "CRS", indicates which column contains the cluster membership}
 
-\item{...}{In addition to the parameters above, superbPlot also accept a number of 
+\item{...}{In addition to the parameters above, superbPlot also accept a number of
 optional arguments that will be transmitted to the plotting function, such as
 pointParams (a list of ggplot2 parameters to input inside geoms; see ?geom_bar2) and
 errorbarParams (a list of ggplot2 parameters for geom_errorbar; see ?geom_errorbar)}
 }
 \value{
 a plot with the correct error bars or a table of those summary statistics.
-        The plot is a ggplot2 object with can be modified with additional declarations.
+The plot is a ggplot2 object with can be modified with additional declarations.
 }
 \description{
-plotsuberb plots standard error or confidence interval for various descriptive 
-     statistics under various designs, sampling schemes, population size and purposes,
-     according to the suberb framework. See \insertCite{c17}{superb} for more.
+The function \code{suberbPlot()} plots standard error or confidence interval for various descriptive
+statistics under various designs, sampling schemes, population size and purposes,
+according to the \code{suberb} framework. See \insertCite{c17}{superb} for more.
+}
+\details{
+The possible adjustements are the following
+\itemize{
+\item popsize: Size of the population under study. Defaults to Inf
+\item purpose: The purpose of the comparisons. Defaults to "single".
+Can be "single", "difference", or "tryon".
+\item decorrelation: Decorrelation method for repeated measure designs.
+Chooses among the methods "CM", "LM", "CA" or "none". Defaults to "none".
+\item samplingDesign: Sampling method to obtain the sample. implemented
+sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Sampling).
+}
+
+In version 0.9.5, the layouts for plots are the following:
+\itemize{
+\item "bar" Shows the summary statistics with bars and error bars;
+\item "line" Shows the summary statistics with lines connecting the conditions over the first factor;
+\item "point" Shows the summary statistics with isolated points
+\item "pointjitter" Shows the summary statistics along with jittered points depicting the raw data;
+\item "pointjitterviolin" Also adds violin plots to the previous layout
+\item "pointindividualline" Connects the raw data with line along the first factor (which should be a repeated-measure factor)
+\item "raincloud" Illustrates the distribution with a cloud (half_violin_plot) and jittered dots next to it. Looks better when coordinates are flipped \code{+coord_flip()}.
+}
 }
 \examples{
-# basic example using a built-in dataframe as data; 
-# by default, the mean is computed and the error bar are 95\% confidence intervals
+# Basic example using a built-in dataframe as data. 
+# By default, the mean is computed and the error bar are 95\% confidence intervals
 superbPlot(ToothGrowth, BSFactor = c("dose", "supp"), 
   variables = "len") 
 
-# example changing the summary statistics to the median and
-# the error bar to 90\% confidence intervals
+# Example changing the summary statistics to the median and
+# the error bar to 80\% confidence intervals
 superbPlot(ToothGrowth, BSFactor = c("dose", "supp"), 
-  variables = "len", statistic = "median", errorbar = "CI", gamma = .90) 
+  variables = "len", statistic = "median", errorbar = "CI", gamma = .80) 
 
-# example introducing adjustments for pairwise comparisons 
+# Example introducing adjustments for pairwise comparisons 
 # and assuming that the whole population is limited to 200 persons
 superbPlot(ToothGrowth, BSFactor = c("dose", "supp"), 
   variables = "len",  
   adjustments = list( purpose = "difference", popSize = 200) )
 
-# This example add ggplot directives to the plot produced
+# This example adds ggplot directives to the plot produced
 library(ggplot2)
 superbPlot(ToothGrowth, BSFactor = c("dose", "supp"), 
   variables = "len") + 
-  xlab("Dose") + ylab("Tooth Growth") +
-  theme_bw()
+xlab("Dose") + ylab("Tooth Growth") +
+theme_bw()
 
 # This example is based on repeated measures
 library(lsr)
@@ -111,6 +126,8 @@ options(superb.feedback = 'none') # shut down 'warnings' and 'design' interpreta
 names(Orange) <- c("Tree","age","circ")
 # turn the data into a wide format
 Orange.wide <- longToWide(Orange, circ ~ age)
+
+# Makes the plots two different way:
 p1=superbPlot( Orange.wide, WSFactor = "age(7)",
   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
   adjustments = list(purpose = "difference", decorrelation = "none")
@@ -119,7 +136,7 @@ p1=superbPlot( Orange.wide, WSFactor = "age(7)",
   coord_cartesian( ylim = c(0,250) ) + labs(title="Basic confidence intervals")
 p2=superbPlot( Orange.wide, WSFactor = "age(7)",
   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
-  adjustments = list(purpose = "difference", decorrelation = "CM")
+  adjustments = list(purpose = "difference", decorrelation = "CA")
 ) + 
   xlab("Age level") + ylab("Trunk diameter (mm)") +
   coord_cartesian( ylim = c(0,250) ) + labs(title="Decorrelated confidence intervals")

@@ -2,7 +2,7 @@
 % Please edit documentation in R/superbData.R
 \name{superbData}
 \alias{superbData}
-\title{superbData to obtain summary statistics with correct error bar intervals.}
+\title{Obtain summary statistics with correct error bars.}
 \usage{
 superbData(
   data,
@@ -27,28 +27,20 @@ superbData(
 
 \item{WSFactor}{The name of the within-subject factor(s)}
 
-\item{factorOrder}{Order of factors as shown in the graph (x axis, groups, horizontal 
+\item{factorOrder}{Order of factors as shown in the graph (x axis, groups, horizontal
 panels, vertical panels)}
 
 \item{variables}{The dependent variable(s)}
 
 \item{statistic}{The summary statistic function to use}
 
-\item{errorbar}{The function that computes the error bar. Should be "CI" or "SE" or 
-any function name. Defaults to "SE"}
+\item{errorbar}{The function that computes the error bar. Should be "CI" or "SE" or
+any function name. Defaults to "CI"}
 
 \item{gamma}{The coverage factor; necessary when errorbar == "CI". Default is 0.95.}
 
-\item{adjustments}{List of adjustments as described below:
- popsize: Size of the population under study. Defaults to Inf
- purpose: The purpose of the comparisons. Defaults to "single". 
-     Can be "single", "difference" or "tryon".
-decorrelation: Decorrelation method for repeated measure designs. 
-     Chooses among the methods ("CM", "LM", "CA" or "none"). Defaults to "none".
-samplingDesign: Sampling method to obtain the sample. implemented 
-         sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Sampling).
-Default is adjustments = list(purpose = "single", popSize = Inf, decorrelation = "none",
-             samplingDesign = "SRS")}
+\item{adjustments}{List of adjustments as described below.
+Default is \code{adjustments = list(purpose = "single", popSize = Inf, decorrelation = "none", samplingDesign = "SRS")}}
 
 \item{preprocessfct}{is a transform (or vector of) to be performed first on data matrix of each group}
 
@@ -58,46 +50,41 @@ Default is adjustments = list(purpose = "single", popSize = Inf, decorrelation =
 }
 \value{
 a list with (1) the summary statistics in summaryStatistics
-        (2) the raw data in long format, with standardized levels in rawData.
+(2) the raw data in long format in rawData (using numeric levels for
+repeated-measure variables).
 }
 \description{
-plotsuberb plots standard error or confidence interval for various descriptive 
-     statistics under various designs, sampling schemes, population size and purposes,
-     according to the suberb framework. See \insertCite{c17}{superb} for more.
+The function \code{suberbData()} computes standard error or confidence interval for various descriptive
+statistics under various designs, sampling schemes, population size and purposes,
+according to the \code{suberb} framework. See \insertCite{c17}{superb} for more.
+}
+\details{
+The possible adjustements are the following
+\itemize{
+\item popsize: Size of the population under study. Defaults to Inf
+\item purpose: The purpose of the comparisons. Defaults to "single".
+Can be "single", "difference", or "tryon".
+\item decorrelation: Decorrelation method for repeated measure designs.
+Chooses among the methods "CM", "LM", "CA" or "none". Defaults to "none".
+\item samplingDesign: Sampling method to obtain the sample. implemented
+sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Sampling).
+}
 }
 \examples{
-# basic example using a built-in dataframe as data; 
+# Basic example using a built-in dataframe as data; 
 # by default, the mean is computed and the error bar are 95\% confidence intervals
-superbData(ToothGrowth, BSFactor = c("dose", "supp"), 
+# (it also produces a $rawData dataframe, not shown here)
+res <- superbData(ToothGrowth, BSFactor = c("dose", "supp"), 
   variables = "len") 
+res$summaryStatistics
 
-# example changing the summary statistics to the median and
-# the error bar to 90\% confidence intervals
-superbData(ToothGrowth, BSFactor = c("dose", "supp"), 
-  variables = "len", statistic = "median", errorbar = "CI", gamma = .90) 
-
-# example introducing adjustments for pairwise comparisons 
+# Example introducing adjustments for pairwise comparisons 
 # and assuming that the whole population is limited to 200 persons
-superbData(ToothGrowth, BSFactor = c("dose", "supp"), 
+res <- superbData(ToothGrowth, BSFactor = c("dose", "supp"), 
   variables = "len",  
+  statistic = "median", errorbar = "CI", gamma = .80,
   adjustments = list( purpose = "difference", popSize = 200) )
-
-# This example is based on repeated measures
-library(lsr)
-options(superb.feedback = 'none') # shut down 'warnings' and 'design' interpretation messages
-
-# define shorter column names...
-names(Orange) <- c("Tree","age","circ")
-# turn the data into a wide format
-Orange.wide <- longToWide(Orange, circ ~ age)
-superbData( Orange.wide, WSFactor = "age(7)",
-  variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
-  adjustments = list(purpose = "difference", decorrelation = "none")
-)
-superbData( Orange.wide, WSFactor = "age(7)",
-  variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
-  adjustments = list(purpose = "difference", decorrelation = "CM")
-)
+res$summaryStatistics
 
 
 }

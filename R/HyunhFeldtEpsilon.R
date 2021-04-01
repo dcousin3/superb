@@ -7,7 +7,8 @@
 #' (note that the 1976 paper contained typos that were uncorrected
 #' in SPSS; \insertCite{l91;textual}{superb})
 #' 
-#' 
+#' @md
+#'
 #' @param dta a data.frame
 #' @param cols a vector of column names indicating the relevant
 #' columns on which to compute epsilon. Any other columns are ignored.
@@ -15,7 +16,7 @@
 #' @return returns the Hyunh-Feldt estimate of sphericity epsilon
 #' 
 #' @references
-#'      \insertAllCited{}
+#'  \insertAllCited{}
 #'
 #' @export HyunhFeldtEpsilon
 #' 

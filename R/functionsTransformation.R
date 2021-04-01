@@ -3,6 +3,8 @@
 #'
 #' @title two-step transform for subject centering and bias correction
 #'
+#' @md
+#'
 #' @description twoStepTransform, is a transformation that can
 #'  be applied to a matrix of data. The resulting matrix is both 
 #'  subject-centered and bias corrected, a technique called
@@ -15,7 +17,7 @@
 #' @return a data.frame of the same form as dta with the variables transformed.
 #'
 #' @references
-#'      \insertAllCited{}
+#' \insertAllCited{}
 #'
 #' @export twoStepTransform
 #'
@@ -36,6 +38,8 @@ twoStepTransform <- function(dta, variables) {
 #' @name subjectCenteringTransform
 #' @title subject-centering transform  
 #'
+#' @md
+#'
 #' @description subjectCenteringTransform is a transformation that can
 #'  be applied to a matrix of data. the resulting matrix have means
 #'  that are centered on the grand mean, subject-wise \insertCite{c05}{superb}.
@@ -47,7 +51,7 @@ twoStepTransform <- function(dta, variables) {
 #' @return a data.frame of the same form as dta with the variables transformed.
 #'
 #' @references
-#'      \insertAllCited{}
+#' \insertAllCited{}
 #'
 #' @export subjectCenteringTransform
 #'
@@ -66,6 +70,8 @@ subjectCenteringTransform <- function(dta, variables) {
 #'
 #' @title bias-correction transform 
 #'
+#' @md
+#'
 #' @description biasCorrectionTransform  is a transformation that can
 #'  be applied to a matrix of data. The resulting matrix's variance
 #'  is corrected for bias \insertCite{m08}{superb}
@@ -77,7 +83,7 @@ subjectCenteringTransform <- function(dta, variables) {
 #' @return a data.frame of the same form as dta with the variables transformed.
 #'
 #' @references
-#'      \insertAllCited{}
+#' \insertAllCited{}
 #'
 #' @export biasCorrectionTransform 
 #'
@@ -98,6 +104,8 @@ biasCorrectionTransform <- function(dta, variables) {
 #'
 #' @title pooled standard deviation transform 
 #'
+#' @md
+#'
 #' @description poolSDTransform  is a transformations that can
 #'  be applied to a matrix of data. The resulting matrix has the column-
 #'  standard deviations equal to the pool standard deviations of the 
@@ -110,7 +118,7 @@ biasCorrectionTransform <- function(dta, variables) {
 #' @return a data.frame of the same form as dta with the variables transformed.
 #'
 #' @references
-#'      \insertAllCited{}
+#' \insertAllCited{}
 #'   
 #' @export poolSDTransform 
 #'

@@ -85,10 +85,10 @@ has no uncertainty, it is a constant.
 
 In contrast, the two-group t-test compares two means, the two of which are uncertain.
 Therefore, in making a confidence interval, it is necessary that the basic, stand-alone,
-confidence interval be *informed* that it is going to be compared ---not to fix
-values--- to a second quantity which is itself uncertain.
+confidence interval be *informed* that it is going to be compared ---not to a fix
+value--- to a second quantity which is itself uncertain.
 
-In the language of analyses of variance, we can say that when the purpose of the plot
+Using the language of analyse of variances, we can say that when the purpose of the plot
 is to compare means to other means, there is more variances in the comparisons than there
 is in single groups in isolation.
 
@@ -190,6 +190,10 @@ ggplot() +
     annotation_custom(grob=plt1g) + 
     annotation_custom(grob=plt2g)
 ```
+
+As seen, the ``difference-adjusted`` error bars are wider. This is to be
+expected: their purposes (comparing two means) introduces more variability,
+and variability always reduces precision. 
 
 ## Two options
 

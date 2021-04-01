@@ -49,12 +49,12 @@ bootstrapCI.sd(x, gamma)
 a measure of precision (SE) or an interval of precision (CI).
 }
 \description{
-superb also comes with a few built-in measures of 
+superb also comes with a few built-in measures of
 precisions that uses bootstrap. More can be added based on users needs.
-All ``bootstrapSE.fct()`` functions produces an interval width;
-all ``bootstrapCI.fct()`` produces the lower and upper limits of an interval.
-These estimates are based on 5,000 sub-samples by default. Change this 
-default with``options("superb.bootstrapIter" = number )``.
+All \code{bootstrapSE.fct()} functions produces an interval width;
+all \code{bootstrapCI.fct()} produces the lower and upper limits of an interval.
+These estimates are based on 5,000 sub-samples by default. Change this
+default with\code{options("superb.bootstrapIter" = number )}.
 See \insertCite{et94}{superb} for a comprehensive introduction.
 All "superbPlot-compatible" precision measures must have these parameters:
 }

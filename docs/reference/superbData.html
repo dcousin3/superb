@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>superbData to obtain summary statistics with correct error bar intervals. — superbData • superb</title>
+<title>Obtain summary statistics with correct error bars. — superbData • superb</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,10 +46,10 @@
 
 
 
-<meta property="og:title" content="superbData to obtain summary statistics with correct error bar intervals. — superbData" />
-<meta property="og:description" content="plotsuberb plots standard error or confidence interval for various descriptive 
-     statistics under various designs, sampling schemes, population size and purposes,
-     according to the suberb framework. See (Cousineau 2017)
+<meta property="og:title" content="Obtain summary statistics with correct error bars. — superbData" />
+<meta property="og:description" content="The function suberbData() computes standard error or confidence interval for various descriptive
+statistics under various designs, sampling schemes, population size and purposes,
+according to the suberb framework. See (Cousineau 2017)
  for more." />
 <meta property="og:image" content="http://dcousin3.github.io/superb/logo.png" />
 
@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.5</span>
       </span>
     </div>
 
@@ -144,15 +144,15 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>superbData to obtain summary statistics with correct error bar intervals.</h1>
+    <h1>Obtain summary statistics with correct error bars.</h1>
     
     <div class="hidden name"><code>superbData.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>plotsuberb plots standard error or confidence interval for various descriptive 
-     statistics under various designs, sampling schemes, population size and purposes,
-     according to the suberb framework. See (Cousineau 2017)
+    <p>The function <code>suberbData()</code> computes standard error or confidence interval for various descriptive
+statistics under various designs, sampling schemes, population size and purposes,
+according to the <code>suberb</code> framework. See (Cousineau 2017)
  for more.</p>
     </div>
 
@@ -189,7 +189,7 @@
     </tr>
     <tr>
       <th>factorOrder</th>
-      <td><p>Order of factors as shown in the graph (x axis, groups, horizontal 
+      <td><p>Order of factors as shown in the graph (x axis, groups, horizontal
 panels, vertical panels)</p></td>
     </tr>
     <tr>
@@ -202,8 +202,8 @@ panels, vertical panels)</p></td>
     </tr>
     <tr>
       <th>errorbar</th>
-      <td><p>The function that computes the error bar. Should be "CI" or "SE" or 
-any function name. Defaults to "SE"</p></td>
+      <td><p>The function that computes the error bar. Should be "CI" or "SE" or
+any function name. Defaults to "CI"</p></td>
     </tr>
     <tr>
       <th>gamma</th>
@@ -211,16 +211,8 @@ any function name. Defaults to "SE"</p></td>
     </tr>
     <tr>
       <th>adjustments</th>
-      <td><p>List of adjustments as described below:
- popsize: Size of the population under study. Defaults to Inf
- purpose: The purpose of the comparisons. Defaults to "single". 
-     Can be "single", "difference" or "tryon".
-decorrelation: Decorrelation method for repeated measure designs. 
-     Chooses among the methods ("CM", "LM", "CA" or "none"). Defaults to "none".
-samplingDesign: Sampling method to obtain the sample. implemented 
-         sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Sampling).
-Default is adjustments = list(purpose = "single", popSize = Inf, decorrelation = "none",
-             samplingDesign = "SRS")</p></td>
+      <td><p>List of adjustments as described below.
+Default is <code>adjustments = list(purpose = "single", popSize = Inf, decorrelation = "none", samplingDesign = "SRS")</code></p></td>
     </tr>
     <tr>
       <th>preprocessfct</th>
@@ -239,7 +231,20 @@ Default is adjustments = list(purpose = "single", popSize = Inf, decorrelation =
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a list with (1) the summary statistics in summaryStatistics
-        (2) the raw data in long format, with standardized levels in rawData.</p>
+(2) the raw data in long format in rawData (using numeric levels for
+repeated-measure variables).</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The possible adjustements are the following</p><ul>
+<li><p>popsize: Size of the population under study. Defaults to Inf</p></li>
+<li><p>purpose: The purpose of the comparisons. Defaults to "single".
+Can be "single", "difference", or "tryon".</p></li>
+<li><p>decorrelation: Decorrelation method for repeated measure designs.
+Chooses among the methods "CM", "LM", "CA" or "none". Defaults to "none".</p></li>
+<li><p>samplingDesign: Sampling method to obtain the sample. implemented
+sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Sampling).</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Cousineau D (2017).
@@ -249,346 +254,33 @@ doi: <a href='https://doi.org/10.5709/acp-0214-z'>10.5709/acp-0214-z</a>
 , <a href='https://doi.org/10.5709/acp-0214-z'>https://doi.org/10.5709/acp-0214-z</a>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># basic example using a built-in dataframe as data; </span>
+    <pre class="examples"><div class='input'><span class='co'># Basic example using a built-in dataframe as data; </span>
 <span class='co'># by default, the mean is computed and the error bar are 95% confidence intervals</span>
-<span class='fu'>superbData</span><span class='op'>(</span><span class='va'>ToothGrowth</span>, BSFactor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dose"</span>, <span class='st'>"supp"</span><span class='op'>)</span>, 
+<span class='co'># (it also produces a $rawData dataframe, not shown here)</span>
+<span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>superbData</span><span class='op'>(</span><span class='va'>ToothGrowth</span>, BSFactor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dose"</span>, <span class='st'>"supp"</span><span class='op'>)</span>, 
   variables <span class='op'>=</span> <span class='st'>"len"</span><span class='op'>)</span> 
-</div><div class='output co'>#&gt; $summaryStatistics
-#&gt;   dose supp  mean - 95 % CI width + 95 % CI width
+<span class='va'>res</span><span class='op'>$</span><span class='va'>summaryStatistics</span>
+</div><div class='output co'>#&gt;   dose supp  mean - 95 % CI width + 95 % CI width
 #&gt; 1  0.5   OJ 13.23       -3.190283        3.190283
 #&gt; 2  0.5   VC  7.98       -1.964824        1.964824
 #&gt; 3    1   OJ 22.70       -2.797727        2.797727
 #&gt; 4    1   VC 16.77       -1.799343        1.799343
 #&gt; 5    2   OJ 26.06       -1.899314        1.899314
-#&gt; 6    2   VC 26.14       -3.432090        3.432090
-#&gt; 
-#&gt; $rawData
-#&gt;    supp dose id   DV
-#&gt; 1    VC  0.5  1  4.2
-#&gt; 2    VC  0.5  2 11.5
-#&gt; 3    VC  0.5  3  7.3
-#&gt; 4    VC  0.5  4  5.8
-#&gt; 5    VC  0.5  5  6.4
-#&gt; 6    VC  0.5  6 10.0
-#&gt; 7    VC  0.5  7 11.2
-#&gt; 8    VC  0.5  8 11.2
-#&gt; 9    VC  0.5  9  5.2
-#&gt; 10   VC  0.5 10  7.0
-#&gt; 11   VC    1 11 16.5
-#&gt; 12   VC    1 12 16.5
-#&gt; 13   VC    1 13 15.2
-#&gt; 14   VC    1 14 17.3
-#&gt; 15   VC    1 15 22.5
-#&gt; 16   VC    1 16 17.3
-#&gt; 17   VC    1 17 13.6
-#&gt; 18   VC    1 18 14.5
-#&gt; 19   VC    1 19 18.8
-#&gt; 20   VC    1 20 15.5
-#&gt; 21   VC    2 21 23.6
-#&gt; 22   VC    2 22 18.5
-#&gt; 23   VC    2 23 33.9
-#&gt; 24   VC    2 24 25.5
-#&gt; 25   VC    2 25 26.4
-#&gt; 26   VC    2 26 32.5
-#&gt; 27   VC    2 27 26.7
-#&gt; 28   VC    2 28 21.5
-#&gt; 29   VC    2 29 23.3
-#&gt; 30   VC    2 30 29.5
-#&gt; 31   OJ  0.5 31 15.2
-#&gt; 32   OJ  0.5 32 21.5
-#&gt; 33   OJ  0.5 33 17.6
-#&gt; 34   OJ  0.5 34  9.7
-#&gt; 35   OJ  0.5 35 14.5
-#&gt; 36   OJ  0.5 36 10.0
-#&gt; 37   OJ  0.5 37  8.2
-#&gt; 38   OJ  0.5 38  9.4
-#&gt; 39   OJ  0.5 39 16.5
-#&gt; 40   OJ  0.5 40  9.7
-#&gt; 41   OJ    1 41 19.7
-#&gt; 42   OJ    1 42 23.3
-#&gt; 43   OJ    1 43 23.6
-#&gt; 44   OJ    1 44 26.4
-#&gt; 45   OJ    1 45 20.0
-#&gt; 46   OJ    1 46 25.2
-#&gt; 47   OJ    1 47 25.8
-#&gt; 48   OJ    1 48 21.2
-#&gt; 49   OJ    1 49 14.5
-#&gt; 50   OJ    1 50 27.3
-#&gt; 51   OJ    2 51 25.5
-#&gt; 52   OJ    2 52 26.4
-#&gt; 53   OJ    2 53 22.4
-#&gt; 54   OJ    2 54 24.5
-#&gt; 55   OJ    2 55 24.8
-#&gt; 56   OJ    2 56 30.9
-#&gt; 57   OJ    2 57 26.4
-#&gt; 58   OJ    2 58 27.3
-#&gt; 59   OJ    2 59 29.4
-#&gt; 60   OJ    2 60 23.0
-#&gt; </div><div class='input'>
-<span class='co'># example changing the summary statistics to the median and</span>
-<span class='co'># the error bar to 90% confidence intervals</span>
-<span class='fu'>superbData</span><span class='op'>(</span><span class='va'>ToothGrowth</span>, BSFactor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dose"</span>, <span class='st'>"supp"</span><span class='op'>)</span>, 
-  variables <span class='op'>=</span> <span class='st'>"len"</span>, statistic <span class='op'>=</span> <span class='st'>"median"</span>, errorbar <span class='op'>=</span> <span class='st'>"CI"</span>, gamma <span class='op'>=</span> <span class='fl'>.90</span><span class='op'>)</span> 
-</div><div class='output co'>#&gt; $summaryStatistics
-#&gt;   dose supp median - 90 % CI width + 90 % CI width
-#&gt; 1  0.5   OJ  12.25       -3.240079        3.240079
-#&gt; 2  0.5   VC   7.15       -1.995492        1.995492
-#&gt; 3    1   OJ  23.45       -2.841396        2.841396
-#&gt; 4    1   VC  16.50       -1.827429        1.827429
-#&gt; 5    2   OJ  25.95       -1.928960        1.928960
-#&gt; 6    2   VC  25.95       -3.485660        3.485660
-#&gt; 
-#&gt; $rawData
-#&gt;    supp dose id   DV
-#&gt; 1    VC  0.5  1  4.2
-#&gt; 2    VC  0.5  2 11.5
-#&gt; 3    VC  0.5  3  7.3
-#&gt; 4    VC  0.5  4  5.8
-#&gt; 5    VC  0.5  5  6.4
-#&gt; 6    VC  0.5  6 10.0
-#&gt; 7    VC  0.5  7 11.2
-#&gt; 8    VC  0.5  8 11.2
-#&gt; 9    VC  0.5  9  5.2
-#&gt; 10   VC  0.5 10  7.0
-#&gt; 11   VC    1 11 16.5
-#&gt; 12   VC    1 12 16.5
-#&gt; 13   VC    1 13 15.2
-#&gt; 14   VC    1 14 17.3
-#&gt; 15   VC    1 15 22.5
-#&gt; 16   VC    1 16 17.3
-#&gt; 17   VC    1 17 13.6
-#&gt; 18   VC    1 18 14.5
-#&gt; 19   VC    1 19 18.8
-#&gt; 20   VC    1 20 15.5
-#&gt; 21   VC    2 21 23.6
-#&gt; 22   VC    2 22 18.5
-#&gt; 23   VC    2 23 33.9
-#&gt; 24   VC    2 24 25.5
-#&gt; 25   VC    2 25 26.4
-#&gt; 26   VC    2 26 32.5
-#&gt; 27   VC    2 27 26.7
-#&gt; 28   VC    2 28 21.5
-#&gt; 29   VC    2 29 23.3
-#&gt; 30   VC    2 30 29.5
-#&gt; 31   OJ  0.5 31 15.2
-#&gt; 32   OJ  0.5 32 21.5
-#&gt; 33   OJ  0.5 33 17.6
-#&gt; 34   OJ  0.5 34  9.7
-#&gt; 35   OJ  0.5 35 14.5
-#&gt; 36   OJ  0.5 36 10.0
-#&gt; 37   OJ  0.5 37  8.2
-#&gt; 38   OJ  0.5 38  9.4
-#&gt; 39   OJ  0.5 39 16.5
-#&gt; 40   OJ  0.5 40  9.7
-#&gt; 41   OJ    1 41 19.7
-#&gt; 42   OJ    1 42 23.3
-#&gt; 43   OJ    1 43 23.6
-#&gt; 44   OJ    1 44 26.4
-#&gt; 45   OJ    1 45 20.0
-#&gt; 46   OJ    1 46 25.2
-#&gt; 47   OJ    1 47 25.8
-#&gt; 48   OJ    1 48 21.2
-#&gt; 49   OJ    1 49 14.5
-#&gt; 50   OJ    1 50 27.3
-#&gt; 51   OJ    2 51 25.5
-#&gt; 52   OJ    2 52 26.4
-#&gt; 53   OJ    2 53 22.4
-#&gt; 54   OJ    2 54 24.5
-#&gt; 55   OJ    2 55 24.8
-#&gt; 56   OJ    2 56 30.9
-#&gt; 57   OJ    2 57 26.4
-#&gt; 58   OJ    2 58 27.3
-#&gt; 59   OJ    2 59 29.4
-#&gt; 60   OJ    2 60 23.0
-#&gt; </div><div class='input'>
-<span class='co'># example introducing adjustments for pairwise comparisons </span>
+#&gt; 6    2   VC 26.14       -3.432090        3.432090</div><div class='input'>
+<span class='co'># Example introducing adjustments for pairwise comparisons </span>
 <span class='co'># and assuming that the whole population is limited to 200 persons</span>
-<span class='fu'>superbData</span><span class='op'>(</span><span class='va'>ToothGrowth</span>, BSFactor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dose"</span>, <span class='st'>"supp"</span><span class='op'>)</span>, 
+<span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>superbData</span><span class='op'>(</span><span class='va'>ToothGrowth</span>, BSFactor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dose"</span>, <span class='st'>"supp"</span><span class='op'>)</span>, 
   variables <span class='op'>=</span> <span class='st'>"len"</span>,  
+  statistic <span class='op'>=</span> <span class='st'>"median"</span>, errorbar <span class='op'>=</span> <span class='st'>"CI"</span>, gamma <span class='op'>=</span> <span class='fl'>.80</span>,
   adjustments <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span> purpose <span class='op'>=</span> <span class='st'>"difference"</span>, popSize <span class='op'>=</span> <span class='fl'>200</span><span class='op'>)</span> <span class='op'>)</span>
-</div><div class='output co'>#&gt; $summaryStatistics
-#&gt;   dose supp  mean - 95 % CI width + 95 % CI width
-#&gt; 1  0.5   OJ 13.23       -4.397502        4.397502
-#&gt; 2  0.5   VC  7.98       -2.708323        2.708323
-#&gt; 3    1   OJ 22.70       -3.856401        3.856401
-#&gt; 4    1   VC 16.77       -2.480224        2.480224
-#&gt; 5    2   OJ 26.06       -2.618024        2.618024
-#&gt; 6    2   VC 26.14       -4.730810        4.730810
-#&gt; 
-#&gt; $rawData
-#&gt;    supp dose id   DV
-#&gt; 1    VC  0.5  1  4.2
-#&gt; 2    VC  0.5  2 11.5
-#&gt; 3    VC  0.5  3  7.3
-#&gt; 4    VC  0.5  4  5.8
-#&gt; 5    VC  0.5  5  6.4
-#&gt; 6    VC  0.5  6 10.0
-#&gt; 7    VC  0.5  7 11.2
-#&gt; 8    VC  0.5  8 11.2
-#&gt; 9    VC  0.5  9  5.2
-#&gt; 10   VC  0.5 10  7.0
-#&gt; 11   VC    1 11 16.5
-#&gt; 12   VC    1 12 16.5
-#&gt; 13   VC    1 13 15.2
-#&gt; 14   VC    1 14 17.3
-#&gt; 15   VC    1 15 22.5
-#&gt; 16   VC    1 16 17.3
-#&gt; 17   VC    1 17 13.6
-#&gt; 18   VC    1 18 14.5
-#&gt; 19   VC    1 19 18.8
-#&gt; 20   VC    1 20 15.5
-#&gt; 21   VC    2 21 23.6
-#&gt; 22   VC    2 22 18.5
-#&gt; 23   VC    2 23 33.9
-#&gt; 24   VC    2 24 25.5
-#&gt; 25   VC    2 25 26.4
-#&gt; 26   VC    2 26 32.5
-#&gt; 27   VC    2 27 26.7
-#&gt; 28   VC    2 28 21.5
-#&gt; 29   VC    2 29 23.3
-#&gt; 30   VC    2 30 29.5
-#&gt; 31   OJ  0.5 31 15.2
-#&gt; 32   OJ  0.5 32 21.5
-#&gt; 33   OJ  0.5 33 17.6
-#&gt; 34   OJ  0.5 34  9.7
-#&gt; 35   OJ  0.5 35 14.5
-#&gt; 36   OJ  0.5 36 10.0
-#&gt; 37   OJ  0.5 37  8.2
-#&gt; 38   OJ  0.5 38  9.4
-#&gt; 39   OJ  0.5 39 16.5
-#&gt; 40   OJ  0.5 40  9.7
-#&gt; 41   OJ    1 41 19.7
-#&gt; 42   OJ    1 42 23.3
-#&gt; 43   OJ    1 43 23.6
-#&gt; 44   OJ    1 44 26.4
-#&gt; 45   OJ    1 45 20.0
-#&gt; 46   OJ    1 46 25.2
-#&gt; 47   OJ    1 47 25.8
-#&gt; 48   OJ    1 48 21.2
-#&gt; 49   OJ    1 49 14.5
-#&gt; 50   OJ    1 50 27.3
-#&gt; 51   OJ    2 51 25.5
-#&gt; 52   OJ    2 52 26.4
-#&gt; 53   OJ    2 53 22.4
-#&gt; 54   OJ    2 54 24.5
-#&gt; 55   OJ    2 55 24.8
-#&gt; 56   OJ    2 56 30.9
-#&gt; 57   OJ    2 57 26.4
-#&gt; 58   OJ    2 58 27.3
-#&gt; 59   OJ    2 59 29.4
-#&gt; 60   OJ    2 60 23.0
-#&gt; </div><div class='input'>
-<span class='co'># This example is based on repeated measures</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://health.adelaide.edu.au/psychology/ccs/teaching/lsr/'>lsr</a></span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>superb.feedback <span class='op'>=</span> <span class='st'>'none'</span><span class='op'>)</span> <span class='co'># shut down 'warnings' and 'design' interpretation messages</span>
-
-<span class='co'># define shorter column names...</span>
-<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>Orange</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Tree"</span>,<span class='st'>"age"</span>,<span class='st'>"circ"</span><span class='op'>)</span>
-<span class='co'># turn the data into a wide format</span>
-<span class='va'>Orange.wide</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lsr/man/longToWide.html'>longToWide</a></span><span class='op'>(</span><span class='va'>Orange</span>, <span class='va'>circ</span> <span class='op'>~</span> <span class='va'>age</span><span class='op'>)</span>
-<span class='fu'>superbData</span><span class='op'>(</span> <span class='va'>Orange.wide</span>, WSFactor <span class='op'>=</span> <span class='st'>"age(7)"</span>,
-  variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"circ_118"</span>,<span class='st'>"circ_484"</span>,<span class='st'>"circ_664"</span>,<span class='st'>"circ_1004"</span>,<span class='st'>"circ_1231"</span>,<span class='st'>"circ_1372"</span>,<span class='st'>"circ_1582"</span><span class='op'>)</span>,
-  adjustments <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>purpose <span class='op'>=</span> <span class='st'>"difference"</span>, decorrelation <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span>
-<span class='op'>)</span>
-</div><div class='output co'>#&gt; $summaryStatistics
-#&gt;   age  mean - 95 % CI width + 95 % CI width
-#&gt; 1   1  31.0       -2.483328        2.483328
-#&gt; 2   2  57.8      -14.341085       14.341085
-#&gt; 3   3  93.2      -30.272166       30.272166
-#&gt; 4   4 134.2      -45.543856       45.543856
-#&gt; 5   5 145.6      -51.324448       51.324448
-#&gt; 6   6 173.4      -57.661892       57.661892
-#&gt; 7   7 175.8      -58.442686       58.442686
-#&gt; 
-#&gt; $rawData
-#&gt;    Tree age  DV
-#&gt; 1     1   1  30
-#&gt; 2     2   1  33
-#&gt; 3     3   1  30
-#&gt; 4     4   1  32
-#&gt; 5     5   1  30
-#&gt; 6     1   2  58
-#&gt; 7     2   2  69
-#&gt; 8     3   2  51
-#&gt; 9     4   2  62
-#&gt; 10    5   2  49
-#&gt; 11    1   3  87
-#&gt; 12    2   3 111
-#&gt; 13    3   3  75
-#&gt; 14    4   3 112
-#&gt; 15    5   3  81
-#&gt; 16    1   4 115
-#&gt; 17    2   4 156
-#&gt; 18    3   4 108
-#&gt; 19    4   4 167
-#&gt; 20    5   4 125
-#&gt; 21    1   5 120
-#&gt; 22    2   5 172
-#&gt; 23    3   5 115
-#&gt; 24    4   5 179
-#&gt; 25    5   5 142
-#&gt; 26    1   6 142
-#&gt; 27    2   6 203
-#&gt; 28    3   6 139
-#&gt; 29    4   6 209
-#&gt; 30    5   6 174
-#&gt; 31    1   7 145
-#&gt; 32    2   7 203
-#&gt; 33    3   7 140
-#&gt; 34    4   7 214
-#&gt; 35    5   7 177
-#&gt; </div><div class='input'><span class='fu'>superbData</span><span class='op'>(</span> <span class='va'>Orange.wide</span>, WSFactor <span class='op'>=</span> <span class='st'>"age(7)"</span>,
-  variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"circ_118"</span>,<span class='st'>"circ_484"</span>,<span class='st'>"circ_664"</span>,<span class='st'>"circ_1004"</span>,<span class='st'>"circ_1231"</span>,<span class='st'>"circ_1372"</span>,<span class='st'>"circ_1582"</span><span class='op'>)</span>,
-  adjustments <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>purpose <span class='op'>=</span> <span class='st'>"difference"</span>, decorrelation <span class='op'>=</span> <span class='st'>"CM"</span><span class='op'>)</span>
-<span class='op'>)</span>
-</div><div class='output co'>#&gt; $summaryStatistics
-#&gt;   age  mean - 95 % CI width + 95 % CI width
-#&gt; 1   1  31.0       -36.59726        36.59726
-#&gt; 2   2  57.8       -29.27023        29.27023
-#&gt; 3   3  93.2       -13.24987        13.24987
-#&gt; 4   4 134.2       -11.25778        11.25778
-#&gt; 5   5 145.6       -16.76345        16.76345
-#&gt; 6   6 173.4       -24.46650        24.46650
-#&gt; 7   7 175.8       -25.42244        25.42244
-#&gt; 
-#&gt; $rawData
-#&gt;    Tree age  DV
-#&gt; 1     1   1  30
-#&gt; 2     2   1  33
-#&gt; 3     3   1  30
-#&gt; 4     4   1  32
-#&gt; 5     5   1  30
-#&gt; 6     1   2  58
-#&gt; 7     2   2  69
-#&gt; 8     3   2  51
-#&gt; 9     4   2  62
-#&gt; 10    5   2  49
-#&gt; 11    1   3  87
-#&gt; 12    2   3 111
-#&gt; 13    3   3  75
-#&gt; 14    4   3 112
-#&gt; 15    5   3  81
-#&gt; 16    1   4 115
-#&gt; 17    2   4 156
-#&gt; 18    3   4 108
-#&gt; 19    4   4 167
-#&gt; 20    5   4 125
-#&gt; 21    1   5 120
-#&gt; 22    2   5 172
-#&gt; 23    3   5 115
-#&gt; 24    4   5 179
-#&gt; 25    5   5 142
-#&gt; 26    1   6 142
-#&gt; 27    2   6 203
-#&gt; 28    3   6 139
-#&gt; 29    4   6 209
-#&gt; 30    5   6 174
-#&gt; 31    1   7 145
-#&gt; 32    2   7 203
-#&gt; 33    3   7 140
-#&gt; 34    4   7 214
-#&gt; 35    5   7 177
-#&gt; </div><div class='input'>
+<span class='va'>res</span><span class='op'>$</span><span class='va'>summaryStatistics</span>
+</div><div class='output co'>#&gt;   dose supp median - 80 % CI width + 80 % CI width
+#&gt; 1  0.5   OJ  12.25       -3.369569        3.369569
+#&gt; 2  0.5   VC   7.15       -2.075242        2.075242
+#&gt; 3    1   OJ  23.45       -2.954953        2.954953
+#&gt; 4    1   VC  16.50       -1.900462        1.900462
+#&gt; 5    2   OJ  25.95       -2.006051        2.006051
+#&gt; 6    2   VC  25.95       -3.624965        3.624965</div><div class='input'>
 
 </div></pre>
   </div>

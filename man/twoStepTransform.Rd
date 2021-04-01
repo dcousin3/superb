@@ -17,9 +17,9 @@ a data.frame of the same form as dta with the variables transformed.
 }
 \description{
 twoStepTransform, is a transformation that can
- be applied to a matrix of data. The resulting matrix is both 
- subject-centered and bias corrected, a technique called
- the CM technique \insertCite{b12,c05,m08}{superb}
+be applied to a matrix of data. The resulting matrix is both
+subject-centered and bias corrected, a technique called
+the CM technique \insertCite{b12,c05,m08}{superb}
 }
 \references{
 \insertAllCited{}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/GRD.R
 \name{GRD}
 \alias{GRD}
-\title{GRD}
+\title{Generate random data}
 \usage{
 GRD(
   RenameDV = "DV",
@@ -19,38 +19,38 @@ GRD(
 \arguments{
 \item{RenameDV}{provide a name for the dependent variable (default DV)}
 
-\item{SubjectsPerGroup}{indicates the number of simulated scores per 
+\item{SubjectsPerGroup}{indicates the number of simulated scores per
 group (default 100 in each group)}
 
-\item{BSFactors}{a string indicating the between-subject factor(s) 
-with, between parenthesis, the number of levels or the list of 
-level names. Multiple factors are separated with a colon ":" or 
+\item{BSFactors}{a string indicating the between-subject factor(s)
+with, between parenthesis, the number of levels or the list of
+level names. Multiple factors are separated with a colon ":" or
 enumerated in a vector of strings.}
 
-\item{WSFactors}{a string indicating the within-subject factor(s) in 
+\item{WSFactors}{a string indicating the within-subject factor(s) in
 the same format as the between-subject factors}
 
 \item{Effects}{a list detailing the effects to apply to the data}
 
-\item{Population}{a list providing the population characteristics 
+\item{Population}{a list providing the population characteristics
 (default is a normal distribution with a mean of 0 and standard deviation of 1)}
 
-\item{Contaminant}{a list providing the contaminant characteristics 
+\item{Contaminant}{a list providing the contaminant characteristics
 and the proportion of contaminant (default 0)}
 }
 \value{
 a data.frame with the simulated scores.
 }
 \description{
-Generate Random Data (GRD) is a function that
-generates a data frame containing random data suitable for analyses.
+The function \code{GRD()} generates a data frame containing
+random data suitable for analyses.
 The data can be from within-subject or between-group designs.
 Within-subject designs are in wide format. The function was originally
 presented in \insertCite{ch19;textual}{superb}.
 }
 \note{
 Note that the \code{range} effect specification has been renamed
-   \code{extent} to avoid masking the base function \code{base::range}.
+\code{extent} to avoid masking the base function \code{base::range}.
 }
 \examples{
  # Simplest example using all the default arguments: 
@@ -63,8 +63,8 @@ Note that the \code{range} effect specification has been renamed
  hist(dta$score )
 
  # Examples for a between-subject design and for a within-subject design: 
- dtaBS <- GRD( BSFactors = '3')
- dtaWS <- GRD( WSFactors = "Moment (2)")
+ dta <- GRD( BSFactors = '3')
+ dta <- GRD( WSFactors = "Moment (2)")
 
  # A complex, 3 x 2 x (2) mixed design with a variable amount of participants in the 6 groups:
  dta <- GRD(BSFactors = "difficulty(3) : gender (2)", 
@@ -83,24 +83,24 @@ Note that the \code{range} effect specification has been renamed
  hist(dta$IQ)
 
  # This example adds an effect along the "Difficulty" factor with a slope of 15
- dta <- GRD(BSFactors="Difficulty(5)", SubjectsPerGroup = 1000,
+ dta <- GRD(BSFactors="Difficulty(5)", SubjectsPerGroup = 100,
      Population=list(mean=50,stddev=5), 
      Effects = list("Difficulty" = slope(15) )  )
  # show the mean performance as a function of difficulty:
  superbPlot(dta, BSFactor = "Difficulty", variables="DV")
 
- # an example in which the moments are correlated
+ # An example in which the moments are correlated
  dta <- GRD( BSFactors = "Difficulty(2)",WSFactors = "Moment (2)", 
     SubjectsPerGroup = 1000,
      Effects = list("Difficulty" = slope(3), "Moment" = slope(1) ),
      Population=list(mean=50,stddev=20,rho=0.85)
  )
- # the mean plot on the raw data
+ # the mean plot on the raw data...
  superbPlot(dta, BSFactor = "Difficulty", WSFactor = "Moment(2)", 
      variables=c("DV.1","DV.2"), plotStyle="line",
      adjustments = list (purpose="difference") )
- # the mean plot on the decorrelated data; 
- # because of correlation, the error bars are markedly different
+ # ... and the mean plot on the decorrelated data; 
+ # because of high correlation, the error bars are markedly different
  superbPlot(dta, BSFactor = "Difficulty", WSFactor = "Moment(2)", 
      variables=c("DV.1","DV.2"), plotStyle="line",
      adjustments = list (purpose="difference", decorrelation = "CM") )

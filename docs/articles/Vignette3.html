@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.5</span>
       </span>
     </div>
 
@@ -125,7 +125,7 @@
 ## 6  6  86   99</code></pre>
 <p>There is a large variation in the scores obtained and as such a t-test where the scores are treated as independent will fail to detect a difference:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">dataFigure2</span><span class="op">$</span><span class="va">pre</span>, <span class="va">dataFigure2</span><span class="op">$</span><span class="va">post</span>, var.equal<span class="op">=</span><span class="cn">T</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">dataFigure2</span><span class="op">$</span><span class="va">pre</span>, <span class="va">dataFigure2</span><span class="op">$</span><span class="va">post</span>, var.equal<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>## 
 ##  Two Sample t-test
 ## 
@@ -144,10 +144,14 @@
 <span class="co"># first transform the data in long format; the pre-post scores will go into column "variable"</span>
 <span class="va">dl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/reshape2/man/melt.html">melt</a></span><span class="op">(</span><span class="va">dataFigure2</span>, id<span class="op">=</span><span class="st">"id"</span><span class="op">)</span>
 
-<span class="co"># make a plot, with one color for each participant</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">dl</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">variable</span>, y<span class="op">=</span><span class="va">value</span>, colour<span class="op">=</span><span class="va">id</span>, group<span class="op">=</span><span class="va">id</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+<span class="co"># add transparency when pre is smaller or equal to post</span>
+<span class="va">dl</span><span class="op">$</span><span class="va">trans</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">dataFigure2</span><span class="op">$</span><span class="va">pre</span> <span class="op">&lt;=</span> <span class="va">dataFigure2</span><span class="op">$</span><span class="va">post</span>,<span class="fl">0.9</span>,<span class="fl">1.0</span><span class="op">)</span>
+
+<span class="co"># make a plot, with transparent lines when the score increased</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">dl</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">variable</span>, y<span class="op">=</span><span class="va">value</span>, group<span class="op">=</span><span class="va">id</span>, alpha <span class="op">=</span> <span class="va">trans</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span> <span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">70</span>,<span class="fl">150</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>intercept <span class="op">=</span> <span class="fl">102.5</span>, slope <span class="op">=</span> <span class="fl">0</span>, colour <span class="op">=</span> <span class="st">"red"</span>, size <span class="op">=</span> <span class="fl">0.5</span>, linetype<span class="op">=</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>intercept <span class="op">=</span> <span class="fl">102.5</span>, slope <span class="op">=</span> <span class="fl">0</span>, colour <span class="op">=</span> <span class="st">"red"</span>, linetype<span class="op">=</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="Vignette3_files/figure-html/unnamed-chunk-4-1.png" alt="Figure 1: Representation of the individual participants" width="700"><p class="caption">
 Figure 1: Representation of the individual participants
@@ -179,7 +183,7 @@ Figure 1: Representation of the <em>subject-centered</em> individual participant
 </p>
 </div>
 <p>Here again, we see that for 5 participants, their scores went down. For the 20 remaining ones, the trend is upward. Thus, there is clear tendency for the exercices to be beneficial.</p>
-<p>Running the adequate paired-t test, we find indeed that the difference is strongly significant (t(24) = 2.9, p = .008):</p>
+<p>Running the adequate <em>paired</em>-t test, we find indeed that the difference is strongly significant (t(24) = 2.9, p = .008):</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">dataFigure2</span><span class="op">$</span><span class="va">pre</span>, <span class="va">dataFigure2</span><span class="op">$</span><span class="va">post</span>, paired<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>## 
@@ -204,7 +208,12 @@ Figure 1: Representation of the <em>subject-centered</em> individual participant
 <pre><code>## [1] 0.836611</code></pre>
 <p>and you find out that in the present dataset, correlation is actually quite high, with <span class="math inline">\(r \approx .8\)</span>. Whenever correlation is positive, statistical power benefits from correlation.</p>
 <p>Because increased power means higher level of precision, the error bars should be shortened by positive correlation. Estimating the adjusted length of the error bars from correlation is a process called <strong>decorrelation</strong> <span class="citation">(Cousineau, 2019)</span>.</p>
-<p>To this date, three techniques have been proposed to decorrelate the measures. * <code>CM</code>: This method uses <em>subject-centering</em> followed by a bias-correction step (otherwise the error bars are slightly overestimated) <span class="citation">(Cousineau, 2005; Morey, 2008)</span>. * <code>LM</code>: This method also uses <em>subject-centering</em> but when there are more than two measurements, equalizes the length of the error bars using a technique akin to pooled standard deviation measure <span class="citation">(Loftus &amp; Masson, 1994)</span>. * <code>CA</code>: this is the newest proposal. It directly uses the correlation (or the mean pairwise correlation when there are more than two measurement) to adjust the error bar length. In a nutshell, the error bar length are adjusted using a multiplicative term <span class="math inline">\(\sqrt(1-r)\)</span>. As an example, with $ r .8$, the adjustment is <span class="math inline">\(\sqrt(1-.8) = 0.44\)</span>. That means that the error bars are 44% the length of the unadjusted error bars.</p>
+<p>To this date, three techniques have been proposed to decorrelate the measures.</p>
+<ul>
+<li><p><code>CM</code>: This method uses <em>subject-centering</em> followed by a bias-correction step (otherwise the error bars are slightly overestimated) <span class="citation">(Cousineau, 2005; Morey, 2008)</span>.</p></li>
+<li><p><code>LM</code>: This method also uses <em>subject-centering</em> but when there are more than two measurements, equalizes the length of the error bars using a technique akin to pooled standard deviation measure <span class="citation">(Loftus &amp; Masson, 1994)</span>.</p></li>
+<li><p><code>CA</code>: this is the newest proposal. It directly uses the correlation (or the mean pairwise correlation when there are more than two measurement) to adjust the error bar length. In a nutshell, the error bar length are adjusted using a multiplicative term <span class="math inline">\(\sqrt(1-r)\)</span>. As an example, when $ r = .8$, the adjustment is <span class="math inline">\(\sqrt(1-.8) = 0.44\)</span>. That means that the error bars are 44% the length of the unadjusted error bars (that is, more than havlved).</p></li>
+</ul>
 <p>Whichever method you choose have very little bearing on the actual result. As shown in <span class="citation">Cousineau (2019)</span>, all three methods are based on the same general concepts and they generate very little difference in the amount of adjustments.</p>
 <p>In the present dataset, the error bar are more than shorten by half! which clearly shows the benefit of the within-subject design on precision.</p>
 </div>
@@ -244,7 +253,8 @@ Figure 1: Representation of the <em>subject-centered</em> individual participant
 Figure 3: Means and 95% confidence intervals on raw data (left) and on decorrelated data (right)
 </p>
 </div>
-<p>To see the differences between the techniques, I generated random data for 5 measures (when there is only 2, all the techniques are identical) with an amount of correlation of 0.8. In Figure 4 below, all error bars are superimposed on the same plot. As seen, there is only minor differences between the three techniques. Note that the green lines all have the same length.</p>
+<p>In the above plot, I used <code>decorrelation = "CA"</code>. When there is only two conditions, all the techniques return identical error bars.</p>
+<p>As another example illustrating the differences between the techniques, I generated random data for 5 measures with an amount of correlation of 0.8. In Figure 4 below, all error bars are superimposed on the same plot. As seen, there is only minor differences between the three techniques. Note that the green lines all have the same length; this is the main characteristic of the Loftus and Masson approach, in contrast with the other two techniques.</p>
 <div class="figure">
 <img src="Vignette3_files/figure-html/unnamed-chunk-9-1.png" alt="Figure 4: All three decorelation techniques on the same plot along with un-decorrelated error bars" width="700"><p class="caption">
 Figure 4: All three decorelation techniques on the same plot along with un-decorrelated error bars
@@ -255,7 +265,7 @@ Figure 4: All three decorelation techniques on the same plot along with un-decor
 <h2 class="hasAnchor">
 <a href="#illustrating-individual-differences" class="anchor"></a>Illustrating individual differences</h2>
 <p>In <code>superb</code>, it is possible to ask a certain type of plot. The <code>plotStyle</code> used so far is <code>"line"</code> (the default is <code>"bar"</code>). Another basic style is <code>"point"</code> (no line connecting the means).</p>
-<p>Other types of plot exists that are apt at showing the summary statistics but also the individual scores (the 6th vignettes shows how to develop custom-made styles). For illustrating individual differences, a style proposed is <code>pointindividualline</code> which — as per Figure 1— will show the individual scores along with the summary statistics and the error bars. For example:</p>
+<p>Other types of plot exists that are apt at showing the summary statistics but also the individual scores (the 6th vignettes shows how to develop custom-made layouts). For illustrating individual differences, a style proposed is <code>pointindividualline</code> which — as per Figure 1— will show the individual scores along with the summary statistics and the error bars. For example:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure2</span>, 
     WSFactor    <span class="op">=</span> <span class="st">"Moment(2)"</span>, 
@@ -268,15 +278,15 @@ Figure 4: All three decorelation techniques on the same plot along with un-decor
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_gray</a></span><span class="op">(</span>base_size<span class="op">=</span><span class="fl">16</span><span class="op">)</span> <span class="op">+</span> 
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span> <span class="op">=</span> <span class="st">"Collaborative games"</span>, <span class="st">"2"</span> <span class="op">=</span> <span class="st">"Unstructured activity"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="figure">
-<img src="Vignette3_files/figure-html/unnamed-chunk-10-1.png" alt="Figure 3: Means and 95% confidence intervals on raw data (left) and on decorrelated data (right)" width="700"><p class="caption">
-Figure 3: Means and 95% confidence intervals on raw data (left) and on decorrelated data (right)
+<img src="Vignette3_files/figure-html/unnamed-chunk-10-1.png" alt="Figure 5: Means and 95% confidence intervals along with individual scores depicted as lines" width="700"><p class="caption">
+Figure 5: Means and 95% confidence intervals along with individual scores depicted as lines
 </p>
 </div>
 </div>
 <div id="in-conclusion" class="section level2">
 <h2 class="hasAnchor">
 <a href="#in-conclusion" class="anchor"></a>In conclusion</h2>
-<p>The major obstacle to the use of adjusted error bars was the difficulty to obtain them. None of the statistical software (e.g., SPSS, SAS) provide these adjustments. A way around is to compute these manually. Although not that complicated, it requires manipulations, whether they are done in EXCEL, or macros <span class="citation">(e.g., WSPlot, O’Brien &amp; Cousineau, 2014)</span>.</p>
+<p>The major obstacle to the use of adjusted error bars was the difficulty to obtain them. None of the statistical software (e.g., SPSS, SAS) provide these adjustments. A way around is to compute these manually. Although not that complicated, it requires manipulations, whether they are done in EXCEL, or through macros <span class="citation">(e.g., WSPlot, O’Brien &amp; Cousineau, 2014)</span>.</p>
 <p>The present function renders all the adjustments a mere option in a function.</p>
 </div>
 <div id="references" class="section level1 unnumbered">

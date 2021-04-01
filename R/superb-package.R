@@ -1,5 +1,6 @@
 #' @details
-#' \code{suberb} is a library to perform descriptive statistics plots
+#'
+#' `suberb` is a library to perform descriptive statistics plots
 #' based on the superb framework. In a nutshell, the framework 
 #' assert that confidence intervals must be devised according to 
 #' all the relevant information that can be used to assess precision.
@@ -33,7 +34,7 @@
 #' \insertCite{ch19}{superb}.
 #' 
 #' @references
-#'      \insertAllCited{}
+#' \insertAllCited{}
 #' 
 #' The package includes additional, helper, functions: \itemize{
 #'      \item{\code{ShroutFleissICC1}} to compute intra-class correlation;

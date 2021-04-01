@@ -16,9 +16,9 @@ p the p-value of the null hypothesis that the data are spherical.
 }
 \description{
 Performs a test of sphericity on a dataframe with
-  multiple measures, one subject per line. It assesses the significance of the 
-  null hypothesis that the covariance matrix is spherical. 
-  This test is described in \insertCite{a10}{superb}
+multiple measures, one subject per line. It assesses the significance of the
+null hypothesis that the covariance matrix is spherical.
+This test is described in \insertCite{a10}{superb}
 }
 \examples{
 # creates a small data frames with 4 subject's scores for 5 measures:
@@ -33,7 +33,5 @@ MauchlySphericityTest(dta)
 
 }
 \references{
-\insertAllCited{}
-
 \insertAllCited{}
 }

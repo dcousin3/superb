@@ -11,13 +11,13 @@ An object of class data.frame.
 data(TMB1964r)
 }
 \description{
-The data comes from \insertCite{b21;textual}{superb}. It is a near exact 
+The data comes from \insertCite{b21;textual}{superb}. It is a near exact
 replication of the original study from \insertCite{tmb64}{superb}.
 
 The design is a (7) x 4 with:  7 levels of stimulus duration (within-subject) and
 4 between-subject conditions.
 Additional variables included in the reproduction is the primary language of the participant
-in which he/she participated (mainly francophones and anglophones; 
+in which he/she participated (mainly francophones and anglophones;
 and the gender (mainly male and female).
 }
 \examples{

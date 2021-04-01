@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>GRD — GRD • superb</title>
+<title>Generate random data — GRD • superb</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,9 @@
 
 
 
-<meta property="og:title" content="GRD — GRD" />
-<meta property="og:description" content="Generate Random Data (GRD) is a function that
-generates a data frame containing random data suitable for analyses.
+<meta property="og:title" content="Generate random data — GRD" />
+<meta property="og:description" content="The function GRD() generates a data frame containing
+random data suitable for analyses.
 The data can be from within-subject or between-group designs.
 Within-subject designs are in wide format. The function was originally
 presented in Calderini and Harding (2019)
@@ -85,7 +85,7 @@ presented in Calderini and Harding (2019)
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.5</span>
       </span>
     </div>
 
@@ -146,14 +146,14 @@ presented in Calderini and Harding (2019)
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>GRD</h1>
+    <h1>Generate random data</h1>
     
     <div class="hidden name"><code>GRD.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Generate Random Data (GRD) is a function that
-generates a data frame containing random data suitable for analyses.
+    <p>The function <code>GRD()</code> generates a data frame containing
+random data suitable for analyses.
 The data can be from within-subject or between-group designs.
 Within-subject designs are in wide format. The function was originally
 presented in Calderini and Harding (2019)
@@ -181,19 +181,19 @@ presented in Calderini and Harding (2019)
     </tr>
     <tr>
       <th>SubjectsPerGroup</th>
-      <td><p>indicates the number of simulated scores per 
+      <td><p>indicates the number of simulated scores per
 group (default 100 in each group)</p></td>
     </tr>
     <tr>
       <th>BSFactors</th>
-      <td><p>a string indicating the between-subject factor(s) 
-with, between parenthesis, the number of levels or the list of 
-level names. Multiple factors are separated with a colon ":" or 
+      <td><p>a string indicating the between-subject factor(s)
+with, between parenthesis, the number of levels or the list of
+level names. Multiple factors are separated with a colon ":" or
 enumerated in a vector of strings.</p></td>
     </tr>
     <tr>
       <th>WSFactors</th>
-      <td><p>a string indicating the within-subject factor(s) in 
+      <td><p>a string indicating the within-subject factor(s) in
 the same format as the between-subject factors</p></td>
     </tr>
     <tr>
@@ -202,12 +202,12 @@ the same format as the between-subject factors</p></td>
     </tr>
     <tr>
       <th>Population</th>
-      <td><p>a list providing the population characteristics 
+      <td><p>a list providing the population characteristics
 (default is a normal distribution with a mean of 0 and standard deviation of 1)</p></td>
     </tr>
     <tr>
       <th>Contaminant</th>
-      <td><p>a list providing the contaminant characteristics 
+      <td><p>a list providing the contaminant characteristics
 and the proportion of contaminant (default 0)</p></td>
     </tr>
     </table>
@@ -218,7 +218,7 @@ and the proportion of contaminant (default 0)</p></td>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>Note that the <code>range</code> effect specification has been renamed
-   <code>extent</code> to avoid masking the base function <code><a href='https://rdrr.io/r/base/range.html'>base::range</a></code>.</p>
+<code>extent</code> to avoid masking the base function <code><a href='https://rdrr.io/r/base/range.html'>base::range</a></code>.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Calderini M, Harding B (2019).
@@ -244,8 +244,8 @@ doi: <a href='https://doi.org/10.20982/tqmp.15.1.p001'>10.20982/tqmp.15.1.p001</
  <span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span><span class='op'>(</span><span class='va'>dta</span><span class='op'>$</span><span class='va'>score</span> <span class='op'>)</span>
 </div><div class='img'><img src='GRD-2.png' alt='' width='700' height='433' /></div><div class='input'>
  <span class='co'># Examples for a between-subject design and for a within-subject design: </span>
- <span class='va'>dtaBS</span> <span class='op'>&lt;-</span> <span class='fu'>GRD</span><span class='op'>(</span> BSFactors <span class='op'>=</span> <span class='st'>'3'</span><span class='op'>)</span>
- <span class='va'>dtaWS</span> <span class='op'>&lt;-</span> <span class='fu'>GRD</span><span class='op'>(</span> WSFactors <span class='op'>=</span> <span class='st'>"Moment (2)"</span><span class='op'>)</span>
+ <span class='va'>dta</span> <span class='op'>&lt;-</span> <span class='fu'>GRD</span><span class='op'>(</span> BSFactors <span class='op'>=</span> <span class='st'>'3'</span><span class='op'>)</span>
+ <span class='va'>dta</span> <span class='op'>&lt;-</span> <span class='fu'>GRD</span><span class='op'>(</span> WSFactors <span class='op'>=</span> <span class='st'>"Moment (2)"</span><span class='op'>)</span>
 
  <span class='co'># A complex, 3 x 2 x (2) mixed design with a variable amount of participants in the 6 groups:</span>
  <span class='va'>dta</span> <span class='op'>&lt;-</span> <span class='fu'>GRD</span><span class='op'>(</span>BSFactors <span class='op'>=</span> <span class='st'>"difficulty(3) : gender (2)"</span>, 
@@ -264,24 +264,24 @@ doi: <a href='https://doi.org/10.20982/tqmp.15.1.p001'>10.20982/tqmp.15.1.p001</
  <span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span><span class='op'>(</span><span class='va'>dta</span><span class='op'>$</span><span class='va'>IQ</span><span class='op'>)</span>
 </div><div class='img'><img src='GRD-3.png' alt='' width='700' height='433' /></div><div class='input'>
  <span class='co'># This example adds an effect along the "Difficulty" factor with a slope of 15</span>
- <span class='va'>dta</span> <span class='op'>&lt;-</span> <span class='fu'>GRD</span><span class='op'>(</span>BSFactors<span class='op'>=</span><span class='st'>"Difficulty(5)"</span>, SubjectsPerGroup <span class='op'>=</span> <span class='fl'>1000</span>,
+ <span class='va'>dta</span> <span class='op'>&lt;-</span> <span class='fu'>GRD</span><span class='op'>(</span>BSFactors<span class='op'>=</span><span class='st'>"Difficulty(5)"</span>, SubjectsPerGroup <span class='op'>=</span> <span class='fl'>100</span>,
      Population<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean<span class='op'>=</span><span class='fl'>50</span>,stddev<span class='op'>=</span><span class='fl'>5</span><span class='op'>)</span>, 
      Effects <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='st'>"Difficulty"</span> <span class='op'>=</span> <span class='fu'><a href='slope.html'>slope</a></span><span class='op'>(</span><span class='fl'>15</span><span class='op'>)</span> <span class='op'>)</span>  <span class='op'>)</span>
  <span class='co'># show the mean performance as a function of difficulty:</span>
  <span class='fu'><a href='superbPlot.html'>superbPlot</a></span><span class='op'>(</span><span class='va'>dta</span>, BSFactor <span class='op'>=</span> <span class='st'>"Difficulty"</span>, variables<span class='op'>=</span><span class='st'>"DV"</span><span class='op'>)</span>
 </div><div class='img'><img src='GRD-4.png' alt='' width='700' height='433' /></div><div class='input'>
- <span class='co'># an example in which the moments are correlated</span>
+ <span class='co'># An example in which the moments are correlated</span>
  <span class='va'>dta</span> <span class='op'>&lt;-</span> <span class='fu'>GRD</span><span class='op'>(</span> BSFactors <span class='op'>=</span> <span class='st'>"Difficulty(2)"</span>,WSFactors <span class='op'>=</span> <span class='st'>"Moment (2)"</span>, 
     SubjectsPerGroup <span class='op'>=</span> <span class='fl'>1000</span>,
      Effects <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='st'>"Difficulty"</span> <span class='op'>=</span> <span class='fu'><a href='slope.html'>slope</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span>, <span class='st'>"Moment"</span> <span class='op'>=</span> <span class='fu'><a href='slope.html'>slope</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>)</span>,
      Population<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean<span class='op'>=</span><span class='fl'>50</span>,stddev<span class='op'>=</span><span class='fl'>20</span>,rho<span class='op'>=</span><span class='fl'>0.85</span><span class='op'>)</span>
  <span class='op'>)</span>
- <span class='co'># the mean plot on the raw data</span>
+ <span class='co'># the mean plot on the raw data...</span>
  <span class='fu'><a href='superbPlot.html'>superbPlot</a></span><span class='op'>(</span><span class='va'>dta</span>, BSFactor <span class='op'>=</span> <span class='st'>"Difficulty"</span>, WSFactor <span class='op'>=</span> <span class='st'>"Moment(2)"</span>, 
      variables<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"DV.1"</span>,<span class='st'>"DV.2"</span><span class='op'>)</span>, plotStyle<span class='op'>=</span><span class='st'>"line"</span>,
      adjustments <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span> <span class='op'>(</span>purpose<span class='op'>=</span><span class='st'>"difference"</span><span class='op'>)</span> <span class='op'>)</span>
-</div><div class='img'><img src='GRD-5.png' alt='' width='700' height='433' /></div><div class='input'> <span class='co'># the mean plot on the decorrelated data; </span>
- <span class='co'># because of correlation, the error bars are markedly different</span>
+</div><div class='img'><img src='GRD-5.png' alt='' width='700' height='433' /></div><div class='input'> <span class='co'># ... and the mean plot on the decorrelated data; </span>
+ <span class='co'># because of high correlation, the error bars are markedly different</span>
  <span class='fu'><a href='superbPlot.html'>superbPlot</a></span><span class='op'>(</span><span class='va'>dta</span>, BSFactor <span class='op'>=</span> <span class='st'>"Difficulty"</span>, WSFactor <span class='op'>=</span> <span class='st'>"Moment(2)"</span>, 
      variables<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"DV.1"</span>,<span class='st'>"DV.2"</span><span class='op'>)</span>, plotStyle<span class='op'>=</span><span class='st'>"line"</span>,
      adjustments <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span> <span class='op'>(</span>purpose<span class='op'>=</span><span class='st'>"difference"</span>, decorrelation <span class='op'>=</span> <span class='st'>"CM"</span><span class='op'>)</span> <span class='op'>)</span>

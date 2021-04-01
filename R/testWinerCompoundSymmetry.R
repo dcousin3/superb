@@ -1,6 +1,8 @@
 ######################################################################################
 #' @title Winer's test of compound symmetry
 #'
+#' @md
+#'
 #' @description Run a test of compound symmetry.
 #'   generates a data frame of random data suitable for analyses.
 #'   It assesses the significance of the null hypothesis that
@@ -26,7 +28,7 @@
 #' WinerCompoundSymmetryTest(dta)
 #'
 #' @references
-#'      \insertAllCited{}
+#' \insertAllCited{}
 #'
 #' @export WinerCompoundSymmetryTest
 

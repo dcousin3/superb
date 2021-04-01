@@ -17,9 +17,9 @@ a data.frame of the same form as dta with the variables transformed.
 }
 \description{
 poolSDTransform  is a transformations that can
- be applied to a matrix of data. The resulting matrix has the column-
- standard deviations equal to the pool standard deviations of the 
- individual columns, the solution adopted by \insertCite{lm94}{superb}.
+be applied to a matrix of data. The resulting matrix has the column-
+standard deviations equal to the pool standard deviations of the
+individual columns, the solution adopted by \insertCite{lm94}{superb}.
 }
 \references{
 \insertAllCited{}

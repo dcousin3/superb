@@ -16,7 +16,7 @@ Computes standard error and confidence interval of various descriptive statistic
     <doi:10.20982/tqmp.15.1.p001>.
 }
 \details{
-\code{suberb} is a library to perform descriptive statistics plots
+`suberb` is a library to perform descriptive statistics plots
 based on the superb framework. In a nutshell, the framework 
 assert that confidence intervals must be devised according to 
 all the relevant information that can be used to assess precision.

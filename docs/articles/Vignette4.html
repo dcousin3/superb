@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.5</span>
       </span>
     </div>
 
@@ -111,8 +111,8 @@
 <p>By default, <code>superbPlot</code> generates mean plots along with 95% confidence intervals of the mean. However, these choices can be changed.</p>
 <ul>
 <li><p>To change the summary statistics, use the argument <code>statistic =</code>;</p></li>
-<li><p>To change the confidence level, use the argument <code>gamma =</code>;</p></li>
 <li><p>To change the interval function, use the argument <code>errorbar =</code>. The abbreviation <code>CI</code> stands for confidence interval; <code>SE</code> stands for standard error.</p></li>
+<li><p>With <code>CI</code>, to change the confidence level, use the argument <code>gamma =</code>;</p></li>
 </ul>
 <p>The defaults are <code>statistic = "mean", errorbar = "CI", gamma = 0.95</code>. For error bar functions that accept a gamma parameter (e.g., <code>CI</code>, the gamma parameter is automatically transfer to the function). For other functions that do not accept a gamma parameter (e.g., <code>SE</code>), the gamma parameter is unused.</p>
 <div id="changing-the-summary-function-to-be-plotted" class="section level2">
@@ -166,7 +166,7 @@ Figure 1: Various statistics and various measures of precisions
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">superb</span><span class="fu">:::</span><span class="fu">is.stat.function</span><span class="op">(</span><span class="st">"mean"</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<p>Any error bar function can be accepted by superbPlot. These functions must be named “interval function.”“descriptive statistic.” For example, the following <code>CI.mean</code> is the confidence interval of the mean. Other functions are <code>SE.mean</code>, <code>SE.median</code>, <code>CI.fisherskew</code>, etc. The <code>superb</code> library provides some 20+ such functions. <span class="citation">Harding, Tremblay, &amp; Cousineau (2014)</span> and <span class="citation">Harding, Tremblay, &amp; Cousineau (2015)</span> review some of these functions.</p>
+<p>Any error bar function can be accepted by superbPlot. These functions must be named <code>"interval function"."descriptive statistic"</code>. For example, the following <code>CI.mean</code> is the confidence interval of the mean. Other functions are <code>SE.mean</code>, <code>SE.median</code>, <code>CI.fisherskew</code>, etc. The <code>superb</code> library provides some 20+ such functions. <span class="citation">Harding, Tremblay, &amp; Cousineau (2014)</span> and <span class="citation">Harding, Tremblay, &amp; Cousineau (2015)</span> reviewed some of these functions.</p>
 <p>The error bar functions can be of three types:</p>
 <ul>
 <li><p>a function that returns a width. Standard error functions are example of this type of function. With width function, the error bar extend plus and minus that width around the descriptive statistics.</p></li>
@@ -224,7 +224,7 @@ Figure 2: <code>superbPlot</code> with a custom-made descriptive statistic funct
 <a href="#creating-a-custom-made-interval-function-to-be-used-in-superbplot" class="anchor"></a>Creating a custom-made interval function to be used in <code>superbPlot</code>
 </h2>
 <p>It is also possible to create custom-made confidence interval functions.</p>
-<p>Hereafter, we add a confidence interval for the Cohen’s <span class="math inline">\(d_1\)</span>. We use the predictive approach documented in Lecoutre <span class="citation">(Cousineau &amp; Goulet-Pelletier, 2020; Lecoutre, 1999)</span> which requires the lambda-prime distribution <span class="citation">(Pav, 2020)</span>.</p>
+<p>Hereafter, we add a confidence interval for the Cohen’s <span class="math inline">\(d_1\)</span>. We use the predictive approach documented in Lecoutre <span class="citation">(Cousineau &amp; Goulet-Pelletier, 2020; Lecoutre, 1999)</span> which requires the lambda-prime distribution provided in the <code>sadists</code> library <span class="citation">(Pav, 2020)</span>.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R">    <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/shabbychef/sadists">sadists</a></span><span class="op">)</span>
 
@@ -240,7 +240,7 @@ Figure 2: <code>superbPlot</code> with a custom-made descriptive statistic funct
 <pre><code>## [1] 0.07929312 0.91232550</code></pre>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R">    <span class="co"># or check that it is a valid interval function</span>
-    <span class="fu">superb</span><span class="fu">:::</span><span class="fu">is.interval.function</span><span class="op">(</span><span class="st">"CI.d1"</span><span class="op">)</span></code></pre></div>
+    <span class="fu">superb</span><span class="fu">:::</span><span class="fu">is.errorbar.function</span><span class="op">(</span><span class="st">"CI.d1"</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>We have all we need to make a plot with error bars!</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
@@ -258,7 +258,7 @@ Figure 2: <code>superbPlot</code> with a custom-made descriptive statistic funct
 Figure 3: superbPlot with a custom-made descriptive sttistic function
 </p>
 </div>
-<p>Note that this difference-adjusted confidence interval is fully compatible with the Cohen’s dp (between the two groups) as it is 0.498 with a 95% confidence interval of [-0.068, +1.059] <span class="citation">Cousineau &amp; Goulet-Pelletier (2020)</span>.</p>
+<p>Note that this difference-adjusted confidence interval is fully compatible with the Cohen’s <span class="math inline">\(d_p\)</span> (between the two groups) as <span class="math inline">\(d_p\)</span> is 0.498 with a 95% confidence interval of [-0.068, +1.059] <span class="citation">(Cousineau &amp; Goulet-Pelletier, 2020; all the formulas are from Goulet-Pelletier &amp; Cousineau, 2018)</span>.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R">    <span class="co"># compute the Cohen's dp</span>
     <span class="va">dp</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">)</span><span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span>
@@ -280,10 +280,10 @@ Figure 3: superbPlot with a custom-made descriptive sttistic function
 <a href="#creating-bootstrap-based-confidence-intervals" class="anchor"></a>Creating bootstrap-based confidence intervals</h2>
 <p>It is also possible to create bootstrap estimates of confidence intervals and integrate these into <code>superb</code>.</p>
 <p>The general idea is to subsample with replacement the sample and compute on this subsample the descriptive statistics. This process is repeated a large number of times (here, 10,000) and the quantiles containing, say, 95% of the results is a 95% confidence interval.</p>
-<p>Here, we illustrate this process with the mean. The function must be name “<em>interval function</em>.mean,” so we choose to call it <code>bootstrapCI.mean</code>.</p>
+<p>Here, we illustrate this process with the mean. The function must be name “<em>interval function</em>.mean,” so we choose to call it <code>myBootstrapCI.mean</code>.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R">    <span class="co"># we define a bootstrapCI which subsample the whole sample, here called X</span>
-    <span class="va">bootstrapCI.mean</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">X</span>, <span class="va">gamma</span> <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span> <span class="op">{</span>
+<code class="sourceCode R">    <span class="co"># we define myBootstrapCI which subsample the whole sample, here called X</span>
+    <span class="va">myBootstrapCI.mean</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">X</span>, <span class="va">gamma</span> <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span> <span class="op">{</span>
       <span class="va">res</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">)</span>
       <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10000</span><span class="op">)</span> <span class="op">{</span>
         <span class="va">res</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">X</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span>
@@ -292,15 +292,15 @@ Figure 3: superbPlot with a custom-made descriptive sttistic function
     <span class="op">}</span>
 
     <span class="co"># we check that it is a valid interval function</span>
-    <span class="fu">superb</span><span class="fu">:::</span><span class="fu">is.interval.function</span><span class="op">(</span><span class="st">"bootstrapCI.mean"</span><span class="op">)</span></code></pre></div>
+    <span class="fu">superb</span><span class="fu">:::</span><span class="fu">is.errorbar.function</span><span class="op">(</span><span class="st">"myBootstrapCI.mean"</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<p>This is all we need to make the plot which we can compare with the formula CI</p>
+<p>This is all we need to make the plot which we can compare with the parametric CI</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R">    <span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, 
         BSFactor <span class="op">=</span> <span class="st">"grp"</span>, 
         variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"score"</span><span class="op">)</span>, 
         plotStyle<span class="op">=</span><span class="st">"line"</span>,
-        statistic <span class="op">=</span> <span class="st">"mean"</span>, errorbar <span class="op">=</span> <span class="st">"bootstrapCI"</span>,
+        statistic <span class="op">=</span> <span class="st">"mean"</span>, errorbar <span class="op">=</span> <span class="st">"myBootstrapCI"</span>,
         adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>
     <span class="op">)</span> <span class="op">+</span> 
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Group"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"Score"</span><span class="op">)</span> <span class="op">+</span> 
@@ -329,14 +329,23 @@ Figure 3: superbPlot with a custom-made descriptive sttistic function
 Figure 4: superbPlot with a custom-made interval function.
 </p>
 </div>
-<p>As seen, there is not much difference between the two. This was expected: when the normality assumption and the homogeneity of variances assumption are not invalid, the <em>parametric</em> approach (the formula is based on these assumptions) is identical on average to the bootstrap approach.</p>
+<p>As seen, there is not much difference between the two. This was expected: when the normality assumption and the homogeneity of variances assumption are not invalid, the <em>parametric</em> approach (based on these assumptions) is identical on average to the bootstrap approach.</p>
 </div>
 <div id="in-summary" class="section level2">
 <h2 class="hasAnchor">
 <a href="#in-summary" class="anchor"></a>In summary</h2>
-<p>The function <code>superbPlot</code> is entirely customizable: you can put any descriptive statistic function and any interval function into <code>superbPlot</code>. In a sense, <code>superbPlot</code> is simply a proxy that manage the dataset and produces standardized dataframes apt to be transmitted to a ggplot specification. It is also possible to obtain the summary dataframe by issuing the option <code>showPlot=FALSE</code></p>
-<p>The function <code>superbPlot</code> is also customizable with regards to the plot produced. Included in the package are * <code>superbPlot.line</code> : shows the results as points and lines, * <code>superbPlot.point</code>: shows the results as points only, * <code>superbPlot.bar</code> : shows the results using bars, * <code>superbPlot.pointjitter</code>: shows the results with points, and the raw data with jittered points, * <code>superbPlot.pointjitterviolin</code>: also shows violin plot behind the jitter points, and * <code>superbPlot.pointindividualline</code>: show the results with fat points, and individual results with thin lines,</p>
-<p>Vignette 5 shows how to create new plotting functions. Proposals are welcome.</p>
+<p>The function <code><a href="../reference/superbPlot.html">superbPlot()</a></code> is entirely customizable: you can put any descriptive statistic function and any interval function into <code><a href="../reference/superbPlot.html">superbPlot()</a></code>. In a sense, <code><a href="../reference/superbPlot.html">superbPlot()</a></code> is simply a proxy that manage the dataset and produces standardized dataframes apt to be transmitted to a <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> specification. It is also possible to obtain the summary dataframe by issuing the argument <code>showPlot=FALSE</code> or by using the related function <code><a href="../reference/superbData.html">superbData()</a></code>.</p>
+<p>The function <code>superbPlot</code> is also customizable with regards to the plot produced. Included in the package are</p>
+<ul>
+<li><p><code>superbPlot.line</code> : shows the results as points and lines,</p></li>
+<li><p><code>superbPlot.point</code>: shows the results as points only,</p></li>
+<li><p><code>superbPlot.bar</code> : shows the results using bars,</p></li>
+<li><p><code>superbPlot.pointjitter</code>: shows the results with points, and the raw data with jittered points,</p></li>
+<li><p><code>superbPlot.pointjitterviolin</code>: also shows violin plot behind the jitter points, and</p></li>
+<li><p><code>superbPlot.pointindividualline</code>: show the results with fat points, and individual results with thin lines,</p></li>
+<li><p><code>superbPlot.raincloud</code>: show the results along with clouds (violin distributions) and rain drops (jittered raw data),</p></li>
+</ul>
+<p>Vignette 5 shows how to create new layouts. Proposals are welcome!</p>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">

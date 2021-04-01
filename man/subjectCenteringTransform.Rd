@@ -17,8 +17,8 @@ a data.frame of the same form as dta with the variables transformed.
 }
 \description{
 subjectCenteringTransform is a transformation that can
- be applied to a matrix of data. the resulting matrix have means
- that are centered on the grand mean, subject-wise \insertCite{c05}{superb}.
+be applied to a matrix of data. the resulting matrix have means
+that are centered on the grand mean, subject-wise \insertCite{c05}{superb}.
 }
 \references{
 \insertAllCited{}

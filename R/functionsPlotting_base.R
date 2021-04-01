@@ -10,6 +10,8 @@
 #'
 #' @title superbPlot 'bar' layout
 #'
+#' @md
+#'
 #' @description superbPlot comes with a few built-in templates for making the final plots.
 #' All produces ggplot objects that can be further customized. Additionally, it is
 #' possible to add custom-make templates (see vignette 6). The functions, to be
@@ -85,6 +87,8 @@ superbPlot.bar <- function(
 #' @name superbPlot.line
 #'
 #' @title superbPlot 'line' layout
+#'
+#' @md
 #'
 #' @description superbPlot comes with a few built-in templates for making the final plots.
 #' All produces ggplot objects that can be further customized. Additionally, it is
@@ -170,6 +174,8 @@ superbPlot.line <- function(
 #'
 #' @title superbPlot 'point' layout
 #'
+#' @md
+#'
 #' @description superbPlot comes with a few built-in templates for making the final plots.
 #' All produces ggplot objects that can be further customized. Additionally, it is
 #' possible to add custom-make templates (see vignette 6). The functions, to be
@@ -250,6 +256,8 @@ superbPlot.point <- function(
 #' @name superbPlot.pointjitter
 #'
 #' @title superbPlot point-and-jitter dots layout
+#'
+#' @md
 #'
 #' @description superbPlot comes with a few built-in templates for making the final plots.
 #' All produces ggplot objects that can be further customized. Additionally, it is
@@ -346,6 +354,8 @@ superbPlot.pointjitter <- function(
 #' @name superbPlot.pointjitterviolin
 #'
 #' @title superbPlot point, jitter and violin plot layout
+#'
+#' @md
 #'
 #' @description superbPlot comes with a few built-in templates for making the final plots.
 #' All produces ggplot objects that can be further customized. Additionally, it is
@@ -446,6 +456,8 @@ superbPlot.pointjitterviolin <- function(
 #' @name superbPlot.pointindividualline
 #'
 #' @title superbPlot point and individual-line layout for within-subject design
+#'
+#' @md
 #'
 #' @description superbPlot comes with a few built-in templates for making the final plots.
 #' All produces ggplot objects that can be further customized. Additionally, it is

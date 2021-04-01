@@ -5,12 +5,22 @@
 \alias{extent}
 \alias{custom}
 \alias{Rexpression}
-\title{effect description}
+\title{Effect description}
 \usage{
 slope(s)
+
+extent(s)
+
+custom(...)
+
+Rexpression(str)
 }
 \arguments{
-\item{s}{the size of the effect or a R code string}
+\item{s}{the size of the effect}
+
+\item{...}{a sequence with the sizes of the effects}
+
+\item{str}{R code string}
 }
 \value{
 These internal functions are not meant to be used in 

@@ -5,6 +5,8 @@
 #'      to help in debugging the functions. It assigns in the global environment
 #'      the variables that are local to a function so that they become visible.
 #'
+#' @md
+#'
 #' @param where indicates where in the program runDebug was called
 #' @param title string text to be displayed when this function is triggered
 #' @param vars strings names of the variables to be placed in the global environment

@@ -17,6 +17,7 @@ reference:
       - '`superbPlot.pointjitter`'
       - '`superbPlot.pointjitterviolin`'
       - '`superbPlot.pointindividualline`'
+      - '`superbPlot.raincloud`'
   - title: Statistics
     desc: Statistics
     contents:

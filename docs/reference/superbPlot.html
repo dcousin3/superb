@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>superbPlot to plot summary statistics with correct error bars. — superbPlot • superb</title>
+<title>Plot summary statistics with correct error bars. — superbPlot • superb</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,10 +46,10 @@
 
 
 
-<meta property="og:title" content="superbPlot to plot summary statistics with correct error bars. — superbPlot" />
-<meta property="og:description" content="plotsuberb plots standard error or confidence interval for various descriptive 
-     statistics under various designs, sampling schemes, population size and purposes,
-     according to the suberb framework. See (Cousineau 2017)
+<meta property="og:title" content="Plot summary statistics with correct error bars. — superbPlot" />
+<meta property="og:description" content="The function suberbPlot() plots standard error or confidence interval for various descriptive
+statistics under various designs, sampling schemes, population size and purposes,
+according to the suberb framework. See (Cousineau 2017)
  for more." />
 <meta property="og:image" content="http://dcousin3.github.io/superb/logo.png" />
 
@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.5</span>
       </span>
     </div>
 
@@ -144,15 +144,15 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>superbPlot to plot summary statistics with correct error bars.</h1>
+    <h1>Plot summary statistics with correct error bars.</h1>
     
     <div class="hidden name"><code>superbPlot.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>plotsuberb plots standard error or confidence interval for various descriptive 
-     statistics under various designs, sampling schemes, population size and purposes,
-     according to the suberb framework. See (Cousineau 2017)
+    <p>The function <code>suberbPlot()</code> plots standard error or confidence interval for various descriptive
+statistics under various designs, sampling schemes, population size and purposes,
+according to the <code>suberb</code> framework. See (Cousineau 2017)
  for more.</p>
     </div>
 
@@ -192,38 +192,30 @@
     </tr>
     <tr>
       <th>factorOrder</th>
-      <td><p>Order of factors as shown in the graph (x axis, groups, horizontal 
-panels, vertical panels)</p></td>
+      <td><p>Order of factors as shown in the graph (in that order: x axis,
+groups, horizontal panels, vertical panels)</p></td>
     </tr>
     <tr>
       <th>variables</th>
-      <td><p>The dependent variable(s)</p></td>
+      <td><p>The dependent variable(s) as strings</p></td>
     </tr>
     <tr>
       <th>statistic</th>
-      <td><p>The summary statistic function to use</p></td>
+      <td><p>The summary statistic function to use as a string</p></td>
     </tr>
     <tr>
       <th>errorbar</th>
-      <td><p>The function that computes the error bar. Should be "CI" or "SE" or 
-any function name. Defaults to "SE"</p></td>
+      <td><p>The function that computes the error bar. Should be "CI" or "SE" or
+any function name if you defined a custom function. Default to "CI"</p></td>
     </tr>
     <tr>
       <th>gamma</th>
-      <td><p>The coverage factor; necessary when errorbar == "CI". Default is 0.95.</p></td>
+      <td><p>The coverage factor; necessary when <code>errorbar == "CI"</code>. Default is 0.95.</p></td>
     </tr>
     <tr>
       <th>adjustments</th>
-      <td><p>List of adjustments as described below:
- popsize: Size of the population under study. Defaults to Inf
- purpose: The purpose of the comparisons. Defaults to "single". 
-     Can be "single", "difference", or "tryon".
-decorrelation: Decorrelation method for repeated measure designs. 
-     Chooses among the methods "CM", "LM", "CA" or "none". Defaults to "none".
-samplingDesign: Sampling method to obtain the sample. implemented 
-         sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Sampling).
-Default is adjustments = list(purpose = "single", popSize = Inf, decorrelation = "none",
-             samplingDesign = "SRS")</p></td>
+      <td><p>List of adjustments as described below.
+Default is <code>adjustments = list(purpose = "single", popSize = Inf, decorrelation = "none", samplingDesign = "SRS")</code></p></td>
     </tr>
     <tr>
       <th>showPlot</th>
@@ -231,7 +223,7 @@ Default is adjustments = list(purpose = "single", popSize = Inf, decorrelation =
     </tr>
     <tr>
       <th>plotStyle</th>
-      <td><p>The type of object to plot on the graph. Can be either "bar" or "line".
+      <td><p>The type of object to plot on the graph. See full list below.
 Defaults to "bar".</p></td>
     </tr>
     <tr>
@@ -248,7 +240,7 @@ Defaults to "bar".</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>In addition to the parameters above, superbPlot also accept a number of 
+      <td><p>In addition to the parameters above, superbPlot also accept a number of
 optional arguments that will be transmitted to the plotting function, such as
 pointParams (a list of ggplot2 parameters to input inside geoms; see ?geom_bar2) and
 errorbarParams (a list of ggplot2 parameters for geom_errorbar; see ?geom_errorbar)</p></td>
@@ -258,7 +250,29 @@ errorbarParams (a list of ggplot2 parameters for geom_errorbar; see ?geom_errorb
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a plot with the correct error bars or a table of those summary statistics.
-        The plot is a ggplot2 object with can be modified with additional declarations.</p>
+The plot is a ggplot2 object with can be modified with additional declarations.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The possible adjustements are the following</p><ul>
+<li><p>popsize: Size of the population under study. Defaults to Inf</p></li>
+<li><p>purpose: The purpose of the comparisons. Defaults to "single".
+Can be "single", "difference", or "tryon".</p></li>
+<li><p>decorrelation: Decorrelation method for repeated measure designs.
+Chooses among the methods "CM", "LM", "CA" or "none". Defaults to "none".</p></li>
+<li><p>samplingDesign: Sampling method to obtain the sample. implemented
+sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Sampling).</p></li>
+</ul>
+
+<p>In version 0.9.5, the layouts for plots are the following:</p><ul>
+<li><p>"bar" Shows the summary statistics with bars and error bars;</p></li>
+<li><p>"line" Shows the summary statistics with lines connecting the conditions over the first factor;</p></li>
+<li><p>"point" Shows the summary statistics with isolated points</p></li>
+<li><p>"pointjitter" Shows the summary statistics along with jittered points depicting the raw data;</p></li>
+<li><p>"pointjitterviolin" Also adds violin plots to the previous layout</p></li>
+<li><p>"pointindividualline" Connects the raw data with line along the first factor (which should be a repeated-measure factor)</p></li>
+<li><p>"raincloud" Illustrates the distribution with a cloud (half_violin_plot) and jittered dots next to it. Looks better when coordinates are flipped <code>+coord_flip()</code>.</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Cousineau D (2017).
@@ -268,28 +282,28 @@ doi: <a href='https://doi.org/10.5709/acp-0214-z'>10.5709/acp-0214-z</a>
 , <a href='https://doi.org/10.5709/acp-0214-z'>https://doi.org/10.5709/acp-0214-z</a>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># basic example using a built-in dataframe as data; </span>
-<span class='co'># by default, the mean is computed and the error bar are 95% confidence intervals</span>
+    <pre class="examples"><div class='input'><span class='co'># Basic example using a built-in dataframe as data. </span>
+<span class='co'># By default, the mean is computed and the error bar are 95% confidence intervals</span>
 <span class='fu'>superbPlot</span><span class='op'>(</span><span class='va'>ToothGrowth</span>, BSFactor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dose"</span>, <span class='st'>"supp"</span><span class='op'>)</span>, 
   variables <span class='op'>=</span> <span class='st'>"len"</span><span class='op'>)</span> 
 </div><div class='img'><img src='superbPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># example changing the summary statistics to the median and</span>
-<span class='co'># the error bar to 90% confidence intervals</span>
+<span class='co'># Example changing the summary statistics to the median and</span>
+<span class='co'># the error bar to 80% confidence intervals</span>
 <span class='fu'>superbPlot</span><span class='op'>(</span><span class='va'>ToothGrowth</span>, BSFactor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dose"</span>, <span class='st'>"supp"</span><span class='op'>)</span>, 
-  variables <span class='op'>=</span> <span class='st'>"len"</span>, statistic <span class='op'>=</span> <span class='st'>"median"</span>, errorbar <span class='op'>=</span> <span class='st'>"CI"</span>, gamma <span class='op'>=</span> <span class='fl'>.90</span><span class='op'>)</span> 
+  variables <span class='op'>=</span> <span class='st'>"len"</span>, statistic <span class='op'>=</span> <span class='st'>"median"</span>, errorbar <span class='op'>=</span> <span class='st'>"CI"</span>, gamma <span class='op'>=</span> <span class='fl'>.80</span><span class='op'>)</span> 
 </div><div class='img'><img src='superbPlot-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># example introducing adjustments for pairwise comparisons </span>
+<span class='co'># Example introducing adjustments for pairwise comparisons </span>
 <span class='co'># and assuming that the whole population is limited to 200 persons</span>
 <span class='fu'>superbPlot</span><span class='op'>(</span><span class='va'>ToothGrowth</span>, BSFactor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dose"</span>, <span class='st'>"supp"</span><span class='op'>)</span>, 
   variables <span class='op'>=</span> <span class='st'>"len"</span>,  
   adjustments <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span> purpose <span class='op'>=</span> <span class='st'>"difference"</span>, popSize <span class='op'>=</span> <span class='fl'>200</span><span class='op'>)</span> <span class='op'>)</span>
 </div><div class='img'><img src='superbPlot-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># This example add ggplot directives to the plot produced</span>
+<span class='co'># This example adds ggplot directives to the plot produced</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span>
 <span class='fu'>superbPlot</span><span class='op'>(</span><span class='va'>ToothGrowth</span>, BSFactor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dose"</span>, <span class='st'>"supp"</span><span class='op'>)</span>, 
   variables <span class='op'>=</span> <span class='st'>"len"</span><span class='op'>)</span> <span class='op'>+</span> 
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>xlab</a></span><span class='op'>(</span><span class='st'>"Dose"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ylab</a></span><span class='op'>(</span><span class='st'>"Tooth Growth"</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_bw</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>xlab</a></span><span class='op'>(</span><span class='st'>"Dose"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ylab</a></span><span class='op'>(</span><span class='st'>"Tooth Growth"</span><span class='op'>)</span> <span class='op'>+</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_bw</a></span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='superbPlot-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># This example is based on repeated measures</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://health.adelaide.edu.au/psychology/ccs/teaching/lsr/'>lsr</a></span><span class='op'>)</span>
@@ -300,6 +314,8 @@ doi: <a href='https://doi.org/10.5709/acp-0214-z'>10.5709/acp-0214-z</a>
 <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>Orange</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Tree"</span>,<span class='st'>"age"</span>,<span class='st'>"circ"</span><span class='op'>)</span>
 <span class='co'># turn the data into a wide format</span>
 <span class='va'>Orange.wide</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lsr/man/longToWide.html'>longToWide</a></span><span class='op'>(</span><span class='va'>Orange</span>, <span class='va'>circ</span> <span class='op'>~</span> <span class='va'>age</span><span class='op'>)</span>
+
+<span class='co'># Makes the plots two different way:</span>
 <span class='va'>p1</span><span class='op'>=</span><span class='fu'>superbPlot</span><span class='op'>(</span> <span class='va'>Orange.wide</span>, WSFactor <span class='op'>=</span> <span class='st'>"age(7)"</span>,
   variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"circ_118"</span>,<span class='st'>"circ_484"</span>,<span class='st'>"circ_664"</span>,<span class='st'>"circ_1004"</span>,<span class='st'>"circ_1231"</span>,<span class='st'>"circ_1372"</span>,<span class='st'>"circ_1582"</span><span class='op'>)</span>,
   adjustments <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>purpose <span class='op'>=</span> <span class='st'>"difference"</span>, decorrelation <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span>
@@ -308,7 +324,7 @@ doi: <a href='https://doi.org/10.5709/acp-0214-z'>10.5709/acp-0214-z</a>
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_cartesian.html'>coord_cartesian</a></span><span class='op'>(</span> ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>250</span><span class='op'>)</span> <span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title<span class='op'>=</span><span class='st'>"Basic confidence intervals"</span><span class='op'>)</span>
 <span class='va'>p2</span><span class='op'>=</span><span class='fu'>superbPlot</span><span class='op'>(</span> <span class='va'>Orange.wide</span>, WSFactor <span class='op'>=</span> <span class='st'>"age(7)"</span>,
   variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"circ_118"</span>,<span class='st'>"circ_484"</span>,<span class='st'>"circ_664"</span>,<span class='st'>"circ_1004"</span>,<span class='st'>"circ_1231"</span>,<span class='st'>"circ_1372"</span>,<span class='st'>"circ_1582"</span><span class='op'>)</span>,
-  adjustments <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>purpose <span class='op'>=</span> <span class='st'>"difference"</span>, decorrelation <span class='op'>=</span> <span class='st'>"CM"</span><span class='op'>)</span>
+  adjustments <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>purpose <span class='op'>=</span> <span class='st'>"difference"</span>, decorrelation <span class='op'>=</span> <span class='st'>"CA"</span><span class='op'>)</span>
 <span class='op'>)</span> <span class='op'>+</span> 
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>xlab</a></span><span class='op'>(</span><span class='st'>"Age level"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ylab</a></span><span class='op'>(</span><span class='st'>"Trunk diameter (mm)"</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_cartesian.html'>coord_cartesian</a></span><span class='op'>(</span> ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>250</span><span class='op'>)</span> <span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title<span class='op'>=</span><span class='st'>"Decorrelated confidence intervals"</span><span class='op'>)</span>

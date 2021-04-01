@@ -8,6 +8,8 @@
 #'
 #' @docType data
 #'
+#' @md
+#'
 #' @usage data(dataFigure4)
 #'
 #' @format An object of class data.frame.
@@ -15,7 +17,7 @@
 #' @keywords datasets
 #'
 #' @references 
-#'          \insertAllCited{}
+#' \insertAllCited{}
 #'
 #' @source \doi{10.5709/acp-0214-z}
 #'

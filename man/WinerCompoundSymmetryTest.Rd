@@ -16,11 +16,11 @@ p the p-value of the null hypothesis that the data are compound symmetric.
 }
 \description{
 Run a test of compound symmetry.
-  generates a data frame of random data suitable for analyses.
-  It assesses the significance of the null hypothesis that
-  the covariance matrix is compound symmetric. 
-  This test is given without demonstration in 
-  \insertCite{w91}{superb}, p. 517.
+generates a data frame of random data suitable for analyses.
+It assesses the significance of the null hypothesis that
+the covariance matrix is compound symmetric.
+This test is given without demonstration in
+\insertCite{w91}{superb}, p. 517.
 }
 \examples{
 # creates a small data frames with 4 subject's scores for 5 measures:

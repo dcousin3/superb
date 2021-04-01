@@ -1,5 +1,7 @@
 ---
 title: "Devising custom plot layouts"
+bibliography: "../inst/REFERENCES.bib"
+csl: "../inst/apa-6th.csl"
 output: 
   html_document:
     toc: TRUE
@@ -22,7 +24,7 @@ library(ggplot2)
 options(superb.feedback = 'none')
 ```
 
-``superbPlot`` comes with six built-in layouts for plotting your data.
+``superbPlot()`` comes with sevent built-in layouts for plotting your data.
 However, it is possible to add additional, custom-made layouts. In this
 vignette, we present rapidly the existing layouts, then show how
 to supplement ``superb`` with your own layouts.
@@ -31,26 +33,28 @@ to supplement ``superb`` with your own layouts.
 ## The built-in plot layouts
 
 
-When calling ``superbPlot``, you use the ``plotStyle = "layout"`` option
-to indicate which layout you wish to use. Internally, ``superbPlot``
-is calling a function whose name is ``superbPlot."layout"``. For example,
+When calling ``superbPlot()``, you use the ``plotStyle = "layout"`` option
+to indicate which layout you wish to use. Internally, ``superbPlot()``
+is calling a function whose name is ``superbPlot."layout"()``. For example,
 with ``plotStyle = "line"``, the plot is actually performed by the 
-function ``superbPlot.line``.
+function ``superbPlot.line()``.
 
 
-The six layout available in  ``superbPlot`` package are :
+The seven layout available in  ``superbPlot`` package are :
 
-* ``superbPlot.line`` : shows the results as points and lines, 
+* ``superbPlot.line()`` : shows the results as points and lines, 
 
-* ``superbPlot.point``: shows the results as points only, 
+* ``superbPlot.point()``: shows the results as points only, 
 
-* ``superbPlot.bar`` : shows the results using bars, 
+* ``superbPlot.bar()`` : shows the results using bars, 
 
-* ``superbPlot.pointjitter``: shows the results with points, and the raw data with jittered points, 
+* ``superbPlot.pointjitter()``: shows the results with points, and the raw data with jittered points, 
 
-* ``superbPlot.pointjitterviolin``: also shows violin plot behind the jitter points, and 
+* ``superbPlot.pointjitterviolin()``: also shows violin plot behind the jitter points, and 
 
-* ``superbPlot.pointindividualline``: show the results with fat points, and individual results with thin lines, 
+* ``superbPlot.pointindividualline()``: show the results with fat points, and individual results with thin lines, 
+
+* ``superbPlot.raincloud()``: Shows the results with distribution and jitter.
 
 To determine if a certain function is ``superbPlot``-compatible, 
 use the following function:
@@ -100,9 +104,9 @@ mp <- function(data, style, ...) {
 }
 ```
 
-Lets compute the plots will all six built-in layouts and show them
+Lets compute the plots will the first six built-in layouts and show them
 
-```{r, fig.width= 7, fig.height = 7, fig.cap = "Figure 1: Look of the six built-in layouts on the same random dataset"}
+```{r, fig.width= 7, fig.height = 7, fig.cap = "Figure 1a: Look of the six built-in layouts on the same random dataset"}
 p1 <- mp(testdata, "bar")
 p2 <- mp(testdata, "point")
 p3 <- mp(testdata, "line")
@@ -112,6 +116,12 @@ p6 <- mp(testdata, "pointindividualline")
 
 library(gridExtra)
 grid.arrange(p1,p2,p3,p4,p5,p6,ncol=2)
+```
+
+The last format, a raincloud plot [@pw21], is better seen with coordinates flipped over:
+
+```{r, fig.width =7, fig.height = 7, fig.cap = "Figure 1b: The seventh layout, the raincloud"}
+mp(testdata, "raincloud") + coord_flip()
 ```
 
 For more controls, you can manually set the colors, the fills and/or
@@ -139,6 +149,12 @@ grid.arrange(
     ncol=2)
 ```
 
+As of the raincloud with the same ornaments, we get
+
+```{r, fig.width= 7, fig.height = 7, fig.cap = "Figure 2b: The raincloud with ornamental styling added."}
+mp(testdata, "raincloud") + coord_flip() + ornate
+```
+
 These are just a few examples. However, if these layouts do not fit
 yours needs, it is possible to devise a custom-made layout and 
 inform ``superbPlot`` to use it. To that end, see the instructions
@@ -147,7 +163,7 @@ below.
 
 ## Devising a custom-made plot layout
 
-In a nutshell, the purpose of ``superbPlot`` is to 
+In a nutshell, the purpose of ``superbPlot()`` is to 
 
 * compile the summary information
 (location of the summary statistic, upper width and lower width of 
@@ -155,13 +171,13 @@ the interval) and that, for each level of the factors;
 
 * applies all the adjustments needed in producing the summary;
 
-* ``superbPlot`` also transform to discrete factors (using 
+* ``superbPlot()`` also transform to discrete factors (using 
 ``as.factor``) all the factors. If some of the factors are
 within-subject, the information is to be found in distinct column (
-remember that ``superbPlot`` assumes a wide-format data frame); for
+remember that ``superbPlot()`` assumes a wide-format data frame); for
 between-group factors, a column indicate the current group; 
 
-* and finally, calls the plot function accepting pre-defined 
+* and finally, calls a plot function accepting pre-defined 
 arguments
 
 In devising your own plot function, it is important that (i) the 
@@ -189,7 +205,7 @@ In what follow, it is assumed that one factor is placed on the
 horizontal axis (``xfactor``), another one is used to group the 
 point (``groupingfactor``), and up to two additional
  factors will results in columns and rows of panels
- (``addfactors). (Of course, in devising your own template,
+ (``addfactors``; of course, in devising your own template,
 you may use different placement.) 
 
 
@@ -215,7 +231,7 @@ being transformed ``as.factor`` and the dependent column being renamed
 long format.
 
 * ``{optional arguments}`` can be used. They must be named here; when 
-calling ``superbPlot``, any argument whose name match your optional
+calling ``superbPlot()``, any argument whose name match your optional
 argument will be transmitted to your custom-made function.
 
 
@@ -234,7 +250,7 @@ The result will be:
 superbPlot.simple <- function( summarydata, xfactor, groupingfactor, addfactors, rawdata ) {
     plot <- ggplot(
         data = summarydata,
-        mapping = aes_string( x = xfactor, y = "center")
+        mapping = aes_string( x = xfactor, y = "center", group= groupingfactor)
     ) +
     geom_point( ) +
     geom_errorbar( mapping = aes_string(ymin = "center + lowerwidth", ymax = "center + upperwidth")  )+
@@ -246,7 +262,7 @@ superbPlot(TMB1964r,
     WSFactor = "T(7)",
     BSFactor = "Condition",
     variables = c("T1","T2","T3","T4","T5","T6","T7"),
-    plotStyle = "bar"
+    plotStyle = "simple"
 )
 ```
 
@@ -258,10 +274,11 @@ superbPlot.simple <- function(
 ) {
     plot <- ggplot(
         data = summarydata, 
-        mapping = aes_string( x = xfactor, y = "center")
+        mapping = aes_string( x = xfactor, y = "center", group=groupingfactor)
     ) +
-    geom_point( ) +
-    geom_errorbar( mapping = aes_string(ymin = "center + lowerwidth", ymax = "center + upperwidth")  )+ 
+    geom_point(  ) +
+    geom_errorbar( mapping = aes_string(ymin = "center + lowerwidth", 
+                                        ymax = "center + upperwidth")  )+ 
     facet_grid( addfactors )
         
     return(plot)
@@ -325,13 +342,17 @@ superbPlot.simpleWithOptions <- function(
 ) {
     plot <- ggplot(
         data = summarydata, 
-        mapping = aes_string( x = xfactor, y = "center")
+        mapping = aes_string( x = xfactor, y = "center", group="Condition")
     ) +
     do.call( geom_point, modifyList(
        list( color ="black" ),
         myownParams
     )) + 
-    geom_errorbar( mapping = aes_string(ymin = "center + lowerwidth", ymax = "center + upperwidth")  )+ 
+    do.call( geom_errorbar, modifyList(
+        list( mapping = aes_string(ymin = "center + lowerwidth", 
+                                   ymax = "center + upperwidth")  ),
+        myownParams 
+    )) + 
     facet_grid( addfactors )
         
     return(plot)
@@ -345,17 +366,20 @@ superbPlot(TMB1964r,
     BSFactor = "Condition",
     variables = c("T1","T2","T3","T4","T5","T6","T7"),
     plotStyle = "simpleWithOptions", 
-    myownParams = list(size=12, color="red") ## here goes the optional arguments
+    myownParams = list(size=1, color="purple", position = position_dodge(width = 0.3) ) ## here goes the optional arguments
 )
 ```
 
+In that example, the same parameters are sent to ``geom_point`` and to ``geom_errorbar``.
+It is left as an exercice to the reader to use two distinct sets of optional parameters, 
+one for the points, the other for the error bars.
 
 
 
 ## Getting feedback information
 
 It is sometimes useful to extract variables out of the function
-when debugging the code. A useful function is to use ``runDebug``.
+when debugging the code. A useful function is to use ``runDebug()``.
 This function (shipped with ``suberb``) will display text and
 transfer any variables you want into the global environment.
 
@@ -463,4 +487,4 @@ superbPlot(TMB1964r,
 )
 ```
 
-
+# References

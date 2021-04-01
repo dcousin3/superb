@@ -1,8 +1,10 @@
 ######################################################################################
-#' @title GRD
+#' @title Generate random data
 #'
-#' @description Generate Random Data (GRD) is a function that
-#' generates a data frame containing random data suitable for analyses.
+#' @md
+#'
+#' @description The function ``GRD()`` generates a data frame containing 
+#' random data suitable for analyses.
 #' The data can be from within-subject or between-group designs.
 #' Within-subject designs are in wide format. The function was originally
 #' presented in \insertCite{ch19;textual}{superb}.
@@ -39,8 +41,8 @@
 #'  hist(dta$score )
 #'
 #'  # Examples for a between-subject design and for a within-subject design: 
-#'  dtaBS <- GRD( BSFactors = '3')
-#'  dtaWS <- GRD( WSFactors = "Moment (2)")
+#'  dta <- GRD( BSFactors = '3')
+#'  dta <- GRD( WSFactors = "Moment (2)")
 #'
 #'  # A complex, 3 x 2 x (2) mixed design with a variable amount of participants in the 6 groups:
 #'  dta <- GRD(BSFactors = "difficulty(3) : gender (2)", 
@@ -59,30 +61,30 @@
 #'  hist(dta$IQ)
 #'
 #'  # This example adds an effect along the "Difficulty" factor with a slope of 15
-#'  dta <- GRD(BSFactors="Difficulty(5)", SubjectsPerGroup = 1000,
+#'  dta <- GRD(BSFactors="Difficulty(5)", SubjectsPerGroup = 100,
 #'      Population=list(mean=50,stddev=5), 
 #'      Effects = list("Difficulty" = slope(15) )  )
 #'  # show the mean performance as a function of difficulty:
 #'  superbPlot(dta, BSFactor = "Difficulty", variables="DV")
 #' 
-#'  # an example in which the moments are correlated
+#'  # An example in which the moments are correlated
 #'  dta <- GRD( BSFactors = "Difficulty(2)",WSFactors = "Moment (2)", 
 #'     SubjectsPerGroup = 1000,
 #'      Effects = list("Difficulty" = slope(3), "Moment" = slope(1) ),
 #'      Population=list(mean=50,stddev=20,rho=0.85)
 #'  )
-#'  # the mean plot on the raw data
+#'  # the mean plot on the raw data...
 #'  superbPlot(dta, BSFactor = "Difficulty", WSFactor = "Moment(2)", 
 #'      variables=c("DV.1","DV.2"), plotStyle="line",
 #'      adjustments = list (purpose="difference") )
-#'  # the mean plot on the decorrelated data; 
-#'  # because of correlation, the error bars are markedly different
+#'  # ... and the mean plot on the decorrelated data; 
+#'  # because of high correlation, the error bars are markedly different
 #'  superbPlot(dta, BSFactor = "Difficulty", WSFactor = "Moment(2)", 
 #'      variables=c("DV.1","DV.2"), plotStyle="line",
 #'      adjustments = list (purpose="difference", decorrelation = "CM") )
 #'  
 #' @references
-#'   \insertAllCited{} 
+#' \insertAllCited{} 
 #' 
 #' @importFrom Rdpack reprompt
 #' @export GRD
@@ -350,7 +352,7 @@ GRD <- function(
 
 
 ######################################################################################
-#' @title effect description
+#' @title Effect description
 #'
 #' @aliases slope extent custom Rexpression
 #'
@@ -363,8 +365,14 @@ GRD <- function(
 #' "factor = Rexpression("R code")" will apply R code to all levels of 
 #' the factors. R code result alters the base mean.
 #'
-#' @param s the size of the effect or a R code string
+#' @usage slope(s)
+#' @usage extent(s)
+#' @usage custom(...)
+#' @usage Rexpression(str)
 #'
+#' @param s the size of the effect 
+#' @param ... a sequence with the sizes of the effects
+#' @param str R code string
 #'
 #' @return These internal functions are not meant to be used in 
 #' isolation in any meaningful way...
@@ -383,7 +391,7 @@ GRD <- function(
 slope       <- function(s)   { c(-97, s)   }
 extent      <- function(s)   { c(-98, s)   }
 custom      <- function(...) { c(-99,...)  }
-Rexpression <- function(s)   { c("-96", paste(c(s),collapse="") ) }
+Rexpression <- function(str)   { c("-96", paste(c(str),collapse="") ) }
 
 
 ##################################################################   

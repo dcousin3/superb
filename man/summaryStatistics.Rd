@@ -30,9 +30,9 @@ a summary statistic describing the sample.
 }
 \description{
 superb adds a few summary statistics that can
-be used to characterize a dataset. All comes with ``SE.fct()`` and ``CI.fct()``.
+be used to characterize a dataset. All comes with \code{SE.fct()} and \code{CI.fct()}.
 See \insertCite{htc14,htc15}{superb} for more.
-"superbPlot-compatible" summary statistics functions must have one parameter:
+\emph{superbPlot-compatible} summary statistics functions must have one parameter:
 }
 \examples{
 # the confidence interval of the mean for default 95\% and 90\% confidence level
