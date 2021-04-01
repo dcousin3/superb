@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # superb 0.9.5.0 (April xth, 2021)
 
 * Expanded documentation once more
@@ -57,3 +58,64 @@
 * Grouped the various adjustments into an "adjustments" list
 * Added LM decorrelation method
 
+=======
+# superb 0.9.5.0 (April xth, 2021)
+
+* Expanded documentation once more
+* Second release on CRAN, codename "95% confidence"
+
+# superb 0.9.4.5 (April 1st, 2021)
+
+* Implemented the raincloud plots
+
+# superb 0.9.4.4 (March 2021)
+
+* Expanded function names lambda, epsilon
+* Made built-in bootstrap estimators for SE and CI
+* Renamed option "debug" into "feedback"
+* Changed debug information for GRD
+* Converted in GRD the level ranges, e.g., "diff(1,5)", into numeric levels
+
+# superb 0.9.4.3 (March 2021)
+
+* Added superbData as a shortcut to superbPlot(... showPlot = FALSE)
+* Changed debug information for suberbPlot and superbData
+* Created a logo and improved web pages
+* Revised documentation
+
+# superb 0.9.4.2 (March 2021)
+
+* Initial release of the R version on CRAN
+* Added optional argument facetParams to the plotting functions
+* Made the plot function customizable
+* Wrote vignettes
+
+# superb 0.9.4.0 (September 2020)
+
+* Beta release of superb on GitHub
+* Renamed to superb (SUmmary Plot with ERror Bars)
+* packaged together GRD and MeanPlot
+* Added pre and post-processing operators
+* Transcoded MeanPlot from Mathematica to R
+
+# GRD for R (version 1.0; January 2019)
+
+* Initial release of GRD 2.0 for the R platform
+
+# MeanPlot 0.5.0 (March 2017)
+
+* Last stable version maintained on Mathematica
+* Updated legend manipulation following the release of Mathematica 9.0
+
+# GRD for SPSS (versions 1.0 and 2.0; July 2014 and October 2015)
+
+* Release of GRD 1.0 and 2.0 for SPSS
+
+# MeanPlot 0.4.x and prior (2009-2015)
+
+* Development versions of MeanPlot on the Mathematica framework; Cousineau (2017) doi:10.5709/acp-0214-z
+* Added "popSize" and "CRS" from Cousineau & Laurencelle (2016) doi:10.1037/met0000055
+* Grouped the various adjustments into an "adjustments" list
+* Added LM decorrelation method
+
+>>>>>>> 018f8eb9a4a83ac0f0de80eec2c83d19b3d23b2c
