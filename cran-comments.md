@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ## Submission
 * New version 0.9.5.0
 
@@ -23,29 +22,3 @@ false-alarm NOTE about a possibly mispelled word 'Calderini'.
 
 * All packages that I could install passed.
 
-=======
-## Submission
-* New version 0.9.5.0
-
-## Test environments
-* local WIN-64x install, R 4.0.3
-* win-builder devel 
-* win-builder release
-* Ubuntu 16.04.6 LTS R release (travis-ci.org)
-
-## R CMD check results
-
-* There were no ERRORs and no WARNINGs.
-
-* There was 1 NOTE from Travis-CI: Doc folder exceeds 1 Mb: as this package
-is about creating plots, it is difficult to generate documentations
-with less than 1 Mb (that would represents only 4 to 5 examples). 
-
-* There was 1 NOTE from win-builder about the maintainer and one 
-false-alarm NOTE about a possibly mispelled word 'Calderini'.
-
-## Downstream dependencies
-
-* All packages that I could install passed.
-
->>>>>>> 018f8eb9a4a83ac0f0de80eec2c83d19b3d23b2c

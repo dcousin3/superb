@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Package: superb
 Type: Package
 Title: Get Precision of Means Under Various Designs and Sampling Schemes
@@ -59,65 +58,3 @@ Suggests:
     sadists,
     testthat
 RdMacros: Rdpack
-=======
-Package: superb
-Type: Package
-Title: Get Precision of Means Under Various Designs and Sampling Schemes
-Version: 0.9.4.5
-Date: 2021-03-21
-Authors@R: c(
-             person("Denis", "Cousineau", email = "denis.cousineau@uottawa.ca",
-                    role = c("aut", "cre")),
-             person("Bradley", "Harding", email = "bradley.harding@umoncton.ca",
-                    role = c("ctb")),
-             person("Marc-Andre", "Goulet", email = "magoulet101@gmail.com",
-                    role = c("ctb")),
-             person("Jesika", "Walker", email = "jwalk050@uottawa.ca",
-                    role = c("art"))
-           )
-Author: Denis Cousineau [aut, cre],
-    Bradley Harding [ctb],
-    Marc-Andre Goulet [ctb],
-    Jesika Walker [art]
-Maintainer: Denis Cousineau <denis.cousineau@uottawa.ca>
-Description: 
-    Computes standard error and confidence interval of various descriptive statistics under 
-    various designs and sampling schemes. The main function, superbPlot(), can either return a plot 
-    or a dataframe with the statistic and its precision interval so that other plotting package
-    can be used. See Cousineau (2017) <doi:10.5709/acp-0214-z> for a review or Cousineau (2005)
-    <doi:10.20982/tqmp.01.1.p042>, Morey (2008) <doi:10.20982/tqmp.04.2.p061>, Baguley (2012)
-    <doi:10.3758/s13428-011-0123-7>, Cousineau & Laurencelle (2016) <doi:10.1037/met0000055>,
-    Cousineau & O'Brien (2014) <doi:10.3758/s13428-013-0441-z>, Calderini & Harding 
-    <doi:10.20982/tqmp.15.1.p001>.
-License: GPL-3
-Encoding: UTF-8
-VignetteBuilder: knitr
-LazyData: true
-RoxygenNote: 7.1.1
-Depends:
-    R (>= 3.5.0)
-Imports: 
-    plyr (>= 1.8.4),
-    ggplot2 (>= 3.1.0),
-    ggsci,
-    magrittr,
-    MASS,
-    matrixcalc,
-    lsr (>= 0.5),
-    Rdpack (>= 0.7),
-    stats
-Suggests: 
-    car,
-    emojifont,
-    fMultivar,
-    grid,
-    gridExtra,
-    knitr, 
-    lattice,
-    lawstat,
-    reshape2,
-    rmarkdown,
-    sadists,
-    testthat
-RdMacros: Rdpack
->>>>>>> 018f8eb9a4a83ac0f0de80eec2c83d19b3d23b2c
