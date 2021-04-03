@@ -1,4 +1,4 @@
-citHeader("To cite superb in publications use:")
+citHeader("To cite superb version 0.9.5.0 (codename '95% confident') in publications use:")
 
 citEntry(
   entry    = "Article",
@@ -19,5 +19,5 @@ citEntry(
 
 citFooter(paste(
     "We have invested a lot of time and effort in creating superb.",
-    "Please cite it when using it for plots. Academic retribution is citation!")
+    "Please cite it when using it. Academic retribution is citation!")
 )

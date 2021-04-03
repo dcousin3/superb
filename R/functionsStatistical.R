@@ -360,43 +360,46 @@ CI.fisherkurtosis <- function(x, gamma = 0.95){
 #'
 #' @title Bootstrapped measures of precision 
 #'
-#' @aliases bootstrapSE.mean bootstrapCI.mean bootstrapSE.median bootstrapCI.median 
-#'      bootstrapSE.hmean bootstrapCI.hmean bootstrapSE.gmean bootstrapCI.gmean
-#'      bootstrapSE.var bootstrapCI.var bootstrapSE.sd bootstrapCI.sd 
+#' @aliases bootstrapSE.mean bootstrapPI.mean bootstrapSE.median bootstrapPI.median 
+#'      bootstrapSE.hmean bootstrapPI.hmean bootstrapSE.gmean bootstrapPI.gmean
+#'      bootstrapSE.var bootstrapPI.var bootstrapSE.sd bootstrapPI.sd 
 #'
 #' @md
 #'
 #' @description superb also comes with a few built-in measures of 
 #' precisions that uses bootstrap. More can be added based on users needs.
 #' All ``bootstrapSE.fct()`` functions produces an interval width;
-#' all ``bootstrapCI.fct()`` produces the lower and upper limits of an interval.
+#' all ``bootstrapPI.fct()`` produces the lower and upper limits of an interval.
 #' These estimates are based on 5,000 sub-samples by default. Change this 
 #' default with``options("superb.bootstrapIter" = number )``.
 #' See \insertCite{et94}{superb} for a comprehensive introduction.
-#' All "superbPlot-compatible" precision measures must have these parameters:
+#' The bootstrap estimates are called PI which stands for Precision intervals.
+#' This is to denote that they estimate the sampling distribution, not the 
+#' predictive distribution on which all confidence intervals are based
+#' \insertCite{@see @rpw19; @pl10; @l99}{superb}.
 #' 
 #' @usage bootstrapSE.mean(x)
-#' @usage bootstrapCI.mean(x, gamma)
+#' @usage bootstrapPI.mean(x, gamma)
 #' @usage bootstrapSE.median(x)
-#' @usage bootstrapCI.median(x, gamma)
+#' @usage bootstrapPI.median(x, gamma)
 #' @usage bootstrapSE.hmean(x)
-#' @usage bootstrapCI.hmean(x, gamma)
+#' @usage bootstrapPI.hmean(x, gamma)
 #' @usage bootstrapSE.gmean(x)
-#' @usage bootstrapCI.gmean(x, gamma)
+#' @usage bootstrapPI.gmean(x, gamma)
 #' @usage bootstrapSE.var(x)
-#' @usage bootstrapCI.var(x, gamma)
+#' @usage bootstrapPI.var(x, gamma)
 #' @usage bootstrapSE.sd(x)
-#' @usage bootstrapCI.sd(x, gamma)
+#' @usage bootstrapPI.sd(x, gamma)
 #' 
 #' @param x a vector of numbers, the sample data (mandatory);
-#' @param gamma a confidence level for CI (default 0.95).
+#' @param gamma a confidence level for PI (default 0.95).
 #'
-#' @return a measure of precision (SE) or an interval of precision (CI).
+#' @return a measure of precision (SE) or an interval of precision (PI).
 #'
 #' @examples
 #' # the confidence interval of the mean for default 95% and 90% confidence level
-#' bootstrapCI.mean( c(1,2,3) )
-#' bootstrapCI.mean( c(1,2,3), gamma = 0.90)
+#' bootstrapPI.mean( c(1,2,3) )
+#' bootstrapPI.mean( c(1,2,3), gamma = 0.90)
 #'
 #' # Standard errors for standard deviation or variance
 #' bootstrapSE.sd( c(1,2,3) )
@@ -406,17 +409,17 @@ CI.fisherkurtosis <- function(x, gamma = 0.95){
 #' \insertAllCited{}
 #'
 #' @export bootstrapSE.mean
-#' @export bootstrapCI.mean
+#' @export bootstrapPI.mean
 #' @export bootstrapSE.median
-#' @export bootstrapCI.median
+#' @export bootstrapPI.median
 #' @export bootstrapSE.hmean
-#' @export bootstrapCI.hmean
+#' @export bootstrapPI.hmean
 #' @export bootstrapSE.gmean
-#' @export bootstrapCI.gmean
+#' @export bootstrapPI.gmean
 #' @export bootstrapSE.var
-#' @export bootstrapCI.var
+#' @export bootstrapPI.var
 #' @export bootstrapSE.sd
-#' @export bootstrapCI.sd
+#' @export bootstrapPI.sd
 #'
 bootstrapSE.mean <- function(x){
     res = c()
@@ -426,7 +429,7 @@ bootstrapSE.mean <- function(x){
     se <- sd(res)
     se
 }
-bootstrapCI.mean <- function(x, gamma = 0.95){
+bootstrapPI.mean <- function(x, gamma = 0.95){
     res = c()
     for (i in 1:getOption("superb.bootstrapIter")) {
         res[i] <- mean(sample(x, length(x), replace = TRUE))
@@ -445,7 +448,7 @@ bootstrapSE.median <- function(x){
     se <- sd(res)
     se
 }
-bootstrapCI.median <- function(x, gamma = 0.95){
+bootstrapPI.median <- function(x, gamma = 0.95){
     res = c()
     for (i in 1:getOption("superb.bootstrapIter")) {
         res[i] <- median(sample(x, length(x), replace = TRUE))
@@ -464,7 +467,7 @@ bootstrapSE.hmean <- function(x){
     se <- sd(res)
     se
 }
-bootstrapCI.hmean <- function(x, gamma = 0.95){
+bootstrapPI.hmean <- function(x, gamma = 0.95){
     res = c()
     for (i in 1:getOption("superb.bootstrapIter")) {
         res[i] <- hmean(sample(x, length(x), replace = TRUE))
@@ -483,7 +486,7 @@ bootstrapSE.gmean <- function(x){
     se <- sd(res)
     se
 }
-bootstrapCI.gmean <- function(x, gamma = 0.95) {
+bootstrapPI.gmean <- function(x, gamma = 0.95) {
     res = c()
     for (i in 1:getOption("superb.bootstrapIter")) {
         res[i] <- gmean(sample(x, length(x), replace = TRUE))
@@ -507,7 +510,7 @@ bootstrapSE.var <- function(x){
     se <- sd(res)
     se
 }
-bootstrapCI.var <- function(x, gamma = 0.95){
+bootstrapPI.var <- function(x, gamma = 0.95){
     res = c()
     for (i in 1:getOption("superb.bootstrapIter")) {
         res[i] <- var(sample(x, length(x), replace = TRUE))
@@ -526,7 +529,7 @@ bootstrapSE.sd <- function(x){
     se <- sd(res)
     se
 }
-bootstrapCI.sd <- function(x, gamma = 0.95){
+bootstrapPI.sd <- function(x, gamma = 0.95){
     res = c()
     for (i in 1:getOption("superb.bootstrapIter")) {
         res[i] <- sd(sample(x, length(x), replace = TRUE))

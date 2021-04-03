@@ -2,13 +2,14 @@ pandoc: 2.11.4
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
+  TheMakingOf: TheMakingOf.html
   Vignette1: Vignette1.html
   Vignette2: Vignette2.html
   Vignette3: Vignette3.html
   Vignette4: Vignette4.html
   Vignette5: Vignette5.html
   Vignette6: Vignette6.html
-last_built: 2021-04-01T22:35Z
+last_built: 2021-04-03T22:18Z
 urls:
   reference: http://dcousin3.github.io/superb/reference
   article: http://dcousin3.github.io/superb/articles

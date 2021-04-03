@@ -142,7 +142,7 @@ superbPlot(dta,
     )
 ```
 
-```{r, message=FALSE, echo=FALSE, , fig.cap="Figure 2: Mean scores along with difference-adjusted 95% confidence interval per week for a program to stop smoking."}
+```{r, message=FALSE, echo=FALSE, fig.cap="Figure 2: Mean scores along with difference-adjusted 95% confidence interval per week for a program to stop smoking."}
 superbPlot(dta, 
     WSFactor="Moment(3)",
     variables = c("Week 1", "Week 2", "Week 3"),
@@ -224,7 +224,7 @@ personal preference which one you use.
 
 Figure 2 above will become Figure 3 if you add a decorrelation adjustment:
 
-```{r, message=FALSE, echo=TRUE}
+```{r, message=TRUE, echo=TRUE}
 superbPlot(dta, 
     WSFactor="Moment(3)",
     variables = c("Week 1", "Week 2", "Week 3"),
@@ -243,7 +243,7 @@ scale_x_discrete(labels=c("1" = "Week 1", "2" = "Week 2", "3"="Week 3"))
 Unless you change the options to ``options(superb.feedback = 'none')``, the command will issue some additional
 information. In the present data set, $\varepsilon$ is 0.54 which is low. A Mauchly test
 of sphericity indicates rejection of sphericity, so interpret the error bars with caution. 
-All the warnings issued beginning with ``"FYI"`` are just information. Hereafter, the warnings
+All the messages issued beginning with ``"FYI"`` are just information. Hereafter, the warnings
 are inhibited.
 
 

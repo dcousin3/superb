@@ -106,18 +106,18 @@ superbData <- function(data,
     summaryStatistics = results[[1]]
     rawData = results[[2]]
 
-    if(missing(factorOrder))  {factorOrder <- c(WSFactor, BSFactor)}
-    widthfct <- paste(errorbar, statistic, sep = ".")
+#    if(missing(factorOrder))  {factorOrder <- c(WSFactor, BSFactor)}
+#    widthfct <- paste(errorbar, statistic, sep = ".")
 
     # do some renaming of the columns for clearer results
-    verbosecol <- c(
-        statistic,
-        if (errorbar == "SE") c("- 1 * SE", "+ 1 * SE") 
-        else if (errorbar == "CI") c(paste("-", gamma* 100, "% CI width"), paste("+", gamma* 100, "% CI width") ) 
-        else if (errorbar == "PI") c(paste("-", gamma* 100, "% PI width"), paste("+", gamma* 100, "% PI width") ) 
-        else c(paste("-", widthfct), paste("+", widthfct) )
-    )
-    colnames(summaryStatistics)[(length(factorOrder)+1):(length(factorOrder)+3)] <- verbosecol
+#    verbosecol <- c(
+#        statistic,
+#        if (errorbar == "SE") c("- 1 * SE", "+ 1 * SE") 
+#        else if (errorbar == "CI") c(paste("-", gamma* 100, "% CI width"), paste("+", gamma* 100, "% CI width") ) 
+#        else if (errorbar == "PI") c(paste("-", gamma* 100, "% PI width"), paste("+", gamma* 100, "% PI width") ) 
+#        else c(paste("-", widthfct), paste("+", widthfct) )
+#    )
+#    colnames(summaryStatistics)[(length(factorOrder)+1):(length(factorOrder)+3)] <- verbosecol
 
     return(list(summaryStatistics = summaryStatistics, rawData = rawData) )
 

@@ -138,6 +138,25 @@ GeomFlatViolin <-
 #'
 #' @return a ggplot object
 #'
+#' @examples
+#' # This will make a plot with raincloud; they are better seen rotated: +coord_flip()
+#' superbPlot(ToothGrowth, 
+#'    BSFactor = c("dose","supp"), variables = "len",
+#'    plotStyle="raincloud" 
+#' )
+#'
+#' # if you extract the data with superbData, you can 
+#' # run this layout directly
+#' processedData <- superbData(ToothGrowth, 
+#'    BSFactor = c("dose","supp"), variables = "len"
+#' )
+#'
+#' superbPlot.raincloud(processedData$summaryStatistic,
+#'    "dose",
+#'    "supp",
+#'    ".~.",
+#'    processedData$rawData)
+#'
 #' @export superbPlot.raincloud
 #'
 ######################################################################################

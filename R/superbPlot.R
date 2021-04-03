@@ -157,7 +157,7 @@ superbPlot <- function(data,
     ##############################################################################
     # 1.0: is the data actually data!
     if(!(is.data.frame(data)))
-            stop("ERROR: data is not a data.frame. Exiting...")
+            stop("superb::ERROR: data is not a data.frame. Exiting...")
 
     # 1.1: missing adjustements
     if(is.null(adjustments$purpose))        {adjustments$purpose        <- "single"}
@@ -167,26 +167,26 @@ superbPlot <- function(data,
 
     # 1.2: unknown adjustments listed
     if (!all(names(adjustments) %in% c("purpose","popSize","decorrelation","samplingDesign")))
-            stop("ERROR: one of the adjustment is unknown. Exiting...")
+            stop("superb::ERROR: one of the adjustment is unknown. Exiting...")
 
     # 1.3: invalid choice in a list of possible choices
     if (is.character(adjustments$popSize)||!(all(adjustments$popSize >0)))  
-            stop("ERROR: popSize should be a positive number or Inf (or a list of these). Exiting...")
+            stop("superb::ERROR: popSize should be a positive number or Inf (or a list of these). Exiting...")
     if (!(adjustments$purpose %in% c("single","difference","tryon"))) 
-            stop("ERROR: Invalid purpose. Did you mean 'difference'? Exiting...")
+            stop("superb::ERROR: Invalid purpose. Did you mean 'difference'? Exiting...")
     if (!(adjustments$decorrelation %in% c("none","CM","LM","CA"))) 
-            stop("ERROR: Invalid decorrelation method. Did you mean 'CM'? Exiting...")
+            stop("superb::ERROR: Invalid decorrelation method. Did you mean 'CM'? Exiting...")
     if (!(adjustments$samplingDesign %in% c("SRS","CRS"))) 
-            stop("ERROR: Invalid samplingDesign. Did you mean 'SRS'? Exiting...")
+            stop("superb::ERROR: Invalid samplingDesign. Did you mean 'SRS'? Exiting...")
 
     # 1.4a: innapropriate choice for between-subject specifications
     bsLevels <- dim(unique(data[BSFactor]))[1]
     if (!(length(adjustments$popSize) %in% c(1,bsLevels))) 
-            stop("ERROR: popSize is a list whose length does not match the number of groups. Exiting...")
+            stop("superb::ERROR: popSize is a list whose length does not match the number of groups. Exiting...")
     
     # 1.4b: invalid within-subject factors
     if (any(unlist(gregexpr("\\w\\((\\d+)\\)", WSFactor))== -1))
-            stop("ERROR: One of the repeated-measure factor not properly formed 'name(nlevel)'. Exiting...")
+            stop("superb::ERROR: One of the repeated-measure factor not properly formed 'name(nlevel)'. Exiting...")
     wsMissing <- "DummyWithinSubjectFactor"
     wsLevels <- c(1)
     if (is.null(WSFactor)) {
@@ -200,32 +200,32 @@ superbPlot <- function(data,
 
     wslevel <- prod(wsLevels)
     if (!(length(variables) == wslevel)) 
-            stop("ERROR: The number of levels of the within-subject level(s) does not match the number of variables. Exiting...")
+            stop("superb::ERROR: The number of levels of the within-subject level(s) does not match the number of variables. Exiting...")
     if ((wslevel == 1)&&(!(adjustments$decorrelation == "none"))) 
-            stop("ERROR: Decorrelation is not to be used when there is no within-subject factors. Exiting...")
+            stop("superb::ERROR: Decorrelation is not to be used when there is no within-subject factors. Exiting...")
     if(missing(factorOrder))  {
         factorOrder <- c(WSFactor, BSFactor)
         if (('design' %in% getOption("superb.feedback") ) & (length(factorOrder[factorOrder != wsMissing])) > 1)  
-                cat(paste("NOTE: The variables will be plotted in that order: ",
+                cat(paste("superb::FYI: The variables will be plotted in that order: ",
                           paste(factorOrder[factorOrder != wsMissing],collapse=", "),
                           " (use factorOrder to change).\n", sep=""))
     }
 
     # 1.5: invalid column names where column names must be listed
     if (!(all(variables %in% names(data)))) 
-            stop("ERROR: One of the variable column is not found in data. Exiting...")
+            stop("superb::ERROR: One of the variable column is not found in data. Exiting...")
     if (!(all(BSFactor %in% names(data)))) 
-            stop("ERROR: One of the BSFactor column is not found in data. Exiting...")
+            stop("superb::ERROR: One of the BSFactor column is not found in data. Exiting...")
 
     # 1.6: invalid inputs
     if (length(factorOrder[factorOrder != wsMissing] ) > 4)
-            stop("ERROR: Too many factors named on factorOrder. Maximum 4. Exiting...")
+            stop("superb::ERROR: Too many factors named on factorOrder. Maximum 4. Exiting...")
     if (length(factorOrder[factorOrder != wsMissing]) < length(WSFactor[WSFactor != wsMissing]) + length(BSFactor)) 
-            stop("ERROR: Too few factors named on factorOrder. Exiting...")
+            stop("superb::ERROR: Too few factors named on factorOrder. Exiting...")
     if ((gamma <0)||(gamma>1))
-            stop("ERROR: gamma is not within 0 and 1. Exiting...")
+            stop("superb::ERROR: gamma is not within 0 and 1. Exiting...")
     if (!is.logical(showPlot))
-            stop("ERROR: showPlot must be TRUE or FALSE. Exiting...")
+            stop("superb::ERROR: showPlot must be TRUE or FALSE. Exiting...")
 
     # 1.7: align levels and corresponding variables
     weird        <-"+!+" # to make sure that these characters are not in the column names
@@ -236,7 +236,7 @@ superbPlot <- function(data,
     colnames(design)[length(WSFactor)+1] <- "variable"
     colnames(design)[length(WSFactor)+2] <- "newvars"
     if ( (length(wsLevels)>1) & ('design' %in% getOption("superb.feedback") ) ) {
-        cat("NOTE: Here is how the within-subject variables are understood:\n")
+        cat("superb::FYI: Here is how the within-subject variables are understood:\n")
         print( design[,c(WSFactor, "variable") ]) 
     }
 
@@ -246,18 +246,18 @@ superbPlot <- function(data,
          eval(parse(text=paste(widthfct, "<-function(X) 0",sep="")), envir = globalenv())
     }
     if ( !(is.stat.function(statistic)) )
-            stop("ERROR: The function ", statistic, " is not a known descriptive statistic function. Exiting...")
+            stop("superb::ERROR: The function ", statistic, " is not a known descriptive statistic function. Exiting...")
     if ( !(is.errorbar.function(widthfct)) )
-            stop("ERROR: The function ", widthfct, " is not a known function for error bars. Exiting...")
+            stop("superb::ERROR: The function ", widthfct, " is not a known function for error bars. Exiting...")
     pltfct <- paste("superbPlot", plotStyle, sep = ".")
     if ( !(is.superbPlot.function(pltfct)) )
-            stop("ERROR: The function ", pltfct, " is not a known function for making plots with superbPlot. Exiting...")
+            stop("superb::ERROR: The function ", pltfct, " is not a known function for making plots with superbPlot. Exiting...")
 
     # 1.9: if cluster randomized sampling, check that column cluster is set
     if (adjustments$samplingDesign == "CRS") {
         # make sure that column cluster is defined.
         if(!(clusterColumn %in% names(data))) 
-            stop("ERROR: With samplingDesign = \"CRS\", you must specify a valid column with ClusterColumn. Exiting...")
+            stop("superb::ERROR: With samplingDesign = \"CRS\", you must specify a valid column with ClusterColumn. Exiting...")
     }
 
     # We're clear to go!
@@ -427,39 +427,39 @@ superbPlot <- function(data,
                 ps  <- c(ps, p)
             }
             if (any(p < .01)) 
-                warning("Some of the groups' variances are heterogeneous. Consider using purpose=\"tryon\".", call. = FALSE)
+                message("superb::ADVICE: Some of the groups' variances are heterogeneous. Consider using purpose=\"tryon\"." )
         }
 
         # 6.2: if deccorrelate is CA: show rbar, test Winer
         if (adjustments$decorrelation == "CA") {
-            warning(paste("FYI: The average correlation per group are ", paste(unique(rs), collapse=" ")), call. = FALSE)
+            message(paste("superb::FYI: The average correlation per group is ", paste(unique(round(rs,4)), collapse=" ")) )
 
             winers <- suppressWarnings(plyr::ddply(data, .fun = "WinerCompoundSymmetryTest", .variables= BSFactor, variables)) 
             winers <- winers[,length(winers)]
             if (any(winers<.05, na.rm = TRUE))
-                warning("Some of the groups' data are not compound symmetric. Consider using CM.", call. = FALSE)
+                message("superb::ADVICE: Some of the groups' data are not compound symmetric. Consider using CM." )
         }
         
         # 6.3: if decorrelate is CM or LM: show epsilon, test Winer and Mauchly
         if (adjustments$decorrelation %in% c("CM","LM")) {
             epsGG <- suppressWarnings(plyr::ddply(data, .fun = "HyunhFeldtEpsilon", .variables= BSFactor, variables)) 
             epsGG <- epsGG[,length(epsGG)]
-            warning(paste("FYI: The HyunhFeldtEpsilon measure of sphericity per group are ", paste(epsGG, collapse=" ")), call. = FALSE)
+            message(paste("superb::FYI: The HyunhFeldtEpsilon measure of sphericity per group are ", paste(round(epsGG,4), collapse=" ")) )
 
             winers <- suppressWarnings(plyr::ddply(data, .fun = "WinerCompoundSymmetryTest", .variables= BSFactor, variables) )
             winers <- winers[,length(winers)]
             if (all(winers>.05, na.rm = TRUE))
-                warning("FYI: All the groups' data are compound symmetric. Consider using CA.", call. = FALSE)
+                message("superb::FYI: All the groups' data are compound symmetric. Consider using CA." )
 
             mauchlys <- plyr::ddply(data, .fun = "MauchlySphericityTest", .variables= BSFactor, variables) 
             mauchlys <- mauchlys[,length(mauchlys)]
             if (any(mauchlys<.05, na.rm = TRUE))
-                warning("FYI: Some of the groups' data are not spherical. Use error bars with caution.", call. = FALSE)
+                message("superb::FYI: Some of the groups' data are not spherical. Use error bars with caution." )
         }
         
         # 6.4: if samplingDesign is CRS: print ICC, check that more than 8 clusters
         if (adjustments$samplingDesign == "CRS") {
-            warning(paste("FYI: The ICC1 per group are ", paste(ICCs, collapse=" ")), call. = FALSE)
+            message(paste("superb::FYI: The ICC1 per group are ", paste(round(ICCs,4), collapse=" ")) )
         }
     }
     

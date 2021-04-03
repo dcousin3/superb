@@ -44,3 +44,23 @@ All produces ggplot objects that can be further customized. Additionally, it is
 possible to add custom-make templates (see vignette 6). The functions, to be
 "superbPlot-compatible", must have these parameters:
 }
+\examples{
+# This will make a plot with bars
+superbPlot(ToothGrowth, 
+   BSFactor = c("dose","supp"), variables = "len",
+   plotStyle="bar" 
+)
+
+# if you extract the data with superbData, you can 
+# run this layout directly
+processedData <- superbData(ToothGrowth, 
+   BSFactor = c("dose","supp"), variables = "len"
+)
+
+superbPlot.bar(processedData$summaryStatistic,
+   "dose",
+   "supp",
+   ".~.",
+   processedData$rawData)
+
+}

@@ -91,7 +91,7 @@ test_that("test 2a: 1 facteur a 3 mesures repetees; (3)", {
     options(superb.feedback = c('warnings'))
     dta2a <- GRD( WSFactors = "Moment(3)", SubjectsPerGroup = 5, Population = list( mean=10, stddev = 5))
     # write.table(dta2a, file = "test2a.dat", sep = "\t", col.names = FALSE)
-    expect_warning( p <- superbPlot(dta2a, WSFactor = "moment(3)", 
+    expect_message( p <- superbPlot(dta2a, WSFactor = "moment(3)", 
       adjustments=list(decorrelation="CA"),
       errorbar = "CI", plotStyle="line",
       variables = c("DV.1","DV.2","DV.3") 
@@ -127,7 +127,7 @@ test_that("test 3: scheme mixte; 3 x (3)", {
       Effects = list("Moment" = slope(5))
     )
     # write.table(dta3, file = "test3.dat", sep = "\t", col.names = FALSE)
-    expect_warning( p <- superbPlot(dta3, WSFactor = "Moment(3)", BSFactor = "Group", 
+    expect_message( p <- superbPlot(dta3, WSFactor = "Moment(3)", BSFactor = "Group", 
         variables = c("DV.1","DV.2","DV.3"), 
         statistic = "mean", errorbar = "SE", plotStyle="line",
         adjustments = list(purpose="single", decorrelation="CM")
@@ -382,12 +382,12 @@ test_that("Explorations for ICC", {
 
     # write.table(dta99, file = 'file9.dat', sep = "\t", col.names = FALSE)
 
-    expect_warning( noncluster <- superbPlot(dta99, WSFactor = "moment(3)", 
+    expect_message( noncluster <- superbPlot(dta99, WSFactor = "moment(3)", 
       adjustments = list(decorrelation="CM"),
       errorbar = "CI", showPlot=T,
       variables = c("DV.1","DV.2","DV.3") 
     )+ labs(title="Without cluster information") + coord_cartesian( ylim = c(40,60) ) )
-    expect_warning( yescluster <- superbPlot(dta99, WSFactor = "moment(3)", 
+    expect_message( yescluster <- superbPlot(dta99, WSFactor = "moment(3)", 
       adjustments = list(decorrelation="CM", samplingDesign = "CRS"),
       clusterColumn = "myclus",
       errorbar = "CI", showPlot=T,
@@ -415,12 +415,12 @@ test_that("Verifying CA and popSize ", {
       Effects = list("Moment" = slope(5)) )
     # write.table(dta3, file = "file3.dat", sep = "\t", col.names = FALSE)
 
-    expect_warning( p1 <- superbPlot(dta3, WSFactor = "Moment(3)", BSFactor = "Group", 
+    expect_message( p1 <- superbPlot(dta3, WSFactor = "Moment(3)", BSFactor = "Group", 
         variables = c("DV.1","DV.2","DV.3"), 
         statistic = "mean", errorbar = "SE",
         adjustments = list(purpose="single", decorrelation="CM", popSize = Inf )
       ) + labs(title="Infinite populations") )
-    expect_warning( p2 <- superbPlot(dta3, WSFactor = "Moment(3)", BSFactor = "Group", 
+    expect_message( p2 <- superbPlot(dta3, WSFactor = "Moment(3)", BSFactor = "Group", 
         variables = c("DV.1","DV.2","DV.3"), 
         statistic = "mean", errorbar = "SE",
         adjustments = list(purpose="single", decorrelation="CM", popSize = c(Inf,6) )
@@ -447,7 +447,7 @@ test_that("Testing pre and post processing", {
         Effects = list("Moment" = slope(3) ) )
     # write.table(dta9, file = "file9.dat", sep = "\t", col.names = FALSE)
 
-    expect_warning( 
+    expect_message( 
         truecm <- superbPlot(dta9, WSFactor = "moment(3)",
           adjustments=list(decorrelation="CM"),
           errorbar = "CI", showPlot=T,
@@ -463,7 +463,7 @@ test_that("Testing pre and post processing", {
     )+ labs(title="with pre and post processing")
     pcm <- grid.arrange(truecm,altcm,ncol=2)
 
-    expect_warning( 
+    expect_message( 
         truelm <- superbPlot(dta9, WSFactor = "moment(3)", 
           adjustments=list(decorrelation="LM"),
           errorbar = "CI", showPlot=T,
@@ -479,14 +479,14 @@ test_that("Testing pre and post processing", {
     )+ labs(title="with pre and post processing")
     plm <- grid.arrange(truelm,altlm,ncol=2)
 
-    expect_warning( 
+    expect_message( 
         truecmvslm <- superbPlot(dta9, WSFactor = "moment(3)", 
           adjustments=list(decorrelation="LM"),
           errorbar = "CI", showPlot=T,
           variables = c("DV.1","DV.2","DV.3") 
         )+ labs(title="with decorrelation = LM") 
     )
-    expect_warning( altcmvslm <- superbPlot(dta9, WSFactor = "moment(3)", 
+    expect_message( altcmvslm <- superbPlot(dta9, WSFactor = "moment(3)", 
         adjustments=list(decorrelation="CM"),
         postprocessfct = c("poolSDTransform"),
         errorbar = "CI", showPlot=T,
@@ -589,7 +589,7 @@ test_that("Heterogeneous variances", {
         )
     )
     options(superb.feedback = c('warnings'))
-    expect_warning( 
+    expect_message( 
         superbPlot(dta,
             BSFactor = c("dif","grp"),
             WSFactor = "day(2)",
@@ -622,7 +622,7 @@ test_that("Tryon vs. difference", {
         Effects = list("grp" = slope(15) ) 
     )
     # do the plot twice with transparant background
-    expect_warning(plt1 <- superbPlot(dta, 
+    expect_message(plt1 <- superbPlot(dta, 
         BSFactor = "grp", plotStyle="line",
         variables = "score",  
         errorbarParams = list(color="blue",position = position_nudge(-0.1) ),

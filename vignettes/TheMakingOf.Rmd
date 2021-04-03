@@ -1,0 +1,454 @@
+---
+title: "The making-of the figures in the article"
+bibliography: "../inst/REFERENCES.bib"
+csl: "../inst/apa-6th.csl"
+output: 
+  html_document:
+    toc: TRUE
+description: >
+  This vignette provides all the steps needed to make the figures
+  from the article.
+vignette: >
+  %\VignetteIndexEntry{The making-of the figures in the article}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+Herein we provide the full code to realize Figures 1 to 6 that illustrate
+the (submitted) article describing the ``superb`` framework.
+These figures are based on ficticious data sets that are 
+provided with the package superb (``dataFigure1`` to ``dataFigure4``).
+
+Before we begin, we need to load a few packages, including ``superb`` of course:
+
+```{r, message=FALSE, echo=TRUE, eval=TRUE}
+## Load relevant packages
+library(superb)             # for superbPlot
+library(ggplot2)            # for all the graph directives
+library(grid)               # for grid.arrange
+library(gridExtra)          # for grid.text
+```
+
+If they are not present on your computer, first upload them to your computer with
+``install.packages("name of the package")``.
+
+
+# Making Figure 1
+
+The purpose of Figure 1 is to illustrate the difference in error bars when the 
+purpose of these measures of precision is to perform pair-wise comparisons. It 
+is based on the data from ``dataFigure1``, whose columns are 
+
+```{r, message=FALSE, echo=TRUE, eval=TRUE}
+head(dataFigure1)
+```
+
+where ``id`` is just a participant identifier, ``grp`` indicate group membership (here
+only group 1 and group 2), and finally, ``score`` is the dependent variable.
+
+The first panel on the left is based on stand-alone confidence intervals and 
+is obtained with :
+
+```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="Figure 1a: Making left panel of Figure 1."}
+plt1a = superbPlot(dataFigure1, 
+            BSFactor    = "grp", 
+            variables   = "score", 
+            plotStyle   = "line" ) 
+plt1a
+```
+
+Note that these *stand-alone* error bars could have been obtained by adding the argument
+``adjustments=list(purpose = "single")`` but as it is the default value, it can be omitted.
+
+The default ``theme`` to ``ggplot``s is not very attractive. Let's decorate the plot a bit!
+To that end, I collected some additional ggplot directives in a list:
+
+```{r, message=FALSE, echo=TRUE, eval=TRUE}
+ornateBS = list(
+    xlab("Group"), 
+    ylab("Score"),
+    coord_cartesian( ylim = c(75,125) ),
+    geom_hline(yintercept = 100, colour = "black", size = 0.5, linetype=2),
+    theme_light(base_size = 16) +
+    theme( plot.subtitle = element_text(size=12))
+)
+```
+
+so that the first plot, with these ornaments and a title, is:
+
+```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="Figure 1b: Decorating left panel of Figure 1."}
+plt1a <- plt1a + ornateBS + labs(subtitle="(stand-alone)\n95% CI")
+plt1a
+```
+
+The second plot is obtained in a simar fashion with just one additional argument requesting
+difference-adjusted confidence intervals:
+
+```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="Figure 1c: Making and decorating central panel of Figure 1."}
+plt1b = superbPlot(dataFigure1, 
+            BSFactor    = "grp", 
+            variables   = "score", 
+            adjustments = list(purpose = "difference"), #new!
+            plotStyle   = "line" )
+plt1b <- plt1b + ornateBS + labs(subtitle="Difference-adjusted\n95% CI") 
+plt1b
+```
+
+Finally, the *raincloud* plot is obtained by changing the ``plotStyle`` argument:
+
+```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="Figure 1c: Making and decorating right panel of Figure 1."}
+plt1c = superbPlot(dataFigure1, 
+            BSFactor    = "grp", 
+            variables   = "score", 
+            adjustments = list(purpose = "difference"),
+            plotStyle   = "raincloud",                         # new layout!
+            violinParams = list(fill = "green", alpha = 0.2) ) # added some color to the violin
+plt1c <- plt1c + ornateBS + labs(subtitle="Difference-adjusted\n95% CI") 
+plt1c
+```
+
+All three plots are showns side-by-side with:
+
+```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=9, fig.height=4, fig.cap="Figure 1: The complete Figure 1."}
+grid.arrange(plt1a, plt1b, plt1c, ncol=3)
+```
+
+and exported to a file, with, e.g.:
+
+```{r, message=FALSE, echo=TRUE, eval=FALSE}
+png(filename = "Figure1.png", width = 1280, height = 640)
+grid.arrange(plt1a, plt1b, plt1c, ncol=3)
+dev.off()
+```
+
+In the end, which error bars are correct? The difference-adjusted ones
+of course, as confirmed by a t test:
+
+```{r, message=FALSE, echo=TRUE, eval=TRUE}
+t.test(dataFigure1$score[dataFigure1$grp==1],
+        dataFigure1$score[dataFigure1$grp==2], var.equal=TRUE)
+```
+
+There are no significant difference in these data at the .05 level, so that the error bars of
+a 95% confidence interval should contain the other result, as is the case in the central panel.
+
+
+
+
+
+# Making Figure 2
+
+Figure 2 is made in a similar fashion, and using the same decorations ``ornate`` as above with
+just a difference for the name of the variable on the horizontal axis: 
+
+```{r, message=FALSE, echo=TRUE, eval=TRUE}
+ornateWS = list(
+    xlab("Moment"),                                                #different!
+    scale_x_discrete(labels=c("Pre-\ntreatment", "Post-\nTreatment")), #new!
+    ylab("Score"),
+    coord_cartesian( ylim = c(75,125) ),
+    geom_hline(yintercept = 100, colour = "black", size = 0.5, linetype=2),
+    theme_light(base_size = 16) +
+    theme( plot.subtitle = element_text(size=12))
+)
+    ```
+
+The only difference is that the data are now within-subjects in a wide format, e.g., 
+
+```{r}
+head(dataFigure2)
+```
+
+This makes the left panel:
+
+```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="Figure 2a: Making left panel of Figure 2."}
+plt2a <- superbPlot(dataFigure2, 
+            WSFactor    = "Moment(2)", 
+            variables   = c("pre","post"), 
+            adjustments = list(purpose = "single"),
+            plotStyle   = "line" ) 
+plt2a <- plt2a + ornateWS + labs(subtitle="Stand-alone\n95% CI")
+plt2a
+```
+
+... and this makes the central panel, adding the ``CM`` decorelation technique:
+ 
+```{r, message=TRUE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="Figure 2b: Making central panel of Figure 2."}
+plt2b <- superbPlot(dataFigure2, 
+            WSFactor    = "Moment(2)", 
+            variables   = c("pre","post"), 
+            adjustments = list(purpose = "difference", decorrelation = "CA"), #new
+            plotStyle   = "line" ) 
+plt2b <- plt2b + ornateWS + labs(subtitle="Correlation and difference-\nadjusted 95% CI") 
+plt2b
+```
+
+As seen, ``superbPlot`` issues relevant information (indicated with ``FYI``), 
+here the correlation (there is not *group* factor). 
+
+To get a sense of the general trends in the data, we can examine the data participants
+per participants, joining their results with a line. As seen below, for most participants,
+the trend is upward, suggesting a strongly reliable effect of the moment:
+
+```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="Figure 2c: Making right panel of Figure 2."}
+plt2c <- superbPlot(dataFigure2, 
+            WSFactor    = "Moment(2)", 
+            variables   = c("pre","post"), 
+            adjustments = list(purpose = "difference", decorrelation = "CA"),
+            plotStyle   = "pointindividualline" )   #new
+plt2c <- plt2c + ornateWS + labs(subtitle="Correlation and difference-\nadjusted 95% CI")
+plt2c 
+```
+
+Assembling all three panels, we get: 
+
+```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=9, fig.height=4, fig.cap="Figure 2: The complete Figure 2."}
+grid.arrange(plt2a, plt2b, plt2c, ncol=3)
+```
+
+... which can be exported to a file as usual: 
+
+```{r, message=FALSE, echo=TRUE, eval=FALSE}
+png(filename = "Figure2.png", width = 1280, height = 640)
+grid.arrange(plt2a, plt2b, plt2c, ncol=3)
+dev.off()
+```
+
+Which error bars are depicting the significance of the result most aptly? The adjusted
+ones seen in the central panel, as confirmed by a t-test on paired data:
+
+```{r, message=FALSE, echo=TRUE, eval=TRUE}
+t.test(dataFigure2$pre, dataFigure2$post, paired=TRUE)
+```
+
+
+
+
+# Making Figure 3
+
+The novel element in Figure 3 is the fact that the participants have been
+recruted by clusters of participants. 
+
+Reusing ``ornateBS``, we get an unadjusted plot as usual:
+
+```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=8, fig.height=4, fig.cap="Figure 3a: The left panel of Figure 3."}
+plt3a = superbPlot(dataFigure3, 
+    BSFactor    = "grp", 
+    variables   = "VD", 
+    adjustments = list(purpose = "single", samplingDesign = "SRS"),
+    plotStyle   = "line" )
+plt3a <- plt3a + ornateBS + labs(subtitle="Stand-alone\n95% CI") 
+```
+
+Here, the option ```samplingDesign = "SRS"``` is the default and can be omitted.
+
+To indicate the presence of *cluster-randomized sampling*, the ``samplingDesign``
+option is set to ``"CRS"`` and an additional information, ``clusterColumn``
+is indicated to identify the column containing the cluster membership information:
+
+```{r, message=TRUE, echo=TRUE, eval=TRUE, fig.width=8, fig.height=4, fig.cap="Figure 3b: The central panel of Figure 3."}
+plt3b <- superbPlot(dataFigure3, 
+    BSFactor    = "grp", 
+    variables   = "VD", 
+    adjustments = list(purpose = "difference", samplingDesign = "CRS"), #new
+    plotStyle   = "line", 
+    clusterColumn = "cluster" )                                       #new
+plt3b <- plt3b + ornateBS + labs(subtitle="Cluster and difference-\nadjusted 95% CI")
+```
+
+An inspection of the distribution does not make the cluster structure evident...
+
+```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=8, fig.height=4, fig.cap="Figure 3c: The right panel of Figure 3."}
+plt3c <- superbPlot(dataFigure3, 
+    BSFactor    = "grp", 
+    variables   = "VD", 
+    adjustments = list(purpose = "difference", samplingDesign = "CRS"),
+    plotStyle   = "raincloud", 
+    violinParams = list(fill = "green", alpha = 0.2),
+    clusterColumn = "cluster" )
+plt3c <- plt3c + ornateBS + labs(subtitle="Cluster and difference-\nadjusted 95% CI")
+```
+
+Here is the complete Figure 3:
+
+```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=8, fig.height=4, fig.cap="Figure 3: The complete Figure 3."}
+grid.arrange(plt3a, plt3b, plt3c, ncol=3)
+```
+
+This figure is saved as before with
+
+```{r, message=FALSE, echo=TRUE, eval=FALSE}
+png(filename = "Figure3.png", width = 1280, height = 640)
+grid.arrange(plt3a, plt3b, plt3c, ncol=3)
+dev.off()
+```
+
+To make the correct t-test in the present case, we need a correction factor called
+$\lambda$. An easy way is the following [see @cl16 for more]
+
+```{r, message=FALSE, echo=TRUE, eval=TRUE}
+res    <- t.test( dataFigure3$VD[dataFigure3$grp==1], 
+                  dataFigure3$VD[dataFigure3$grp==2], 
+                  var.equal=TRUE)
+micc   <- mean(c(0.491335, 0.203857)) # mean ICCs per group, as given by superbPlot
+lambda <- CousineauLaurencelleLambda(c(micc, 5, 5, 5, 5, 5, 5))
+tcorr  <- res$statistic / lambda
+pcorr  <- 1-pt(tcorr,4)
+
+cat(paste("t-test corrected for cluster-randomized sampling: t(",
+    2*(dim(dataFigure3)[1]-2),") = ", round(tcorr,3),
+    ", p = ", round(pcorr,3),"\n", sep= ""))
+```
+
+As seen, the proper test is returning a coherent decision with the proper error bars.
+
+
+
+
+
+# Making Figure 4
+
+Figure 4 is an illustration of the impact of sampling among a finite population.
+
+Lets do Figure 4.
+
+```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="Figure 4a: The left panel of Figure 4."}
+plt4a <- superbPlot(dataFigure4, 
+    BSFactor = "group", 
+    variables = "score", 
+    adjustments=list(purpose = "single", popSize = Inf),
+    plotStyle="line" ) 
+plt4a <- plt4a + ornateBS + labs(subtitle="Stand-alone\n95% CI") 
+```
+
+The option ``popSize = Inf`` is the default; it indicates that the population is presumed
+of infinite size. A finite size can be given, as
+
+```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="Figure 4b: The central panel of Figure 3b."}
+plt4b <- superbPlot(dataFigure4, 
+    BSFactor = "group",
+    variables = "score", 
+    adjustments=list(purpose = "single", popSize = 50 ), # new!
+    plotStyle="line" ) 
+plt4b <- plt4b + ornateBS + labs(subtitle="Population size and difference-\nadjusted 95% CI") 
+```
+
+We illustrate the plot along some distribution information with a violin plot:
+
+```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="Figure 4c: The right panel of Figure 3b."}
+plt4c <- superbPlot(dataFigure4, 
+    BSFactor = "group",
+    variables = "score", 
+    adjustments=list(purpose = "single", popSize = 50 ), # new!
+    plotStyle="pointjitterviolin",
+    violinParams = list(fill = "green", alpha = 0.2)  ) 
+plt4c <- plt4c + ornateBS + labs(subtitle="Population size and difference-\nadjusted 95% CI") 
+```
+
+Which are reunited as usual:
+
+```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=9, fig.height=4, fig.cap="Figure 4: The complete Figure 4."}
+plt4 = grid.arrange(plt4a, plt4b, plt4c, ncol=3)
+```
+
+...and saved with:
+
+```{r, message=FALSE, echo=TRUE, eval=FALSE}
+png(filename = "Figure3.png", width = 1280, height = 640)
+grid.arrange(plt4a, plt4b, plt4c, ncol=3)
+dev.off()
+```
+
+The corrected t-test, performed by adjusting for the proportion of the population
+examined [see @t12], confirms the presence of a significant difference: 
+
+```{r, message=FALSE, echo=TRUE, eval=TRUE}
+res = t.test(dataFigure4$score, mu=100)
+tcorr = res$statistic /sqrt(1-nrow(dataFigure4)/50)
+pcorr = 1-pt(tcorr,24)
+
+cat(paste("t-test corrected for finite-population size: t(",
+    nrow(dataFigure4)-1,") = ", round(tcorr,3),
+    ", p = ", round(pcorr,3),"\n", sep= ""))
+```
+
+---
+######################################################
+## Make figure 5
+######################################################
+
+plt5a = superbPlot(dataFigure1, BSFactor = "grp", 
+    statistic = "var",
+    adjustments=list(purpose = "difference"),
+    variables = c("score"), plotStyle="line" ) + 
+  xlab("Group") + ylab("Variance in scores") + 
+  labs(title="Difference-adjusted 95% CI\nof the variance") +
+  coord_cartesian( ylim = c(0,250) ) +
+  geom_hline(yintercept = 100, colour = "black", size = 0.5, linetype=2)
+plt5b = superbPlot(dataFigure1, BSFactor = "grp",
+    statistic = "fisherskew", 
+    adjustments=list(purpose = "difference"),
+    variables = c("score"), plotStyle="line" ) + 
+  xlab("Group") + ylab("Skew of the scores") + 
+  labs(title="Difference-adjusted 95% CI\nof the Fisher skew") +
+  coord_cartesian( ylim = c(-2,+2) ) + 
+  geom_hline(yintercept = 0, colour = "black", size = 0.5, linetype=2)
+plt5 = grid.arrange(plt5a,plt5b,ncol=2)
+
+
+######################################################
+## Make figure 6
+######################################################
+
+grp1 = dataFigure1$score[dataFigure1$grp==1] # extract group 1 for later checks
+grp2 = dataFigure1$score[dataFigure1$grp==2] # extract group 2 for later checks
+
+# defines Cohen's d_1
+d1 = function(X) {
+  mean(X-100)/sd(X) 
+} 
+# quick checks
+d1(grp1)
+d1(grp2)
+
+CI.d1 <- function(X, gamma = .95) {
+    n      <- length(X)
+    lambda <- d1(X) * sqrt( n ) # the noncentrality parameter
+    tlow   <- qt(1/2 - gamma/2, df = n-1, ncp = lambda )
+    thig   <- qt(1/2 + gamma/2, df = n-1, ncp = lambda )
+    dlow   <- tlow / sqrt(n)
+    dhig   <- thig / sqrt(n) 
+    c(dlow, dhig)
+}    
+# quick checks
+CI.d1(grp1)  
+CI.d1(grp2)
+
+
+plt6a <- superbPlot(dataFigure1, BSFactor = "grp", 
+  statistic = "mean", errorbar = "CI",
+  showPlot=T, plotStyle="line",
+  adjustments = list(purpose = "difference"),
+  variable = c("score") 
+)+ ylab("Mean +- 95% CI") +
+labs(title="Mean with difference adjusted\n95% confidence interval")
+
+plt6b <- superbPlot(dataFigure1, BSFactor = "grp", 
+  statistic = "d1", errorbar = "CI",
+  showPlot=T, plotStyle="line",
+  postprocessfct = "poolSDTransform",
+  adjustments = list(purpose = "difference"),
+  variable = c("score") 
+)+ ylab("Cohen's d_1 +- 95% CI") +
+labs(title="Cohen's d_1 with difference adjusted\n95% confidence interval") + 
+annotation_custom(grid.text("Cohen's d_p = 0.49\n95% CI = [-0.06, +1.09]",
+    x=.66,y=.75,gp=gpar(fontsize=12, col="black"),
+    rot = 0)) 
+plt6 <- grid.arrange(plt6a, plt6b, ncol=2)
+
+---
+
+
+
+# References
+

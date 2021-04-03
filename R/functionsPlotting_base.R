@@ -29,6 +29,25 @@
 #'
 #' @return a ggplot object
 #'
+#' @examples
+#' # This will make a plot with bars
+#' superbPlot(ToothGrowth, 
+#'    BSFactor = c("dose","supp"), variables = "len",
+#'    plotStyle="bar" 
+#' )
+#'
+#' # if you extract the data with superbData, you can 
+#' # run this layout directly
+#' processedData <- superbData(ToothGrowth, 
+#'    BSFactor = c("dose","supp"), variables = "len"
+#' )
+#'
+#' superbPlot.bar(processedData$summaryStatistic,
+#'    "dose",
+#'    "supp",
+#'    ".~.",
+#'    processedData$rawData)
+#'
 #' @export superbPlot.bar
 #'
 ######################################################################################
@@ -108,6 +127,25 @@ superbPlot.bar <- function(
 #'
 #' @return a ggplot object
 #'
+#' @examples
+#' # This will make a plot with lines
+#' superbPlot(ToothGrowth, 
+#'    BSFactor = c("dose","supp"), variables = "len",
+#'    plotStyle="line" 
+#' )
+#'
+#' # if you extract the data with superbData, you can 
+#' # run this layout directly
+#' processedData <- superbData(ToothGrowth, 
+#'    BSFactor = c("dose","supp"), variables = "len"
+#' )
+#'
+#' superbPlot.line(processedData$summaryStatistic,
+#'    "dose",
+#'    "supp",
+#'    ".~.",
+#'    processedData$rawData)
+#'
 #' @export superbPlot.line
 #'
 ######################################################################################
@@ -126,7 +164,7 @@ superbPlot.line <- function(
     facetParams    = list(),
     xAsFactor = TRUE      # should the horizontal axis be continuous?
 ) {
-    runDebug("line", "Entering superbPlot.line", c("xfactor2", "groupingfactor2", "addfactors2"), list(xfactor, groupingfactor, addfactors))
+    runDebug("line", "Entering superbPlot.line", c("xfactor2", "groupingfactor2", "addfactors2", "params"), list(xfactor, groupingfactor, addfactors, list(pointParams=pointParams, lineParams=lineParams, errorbarParams=errorbarParams)))
 
     # depending on the scale of the x-axis.
     if (!xAsFactor) 
@@ -137,14 +175,14 @@ superbPlot.line <- function(
         summarydata, 
         aes_string(
             x = xfactor, y = "center", ymin = "center + lowerwidth", ymax = "center + upperwidth", 
-            shape = groupingfactor, 
+#            shape = groupingfactor, 
             colour = groupingfactor
     )) +
     # the points ...
     do.call(geom_point, modifyList(
-        pointParams, 
-        list(position = position_dodge(width = .15), 
-            mapping = aes_string(group = groupingfactor) )
+        list(size = 3, position = position_dodge(width = .15), 
+            mapping = aes_string(group = groupingfactor) ),
+        pointParams
     )) +
     # ... and the lines connecting the points
     do.call(geom_line, modifyList(
@@ -154,10 +192,10 @@ superbPlot.line <- function(
     )) +
     # the error bars
     do.call(geom_errorbar, modifyList(
-        list(width = 0.2, size = 0.5, position = position_dodge(.15)),
+        list(width = 0.1, size = 0.75, position = position_dodge(.15),
+            mapping = aes_string(group = groupingfactor) ),
         errorbarParams
-        )
-    ) + 
+    )) + 
     # the panels (rows or both rows and columns, NULL if no facet)
     do.call( facet_grid, modifyList(
         list( rows = addfactors ),
@@ -193,6 +231,25 @@ superbPlot.line <- function(
 #'
 #' @return a ggplot object
 #'
+#' @examples
+#' # This will make a plot with points
+#' superbPlot(ToothGrowth, 
+#'    BSFactor = c("dose","supp"), variables = "len",
+#'    plotStyle="point" 
+#' )
+#'
+#' # if you extract the data with superbData, you can 
+#' # run this layout directly
+#' processedData <- superbData(ToothGrowth, 
+#'    BSFactor = c("dose","supp"), variables = "len"
+#' )
+#'
+#' superbPlot.point(processedData$summaryStatistic,
+#'    "dose",
+#'    "supp",
+#'    ".~.",
+#'    processedData$rawData)
+#'
 #' @export superbPlot.point
 #'
 ######################################################################################
@@ -226,7 +283,7 @@ superbPlot.point <- function(
     )) + 
     # the points 
     do.call(geom_point, modifyList(
-        list(position = position_dodge(width = .15), 
+        list(size = 3, position = position_dodge(width = .15), 
             mapping = aes_string(group = groupingfactor) ),
         pointParams
     )) +
@@ -276,6 +333,25 @@ superbPlot.point <- function(
 #' @param xAsFactor (optional) Boolean to indicate if the factor on the horizontal should continuous or discrete (default is discrete)
 #'
 #' @return a ggplot object
+#'
+#' @examples
+#' # This will make a plot with jittered points, aka dot plots
+#' superbPlot(ToothGrowth, 
+#'    BSFactor = c("dose","supp"), variables = "len",
+#'    plotStyle="pointjitter" 
+#' )
+#'
+#' # if you extract the data with superbData, you can 
+#' # run this layout directly
+#' processedData <- superbData(ToothGrowth, 
+#'    BSFactor = c("dose","supp"), variables = "len"
+#' )
+#'
+#' superbPlot.pointjitter(processedData$summaryStatistic,
+#'    "dose",
+#'    "supp",
+#'    ".~.",
+#'    processedData$rawData)
 #'
 #' @export superbPlot.pointjitter
 #'
@@ -335,7 +411,7 @@ superbPlot.pointjitter <- function(
     )) + 
     # the error bars; define ymin, ymax only in errorbar
     do.call(geom_errorbar, modifyList(
-        list(position = position_dodge(.5), width = 0.5, size = 0.5,
+        list(position = position_dodge(.5), width = 0.1, size = 0.75,
             mapping = aes_string(group = groupingfactor, ymin = "center + lowerwidth", ymax = "center + upperwidth") ),
         errorbarParams
     )) + 
@@ -374,6 +450,25 @@ superbPlot.pointjitter <- function(
 #' @param facetParams (optional) list of graphic directives that are sent to the facet_grid layer
 #'
 #' @return a ggplot object
+#'
+#' @examples
+#' # This will make a plot with jittered points and violins for the overall distribution
+#' superbPlot(ToothGrowth, 
+#'    BSFactor = c("dose","supp"), variables = "len",
+#'    plotStyle="pointjitterviolin" 
+#' )
+#'
+#' # if you extract the data with superbData, you can 
+#' # run this layout directly
+#' processedData <- superbData(ToothGrowth, 
+#'    BSFactor = c("dose","supp"), variables = "len"
+#' )
+#'
+#' superbPlot.pointjitterviolin(processedData$summaryStatistic,
+#'    "dose",
+#'    "supp",
+#'    ".~.",
+#'    processedData$rawData)
 #'
 #' @export superbPlot.pointjitterviolin
 #'
@@ -423,7 +518,7 @@ superbPlot.pointjitterviolin <- function(
                         violinParams
                     ) )
     }
-
+    
     # let's do the plot!
     plot <- ggplot(data    = summarydata, 
                    mapping = aes_string(x = xfactor, colour = groupingfactor )
@@ -435,11 +530,11 @@ superbPlot.pointjitterviolin <- function(
         # and finally the point and the error bars
         do.call( geom_point, modifyList(
             list(mapping = aes_string(group = groupingfactor, y = "center"), 
-                size = 4, position = position_dodge(.75) ),
+                size = 3, position = position_dodge(.75) ),
             pointParams) ) +
         do.call( geom_errorbar, modifyList(
             list(mapping = aes_string(group = groupingfactor, ymin = "center+lowerwidth", ymax = "center+upperwidth"), 
-                position = position_dodge(.75), width = 0.4),
+                position = position_dodge(.75), width = 0.1, size = .75),
             errorbarParams) )+
         do.call( facet_grid, modifyList(
             list( rows = addfactors ),
@@ -476,8 +571,38 @@ superbPlot.pointjitterviolin <- function(
 #'
 #' @return a ggplot object
 #'
-#' @export superbPlot.pointindividualline
+#' @examples
+#' # This will make a plot with points and individual lines for each subject's scores
+#' library(lsr)
 #'
+#' # we take the Orange built-in data.frame which has a within-subject design
+#' names(Orange) <- c("Tree","age","circ")
+#' # turn the data into a wide format
+#' Orange.wide <- longToWide(Orange, circ ~ age)
+#' # the identifier to each tree must be in a column called id
+#' Orange.wide$id = Orange.wide$Tree
+#' 
+#' # Makes the plots two different way:
+#' superbPlot( Orange.wide, WSFactor = "age(7)",
+#'   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
+#'   adjustments = list(purpose = "difference", decorrelation = "none"),
+#'   plotStyle= "pointindividualline"
+#' )
+#' 
+#' # if you extract the data with superbData, you can 
+#' # run this layout directly
+#' processedData <- superbData(Orange.wide, WSFactor = "age(7)",
+#'   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
+#'   adjustments = list(purpose = "difference", decorrelation = "none"),
+#' )
+#'
+#' superbPlot.pointindividualline(processedData$summaryStatistic,
+#'    "age",
+#'    NULL,
+#'    ".~.",
+#'    processedData$rawData)
+#' 
+#' @export superbPlot.pointindividualline
 #' @importFrom utils modifyList
 #'
 ######################################################################################
@@ -520,13 +645,13 @@ superbPlot.pointindividualline <- function(
     # the points 
     do.call(geom_point, modifyList(
         list(position = position_dodge(width = .5), 
-            size=4,
+            size=3,
             mapping = aes_string(y = "center", group = groupingfactor) ),
         pointParams
     )) + 
     # the error bars; define ymin, ymax only in errorbar
     do.call(geom_errorbar, modifyList(
-        list(position = position_dodge(.5), width = 0.1,
+        list(position = position_dodge(.5), width = 0.1, size = 0.75,
             mapping = aes_string(group = groupingfactor, ymin = "center + lowerwidth", ymax = "center + upperwidth") ),
         errorbarParams
     )) + 

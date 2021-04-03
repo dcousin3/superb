@@ -83,7 +83,7 @@ possible to add custom-make templates (see vignette 6). The functions, to be
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5.0</span>
       </span>
     </div>
 
@@ -105,6 +105,9 @@ possible to add custom-make templates (see vignette 6). The functions, to be
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/TheMakingOf.html">The making-of the figures in the article</a>
+    </li>
     <li>
       <a href="../articles/Vignette1.html">Four steps to make your plot</a>
     </li>
@@ -213,6 +216,26 @@ possible to add custom-make templates (see vignette 6). The functions, to be
 
     <p>a ggplot object</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># This will make a plot with bars</span>
+<span class='fu'><a href='superbPlot.html'>superbPlot</a></span><span class='op'>(</span><span class='va'>ToothGrowth</span>, 
+   BSFactor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dose"</span>,<span class='st'>"supp"</span><span class='op'>)</span>, variables <span class='op'>=</span> <span class='st'>"len"</span>,
+   plotStyle<span class='op'>=</span><span class='st'>"bar"</span> 
+<span class='op'>)</span>
+</div><div class='img'><img src='superbPlot.bar-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># if you extract the data with superbData, you can </span>
+<span class='co'># run this layout directly</span>
+<span class='va'>processedData</span> <span class='op'>&lt;-</span> <span class='fu'><a href='superbData.html'>superbData</a></span><span class='op'>(</span><span class='va'>ToothGrowth</span>, 
+   BSFactor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dose"</span>,<span class='st'>"supp"</span><span class='op'>)</span>, variables <span class='op'>=</span> <span class='st'>"len"</span>
+<span class='op'>)</span>
+
+<span class='fu'>superbPlot.bar</span><span class='op'>(</span><span class='va'>processedData</span><span class='op'>$</span><span class='va'>summaryStatistic</span>,
+   <span class='st'>"dose"</span>,
+   <span class='st'>"supp"</span>,
+   <span class='st'>".~."</span>,
+   <span class='va'>processedData</span><span class='op'>$</span><span class='va'>rawData</span><span class='op'>)</span>
+</div><div class='img'><img src='superbPlot.bar-2.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

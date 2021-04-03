@@ -82,7 +82,7 @@ test_that("test 1b: factorielle a grps independants; 3 x 2", {
 test_that("test 2a: 1 facteur a 3 mesures repetees; (3)", {
     options(superb.feedback = c('warnings'))
     dta2a <- GRD( WSFactors = "Moment(3)", SubjectsPerGroup = 5, Population = list( mean=10, stddev = 5))
-    expect_warning( res <- superbData(dta2a, WSFactor = "moment(3)", 
+    expect_message( res <- superbData(dta2a, WSFactor = "moment(3)", 
       adjustments=list(decorrelation="CA"),
       errorbar = "CI",
       variables = c("DV.1","DV.2","DV.3") 
@@ -113,7 +113,7 @@ test_that("test 3: scheme mixte; 3 x (3)", {
       SubjectsPerGroup = 5, Population = list( mean=10, stddev = 5),
       Effects = list("Moment" = slope(5))
     )
-    expect_warning( res <- superbData(dta3, WSFactor = "Moment(3)", BSFactor = "Group", 
+    expect_message( res <- superbData(dta3, WSFactor = "Moment(3)", BSFactor = "Group", 
         variables = c("DV.1","DV.2","DV.3"), 
         statistic = "mean", errorbar = "SE", 
         adjustments = list(purpose="single", decorrelation="CM")

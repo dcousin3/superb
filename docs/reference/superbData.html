@@ -83,7 +83,7 @@ according to the suberb framework. See (Cousineau 2017)
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5.0</span>
       </span>
     </div>
 
@@ -105,6 +105,9 @@ according to the suberb framework. See (Cousineau 2017)
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/TheMakingOf.html">The making-of the figures in the article</a>
+    </li>
     <li>
       <a href="../articles/Vignette1.html">Four steps to make your plot</a>
     </li>
@@ -260,13 +263,13 @@ doi: <a href='https://doi.org/10.5709/acp-0214-z'>10.5709/acp-0214-z</a>
 <span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>superbData</span><span class='op'>(</span><span class='va'>ToothGrowth</span>, BSFactor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dose"</span>, <span class='st'>"supp"</span><span class='op'>)</span>, 
   variables <span class='op'>=</span> <span class='st'>"len"</span><span class='op'>)</span> 
 <span class='va'>res</span><span class='op'>$</span><span class='va'>summaryStatistics</span>
-</div><div class='output co'>#&gt;   dose supp  mean - 95 % CI width + 95 % CI width
-#&gt; 1  0.5   OJ 13.23       -3.190283        3.190283
-#&gt; 2  0.5   VC  7.98       -1.964824        1.964824
-#&gt; 3    1   OJ 22.70       -2.797727        2.797727
-#&gt; 4    1   VC 16.77       -1.799343        1.799343
-#&gt; 5    2   OJ 26.06       -1.899314        1.899314
-#&gt; 6    2   VC 26.14       -3.432090        3.432090</div><div class='input'>
+</div><div class='output co'>#&gt;   dose supp center lowerwidth upperwidth
+#&gt; 1  0.5   OJ  13.23  -3.190283   3.190283
+#&gt; 2  0.5   VC   7.98  -1.964824   1.964824
+#&gt; 3    1   OJ  22.70  -2.797727   2.797727
+#&gt; 4    1   VC  16.77  -1.799343   1.799343
+#&gt; 5    2   OJ  26.06  -1.899314   1.899314
+#&gt; 6    2   VC  26.14  -3.432090   3.432090</div><div class='input'>
 <span class='co'># Example introducing adjustments for pairwise comparisons </span>
 <span class='co'># and assuming that the whole population is limited to 200 persons</span>
 <span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>superbData</span><span class='op'>(</span><span class='va'>ToothGrowth</span>, BSFactor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dose"</span>, <span class='st'>"supp"</span><span class='op'>)</span>, 
@@ -274,13 +277,13 @@ doi: <a href='https://doi.org/10.5709/acp-0214-z'>10.5709/acp-0214-z</a>
   statistic <span class='op'>=</span> <span class='st'>"median"</span>, errorbar <span class='op'>=</span> <span class='st'>"CI"</span>, gamma <span class='op'>=</span> <span class='fl'>.80</span>,
   adjustments <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span> purpose <span class='op'>=</span> <span class='st'>"difference"</span>, popSize <span class='op'>=</span> <span class='fl'>200</span><span class='op'>)</span> <span class='op'>)</span>
 <span class='va'>res</span><span class='op'>$</span><span class='va'>summaryStatistics</span>
-</div><div class='output co'>#&gt;   dose supp median - 80 % CI width + 80 % CI width
-#&gt; 1  0.5   OJ  12.25       -3.369569        3.369569
-#&gt; 2  0.5   VC   7.15       -2.075242        2.075242
-#&gt; 3    1   OJ  23.45       -2.954953        2.954953
-#&gt; 4    1   VC  16.50       -1.900462        1.900462
-#&gt; 5    2   OJ  25.95       -2.006051        2.006051
-#&gt; 6    2   VC  25.95       -3.624965        3.624965</div><div class='input'>
+</div><div class='output co'>#&gt;   dose supp center lowerwidth upperwidth
+#&gt; 1  0.5   OJ  12.25  -3.369569   3.369569
+#&gt; 2  0.5   VC   7.15  -2.075242   2.075242
+#&gt; 3    1   OJ  23.45  -2.954953   2.954953
+#&gt; 4    1   VC  16.50  -1.900462   1.900462
+#&gt; 5    2   OJ  25.95  -2.006051   2.006051
+#&gt; 6    2   VC  25.95  -3.624965   3.624965</div><div class='input'>
 
 </div></pre>
   </div>
