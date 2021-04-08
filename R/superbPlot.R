@@ -8,8 +8,8 @@
 #'      according to the ``suberb`` framework. See \insertCite{c17}{superb} for more.
 #'
 #' @param data Dataframe in wide format
-#' @param BSFactor The name of the columns containing the between-subject factor(s)
-#' @param WSFactor The name of the within-subject factor(s)
+#' @param BSFactors The name of the columns containing the between-subject factor(s)
+#' @param WSFactors The name of the within-subject factor(s)
 #' @param factorOrder Order of factors as shown in the graph (in that order: x axis,
 #'       groups, horizontal panels, vertical panels)
 #' @param variables The dependent variable(s) as strings
@@ -61,23 +61,23 @@
 #' @examples
 #' # Basic example using a built-in dataframe as data. 
 #' # By default, the mean is computed and the error bar are 95% confidence intervals
-#' superbPlot(ToothGrowth, BSFactor = c("dose", "supp"), 
+#' superbPlot(ToothGrowth, BSFactors = c("dose", "supp"), 
 #'   variables = "len") 
 #'
 #' # Example changing the summary statistics to the median and
 #' # the error bar to 80% confidence intervals
-#' superbPlot(ToothGrowth, BSFactor = c("dose", "supp"), 
+#' superbPlot(ToothGrowth, BSFactors = c("dose", "supp"), 
 #'   variables = "len", statistic = "median", errorbar = "CI", gamma = .80) 
 #'
 #' # Example introducing adjustments for pairwise comparisons 
 #' # and assuming that the whole population is limited to 200 persons
-#' superbPlot(ToothGrowth, BSFactor = c("dose", "supp"), 
+#' superbPlot(ToothGrowth, BSFactors = c("dose", "supp"), 
 #'   variables = "len",  
 #'   adjustments = list( purpose = "difference", popSize = 200) )
 #'
 #' # This example adds ggplot directives to the plot produced
 #' library(ggplot2)
-#' superbPlot(ToothGrowth, BSFactor = c("dose", "supp"), 
+#' superbPlot(ToothGrowth, BSFactors = c("dose", "supp"), 
 #'   variables = "len") + 
 #' xlab("Dose") + ylab("Tooth Growth") +
 #' theme_bw()
@@ -93,13 +93,13 @@
 #' Orange.wide <- longToWide(Orange, circ ~ age)
 #' 
 #' # Makes the plots two different way:
-#' p1=superbPlot( Orange.wide, WSFactor = "age(7)",
+#' p1=superbPlot( Orange.wide, WSFactors = "age(7)",
 #'   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
 #'   adjustments = list(purpose = "difference", decorrelation = "none")
 #' ) + 
 #'   xlab("Age level") + ylab("Trunk diameter (mm)") +
 #'   coord_cartesian( ylim = c(0,250) ) + labs(title="Basic confidence intervals")
-#' p2=superbPlot( Orange.wide, WSFactor = "age(7)",
+#' p2=superbPlot( Orange.wide, WSFactors = "age(7)",
 #'   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
 #'   adjustments = list(purpose = "difference", decorrelation = "CA")
 #' ) + 
@@ -117,8 +117,8 @@
 
 
 superbPlot <- function(data, 
-    BSFactor      = NULL,            # vector of the between-subject factor columns
-    WSFactor      = NULL,            # vector of the names of the within-subject factors
+    BSFactors      = NULL,            # vector of the between-subject factor columns
+    WSFactors      = NULL,            # vector of the names of the within-subject factors
     factorOrder,                     # order of the factors for plots
     variables,                       # dependent variable name(s)
     statistic     = "mean",          # descriptive statistics
@@ -180,21 +180,21 @@ superbPlot <- function(data,
             stop("superb::ERROR: Invalid samplingDesign. Did you mean 'SRS'? Exiting...")
 
     # 1.4a: innapropriate choice for between-subject specifications
-    bsLevels <- dim(unique(data[BSFactor]))[1]
+    bsLevels <- dim(unique(data[BSFactors]))[1]
     if (!(length(adjustments$popSize) %in% c(1,bsLevels))) 
             stop("superb::ERROR: popSize is a list whose length does not match the number of groups. Exiting...")
     
     # 1.4b: invalid within-subject factors
-    if (any(unlist(gregexpr("\\w\\((\\d+)\\)", WSFactor))== -1))
+    if (any(unlist(gregexpr("\\w\\((\\d+)\\)", WSFactors))== -1))
             stop("superb::ERROR: One of the repeated-measure factor not properly formed 'name(nlevel)'. Exiting...")
     wsMissing <- "DummyWithinSubjectFactor"
     wsLevels <- c(1)
-    if (is.null(WSFactor)) {
-        WSFactor <- wsMissing
+    if (is.null(WSFactors)) {
+        WSFactors <- wsMissing
     } else {
-        for (i in 1:length(WSFactor)) {
-            wsLevels[i] <- as.integer(unlist(strsplit(WSFactor[i], '[()]'))[2]) 
-            WSFactor[i] <-            unlist(strsplit(WSFactor[i], '[()]'))[1]
+        for (i in 1:length(WSFactors)) {
+            wsLevels[i] <- as.integer(unlist(strsplit(WSFactors[i], '[()]'))[2]) 
+            WSFactors[i] <-            unlist(strsplit(WSFactors[i], '[()]'))[1]
         }
     }
 
@@ -204,7 +204,7 @@ superbPlot <- function(data,
     if ((wslevel == 1)&&(!(adjustments$decorrelation == "none"))) 
             stop("superb::ERROR: Decorrelation is not to be used when there is no within-subject factors. Exiting...")
     if(missing(factorOrder))  {
-        factorOrder <- c(WSFactor, BSFactor)
+        factorOrder <- c(WSFactors, BSFactors)
         if (('design' %in% getOption("superb.feedback") ) & (length(factorOrder[factorOrder != wsMissing])) > 1)  
                 cat(paste("superb::FYI: The variables will be plotted in that order: ",
                           paste(factorOrder[factorOrder != wsMissing],collapse=", "),
@@ -214,13 +214,13 @@ superbPlot <- function(data,
     # 1.5: invalid column names where column names must be listed
     if (!(all(variables %in% names(data)))) 
             stop("superb::ERROR: One of the variable column is not found in data. Exiting...")
-    if (!(all(BSFactor %in% names(data)))) 
-            stop("superb::ERROR: One of the BSFactor column is not found in data. Exiting...")
+    if (!(all(BSFactors %in% names(data)))) 
+            stop("superb::ERROR: One of the BSFactors column is not found in data. Exiting...")
 
     # 1.6: invalid inputs
     if (length(factorOrder[factorOrder != wsMissing] ) > 4)
             stop("superb::ERROR: Too many factors named on factorOrder. Maximum 4. Exiting...")
-    if (length(factorOrder[factorOrder != wsMissing]) < length(WSFactor[WSFactor != wsMissing]) + length(BSFactor)) 
+    if (length(factorOrder[factorOrder != wsMissing]) < length(WSFactors[WSFactors != wsMissing]) + length(BSFactors)) 
             stop("superb::ERROR: Too few factors named on factorOrder. Exiting...")
     if ((gamma[1] <0)||(gamma[1]>1))
             stop("superb::ERROR: gamma is not within 0 and 1. Exiting...")
@@ -232,12 +232,12 @@ superbPlot <- function(data,
     combinaisons <- expand.grid(lapply(wsLevels,seq))
     newnames     <- paste("DV", apply(combinaisons,1,paste,collapse=weird) ,sep=weird)
     design       <- cbind(combinaisons, variables, newnames)
-    colnames(design)[1:length(WSFactor)] <- WSFactor
-    colnames(design)[length(WSFactor)+1] <- "variable"
-    colnames(design)[length(WSFactor)+2] <- "newvars"
+    colnames(design)[1:length(WSFactors)] <- WSFactors
+    colnames(design)[length(WSFactors)+1] <- "variable"
+    colnames(design)[length(WSFactors)+2] <- "newvars"
     if ( (length(wsLevels)>1) & ('design' %in% getOption("superb.feedback") ) ) {
         cat("superb::FYI: Here is how the within-subject variables are understood:\n")
-        print( design[,c(WSFactor, "variable") ]) 
+        print( design[,c(WSFactors, "variable") ]) 
     }
 
     # 1.8: invalid functions 
@@ -262,8 +262,8 @@ superbPlot <- function(data,
 
     # We're clear to go!
     runDebug("superb.1", "End of Step 1: Input validation", 
-        c("measure2","design2","BSFactor2","WSFactor2","wsLevels2","wslevel2","factorOrder2","adjustments2"), 
-        list(variables, design, BSFactor, WSFactor, wsLevels, wslevel, factorOrder, adjustments) )
+        c("measure2","design2","BSFactors2","WSFactors2","wsLevels2","wslevel2","factorOrder2","adjustments2"), 
+        list(variables, design, BSFactors, WSFactors, wsLevels, wslevel, factorOrder, adjustments) )
 
 
     ##############################################################################
@@ -276,21 +276,21 @@ superbPlot <- function(data,
 
     # We do this step for each group and only on columns with repeated measures.
     if (adjustments$decorrelation == "CM" || adjustments$decorrelation == "LM") {
-        data.transformed <- plyr::ddply(data.transformed, .fun = twoStepTransform, .variables= BSFactor, variables)    
+        data.transformed <- plyr::ddply(data.transformed, .fun = twoStepTransform, .variables= BSFactors, variables)    
     }
     # is LM (pooled standard error) needed?
     if (adjustments$decorrelation == "LM") {
-        data.transformed <- plyr::ddply(data.transformed, .fun = poolSDTransform, .variables= BSFactor, variables) 
+        data.transformed <- plyr::ddply(data.transformed, .fun = poolSDTransform, .variables= BSFactors, variables) 
     }
     # other custom pre-processing of the data matrix per group
     if (!is.null(preprocessfct)) {
         for (fct in preprocessfct)
-            data.transformed <- plyr::ddply(data.transformed, .fun = fct, .variables= BSFactor, variables) 
+            data.transformed <- plyr::ddply(data.transformed, .fun = fct, .variables= BSFactors, variables) 
     }
     # other custom post-processing of the data matrix per group
     if (!is.null(postprocessfct)) {
         for (fct in postprocessfct)
-            data.transformed <- plyr::ddply(data.transformed, .fun = fct, .variables= BSFactor, variables) 
+            data.transformed <- plyr::ddply(data.transformed, .fun = fct, .variables= BSFactors, variables) 
     }
     
     runDebug("superb.2", "End of Step 2: Data post decorrelation", 
@@ -306,15 +306,15 @@ superbPlot <- function(data,
     colnames(data.transformed)[grep(paste(variables,collapse="|"),names(data.transformed))] = newnames
 
     # set data to long format using lsr (Navarro, 2015)
-    data.untransformed.long <- suppressWarnings(lsr::wideToLong(data.untransformed, within = WSFactor, sep = weird))
-    data.transformed.long   <- suppressWarnings(lsr::wideToLong(data.transformed, within = WSFactor, sep = weird))
+    data.untransformed.long <- suppressWarnings(lsr::wideToLong(data.untransformed, within = WSFactors, sep = weird))
+    data.transformed.long   <- suppressWarnings(lsr::wideToLong(data.transformed, within = WSFactors, sep = weird))
 
     # if there was no within-subject factor, a dummy had been added
-    if (WSFactor[1]  == wsMissing) {
+    if (WSFactors[1]  == wsMissing) {
         # removing all traces of the dummy
         data.transformed.long[[wsMissing]]   <- NULL # remove the column 
         data.untransformed.long[[wsMissing]] <- NULL # remove the column 
-        WSFactor    <- NULL # remove the dummy factor
+        WSFactors    <- NULL # remove the dummy factor
         factorOrder <- factorOrder[ factorOrder != wsMissing]
     }
     
@@ -361,7 +361,7 @@ superbPlot <- function(data,
     # 5.1: Adjust for population size if not infinite 
     nadj <- if (min(adjustments$popSize) != Inf) {
         # Ns the number of subjects per group
-        Ns  <- plyr::ddply(data, .fun = dim, .variables = BSFactor )$V1
+        Ns  <- plyr::ddply(data, .fun = dim, .variables = BSFactors )$V1
         # the Ns must be expanded for each repeated measures
         Ns  <- rep(Ns, wslevel)
         sqrt(1 - Ns / adjustments$popSize )        
@@ -372,8 +372,8 @@ superbPlot <- function(data,
         sqrt(2) 
     } else if  (adjustments$purpose == "tryon") {
         # extension of Tryon, 2001, for heterogeneous variances in between-group design
-        Ns  <- plyr::ddply(data.transformed.long, .fun = dim, .variables = c(WSFactor,BSFactor) )$V1
-        sds <- suppressWarnings(plyr::ddply(data.transformed.long, .fun = colSDs, .variables = c(WSFactor,BSFactor) )$DV)
+        Ns  <- plyr::ddply(data.transformed.long, .fun = dim, .variables = c(WSFactors,BSFactors) )$V1
+        sds <- suppressWarnings(plyr::ddply(data.transformed.long, .fun = colSDs, .variables = c(WSFactors,BSFactors) )$DV)
         es <- sqrt(sum(sds^2/Ns)) / sum(sqrt(sds^2/Ns))
         # the es must be expanded for each repeated measures
         es  <- rep(es, wslevel)
@@ -382,10 +382,10 @@ superbPlot <- function(data,
 
     # 5.3: Adjust for cluster-randomized sampling
     sadj <- if (adjustments$samplingDesign == "CRS") {
-        ICCs <- plyr::ddply(data, .fun = ShroutFleissICC1, .variables = BSFactor, clusterColumn, variables )
-        KNSs <- plyr::ddply(data, .fun = getKNs, .variables = BSFactor, clusterColumn )
-        ICCs <- ICCs[-1:-length(BSFactor)] # drop BSFactor columns
-        KNSs <- KNSs[-1:-length(BSFactor)] # drop BSFactor columns
+        ICCs <- plyr::ddply(data, .fun = ShroutFleissICC1, .variables = BSFactors, clusterColumn, variables )
+        KNSs <- plyr::ddply(data, .fun = getKNs, .variables = BSFactors, clusterColumn )
+        ICCs <- ICCs[-1:-length(BSFactors)] # drop BSFactors columns
+        KNSs <- KNSs[-1:-length(BSFactors)] # drop BSFactors columns
 
         ICCsKNNs <- cbind(ICCs, KNSs)
         lambdas  <- apply(ICCsKNNs, 1, CousineauLaurencelleLambda) # one lambda per group
@@ -398,7 +398,7 @@ superbPlot <- function(data,
 
     # 5.4: Adjust for correlation if decorrelation == "CA"
     radj <- if (adjustments$decorrelation == "CA") {
-        rs <- plyr::ddply(data, .fun = meanCorrelation, .variables = BSFactor, cols = variables)$V1
+        rs <- plyr::ddply(data, .fun = meanCorrelation, .variables = BSFactors, cols = variables)$V1
         # the rs must be expanded for each repeated measures
         rs  <- rep(rs, wslevel)
         sqrt(1- rs)
@@ -418,8 +418,8 @@ superbPlot <- function(data,
 
     if (('warnings' %in% getOption("superb.feedback") ) | ('all' %in% getOption("superb.feedback")) )  {
         # 6.1: if option is difference, test heterogeneity of variances
-        if ((adjustments$purpose == "difference") & (!is.null(BSFactor)) ) {
-            crit <- data[,BSFactor]
+        if ((adjustments$purpose == "difference") & (!is.null(BSFactors)) ) {
+            crit <- data[,BSFactors]
             ps   <- c()
             for (var in variables ) {
                 out <- split(data[,var], crit )
@@ -434,7 +434,7 @@ superbPlot <- function(data,
         if (adjustments$decorrelation == "CA") {
             message(paste("superb::FYI: The average correlation per group is ", paste(unique(round(rs,4)), collapse=" ")) )
 
-            winers <- suppressWarnings(plyr::ddply(data, .fun = "WinerCompoundSymmetryTest", .variables= BSFactor, variables)) 
+            winers <- suppressWarnings(plyr::ddply(data, .fun = "WinerCompoundSymmetryTest", .variables= BSFactors, variables)) 
             winers <- winers[,length(winers)]
             if (any(winers<.05, na.rm = TRUE))
                 message("superb::ADVICE: Some of the groups' data are not compound symmetric. Consider using CM." )
@@ -442,16 +442,16 @@ superbPlot <- function(data,
         
         # 6.3: if decorrelate is CM or LM: show epsilon, test Winer and Mauchly
         if (adjustments$decorrelation %in% c("CM","LM")) {
-            epsGG <- suppressWarnings(plyr::ddply(data, .fun = "HyunhFeldtEpsilon", .variables= BSFactor, variables)) 
+            epsGG <- suppressWarnings(plyr::ddply(data, .fun = "HyunhFeldtEpsilon", .variables= BSFactors, variables)) 
             epsGG <- epsGG[,length(epsGG)]
             message(paste("superb::FYI: The HyunhFeldtEpsilon measure of sphericity per group are ", paste(round(epsGG,4), collapse=" ")) )
 
-            winers <- suppressWarnings(plyr::ddply(data, .fun = "WinerCompoundSymmetryTest", .variables= BSFactor, variables) )
+            winers <- suppressWarnings(plyr::ddply(data, .fun = "WinerCompoundSymmetryTest", .variables= BSFactors, variables) )
             winers <- winers[,length(winers)]
             if (all(winers>.05, na.rm = TRUE))
                 message("superb::FYI: All the groups' data are compound symmetric. Consider using CA." )
 
-            mauchlys <- plyr::ddply(data, .fun = "MauchlySphericityTest", .variables= BSFactor, variables) 
+            mauchlys <- plyr::ddply(data, .fun = "MauchlySphericityTest", .variables= BSFactors, variables) 
             mauchlys <- mauchlys[,length(mauchlys)]
             if (any(mauchlys<.05, na.rm = TRUE))
                 message("superb::FYI: Some of the groups' data are not spherical. Use error bars with caution." )

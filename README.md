@@ -50,7 +50,7 @@ the form of the vitamin `supp` (pills or juice)
 
 ``` r
 superbPlot(ToothGrowth, 
-    BSFactor = c("dose","supp"), 
+    BSFactors = c("dose","supp"), 
     variables = "len" )
 ```
 
@@ -66,7 +66,7 @@ of the default `mean` summary statistics
 
 ``` r
 superbPlot(ToothGrowth, 
-    BSFactor = c("dose","supp"), 
+    BSFactors = c("dose","supp"), 
     variables = "len",
     statistic = "median")
 ```
@@ -78,7 +78,7 @@ with 99.9% confidence intervals using lines:
 
 ``` r
 superbPlot(ToothGrowth, 
-    BSFactor = c("dose","supp"), 
+    BSFactors = c("dose","supp"), 
     variables = "len",
     statistic = "hmean", 
     errorbar = "CI", gamma = 0.999,
@@ -106,12 +106,12 @@ head(testdata)
 ```
 
     ##   id Difficulty  score.1  score.2
-    ## 1  1          A 77.10249 68.88470
-    ## 2  2          A 85.35826 83.59918
-    ## 3  3          A 69.45886 74.47687
-    ## 4  4          A 65.95925 68.02117
-    ## 5  5          A 96.86947 96.35399
-    ## 6  6          A 64.39872 78.06849
+    ## 1  1          A 62.88566 58.05542
+    ## 2  2          A 77.38216 71.00375
+    ## 3  3          A 87.20289 77.57777
+    ## 4  4          A 59.87861 65.26835
+    ## 5  5          A 62.31012 76.25349
+    ## 6  6          A 89.56987 84.13621
 
 The simulated scores are illustrated using using a more elaborated
 layout, the `pointjitterviolin` which, in addition to the mean and
@@ -120,8 +120,8 @@ distribution using a violin plot:
 
 ``` r
 superbPlot(testdata, 
-    BSFactor  = "Difficulty", 
-    WSFactor  = "Day(2)",
+    BSFactors  = "Difficulty", 
+    WSFactors  = "Day(2)",
     variables = c("score.1","score.2"),
     plotStyle = "pointjitterviolin",
     errorbarParams = list(color = "purple"),

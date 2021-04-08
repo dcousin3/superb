@@ -38,7 +38,7 @@ to the study.
 
 ```{r, message=FALSE, echo=FALSE, fig.cap="Figure 1: Mean scores along with 95% confidence interval for two groups of students on the quality of learning behavior."}
 superbPlot(dataFigure1, 
-        BSFactor = "grp", 
+        BSFactors = "grp", 
         variables = "score", 
         plotStyle="line" ) + 
     xlab("Group") + ylab("Score") + 
@@ -105,7 +105,7 @@ by adding an adjustment to the list of adjustments with ``adjustments = list(pur
 
 ```{r, message=FALSE, echo=TRUE, fig.cap="Figure 2: Mean scores along with difference-adjusted 95% confidence interval for two groups of students on the quality of learning behavior."}
 superbPlot(dataFigure1, 
-        BSFactor = "grp", 
+        BSFactors = "grp", 
         adjustments=list(purpose = "difference"),  # the only new thing here
         variables = "score", 
         plotStyle="line" ) + 
@@ -127,7 +127,7 @@ Just for comparison purposes, I show both plots side-by-side.
 ```{r, message=FALSE, echo=TRUE, fig.cap="Figure 3: Two representation of the data with unadjusted (left) and adjusted (right) 95% confidence intervals"}
 library(gridExtra)
 plt1 <- superbPlot(dataFigure1, 
-        BSFactor = "grp", 
+        BSFactors = "grp", 
         variables = "score", 
         plotStyle="line" ) + 
     xlab("Group") + ylab("Score") + 
@@ -137,7 +137,7 @@ plt1 <- superbPlot(dataFigure1,
     scale_x_discrete(labels=c("1" = "Collaborative games", "2" = "Unstructured activity")) 
 
 plt2 <- superbPlot(dataFigure1, 
-        BSFactor = "grp", 
+        BSFactors = "grp", 
         adjustments=list(purpose = "difference"), 
         variables = "score", 
         plotStyle="line" ) + 
@@ -155,7 +155,7 @@ A second way to compare the two plots is to superimpose them, as in Figure 4:
 ```{r, message=FALSE, echo=TRUE, fig.cap="Figure 4: Two representations of the results with adjusted and unadjusted error bars on the same plot"}
 # generate the two plots, nudging the error bars, using distinct colors, and having the background transparent
 plt1 <- superbPlot(dataFigure1, 
-        BSFactor = "grp", 
+        BSFactors = "grp", 
         variables = "score", 
         errorbarParams = list(color="blue",position = position_nudge(-0.05) ),
         plotStyle="line" ) + 
@@ -168,7 +168,7 @@ plt1 <- superbPlot(dataFigure1,
          plot.background = element_rect(fill = "transparent", color = "white"))
 
 plt2 <- superbPlot(dataFigure1, 
-        BSFactor = "grp", 
+        BSFactors = "grp", 
         adjustments=list(purpose = "difference"), 
         variables = "score", 
         errorbarParams = list(color="red",position = position_nudge(0.05) ),

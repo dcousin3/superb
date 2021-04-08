@@ -166,7 +166,7 @@ library(gridExtra)
 
 ## realize the plot with unadjusted (left) and ajusted (right) 95\% confidence intervals
 plt2a <- superbPlot(dataFigure2, 
-        WSFactor    = "Moment(2)", 
+        WSFactors    = "Moment(2)", 
         adjustments = list(purpose = "difference"), 
         variables   = c("pre","post"), 
         plotStyle   = "line" ) + 
@@ -176,7 +176,7 @@ plt2a <- superbPlot(dataFigure2,
     theme_gray(base_size=10) + 
     scale_x_discrete(labels=c("1" = "Collaborative games", "2" = "Unstructured activity"))
 plt2b <- superbPlot(dataFigure2, 
-        WSFactor    = "Moment(2)", 
+        WSFactors    = "Moment(2)", 
         adjustments = list(purpose = "difference", decorrelation = "CA"),  #only difference
         variables   = c("pre","post"), 
         plotStyle   = "line" ) + 
@@ -202,7 +202,7 @@ the Loftus and Masson approach, in contrast with the other two techniques.
 ```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.cap="Figure 4: All three decorelation techniques on the same plot along with un-decorrelated error bars"}
 # using GRD to generate data with correlation of .8 and a moderate effect
 options(superb.feedback = 'none') # shut down 'warnings' and 'design' interpretation messages
-test <- GRD(WSFactor = "Moment(5)", 
+test <- GRD(WSFactors = "Moment(5)", 
             Effects = list("Moment" = extent(10) ),
             Population = list(mean = 100, stddev = 25, rho = 0.8) ) 
 
@@ -215,7 +215,7 @@ tlbl <- paste( "(red) Difference-adjusted only\n",
 # to make the plots all identical except for the decorrelation method
 makeplot <- function(dataset, decorrelationmethod, color, nudge) {
     superbPlot(dataset, 
-            WSFactor = "Moment(5)",  
+            WSFactors = "Moment(5)",  
             variables   = c("DV.1","DV.2","DV.3","DV.4","DV.5"), 
             adjustments=list(purpose = "difference", decorrelation = decorrelationmethod), 
             errorbarParams = list(color=color, width= 0.1, position = position_nudge(nudge) ),
@@ -264,7 +264,7 @@ statistics and the error bars. For example:
 
 ```{r, message=FALSE, warning=FALSE, echo=TRUE, fig.cap="Figure 5: Means and 95% confidence intervals along with individual scores depicted as lines"}
 superbPlot(dataFigure2, 
-    WSFactor    = "Moment(2)", 
+    WSFactors    = "Moment(2)", 
     adjustments = list(purpose = "difference", decorrelation = "CM"), 
     variables   = c("pre","post"), 
     plotStyle   = "pointindividualline" ) + 

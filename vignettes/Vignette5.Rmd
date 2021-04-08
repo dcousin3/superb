@@ -94,8 +94,8 @@ For simplicity, we define a function whose arguments are the dataset and the lay
 ```{r}
 mp <- function(data, style, ...) {
     superbPlot(data,
-        WSFactor = "Day(2)",
-        BSFactor = "Difficulty",
+        WSFactors = "Day(2)",
+        BSFactors = "Difficulty",
         variables = c("score.day1", "score.day2"),
         adjustments = list(purpose="difference", decorrelation="CM"),
         plotStyle = style,
@@ -259,8 +259,8 @@ superbPlot.simple <- function( summarydata, xfactor, groupingfactor, addfactors,
     return(plot)
 }
 superbPlot(TMB1964r,
-    WSFactor = "T(7)",
-    BSFactor = "Condition",
+    WSFactors = "T(7)",
+    BSFactors = "Condition",
     variables = c("T1","T2","T3","T4","T5","T6","T7"),
     plotStyle = "simple"
 )
@@ -310,8 +310,8 @@ demo dataset ``TMB1964r`` whose result was shown above in Figure 3:
 
 ```{r, message=FALSE, echo=TRUE, results='hide', fig.show='hide'}
 superbPlot(TMB1964r,
-     WSFactor = "T(7)",      
-     BSFactor = "Condition",
+     WSFactors = "T(7)",      
+     BSFactors = "Condition",
      variables = c("T1","T2","T3","T4","T5","T6","T7"),
      plotStyle = "simple"
 )
@@ -362,8 +362,8 @@ superb:::is.superbPlot.function("superbPlot.simpleWithOptions")
 
 ```{r, message=FALSE, echo=TRUE, results='hide', fig.show='show', fig.cap="Figure 4: A simple figure with optional arguments"}
 superbPlot(TMB1964r,
-    WSFactor = "T(7)",      
-    BSFactor = "Condition",
+    WSFactors = "T(7)",      
+    BSFactors = "Condition",
     variables = c("T1","T2","T3","T4","T5","T6","T7"),
     plotStyle = "simpleWithOptions", 
     myownParams = list(size=1, color="purple", position = position_dodge(width = 0.3) ) ## here goes the optional arguments
@@ -405,8 +405,8 @@ superbPlot.empty <- function(
 }
 options(superb.feedback = 'inempty')  ## turn on feedback when reaching 'inempty'
 superbPlot(TMB1964r,
-     WSFactor = "T(7)",      
-     BSFactor = "Condition",
+     WSFactors = "T(7)",      
+     BSFactors = "Condition",
      variables = c("T1","T2","T3","T4","T5","T6","T7"),
      plotStyle = "empty" 
 )
@@ -480,8 +480,8 @@ It is all we need! It can be inserted in a ``superbPlot`` call:
 
 ```{r, fig.width= 7, fig.height = 6, fig.cap = "Figure 5: smile!" }
 superbPlot(TMB1964r,
-     WSFactor = "T(7)",      
-     BSFactor = "Condition", 
+     WSFactors = "T(7)",      
+     BSFactors = "Condition", 
      variables = c("T1","T2","T3","T4","T5","T6","T7"),
      plotStyle = "smiley"
 )

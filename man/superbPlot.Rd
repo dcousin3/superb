@@ -6,8 +6,8 @@
 \usage{
 superbPlot(
   data,
-  BSFactor = NULL,
-  WSFactor = NULL,
+  BSFactors = NULL,
+  WSFactors = NULL,
   factorOrder,
   variables,
   statistic = "mean",
@@ -26,9 +26,9 @@ superbPlot(
 \arguments{
 \item{data}{Dataframe in wide format}
 
-\item{BSFactor}{The name of the columns containing the between-subject factor(s)}
+\item{BSFactors}{The name of the columns containing the between-subject factor(s)}
 
-\item{WSFactor}{The name of the within-subject factor(s)}
+\item{WSFactors}{The name of the within-subject factor(s)}
 
 \item{factorOrder}{Order of factors as shown in the graph (in that order: x axis,
 groups, horizontal panels, vertical panels)}
@@ -96,23 +96,23 @@ In version 0.9.5, the layouts for plots are the following:
 \examples{
 # Basic example using a built-in dataframe as data. 
 # By default, the mean is computed and the error bar are 95\% confidence intervals
-superbPlot(ToothGrowth, BSFactor = c("dose", "supp"), 
+superbPlot(ToothGrowth, BSFactors = c("dose", "supp"), 
   variables = "len") 
 
 # Example changing the summary statistics to the median and
 # the error bar to 80\% confidence intervals
-superbPlot(ToothGrowth, BSFactor = c("dose", "supp"), 
+superbPlot(ToothGrowth, BSFactors = c("dose", "supp"), 
   variables = "len", statistic = "median", errorbar = "CI", gamma = .80) 
 
 # Example introducing adjustments for pairwise comparisons 
 # and assuming that the whole population is limited to 200 persons
-superbPlot(ToothGrowth, BSFactor = c("dose", "supp"), 
+superbPlot(ToothGrowth, BSFactors = c("dose", "supp"), 
   variables = "len",  
   adjustments = list( purpose = "difference", popSize = 200) )
 
 # This example adds ggplot directives to the plot produced
 library(ggplot2)
-superbPlot(ToothGrowth, BSFactor = c("dose", "supp"), 
+superbPlot(ToothGrowth, BSFactors = c("dose", "supp"), 
   variables = "len") + 
 xlab("Dose") + ylab("Tooth Growth") +
 theme_bw()
@@ -128,13 +128,13 @@ names(Orange) <- c("Tree","age","circ")
 Orange.wide <- longToWide(Orange, circ ~ age)
 
 # Makes the plots two different way:
-p1=superbPlot( Orange.wide, WSFactor = "age(7)",
+p1=superbPlot( Orange.wide, WSFactors = "age(7)",
   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
   adjustments = list(purpose = "difference", decorrelation = "none")
 ) + 
   xlab("Age level") + ylab("Trunk diameter (mm)") +
   coord_cartesian( ylim = c(0,250) ) + labs(title="Basic confidence intervals")
-p2=superbPlot( Orange.wide, WSFactor = "age(7)",
+p2=superbPlot( Orange.wide, WSFactors = "age(7)",
   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
   adjustments = list(purpose = "difference", decorrelation = "CA")
 ) + 

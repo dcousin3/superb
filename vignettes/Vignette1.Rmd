@@ -95,7 +95,7 @@ dta           <- as.data.frame(dta)
 The mean scores per week is illustrated below:
 
 ```{r, message=FALSE, echo=FALSE, fig.cap="Figure 1: Mean scores along with 95% confidence interval per week for a program to stop smoking."}
-superbPlot(dta, WSFactor="Moment(3)",
+superbPlot(dta, WSFactors = "Moment(3)",
         variables = c("Week 1", "Week 2", "Week 3"),
         statistic = "mean", errorbar = "CI",
         adjustments = list(purpose = "single", decorrelation = "none"),
@@ -135,7 +135,7 @@ comparisons. The minimum specification for the data frame above would therefore 
 
 ```{r, message=FALSE, echo=TRUE, results='hide', fig.show='hide'}
 superbPlot(dta, 
-    WSFactor="Moment(3)",
+    WSFactors = "Moment(3)",
     variables = c("Week 1", "Week 2", "Week 3"),
     adjustments = list(purpose = "difference"),
     plotStyle="line"
@@ -144,7 +144,7 @@ superbPlot(dta,
 
 ```{r, message=FALSE, echo=FALSE, fig.cap="Figure 2: Mean scores along with difference-adjusted 95% confidence interval per week for a program to stop smoking."}
 superbPlot(dta, 
-    WSFactor="Moment(3)",
+    WSFactors = "Moment(3)",
     variables = c("Week 1", "Week 2", "Week 3"),
     statistic = "mean", errorbar = "CI",
     adjustments = list(purpose = "difference"),
@@ -159,7 +159,7 @@ scale_x_discrete(labels=c("1" = "Week 1", "2" = "Week 2", "3"="Week 3"))
 ``` 
 
 The first argument is the data.frame, in wide format (here ``dta``). The second argument
-describe the experimental design. Here, there is a single within-subject factor (WSFactor), 
+describe the experimental design. Here, there is a single within-subject factor (WSFactors), 
  called ``Moment``. In within-subject factors, it is necessary to indicate how many
 level the factor has (here 3).
 The third argument indicates the columns in the data.frame
@@ -180,7 +180,7 @@ directives can be added. Figure 2 was actually obtained with these commands:
 
 ```{r, message=FALSE, echo=TRUE, results='hide', fig.show='hide'}
 superbPlot(dta, 
-    WSFactor="Moment(3)",
+    WSFactors = "Moment(3)",
     variables = c("Week 1", "Week 2", "Week 3"),
     statistic = "mean", errorbar = "CI",
     adjustments = list(purpose = "difference"),
@@ -226,7 +226,7 @@ Figure 2 above will become Figure 3 if you add a decorrelation adjustment:
 
 ```{r, message=TRUE, echo=TRUE}
 superbPlot(dta, 
-    WSFactor="Moment(3)",
+    WSFactors = "Moment(3)",
     variables = c("Week 1", "Week 2", "Week 3"),
     statistic = "mean", errorbar = "CI",
     adjustments = list(purpose = "difference", decorrelation = "CM"),
@@ -276,7 +276,7 @@ options(superb.feedback = 'none')
 dta$cluster <- sort(rep(1:5, 3))
 
 superbPlot(dta, 
-    WSFactor="Moment(3)",
+    WSFactors = "Moment(3)",
     variables = c("Week 1", "Week 2", "Week 3"),
     adjustments = list(purpose = "difference", decorrelation = "CM",
                        samplingDesign = "CRS", popSize = 100),

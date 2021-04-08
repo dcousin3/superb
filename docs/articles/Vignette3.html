@@ -234,7 +234,7 @@ Figure 1: Representation of the <em>subject-centered</em> individual participant
 
 <span class="co">## realize the plot with unadjusted (left) and ajusted (right) 95\% confidence intervals</span>
 <span class="va">plt2a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure2</span>, 
-        WSFactor    <span class="op">=</span> <span class="st">"Moment(2)"</span>, 
+        WSFactors    <span class="op">=</span> <span class="st">"Moment(2)"</span>, 
         adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>, 
         variables   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"pre"</span>,<span class="st">"post"</span><span class="op">)</span>, 
         plotStyle   <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> <span class="op">+</span> 
@@ -244,7 +244,7 @@ Figure 1: Representation of the <em>subject-centered</em> individual participant
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_gray</a></span><span class="op">(</span>base_size<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op">+</span> 
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span> <span class="op">=</span> <span class="st">"Collaborative games"</span>, <span class="st">"2"</span> <span class="op">=</span> <span class="st">"Unstructured activity"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">plt2b</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure2</span>, 
-        WSFactor    <span class="op">=</span> <span class="st">"Moment(2)"</span>, 
+        WSFactors    <span class="op">=</span> <span class="st">"Moment(2)"</span>, 
         adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span>, decorrelation <span class="op">=</span> <span class="st">"CA"</span><span class="op">)</span>,  <span class="co">#only difference</span>
         variables   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"pre"</span>,<span class="st">"post"</span><span class="op">)</span>, 
         plotStyle   <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> <span class="op">+</span> 
@@ -274,7 +274,7 @@ Figure 4: All three decorelation techniques on the same plot along with un-decor
 <p>Other types of plot exists that are apt at showing the summary statistics but also the individual scores (the 6th vignettes shows how to develop custom-made layouts). For illustrating individual differences, a style proposed is <code>pointindividualline</code> which — as per Figure 1— will show the individual scores along with the summary statistics and the error bars. For example:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure2</span>, 
-    WSFactor    <span class="op">=</span> <span class="st">"Moment(2)"</span>, 
+    WSFactors    <span class="op">=</span> <span class="st">"Moment(2)"</span>, 
     adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span>, decorrelation <span class="op">=</span> <span class="st">"CM"</span><span class="op">)</span>, 
     variables   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"pre"</span>,<span class="st">"post"</span><span class="op">)</span>, 
     plotStyle   <span class="op">=</span> <span class="st">"pointindividualline"</span> <span class="op">)</span> <span class="op">+</span> 

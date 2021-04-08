@@ -60,7 +60,7 @@ dta <- GRD(
 # a quick function to call superbPlot
 makeplot <- function(statfct, errorbarfct, gam, rg, subttl) {
     superbPlot(dta, 
-        WSFactor  = c("Moment(3)","Dose(2)"), 
+        WSFactors  = c("Moment(3)","Dose(2)"), 
         variables = c("DV.1.1","DV.2.1","DV.3.1","DV.1.2","DV.2.2","DV.3.2"), 
         statistic = statfct, 
         errorbar  = errorbarfct, 
@@ -154,7 +154,7 @@ Once we have the function, we can ask for a plot of this function with
 
 ```{r, message=FALSE, echo=TRUE, fig.cap="Figure 2: ``superbPlot`` with a custom-made descriptive statistic function "}
     superbPlot(dataFigure1, 
-        BSFactor = "grp", 
+        BSFactors = "grp", 
         statistic = "d1", errorbar = "none",
         plotStyle="line",
         adjustments = list(purpose = "difference"),
@@ -195,7 +195,7 @@ We have all we need to make a plot with error bars!
 
 ```{r, message=FALSE, echo=TRUE, fig.cap="Figure 3: superbPlot with a custom-made descriptive sttistic function "}
     superbPlot(dataFigure1, 
-        BSFactor = "grp", 
+        BSFactors = "grp", 
         statistic = "d1", errorbar = "CI",
         plotStyle="line",
         adjustments = list(purpose = "single"),
@@ -256,7 +256,7 @@ This is all we need to make the plot which we can compare with the parametric CI
 
 ```{r, message=FALSE, echo=TRUE, fig.cap="Figure 4: superbPlot with a custom-made interval function."}
     plt1 <- superbPlot(dataFigure1, 
-        BSFactor = "grp", 
+        BSFactors = "grp", 
         variable = c("score"), 
         plotStyle="line",
         statistic = "mean", errorbar = "myBootstrapCI",
@@ -269,7 +269,7 @@ This is all we need to make the plot which we can compare with the parametric CI
     scale_x_discrete(labels=c("1" = "Collaborative games", "2" = "Unstructured activity"))
 
     plt2 <- superbPlot(dataFigure1, 
-        BSFactor = "grp", 
+        BSFactors = "grp", 
         variable = c("score"), 
         plotStyle="line",
         statistic = "mean", errorbar = "CI",

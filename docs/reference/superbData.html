@@ -164,8 +164,8 @@ according to the <code>suberb</code> framework. See (Cousineau 2017)
 
     <pre class="usage"><span class='fu'>superbData</span><span class='op'>(</span>
   <span class='va'>data</span>,
-  BSFactor <span class='op'>=</span> <span class='cn'>NULL</span>,
-  WSFactor <span class='op'>=</span> <span class='cn'>NULL</span>,
+  BSFactors <span class='op'>=</span> <span class='cn'>NULL</span>,
+  WSFactors <span class='op'>=</span> <span class='cn'>NULL</span>,
   <span class='va'>factorOrder</span>,
   <span class='va'>variables</span>,
   statistic <span class='op'>=</span> <span class='st'>"mean"</span>,
@@ -186,11 +186,11 @@ according to the <code>suberb</code> framework. See (Cousineau 2017)
       <td><p>Dataframe in wide format</p></td>
     </tr>
     <tr>
-      <th>BSFactor</th>
+      <th>BSFactors</th>
       <td><p>The name of the columns containing the between-subject factor(s)</p></td>
     </tr>
     <tr>
-      <th>WSFactor</th>
+      <th>WSFactors</th>
       <td><p>The name of the within-subject factor(s)</p></td>
     </tr>
     <tr>
@@ -263,7 +263,7 @@ doi: <a href='https://doi.org/10.5709/acp-0214-z'>10.5709/acp-0214-z</a>
     <pre class="examples"><div class='input'><span class='co'># Basic example using a built-in dataframe as data; </span>
 <span class='co'># by default, the mean is computed and the error bar are 95% confidence intervals</span>
 <span class='co'># (it also produces a $rawData dataframe, not shown here)</span>
-<span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>superbData</span><span class='op'>(</span><span class='va'>ToothGrowth</span>, BSFactor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dose"</span>, <span class='st'>"supp"</span><span class='op'>)</span>, 
+<span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>superbData</span><span class='op'>(</span><span class='va'>ToothGrowth</span>, BSFactors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dose"</span>, <span class='st'>"supp"</span><span class='op'>)</span>, 
   variables <span class='op'>=</span> <span class='st'>"len"</span><span class='op'>)</span> 
 <span class='va'>res</span><span class='op'>$</span><span class='va'>summaryStatistics</span>
 </div><div class='output co'>#&gt;   dose supp center lowerwidth upperwidth
@@ -275,7 +275,7 @@ doi: <a href='https://doi.org/10.5709/acp-0214-z'>10.5709/acp-0214-z</a>
 #&gt; 6    2   VC  26.14  -3.432090   3.432090</div><div class='input'>
 <span class='co'># Example introducing adjustments for pairwise comparisons </span>
 <span class='co'># and assuming that the whole population is limited to 200 persons</span>
-<span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>superbData</span><span class='op'>(</span><span class='va'>ToothGrowth</span>, BSFactor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dose"</span>, <span class='st'>"supp"</span><span class='op'>)</span>, 
+<span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>superbData</span><span class='op'>(</span><span class='va'>ToothGrowth</span>, BSFactors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dose"</span>, <span class='st'>"supp"</span><span class='op'>)</span>, 
   variables <span class='op'>=</span> <span class='st'>"len"</span>,  
   statistic <span class='op'>=</span> <span class='st'>"median"</span>, errorbar <span class='op'>=</span> <span class='st'>"CI"</span>, gamma <span class='op'>=</span> <span class='fl'>.80</span>,
   adjustments <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span> purpose <span class='op'>=</span> <span class='st'>"difference"</span>, popSize <span class='op'>=</span> <span class='fl'>200</span><span class='op'>)</span> <span class='op'>)</span>

@@ -10,8 +10,8 @@
 #'      according to the `suberb` framework. See \insertCite{c17}{superb} for more.
 #'
 #' @param data Dataframe in wide format
-#' @param BSFactor The name of the columns containing the between-subject factor(s)
-#' @param WSFactor The name of the within-subject factor(s)
+#' @param BSFactors The name of the columns containing the between-subject factor(s)
+#' @param WSFactors The name of the within-subject factor(s)
 #' @param factorOrder Order of factors as shown in the graph (x axis, groups, horizontal 
 #'       panels, vertical panels)
 #' @param variables The dependent variable(s)
@@ -48,13 +48,13 @@
 #' # Basic example using a built-in dataframe as data; 
 #' # by default, the mean is computed and the error bar are 95% confidence intervals
 #' # (it also produces a $rawData dataframe, not shown here)
-#' res <- superbData(ToothGrowth, BSFactor = c("dose", "supp"), 
+#' res <- superbData(ToothGrowth, BSFactors = c("dose", "supp"), 
 #'   variables = "len") 
 #' res$summaryStatistics
 #'
 #' # Example introducing adjustments for pairwise comparisons 
 #' # and assuming that the whole population is limited to 200 persons
-#' res <- superbData(ToothGrowth, BSFactor = c("dose", "supp"), 
+#' res <- superbData(ToothGrowth, BSFactors = c("dose", "supp"), 
 #'   variables = "len",  
 #'   statistic = "median", errorbar = "CI", gamma = .80,
 #'   adjustments = list( purpose = "difference", popSize = 200) )
@@ -67,8 +67,8 @@
 
 
 superbData <- function(data, 
-    BSFactor      = NULL,            # vector of the between-subject factor columns
-    WSFactor      = NULL,            # vector of the names of the within-subject factors
+    BSFactors      = NULL,            # vector of the between-subject factor columns
+    WSFactors      = NULL,            # vector of the names of the within-subject factors
     factorOrder,                     # order of the factors for plots
     variables,                       # dependent variable name(s)
     statistic     = "mean",          # descriptive statistics
@@ -90,8 +90,8 @@ superbData <- function(data,
     ##############################################################################
 
     results <- superbPlot(data    = data, 
-        BSFactor       = BSFactor,
-        WSFactor       = WSFactor,
+        BSFactors      = BSFactors,
+        WSFactors      = WSFactors,
         factorOrder    = factorOrder,
         variables      = variables,  
         statistic      = statistic,  
@@ -106,7 +106,7 @@ superbData <- function(data,
     summaryStatistics = results[[1]]
     rawData = results[[2]]
 
-#    if(missing(factorOrder))  {factorOrder <- c(WSFactor, BSFactor)}
+#    if(missing(factorOrder))  {factorOrder <- c(WSFactors, BSFactors)}
 #    widthfct <- paste(errorbar, statistic, sep = ".")
 
     # do some renaming of the columns for clearer results

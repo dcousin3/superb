@@ -6,8 +6,8 @@
 \usage{
 superbData(
   data,
-  BSFactor = NULL,
-  WSFactor = NULL,
+  BSFactors = NULL,
+  WSFactors = NULL,
   factorOrder,
   variables,
   statistic = "mean",
@@ -23,9 +23,9 @@ superbData(
 \arguments{
 \item{data}{Dataframe in wide format}
 
-\item{BSFactor}{The name of the columns containing the between-subject factor(s)}
+\item{BSFactors}{The name of the columns containing the between-subject factor(s)}
 
-\item{WSFactor}{The name of the within-subject factor(s)}
+\item{WSFactors}{The name of the within-subject factor(s)}
 
 \item{factorOrder}{Order of factors as shown in the graph (x axis, groups, horizontal
 panels, vertical panels)}
@@ -74,13 +74,13 @@ sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Samp
 # Basic example using a built-in dataframe as data; 
 # by default, the mean is computed and the error bar are 95\% confidence intervals
 # (it also produces a $rawData dataframe, not shown here)
-res <- superbData(ToothGrowth, BSFactor = c("dose", "supp"), 
+res <- superbData(ToothGrowth, BSFactors = c("dose", "supp"), 
   variables = "len") 
 res$summaryStatistics
 
 # Example introducing adjustments for pairwise comparisons 
 # and assuming that the whole population is limited to 200 persons
-res <- superbData(ToothGrowth, BSFactor = c("dose", "supp"), 
+res <- superbData(ToothGrowth, BSFactors = c("dose", "supp"), 
   variables = "len",  
   statistic = "median", errorbar = "CI", gamma = .80,
   adjustments = list( purpose = "difference", popSize = 200) )

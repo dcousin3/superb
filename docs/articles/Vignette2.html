@@ -185,7 +185,7 @@ Figure 1: Mean scores along with 95% confidence interval for two groups of stude
 <p>With <code>superbPlot</code>, this so-called <em>difference adjustment</em> <span class="citation">(Baguley, 2012)</span> is obtained easily by adding an adjustment to the list of adjustments with <code>adjustments = list(purpose =  "difference")</code>, as seen below.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, 
-        BSFactor <span class="op">=</span> <span class="st">"grp"</span>, 
+        BSFactors <span class="op">=</span> <span class="st">"grp"</span>, 
         adjustments<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>,  <span class="co"># the only new thing here</span>
         variables <span class="op">=</span> <span class="st">"score"</span>, 
         plotStyle<span class="op">=</span><span class="st">"line"</span> <span class="op">)</span> <span class="op">+</span> 
@@ -208,7 +208,7 @@ Figure 2: Mean scores along with difference-adjusted 95% confidence interval for
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span>
 <span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, 
-        BSFactor <span class="op">=</span> <span class="st">"grp"</span>, 
+        BSFactors <span class="op">=</span> <span class="st">"grp"</span>, 
         variables <span class="op">=</span> <span class="st">"score"</span>, 
         plotStyle<span class="op">=</span><span class="st">"line"</span> <span class="op">)</span> <span class="op">+</span> 
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Group"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"Score"</span><span class="op">)</span> <span class="op">+</span> 
@@ -218,7 +218,7 @@ Figure 2: Mean scores along with difference-adjusted 95% confidence interval for
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span> <span class="op">=</span> <span class="st">"Collaborative games"</span>, <span class="st">"2"</span> <span class="op">=</span> <span class="st">"Unstructured activity"</span><span class="op">)</span><span class="op">)</span> 
 
 <span class="va">plt2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, 
-        BSFactor <span class="op">=</span> <span class="st">"grp"</span>, 
+        BSFactors <span class="op">=</span> <span class="st">"grp"</span>, 
         adjustments<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>, 
         variables <span class="op">=</span> <span class="st">"score"</span>, 
         plotStyle<span class="op">=</span><span class="st">"line"</span> <span class="op">)</span> <span class="op">+</span> 
@@ -238,7 +238,7 @@ Figure 3: Two representation of the data with unadjusted (left) and adjusted (ri
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># generate the two plots, nudging the error bars, using distinct colors, and having the background transparent</span>
 <span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, 
-        BSFactor <span class="op">=</span> <span class="st">"grp"</span>, 
+        BSFactors <span class="op">=</span> <span class="st">"grp"</span>, 
         variables <span class="op">=</span> <span class="st">"score"</span>, 
         errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"blue"</span>,position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html">position_nudge</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.05</span><span class="op">)</span> <span class="op">)</span>,
         plotStyle<span class="op">=</span><span class="st">"line"</span> <span class="op">)</span> <span class="op">+</span> 
@@ -251,7 +251,7 @@ Figure 3: Two representation of the data with unadjusted (left) and adjusted (ri
          plot.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"transparent"</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="va">plt2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, 
-        BSFactor <span class="op">=</span> <span class="st">"grp"</span>, 
+        BSFactors <span class="op">=</span> <span class="st">"grp"</span>, 
         adjustments<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>, 
         variables <span class="op">=</span> <span class="st">"score"</span>, 
         errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"red"</span>,position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html">position_nudge</a></span><span class="op">(</span><span class="fl">0.05</span><span class="op">)</span> <span class="op">)</span>,

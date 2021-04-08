@@ -32,14 +32,14 @@
 #' @examples
 #' # This will make a plot with bars
 #' superbPlot(ToothGrowth, 
-#'    BSFactor = c("dose","supp"), variables = "len",
+#'    BSFactors = c("dose","supp"), variables = "len",
 #'    plotStyle="bar" 
 #' )
 #'
 #' # if you extract the data with superbData, you can 
 #' # run this layout directly
 #' processedData <- superbData(ToothGrowth, 
-#'    BSFactor = c("dose","supp"), variables = "len"
+#'    BSFactors = c("dose","supp"), variables = "len"
 #' )
 #'
 #' superbPlot.bar(processedData$summaryStatistic,
@@ -130,14 +130,14 @@ superbPlot.bar <- function(
 #' @examples
 #' # This will make a plot with lines
 #' superbPlot(ToothGrowth, 
-#'    BSFactor = c("dose","supp"), variables = "len",
+#'    BSFactors = c("dose","supp"), variables = "len",
 #'    plotStyle="line" 
 #' )
 #'
 #' # if you extract the data with superbData, you can 
 #' # run this layout directly
 #' processedData <- superbData(ToothGrowth, 
-#'    BSFactor = c("dose","supp"), variables = "len"
+#'    BSFactors = c("dose","supp"), variables = "len"
 #' )
 #'
 #' superbPlot.line(processedData$summaryStatistic,
@@ -234,14 +234,14 @@ superbPlot.line <- function(
 #' @examples
 #' # This will make a plot with points
 #' superbPlot(ToothGrowth, 
-#'    BSFactor = c("dose","supp"), variables = "len",
-#'    plotStyle="point" 
+#'    BSFactors = c("dose","supp"), variables = "len",
+#'    plotStyle = "point" 
 #' )
 #'
 #' # if you extract the data with superbData, you can 
 #' # run this layout directly
 #' processedData <- superbData(ToothGrowth, 
-#'    BSFactor = c("dose","supp"), variables = "len"
+#'    BSFactors = c("dose","supp"), variables = "len"
 #' )
 #'
 #' superbPlot.point(processedData$summaryStatistic,
@@ -337,14 +337,14 @@ superbPlot.point <- function(
 #' @examples
 #' # This will make a plot with jittered points, aka dot plots
 #' superbPlot(ToothGrowth, 
-#'    BSFactor = c("dose","supp"), variables = "len",
+#'    BSFactors = c("dose","supp"), variables = "len",
 #'    plotStyle="pointjitter" 
 #' )
 #'
 #' # if you extract the data with superbData, you can 
 #' # run this layout directly
 #' processedData <- superbData(ToothGrowth, 
-#'    BSFactor = c("dose","supp"), variables = "len"
+#'    BSFactors = c("dose","supp"), variables = "len"
 #' )
 #'
 #' superbPlot.pointjitter(processedData$summaryStatistic,
@@ -454,14 +454,14 @@ superbPlot.pointjitter <- function(
 #' @examples
 #' # This will make a plot with jittered points and violins for the overall distribution
 #' superbPlot(ToothGrowth, 
-#'    BSFactor = c("dose","supp"), variables = "len",
-#'    plotStyle="pointjitterviolin" 
+#'    BSFactors = c("dose","supp"), variables = "len",
+#'    plotStyle = "pointjitterviolin" 
 #' )
 #'
 #' # if you extract the data with superbData, you can 
 #' # run this layout directly
 #' processedData <- superbData(ToothGrowth, 
-#'    BSFactor = c("dose","supp"), variables = "len"
+#'    BSFactors = c("dose","supp"), variables = "len"
 #' )
 #'
 #' superbPlot.pointjitterviolin(processedData$summaryStatistic,
@@ -583,7 +583,7 @@ superbPlot.pointjitterviolin <- function(
 #' Orange.wide$id = Orange.wide$Tree
 #' 
 #' # Makes the plots two different way:
-#' superbPlot( Orange.wide, WSFactor = "age(7)",
+#' superbPlot( Orange.wide, WSFactors = "age(7)",
 #'   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
 #'   adjustments = list(purpose = "difference", decorrelation = "none"),
 #'   plotStyle= "pointindividualline"
@@ -591,7 +591,7 @@ superbPlot.pointjitterviolin <- function(
 #' 
 #' # if you extract the data with superbData, you can 
 #' # run this layout directly
-#' processedData <- superbData(Orange.wide, WSFactor = "age(7)",
+#' processedData <- superbData(Orange.wide, WSFactors = "age(7)",
 #'   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
 #'   adjustments = list(purpose = "difference", decorrelation = "none"),
 #' )

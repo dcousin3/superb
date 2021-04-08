@@ -50,14 +50,14 @@ possible to add custom-make templates (see vignette 6). The functions, to be
 \examples{
 # This will make a plot with jittered points and violins for the overall distribution
 superbPlot(ToothGrowth, 
-   BSFactor = c("dose","supp"), variables = "len",
-   plotStyle="pointjitterviolin" 
+   BSFactors = c("dose","supp"), variables = "len",
+   plotStyle = "pointjitterviolin" 
 )
 
 # if you extract the data with superbData, you can 
 # run this layout directly
 processedData <- superbData(ToothGrowth, 
-   BSFactor = c("dose","supp"), variables = "len"
+   BSFactors = c("dose","supp"), variables = "len"
 )
 
 superbPlot.pointjitterviolin(processedData$summaryStatistic,

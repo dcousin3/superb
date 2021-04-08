@@ -30,8 +30,8 @@ options(superb.feedback = 'none') # shut down 'warnings' and 'design' interpreta
 # general plot ignoring covariates sex and languages with only defaults
 # We illustrate correlation- and difference-adjusted 95\% confidence intervals of the mean
 superbPlot(TMB1964r,
-    WSFactor = "T(7)",      # the within-subject factor (spanning 7 columns)
-    BSFactor = "Condition", # the between-subject factor (4 levels)
+    WSFactors = "T(7)",      # the within-subject factor (spanning 7 columns)
+    BSFactors = "Condition", # the between-subject factor (4 levels)
     variables = c("T1","T2","T3","T4","T5","T6","T7"),
     adjustments = list(purpose="difference", decorrelation="CM"),
     plotStyle = "line"
@@ -39,8 +39,8 @@ superbPlot(TMB1964r,
 
 # We add directives for the error bars (thick), for the points (larger) and for the lines (thick)
 plt <- superbPlot(TMB1964r,
-    WSFactor = "T(7)",
-    BSFactor = "Condition",
+    WSFactors = "T(7)",
+    BSFactors = "Condition",
     variables = c("T1","T2","T3","T4","T5","T6","T7"),
     adjustments = list(purpose="difference", decorrelation="CM"),
     plotStyle = "line", 
@@ -68,8 +68,8 @@ scale_x_discrete(labels=c("1" = "16.67", "2" = "33.33",
 
 # Exploring three factors simultaneously: T, Condition and Sex (last two between-group)
 superbPlot(TMB1964r,
-    WSFactor = "T(7)",
-    BSFactor = c("Condition","Sex"),
+    WSFactors = "T(7)",
+    BSFactors = c("Condition","Sex"),
     variables = c("T1","T2","T3","T4","T5","T6","T7"),
     adjustments = list(purpose="difference", decorrelation="CM"),
     plotStyle = "line", 
@@ -97,8 +97,8 @@ mee3 <- TMB1964r[(TMB1964r$Language != "I prefer not to answer")&TMB1964r$Langua
 
 # advanced plots are available, such as pointjitter ...
 superbPlot(mee3,
-    WSFactor = "T(7)",
-    BSFactor = c("Condition","Language"),
+    WSFactors = "T(7)",
+    BSFactors = c("Condition","Language"),
     variables = c("T1","T2","T3","T4","T5","T6","T7"),
     adjustments = list(purpose="difference", decorrelation="CM"), 
     plotStyle = "pointjitter",
@@ -122,8 +122,8 @@ scale_x_discrete(labels=c("1" = "16.67", "2" = "33.33",
 # ... and pointjitterviolin : a plot that superimposes the distribution as a violin plot
 # 
 superbPlot(mee3,
-    WSFactor = "T(7)",
-    BSFactor = c("Condition","Language"),
+    WSFactors = "T(7)",
+    BSFactors = c("Condition","Language"),
     variables = c("T1","T2","T3","T4","T5","T6","T7"),
     adjustments = list(purpose="difference", decorrelation="CM"), 
     plotStyle = "pointjitterviolin",

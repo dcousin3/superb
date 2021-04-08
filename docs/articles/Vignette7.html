@@ -157,7 +157,7 @@
 <p>). We are now ready to make a first plot. The adjustment <code>purpose = "difference"</code> is necessary as we plan to compare the two results.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dtaHetero</span>, 
-                 BSFactor    <span class="op">=</span> <span class="st">"group"</span>, 
+                 BSFactors    <span class="op">=</span> <span class="st">"group"</span>, 
                  variables   <span class="op">=</span> <span class="st">"score"</span>, 
                  adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>,
                  gamma       <span class="op">=</span> <span class="fl">0.95</span>,
@@ -217,7 +217,7 @@ Figure 1: Plot of dtaHerero showing heterogeneous error bars.
 <p>In <code>superb</code>, it is possible to override the default degree of freedom using the error bar estimator <code>errorbar = CIwithDF"</code> and then in the <code>gamma</code> argument, use a vector with both the confidence level desired and the rectified degree of freedom, as in <code>gamma = c(0.95, 29.38)</code>. Lets have a small plot of this:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pw</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dtaHetero</span>, 
-                 BSFactor    <span class="op">=</span> <span class="st">"group"</span>, 
+                 BSFactors    <span class="op">=</span> <span class="st">"group"</span>, 
                  variables   <span class="op">=</span> <span class="st">"score"</span>, 
                  adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>,
                  gamma       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.95</span>, <span class="va">wdf</span><span class="op">)</span>,         <span class="co"># new! </span>
@@ -244,7 +244,7 @@ Figure 2: Plot of dtaHerero with rectified degree of freedom.
 <p>The second solution is to adjust the error bar length so that they are amenable to the usual average. This is actually what Tryon’s adjustment does <span class="citation">(Tryon, 2001)</span>. When the variances are truly homogeneous, the correction for examining pair-wise comparision is an increase by a factor of <span class="math inline">\(\sqrt{2}\)</span>. When we deviate from homogeneity, Tryon’s adjustment tends to be a little larger than 1.41 to compensate for the underestimation introduced by regular averaging. This transformation is right on so that the usual mean of the two error bars, following a Tryon transformation, will precisely indicate whether the means are included in the mean error bar length.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pwt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dtaHetero</span>, 
-                  BSFactor    <span class="op">=</span> <span class="st">"group"</span>, 
+                  BSFactors    <span class="op">=</span> <span class="st">"group"</span>, 
                   variables   <span class="op">=</span> <span class="st">"score"</span>, 
                   adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"tryon"</span><span class="op">)</span>, <span class="co">#new!</span>
                   gamma       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.95</span>, <span class="va">wdf</span><span class="op">)</span>,
@@ -270,7 +270,7 @@ Figure 3: Plot of dtaHerero with rectified degree of freedom and Tryon’ differ
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># get the summary statistics with superbData</span>
 <span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbData.html">superbData</a></span><span class="op">(</span><span class="va">dtaHetero</span>, 
-                BSFactor    <span class="op">=</span> <span class="st">"group"</span>, 
+                BSFactors    <span class="op">=</span> <span class="st">"group"</span>, 
                 variables   <span class="op">=</span> <span class="st">"score"</span>, 
                 adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>,
                 gamma       <span class="op">=</span> <span class="fl">0.95</span>,
@@ -292,7 +292,7 @@ Figure 3: Plot of dtaHerero with rectified degree of freedom and Tryon’ differ
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># get the summary statistics with superbData</span>
 <span class="va">wt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbData.html">superbData</a></span><span class="op">(</span><span class="va">dtaHetero</span>, 
-                BSFactor    <span class="op">=</span> <span class="st">"group"</span>, 
+                BSFactors    <span class="op">=</span> <span class="st">"group"</span>, 
                 variables   <span class="op">=</span> <span class="st">"score"</span>, 
                 adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"tryon"</span><span class="op">)</span>,
                 gamma       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.95</span>, <span class="va">wdf</span><span class="op">)</span>,

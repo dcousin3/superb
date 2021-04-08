@@ -141,7 +141,7 @@
 <span class="co"># a quick function to call superbPlot</span>
 <span class="va">makeplot</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">statfct</span>, <span class="va">errorbarfct</span>, <span class="va">gam</span>, <span class="va">rg</span>, <span class="va">subttl</span><span class="op">)</span> <span class="op">{</span>
     <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, 
-        WSFactor  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Moment(3)"</span>,<span class="st">"Dose(2)"</span><span class="op">)</span>, 
+        WSFactors  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Moment(3)"</span>,<span class="st">"Dose(2)"</span><span class="op">)</span>, 
         variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"DV.1.1"</span>,<span class="st">"DV.2.1"</span>,<span class="st">"DV.3.1"</span>,<span class="st">"DV.1.2"</span>,<span class="st">"DV.2.2"</span>,<span class="st">"DV.3.2"</span><span class="op">)</span>, 
         statistic <span class="op">=</span> <span class="va">statfct</span>, 
         errorbar  <span class="op">=</span> <span class="va">errorbarfct</span>, 
@@ -210,7 +210,7 @@ Figure 1: Various statistics and various measures of precisions
 <p>Once we have the function, we can ask for a plot of this function with</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R">    <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, 
-        BSFactor <span class="op">=</span> <span class="st">"grp"</span>, 
+        BSFactors <span class="op">=</span> <span class="st">"grp"</span>, 
         statistic <span class="op">=</span> <span class="st">"d1"</span>, errorbar <span class="op">=</span> <span class="st">"none"</span>,
         plotStyle<span class="op">=</span><span class="st">"line"</span>,
         adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>,
@@ -251,7 +251,7 @@ Figure 2: <code>superbPlot</code> with a custom-made descriptive statistic funct
 <p>We have all we need to make a plot with error bars!</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R">    <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, 
-        BSFactor <span class="op">=</span> <span class="st">"grp"</span>, 
+        BSFactors <span class="op">=</span> <span class="st">"grp"</span>, 
         statistic <span class="op">=</span> <span class="st">"d1"</span>, errorbar <span class="op">=</span> <span class="st">"CI"</span>,
         plotStyle<span class="op">=</span><span class="st">"line"</span>,
         adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span>,
@@ -303,7 +303,7 @@ Figure 3: superbPlot with a custom-made descriptive sttistic function
 <p>This is all we need to make the plot which we can compare with the parametric CI</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R">    <span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, 
-        BSFactor <span class="op">=</span> <span class="st">"grp"</span>, 
+        BSFactors <span class="op">=</span> <span class="st">"grp"</span>, 
         variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"score"</span><span class="op">)</span>, 
         plotStyle<span class="op">=</span><span class="st">"line"</span>,
         statistic <span class="op">=</span> <span class="st">"mean"</span>, errorbar <span class="op">=</span> <span class="st">"myBootstrapCI"</span>,
@@ -316,7 +316,7 @@ Figure 3: superbPlot with a custom-made descriptive sttistic function
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span> <span class="op">=</span> <span class="st">"Collaborative games"</span>, <span class="st">"2"</span> <span class="op">=</span> <span class="st">"Unstructured activity"</span><span class="op">)</span><span class="op">)</span>
 
     <span class="va">plt2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, 
-        BSFactor <span class="op">=</span> <span class="st">"grp"</span>, 
+        BSFactors <span class="op">=</span> <span class="st">"grp"</span>, 
         variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"score"</span><span class="op">)</span>, 
         plotStyle<span class="op">=</span><span class="st">"line"</span>,
         statistic <span class="op">=</span> <span class="st">"mean"</span>, errorbar <span class="op">=</span> <span class="st">"CI"</span>,

@@ -65,7 +65,7 @@
 #'      Population=list(mean=50,stddev=5), 
 #'      Effects = list("Difficulty" = slope(15) )  )
 #'  # show the mean performance as a function of difficulty:
-#'  superbPlot(dta, BSFactor = "Difficulty", variables="DV")
+#'  superbPlot(dta, BSFactors = "Difficulty", variables="DV")
 #' 
 #'  # An example in which the moments are correlated
 #'  dta <- GRD( BSFactors = "Difficulty(2)",WSFactors = "Moment (2)", 
@@ -74,12 +74,12 @@
 #'      Population=list(mean=50,stddev=20,rho=0.85)
 #'  )
 #'  # the mean plot on the raw data...
-#'  superbPlot(dta, BSFactor = "Difficulty", WSFactor = "Moment(2)", 
+#'  superbPlot(dta, BSFactors = "Difficulty", WSFactors = "Moment(2)", 
 #'      variables=c("DV.1","DV.2"), plotStyle="line",
 #'      adjustments = list (purpose="difference") )
 #'  # ... and the mean plot on the decorrelated data; 
 #'  # because of high correlation, the error bars are markedly different
-#'  superbPlot(dta, BSFactor = "Difficulty", WSFactor = "Moment(2)", 
+#'  superbPlot(dta, BSFactors = "Difficulty", WSFactors = "Moment(2)", 
 #'      variables=c("DV.1","DV.2"), plotStyle="line",
 #'      adjustments = list (purpose="difference", decorrelation = "CM") )
 #'  

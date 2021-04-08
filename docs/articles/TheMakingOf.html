@@ -140,7 +140,7 @@
 <p>The first panel on the left is based on stand-alone confidence intervals and is obtained with :</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plt1a</span> <span class="op">=</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, 
-            BSFactor    <span class="op">=</span> <span class="st">"grp"</span>, 
+            BSFactors    <span class="op">=</span> <span class="st">"grp"</span>, 
             variables   <span class="op">=</span> <span class="st">"score"</span>, 
             plotStyle   <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> 
 <span class="va">plt1a</span></code></pre></div>
@@ -172,7 +172,7 @@ Figure 1b: Decorating left panel of Figure 1.
 <p>The second plot is obtained in a simar fashion with just one additional argument requesting difference-adjusted confidence intervals:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plt1b</span> <span class="op">=</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, 
-            BSFactor    <span class="op">=</span> <span class="st">"grp"</span>, 
+            BSFactors    <span class="op">=</span> <span class="st">"grp"</span>, 
             variables   <span class="op">=</span> <span class="st">"score"</span>, 
             adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>, <span class="co">#new!</span>
             plotStyle   <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span>
@@ -186,7 +186,7 @@ Figure 1c: Making and decorating central panel of Figure 1.
 <p>Finally, the <em>raincloud</em> plot is obtained by changing the <code>plotStyle</code> argument:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plt1c</span> <span class="op">=</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, 
-            BSFactor    <span class="op">=</span> <span class="st">"grp"</span>, 
+            BSFactors    <span class="op">=</span> <span class="st">"grp"</span>, 
             variables   <span class="op">=</span> <span class="st">"score"</span>, 
             adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>,
             plotStyle   <span class="op">=</span> <span class="st">"raincloud"</span>,                         <span class="co"># new layout!</span>
@@ -255,7 +255,7 @@ Figure 1: The complete Figure 1.
 <p>This makes the left panel:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plt2a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure2</span>, 
-            WSFactor    <span class="op">=</span> <span class="st">"Moment(2)"</span>, 
+            WSFactors    <span class="op">=</span> <span class="st">"Moment(2)"</span>, 
             variables   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"pre"</span>,<span class="st">"post"</span><span class="op">)</span>, 
             adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span>,
             plotStyle   <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> 
@@ -269,7 +269,7 @@ Figure 2a: Making left panel of Figure 2.
 <p>… and this makes the central panel, adding the <code>CM</code> decorelation technique:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plt2b</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure2</span>, 
-            WSFactor    <span class="op">=</span> <span class="st">"Moment(2)"</span>, 
+            WSFactors    <span class="op">=</span> <span class="st">"Moment(2)"</span>, 
             variables   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"pre"</span>,<span class="st">"post"</span><span class="op">)</span>, 
             adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span>, decorrelation <span class="op">=</span> <span class="st">"CA"</span><span class="op">)</span>, <span class="co">#new</span>
             plotStyle   <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> </code></pre></div>
@@ -286,7 +286,7 @@ Figure 2b: Making central panel of Figure 2.
 <p>To get a sense of the general trends in the data, we can examine the data participants per participants, joining their results with a line. As seen below, for most participants, the trend is upward, suggesting a strongly reliable effect of the moment:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plt2c</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure2</span>, 
-            WSFactor    <span class="op">=</span> <span class="st">"Moment(2)"</span>, 
+            WSFactors    <span class="op">=</span> <span class="st">"Moment(2)"</span>, 
             variables   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"pre"</span>,<span class="st">"post"</span><span class="op">)</span>, 
             adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span>, decorrelation <span class="op">=</span> <span class="st">"CA"</span><span class="op">)</span>,
             plotStyle   <span class="op">=</span> <span class="st">"pointindividualline"</span> <span class="op">)</span>   <span class="co">#new</span>
@@ -332,7 +332,7 @@ Figure 2: The complete Figure 2.
 <p>Reusing <code>ornateBS</code>, we get an unadjusted plot as usual:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plt3a</span> <span class="op">=</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure3</span>, 
-    BSFactor    <span class="op">=</span> <span class="st">"grp"</span>, 
+    BSFactors    <span class="op">=</span> <span class="st">"grp"</span>, 
     variables   <span class="op">=</span> <span class="st">"VD"</span>, 
     adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"single"</span>, samplingDesign <span class="op">=</span> <span class="st">"SRS"</span><span class="op">)</span>,
     plotStyle   <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span>
@@ -341,7 +341,7 @@ Figure 2: The complete Figure 2.
 <p>To indicate the presence of <em>cluster-randomized sampling</em>, the <code>samplingDesign</code> option is set to <code>"CRS"</code> and an additional information, <code>clusterColumn</code> is indicated to identify the column containing the cluster membership information:</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plt3b</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure3</span>, 
-    BSFactor    <span class="op">=</span> <span class="st">"grp"</span>, 
+    BSFactors    <span class="op">=</span> <span class="st">"grp"</span>, 
     variables   <span class="op">=</span> <span class="st">"VD"</span>, 
     adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span>, samplingDesign <span class="op">=</span> <span class="st">"CRS"</span><span class="op">)</span>, <span class="co">#new</span>
     plotStyle   <span class="op">=</span> <span class="st">"line"</span>, 
@@ -352,7 +352,7 @@ Figure 2: The complete Figure 2.
 <p>An inspection of the distribution does not make the cluster structure evident…</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plt3c</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure3</span>, 
-    BSFactor    <span class="op">=</span> <span class="st">"grp"</span>, 
+    BSFactors    <span class="op">=</span> <span class="st">"grp"</span>, 
     variables   <span class="op">=</span> <span class="st">"VD"</span>, 
     adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span>, samplingDesign <span class="op">=</span> <span class="st">"CRS"</span><span class="op">)</span>,
     plotStyle   <span class="op">=</span> <span class="st">"raincloud"</span>, 
@@ -395,7 +395,7 @@ Figure 3: The complete Figure 3.
 <p>Lets do Figure 4.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plt4a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure4</span>, 
-    BSFactor <span class="op">=</span> <span class="st">"group"</span>, 
+    BSFactors <span class="op">=</span> <span class="st">"group"</span>, 
     variables <span class="op">=</span> <span class="st">"score"</span>, 
     adjustments<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"single"</span>, popSize <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span>,
     plotStyle<span class="op">=</span><span class="st">"line"</span> <span class="op">)</span> 
@@ -403,7 +403,7 @@ Figure 3: The complete Figure 3.
 <p>The option <code>popSize = Inf</code> is the default; it indicates that the population is presumed of infinite size. A finite size can be given, as</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plt4b</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure4</span>, 
-    BSFactor <span class="op">=</span> <span class="st">"group"</span>,
+    BSFactors <span class="op">=</span> <span class="st">"group"</span>,
     variables <span class="op">=</span> <span class="st">"score"</span>, 
     adjustments<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"single"</span>, popSize <span class="op">=</span> <span class="fl">50</span> <span class="op">)</span>, <span class="co"># new!</span>
     plotStyle<span class="op">=</span><span class="st">"line"</span> <span class="op">)</span> 
@@ -411,7 +411,7 @@ Figure 3: The complete Figure 3.
 <p>We illustrate the plot along some distribution information with a violin plot:</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plt4c</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure4</span>, 
-    BSFactor <span class="op">=</span> <span class="st">"group"</span>,
+    BSFactors <span class="op">=</span> <span class="st">"group"</span>,
     variables <span class="op">=</span> <span class="st">"score"</span>, 
     adjustments<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"single"</span>, popSize <span class="op">=</span> <span class="fl">50</span> <span class="op">)</span>, <span class="co"># new!</span>
     plotStyle<span class="op">=</span><span class="st">"pointjitterviolin"</span>,
@@ -447,7 +447,7 @@ Figure 4: The complete Figure 4.
 <td>###################################################### ## Make figure 5 ######################################################</td>
 </tr>
 <tr class="even">
-<td>plt5a = superbPlot(dataFigure1, BSFactor = “grp,” statistic = “var,” adjustments=list(purpose = “difference”), variables = c(“score”), plotStyle=“line” ) + xlab(“Group”) + ylab(“Variance in scores”) + labs(title=“Difference-adjusted 95% CIthe variance”) + coord_cartesian( ylim = c(0,250) ) + geom_hline(yintercept = 100, colour = “black,” size = 0.5, linetype=2) plt5b = superbPlot(dataFigure1, BSFactor = “grp,” statistic = “fisherskew,” adjustments=list(purpose = “difference”), variables = c(“score”), plotStyle=“line” ) + xlab(“Group”) + ylab(“Skew of the scores”) + labs(title=“Difference-adjusted 95% CIthe Fisher skew”) + coord_cartesian( ylim = c(-2,+2) ) + geom_hline(yintercept = 0, colour = “black,” size = 0.5, linetype=2) plt5 = grid.arrange(plt5a,plt5b,ncol=2)</td>
+<td>plt5a = superbPlot(dataFigure1, BSFactors = “grp,” statistic = “var,” adjustments=list(purpose = “difference”), variables = c(“score”), plotStyle=“line” ) + xlab(“Group”) + ylab(“Variance in scores”) + labs(title=“Difference-adjusted 95% CIthe variance”) + coord_cartesian( ylim = c(0,250) ) + geom_hline(yintercept = 100, colour = “black,” size = 0.5, linetype=2) plt5b = superbPlot(dataFigure1, BSFactors = “grp,” statistic = “fisherskew,” adjustments=list(purpose = “difference”), variables = c(“score”), plotStyle=“line” ) + xlab(“Group”) + ylab(“Skew of the scores”) + labs(title=“Difference-adjusted 95% CIthe Fisher skew”) + coord_cartesian( ylim = c(-2,+2) ) + geom_hline(yintercept = 0, colour = “black,” size = 0.5, linetype=2) plt5 = grid.arrange(plt5a,plt5b,ncol=2)</td>
 </tr>
 <tr class="odd">
 <td>###################################################### ## Make figure 6 ######################################################</td>
@@ -462,10 +462,10 @@ Figure 4: The complete Figure 4.
 <td>CI.d1 &lt;- function(X, gamma = .95) { n &lt;- length(X) lambda &lt;- d1(X) * sqrt( n ) # the noncentrality parameter tlow &lt;- qt(1/2 - gamma/2, df = n-1, ncp = lambda ) thig &lt;- qt(1/2 + gamma/2, df = n-1, ncp = lambda ) dlow &lt;- tlow / sqrt(n) dhig &lt;- thig / sqrt(n) c(dlow, dhig) } # quick checks CI.d1(grp1) CI.d1(grp2)</td>
 </tr>
 <tr class="odd">
-<td>plt6a &lt;- superbPlot(dataFigure1, BSFactor = “grp,” statistic = “mean,” errorbar = “CI,” showPlot=T, plotStyle=“line,” adjustments = list(purpose = “difference”), variable = c(“score”) )+ ylab(“Mean +- 95% CI”) + labs(title=“Mean with difference adjusted% confidence interval”)</td>
+<td>plt6a &lt;- superbPlot(dataFigure1, BSFactors = “grp,” statistic = “mean,” errorbar = “CI,” showPlot=T, plotStyle=“line,” adjustments = list(purpose = “difference”), variable = c(“score”) )+ ylab(“Mean +- 95% CI”) + labs(title=“Mean with difference adjusted% confidence interval”)</td>
 </tr>
 <tr class="even">
-<td>plt6b &lt;- superbPlot(dataFigure1, BSFactor = “grp,” statistic = “d1,” errorbar = “CI,” showPlot=T, plotStyle=“line,” postprocessfct = “poolSDTransform,” adjustments = list(purpose = “difference”), variable = c(“score”) )+ ylab(“Cohen’s d_1 +- 95% CI”) + labs(title=“Cohen’s d_1 with difference adjusted% confidence interval”) + annotation_custom(grid.text(“Cohen’s d_p = 0.49% CI = [-0.06, +1.09],” x=.66,y=.75,gp=gpar(fontsize=12, col=“black”), rot = 0)) plt6 &lt;- grid.arrange(plt6a, plt6b, ncol=2)</td>
+<td>plt6b &lt;- superbPlot(dataFigure1, BSFactors = “grp,” statistic = “d1,” errorbar = “CI,” showPlot=T, plotStyle=“line,” postprocessfct = “poolSDTransform,” adjustments = list(purpose = “difference”), variable = c(“score”) )+ ylab(“Cohen’s d_1 +- 95% CI”) + labs(title=“Cohen’s d_1 with difference adjusted% confidence interval”) + annotation_custom(grid.text(“Cohen’s d_p = 0.49% CI = [-0.06, +1.09],” x=.66,y=.75,gp=gpar(fontsize=12, col=“black”), rot = 0)) plt6 &lt;- grid.arrange(plt6a, plt6b, ncol=2)</td>
 </tr>
 </tbody>
 </table>

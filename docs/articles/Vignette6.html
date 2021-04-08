@@ -133,12 +133,12 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">dta</span><span class="op">)</span></code></pre></div>
 <pre><code>##   id         DV
-## 1  1 -0.8634859
-## 2  2 -0.8080547
-## 3  3  0.3806758
-## 4  4 -1.1055850
-## 5  5  0.6757313
-## 6  6 -0.5248091</code></pre>
+## 1  1 -0.3554512
+## 2  2 -0.9285046
+## 3  3  0.7776304
+## 4  4  0.6598611
+## 5  5 -0.1984371
+## 6  6 -0.3737351</code></pre>
 <p>By default, one hundred scores are generated from a normal distribution with mean 0 and standard deviation of 1. In other words, it generate 100 z scores. The dependent variable, the last column in the dataframe that will be generated is called by default <code>DV</code>. The first column is an “id” column containing a number identifying each <em>simulated</em> participant. To change the dependent variable’s name, use</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span> RenameDV <span class="op">=</span> <span class="st">"score"</span> <span class="op">)</span></code></pre></div>
@@ -240,14 +240,14 @@
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dta</span></code></pre></div>
 <pre><code>##   id Therapy          DV
-## 1  1       1 -1.04561305
-## 2  2       1  0.40398434
-## 3  3       2 -0.56139625
-## 4  4       2 -0.07037810
-## 5  5       2 -0.43377155
-## 6  6       2  0.05471397
-## 7  7       2  0.31672420
-## 8  8       3 -0.34463669</code></pre>
+## 1  1       1 -0.66619752
+## 2  2       1 -0.29863894
+## 3  3       2 -0.32392585
+## 4  4       2  0.13655384
+## 5  5       2  0.46230496
+## 6  6       2  0.17229883
+## 7  7       2  0.43206233
+## 8  8       3 -0.01124282</code></pre>
 </div>
 <div id="choosing-the-population-distribution" class="section level2">
 <h2 class="hasAnchor">
@@ -310,7 +310,7 @@
 ##  ------------------------------------------------------------</code></pre>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>,
-    BSFactor <span class="op">=</span> <span class="st">"Group"</span>,
+    BSFactors <span class="op">=</span> <span class="st">"Group"</span>,
     variables <span class="op">=</span> <span class="st">"DV"</span>,
     plotStyle <span class="op">=</span> <span class="st">"pointjitterviolin"</span> <span class="op">)</span></code></pre></div>
 <p><img src="Vignette6_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
@@ -358,7 +358,7 @@
 ##  ------------------------------------------------------------</code></pre>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>,
-    BSFactor <span class="op">=</span> <span class="st">"Therapy"</span>, WSFactor <span class="op">=</span> <span class="st">"Contrast(3)"</span>,
+    BSFactors <span class="op">=</span> <span class="st">"Therapy"</span>, WSFactors <span class="op">=</span> <span class="st">"Contrast(3)"</span>,
     variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"DV.1"</span>,<span class="st">"DV.2"</span>,<span class="st">"DV.3"</span><span class="op">)</span>,
     plotStyle <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span></code></pre></div>
 <pre><code>## superb::FYI: The variables will be plotted in that order: Contrast, Therapy (use factorOrder to change).</code></pre>
@@ -386,7 +386,7 @@
 ##  ------------------------------------------------------------</code></pre>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>,
-    BSFactor <span class="op">=</span> <span class="st">"Therapy"</span>, WSFactor <span class="op">=</span> <span class="st">"Contrast(3)"</span>,
+    BSFactors <span class="op">=</span> <span class="st">"Therapy"</span>, WSFactors <span class="op">=</span> <span class="st">"Contrast(3)"</span>,
     variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"DV.1"</span>,<span class="st">"DV.2"</span>,<span class="st">"DV.3"</span><span class="op">)</span>,
     plotStyle <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span></code></pre></div>
 <pre><code>## superb::FYI: The variables will be plotted in that order: Contrast, Therapy (use factorOrder to change).</code></pre>

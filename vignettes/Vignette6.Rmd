@@ -151,7 +151,7 @@ dta <- GRD(
     )
 )
 superbPlot(dta,
-    BSFactor = "Group",
+    BSFactors = "Group",
     variables = "DV",
     plotStyle = "pointjitterviolin" )
 ```
@@ -190,7 +190,7 @@ dta <- GRD(
     Effects = list('Contrast' = slope(2))
 )
 superbPlot(dta,
-    BSFactor = "Therapy", WSFactor = "Contrast(3)",
+    BSFactors = "Therapy", WSFactors = "Contrast(3)",
     variables = c("DV.1","DV.2","DV.3"),
     plotStyle = "line" )
 ```
@@ -209,7 +209,7 @@ dta <- GRD(
     )
 )
 superbPlot(dta,
-    BSFactor = "Therapy", WSFactor = "Contrast(3)",
+    BSFactors = "Therapy", WSFactors = "Contrast(3)",
     variables = c("DV.1","DV.2","DV.3"),
     plotStyle = "line" )
 ```

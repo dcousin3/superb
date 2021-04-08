@@ -78,7 +78,7 @@ necessary as we plan to compare the two results.
 
 ```{r, fig.height=5, fig.width=3, fig.cap = "Figure 1: Plot of dtaHerero showing heterogeneous error bars."}
 pt <- superbPlot(dtaHetero, 
-                 BSFactor    = "group", 
+                 BSFactors    = "group", 
                  variables   = "score", 
                  adjustments = list(purpose = "difference"),
                  gamma       = 0.95,
@@ -168,7 +168,7 @@ freedom, as in ``gamma = c(0.95, 29.38)``. Lets have a small plot of this:
 
 ```{r, fig.height=5, fig.width=3, fig.cap = "Figure 2: Plot of dtaHerero with rectified degree of freedom."}
 pw <- superbPlot(dtaHetero, 
-                 BSFactor    = "group", 
+                 BSFactors    = "group", 
                  variables   = "score", 
                  adjustments = list(purpose = "difference"),
                  gamma       = c(0.95, wdf),         # new! 
@@ -207,7 +207,7 @@ indicate whether the means are included in the mean error bar length.
 
 ```{r, fig.height=5, fig.width=3, fig.cap = "Figure 3: Plot of dtaHerero with rectified degree of freedom and Tryon' difference-adjusted error bars."}
 pwt <- superbPlot(dtaHetero, 
-                  BSFactor    = "group", 
+                  BSFactors    = "group", 
                   variables   = "score", 
                   adjustments = list(purpose = "tryon"), #new!
                   gamma       = c(0.95, wdf),
@@ -231,7 +231,7 @@ square sense the error bars. Lets do that:
 ```{r}
 # get the summary statistics with superbData
 t <- superbData(dtaHetero, 
-                BSFactor    = "group", 
+                BSFactors    = "group", 
                 variables   = "score", 
                 adjustments = list(purpose = "difference"),
                 gamma       = 0.95,
@@ -259,7 +259,7 @@ same following Tryon's adjusment and Welch rectified degrees of freedom:
 ```{r}
 # get the summary statistics with superbData
 wt <- superbData(dtaHetero, 
-                BSFactor    = "group", 
+                BSFactors    = "group", 
                 variables   = "score", 
                 adjustments = list(purpose = "tryon"),
                 gamma       = c(0.95, wdf),

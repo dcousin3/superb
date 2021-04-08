@@ -56,7 +56,7 @@ Orange.wide <- longToWide(Orange, circ ~ age)
 Orange.wide$id = Orange.wide$Tree
 
 # Makes the plots two different way:
-superbPlot( Orange.wide, WSFactor = "age(7)",
+superbPlot( Orange.wide, WSFactors = "age(7)",
   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
   adjustments = list(purpose = "difference", decorrelation = "none"),
   plotStyle= "pointindividualline"
@@ -64,7 +64,7 @@ superbPlot( Orange.wide, WSFactor = "age(7)",
 
 # if you extract the data with superbData, you can 
 # run this layout directly
-processedData <- superbData(Orange.wide, WSFactor = "age(7)",
+processedData <- superbData(Orange.wide, WSFactors = "age(7)",
   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
   adjustments = list(purpose = "difference", decorrelation = "none"),
 )

@@ -51,7 +51,7 @@ is obtained with :
 
 ```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="Figure 1a: Making left panel of Figure 1."}
 plt1a = superbPlot(dataFigure1, 
-            BSFactor    = "grp", 
+            BSFactors    = "grp", 
             variables   = "score", 
             plotStyle   = "line" ) 
 plt1a
@@ -86,7 +86,7 @@ difference-adjusted confidence intervals:
 
 ```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="Figure 1c: Making and decorating central panel of Figure 1."}
 plt1b = superbPlot(dataFigure1, 
-            BSFactor    = "grp", 
+            BSFactors    = "grp", 
             variables   = "score", 
             adjustments = list(purpose = "difference"), #new!
             plotStyle   = "line" )
@@ -98,7 +98,7 @@ Finally, the *raincloud* plot is obtained by changing the ``plotStyle`` argument
 
 ```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="Figure 1c: Making and decorating right panel of Figure 1."}
 plt1c = superbPlot(dataFigure1, 
-            BSFactor    = "grp", 
+            BSFactors    = "grp", 
             variables   = "score", 
             adjustments = list(purpose = "difference"),
             plotStyle   = "raincloud",                         # new layout!
@@ -163,7 +163,7 @@ This makes the left panel:
 
 ```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="Figure 2a: Making left panel of Figure 2."}
 plt2a <- superbPlot(dataFigure2, 
-            WSFactor    = "Moment(2)", 
+            WSFactors    = "Moment(2)", 
             variables   = c("pre","post"), 
             adjustments = list(purpose = "single"),
             plotStyle   = "line" ) 
@@ -175,7 +175,7 @@ plt2a
  
 ```{r, message=TRUE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="Figure 2b: Making central panel of Figure 2."}
 plt2b <- superbPlot(dataFigure2, 
-            WSFactor    = "Moment(2)", 
+            WSFactors    = "Moment(2)", 
             variables   = c("pre","post"), 
             adjustments = list(purpose = "difference", decorrelation = "CA"), #new
             plotStyle   = "line" ) 
@@ -192,7 +192,7 @@ the trend is upward, suggesting a strongly reliable effect of the moment:
 
 ```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="Figure 2c: Making right panel of Figure 2."}
 plt2c <- superbPlot(dataFigure2, 
-            WSFactor    = "Moment(2)", 
+            WSFactors    = "Moment(2)", 
             variables   = c("pre","post"), 
             adjustments = list(purpose = "difference", decorrelation = "CA"),
             plotStyle   = "pointindividualline" )   #new
@@ -233,7 +233,7 @@ Reusing ``ornateBS``, we get an unadjusted plot as usual:
 
 ```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=8, fig.height=4, fig.cap="Figure 3a: The left panel of Figure 3."}
 plt3a = superbPlot(dataFigure3, 
-    BSFactor    = "grp", 
+    BSFactors    = "grp", 
     variables   = "VD", 
     adjustments = list(purpose = "single", samplingDesign = "SRS"),
     plotStyle   = "line" )
@@ -248,7 +248,7 @@ is indicated to identify the column containing the cluster membership informatio
 
 ```{r, message=TRUE, echo=TRUE, eval=TRUE, fig.width=8, fig.height=4, fig.cap="Figure 3b: The central panel of Figure 3."}
 plt3b <- superbPlot(dataFigure3, 
-    BSFactor    = "grp", 
+    BSFactors    = "grp", 
     variables   = "VD", 
     adjustments = list(purpose = "difference", samplingDesign = "CRS"), #new
     plotStyle   = "line", 
@@ -260,7 +260,7 @@ An inspection of the distribution does not make the cluster structure evident...
 
 ```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=8, fig.height=4, fig.cap="Figure 3c: The right panel of Figure 3."}
 plt3c <- superbPlot(dataFigure3, 
-    BSFactor    = "grp", 
+    BSFactors    = "grp", 
     variables   = "VD", 
     adjustments = list(purpose = "difference", samplingDesign = "CRS"),
     plotStyle   = "raincloud", 
@@ -314,7 +314,7 @@ Lets do Figure 4.
 
 ```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="Figure 4a: The left panel of Figure 4."}
 plt4a <- superbPlot(dataFigure4, 
-    BSFactor = "group", 
+    BSFactors = "group", 
     variables = "score", 
     adjustments=list(purpose = "single", popSize = Inf),
     plotStyle="line" ) 
@@ -326,7 +326,7 @@ of infinite size. A finite size can be given, as
 
 ```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="Figure 4b: The central panel of Figure 3b."}
 plt4b <- superbPlot(dataFigure4, 
-    BSFactor = "group",
+    BSFactors = "group",
     variables = "score", 
     adjustments=list(purpose = "single", popSize = 50 ), # new!
     plotStyle="line" ) 
@@ -337,7 +337,7 @@ We illustrate the plot along some distribution information with a violin plot:
 
 ```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="Figure 4c: The right panel of Figure 3b."}
 plt4c <- superbPlot(dataFigure4, 
-    BSFactor = "group",
+    BSFactors = "group",
     variables = "score", 
     adjustments=list(purpose = "single", popSize = 50 ), # new!
     plotStyle="pointjitterviolin",
@@ -377,7 +377,7 @@ cat(paste("t-test corrected for finite-population size: t(",
 ## Make figure 5
 ######################################################
 
-plt5a = superbPlot(dataFigure1, BSFactor = "grp", 
+plt5a = superbPlot(dataFigure1, BSFactors = "grp", 
     statistic = "var",
     adjustments=list(purpose = "difference"),
     variables = c("score"), plotStyle="line" ) + 
@@ -385,7 +385,7 @@ plt5a = superbPlot(dataFigure1, BSFactor = "grp",
   labs(title="Difference-adjusted 95% CI\nof the variance") +
   coord_cartesian( ylim = c(0,250) ) +
   geom_hline(yintercept = 100, colour = "black", size = 0.5, linetype=2)
-plt5b = superbPlot(dataFigure1, BSFactor = "grp",
+plt5b = superbPlot(dataFigure1, BSFactors = "grp",
     statistic = "fisherskew", 
     adjustments=list(purpose = "difference"),
     variables = c("score"), plotStyle="line" ) + 
@@ -425,7 +425,7 @@ CI.d1(grp1)
 CI.d1(grp2)
 
 
-plt6a <- superbPlot(dataFigure1, BSFactor = "grp", 
+plt6a <- superbPlot(dataFigure1, BSFactors = "grp", 
   statistic = "mean", errorbar = "CI",
   showPlot=T, plotStyle="line",
   adjustments = list(purpose = "difference"),
@@ -433,7 +433,7 @@ plt6a <- superbPlot(dataFigure1, BSFactor = "grp",
 )+ ylab("Mean +- 95% CI") +
 labs(title="Mean with difference adjusted\n95% confidence interval")
 
-plt6b <- superbPlot(dataFigure1, BSFactor = "grp", 
+plt6b <- superbPlot(dataFigure1, BSFactors = "grp", 
   statistic = "d1", errorbar = "CI",
   showPlot=T, plotStyle="line",
   postprocessfct = "poolSDTransform",
