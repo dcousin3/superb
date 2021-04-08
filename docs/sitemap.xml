@@ -34,10 +34,16 @@
     <loc>http://dcousin3.github.io/superb/reference/MauchlySphericityTest.html</loc>
   </url>
   <url>
+    <loc>http://dcousin3.github.io/superb/reference/measuresWithMissingData.html</loc>
+  </url>
+  <url>
     <loc>http://dcousin3.github.io/superb/reference/poolSDTransform.html</loc>
   </url>
   <url>
     <loc>http://dcousin3.github.io/superb/reference/precisionMeasures.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/reference/precisionMeasureWithCustomDF.html</loc>
   </url>
   <url>
     <loc>http://dcousin3.github.io/superb/reference/runDebug.html</loc>
@@ -62,6 +68,9 @@
   </url>
   <url>
     <loc>http://dcousin3.github.io/superb/reference/superbPlot.bar.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/reference/superbPlot.halfwidthline.html</loc>
   </url>
   <url>
     <loc>http://dcousin3.github.io/superb/reference/superbPlot.line.html</loc>
@@ -91,6 +100,9 @@
     <loc>http://dcousin3.github.io/superb/reference/twoStepTransform.html</loc>
   </url>
   <url>
+    <loc>http://dcousin3.github.io/superb/reference/WelchDegreeOfFreedom.html</loc>
+  </url>
+  <url>
     <loc>http://dcousin3.github.io/superb/reference/WinerCompoundSymmetryTest.html</loc>
   </url>
   <url>
@@ -113,5 +125,8 @@
   </url>
   <url>
     <loc>http://dcousin3.github.io/superb/articles/Vignette6.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/articles/Vignette7.html</loc>
   </url>
 </urlset>

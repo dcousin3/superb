@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.6</span>
       </span>
     </div>
 
@@ -81,6 +81,9 @@
     </li>
     <li>
       <a href="../articles/Vignette6.html">Generating ready-to-analyze datasets with GRD</a>
+    </li>
+    <li>
+      <a href="../articles/Vignette7.html">Unequal variances, Welch test, Tryon adjustment, and ``superb``</a>
     </li>
   </ul>
 </li>
@@ -147,12 +150,12 @@
 <span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">testdata</span><span class="op">)</span></code></pre></div>
 <pre><code>##   id Difficulty score.day1 score.day2
-## 1  1          1   80.39474   54.66639
-## 2  2          1   68.88338   65.70614
-## 3  3          1   60.09831   62.15294
-## 4  4          1   82.98707   68.05488
-## 5  5          1   54.16122   54.20741
-## 6  6          1   60.16122   40.67101</code></pre>
+## 1  1          1   56.30482   42.47643
+## 2  2          1   70.61645   69.14516
+## 3  3          1   82.03367   90.20078
+## 4  4          1   63.14169   64.72541
+## 5  5          1   69.04597   68.20467
+## 6  6          1   50.92822   63.84696</code></pre>
 <p>For simplicity, we define a function whose arguments are the dataset and the layout:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mp</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">style</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>

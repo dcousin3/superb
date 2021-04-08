@@ -18,15 +18,19 @@ reference:
       - '`superbPlot.pointjitterviolin`'
       - '`superbPlot.pointindividualline`'
       - '`superbPlot.raincloud`'
+      - '`superbPlot.halfwidthline`'
   - title: Statistics
     desc: Statistics
     contents:
       - '`summaryStatistics`'
       - '`precisionMeasures`'
+      - '`precisionMeasureWithCustomDF`'
+      - '`measuresWithMissingData`'
       - '`bootstrapPrecisionMeasures`'
-      - '`HyunhFeldtEpsilon`'
       - '`CousineauLaurencelleLambda`'
+      - '`HyunhFeldtEpsilon`'
       - '`ShroutFleissICC1`'
+      - '`WelchDegreeOfFreedom`'
   - title: Tests
     desc: Statistical tests
     contents:

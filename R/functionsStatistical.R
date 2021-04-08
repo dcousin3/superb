@@ -64,6 +64,116 @@ fisherkurtosis <- function(x) {
 
 
 
+
+######################################################################################
+#' @name precisionMeasureWithCustomDF
+#'
+#' @title Confidence intervals with custom degree of freedom
+#'
+#' @aliases CIwithDF.mean 
+#'
+#' @md
+#'
+#' @description The following three functions can be used with missing data. 
+#' They return the mean, the standard error of the mean and the confidence interval of the mean.
+#' Note that we hesitated to provide these functions: you should deal with missing data prior
+#' to making your plot.
+#' 
+#' @usage CIwithDF.mean(x, gamma = 0.95 )
+#' 
+#' @param x a vector of numbers, the sample data (mandatory);
+#' @param gamma a vector containing first a confidence level for CI (default 0.95) and
+#'   a custom degree of freedom (default n-1 where n is the number of observations in x).
+#'
+#' @return the confidence interval (CI) where the t value is based on the custom-set degree of freedom.
+#'
+#' @examples
+#' # this will issue a warning as no custom degree of freedom is provided
+#' CIwithDF.mean( c(1,2,3), gamma = 0.90)          
+#' # the confidence interval of the mean for 90% confidence level
+#' CIwithDF.mean( c(1,2,3), gamma = c(0.90, 1.5) ) # uses 1.5 as df instead of 2.
+#'
+#' @references
+#' \insertAllCited{}
+#'
+#' @export CIwithDF.mean
+#'
+CIwithDF.mean <- function(x, gamma = 0.95) {
+    # this function is useful to implement Welch' test by specifying a rectifed df
+    # which overrides the defautl n-1
+    se <- SE.mean(x)
+    n  <- length(x)
+    if (length(gamma) == 2) {
+        wdf = gamma[2]
+        g = gamma[1]
+    } else {
+        warning("superb::FYI: No degree of freedom provided in gamma[2]; revert to CI")
+        wdf = n-1
+        g = gamma[1]
+    }
+    tc <- qt(c(1/2 - g/2, 1/2 + g/2), df = wdf)
+    ci <- mean(x) + se * tc
+    ci
+}
+
+
+######################################################################################
+#' @name measuresWithMissingData
+#'
+#' @title Measures with missing data
+#'
+#' @aliases meanNArm, SE.meanNArm CI.meanNArm 
+#'
+#' @md
+#'
+#' @description The following three functions can be used with missing data. 
+#' They return the mean, the standard error of the mean and the confidence interval of the mean.
+#' Note that we hesitated to provide these functions: you should deal with missing data prior
+#' to making your plot.
+#' 
+#' @usage meanNArm(x)
+#' @usage SE.meanNArm(x)
+#' @usage CI.meanNArm(x, gamma)
+#' 
+#' @param x a vector of numbers, the sample data (mandatory);
+#' @param gamma a confidence level for CI (default 0.95).
+#'
+#' @return the means, a measure of precision (SE) or an interval of precision (CI)
+#'   in the presence of missing data.
+#'
+#' @examples
+#' # the confidence interval of the mean for default 95% and 90% confidence level
+#' meanNArm( c(1,2,3, NA) )
+#' SE.meanNArm( c(1,2,3, NA) )
+#' CI.meanNArm( c(1,2,3, NA) )
+#' CI.meanNArm( c(1,2,3, NA), gamma = 0.90)
+#'
+#' @references
+#' \insertAllCited{}
+#'
+#' @export meanNArm
+#' @export SE.meanNArm
+#' @export CI.meanNArm
+#'
+# Removal of the missing data built-in the functions. Not recommended:
+# you should deal with your missing data prior to making a plot
+meanNArm <- function(x) mean(x, na.rm = TRUE)
+SE.meanNArm <- function(x){
+  sdx <- sd(x, na.rm = TRUE)
+  n   <- length(x[!is.na(x)])
+  se  <- sdx / sqrt(n)
+  se
+}
+CI.meanNArm <- function(x, gamma = 0.95){
+  se <- SE.meanNArm(x)
+  n  <- length(x[!is.na(x)])
+  tc <- qt(c(1/2 - gamma/2, 1/2 + gamma/2), n-1)
+  ci <- mean(x, na.rm = TRUE) + se * tc
+  ci
+}
+
+
+
 ######################################################################################
 #' @name precisionMeasures
 #'
@@ -160,21 +270,7 @@ CI.mean <- function(x, gamma = 0.95){
   ci
 }
 
-#Removal of the missing data built-in the functions: not recommended, you should deal with your missing data prior to making a plot
-meanNArm <- function(x) mean(x, na.rm = TRUE)
-SE.meanNArm <- function(x){
-  sdx <- sd(x, na.rm = TRUE)
-  n   <- length(x[!is.na(x)])
-  se  <- sdx / sqrt(n)
-  se
-}
-CI.meanNArm <- function(x, gamma = 0.95){
-  se <- SE.meanNArm(x)
-  n  <- length(x[!is.na(x)])
-  tc <- qt(c(1/2 - gamma/2, 1/2 + gamma/2), n-1)
-  ci <- mean(x, na.rm = TRUE) + se * tc
-  ci
-}
+
 
 
 ######################## MEDIAN ########################

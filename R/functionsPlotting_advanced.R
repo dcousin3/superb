@@ -157,6 +157,9 @@ GeomFlatViolin <-
 #'    ".~.",
 #'    processedData$rawData)
 #'
+#' @references
+#' \insertAllCited{}
+#'
 #' @export superbPlot.raincloud
 #'
 ######################################################################################
@@ -238,6 +241,125 @@ superbPlot.raincloud <- function(
  
 
 
+
+
+
+
+######################################################################################
+#' @name superbPlot.halfwidthline
+#'
+#' @title superbPlot 'halfwidthline' layout
+#'
+#' @md
+#'
+#' @description superbPlot comes with a few built-in templates for making the final plots.
+#' All produces ggplot objects that can be further customized. The half-width confidence
+#' interval line plot is EXPERIMENTAL. It divides the CI length by two, one thick section and one thin section.
+#' The functions, to be "superbPlot-compatible", must have these parameters:
+#' 
+#' @param summarydata a data.frame with columns "center", "lowerwidth" and "upperwidth" for each level of the factors;
+#' @param xfactor a string with the name of the column where the factor going on the horizontal axis is given;
+#' @param groupingfactor a string with the name of the column for which the data will be grouped on the plot;
+#' @param addfactors a string with up to two additional factors to make the rows and columns panels, in the form "fact1 ~ fact2";
+#' @param rawdata always contains "DV" for each participants and each level of the factors
+#' @param pointParams (optional) list of graphic directives that are sent to the geom_bar layer
+#' @param lineParams (optional) list of graphic directives that are sent to the geom_bar layer
+#' @param errorbarParams (optional) list of graphic directives that are sent to the geom_errorbar layer
+#' @param errorbarlightParams (optional) graphic directives for the second half of the error bar;
+#' @param facetParams (optional) list of graphic directives that are sent to the facet_grid layer
+#' @param xAsFactor (optional) Boolean to indicate if the factor on the horizontal should continuous or discrete (default is discrete)
+#'
+#' @return a ggplot object
+#'
+#' @examples
+#' # This will make a plot with lines
+#' superbPlot(ToothGrowth, 
+#'    BSFactor = c("dose","supp"), variables = "len",
+#'    plotStyle="halfwidthline" 
+#' )
+#'
+#' # if you extract the data with superbData, you can 
+#' # run this layout directly
+#' processedData <- superbData(ToothGrowth, 
+#'    BSFactor = c("dose","supp"), variables = "len"
+#' )
+#'
+#' superbPlot.halfwidthline(processedData$summaryStatistic,
+#'    "dose",
+#'    "supp",
+#'    ".~.",
+#'    processedData$rawData)
+#'
+#' @export superbPlot.halfwidthline
+#'
+######################################################################################
+
+superbPlot.halfwidthline <- function(
+    summarydata,               # a summary result data.frame
+    xfactor,                   # the factor on the horizontal axis  
+    groupingfactor,            # the factor for multiple lines/bars within the plot
+    addfactors,                # the factor(s) to make multiple panels
+    # what follows is unused and optional
+    rawdata             = NULL,     # unused
+    # what follows are optional
+    pointParams         = list(), 
+    lineParams          = list(), 
+    errorbarParams      = list(),
+    errorbarlightParams = list(),
+    facetParams         = list(),
+    xAsFactor           = TRUE      # should the horizontal axis be continuous?
+) {
+    runDebug("halfwidthline", "Entering superbPlot.halfwidthline", c("xfactor2", "groupingfactor2", "addfactors2", "params"), list(xfactor, groupingfactor, addfactors, list(pointParams=pointParams, lineParams=lineParams, errorbarParams=errorbarParams)))
+
+    # compute half-width limits
+    summarydata$hwlowerwidth = summarydata$lowerwidth/2
+    summarydata$hwupperwidth = summarydata$upperwidth/2
+
+    # depending on the scale of the x-axis.
+    if (!xAsFactor) 
+        summarydata[[xfactor]] = as.numeric(summarydata[[xfactor]])
+
+    # let's do the plot!
+    plot <- ggplot(
+        summarydata, 
+        aes_string(
+            x = xfactor, y = "center", ymin = "center + lowerwidth", ymax = "center + upperwidth", 
+            colour = groupingfactor
+    )) +
+    # the points ...
+    do.call(geom_point, modifyList(
+        list(size = 3, position = position_dodge(width = .15), 
+            mapping = aes_string(group = groupingfactor) ),
+        pointParams
+    )) +
+    # ... and the lines connecting the points
+    do.call(geom_line, modifyList(
+        list(position = position_dodge(width = .15), 
+            mapping = aes_string(group = ifelse(is.null(groupingfactor),1,groupingfactor) ) ),
+        lineParams
+    )) +
+    # the thin error bars
+    do.call(geom_errorbar, modifyList(
+        list(width = 0.1, alpha = 0.75, size = 0.5, position = position_dodge(.15),
+            mapping = aes_string(group = groupingfactor) ),
+        errorbarlightParams
+    )) + 
+    # the thick, half-width, error bars
+    do.call(geom_errorbar, modifyList(
+        list(width = 0.01, size = 1.00, position = position_dodge(.15),
+            aes_string(
+                x = xfactor, y = "center", ymin = "center + hwlowerwidth", ymax = "center + hwupperwidth", 
+                colour = groupingfactor ) ),
+        errorbarParams
+    )) + 
+    # the panels (rows or both rows and columns, NULL if no facet)
+    do.call( facet_grid, modifyList(
+        list( rows = addfactors ),
+        facetParams
+    ))
+        
+    return(plot)
+}
 
 
 

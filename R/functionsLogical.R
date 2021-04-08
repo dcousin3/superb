@@ -6,7 +6,7 @@
 is.stat.function <- function(fctname) {
     # does the function provided by the user exists and compute from a list of data? 
     res <- tryCatch(
-        {do.call(fctname, list( c(1,2,3) ) ); TRUE},
+        {suppressWarnings(do.call(fctname, list( c(1,2,3) ) ) ); TRUE},
         error = function(cond) {return(FALSE)} 
     )
     res
@@ -24,14 +24,14 @@ is.errorbar.function <- function(fctname) {
 is.interval.function <- function(fctname) {
     # is the function provided by the user an interval, i.e., two numbers (e.g., CI) 
     # or a single width (e.g., SE)?
-    res <- do.call(fctname, list( c(1,2,3)) )
+    res <- suppressWarnings( do.call(fctname, list( c(1,2,3)) ) )
     if (length(res) == 2) TRUE else FALSE
 }
 
 is.width.function <- function(fctname) {
     # is the function provided by the user an interval, i.e., two numbers (e.g., CI) 
     # or a single width (e.g., SE)?
-    res <- do.call(fctname, list( c(1,2,3)) )
+    res <- suppressWarnings(do.call(fctname, list( c(1,2,3)) ) )
     if (length(res) == 1) TRUE else FALSE
 }
 
@@ -39,7 +39,7 @@ is.gamma.required <- function(fctname) {
     # is the function provided by the user requires a coverage factor
     # gamma (e.g., CI) or not (e.g., SE)?
     res <- tryCatch(
-        {do.call(fctname, list( c(1,2,3), gamma = 0.95) ); TRUE},
+        {suppressWarnings( do.call(fctname, list( c(1,2,3), gamma = 0.95) ) ); TRUE},
         error = function(cond) {return(FALSE)}
     )
     res
@@ -82,6 +82,3 @@ is.superbPlot.function <- function(fctname) {
     runDebug("is.superbPlot.function", "Exiting is.superbPlot.function", c(),list() )
     res
 }
-
-
-

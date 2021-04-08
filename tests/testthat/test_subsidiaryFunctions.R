@@ -1,6 +1,19 @@
 context("Testing Winer and Mauchly statistical tests and Shrout & Fleiss ICC functions")
 
 
+test_that("Testing Welch degree of freedom", {
+    dta <- data.frame(cbind(
+        DV.1 = c(3., 6., 2., 2., 5.),
+        DV.2 = c(4., 5., 4., 4., 3.),
+        DV.3 = c(2., 7., 7., 8., 6.),
+        DV.4 = c(6., 8., 4., 6., 5.),
+        grp  = c(1., 1., 2., 2., 2.)
+    ))
+
+    expect_equal( WelchDegreeOfFreedom(dta, "DV.1", "grp"), 1.8988764 )
+})
+
+
 test_that("Testing Winer test", {
     dta <- data.frame(cbind(
         col1 <- c(3., 6., 2., 2., 5.),

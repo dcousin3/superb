@@ -222,7 +222,7 @@ superbPlot <- function(data,
             stop("superb::ERROR: Too many factors named on factorOrder. Maximum 4. Exiting...")
     if (length(factorOrder[factorOrder != wsMissing]) < length(WSFactor[WSFactor != wsMissing]) + length(BSFactor)) 
             stop("superb::ERROR: Too few factors named on factorOrder. Exiting...")
-    if ((gamma <0)||(gamma>1))
+    if ((gamma[1] <0)||(gamma[1]>1))
             stop("superb::ERROR: gamma is not within 0 and 1. Exiting...")
     if (!is.logical(showPlot))
             stop("superb::ERROR: showPlot must be TRUE or FALSE. Exiting...")
@@ -367,7 +367,7 @@ superbPlot <- function(data,
         sqrt(1 - Ns / adjustments$popSize )        
     } else {1}
 
-    # 5.2: Adjust for purpose if "difference"
+    # 5.2: Adjust for purpose if "difference" or "tryon"
     padj <- if (adjustments$purpose == "difference") { 
         sqrt(2) 
     } else if  (adjustments$purpose == "tryon") {
@@ -413,7 +413,7 @@ superbPlot <- function(data,
 
 
     ##############################################################################
-    # STEP 6: Issue warnings
+    # STEP 6: Issue feedback information
     ##############################################################################
 
     if (('warnings' %in% getOption("superb.feedback") ) | ('all' %in% getOption("superb.feedback")) )  {
@@ -460,6 +460,11 @@ superbPlot <- function(data,
         # 6.4: if samplingDesign is CRS: print ICC, check that more than 8 clusters
         if (adjustments$samplingDesign == "CRS") {
             message(paste("superb::FYI: The ICC1 per group are ", paste(round(ICCs,4), collapse=" ")) )
+        }
+
+        # 6.5: if objective is tryon: print tryon adjustment
+        if (adjustments$purpose == "tryon") {
+            message(paste("superb::FYI: The tryon adjustments per measures are ", paste(round(padj,4), " compared to 1.4142.", collapse=" ")) )
         }
     }
     
