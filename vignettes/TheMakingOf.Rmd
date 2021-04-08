@@ -51,7 +51,7 @@ is obtained with :
 
 ```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="Figure 1a: Making left panel of Figure 1."}
 plt1a = superbPlot(dataFigure1, 
-            BSFactors    = "grp", 
+            BSFactors   = "grp", 
             variables   = "score", 
             plotStyle   = "line" ) 
 plt1a
@@ -86,7 +86,7 @@ difference-adjusted confidence intervals:
 
 ```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="Figure 1c: Making and decorating central panel of Figure 1."}
 plt1b = superbPlot(dataFigure1, 
-            BSFactors    = "grp", 
+            BSFactors   = "grp", 
             variables   = "score", 
             adjustments = list(purpose = "difference"), #new!
             plotStyle   = "line" )
@@ -98,7 +98,7 @@ Finally, the *raincloud* plot is obtained by changing the ``plotStyle`` argument
 
 ```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="Figure 1c: Making and decorating right panel of Figure 1."}
 plt1c = superbPlot(dataFigure1, 
-            BSFactors    = "grp", 
+            BSFactors   = "grp", 
             variables   = "score", 
             adjustments = list(purpose = "difference"),
             plotStyle   = "raincloud",                         # new layout!

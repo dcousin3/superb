@@ -27,6 +27,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -45,12 +47,6 @@
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -131,14 +127,14 @@
 ##   100
 ##  ------------------------------------------------------------</code></pre>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">dta</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dta</span><span class="op">)</span></code></pre></div>
 <pre><code>##   id         DV
-## 1  1 -0.3554512
-## 2  2 -0.9285046
-## 3  3  0.7776304
-## 4  4  0.6598611
-## 5  5 -0.1984371
-## 6  6 -0.3737351</code></pre>
+## 1  1  1.4122363
+## 2  2 -0.1875752
+## 3  3  0.4726752
+## 4  4 -1.2463542
+## 5  5  1.0319016
+## 6  6 -0.9861429</code></pre>
 <p>By default, one hundred scores are generated from a normal distribution with mean 0 and standard deviation of 1. In other words, it generate 100 z scores. The dependent variable, the last column in the dataframe that will be generated is called by default <code>DV</code>. The first column is an “id” column containing a number identifying each <em>simulated</em> participant. To change the dependent variable’s name, use</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span> RenameDV <span class="op">=</span> <span class="st">"score"</span> <span class="op">)</span></code></pre></div>
@@ -167,7 +163,7 @@
 ##  ------------------------------------------------------------</code></pre>
 <p>There will be 100 random z scores in each of three groups, for a total of 300 data. The group number will be given in an additional column, here called <code>Group</code>. A factorial design can be generated with more than one factors, such as</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span> BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Surgery(2)'</span>, <span class="st">'Therapy(3)'</span><span class="op">)</span> <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span> BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Surgery(2)'</span>, <span class="st">'Therapy(3)'</span><span class="op">)</span> <span class="op">)</span></code></pre></div>
 <pre><code>## ------------------------------------------------------------ 
 ## Design is: 2 x 3 with 6 independent groups.
 ## ------------------------------------------------------------
@@ -181,7 +177,7 @@
 <p>which will results in 2 x 3, that is, 6 different groups, crossing all the levels of Surgery (1 and 2) and all the levels of Therapy (1, 2 and 3). The levels can receive names rather than number, as in</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span>
-    BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Surgery(yes, no)'</span>, <span class="st">'Therapy(CBT,Control,Exercise)'</span><span class="op">)</span>
+    BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Surgery(yes, no)'</span>, <span class="st">'Therapy(CBT,Control,Exercise)'</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <pre><code>## ------------------------------------------------------------ 
 ## Design is: 2 x 3 with 6 independent groups.
@@ -194,15 +190,15 @@
 ##   100
 ##  ------------------------------------------------------------</code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">Surgery</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">Surgery</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "yes" "no"</code></pre>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">Therapy</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">Therapy</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "CBT"      "Control"  "Exercise"</code></pre>
 <p>Finally, within-subject factors can also be given, as in</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span>
-    BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Surgery(yes,no)'</span>, <span class="st">'Therapy(CBT, Control,Exercise)'</span><span class="op">)</span>,
+    BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Surgery(yes,no)'</span>, <span class="st">'Therapy(CBT, Control,Exercise)'</span><span class="op">)</span>,
     WSFactors <span class="op">=</span> <span class="st">'Contrast(C1,C2,C3)'</span>,
 <span class="op">)</span></code></pre></div>
 <pre><code>## ------------------------------------------------------------ 
@@ -226,7 +222,7 @@
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span>
     BSFactors <span class="op">=</span> <span class="st">"Therapy(3)"</span>,
-    SubjectsPerGroup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">1</span><span class="op">)</span>
+    SubjectsPerGroup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">1</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <pre><code>## ------------------------------------------------------------ 
 ## Design is: 3 with 3 independent groups.
@@ -240,14 +236,14 @@
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dta</span></code></pre></div>
 <pre><code>##   id Therapy          DV
-## 1  1       1 -0.66619752
-## 2  2       1 -0.29863894
-## 3  3       2 -0.32392585
-## 4  4       2  0.13655384
-## 5  5       2  0.46230496
-## 6  6       2  0.17229883
-## 7  7       2  0.43206233
-## 8  8       3 -0.01124282</code></pre>
+## 1  1       1  1.09862026
+## 2  2       1 -0.48299232
+## 3  3       2 -0.68506180
+## 4  4       2  1.97739311
+## 5  5       2 -0.29976398
+## 6  6       2 -1.16097576
+## 7  7       2 -0.01681198
+## 8  8       3  0.98368095</code></pre>
 </div>
 <div id="choosing-the-population-distribution" class="section level2">
 <h2 class="hasAnchor">
@@ -256,7 +252,7 @@
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span>
     RenameDV <span class="op">=</span> <span class="st">"IQ"</span>,
-    Population<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>mean<span class="op">=</span><span class="fl">100</span>,stddev<span class="op">=</span><span class="fl">15</span><span class="op">)</span>
+    Population<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean<span class="op">=</span><span class="fl">100</span>,stddev<span class="op">=</span><span class="fl">15</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <pre><code>## ------------------------------------------------------------ 
 ## Design is:  with 1 independent groups.
@@ -267,14 +263,14 @@
 ##   100
 ##  ------------------------------------------------------------</code></pre>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">IQ</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">IQ</span><span class="op">)</span></code></pre></div>
 <p><img src="Vignette6_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 <p>(increase the number of participants using <code>SubjectsPerGroup</code> to say 10,000, and the bell-shape curve will be evident!).</p>
 <p>Internally, the above call to GRD will use <code>rnorm</code> to generate the scores, passing along for the mean parameter the grand mean (internally called <code>GM</code>) and for the standard deviation parameter the provided standard deviation (internally called <code>STDDEV</code>). This can be explicitly stated using the element <code>scores</code> as in:</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span>
     BSFactors <span class="op">=</span> <span class="st">"Group(2)"</span>,
-    Population <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    Population <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
         mean <span class="op">=</span> <span class="fl">100</span>,         <span class="co"># this set GM to 100</span>
         stddev <span class="op">=</span> <span class="fl">15</span>,        <span class="co"># this set STDDEV to 15</span>
         scores <span class="op">=</span> <span class="st">"rnorm(1, mean = GM, sd = STDDEV )"</span>
@@ -293,7 +289,7 @@
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span>
     BSFactors <span class="op">=</span> <span class="st">"Group(2)"</span>,
-    Population <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    Population <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
         mean   <span class="op">=</span> <span class="fl">100</span>,       <span class="co"># this set GM to 100</span>
         stddev <span class="op">=</span> <span class="fl">15</span>,        <span class="co"># this set STDDEV to 15</span>
         scores <span class="op">=</span> <span class="st">"rnorm(1, mean = GM, sd = Group * STDDEV )"</span>
@@ -318,7 +314,7 @@
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span>SubjectsPerGroup <span class="op">=</span> <span class="fl">5000</span>,
     RenameDV <span class="op">=</span> <span class="st">"RT"</span>,
-    Population<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    Population<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
         scores <span class="op">=</span> <span class="st">"rweibull(1, shape=2, scale=40)+250"</span>
     <span class="op">)</span>
 <span class="op">)</span></code></pre></div>
@@ -331,7 +327,7 @@
 ##   5000
 ##  ------------------------------------------------------------</code></pre>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">RT</span>,breaks<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">250</span>,<span class="fl">425</span>,by<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">RT</span>,breaks<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">250</span>,<span class="fl">425</span>,by<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="Vignette6_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
 </div>
 <div id="getting-effects-on-one-or-some-of-the-factors" class="section level2">
@@ -344,7 +340,7 @@
     BSFactors <span class="op">=</span> <span class="st">'Therapy(CBT, Control, Exercise)'</span>,
     WSFactors <span class="op">=</span> <span class="st">'Contrast(3)'</span>,
     SubjectsPerGroup <span class="op">=</span> <span class="fl">1000</span>,
-    Effects <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">'Contrast'</span> <span class="op">=</span> <span class="fu"><a href="../reference/slope.html">slope</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+    Effects <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">'Contrast'</span> <span class="op">=</span> <span class="fu"><a href="../reference/slope.html">slope</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <pre><code>## ------------------------------------------------------------ 
 ## Design is: 3 x ( 3 ) with 3 independent groups.
@@ -359,7 +355,7 @@
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>,
     BSFactors <span class="op">=</span> <span class="st">"Therapy"</span>, WSFactors <span class="op">=</span> <span class="st">"Contrast(3)"</span>,
-    variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"DV.1"</span>,<span class="st">"DV.2"</span>,<span class="st">"DV.3"</span><span class="op">)</span>,
+    variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DV.1"</span>,<span class="st">"DV.2"</span>,<span class="st">"DV.3"</span><span class="op">)</span>,
     plotStyle <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span></code></pre></div>
 <pre><code>## superb::FYI: The variables will be plotted in that order: Contrast, Therapy (use factorOrder to change).</code></pre>
 <p><img src="Vignette6_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
@@ -369,7 +365,7 @@
     BSFactors <span class="op">=</span> <span class="st">'Therapy(CBT,Control,Exercise)'</span>,
     WSFactors <span class="op">=</span> <span class="st">'Contrast(3) '</span>,
     SubjectsPerGroup <span class="op">=</span> <span class="fl">1000</span>,
-    Effects <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    Effects <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
         <span class="st">"code1"</span><span class="op">=</span><span class="fu"><a href="../reference/slope.html">Rexpression</a></span><span class="op">(</span><span class="st">"if (Therapy =='CBT'){-1} else {0}"</span><span class="op">)</span>,
         <span class="st">"code2"</span><span class="op">=</span><span class="fu"><a href="../reference/slope.html">Rexpression</a></span><span class="op">(</span><span class="st">"if (Contrast ==3) {+1} else {0}"</span><span class="op">)</span>
     <span class="op">)</span>
@@ -387,7 +383,7 @@
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>,
     BSFactors <span class="op">=</span> <span class="st">"Therapy"</span>, WSFactors <span class="op">=</span> <span class="st">"Contrast(3)"</span>,
-    variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"DV.1"</span>,<span class="st">"DV.2"</span>,<span class="st">"DV.3"</span><span class="op">)</span>,
+    variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DV.1"</span>,<span class="st">"DV.2"</span>,<span class="st">"DV.3"</span><span class="op">)</span>,
     plotStyle <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span></code></pre></div>
 <pre><code>## superb::FYI: The variables will be plotted in that order: Contrast, Therapy (use factorOrder to change).</code></pre>
 <p><img src="Vignette6_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
@@ -396,7 +392,7 @@
 <code class="sourceCode R"><span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span>
     WSFactors <span class="op">=</span> <span class="st">'Difficulty(1, 2)'</span>,
     SubjectsPerGroup <span class="op">=</span> <span class="fl">1000</span>,
-    Population<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fl">0</span>,stddev <span class="op">=</span> <span class="fl">20</span>, rho <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>
+    Population<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fl">0</span>,stddev <span class="op">=</span> <span class="fl">20</span>, rho <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <pre><code>## ------------------------------------------------------------ 
 ## Design is: ( 2 ) with 1 independent groups.
@@ -408,14 +404,14 @@
 ##   1000
 ##  ------------------------------------------------------------</code></pre>
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">DV.1</span>, <span class="va">dta</span><span class="op">$</span><span class="va">DV.2</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">DV.1</span>, <span class="va">dta</span><span class="op">$</span><span class="va">DV.2</span><span class="op">)</span></code></pre></div>
 <p><img src="Vignette6_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
 <p>In the case of a multivariate normal distribution, the parameters for the mean and the standard deviations can be vectors of length equal to the number of repeated measures. However, covariances are constants.</p>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span>
     WSFactors <span class="op">=</span> <span class="st">'Difficulty(1, 2)'</span>,
     SubjectsPerGroup <span class="op">=</span> <span class="fl">1000</span>,
-    Population<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">2</span><span class="op">)</span>,stddev<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0.2</span><span class="op">)</span>,rho <span class="op">=</span><span class="op">-</span><span class="fl">0.85</span><span class="op">)</span>
+    Population<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">2</span><span class="op">)</span>,stddev<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0.2</span><span class="op">)</span>,rho <span class="op">=</span><span class="op">-</span><span class="fl">0.85</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <pre><code>## ------------------------------------------------------------ 
 ## Design is: ( 2 ) with 1 independent groups.
@@ -427,7 +423,7 @@
 ##   1000
 ##  ------------------------------------------------------------</code></pre>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">DV.1</span>, <span class="va">dta</span><span class="op">$</span><span class="va">DV.2</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">DV.1</span>, <span class="va">dta</span><span class="op">$</span><span class="va">DV.2</span><span class="op">)</span></code></pre></div>
 <p><img src="Vignette6_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
 </div>
 <div id="contaminate-your-samples" class="section level2">
@@ -436,8 +432,8 @@
 <p>Contaminants can be inserted in the simulated data using <code>Contaminant</code>. This argument works exactly like <code>Population</code> except for the additional option <code>proportion</code> which indicates the proportion of contaminants in the samples:</p>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span>SubjectsPerGroup <span class="op">=</span> <span class="fl">5000</span>,
-    Population<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span> mean<span class="op">=</span><span class="fl">100</span>, stddev <span class="op">=</span> <span class="fl">15</span> <span class="op">)</span>,
-    Contaminant<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span> mean<span class="op">=</span><span class="fl">200</span>, stddev <span class="op">=</span> <span class="fl">15</span>, proportion <span class="op">=</span> <span class="fl">0.10</span> <span class="op">)</span>
+    Population<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> mean<span class="op">=</span><span class="fl">100</span>, stddev <span class="op">=</span> <span class="fl">15</span> <span class="op">)</span>,
+    Contaminant<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> mean<span class="op">=</span><span class="fl">200</span>, stddev <span class="op">=</span> <span class="fl">15</span>, proportion <span class="op">=</span> <span class="fl">0.10</span> <span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <pre><code>## ------------------------------------------------------------ 
 ## Design is:  with 1 independent groups.
@@ -448,13 +444,13 @@
 ##   5000
 ##  ------------------------------------------------------------</code></pre>
 <div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">DV</span>,breaks<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">265</span>,by<span class="op">=</span><span class="fl">2.5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">DV</span>,breaks<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">265</span>,by<span class="op">=</span><span class="fl">2.5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="Vignette6_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
 <p>Contaminants can be normally distributed (as above) or come from any theoretical distribution which can be simulated in R:</p>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span>SubjectsPerGroup <span class="op">=</span> <span class="fl">10000</span>,
-    Population<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span> mean<span class="op">=</span><span class="fl">100</span>, stddev <span class="op">=</span> <span class="fl">15</span> <span class="op">)</span>,
-    Contaminant<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span> proportion <span class="op">=</span> <span class="fl">0.10</span>,
+    Population<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> mean<span class="op">=</span><span class="fl">100</span>, stddev <span class="op">=</span> <span class="fl">15</span> <span class="op">)</span>,
+    Contaminant<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> proportion <span class="op">=</span> <span class="fl">0.10</span>,
         scores<span class="op">=</span><span class="st">"rweibull(1,shape=1.5, scale=30)+1.5*GM"</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <pre><code>## ------------------------------------------------------------ 
@@ -466,16 +462,16 @@
 ##   10000
 ##  ------------------------------------------------------------</code></pre>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">DV</span>,breaks<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">365</span>,by<span class="op">=</span><span class="fl">2.5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">DV</span>,breaks<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">365</span>,by<span class="op">=</span><span class="fl">2.5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="Vignette6_files/figure-html/unnamed-chunk-18-1.png" width="700"></p>
 <p>Finally, contaminants can be used to add missing data (missing completely at random) with:</p>
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span> BSFactors<span class="op">=</span><span class="st">"grp(2)"</span>,
     WSFactors <span class="op">=</span> <span class="st">"Moment (2)"</span>,
     SubjectsPerGroup <span class="op">=</span> <span class="fl">1000</span>,
-    Effects <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"grp"</span> <span class="op">=</span> <span class="fu"><a href="../reference/slope.html">slope</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span> <span class="op">)</span>,
-    Population<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>mean<span class="op">=</span><span class="fl">0</span>,stddev<span class="op">=</span><span class="fl">20</span>,rho<span class="op">=</span> <span class="op">-</span><span class="fl">0.85</span><span class="op">)</span>,
-    Contaminant<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>scores <span class="op">=</span> <span class="st">"NA"</span>, proportion<span class="op">=</span><span class="fl">0.2</span><span class="op">)</span>
+    Effects <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"grp"</span> <span class="op">=</span> <span class="fu"><a href="../reference/slope.html">slope</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span> <span class="op">)</span>,
+    Population<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean<span class="op">=</span><span class="fl">0</span>,stddev<span class="op">=</span><span class="fl">20</span>,rho<span class="op">=</span> <span class="op">-</span><span class="fl">0.85</span><span class="op">)</span>,
+    Contaminant<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>scores <span class="op">=</span> <span class="st">"NA"</span>, proportion<span class="op">=</span><span class="fl">0.2</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <pre><code>## ------------------------------------------------------------ 
 ## Design is: 2 x ( 2 ) with 2 independent groups.
@@ -499,13 +495,13 @@
 <a href="#references" class="anchor"></a>References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
 <div id="ref-ch19" class="csl-entry">
-Calderini, M., &amp; Harding, B. (2019). <span>GRD</span> for <span>R</span>: An intuitive tool for generating random data in <span>R</span>. <em>The Quantitative Methods for Psychology</em>, <em>15</em>(1), 1–11. <a href="https://doi.org/10.20982/tqmp.15.1.p001">https://doi.org/10.20982/tqmp.15.1.p001</a>
+Calderini, M., &amp; Harding, B. (2019). <span>GRD</span> for <span>R</span>: An intuitive tool for generating random data in <span>R</span>. <em>The Quantitative Methods for Psychology</em>, <em>15</em>(1), 1–11. <a href="https://doi.org/10.20982/tqmp.15.1.p001" class="external-link">https://doi.org/10.20982/tqmp.15.1.p001</a>
 </div>
 <div id="ref-hc14" class="csl-entry">
-Harding, B., &amp; Cousineau, D. (2014). GRD: An <span>SPSS</span> extension command for generating random data. <em>The Quantitative Methods for Psychology</em>, <em>10</em>(2), 80–94. <a href="https://doi.org/10.20982/tqmp.10.2.p080">https://doi.org/10.20982/tqmp.10.2.p080</a>
+Harding, B., &amp; Cousineau, D. (2014). GRD: An <span>SPSS</span> extension command for generating random data. <em>The Quantitative Methods for Psychology</em>, <em>10</em>(2), 80–94. <a href="https://doi.org/10.20982/tqmp.10.2.p080" class="external-link">https://doi.org/10.20982/tqmp.10.2.p080</a>
 </div>
 <div id="ref-hc15" class="csl-entry">
-Harding, B., &amp; Cousineau, D. (2015). An extended <span>SPSS</span> extension command for generating random data. <em>The Quantitative Methods for Psychology</em>, <em>11</em>(3), 127–138. <a href="https://doi.org/10.20982/tqmp.11.3.p127">https://doi.org/10.20982/tqmp.11.3.p127</a>
+Harding, B., &amp; Cousineau, D. (2015). An extended <span>SPSS</span> extension command for generating random data. <em>The Quantitative Methods for Psychology</em>, <em>11</em>(3), 127–138. <a href="https://doi.org/10.20982/tqmp.11.3.p127" class="external-link">https://doi.org/10.20982/tqmp.11.3.p127</a>
 </div>
 </div>
 </div>
@@ -522,11 +518,13 @@ Harding, B., &amp; Cousineau, D. (2015). An extended <span>SPSS</span> extension
 
 
       <footer><div class="copyright">
-  <p>Developed by Denis Cousineau.</p>
+  <p></p>
+<p>Developed by Denis Cousineau.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link external-link">pkgdown</a> 1.6.1.9001.</p>
 </div>
 
       </footer>
@@ -534,6 +532,8 @@ Harding, B., &amp; Cousineau, D. (2015). An extended <span>SPSS</span> extension
 
   
 
+
+  
 
   </body>
 </html>

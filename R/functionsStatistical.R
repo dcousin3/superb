@@ -472,7 +472,7 @@ CI.fisherkurtosis <- function(x, gamma = 0.95){
 #' The bootstrap estimates are called PI which stands for Precision intervals.
 #' This is to denote that they estimate the sampling distribution, not the 
 #' predictive distribution on which all confidence intervals are based
-#' \insertCite{@see @rpw19; @pl10; @l99}{superb}.
+#' \insertCite{@rpw19; @pl10; @l99}{superb}.
 #' 
 #' @usage bootstrapSE.mean(x)
 #' @usage bootstrapPI.mean(x, gamma)
