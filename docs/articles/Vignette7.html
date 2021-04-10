@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.7</span>
       </span>
     </div>
 
@@ -80,6 +80,9 @@
     </li>
     <li>
       <a href="../articles/Vignette7.html">Unequal variances, Welch test, Tryon adjustment, and ``superb``</a>
+    </li>
+    <li>
+      <a href="../articles/Vignette8.html">(advanced) Alternate ways to decorrelate repeated measures from transformations</a>
     </li>
   </ul>
 </li>
@@ -209,8 +212,8 @@ Figure 1: Plot of dtaHerero showing heterogeneous error bars.
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Welch's rectified degrees of freedom</span>
 <span class="va">wdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/WelchDegreeOfFreedom.html">WelchDegreeOfFreedom</a></span><span class="op">(</span><span class="va">dtaHetero</span>, <span class="st">"score"</span>,<span class="st">"group"</span><span class="op">)</span></code></pre></div>
-<p>in which <code>"score"</code> is the column(s) containing the dependent variable(s) and <code>"group"</code> is the column(s) containing the group identifiers. Here, the result is 26.9965 (compared to <span class="math inline">\(n_1+n_2-2\)</span>, that is 48, indicating a fairly large reduction caused by a fairly important heterogeneity.</p>
-<p>In <code>superb</code>, it is possible to override the default degree of freedom using the error bar estimator <code>errorbar = CIwithDF"</code> and then in the <code>gamma</code> argument, use a vector with both the confidence level desired and the rectified degree of freedom, as in <code>gamma = c(0.95, 29.38)</code>. Lets have a small plot of this:</p>
+<p>in which <code>"score"</code> is the column(s) containing the dependent variable(s) and <code>"group"</code> is the column(s) containing the group identifiers. Here, the result is 26.9965 (compared to <span class="math inline">\(n_1+n_2-2\)</span>, that is 48, indicating a fairly large reduction in degree of freedom caused by a fairly important heterogeneity.</p>
+<p>In <code>superb</code>, it is possible to override the default degree of freedom using the error bar estimator <code>errorbar = CIwithDF"</code> and then in the <code>gamma</code> argument, use a vector with both the confidence level desired and the rectified degree of freedom, as in <code>gamma = c(0.95, 26.9965)</code>. Lets have a small plot of this:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pw</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dtaHetero</span>, 
                  BSFactors    <span class="op">=</span> <span class="st">"group"</span>, 
@@ -351,7 +354,7 @@ Figure 4: All three plots with relevant markers in red.
 <a href="#in-summary" class="anchor"></a>In summary</h2>
 <p><code>superb</code> is making error bars from separate error estimations. Hence, whenever the sample sizes are quite unequal, the variances are quite heterogeneous, or both, the inference performed by eyes are actually quite close to a Welch test of means. When both samples sizes are equal and variances are homogeneouse, there is no difference between a Welch test and a t-test.</p>
 <p>When the degree of freedom are rectified and Tryon’s ajustment is used, the center of both confidence intervals should be exactly aligned to indicate that their sum fills exactly the gap.</p>
-<p>Although the Tryon/Welch pair lets you make very precise inferences, visually and practically speaking, the difference between the rectified Welch degree of freedom adjustments and a plot with the default degree of freedom are undetectable.</p>
+<p>Although the Tryon/Welch pair lets you make very precise inferences, visually and practically speaking, the difference between the rectified Welch degree of freedom adjustments and a plot with the default degree of freedom are undetectable (as evidence by the first plot and the second plot of Figure 4 just above).</p>
 <p>If you can perform average in the square sense, the difference adjustment is perfect. In doubt, consider applying the Tryon adjustment when the variances are cleary heterogeneous.</p>
 </div>
 <div id="references" class="section level1 unnumbered">

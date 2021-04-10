@@ -67,9 +67,10 @@ To that end, I collected some additional ggplot directives in a list:
 ornateBS = list(
     xlab("Group"), 
     ylab("Score"),
+    scale_x_discrete(labels=c("Collaborative\ngames", "Unstructured\nactivities")), #new!
     coord_cartesian( ylim = c(75,125) ),
     geom_hline(yintercept = 100, colour = "black", size = 0.5, linetype=2),
-    theme_light(base_size = 16) +
+    theme_light(base_size = 14) +
     theme( plot.subtitle = element_text(size=12))
 )
 ```
@@ -97,14 +98,14 @@ plt1b
 Finally, the *raincloud* plot is obtained by changing the ``plotStyle`` argument:
 
 ```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="Figure 1c: Making and decorating right panel of Figure 1."}
-plt1c = superbPlot(dataFigure1, 
-            BSFactors   = "grp", 
-            variables   = "score", 
-            adjustments = list(purpose = "difference"),
-            plotStyle   = "raincloud",                         # new layout!
-            violinParams = list(fill = "green", alpha = 0.2) ) # added some color to the violin
-plt1c <- plt1c + ornateBS + labs(subtitle="Difference-adjusted\n95% CI") 
-plt1c
+    plt1c = superbPlot(dataFigure1, 
+                BSFactors   = "grp", 
+                variables   = "score", 
+                adjustments = list(purpose = "difference"),
+                plotStyle   = "raincloud",                         # new layout!
+                violinParams = list(fill = "green", alpha = 0.2) ) # added some color to the violin
+    plt1c <- plt1c + ornateBS + labs(subtitle="Difference-adjusted\n95% CI") 
+    plt1c
 ```
 
 All three plots are showns side-by-side with:
@@ -116,7 +117,7 @@ grid.arrange(plt1a, plt1b, plt1c, ncol=3)
 and exported to a file, with, e.g.:
 
 ```{r, message=FALSE, echo=TRUE, eval=FALSE}
-png(filename = "Figure1.png", width = 1280, height = 640)
+png(filename = "Figure1.png", width = 640, height = 320)
 grid.arrange(plt1a, plt1b, plt1c, ncol=3)
 dev.off()
 ```
@@ -132,7 +133,9 @@ t.test(dataFigure1$score[dataFigure1$grp==1],
 There are no significant difference in these data at the .05 level, so that the error bars of
 a 95% confidence interval should contain the other result, as is the case in the central panel.
 
-
+Finally, you could try here the Tryon's adjustments (changing to ``adjustments = list(purpose = "tryon")``). 
+However, you will notice no difference at all. Indeed, the variances are almost identical in the two groups
+(`r sd(dataFigure1[dataFigure1$grp ==1,]$score)` vs. `r sd(dataFigure1[dataFigure1$grp ==2,]$score)`).
 
 
 
@@ -229,7 +232,21 @@ t.test(dataFigure2$pre, dataFigure2$post, paired=TRUE)
 The novel element in Figure 3 is the fact that the participants have been
 recruted by clusters of participants. 
 
-Reusing ``ornateBS``, we get an unadjusted plot as usual:
+We first adapt the ornaments for this situation:
+
+```{r, message=FALSE, echo=TRUE, eval=TRUE}
+ornateCRS = list(
+    xlab("Group"), 
+    ylab("Score"),
+    scale_x_discrete(labels=c("From the\nsame field", "From various\nfields")), #new!
+    coord_cartesian( ylim = c(75,125) ),
+    geom_hline(yintercept = 100, colour = "black", size = 0.5, linetype=2),
+    theme_light(base_size = 14) +
+    theme( plot.subtitle = element_text(size=12))
+)
+```
+
+Then, we get an unadjusted plot as usual:
 
 ```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=8, fig.height=4, fig.cap="Figure 3a: The left panel of Figure 3."}
 plt3a = superbPlot(dataFigure3, 
@@ -237,7 +254,7 @@ plt3a = superbPlot(dataFigure3,
     variables   = "VD", 
     adjustments = list(purpose = "single", samplingDesign = "SRS"),
     plotStyle   = "line" )
-plt3a <- plt3a + ornateBS + labs(subtitle="Stand-alone\n95% CI") 
+plt3a <- plt3a + ornateCRS + labs(subtitle="Stand-alone\n95% CI") 
 ```
 
 Here, the option ```samplingDesign = "SRS"``` is the default and can be omitted.
@@ -253,7 +270,7 @@ plt3b <- superbPlot(dataFigure3,
     adjustments = list(purpose = "difference", samplingDesign = "CRS"), #new
     plotStyle   = "line", 
     clusterColumn = "cluster" )                                       #new
-plt3b <- plt3b + ornateBS + labs(subtitle="Cluster and difference-\nadjusted 95% CI")
+plt3b <- plt3b + ornateCRS + labs(subtitle="Cluster and difference-\nadjusted 95% CI")
 ```
 
 An inspection of the distribution does not make the cluster structure evident...
@@ -266,7 +283,7 @@ plt3c <- superbPlot(dataFigure3,
     plotStyle   = "raincloud", 
     violinParams = list(fill = "green", alpha = 0.2),
     clusterColumn = "cluster" )
-plt3c <- plt3c + ornateBS + labs(subtitle="Cluster and difference-\nadjusted 95% CI")
+plt3c <- plt3c + ornateCRS + labs(subtitle="Cluster and difference-\nadjusted 95% CI")
 ```
 
 Here is the complete Figure 3:
@@ -278,7 +295,7 @@ grid.arrange(plt3a, plt3b, plt3c, ncol=3)
 This figure is saved as before with
 
 ```{r, message=FALSE, echo=TRUE, eval=FALSE}
-png(filename = "Figure3.png", width = 1280, height = 640)
+png(filename = "Figure3.png", width = 640, height = 320)
 grid.arrange(plt3a, plt3b, plt3c, ncol=3)
 dev.off()
 ```
@@ -372,7 +389,9 @@ cat(paste("t-test corrected for finite-population size: t(",
     ", p = ", round(pcorr,3),"\n", sep= ""))
 ```
 
----
+```{r, echo = FALSE, message = FALSE, results = 'hide'}
+cat("this will be hidden until I decide or not to put this here.\n")
+
 ######################################################
 ## Make figure 5
 ######################################################
@@ -446,7 +465,7 @@ annotation_custom(grid.text("Cohen's d_p = 0.49\n95% CI = [-0.06, +1.09]",
     rot = 0)) 
 plt6 <- grid.arrange(plt6a, plt6b, ncol=2)
 
----
+```
 
 
 

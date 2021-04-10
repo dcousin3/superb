@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.7</span>
       </span>
     </div>
 
@@ -80,6 +80,9 @@
     </li>
     <li>
       <a href="../articles/Vignette7.html">Unequal variances, Welch test, Tryon adjustment, and ``superb``</a>
+    </li>
+    <li>
+      <a href="../articles/Vignette8.html">(advanced) Alternate ways to decorrelate repeated measures from transformations</a>
     </li>
   </ul>
 </li>
@@ -129,12 +132,12 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dta</span><span class="op">)</span></code></pre></div>
 <pre><code>##   id         DV
-## 1  1  1.4122363
-## 2  2 -0.1875752
-## 3  3  0.4726752
-## 4  4 -1.2463542
-## 5  5  1.0319016
-## 6  6 -0.9861429</code></pre>
+## 1  1  0.6103894
+## 2  2  1.2971552
+## 3  3 -0.1074910
+## 4  4 -0.4830922
+## 5  5  0.1832680
+## 6  6 -1.7692660</code></pre>
 <p>By default, one hundred scores are generated from a normal distribution with mean 0 and standard deviation of 1. In other words, it generate 100 z scores. The dependent variable, the last column in the dataframe that will be generated is called by default <code>DV</code>. The first column is an “id” column containing a number identifying each <em>simulated</em> participant. To change the dependent variable’s name, use</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span> RenameDV <span class="op">=</span> <span class="st">"score"</span> <span class="op">)</span></code></pre></div>
@@ -235,15 +238,15 @@
 ##  ------------------------------------------------------------</code></pre>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dta</span></code></pre></div>
-<pre><code>##   id Therapy          DV
-## 1  1       1  1.09862026
-## 2  2       1 -0.48299232
-## 3  3       2 -0.68506180
-## 4  4       2  1.97739311
-## 5  5       2 -0.29976398
-## 6  6       2 -1.16097576
-## 7  7       2 -0.01681198
-## 8  8       3  0.98368095</code></pre>
+<pre><code>##   id Therapy         DV
+## 1  1       1 -0.6571181
+## 2  2       1  1.8504382
+## 3  3       2 -1.4316815
+## 4  4       2 -1.2114967
+## 5  5       2 -0.2487788
+## 6  6       2 -0.3918032
+## 7  7       2  1.6983078
+## 8  8       3 -0.4748711</code></pre>
 </div>
 <div id="choosing-the-population-distribution" class="section level2">
 <h2 class="hasAnchor">

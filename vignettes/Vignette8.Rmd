@@ -1,0 +1,171 @@
+---
+title: "(advanced) Alternate ways to decorrelate repeated measures from transformations"
+bibliography: "../inst/REFERENCES.bib"
+csl: "../inst/apa-6th.csl"
+output: 
+  html_document:
+    toc: TRUE
+description: >
+  This vignette examines the various techniques that performs within-subject decorrelation
+  from transfomations of the raw scores. They can be shown to share many elements.
+vignette: >
+  %\VignetteIndexEntry{(advanced) Alternate ways to decorrelate repeated measures from transformations}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+
+```{r, echo = FALSE, message = FALSE, results = 'hide'}
+cat("this will be hidden; use for general initializations.\n")
+library(superb)
+options("superb.feedback" = c("warnings","design"))
+
+library(ggplot2)
+dta = GRD(WSFactors="Moments(3)", SubjectsPerGroup =20, 
+    Population = list(mean = 12, stddev = 1, rho = 0.45),
+    Effects = list("Moments" = custom(2,3,5) ),
+    RenameDV = "Score"
+)
+
+```
+
+The methods CM [@c05, @m08] and LM [@lm94] can be unified when the transformations they required are 
+considered. In the 
+Cousineau-Morey method, the raw data must be subject-centered and bias-corrected. 
+
+Subject centering is obtained from
+
+$$
+Y_{ij} = X_{ij} - \bar{X}_{i\cdot} + \bar{\bar{X}}
+$$
+
+
+in which $i = 1..n$ and $j=1..C$ where $n$ is the number of participants and $C$ is the number
+of repeated measures (sometimes noted with $J$).
+
+Bias-correction is obtained from
+
+$$
+Z_{ij} = \sqrt{\frac{C}{C-1}} \left( Y_{ij} - \bar{Y}_{\cdot{}j} \right) + \bar{Y}_{\cdot{}j}
+$$
+
+These two operations 
+can be performed with two matrix transformations. In comparison, the LM method requires one additional 
+step, that is, pooling standard deviation, also achievable with the following transformation.
+
+$$
+W_{ij} = \sqrt{\frac{SD_p^2}{SD_i^2}} \left( Z_{ij} - \bar{Z}_{\cdot{}j} \right) + \bar{Z}_{\cdot{}j}
+$$
+
+in which $SD_j^2$ is the variance in measurement $j$ and $SD_p^2$ is the mean variance across all $j$ mesurements.
+
+With this approach, we can categorize all the proposals to repeated measure precision as requiring or 
+not certain transformations. Table 1 shows these.
+
+Table 1. Transformations required to implement one of the repeated-measures method. Preprocessing 
+must precede post-processing
+
+
+| Method			| preprocessing	    | postprocessing    |         |  
+|-------------------|-------------------|-------------------|---------|
+| Stand-alone		| -			        | -                 |         |
+| Cousineau, 2005	| Subject-centering	| -			        | -       |
+| CM			    | Subject-centering	| Bias-correction	|         |
+| NKM			    | Subject-centering	| -			        | pool SD |
+| LM			    | Subject-centering	| Bias-correction	| pool SD |
+
+	 
+From that point of view, we see that the Nathoo, Kilshaw and Masson NKM [@nkm18; but see @h19  ] method is missing a 
+bias-correction transformation, which explains why these error bars are shorter. The original 
+proposal found in Cousineau, 2005, is also missing the bias correction step, which led Morey (2008) 
+to supplement this approach. With these four approaches, we have exhausted all the possible combinations 
+regarding decorrelation methods based on subject-centering.
+
+We added two arguments in superbPlot to handle this transformation approach, the first is ``preprocessfct`` 
+and the second is ``postprocessfct``. 
+
+Assuming a dataset dta with replicated measures stored in say columns called ``Score.1``, ``Score.2`` and
+``Score.3``, the command
+
+```{r}
+pCM <- superbPlot(dta, WSFactors = "moment(3)",     
+  variables = c("Score.1","Score.2","Score.3"), 
+  adjustments=list(decorrelation="none"),
+  preprocessfct = "subjectCenteringTransform",
+  postprocessfct = "biasCorrectionTransform",
+  plotStyle = "line",
+  errorbarParams = list(color="red", width= 0.1, position = position_nudge(-0.05) )
+)
+```
+
+will reproduce the CM error bars because it decorrelates the data as per this method. With one additional 
+transformation, 
+```{r}
+pLM <- superbPlot(dta, WSFactors = "moment(3)", 
+  variables = c("Score.1","Score.2","Score.3"), 
+  adjustments=list(decorrelation="none"),
+  preprocessfct = "subjectCenteringTransform",
+  postprocessfct = c("biasCorrectionTransform","poolSDTransform"),
+  plotStyle = "line",
+  errorbarParams = list(color="orange", width= 0.1, position = position_nudge(-0.0) )
+)
+```
+
+the LM method is reproduced. Finally, if the ``biasCorrectionTransform`` is omitted, we get the NKM error bars with:
+
+
+```{r}
+pNKM <- superbPlot(dta, WSFactors = "moment(3)", 
+  variables = c("Score.1","Score.2","Score.3"), 
+  adjustments=list(decorrelation="none"),
+  preprocessfct = "subjectCenteringTransform",
+  postprocessfct = c("poolSDTransform"),
+  plotStyle = "pointjitter",
+  errorbarParams = list(color="blue", width= 0.1, position = position_nudge(+0.05) )
+)
+```
+
+In what follow, I justapose the three plots to see the differences:
+
+```{r, fig.height=5, fig.width=8, fig.cap = "Figure 1: Plot of the tree decorrelation methods based on subject transformation."}
+tlbl <- paste( "(red)    Subject centering & Bias correction == CM\n",
+               "(orange) Subject centering, Bias correction & Pooling SDs == LM\n",
+               "(blue)   Subject centering & Pooling SDs == NKM", sep="")
+
+ornate <- list(
+    xlab("Group"),
+    ylab("Score"),
+    labs(   title=tlbl),
+    coord_cartesian( ylim = c(12,18) ),
+    theme_light(base_size=16),
+    theme(plot.subtitle=element_text(size=12, color="black"), 
+          panel.background = element_rect(fill = "transparent"),
+          plot.background = element_rect(fill = "transparent", color = "white"))
+)
+
+pCM2 <- ggplotGrob(pCM + ornate)
+pLM2 <- ggplotGrob(pLM + ornate)
+pNKM2 <- ggplotGrob(pNKM + ornate)
+
+# put the grobs onto an empty ggplot 
+ggplot() + 
+    annotation_custom(grob=pCM2) + 
+    annotation_custom(grob=pLM2) + 
+    annotation_custom(grob=pNKM2)
+```
+
+The method from Cousineau (2005) is not shown as it should not be used.
+
+
+
+## In summary
+
+All the decorrelation methds have (probably) been explored. Other approaches are required to overcome the
+sphericity limitations.
+
+
+
+
+
+
+# References

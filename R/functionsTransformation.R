@@ -29,7 +29,7 @@ twoStepTransform <- function(dta, variables) {
     Y <- X - rowMeans(X) + mean(rowMeans(X))
     Z <- sqrt(C / (C - 1)) * (t(Y) - colMeans(Y)) + colMeans(Y)
     Z <- as.data.frame(t(Z))
-    dta [ variables ] = Z
+    dta [ variables ] <- Z
     return(dta)
 }
 
@@ -60,7 +60,7 @@ subjectCenteringTransform <- function(dta, variables) {
     X <- dta[ variables ]
     C <- ncol(X)
     Y <- X - rowMeans(X) + mean(rowMeans(X))
-    dta [ variables ] = Y
+    dta [ variables ] <- Y
     return(dta)
 }
 
@@ -93,7 +93,7 @@ biasCorrectionTransform <- function(dta, variables) {
     C <- ncol(Y)
     Z <- sqrt(C / (C - 1)) * (t(Y) - colMeans(Y)) + colMeans(Y)
     Z <- as.data.frame(t(Z))
-    dta [ variables ] = Z
+    dta [ variables ] <- Z
     return(dta)
 }
 
@@ -128,8 +128,8 @@ poolSDTransform <- function(dta, variables) {
     sds <- colSDs(Z)
     sdp <- sqrt(mean(sds^2))
     W   <- sdp / sds * (t(Z) - colMeans(Z)) + colMeans(Z)
-    W <- as.data.frame(t(W))
-    dta [ variables ] = W
+    W   <- as.data.frame(t(W))
+    dta [ variables ] <- W
     return(dta)
 }
 

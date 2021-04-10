@@ -159,12 +159,13 @@ wdf <- WelchDegreeOfFreedom(dtaHetero, "score","group")
 in which ``"score"`` is the column(s) containing the dependent variable(s) and 
 ``"group"`` is the column(s) containing the group identifiers. Here, the result
 is `r round(wdf,4)` (compared to $n_1+n_2-2$, that is `r length(grp1)+length(grp2)-2`,
-indicating a fairly large reduction caused by a fairly important heterogeneity.
+indicating a fairly large reduction in degree of freedom caused by a fairly important 
+heterogeneity.
 
 In ``superb``, it is possible to override the default degree of freedom using
 the error bar estimator ``errorbar = CIwithDF"`` and then in the ``gamma`` argument,
 use a vector with both the confidence level desired and the rectified degree of 
-freedom, as in ``gamma = c(0.95, 29.38)``. Lets have a small plot of this:
+freedom, as in ``gamma = c(0.95, 26.9965)``. Lets have a small plot of this:
 
 ```{r, fig.height=5, fig.width=3, fig.cap = "Figure 2: Plot of dtaHerero with rectified degree of freedom."}
 pw <- superbPlot(dtaHetero, 
@@ -331,7 +332,8 @@ their sum fills exactly the gap.
 
 Although the Tryon/Welch pair lets you make very precise inferences, 
 visually and practically speaking, the difference between the rectified Welch degree of 
-freedom adjustments and a plot with the default degree of freedom are undetectable.
+freedom adjustments and a plot with the default degree of freedom are undetectable 
+(as evidence by the first plot and the second plot of Figure 4 just above).
 
 If you can perform average in the square sense, the difference adjustment is perfect. In doubt,
 consider applying the Tryon adjustment when the variances are cleary heterogeneous.

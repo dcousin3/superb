@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.7</span>
       </span>
     </div>
 
@@ -80,6 +80,9 @@
     </li>
     <li>
       <a href="../articles/Vignette7.html">Unequal variances, Welch test, Tryon adjustment, and ``superb``</a>
+    </li>
+    <li>
+      <a href="../articles/Vignette8.html">(advanced) Alternate ways to decorrelate repeated measures from transformations</a>
     </li>
   </ul>
 </li>
@@ -146,12 +149,12 @@
 <span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">testdata</span><span class="op">)</span></code></pre></div>
 <pre><code>##   id Difficulty score.day1 score.day2
-## 1  1          1   76.40813   83.27276
-## 2  2          1   60.62142   67.27971
-## 3  3          1   78.48510   65.08274
-## 4  4          1   75.41208   39.74884
-## 5  5          1   64.66465   39.50702
-## 6  6          1   68.36852   47.73707</code></pre>
+## 1  1          1   53.33793   41.43650
+## 2  2          1   69.80341   55.76145
+## 3  3          1   83.46617   63.12820
+## 4  4          1   60.78952   67.75504
+## 5  5          1   77.26121   75.90152
+## 6  6          1   78.75336   59.52985</code></pre>
 <p>For simplicity, we define a function whose arguments are the dataset and the layout:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mp</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">style</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>

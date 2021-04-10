@@ -3,6 +3,10 @@
 * Second release on CRAN, codename "95% confident"
 * Expanded documentation once more
 
+# superb 0.9.4.7 (April 10th, 2021)
+
+* Added two vignettes
+
 # superb 0.9.4.6 (April 7th, 2021)
 
 * Problem with CAPITAL grd corrected
