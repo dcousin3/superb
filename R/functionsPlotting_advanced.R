@@ -338,19 +338,39 @@ superbPlot.halfwidthline <- function(
             mapping = aes_string(group = ifelse(is.null(groupingfactor),1,groupingfactor) ) ),
         lineParams
     )) +
-    # the thin error bars
+#    # the thin error bars
+#    do.call(geom_errorbar, modifyList(
+#        list(width = 0.1, alpha = 0.75, size = 0.5, position = position_dodge(.15),
+#            mapping = aes_string(group = groupingfactor) ),
+#        errorbarlightParams
+#    )) + 
+#    # the thick, half-width, error bars
+#    do.call(geom_errorbar, modifyList(
+#        list(width = 0.01, size = 1.00, position = position_dodge(.15),
+#            aes_string(
+#                x = xfactor, y = "center", ymin = "center + hwlowerwidth", ymax = "center + hwupperwidth", 
+#                colour = groupingfactor ) ),
+#        errorbarParams
+#    )) + 
+    # the error bars
     do.call(geom_errorbar, modifyList(
-        list(width = 0.1, alpha = 0.75, size = 0.5, position = position_dodge(.15),
-            mapping = aes_string(group = groupingfactor) ),
-        errorbarlightParams
-    )) + 
-    # the thick, half-width, error bars
-    do.call(geom_errorbar, modifyList(
-        list(width = 0.01, size = 1.00, position = position_dodge(.15),
+        list(width = 0.1, size = 1.00, position = position_dodge(.15),
             aes_string(
-                x = xfactor, y = "center", ymin = "center + hwlowerwidth", ymax = "center + hwupperwidth", 
+                x = xfactor, y = "center", ymin = "center + lowerwidth", ymax = "center + upperwidth", 
                 colour = groupingfactor ) ),
         errorbarParams
+    )) + 
+    # the lower small white points to cut the line in two
+    do.call(geom_point, modifyList(
+        list(color = "white", size = 1.5, position = position_dodge(.15),
+            mapping = aes_string(group = groupingfactor, y = "center + hwlowerwidth") ),
+        errorbarlightParams
+    )) + 
+    # the uppersmall white points to cut the line in two
+    do.call(geom_point, modifyList(
+        list(color = "white", size = 1.5, position = position_dodge(.15),
+            mapping = aes_string(group = groupingfactor, y = "center + hwupperwidth") ),
+        errorbarlightParams
     )) + 
     # the panels (rows or both rows and columns, NULL if no facet)
     do.call( facet_grid, modifyList(

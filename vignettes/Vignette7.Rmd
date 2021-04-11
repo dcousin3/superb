@@ -68,8 +68,8 @@ ornate = list(
     scale_x_discrete(labels=c("Pre-\nTreatment","Post-\nTreatment")),
     ylab("Score"),
     coord_cartesian( ylim = c(40,+110) ),
-    theme_light(base_size = 16) +
-    theme( plot.subtitle = element_text(size=14))
+    theme_light(base_size = 24) +
+    theme( plot.subtitle = element_text(size=24))
 )
 ```
 
@@ -169,7 +169,7 @@ freedom, as in ``gamma = c(0.95, 26.9965)``. Lets have a small plot of this:
 
 ```{r, fig.height=5, fig.width=3, fig.cap = "Figure 2: Plot of dtaHerero with rectified degree of freedom."}
 pw <- superbPlot(dtaHetero, 
-                 BSFactors    = "group", 
+                 BSFactors   = "group", 
                  variables   = "score", 
                  adjustments = list(purpose = "difference"),
                  gamma       = c(0.95, wdf),         # new! 
@@ -182,8 +182,8 @@ pw
 ```
 
 In this plot, I used a different layout, the ``"halfwidthline"`` which shows
-in bold half of the width of the error bar. We will see the reason for that in a
-minute.
+the mid-point of the error bar with a small gap. We will see the reason 
+for that in a minute.
 
 
 ## Averaging in the square sense, do you count on me to do that visually?
@@ -208,7 +208,7 @@ indicate whether the means are included in the mean error bar length.
 
 ```{r, fig.height=5, fig.width=3, fig.cap = "Figure 3: Plot of dtaHerero with rectified degree of freedom and Tryon' difference-adjusted error bars."}
 pwt <- superbPlot(dtaHetero, 
-                  BSFactors    = "group", 
+                  BSFactors   = "group", 
                   variables   = "score", 
                   adjustments = list(purpose = "tryon"), #new!
                   gamma       = c(0.95, wdf),
@@ -232,7 +232,7 @@ square sense the error bars. Lets do that:
 ```{r}
 # get the summary statistics with superbData
 t <- superbData(dtaHetero, 
-                BSFactors    = "group", 
+                BSFactors   = "group", 
                 variables   = "score", 
                 adjustments = list(purpose = "difference"),
                 gamma       = 0.95,
@@ -260,7 +260,7 @@ same following Tryon's adjusment and Welch rectified degrees of freedom:
 ```{r}
 # get the summary statistics with superbData
 wt <- superbData(dtaHetero, 
-                BSFactors    = "group", 
+                BSFactors   = "group", 
                 variables   = "score", 
                 adjustments = list(purpose = "tryon"),
                 gamma       = c(0.95, wdf),
