@@ -147,7 +147,7 @@ just a difference for the name of the variable on the horizontal axis:
 ```{r, message=FALSE, echo=TRUE, eval=TRUE}
 ornateWS = list(
     xlab("Moment"),                                                #different!
-    scale_x_discrete(labels=c("Pre-\ntreatment", "Post-\nTreatment")), #new!
+    scale_x_discrete(labels=c("Pre\ntreatment", "Post\ntreatment")), #new!
     ylab("Statistics understanding"),
     coord_cartesian( ylim = c(75,125) ),
     geom_hline(yintercept = 100, colour = "black", size = 0.5, linetype=2),
@@ -210,10 +210,10 @@ the scores. To that end, we need different ornaments:
 ```{r}
 ornateWS2 = list(
     xlab("Difference"),                                      #different!
-    scale_x_discrete(labels=c("Pre minus Post\nTreatment")), #new!
+    scale_x_discrete(labels=c("Pre minus Post\ntreatment")), #new!
     ylab("Statistics understanding"),
     coord_cartesian( ylim = c(-25,+25) ),
-    geom_hline(yintercept = 100, colour = "black", size = 0.5, linetype=2),
+    geom_hline(yintercept = 0, colour = "black", size = 0.5, linetype=2),
     theme_light(base_size = 16) +
     theme( plot.subtitle = element_text(size=12))
 )
@@ -248,7 +248,7 @@ grid.arrange(plt2a, plt2b, plt2c, plt2d,  ncol=4)
 ... which can be exported to a file as usual: 
 
 ```{r, message=FALSE, echo=TRUE, eval=FALSE}
-png(filename = "Figure2.png", width = 1280, height = 640)
+png(filename = "Figure2.png", width = 850, height = 320)
 grid.arrange(plt2a, plt2b, plt2c, plt2d,  ncol=4)
 dev.off()
 ```
