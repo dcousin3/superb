@@ -17,6 +17,11 @@ with less than 1 Mb (that would represents only 4 to 5 examples).
 
 * There was 1 NOTE from win-builder about the maintainer.
 
+* There was 1 NOTE for R-hub with DOI not existing (but they do exists).
+
+* The message from the previous CRAN package check results was corrected
+    ("Namespaces in Import field not imported")
+
 ## Downstream dependencies
 
 * All packages that I could install passed.
