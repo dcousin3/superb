@@ -1,4 +1,4 @@
-# superb 0.9.5.0 (April xth, 2021)
+# superb 0.9.5.0 (April 13th, 2021)
 
 * Second release on CRAN, codename "95% confident"
 * Expanded documentation once more

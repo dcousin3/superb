@@ -210,7 +210,7 @@ the scores. To that end, we need different ornaments:
 ```{r}
 ornateWS2 = list(
     xlab("Difference"),                                      #different!
-    scale_x_discrete(labels=c("Pre minus Post\ntreatment")), #new!
+    scale_x_discrete(labels=c("Post minus Pre\ntreatment")), #new!
     ylab("Statistics understanding"),
     coord_cartesian( ylim = c(-25,+25) ),
     geom_hline(yintercept = 0, colour = "black", size = 0.5, linetype=2),

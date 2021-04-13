@@ -252,7 +252,7 @@ dta <- GRD(SubjectsPerGroup = 5000,
     Population= list( mean=100, stddev = 15 ),
     Contaminant=list( mean=200, stddev = 15, proportion = 0.10 )
 )
-hist(dta$DV,breaks=seq(0,265,by=2.5))
+hist(dta$DV,breaks=seq(-25,300,by=2.5))
 ```
 
 Contaminants can be normally distributed (as above) or come from any

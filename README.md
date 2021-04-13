@@ -106,12 +106,12 @@ head(testdata)
 ```
 
     ##   id Difficulty  score.1  score.2
-    ## 1  1          A 72.34984 68.77770
-    ## 2  2          A 72.64940 59.16195
-    ## 3  3          A 84.91764 86.57780
-    ## 4  4          A 90.86842 73.36415
-    ## 5  5          A 64.41137 58.51026
-    ## 6  6          A 72.35806 76.24969
+    ## 1  1          A 68.85378 63.05026
+    ## 2  2          A 70.09172 76.38624
+    ## 3  3          A 74.33000 63.95963
+    ## 4  4          A 90.43732 89.71311
+    ## 5  5          A 71.03776 80.20318
+    ## 6  6          A 74.51515 92.88719
 
 The simulated scores are illustrated using using a more elaborated
 layout, the `pointjitterviolin` which, in addition to the mean and
