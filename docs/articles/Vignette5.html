@@ -113,7 +113,7 @@
 
     
     
-<p><code><a href="../reference/superbPlot.html">superbPlot()</a></code> comes with sevent built-in layouts for plotting your data. However, it is possible to add additional, custom-made layouts. In this vignette, we present rapidly the existing layouts, then show how to supplement <code>superb</code> with your own layouts.</p>
+<p><code><a href="../reference/superbPlot.html">superbPlot()</a></code> comes with seven built-in layouts for plotting your data. However, it is possible to add additional, custom-made layouts. In this vignette, we present rapidly the existing layouts, then show how to supplement <code>superb</code> with your own layouts.</p>
 <div id="the-built-in-plot-layouts" class="section level2">
 <h2 class="hasAnchor">
 <a href="#the-built-in-plot-layouts" class="anchor"></a>The built-in plot layouts</h2>
@@ -132,7 +132,7 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">superb</span><span class="fu">:::</span><span class="fu">is.superbPlot.function</span><span class="op">(</span><span class="st">"superbPlot.line"</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<p>where you put between quote the name of a function. When devising your own, custom-made function, it is a gook thing to check that it is superbPlot-compatible.</p>
+<p>where you put between quote the name of a function. When devising your own, custom-made function, it is a good thing to check that it is <code>superbPlot</code>-compatible.</p>
 </div>
 <div id="illustrating-the-built-in-layouts" class="section level2">
 <h2 class="hasAnchor">
@@ -149,12 +149,12 @@
 <span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">testdata</span><span class="op">)</span></code></pre></div>
 <pre><code>##   id Difficulty score.day1 score.day2
-## 1  1          1   81.26334   68.87969
-## 2  2          1   49.51580   46.00410
-## 3  3          1   72.48067   47.40701
-## 4  4          1   62.38581   66.86539
-## 5  5          1   57.66251   75.36339
-## 6  6          1   48.27911   50.35432</code></pre>
+## 1  1          1   64.59928   83.51201
+## 2  2          1   51.94549   65.65092
+## 3  3          1   59.66902   51.98604
+## 4  4          1   30.63869   36.27378
+## 5  5          1   57.21316   54.09891
+## 6  6          1   57.28211   48.59683</code></pre>
 <p>For simplicity, we define a function whose arguments are the dataset and the layout:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mp</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">style</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
@@ -179,16 +179,16 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">p1</span>,<span class="va">p2</span>,<span class="va">p3</span>,<span class="va">p4</span>,<span class="va">p5</span>,<span class="va">p6</span>,ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
 <div class="figure">
-<img src="Vignette5_files/figure-html/unnamed-chunk-5-1.png" alt="Figure 1a: Look of the six built-in layouts on the same random dataset" width="672"><p class="caption">
-Figure 1a: Look of the six built-in layouts on the same random dataset
+<img src="Vignette5_files/figure-html/unnamed-chunk-5-1.png" alt="**Figure 1a**. Look of the six built-in layouts on the same random dataset" width="672"><p class="caption">
+<strong>Figure 1a</strong>. Look of the six built-in layouts on the same random dataset
 </p>
 </div>
-<p>The last format, a raincloud plot <span class="citation">(Allen et al., 2021)</span>, is better seen with coordinates flipped over:</p>
+<p>The last format, a <code>raincloud</code> plot <span class="citation">(Allen et al., 2021)</span>, is better seen with coordinates flipped over:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">mp</span><span class="op">(</span><span class="va">testdata</span>, <span class="st">"raincloud"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="external-link">coord_flip</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="figure">
-<img src="Vignette5_files/figure-html/unnamed-chunk-6-1.png" alt="Figure 1b: The seventh layout, the raincloud" width="672"><p class="caption">
-Figure 1b: The seventh layout, the raincloud
+<img src="Vignette5_files/figure-html/unnamed-chunk-6-1.png" alt="**Figure 1b**. The seventh layout, the raincloud" width="672"><p class="caption">
+<strong>Figure 1b</strong>. The seventh layout, the raincloud
 </p>
 </div>
 <p>For more controls, you can manually set the colors, the fills and/or the shapes, as done here in a list:</p>
@@ -213,16 +213,16 @@ Figure 1b: The seventh layout, the raincloud
     <span class="va">p4</span><span class="op">+</span><span class="va">ornate</span>, <span class="va">p5</span><span class="op">+</span><span class="va">ornate</span>, <span class="va">p6</span><span class="op">+</span><span class="va">ornate</span>,
     ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
 <div class="figure">
-<img src="Vignette5_files/figure-html/unnamed-chunk-7-1.png" alt="Figure 2: The six built-in template with ornamental styling added." width="672"><p class="caption">
-Figure 2: The six built-in template with ornamental styling added.
+<img src="Vignette5_files/figure-html/unnamed-chunk-7-1.png" alt="**Figure 2a**. The six built-in template with ornamental styling added." width="672"><p class="caption">
+<strong>Figure 2a</strong>. The six built-in template with ornamental styling added.
 </p>
 </div>
-<p>As of the raincloud with the same ornaments, we get</p>
+<p>As of the <code>raincloud</code> with the same ornaments, we get</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">mp</span><span class="op">(</span><span class="va">testdata</span>, <span class="st">"raincloud"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="external-link">coord_flip</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="va">ornate</span></code></pre></div>
 <div class="figure">
-<img src="Vignette5_files/figure-html/unnamed-chunk-8-1.png" alt="Figure 2b: The raincloud with ornamental styling added." width="672"><p class="caption">
-Figure 2b: The raincloud with ornamental styling added.
+<img src="Vignette5_files/figure-html/unnamed-chunk-8-1.png" alt="**Figure 2b**. The raincloud with ornamental styling added." width="672"><p class="caption">
+<strong>Figure 2b</strong>. The raincloud with ornamental styling added.
 </p>
 </div>
 <p>These are just a few examples. However, if these layouts do not fit yours needs, it is possible to devise a custom-made layout and inform <code>superbPlot</code> to use it. To that end, see the instructions below.</p>
@@ -234,7 +234,6 @@ Figure 2b: The raincloud with ornamental styling added.
 <ul>
 <li><p>compile the summary information (location of the summary statistic, upper width and lower width of the interval) and that, for each level of the factors;</p></li>
 <li><p>applies all the adjustments needed in producing the summary;</p></li>
-<li><p><code><a href="../reference/superbPlot.html">superbPlot()</a></code> also transform to discrete factors (using <code>as.factor</code>) all the factors. If some of the factors are within-subject, the information is to be found in distinct column ( remember that <code><a href="../reference/superbPlot.html">superbPlot()</a></code> assumes a wide-format data frame); for between-group factors, a column indicate the current group;</p></li>
 <li><p>and finally, calls a plot function accepting pre-defined arguments</p></li>
 </ul>
 <p>In devising your own plot function, it is important that (i) the function name begins with <code>superbPlot.</code>; (ii) the function accept very specific arguments with very precise names.</p>
@@ -251,7 +250,7 @@ Figure 2b: The raincloud with ornamental styling added.
     <span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="co">## ggplot instructions...        </span>
     <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">plot</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<p>In what follow, it is assumed that one factor is placed on the horizontal axis (<code>xfactor</code>), another one is used to group the point (<code>groupingfactor</code>), and up to two additional factors will results in columns and rows of panels (<code>addfactors</code>; of course, in devising your own template, you may use different placement.)</p>
+<p>In what follow, it is assumed that one factor is placed on the horizontal axis (<code>xfactor</code>), another one is used to group the point (<code>groupingfactor</code>), and up to two additional factors will results in columns and rows of panels (<code>addfactors</code>; of course, in devising your own template, you may use different placement). <code><a href="../reference/superbPlot.html">superbPlot()</a></code> is restricted to a maximum of four factors.</p>
 <p>The arguments are:</p>
 <ul>
 <li><p><code>summarydata</code>: this data frame will contain the column <code>center</code> indicating the statistic’s value, <code>lowerwidth</code> and <code>upperwidth</code> indicating how many units below and above <code>center</code> the error bar extends. The data frame will also have columns for all the factors, and there will be as many lines as there are combinations of factors.</p></li>
@@ -268,14 +267,14 @@ Figure 2b: The raincloud with ornamental styling added.
 <p>What follow is a simple example that will design a template that we will call <code>simple</code>. This layout will display the descriptive statistics and error bars. Everything will be black and white (no color instruction) and superimposed (no grouping instruction).</p>
 <p>The result will be:</p>
 <div class="figure">
-<img src="Vignette5_files/figure-html/unnamed-chunk-10-1.png" alt="Figure 3: Mean score with 95% confidence interval using the ``simple`` plot layout." width="700"><p class="caption">
-Figure 3: Mean score with 95% confidence interval using the <code>simple</code> plot layout.
+<img src="Vignette5_files/figure-html/unnamed-chunk-10-1.png" alt="**Figure 3**. Mean score with 95% confidence interval using the ``simple`` plot layout." width="700"><p class="caption">
+<strong>Figure 3</strong>. Mean score with 95% confidence interval using the <code>simple</code> plot layout.
 </p>
 </div>
 <p>To make this plot, we design a function <code>superbPlot.simple</code> as:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">superbPlot.simple</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span>
-    <span class="va">summarydata</span>, <span class="va">xfactor</span>, <span class="va">groupingfactor</span>, <span class="va">addfactors</span>, <span class="va">rawdata</span> 
+    <span class="va">summarydata</span>, <span class="va">xfactor</span>, <span class="va">groupingfactor</span>, <span class="va">addfactors</span>, <span class="va">rawdata</span>
 <span class="op">)</span> <span class="op">{</span>
     <span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>
         data <span class="op">=</span> <span class="va">summarydata</span>, 
@@ -288,8 +287,8 @@ Figure 3: Mean score with 95% confidence interval using the <code>simple</code> 
         
     <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">plot</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<p>The first instruction, <code>ggplot</code> defines the source data to be <code>summarydata</code> with horizontal axis being in the string <code>xfactor</code> (this is the reason that <code>mapping</code> must be given with <code>aes_string</code>). The position of the descriptive statistics will be in <code>"center"</code>.</p>
-<p>The second instruction put points for each <code>"center"</code>, and the third instruction places error bars. In that case, the <code>ymin</code> and <code>ymax</code> information are contained in <code>center+lowerwidth</code> and <code>center+upperwidth</code> where <code>lowerwidth</code> and <code>upperwidth</code> are in the summarydata dataframe.</p>
+<p>The first instruction, <code>ggplot</code> defines the source data to be <code>summarydata</code> with horizontal axis being in the string <code>xfactor</code> (this is the reason that <code>mapping</code> must be given with <code>aes_string</code>). The position of the descriptive statistics is automatically computed and stored in a column called <code>"center"</code>.</p>
+<p>The second instruction put points for each <code>"center"</code>, and the third instruction places error bars. In that case, the <code>ymin</code> and <code>ymax</code> information are contained in <code>center+lowerwidth</code> and <code>center+upperwidth</code> where <code>lowerwidth</code> and <code>upperwidth</code> are automaticall computed and stored in the <code>summarydata</code> dataframe.</p>
 <p>The last instructions generates distinct panels for each level of the remaining factors.</p>
 <p>You can check that this function is <code>superbPlot</code>-compatible with:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
@@ -318,7 +317,7 @@ Figure 3: Mean score with 95% confidence interval using the <code>simple</code> 
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">superbPlot.simpleWithOptions</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span>
     <span class="va">summarydata</span>, <span class="va">xfactor</span>, <span class="va">groupingfactor</span>, <span class="va">addfactors</span>, <span class="va">rawdata</span>,
-    <span class="va">myownParams</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>  <span class="co">## add the optional arguments to the function</span>
+    <span class="va">myownParams</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>  <span class="co">## will be used to add the optional arguments to the function</span>
 <span class="op">)</span> <span class="op">{</span>
     <span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>
         data <span class="op">=</span> <span class="va">summarydata</span>, 
@@ -345,11 +344,12 @@ Figure 3: Mean score with 95% confidence interval using the <code>simple</code> 
     BSFactors <span class="op">=</span> <span class="st">"Condition"</span>,
     variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"T1"</span>,<span class="st">"T2"</span>,<span class="st">"T3"</span>,<span class="st">"T4"</span>,<span class="st">"T5"</span>,<span class="st">"T6"</span>,<span class="st">"T7"</span><span class="op">)</span>,
     plotStyle <span class="op">=</span> <span class="st">"simpleWithOptions"</span>, 
-    myownParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">1</span>, color<span class="op">=</span><span class="st">"purple"</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">)</span> <span class="co">## here goes the optional arguments</span>
+    <span class="co">## here goes the optional arguments</span>
+    myownParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">1</span>, color<span class="op">=</span><span class="st">"purple"</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">)</span> 
 <span class="op">)</span></code></pre></div>
 <div class="figure">
-<img src="Vignette5_files/figure-html/unnamed-chunk-16-1.png" alt="Figure 4: A simple figure with optional arguments" width="700"><p class="caption">
-Figure 4: A simple figure with optional arguments
+<img src="Vignette5_files/figure-html/unnamed-chunk-16-1.png" alt="**Figure 4**. A simple figure with optional arguments" width="700"><p class="caption">
+<strong>Figure 4</strong>. A simple figure with optional arguments
 </p>
 </div>
 <p>In that example, the same parameters are sent to <code>geom_point</code> and to <code>geom_errorbar</code>. It is left as an exercice to the reader to use two distinct sets of optional parameters, one for the points, the other for the error bars.</p>
@@ -382,7 +382,7 @@ Figure 4: A simple figure with optional arguments
      variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"T1"</span>,<span class="st">"T2"</span>,<span class="st">"T3"</span>,<span class="st">"T4"</span>,<span class="st">"T5"</span>,<span class="st">"T6"</span>,<span class="st">"T7"</span><span class="op">)</span>,
      plotStyle <span class="op">=</span> <span class="st">"empty"</span> 
 <span class="op">)</span></code></pre></div>
-<p>You will see <code>Dumping the two dataframes</code> followed by <code>summary</code> and <code>raw</code>. These two variables are now in the global environment and you can manipulate them. You can also use them in testing your plotting functions, for example</p>
+<p>You see <code>Dumping the two dataframes</code> followed by <code>summary</code> and <code>raw</code>. These two variables are now in the global environment and you can manipulate them. You can also use them in testing your plotting functions, for example</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">superbPlot.simple</span><span class="op">(</span><span class="va">summary</span>, <span class="st">"T"</span>, <span class="st">"Condition"</span>, <span class="st">".~."</span>, <span class="va">raw</span><span class="op">)</span></code></pre></div>
 </div>
@@ -394,9 +394,8 @@ Figure 4: A simple figure with optional arguments
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("emojifont")</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://guangchuangyu.github.io/emojifont" class="external-link">emojifont</a></span><span class="op">)</span></code></pre></div>
-<pre><code>## Warning: package 'emojifont' was built under R version 4.0.4</code></pre>
 <p>Then we define a <code>"smiley"</code> layout where the emojis are shown with <code>geom_text</code> layer:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">superbPlot.smiley</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span>
     <span class="va">summarydata</span>, <span class="va">xfactor</span>, <span class="va">groupingfactor</span>, <span class="va">addfactors</span>, <span class="va">rawdata</span> 
 <span class="op">)</span> <span class="op">{</span>
@@ -424,11 +423,11 @@ Figure 4: A simple figure with optional arguments
     <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">plot</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>We check that it is a <code>superbPlot</code>-compatible function:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">superb</span><span class="fu">:::</span><span class="fu">is.superbPlot.function</span><span class="op">(</span><span class="st">"superbPlot.smiley"</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>It is all we need! It can be inserted in a <code>superbPlot</code> call:</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">TMB1964r</span>,
      WSFactors <span class="op">=</span> <span class="st">"T(7)"</span>,      
      BSFactors <span class="op">=</span> <span class="st">"Condition"</span>, 
@@ -436,8 +435,8 @@ Figure 4: A simple figure with optional arguments
      plotStyle <span class="op">=</span> <span class="st">"smiley"</span>
 <span class="op">)</span></code></pre></div>
 <div class="figure">
-<img src="Vignette5_files/figure-html/unnamed-chunk-23-1.png" alt="Figure 5: smile!" width="672"><p class="caption">
-Figure 5: smile!
+<img src="Vignette5_files/figure-html/unnamed-chunk-23-1.png" alt="**Figure 5**. smile!" width="672"><p class="caption">
+<strong>Figure 5</strong>. smile!
 </p>
 </div>
 </div>

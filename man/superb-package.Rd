@@ -4,7 +4,7 @@
 \name{superb-package}
 \alias{superb}
 \alias{superb-package}
-\title{superb: Get Precision of Means Under Various Designs and Sampling Schemes}
+\title{superb: Summary plots with adjusted error bars}
 \description{
 Computes standard error and confidence interval of various descriptive statistics under 
     various designs and sampling schemes. The main function, superbPlot(), can either return a plot 

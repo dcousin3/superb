@@ -25,7 +25,7 @@ library(ggplot2)
 The package ``superb`` includes the function ``GRD()``. This function is used to easily generate
 random data sets. With a few options, it is possible to obtain data from any design, with
 any effects. This function, first created for SPSS [@hc14, @hc15] was exported to R [@ch19].
-A brief report shows one possible use in the class for teaching statistics to undergrads [c20].
+A brief report shows one possible use in the class for teaching statistics to undergrads [@c20].
 
 This vignette illustrate some of its use.
 
@@ -38,11 +38,12 @@ dta <- GRD()
 head(dta)
 ```
 
-By default, one hundred scores are generated from a normal distribution with mean 0 and 
-standard deviation of 1. In other words, it generate 100 z scores. The dependent variable,
-the last column in the dataframe that will be generated is called by default ``DV``. The first
-column is an "id" column containing a number identifying each *simulated* participant. To
-change the dependent variable's name, use
+By default, one hundred scores are generated from a normal distribution with 
+mean 0 and standard deviation of 1. In other words, it generate 100 z scores. 
+The dependent variable, the last column in the dataframe that will be generated 
+is called by default ``DV``. The first column is an "id" column containing a 
+number identifying each *simulated* participant. To change the dependent 
+variable's name, use
 
 ```{r}
 dta <- GRD( RenameDV = "score" )
@@ -64,7 +65,7 @@ design can be generated with more than one factors, such as
 dta <- GRD( BSFactors = c('Surgery(2)', 'Therapy(3)') )
 ```
 
-which will results in 2 x 3, that is, 6 different groups, crossing all the levels of Surgery (1 and 2)
+which will results in 2 $\times$ 3, that is, 6 different groups, crossing all the levels of Surgery (1 and 2)
 and all the levels of Therapy (1, 2 and 3). The levels can receive names rather than number, as in
 
 ```{r}
@@ -84,16 +85,17 @@ dta <- GRD(
 )
 ```
 
-For within-subject designs, the repeated measures will appear in distinct columns (here
-"DV.C1", "DV.C2", and "DV.C3" ). This format is called **wide** format, meaning that the
-repeated measures are all on the same line for a given simulated *participant*.
+For within-subject designs, the repeated measures will appear in distinct 
+columns (here "DV.C1", "DV.C2", and "DV.C3" ). This format is called 
+**wide** format, meaning that the repeated measures are all on the same line 
+for a given *simulated* participant.
 
 ## Deciding the sample sizes
 
-The default is to generate 100 participants in each between-subject groups. This default
-can be changed with ``SubjectsPerGroup``. The most straigthforward specification is, e.g., 
-``SubjectsPerGroup = 25`` for 25 participants in each groups. Unequal group sizes can be
-specified with:
+The default is to generate 100 participants in each between-subject groups. 
+This default can be changed with ``SubjectsPerGroup``. The most straigthforward
+specification is, e.g., ``SubjectsPerGroup = 25`` for 25 participants in each
+groups. Unequal group sizes can be specified with:
 
 ```{r}
 dta <- GRD(
@@ -122,16 +124,17 @@ hist(dta$IQ)
 (increase the number of participants using ``SubjectsPerGroup`` to say 10,000, and the bell-shape
 curve will be evident!).
 
-Internally, the above call to GRD will use ``rnorm`` to generate the scores, passing along
-for the mean parameter the grand mean (internally called ``GM``) and for the standard deviation
-parameter the provided standard deviation (internally called ``STDDEV``). This can be 
-explicitly stated using the element ``scores`` as in:
+Internally, the above call to ``GRD()`` will use ``rnorm`` to generate the 
+scores, passing along for the mean parameter the grand mean (internally called
+``GM``) and for the standard deviation parameter the provided standard deviation
+(internally called ``STDDEV``). This can be explicitly stated using the element
+``scores`` as in:
 
 ```{r}
 dta <- GRD(
     BSFactors = "Group(2)",
     Population = list(
-        mean = 100,         # this set GM to 100
+        mean   = 100,         # this set GM to 100
         stddev = 15,        # this set STDDEV to 15
         scores = "rnorm(1, mean = GM, sd = STDDEV )"
     )
@@ -175,14 +178,14 @@ hist(dta$RT,breaks=seq(250,425,by=5))
 ## Getting effects on one or some of the factors
 
 It is possible to generate non-null effects on the factors using 
-the argument ``Effects```. Effects can be ``slope(x)`` (an increase of x
+the argument ``Effects``. Effects can be ``slope(x)`` (an increase of x
 points for each level of the factor), ``extent(x)`` (a total increase of 
-x over all the levels), ``custom(x, y, z)`` for an effect of x point for
-the first level of the factor, y point for the second, etc.
+``x`` over all the levels), ``custom(x, y, etc)`` for an effect of ``x`` point for
+the first level of the factor, ``y`` point for the second, etc.
 
 Here is a slope effect:
 
-```{r}
+```{r, message=FALSE}
 dta <- GRD(
     BSFactors = 'Therapy(CBT, Control, Exercise)',
     WSFactors = 'Contrast(3)',
@@ -198,7 +201,7 @@ superbPlot(dta,
 Effects can also be any R code manipulating the factors, using ``Rexpression``.
 One example:
 
-```{r}
+```{r, message=FALSE}
 dta <- GRD(
     BSFactors = 'Therapy(CBT,Control,Exercise)',
     WSFactors = 'Contrast(3) ',
@@ -217,7 +220,7 @@ superbPlot(dta,
 Repeated measures can also be generated from a multivariate normal 
 distribution with a correlation ``rho``, with, e.g., 
 
-```{r}
+```{r, fig.width=5, fig.height=5}
 dta <- GRD(
     WSFactors = 'Difficulty(1, 2)',
     SubjectsPerGroup = 1000,
@@ -231,7 +234,7 @@ for the mean and the standard deviations can be vectors of length
 equal to the number of repeated measures. However, covariances are
 constants.
 
-```{r}
+```{r, fig.width=5, fig.height=5}
 dta <- GRD(
     WSFactors = 'Difficulty(1, 2)',
     SubjectsPerGroup = 1000,

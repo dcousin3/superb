@@ -9,7 +9,7 @@ citEntry(
   volume   = "Submitted",
   number   = "Submitted",
   pages    = "1--46",
-  url      = "https://dcousin3.github.io/superb",
+  url      = "https://dcousin3.github.io/superb/",
   textVersion = paste(
     "Cousineau, D., Goulet, M.A., & Harding. B (submitted) ",
     "Summary statistics plotted with correct error bars: The superb framework and library for {R}",

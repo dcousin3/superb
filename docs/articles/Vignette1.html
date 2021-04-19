@@ -114,15 +114,14 @@
     
     
 <p>The package <code>superb</code> facilitates the production of summary statistic plots having the correct error bars. Error bars are measures of precision; they are meant to convey some indications of the trust we can place in a given result. Those results that come will large error bars (wide intervals) should be considered less reliable that those with short error bars.</p>
-<p>Error bars, which are drawn from measures of precision, comes in many flavors. There is the simple <em>standard error</em> (SE), the more famous <em>confidence interval</em> (CI), and new proposals such as the <em>high density interval</em> (HDI). The package <code>superb</code> has build-in functions for both the SE and CI, but any other measure of precision can be added (as shown in Vignette 4).</p>
-<p>All measures of precision are tailored for a given statistic. Hence, we have the <em>standard error of the mean</em>, the <em>standard error of the median</em>, the <em>confidence interval of the skew</em>, etc. For every and all statistic, there is a corresponding measure of precision. In what follows, we discuss the confidence interval, but everything that follows apply equally well to any measure of precision.</p>
-<p>The basic confidence interval can be termed a “stand-alone” confidence interval because it indicates the precision of a statistic in isolation. It is useful to compare this statistics to –say– criterion performance or any <em>a priori</em>-determined value. As shown in Vignettes 2 and 3, such “stand-alone” measures are inadequate when an observed result is to be compared to other observed results <span class="citation">(also see Cousineau, 2005, 2017)</span>.</p>
-<p>In order to use <code>superb</code>, four choices need to be made, described next. Prior to that, it is necessary to check the data format. Herein we illustrate the means with 95% confidence intervals; these can be changed, as shown in Vignette 4. We begin with data format.</p>
+<p>Error bars, which are drawn from measures of precision, comes in many flavors. There is the simple <em>standard error</em> (SE), the more famous <em>confidence interval</em> (CI), and new proposals such as the <em>high density interval</em> (HDI). The package <code>superb</code> has build-in functions for both the SE and CI, but any other measure of precision can be added (as shown in <a href="https://dcousin3.github.io/superb/articles/Vignette4.html" class="external-link">Vignette 4</a>).</p>
+<p>All measures of precision are tailored for a given statistic. Hence, we have the <em>standard error of the mean</em>, the <em>standard error of the median</em>, the <em>confidence interval of the skew</em>, etc. For each and every statistic, there is a corresponding measure of precision. In what follows, we discuss the confidence interval, but everything that follows apply equally well to any measure of precision.</p>
+<p>The basic confidence interval can be termed a “stand-alone” confidence interval because it indicates the precision of a statistic in isolation. It is useful to compare this statistics to a criterion performance or any <em>a priori</em>-determined value. As shown in <a href="https://dcousin3.github.io/superb/articles/Vignette2.html" class="external-link">Vignette 2</a> and <a href="https://dcousin3.github.io/superb/articles/Vignette3.html" class="external-link">Vignette 3</a>, such “stand-alone” measures are inadequate when an observed result is to be compared to other observed results <span class="citation">(also see Cousineau, 2005, 2017)</span>.</p>
+<p>In order to use <code>superb</code>, four choices need to be made, described next. Prior to that, it is necessary to check the data format. Herein we illustrate the means with 95% confidence intervals; these can be changed, as shown in <a href="https://dcousin3.github.io/superb/articles/Vignette4.html" class="external-link">Vignette 4</a>.</p>
 <div id="data-format" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data-format" class="anchor"></a>Data format</h2>
-<p>The format of the data in <code>superb</code> follows the general convention “1 subject = 1 line,” that is, all the information regarding a given participant must stand on a single line. This format is called in R the <strong>wide format</strong>; in SPSS, SAS and other statistics software, this is the standard data organization. Further, the data must be contained within a <code>data.frame</code> with named columns.</p>
-<p>Note that it is easy to go from <strong>wide format</strong> to <strong>long format</strong>, with, e.g., Navarro’s <code>wideToLong</code> excellent function <span class="citation">(Navarro, 2015)</span>.</p>
+<p>The format of the data in <code>superb</code> follows the general convention “1 subject = 1 line,” that is, all the information regarding a given participant must stand on a single line. This format is called in R the <strong>wide format</strong>; in SPSS, SAS and other statistics software, this is the standard data organization. Further, the data must be contained within a <code>data.frame</code> with named columns. It is easy to go from <strong>wide format</strong> to <strong>long format</strong>, with, e.g., Navarro’s <code>wideToLong</code> excellent function <span class="citation">(Navarro, 2015)</span>.</p>
 <p>As an illustration, we use the following ficticious data set showing the performance of 15 participants on their motivation scores on Week 1, Week 2 and Week 3 for a program to stop smoking.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Motivation data for 15 participants over three weeks in wide format:</span>
@@ -149,8 +148,8 @@
 <span class="va">dta</span>           <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">dta</span><span class="op">)</span></code></pre></div>
 <p>The mean scores per week is illustrated below:</p>
 <div class="figure">
-<img src="Vignette1_files/figure-html/unnamed-chunk-3-1.png" alt="Figure 1: Mean scores along with 95% confidence interval per week for a program to stop smoking." width="700"><p class="caption">
-Figure 1: Mean scores along with 95% confidence interval per week for a program to stop smoking.
+<img src="Vignette1_files/figure-html/unnamed-chunk-3-1.png" alt="**Figure 1**. Mean scores along with 95% confidence interval per week for a program to stop smoking." width="700"><p class="caption">
+<strong>Figure 1</strong>. Mean scores along with 95% confidence interval per week for a program to stop smoking.
 </p>
 </div>
 <p>Note that missing data are not handled by <code>superb</code>. The cells with NA must be removed or imputed prior to perform the plot.</p>
@@ -158,7 +157,7 @@ Figure 1: Mean scores along with 95% confidence interval per week for a program 
 <div id="step-1-decide-of-the-purpose-of-the-plot" class="section level2">
 <h2 class="hasAnchor">
 <a href="#step-1-decide-of-the-purpose-of-the-plot" class="anchor"></a>Step 1: Decide of the purpose of the plot</h2>
-<p>In Figure 1 above, did you look at the result of, say, Week 1, in isolation? or did you compare it to the results obtained in the other weeks? The second perspective is actually to look at the <strong>difference</strong> between the results. if such is the case, the error bar shown on this plot are actually misleading because they are too short. The reason for that is further explored in Vignette 2.</p>
+<p>In Figure 1 above, did you look at the result of, say, Week 1, in isolation? or did you compare it to the results obtained in the other weeks? The second perspective is actually to look at the <strong>difference</strong> between the results. if such is the case, the error bar shown on this plot are actually misleading because they are too short. The reason for that is further explored in <a href="https://dcousin3.github.io/superb/articles/Vignette2.html" class="external-link">Vignette 2</a>.</p>
 <p>In most experiments, one condition is <strong>compared</strong> to other conditions. In that case, we are interested in <strong>pair-wise</strong> differences between means, not by single results in isolation. Yet, the regular confidence intervals are valid only for results in isolation. Whenever you wish to compare a result to other results, to examine differences between conditions (which is, most of the time), you need to adjust the confidence interval lengths so that they remain adequate inference tools.</p>
 <p>In <code>superb</code>, you obtain an adjustment to error bar length with an option for the purpose of the plot. The default <code>purpose = "single"</code> returns stand-alone error bars (as in Figure 1); <code>purpose = "difference"</code> returns error bars valid for pair-wise comparisons. The minimum specification for the data frame above would therefore be</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -169,11 +168,11 @@ Figure 1: Mean scores along with 95% confidence interval per week for a program 
     plotStyle<span class="op">=</span><span class="st">"line"</span>
     <span class="op">)</span></code></pre></div>
 <div class="figure">
-<img src="Vignette1_files/figure-html/unnamed-chunk-5-1.png" alt="Figure 2: Mean scores along with difference-adjusted 95% confidence interval per week for a program to stop smoking." width="700"><p class="caption">
-Figure 2: Mean scores along with difference-adjusted 95% confidence interval per week for a program to stop smoking.
+<img src="Vignette1_files/figure-html/unnamed-chunk-5-1.png" alt="**Figure 2**. Mean scores along with difference-adjusted 95% confidence interval per week for a program to stop smoking." width="700"><p class="caption">
+<strong>Figure 2</strong>. Mean scores along with difference-adjusted 95% confidence interval per week for a program to stop smoking.
 </p>
 </div>
-<p>The first argument is the data.frame, in wide format (here <code>dta</code>). The second argument describe the experimental design. Here, there is a single within-subject factor (WSFactors), called <code>Moment</code>. In within-subject factors, it is necessary to indicate how many level the factor has (here 3). The third argument indicates the columns in the data.frame containing the measurements. Three columns are involved. The name must match the column names in the data.frame. If unsure, check with</p>
+<p>The first argument is the data.frame, in wide format (here <code>dta</code>). The second argument describe the experimental design. Here, there is a single within-subject factor (<code>WSFactors</code>), called <code>Moment</code>. In within-subject factors, it is necessary to indicate how many level the factor has (here 3). The third argument indicates the columns in the data.frame containing the measurements. Three columns are involved. The name must match the column names in the data.frame. If unsure, check with</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dta</span><span class="op">)</span></code></pre></div>
 <pre><code>##   Week 1 Week 2 Week 3
@@ -191,20 +190,19 @@ Figure 2: Mean scores along with difference-adjusted 95% confidence interval per
     variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Week 1"</span>, <span class="st">"Week 2"</span>, <span class="st">"Week 3"</span><span class="op">)</span>,
     statistic <span class="op">=</span> <span class="st">"mean"</span>, errorbar <span class="op">=</span> <span class="st">"CI"</span>,
     adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>,
-    plotStyle<span class="op">=</span><span class="st">"line"</span>,
-    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span>
+    plotStyle<span class="op">=</span><span class="st">"line"</span>
 <span class="op">)</span> <span class="op">+</span> 
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">50</span>,<span class="fl">100</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Mean +- 95% CI"</span><span class="op">)</span> <span class="op">+</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"Difference-adjusted\n95% confidence interval"</span><span class="op">)</span><span class="op">+</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_gray</a></span><span class="op">(</span>base_size<span class="op">=</span><span class="fl">16</span><span class="op">)</span> <span class="op">+</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">scale_x_discrete</a></span><span class="op">(</span>labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span> <span class="op">=</span> <span class="st">"Week 1"</span>, <span class="st">"2"</span> <span class="op">=</span> <span class="st">"Week 2"</span>, <span class="st">"3"</span><span class="op">=</span><span class="st">"Week 3"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>The directives in <code>errorbarParams</code> are injected inside the <code>geom_errorbar</code> in charge of drawing the error bars whereas the remaining directives are applied to the whole plot. The reader is referred to the package <code>ggplot2</code> for more on these graphing directives.</p>
+<p>The graphic directives are applied to the whole plot. The reader is referred to the package <code>ggplot2</code> for more on these graphing directives.</p>
 </div>
 <div id="step-2-decide-how-to-handle-the-within-subject-measures" class="section level2">
 <h2 class="hasAnchor">
 <a href="#step-2-decide-how-to-handle-the-within-subject-measures" class="anchor"></a>Step 2: Decide how to handle the within-subject measures</h2>
-<p>Is is known that within-subject designs are more powerful at detecting differences. The implication of this is that they afford more statistical power and consequently the error bars should be shorter. The stand-alone CI are oblivious to this fact; it is however possible to inform them that you used within-subject design.</p>
+<p>Is is known that within-subject designs are generally more powerful at detecting differences. The implication of this is that they afford more statistical power and consequently the error bars should be shorter. The stand-alone CI are oblivious to this fact; it is however possible to inform them that you used a within-subject design.</p>
 <p>The method to handle within-subject data comes from the observation that repeated measures tend to be correlated <span class="citation">(e.g., Goulet &amp; Cousineau, 2019)</span>. Informing the CI of this correlation is a process called <strong>decorrelation</strong>. To this day, there exists three methods for decorrelation:</p>
 <ul>
 <li>
@@ -221,7 +219,7 @@ Figure 2: Mean scores along with difference-adjusted 95% confidence interval per
     WSFactors <span class="op">=</span> <span class="st">"Moment(3)"</span>,
     variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Week 1"</span>, <span class="st">"Week 2"</span>, <span class="st">"Week 3"</span><span class="op">)</span>,
     statistic <span class="op">=</span> <span class="st">"mean"</span>, errorbar <span class="op">=</span> <span class="st">"CI"</span>,
-    adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span>, decorrelation <span class="op">=</span> <span class="st">"CM"</span><span class="op">)</span>,
+    adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span>, decorrelation <span class="op">=</span> <span class="st">"CM"</span><span class="op">)</span>, <span class="co">#new!</span>
     plotStyle<span class="op">=</span><span class="st">"line"</span>,
     errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span>
 <span class="op">)</span> <span class="op">+</span> 
@@ -250,7 +248,7 @@ Figure 2: Mean scores along with difference-adjusted 95% confidence interval per
     WSFactors <span class="op">=</span> <span class="st">"Moment(3)"</span>,
     variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Week 1"</span>, <span class="st">"Week 2"</span>, <span class="st">"Week 3"</span><span class="op">)</span>,
     adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span>, decorrelation <span class="op">=</span> <span class="st">"CM"</span>,
-                       samplingDesign <span class="op">=</span> <span class="st">"CRS"</span>, popSize <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>,
+                       samplingDesign <span class="op">=</span> <span class="st">"CRS"</span>, popSize <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>,        <span class="co">#new!</span>
     plotStyle <span class="op">=</span> <span class="st">"line"</span>,
     clusterColumn <span class="op">=</span> <span class="st">"cluster"</span>,  <span class="co"># identify the column containing cluster membership</span>
     errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span>

@@ -29,8 +29,8 @@ dta = GRD(WSFactors="Moments(3)", SubjectsPerGroup =20,
 
 ```
 
-The methods CM [@c05, @m08] and LM [@lm94] can be unified when the transformations they required are 
-considered. In the 
+The methods ``CM`` [@c05; @m08] and ``LM`` [@lm94] can be unified when 
+the transformations they required are considered. In the 
 Cousineau-Morey method, the raw data must be subject-centered and bias-corrected. 
 
 Subject centering is obtained from
@@ -50,20 +50,21 @@ Z_{ij} = \sqrt{\frac{C}{C-1}} \left( Y_{ij} - \bar{Y}_{\cdot{}j} \right) + \bar{
 $$
 
 These two operations 
-can be performed with two matrix transformations. In comparison, the LM method requires one additional 
-step, that is, pooling standard deviation, also achievable with the following transformation.
+can be performed with two matrix transformations. In comparison, the ``LM`` 
+method requires one additional step, that is, pooling standard deviation, 
+also achievable with the following transformation.
 
 $$
-W_{ij} = \sqrt{\frac{SD_p^2}{SD_i^2}} \left( Z_{ij} - \bar{Z}_{\cdot{}j} \right) + \bar{Z}_{\cdot{}j}
+W_{ij} = \sqrt{\frac{S_p^2}{S_i^2}} \left( Z_{ij} - \bar{Z}_{\cdot{}j} \right) + \bar{Z}_{\cdot{}j}
 $$
 
-in which $SD_j^2$ is the variance in measurement $j$ and $SD_p^2$ is the mean variance across all $j$ mesurements.
+in which $S_j^2$ is the variance in measurement $j$ and $S_p^2$ is the pooled variance across all $j$ mesurements.
 
 With this approach, we can categorize all the proposals to repeated measure precision as requiring or 
 not certain transformations. Table 1 shows these.
 
-Table 1. Transformations required to implement one of the repeated-measures method. Preprocessing 
-must precede post-processing
+**Table 1**. Transformations required to implement one of the repeated-measures
+method. Preprocessing must precede post-processing
 
 
 | Method			| preprocessing	    | postprocessing    |         |  
@@ -71,8 +72,8 @@ must precede post-processing
 | Stand-alone		| -			        | -                 |         |
 | Cousineau, 2005	| Subject-centering	| -			        | -       |
 | CM			    | Subject-centering	| Bias-correction	|         |
-| NKM			    | Subject-centering	| -			        | pool SD |
-| LM			    | Subject-centering	| Bias-correction	| pool SD |
+| NKM			    | Subject-centering	| -			        | pool S  | 
+| LM			    | Subject-centering	| Bias-correction	| pool S  |
 
 	 
 From that point of view, we see that the Nathoo, Kilshaw and Masson NKM [@nkm18; but see @h19  ] method is missing a 
@@ -93,13 +94,14 @@ pCM <- superbPlot(dta, WSFactors = "moment(3)",
   adjustments=list(decorrelation="none"),
   preprocessfct = "subjectCenteringTransform",
   postprocessfct = "biasCorrectionTransform",
-  plotStyle = "line",
+  plotStyle = "pointjitter",
   errorbarParams = list(color="red", width= 0.1, position = position_nudge(-0.05) )
 )
 ```
 
-will reproduce the CM error bars because it decorrelates the data as per this method. With one additional 
-transformation, 
+will reproduce the ``CM`` error bars because it decorrelates the data as per
+this method. With one additional transformation, 
+
 ```{r}
 pLM <- superbPlot(dta, WSFactors = "moment(3)", 
   variables = c("Score.1","Score.2","Score.3"), 
@@ -111,7 +113,7 @@ pLM <- superbPlot(dta, WSFactors = "moment(3)",
 )
 ```
 
-the LM method is reproduced. Finally, if the ``biasCorrectionTransform`` is omitted, we get the NKM error bars with:
+the ``LM`` method is reproduced. Finally, if the ``biasCorrectionTransform`` is omitted, we get the NKM error bars with:
 
 
 ```{r}
@@ -120,14 +122,14 @@ pNKM <- superbPlot(dta, WSFactors = "moment(3)",
   adjustments=list(decorrelation="none"),
   preprocessfct = "subjectCenteringTransform",
   postprocessfct = c("poolSDTransform"),
-  plotStyle = "pointjitter",
+  plotStyle = "line",
   errorbarParams = list(color="blue", width= 0.1, position = position_nudge(+0.05) )
 )
 ```
 
 In what follow, I justapose the three plots to see the differences:
 
-```{r, fig.height=5, fig.width=8, fig.cap = "Figure 1: Plot of the tree decorrelation methods based on subject transformation."}
+```{r, fig.height=5, fig.width=8, fig.cap = "**Figure 1**. Plot of the tree decorrelation methods based on subject transformation."}
 tlbl <- paste( "(red)    Subject centering & Bias correction == CM\n",
                "(orange) Subject centering, Bias correction & Pooling SDs == LM\n",
                "(blue)   Subject centering & Pooling SDs == NKM", sep="")
@@ -154,14 +156,17 @@ ggplot() +
     annotation_custom(grob=pNKM2)
 ```
 
-The method from Cousineau (2005) is not shown as it should not be used.
+The method from Cousineau (2005) missing the bias-correction step
+is not shown as it should not be used.
 
 
 
 ## In summary
 
-All the decorrelation methds have (probably) been explored. Other approaches are required to overcome the
-sphericity limitations.
+All the decorrelation methods based on transformations have (probably) been
+explored. An alternative approach using correlation was proposed in @c19. All
+these approaches requires sphericity of the data.
+Other approaches are required to overcome this sphericity limitations.
 
 
 

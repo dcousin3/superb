@@ -41,8 +41,8 @@ The data are available in ``dataFigure2``; here is a snapshot of it
 head(dataFigure2)
 ```
 
-There is a large variation in the scores obtained and as such a t-test where the scores 
-are treated as independent will fail to detect a difference:
+There is a large variation in the scores obtained and as such a *t* test where 
+the scores are treated as independent will fail to detect a difference:
 
 ```{r}
 t.test(dataFigure2$pre, dataFigure2$post, var.equal=TRUE)
@@ -51,7 +51,7 @@ t.test(dataFigure2$pre, dataFigure2$post, var.equal=TRUE)
 However, examining the data, in which each participant's scores are shown with 
 a line, we get this:
 
-```{r, message=FALSE, echo=TRUE, fig.cap="Figure 1: Representation of the individual participants"}
+```{r, message=FALSE, echo=TRUE, fig.cap="**Figure 1**. Representation of the individual participants"}
 library(reshape2)
 
 # first transform the data in long format; the pre-post scores will go into column "variable"
@@ -73,15 +73,15 @@ this dataset.
 
 ## Centering the participants to better see the trend
 
-One solution advocated in @c05 is to center the participants' data on the participants'
-mean. It consists in computing for each participant their mean score and replace that
-participant's mean score with the overall mean. With this manipulation, all the 
-participants will now hover around the overall mean (here 102.5, shown with a red
-dashed line).
+One solution used in @c05 is to center the participants' data on the 
+participants' mean. It consists in computing for each participant their mean 
+score and replace that participant's mean score with the overall mean. With 
+this manipulation, all the participants will now hover around the overall 
+mean (here 102.5, shown with a red dashed line).
 
 The following realizes this *subject-centered* plot for each participant.
 
-```{r, message=FALSE, echo=TRUE, fig.cap="Figure 1: Representation of the *subject-centered* individual participants"}
+```{r, message=FALSE, echo=TRUE, fig.cap="**Figure 2**. Representation of the *subject-centered* individual participants"}
 # use subjectCenteringTransform function 
 library(superb)
 df2 <- subjectCenteringTransform(dataFigure2, c("pre","post"))
@@ -100,8 +100,8 @@ Here again, we see that for 5 participants, their scores went down. For the 20 r
 ones, the trend is upward. Thus, there is clear tendency for the exercices to be 
 beneficial.
 
-Running the adequate *paired*-t test, we find indeed that the difference is strongly
-significant (t(24) = 2.9, p = .008):
+Running the adequate *paired* *t* test, we find indeed that the difference 
+is strongly significant (t(24) = 2.9, p = .008):
 
 ```{r}
 t.test(dataFigure2$pre, dataFigure2$post, paired=TRUE)
@@ -134,20 +134,20 @@ To this date, three techniques have been proposed to decorrelate the measures.
 * ``CM``: This method uses *subject-centering* followed by a bias-correction step (otherwise
 the error bars are slightly overestimated) [@c05; @m08].
 
-* ``LM``: This method also uses *subject-centering* but when there are more than two
-measurements, equalizes the length of the error bars using a technique akin to 
-pooled standard deviation measure [@lm94].
+* ``LM``: This method also uses *subject-centering* and bias-correction 
+but when there are more than two measurements, it also equalizes the length of 
+the error bars using a technique akin to pooled standard deviation measure [@lm94].
 
 * ``CA``: this is the newest proposal. It directly uses the correlation (or the mean
 pairwise correlation when there are more than two measurement) to adjust the error bar
 length. In a nutshell, the error bar length are adjusted using a multiplicative term
-$\sqrt(1-r)$. As an example, when $ r = .8$, the adjustment is $\sqrt(1-.8) = 0.44$.
+$\sqrt{1-r}$. As an example, when $ r = .8$, the adjustment is $\sqrt{1-.8} = 0.44$.
 That means that the error bars are 44% the length of the unadjusted error bars
 (that is, more than havlved).
 
-Whichever method you choose have very little bearing on the actual result. As shown in
-@c19, all three methods are based on the same general concepts and they generate very 
-little difference in the amount of adjustments.
+Whichever method you choose have very little bearing on the actual result. As 
+shown in @c19, all three methods are based on the same general concepts and 
+they generate very little difference in the amount of adjustments.
 
 In the present dataset, the error bar are more than shorten by half! which clearly 
 shows the benefit of the within-subject design on precision.
@@ -160,7 +160,7 @@ With ``suberb``, all the decorrelation techniques are available using the adjust
 
 Consider the following
 
-```{r, message=FALSE, warning=FALSE, echo=TRUE, fig.cap="Figure 3: Means and 95% confidence intervals on raw data (left) and on decorrelated data (right)"}
+```{r, message=FALSE, warning=FALSE, echo=TRUE, fig.cap="**Figure 3**. Means and 95% confidence intervals on raw data (left) and on decorrelated data (right)"}
 options(superb.feedback = 'none') # shut down 'warnings' and 'design' interpretation messages
 library(gridExtra)
 
@@ -191,15 +191,17 @@ plt2  <- grid.arrange(plt2a,plt2b,ncol=2)
 In the above plot, I used ``decorrelation = "CA"``. When there is only two conditions, all the 
 techniques return identical error bars.
 
-As another example illustrating the differences between the techniques, I generated random data for 
-5 measures  with an
-amount of correlation of 0.8. In Figure 4 below, all error bars are superimposed on the 
-same plot. As seen, there is only minor differences between the three techniques. Note that
-the green lines all have the same length; this is the main characteristic of
-the Loftus and Masson approach, in contrast with the other two techniques.
+As another example illustrating the differences between the techniques, I 
+generated random data for 5 measures  with an
+amount of correlation of 0.8 in the population. In Figure 4 below, all error 
+bars are superimposed 
+on the same plot. As seen, there is only minor differences between the 
+three techniques. The green lines all have the same length; this is the 
+main characteristic of the Loftus and Masson approach, in contrast with the 
+other two techniques.
 
 
-```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.cap="Figure 4: All three decorelation techniques on the same plot along with un-decorrelated error bars"}
+```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.cap="**Figure 4**. All three decorelation techniques on the same plot along with un-decorrelated error bars"}
 # using GRD to generate data with correlation of .8 and a moderate effect
 options(superb.feedback = 'none') # shut down 'warnings' and 'design' interpretation messages
 test <- GRD(WSFactors = "Moment(5)", 
@@ -257,12 +259,14 @@ far is ``"line"`` (the default is ``"bar"``). Another basic style is ``"point"``
 connecting the means). 
 
 Other types of plot exists that are apt at showing the summary statistics but also
-the individual scores (the 6th vignettes shows how to develop custom-made layouts). 
+the individual scores (the [6th Vignette]
+(https://dcousin3.github.io/superb/articles/Vignette6.html) shows how to 
+develop custom-made layouts). 
 For illustrating individual differences, a style proposed is ``pointindividualline``
 which --- as per Figure 1--- will show the individual scores along with the summary
 statistics and the error bars. For example:
 
-```{r, message=FALSE, warning=FALSE, echo=TRUE, fig.cap="Figure 5: Means and 95% confidence intervals along with individual scores depicted as lines"}
+```{r, message=FALSE, warning=FALSE, echo=TRUE, fig.cap="**Figure 5**. Means and 95% confidence intervals along with individual scores depicted as lines"}
 superbPlot(dataFigure2, 
     WSFactors    = "Moment(2)", 
     adjustments = list(purpose = "difference", decorrelation = "CM"), 

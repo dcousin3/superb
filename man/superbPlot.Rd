@@ -2,7 +2,7 @@
 % Please edit documentation in R/superbPlot.R
 \name{superbPlot}
 \alias{superbPlot}
-\title{Plot summary statistics with correct error bars.}
+\title{summary plot of any statistics with adjusted error bars.}
 \usage{
 superbPlot(
   data,

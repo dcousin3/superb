@@ -1,5 +1,5 @@
 ######################################################################################
-#' @title Plot summary statistics with correct error bars.
+#' @title summary plot of any statistics with adjusted error bars.
 #'
 #' @md
 #'
@@ -206,7 +206,7 @@ superbPlot <- function(data,
     if(missing(factorOrder))  {
         factorOrder <- c(WSFactors, BSFactors)
         if (('design' %in% getOption("superb.feedback") ) & (length(factorOrder[factorOrder != wsMissing])) > 1)  
-                cat(paste("superb::FYI: The variables will be plotted in that order: ",
+                message(paste("superb::FYI: The variables will be plotted in that order: ",
                           paste(factorOrder[factorOrder != wsMissing],collapse=", "),
                           " (use factorOrder to change).\n", sep=""))
     }
@@ -236,8 +236,8 @@ superbPlot <- function(data,
     colnames(design)[length(WSFactors)+1] <- "variable"
     colnames(design)[length(WSFactors)+2] <- "newvars"
     if ( (length(wsLevels)>1) & ('design' %in% getOption("superb.feedback") ) ) {
-        cat("superb::FYI: Here is how the within-subject variables are understood:\n")
-        print( design[,c(WSFactors, "variable") ]) 
+        message("superb::FYI: Here is how the within-subject variables are understood:\n")
+        message( design[,c(WSFactors, "variable") ]) 
     }
 
     # 1.8: invalid functions 

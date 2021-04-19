@@ -113,7 +113,7 @@
 
     
     
-<p>The methods CM <span class="citation">Morey (2008)</span> and LM <span class="citation">(Loftus &amp; Masson, 1994)</span> can be unified when the transformations they required are considered. In the Cousineau-Morey method, the raw data must be subject-centered and bias-corrected.</p>
+<p>The methods <code>CM</code> <span class="citation">(Cousineau, 2005; Morey, 2008)</span> and <code>LM</code> <span class="citation">(Loftus &amp; Masson, 1994)</span> can be unified when the transformations they required are considered. In the Cousineau-Morey method, the raw data must be subject-centered and bias-corrected.</p>
 <p>Subject centering is obtained from</p>
 <p><span class="math display">\[
 Y_{ij} = X_{ij} - \bar{X}_{i\cdot} + \bar{\bar{X}}
@@ -123,13 +123,13 @@ Y_{ij} = X_{ij} - \bar{X}_{i\cdot} + \bar{\bar{X}}
 <p><span class="math display">\[
 Z_{ij} = \sqrt{\frac{C}{C-1}} \left( Y_{ij} - \bar{Y}_{\cdot{}j} \right) + \bar{Y}_{\cdot{}j}
 \]</span></p>
-<p>These two operations can be performed with two matrix transformations. In comparison, the LM method requires one additional step, that is, pooling standard deviation, also achievable with the following transformation.</p>
+<p>These two operations can be performed with two matrix transformations. In comparison, the <code>LM</code> method requires one additional step, that is, pooling standard deviation, also achievable with the following transformation.</p>
 <p><span class="math display">\[
-W_{ij} = \sqrt{\frac{SD_p^2}{SD_i^2}} \left( Z_{ij} - \bar{Z}_{\cdot{}j} \right) + \bar{Z}_{\cdot{}j}
+W_{ij} = \sqrt{\frac{S_p^2}{S_i^2}} \left( Z_{ij} - \bar{Z}_{\cdot{}j} \right) + \bar{Z}_{\cdot{}j}
 \]</span></p>
-<p>in which <span class="math inline">\(SD_j^2\)</span> is the variance in measurement <span class="math inline">\(j\)</span> and <span class="math inline">\(SD_p^2\)</span> is the mean variance across all <span class="math inline">\(j\)</span> mesurements.</p>
+<p>in which <span class="math inline">\(S_j^2\)</span> is the variance in measurement <span class="math inline">\(j\)</span> and <span class="math inline">\(S_p^2\)</span> is the pooled variance across all <span class="math inline">\(j\)</span> mesurements.</p>
 <p>With this approach, we can categorize all the proposals to repeated measure precision as requiring or not certain transformations. Table 1 shows these.</p>
-<p>Table 1. Transformations required to implement one of the repeated-measures method. Preprocessing must precede post-processing</p>
+<p><strong>Table 1</strong>. Transformations required to implement one of the repeated-measures method. Preprocessing must precede post-processing</p>
 <table class="table">
 <thead><tr class="header">
 <th>Method</th>
@@ -160,13 +160,13 @@ W_{ij} = \sqrt{\frac{SD_p^2}{SD_i^2}} \left( Z_{ij} - \bar{Z}_{\cdot{}j} \right)
 <td>NKM</td>
 <td>Subject-centering</td>
 <td>-</td>
-<td>pool SD</td>
+<td>pool S</td>
 </tr>
 <tr class="odd">
 <td>LM</td>
 <td>Subject-centering</td>
 <td>Bias-correction</td>
-<td>pool SD</td>
+<td>pool S</td>
 </tr>
 </tbody>
 </table>
@@ -179,10 +179,10 @@ W_{ij} = \sqrt{\frac{SD_p^2}{SD_i^2}} \left( Z_{ij} - \bar{Z}_{\cdot{}j} \right)
   adjustments<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>decorrelation<span class="op">=</span><span class="st">"none"</span><span class="op">)</span>,
   preprocessfct <span class="op">=</span> <span class="st">"subjectCenteringTransform"</span>,
   postprocessfct <span class="op">=</span> <span class="st">"biasCorrectionTransform"</span>,
-  plotStyle <span class="op">=</span> <span class="st">"line"</span>,
+  plotStyle <span class="op">=</span> <span class="st">"pointjitter"</span>,
   errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"red"</span>, width<span class="op">=</span> <span class="fl">0.1</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html" class="external-link">position_nudge</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.05</span><span class="op">)</span> <span class="op">)</span>
 <span class="op">)</span></code></pre></div>
-<p>will reproduce the CM error bars because it decorrelates the data as per this method. With one additional transformation,</p>
+<p>will reproduce the <code>CM</code> error bars because it decorrelates the data as per this method. With one additional transformation,</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pLM</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, WSFactors <span class="op">=</span> <span class="st">"moment(3)"</span>, 
   variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Score.1"</span>,<span class="st">"Score.2"</span>,<span class="st">"Score.3"</span><span class="op">)</span>, 
@@ -192,14 +192,14 @@ W_{ij} = \sqrt{\frac{SD_p^2}{SD_i^2}} \left( Z_{ij} - \bar{Z}_{\cdot{}j} \right)
   plotStyle <span class="op">=</span> <span class="st">"line"</span>,
   errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"orange"</span>, width<span class="op">=</span> <span class="fl">0.1</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html" class="external-link">position_nudge</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.0</span><span class="op">)</span> <span class="op">)</span>
 <span class="op">)</span></code></pre></div>
-<p>the LM method is reproduced. Finally, if the <code>biasCorrectionTransform</code> is omitted, we get the NKM error bars with:</p>
+<p>the <code>LM</code> method is reproduced. Finally, if the <code>biasCorrectionTransform</code> is omitted, we get the NKM error bars with:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pNKM</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, WSFactors <span class="op">=</span> <span class="st">"moment(3)"</span>, 
   variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Score.1"</span>,<span class="st">"Score.2"</span>,<span class="st">"Score.3"</span><span class="op">)</span>, 
   adjustments<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>decorrelation<span class="op">=</span><span class="st">"none"</span><span class="op">)</span>,
   preprocessfct <span class="op">=</span> <span class="st">"subjectCenteringTransform"</span>,
   postprocessfct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"poolSDTransform"</span><span class="op">)</span>,
-  plotStyle <span class="op">=</span> <span class="st">"pointjitter"</span>,
+  plotStyle <span class="op">=</span> <span class="st">"line"</span>,
   errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"blue"</span>, width<span class="op">=</span> <span class="fl">0.1</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html" class="external-link">position_nudge</a></span><span class="op">(</span><span class="op">+</span><span class="fl">0.05</span><span class="op">)</span> <span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <p>In what follow, I justapose the three plots to see the differences:</p>
@@ -229,15 +229,15 @@ W_{ij} = \sqrt{\frac{SD_p^2}{SD_i^2}} \left( Z_{ij} - \bar{Z}_{\cdot{}j} \right)
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html" class="external-link">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">pLM2</span><span class="op">)</span> <span class="op">+</span> 
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html" class="external-link">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">pNKM2</span><span class="op">)</span></code></pre></div>
 <div class="figure">
-<img src="Vignette8_files/figure-html/unnamed-chunk-5-1.png" alt="Figure 1: Plot of the tree decorrelation methods based on subject transformation." width="768"><p class="caption">
-Figure 1: Plot of the tree decorrelation methods based on subject transformation.
+<img src="Vignette8_files/figure-html/unnamed-chunk-5-1.png" alt="**Figure 1**. Plot of the tree decorrelation methods based on subject transformation." width="768"><p class="caption">
+<strong>Figure 1</strong>. Plot of the tree decorrelation methods based on subject transformation.
 </p>
 </div>
-<p>The method from Cousineau (2005) is not shown as it should not be used.</p>
+<p>The method from Cousineau (2005) missing the bias-correction step is not shown as it should not be used.</p>
 <div id="in-summary" class="section level2">
 <h2 class="hasAnchor">
 <a href="#in-summary" class="anchor"></a>In summary</h2>
-<p>All the decorrelation methds have (probably) been explored. Other approaches are required to overcome the sphericity limitations.</p>
+<p>All the decorrelation methods based on transformations have (probably) been explored. An alternative approach using correlation was proposed in <span class="citation">Cousineau (2019)</span>. All these approaches requires sphericity of the data. Other approaches are required to overcome this sphericity limitations.</p>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">
@@ -245,6 +245,9 @@ Figure 1: Plot of the tree decorrelation methods based on subject transformation
 <div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
 <div id="ref-c05" class="csl-entry">
 Cousineau, D. (2005). Confidence intervals in within-subject designs: A simpler solution to loftus and masson’s method. <em>Tutorials in Quantitative Methods for Psychology</em>, <em>1</em>, 42–45. <a href="https://doi.org/10.20982/tqmp.01.1.p042" class="external-link">https://doi.org/10.20982/tqmp.01.1.p042</a>
+</div>
+<div id="ref-c19" class="csl-entry">
+Cousineau, D. (2019). Correlation-adjusted standard errors and confidence intervals for within-subject designs: A simple multiplicative approach. <em>The Quantitative Methods for Psychology</em>, <em>15</em>, 226–241. <a href="https://doi.org/10.20982/tqmp.15.3.p226" class="external-link">https://doi.org/10.20982/tqmp.15.3.p226</a>
 </div>
 <div id="ref-h19" class="csl-entry">
 Heck, D. W. (2019). Accounting for estimation uncertainty and shrinkage in bayesian within-subject intervals: A comment on nathoo, kilshaw, and masson (2018). <em>Journal of Mathematical Psychology</em>, <em>88</em>, 27–31. <a href="https://doi.org/10.1016/j.jmp.2018.11.002" class="external-link">https://doi.org/10.1016/j.jmp.2018.11.002</a>

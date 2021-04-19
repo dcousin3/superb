@@ -24,7 +24,7 @@ library(ggplot2)
 options(superb.feedback = 'none')
 ```
 
-``superbPlot()`` comes with sevent built-in layouts for plotting your data.
+``superbPlot()`` comes with seven built-in layouts for plotting your data.
 However, it is possible to add additional, custom-made layouts. In this
 vignette, we present rapidly the existing layouts, then show how
 to supplement ``superb`` with your own layouts.
@@ -64,8 +64,8 @@ superb:::is.superbPlot.function("superbPlot.line")
 ```
 
 where you put between quote the name of a function. When devising your
-own, custom-made function, it is a gook thing to check that it is
-superbPlot-compatible.
+own, custom-made function, it is a good thing to check that it is
+``superbPlot``-compatible.
 
 
 ## Illustrating the built-in layouts
@@ -106,7 +106,7 @@ mp <- function(data, style, ...) {
 
 Lets compute the plots will the first six built-in layouts and show them
 
-```{r, fig.width= 7, fig.height = 7, fig.cap = "Figure 1a: Look of the six built-in layouts on the same random dataset"}
+```{r, fig.width= 7, fig.height = 7, fig.cap = "**Figure 1a**. Look of the six built-in layouts on the same random dataset"}
 p1 <- mp(testdata, "bar")
 p2 <- mp(testdata, "point")
 p3 <- mp(testdata, "line")
@@ -118,16 +118,16 @@ library(gridExtra)
 grid.arrange(p1,p2,p3,p4,p5,p6,ncol=2)
 ```
 
-The last format, a raincloud plot [@pw21], is better seen with coordinates flipped over:
+The last format, a ``raincloud`` plot [@pw21], is better seen with coordinates flipped over:
 
-```{r, fig.width =7, fig.height = 7, fig.cap = "Figure 1b: The seventh layout, the raincloud"}
+```{r, fig.width =7, fig.height = 3.5, fig.cap = "**Figure 1b**. The seventh layout, the raincloud"}
 mp(testdata, "raincloud") + coord_flip()
 ```
 
 For more controls, you can manually set the colors, the fills and/or
 the shapes, as done here in a list:
 
-```{r, fig.width= 7, fig.height = 7, fig.cap = "Figure 2: The six built-in template with ornamental styling added."}
+```{r, fig.width= 7, fig.height = 7, fig.cap = "**Figure 2a**. The six built-in template with ornamental styling added."}
 ornate = list( 
     scale_colour_manual( name = "Difference", 
         labels = c("Easy", "Hard", "Unthinkable"), 
@@ -149,9 +149,9 @@ grid.arrange(
     ncol=2)
 ```
 
-As of the raincloud with the same ornaments, we get
+As of the ``raincloud`` with the same ornaments, we get
 
-```{r, fig.width= 7, fig.height = 7, fig.cap = "Figure 2b: The raincloud with ornamental styling added."}
+```{r, fig.width= 7, fig.height = 3.5, fig.cap = "**Figure 2b**. The raincloud with ornamental styling added."}
 mp(testdata, "raincloud") + coord_flip() + ornate
 ```
 
@@ -170,12 +170,6 @@ In a nutshell, the purpose of ``superbPlot()`` is to
 the interval) and that, for each level of the factors; 
 
 * applies all the adjustments needed in producing the summary;
-
-* ``superbPlot()`` also transform to discrete factors (using 
-``as.factor``) all the factors. If some of the factors are
-within-subject, the information is to be found in distinct column (
-remember that ``superbPlot()`` assumes a wide-format data frame); for
-between-group factors, a column indicate the current group; 
 
 * and finally, calls a plot function accepting pre-defined 
 arguments
@@ -206,7 +200,8 @@ horizontal axis (``xfactor``), another one is used to group the
 point (``groupingfactor``), and up to two additional
  factors will results in columns and rows of panels
  (``addfactors``; of course, in devising your own template,
-you may use different placement.) 
+you may use different placement). ``superbPlot()`` is restricted
+to a maximum of four factors. 
 
 
 The arguments are:
@@ -246,7 +241,7 @@ black and white (no color instruction) and superimposed
 
 The result will be:
 
-```{r, message=FALSE, echo=FALSE, fig.cap="Figure 3: Mean score with 95% confidence interval using the ``simple`` plot layout."}
+```{r, message=FALSE, echo=FALSE, fig.cap="**Figure 3**. Mean score with 95% confidence interval using the ``simple`` plot layout."}
 superbPlot.simple <- function( summarydata, xfactor, groupingfactor, addfactors, rawdata ) {
     plot <- ggplot(
         data = summarydata,
@@ -270,7 +265,7 @@ To make this plot, we design a function ``superbPlot.simple`` as:
 
 ```{r}
 superbPlot.simple <- function(
-    summarydata, xfactor, groupingfactor, addfactors, rawdata 
+    summarydata, xfactor, groupingfactor, addfactors, rawdata
 ) {
     plot <- ggplot(
         data = summarydata, 
@@ -288,13 +283,14 @@ superbPlot.simple <- function(
 The first instruction, ``ggplot`` defines the source data to be 
 ``summarydata`` with horizontal axis being in the string ``xfactor``
 (this is the reason that ``mapping`` must be given with ``aes_string``).
-The position of the descriptive statistics will be in ``"center"``.
+The position of the descriptive statistics is automatically 
+computed and stored in a column called ``"center"``.
 
 The second instruction put points for each ``"center"``, and 
 the third instruction places error bars. In that case, the ``ymin`` and 
 ``ymax`` information are contained in ``center+lowerwidth`` and
 ``center+upperwidth`` where ``lowerwidth`` and ``upperwidth`` are
-in the summarydata dataframe.
+automaticall computed and stored in the ``summarydata`` dataframe.
 
 The last instructions generates distinct panels for each level of the
 remaining factors.
@@ -338,7 +334,7 @@ A full example it therefore
 ```{r}
 superbPlot.simpleWithOptions <- function(
     summarydata, xfactor, groupingfactor, addfactors, rawdata,
-    myownParams = list()  ## add the optional arguments to the function
+    myownParams = list()  ## will be used to add the optional arguments to the function
 ) {
     plot <- ggplot(
         data = summarydata, 
@@ -360,19 +356,21 @@ superbPlot.simpleWithOptions <- function(
 superb:::is.superbPlot.function("superbPlot.simpleWithOptions")
 ```
 
-```{r, message=FALSE, echo=TRUE, results='hide', fig.show='show', fig.cap="Figure 4: A simple figure with optional arguments"}
+```{r, message=FALSE, echo=TRUE, results='hide', fig.show='show', fig.cap="**Figure 4**. A simple figure with optional arguments"}
 superbPlot(TMB1964r,
     WSFactors = "T(7)",      
     BSFactors = "Condition",
     variables = c("T1","T2","T3","T4","T5","T6","T7"),
     plotStyle = "simpleWithOptions", 
-    myownParams = list(size=1, color="purple", position = position_dodge(width = 0.3) ) ## here goes the optional arguments
+    ## here goes the optional arguments
+    myownParams = list(size=1, color="purple", position = position_dodge(width = 0.3) ) 
 )
 ```
 
-In that example, the same parameters are sent to ``geom_point`` and to ``geom_errorbar``.
-It is left as an exercice to the reader to use two distinct sets of optional parameters, 
-one for the points, the other for the error bars.
+In that example, the same parameters are sent to ``geom_point`` and to
+``geom_errorbar``. It is left as an exercice to the reader to use two 
+distinct sets of optional parameters, one for the points, the other for the 
+error bars.
 
 
 
@@ -393,7 +391,7 @@ runDebug( 'where are we?', "Text to show when we get there",
 
 For example, the following will get the dataframes:
 
-```{r, message=FALSE, echo=TRUE, results='hide', fig.show='hide'}
+```{r, message=TRUE, echo=TRUE, results='hide', fig.show='hide'}
 superbPlot.empty <- function(
     summarydata, xfactor, groupingfactor, addfactors, rawdata 
 ) {
@@ -412,7 +410,7 @@ superbPlot(TMB1964r,
 )
 ```
 
-You will see  ``Dumping the two dataframes``
+You see  ``Dumping the two dataframes``
  followed by ``summary`` and ``raw``. These two variables
 are now in the global environment and you can manipulate them. 
 You can also use them in testing your plotting functions, for example
@@ -433,7 +431,7 @@ work in Rstudio (see "limitation" on emojifont
 
 We first need the ``emojifont`` library
 
-```{r}
+```{r, message=FALSE, echo=TRUE, warning=FALSE}
 # install.packages("emojifont")
 library(emojifont)
 ```
@@ -478,7 +476,7 @@ superb:::is.superbPlot.function("superbPlot.smiley")
 
 It is all we need! It can be inserted in a ``superbPlot`` call:
 
-```{r, fig.width= 7, fig.height = 6, fig.cap = "Figure 5: smile!" }
+```{r, fig.width= 7, fig.height = 6, fig.cap = "**Figure 5**. smile!" }
 superbPlot(TMB1964r,
      WSFactors = "T(7)",      
      BSFactors = "Condition", 

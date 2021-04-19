@@ -32,25 +32,26 @@ Error bars, which are drawn from measures of precision, comes in many flavors. T
 the simple *standard error* (SE), the more famous *confidence interval* (CI), and 
 new proposals such as the *high density interval* (HDI). The package ``superb``
 has build-in functions for both the SE and CI, but any other measure of precision
-can be added (as shown in Vignette 4).
+can be added (as shown in [Vignette 4](https://dcousin3.github.io/superb/articles/Vignette4.html)).
 
 All measures of precision are tailored for a given statistic. Hence, we have the
 *standard error of the mean*, the *standard error of the median*, the *confidence
-interval of the skew*, etc. For every and all statistic, there is a corresponding
+interval of the skew*, etc. For each and every statistic, there is a corresponding
 measure of precision.  In what follows, we discuss the confidence interval, but
 everything that follows apply equally well to any measure of precision.
 
 The basic confidence interval can be termed a "stand-alone" confidence interval 
 because it indicates the precision of a statistic in isolation. It is useful to
-compare this statistics to --say-- criterion performance or any *a priori*-determined
-value. As shown in Vignettes 2 and 3, such "stand-alone" measures are inadequate
+compare this statistics to a criterion performance or any *a priori*-determined
+value. As shown in [Vignette 2](https://dcousin3.github.io/superb/articles/Vignette2.html) 
+and [Vignette 3](https://dcousin3.github.io/superb/articles/Vignette3.html), 
+such "stand-alone" measures are inadequate
 when an observed result is to be compared to other observed results [also see 
 @c05; @c17].
 
 In order to use ``superb``, four choices need to be made, described next. Prior to 
 that, it is necessary to check the data format. Herein we illustrate the means with 
-95% confidence intervals; these can be changed, as shown in Vignette 4. We begin with data
-format.
+95% confidence intervals; these can be changed, as shown in [Vignette 4](https://dcousin3.github.io/superb/articles/Vignette4.html).
 
 ## Data format
 
@@ -58,9 +59,8 @@ The format of the data in ``superb`` follows the general convention "1 subject =
 1 line", that is, all the information regarding a given participant must stand 
 on a single line. This format is called in R the **wide format**; in SPSS, SAS
 and other statistics software, this is the standard data organization. Further, the data
-must be contained within a ``data.frame`` with named columns.
-
-Note that it is easy to go from **wide format** to **long format**, with, e.g.,
+must be contained within a ``data.frame`` with named columns. It is easy to go 
+from **wide format** to **long format**, with, e.g.,
 Navarro's ``wideToLong`` excellent function [@n15].
 
 As an illustration, we use the following ficticious data set showing the 
@@ -94,7 +94,7 @@ dta           <- as.data.frame(dta)
 
 The mean scores per week is illustrated below:
 
-```{r, message=FALSE, echo=FALSE, fig.cap="Figure 1: Mean scores along with 95% confidence interval per week for a program to stop smoking."}
+```{r, message=FALSE, echo=FALSE, fig.cap="**Figure 1**. Mean scores along with 95% confidence interval per week for a program to stop smoking."}
 superbPlot(dta, WSFactors = "Moment(3)",
         variables = c("Week 1", "Week 2", "Week 3"),
         statistic = "mean", errorbar = "CI",
@@ -119,7 +119,7 @@ In Figure 1 above, did you look at the result of, say, Week 1, in isolation? or 
 it to the results obtained in the other weeks? The second perspective is actually to look at
 the __difference__ between the results. if such is the case, the error bar shown on this plot
 are actually misleading because they are too short. The reason for that is further explored in
-Vignette 2.
+[Vignette 2](https://dcousin3.github.io/superb/articles/Vignette2.html).
 
 In most experiments, one condition is **compared** to other conditions. 
 In that case, we are interested in **pair-wise** differences between means, not
@@ -142,7 +142,7 @@ superbPlot(dta,
     )
 ```
 
-```{r, message=FALSE, echo=FALSE, fig.cap="Figure 2: Mean scores along with difference-adjusted 95% confidence interval per week for a program to stop smoking."}
+```{r, message=FALSE, echo=FALSE, fig.cap="**Figure 2**. Mean scores along with difference-adjusted 95% confidence interval per week for a program to stop smoking."}
 superbPlot(dta, 
     WSFactors = "Moment(3)",
     variables = c("Week 1", "Week 2", "Week 3"),
@@ -159,7 +159,7 @@ scale_x_discrete(labels=c("1" = "Week 1", "2" = "Week 2", "3"="Week 3"))
 ``` 
 
 The first argument is the data.frame, in wide format (here ``dta``). The second argument
-describe the experimental design. Here, there is a single within-subject factor (WSFactors), 
+describe the experimental design. Here, there is a single within-subject factor (``WSFactors``), 
  called ``Moment``. In within-subject factors, it is necessary to indicate how many
 level the factor has (here 3).
 The third argument indicates the columns in the data.frame
@@ -184,8 +184,7 @@ superbPlot(dta,
     variables = c("Week 1", "Week 2", "Week 3"),
     statistic = "mean", errorbar = "CI",
     adjustments = list(purpose = "difference"),
-    plotStyle="line",
-    errorbarParams = list(width = .2)
+    plotStyle="line"
 ) + 
 coord_cartesian( ylim = c(50,100) ) +
 ylab("Mean +- 95% CI") +
@@ -194,17 +193,16 @@ theme_gray(base_size=16) +
 scale_x_discrete(labels=c("1" = "Week 1", "2" = "Week 2", "3"="Week 3"))
 ``` 
 
-The directives in ``errorbarParams`` are injected inside the ``geom_errorbar`` in charge of 
-drawing the error bars whereas the remaining directives are applied to the whole plot.
+The graphic directives are applied to the whole plot.
 The reader is referred to the package ``ggplot2`` for more on these graphing directives.
 
 
 ## Step 2: Decide how to handle the within-subject measures
 
-Is is known that within-subject designs are more powerful at detecting differences.
+Is is known that within-subject designs are generally more powerful at detecting differences.
 The implication of this is that they afford more statistical power and consequently
 the error bars should be shorter. The stand-alone CI are oblivious to this fact; it
-is however possible to inform them that you used within-subject design.
+is however possible to inform them that you used a within-subject design.
 
 The method to handle within-subject data comes from the observation that repeated 
 measures tend to be correlated [e.g., @gc19]. Informing the CI of this
@@ -229,7 +227,7 @@ superbPlot(dta,
     WSFactors = "Moment(3)",
     variables = c("Week 1", "Week 2", "Week 3"),
     statistic = "mean", errorbar = "CI",
-    adjustments = list(purpose = "difference", decorrelation = "CM"),
+    adjustments = list(purpose = "difference", decorrelation = "CM"), #new!
     plotStyle="line",
     errorbarParams = list(width = .2)
 ) + 
@@ -279,7 +277,7 @@ superbPlot(dta,
     WSFactors = "Moment(3)",
     variables = c("Week 1", "Week 2", "Week 3"),
     adjustments = list(purpose = "difference", decorrelation = "CM",
-                       samplingDesign = "CRS", popSize = 100),
+                       samplingDesign = "CRS", popSize = 100),        #new!
     plotStyle = "line",
     clusterColumn = "cluster",  # identify the column containing cluster membership
     errorbarParams = list(width = .2)
