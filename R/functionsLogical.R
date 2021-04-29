@@ -1,9 +1,22 @@
+#' @importFrom methods existsFunction
 
 #################################################################################
-# logical functions:    is.interval.function; is.gamma.required; is.stat.function
+# logical functions:    
 #################################################################################
+
+has.init.function <- function(fctname) {
+    # does the function has a "init.fctname" initializer?
+    iname <- paste("init", fctname, sep=".")
+
+    if (exists(iname)) {
+        existsFunction(iname)
+    } else {FALSE}
+}
 
 is.stat.function <- function(fctname) {
+    if (has.init.function(fctname)) 
+        do.call(paste("init", fctname, sep="."), list(data.frame(DV = c(1,2,3) )))
+
     # does the function provided by the user exists and compute from a list of data? 
     res <- tryCatch(
         {suppressWarnings(do.call(fctname, list( c(1,2,3) ) ) ); TRUE},
@@ -22,6 +35,9 @@ is.errorbar.function <- function(fctname) {
 }
     
 is.interval.function <- function(fctname) {
+    if (has.init.function(fctname)) 
+        do.call(paste("init", fctname, sep="."), list(data.frame(DV = c(1,2,3) )))
+
     # is the function provided by the user an interval, i.e., two numbers (e.g., CI) 
     # or a single width (e.g., SE)?
     res <- suppressWarnings( do.call(fctname, list( c(1,2,3)) ) )
@@ -29,6 +45,9 @@ is.interval.function <- function(fctname) {
 }
 
 is.width.function <- function(fctname) {
+    if (has.init.function(fctname)) 
+        do.call(paste("init", fctname, sep="."), list(data.frame(DV = c(1,2,3) )))
+
     # is the function provided by the user an interval, i.e., two numbers (e.g., CI) 
     # or a single width (e.g., SE)?
     res <- suppressWarnings(do.call(fctname, list( c(1,2,3)) ) )
@@ -36,6 +55,9 @@ is.width.function <- function(fctname) {
 }
 
 is.gamma.required <- function(fctname) {
+    if (has.init.function(fctname)) 
+        do.call(paste("init", fctname, sep="."), list(data.frame(DV = c(1,2,3) )))
+
     # is the function provided by the user requires a coverage factor
     # gamma (e.g., CI) or not (e.g., SE)?
     res <- tryCatch(
@@ -45,14 +67,14 @@ is.gamma.required <- function(fctname) {
     res
 }
 
-is.superbPlot.function <- function(fctname) {
+is.superbPlot.function <- function(layoutfctname) {
     # does the plot function provided by the user exists?
-    runDebug("is.superbPlot.function", "Entering is.superbPlot.function", c("fcttested"),list(fctname) )
+    runDebug("is.superbPlot.function", "Entering is.superbPlot.function", c("fcttested"),list(layoutfctname) )
     opts <- getOption("superb.feedback")
     options(superb.feedback = 'none')
 
     res <- TRUE
-    if (!exists(fctname)) {
+    if (!exists(layoutfctname)) {
         res <- FALSE
     } else {
         # if the symbol exists, run a fake call to see if it works...
@@ -67,7 +89,7 @@ is.superbPlot.function <- function(fctname) {
         fake = cbind(fake, DV = fake$len)
 
         res <- tryCatch(
-            {test <- suppressWarnings(do.call(fctname, 
+            {test <- suppressWarnings(do.call(layoutfctname, 
                     list(stg,
                         "dose", 
                         "supp", ".~.", 

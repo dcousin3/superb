@@ -4,9 +4,9 @@
 #' @md
 #'
 #' @description When variance across groups are heterogeneous,
-#'   the Student t distribution with n - 1 df is not the exact distribution. 
+#'   the Student ``t`` distribution with ``n - 1`` df is not the exact distribution. 
 #'   However, Welch (1947), using methods of moments, was able to find the 
-#'   best-fitting t distribution. This distributin has degree of freedom reduced
+#'   best-fitting ``t`` distribution. This distribution has degree of freedom reduced
 #'   based on the sample sizes and the variances of the group tests. The present
 #'   function returns the rectified degree of freedom
 #'
@@ -14,7 +14,7 @@
 #' @param cols A vector indicating the columns containing the measures. 
 #' @param groupingcols A vector indicating the columns containing the groups. 
 #'
-#' @return p the p-value of the null hypothesis that the data are spherical.
+#' @return df the degrees of freedom rectified according to Welch (1947).
 #'
 #' @references
 #' \insertAllCited{}

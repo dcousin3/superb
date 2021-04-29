@@ -83,9 +83,9 @@ fisherkurtosis <- function(x) {
 #' 
 #' @param x a vector of numbers, the sample data (mandatory);
 #' @param gamma a vector containing first a confidence level for CI (default 0.95) and
-#'   a custom degree of freedom (default n-1 where n is the number of observations in x).
+#'   a custom degree of freedom (if unspecified, uses ``n-1`` where ``n`` is the number of observations in x).
 #'
-#' @return the confidence interval (CI) where the t value is based on the custom-set degree of freedom.
+#' @return the confidence interval (CI) where the ``t`` value is based on the custom-set degree of freedom.
 #'
 #' @examples
 #' # this will issue a warning as no custom degree of freedom is provided

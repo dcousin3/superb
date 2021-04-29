@@ -94,7 +94,7 @@ to making your plot." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5.900</span>
       </span>
     </div>
 
@@ -137,6 +137,9 @@ to making your plot." />
     <li>
       <a href="../articles/Vignette8.html">(advanced) Alternate ways to decorrelate repeated measures from transformations</a>
     </li>
+    <li>
+      <a href="../articles/Vignette9.html">Illustrating Cohen's d with ``superb``</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -144,7 +147,12 @@ to making your plot." />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/dcousin3/superb/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -159,7 +167,7 @@ to making your plot." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Confidence intervals with custom degree of freedom</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/dcousin3/superb/blob/master/R/functionsStatistical.R'><code>R/functionsStatistical.R</code></a></small>
     <div class="hidden name"><code>precisionMeasureWithCustomDF.Rd</code></div>
     </div>
 
@@ -182,13 +190,13 @@ to making your plot.</p>
     <tr>
       <th>gamma</th>
       <td><p>a vector containing first a confidence level for CI (default 0.95) and
-a custom degree of freedom (default n-1 where n is the number of observations in x).</p></td>
+a custom degree of freedom (if unspecified, uses <code>n-1</code> where <code>n</code> is the number of observations in x).</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>the confidence interval (CI) where the t value is based on the custom-set degree of freedom.</p>
+    <p>the confidence interval (CI) where the <code>t</code> value is based on the custom-set degree of freedom.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>There are no references for Rd macro <code>\insertAllCites</code> on this help page.</p>

@@ -1,5 +1,5 @@
 
-# superb: Summary statistics plotted with correct error bars
+# superb: Summary plots with adjusted error bars
 
 <img src="logo.png" align="right" alt="" width="120" />
 
@@ -105,13 +105,13 @@ testdata <- GRD(
 head(testdata)
 ```
 
-    ##   id Difficulty  score.1  score.2
-    ## 1  1          A 72.60651 74.00924
-    ## 2  2          A 77.46721 83.53842
-    ## 3  3          A 74.14398 64.82373
-    ## 4  4          A 69.98239 79.49003
-    ## 5  5          A 52.83595 57.00126
-    ## 6  6          A 90.52099 65.08923
+    ##   id Difficulty   score.1  score.2
+    ## 1  1          A 118.65747 89.88275
+    ## 2  2          A  76.00514 83.04754
+    ## 3  3          A  90.18962 78.22591
+    ## 4  4          A  81.42456 79.40651
+    ## 5  5          A  80.29611 69.50112
+    ## 6  6          A  64.68513 69.63878
 
 The simulated scores are illustrated using using a more elaborated
 layout, the `pointjitterviolin` which, in addition to the mean and

@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5.900</span>
       </span>
     </div>
 
@@ -84,13 +84,23 @@
     <li>
       <a href="../articles/Vignette8.html">(advanced) Alternate ways to decorrelate repeated measures from transformations</a>
     </li>
+    <li>
+      <a href="../articles/Vignette9.html">Illustrating Cohen's d with ``superb``</a>
+    </li>
   </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/dcousin3/superb/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -106,7 +116,7 @@
       <h1 data-toc-skip>Generating ready-to-analyze datasets with GRD</h1>
             
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/dcousin3/superb/blob/master/../vignettes/Vignette6.Rmd" class="external-link"><code>../vignettes/Vignette6.Rmd</code></a></small>
       <div class="hidden name"><code>Vignette6.Rmd</code></div>
 
     </div>
@@ -132,12 +142,12 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dta</span><span class="op">)</span></code></pre></div>
 <pre><code>##   id          DV
-## 1  1  0.14223216
-## 2  2  0.64689597
-## 3  3  1.30797660
-## 4  4 -1.12741400
-## 5  5 -1.20118166
-## 6  6  0.05065835</code></pre>
+## 1  1  0.07570819
+## 2  2  0.94515331
+## 3  3 -0.38446365
+## 4  4 -0.53231269
+## 5  5  2.10370290
+## 6  6 -0.51332632</code></pre>
 <p>By default, one hundred scores are generated from a normal distribution with mean 0 and standard deviation of 1. In other words, it generate 100 z scores. The dependent variable, the last column in the dataframe that will be generated is called by default <code>DV</code>. The first column is an “id” column containing a number identifying each <em>simulated</em> participant. To change the dependent variable’s name, use</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span> RenameDV <span class="op">=</span> <span class="st">"score"</span> <span class="op">)</span></code></pre></div>
@@ -239,14 +249,14 @@
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dta</span></code></pre></div>
 <pre><code>##   id Therapy          DV
-## 1  1       1  0.04654689
-## 2  2       1 -0.20706033
-## 3  3       2 -0.43751033
-## 4  4       2 -0.03747656
-## 5  5       2 -0.41855853
-## 6  6       2  0.28473254
-## 7  7       2  0.02805082
-## 8  8       3 -2.79156189</code></pre>
+## 1  1       1  0.54849638
+## 2  2       1  0.84293264
+## 3  3       2 -0.51862308
+## 4  4       2  2.45632947
+## 5  5       2  0.23327487
+## 6  6       2  0.84970712
+## 7  7       2 -0.33751313
+## 8  8       3  0.06934021</code></pre>
 </div>
 <div id="choosing-the-population-distribution" class="section level2">
 <h2 class="hasAnchor">

@@ -112,6 +112,7 @@
 #' @importFrom lsr wideToLong
 #' @importFrom plyr ddply
 #' @import ggplot2
+#' @importFrom utils capture.output
 #
 ######################################################################################
 
@@ -208,7 +209,7 @@ superbPlot <- function(data,
         if (('design' %in% getOption("superb.feedback") ) & (length(factorOrder[factorOrder != wsMissing])) > 1)  
                 message(paste("superb::FYI: The variables will be plotted in that order: ",
                           paste(factorOrder[factorOrder != wsMissing],collapse=", "),
-                          " (use factorOrder to change).\n", sep=""))
+                          " (use factorOrder to change).", sep=""))
     }
 
     # 1.5: invalid column names where column names must be listed
@@ -236,14 +237,14 @@ superbPlot <- function(data,
     colnames(design)[length(WSFactors)+1] <- "variable"
     colnames(design)[length(WSFactors)+2] <- "newvars"
     if ( (length(wsLevels)>1) & ('design' %in% getOption("superb.feedback") ) ) {
-        message("superb::FYI: Here is how the within-subject variables are understood:\n")
-        message( design[,c(WSFactors, "variable") ]) 
+        message("superb::FYI: Here is how the within-subject variables are understood:")
+        message(paste0(capture.output(print(design[,c(WSFactors, "variable") ])),collapse="\n")) 
     }
 
     # 1.8: invalid functions 
     widthfct <- paste(errorbar, statistic, sep = ".")
     if (errorbar == "none") { # create a fake function
-         eval(parse(text=paste(widthfct, "<-function(X) 0",sep="")), envir = globalenv())
+        eval(parse(text=paste(widthfct, "<-function(X) 0",sep="")), envir = globalenv())
     }
     if ( !(is.stat.function(statistic)) )
             stop("superb::ERROR: The function ", statistic, " is not a known descriptive statistic function. Exiting...")
@@ -258,6 +259,11 @@ superbPlot <- function(data,
         # make sure that column cluster is defined.
         if(!(clusterColumn %in% names(data))) 
             stop("superb::ERROR: With samplingDesign = \"CRS\", you must specify a valid column with ClusterColumn. Exiting...")
+    }
+
+    # 1.10: is there missing data in the scores?
+    if (any(is.na(data[,variables])) ) {
+        message("superb::WARNING: There are misssing data in your dependent variable(s).\n\tsuperb may show empty summaries... consult help(measuresWithMissingData)")
     }
 
     # We're clear to go!
@@ -317,7 +323,14 @@ superbPlot <- function(data,
         WSFactors    <- NULL # remove the dummy factor
         factorOrder <- factorOrder[ factorOrder != wsMissing]
     }
-    
+
+    # if the function has an initializer, run it on the long-format data
+    if (has.init.function(statistic)) {
+        iname = paste("init",statistic, sep=".")
+        message("superb::FYI: Running initializer ", iname)
+        do.call(iname, list(data.untransformed.long) )
+    }
+
     runDebug("superb.3", "End of Step 3: Reformat data frame into long format", 
         c("data.transformed.long2","factorOrder3"), list(data.transformed.long,factorOrder) )
 

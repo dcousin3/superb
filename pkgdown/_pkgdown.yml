@@ -8,8 +8,12 @@ reference:
       - '`superbPlot`'
       - '`superbData`'
       - '`GRD`'
+  - title: Decorating plots
+    desc: Functions to add further decorations to the plot
+    contents:
+      - '`showSignificance`'
   - title: Plots
-    desc: built-in templates for plots
+    desc: Built-in templates for plots
     contents:
       - '`superbPlot.bar`'
       - '`superbPlot.point`'

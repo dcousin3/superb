@@ -2,7 +2,7 @@
 output: github_document
 ---
 
-# superb: Summary statistics plotted with correct error bars
+# superb: Summary plots with adjusted error bars
  <img src="logo.png" align="right" alt="" width="120" />
 
 <!-- badges: start -->

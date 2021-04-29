@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5.900</span>
       </span>
     </div>
 
@@ -84,13 +84,23 @@
     <li>
       <a href="../articles/Vignette8.html">(advanced) Alternate ways to decorrelate repeated measures from transformations</a>
     </li>
+    <li>
+      <a href="../articles/Vignette9.html">Illustrating Cohen's d with ``superb``</a>
+    </li>
   </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/dcousin3/superb/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -106,7 +116,7 @@
       <h1 data-toc-skip>Using a custom statistic with its error bar</h1>
             
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/dcousin3/superb/blob/master/../vignettes/Vignette4.Rmd" class="external-link"><code>../vignettes/Vignette4.Rmd</code></a></small>
       <div class="hidden name"><code>Vignette4.Rmd</code></div>
 
     </div>
@@ -190,34 +200,33 @@
 <div id="creating-a-custom-made-descriptive-statistic-function-to-be-used-in-superbplot" class="section level2">
 <h2 class="hasAnchor">
 <a href="#creating-a-custom-made-descriptive-statistic-function-to-be-used-in-superbplot" class="anchor"></a>Creating a custom-made descriptive statistic function to be used in superbPlot</h2>
-<p>As an example, we create from scratch a descriptive statistic function that will be fed to <code>superbPlot</code>. Following <span class="citation">Goulet-Pelletier &amp; Cousineau (2018)</span> , we implement the single-group design Cohen’s d (<span class="math inline">\(d_1\)</span>). This descriptive statistic is computed relative to an hypothetical population mean. Herein, we use the data from <code>dataFigure1</code> and assume that the population mean is 100.</p>
+<p>As an example, we create from scratch a descriptive statistic function that will be fed to <code>superbPlot</code>. Following <span class="citation">Wilcox (2011)</span> , we implement the 20% trimmed mean. This descriptive statistic is used to estimate the population mean. However, it is said to be a robust statistic as it is less affected by suspicious data. Herein, we use the data from <code>dataFigure1</code>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R">    <span class="co"># create a descriptive statistics</span>
-    <span class="va">d1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">X</span><span class="op">)</span> <span class="op">{</span>
-      <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">X</span><span class="op">-</span><span class="fl">100</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span> 
-    <span class="op">}</span> 
+<code class="sourceCode R">    <span class="co"># create a descriptive statistics, the 20% trimmed mean</span>
+    <span class="va">trimmedmean</span>    <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span>, trim <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span>
 
     <span class="co"># we can test it with the data from group 1...</span>
     <span class="va">grp1</span> <span class="op">&lt;-</span> <span class="va">dataFigure1</span><span class="op">$</span><span class="va">score</span><span class="op">[</span><span class="va">dataFigure1</span><span class="op">$</span><span class="va">grp</span><span class="op">==</span><span class="fl">1</span><span class="op">]</span>
     <span class="va">grp2</span> <span class="op">&lt;-</span> <span class="va">dataFigure1</span><span class="op">$</span><span class="va">score</span><span class="op">[</span><span class="va">dataFigure1</span><span class="op">$</span><span class="va">grp</span><span class="op">==</span><span class="fl">2</span><span class="op">]</span>
-    <span class="fu">d1</span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 0.5004172</code></pre>
+    <span class="fu">trimmedmean</span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 106.2667</code></pre>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R">    <span class="co"># or check that it is a valid statistic function</span>
-    <span class="fu">superb</span><span class="fu">:::</span><span class="fu">is.stat.function</span><span class="op">(</span><span class="st">"d1"</span><span class="op">)</span></code></pre></div>
+    <span class="fu">superb</span><span class="fu">:::</span><span class="fu">is.stat.function</span><span class="op">(</span><span class="st">"trimmedmean"</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Once we have the function, we can ask for a plot of this function with</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R">    <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, 
         BSFactors <span class="op">=</span> <span class="st">"grp"</span>, 
-        statistic <span class="op">=</span> <span class="st">"d1"</span>, errorbar <span class="op">=</span> <span class="st">"none"</span>, <span class="co">#HERE the statistic name is given</span>
+        statistic <span class="op">=</span> <span class="st">"trimmedmean"</span>, errorbar <span class="op">=</span> <span class="st">"none"</span>, <span class="co">#HERE the statistic name is given</span>
         plotStyle<span class="op">=</span><span class="st">"line"</span>,
         adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>,
         variable <span class="op">=</span> <span class="st">"score"</span>,
         errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width<span class="op">=</span><span class="fl">0</span><span class="op">)</span> <span class="co"># so that the null-width error bar is invisible</span>
-    <span class="op">)</span><span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Cohen's d_1"</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"d_1 with no error bars"</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.5</span>,<span class="op">+</span><span class="fl">1.5</span><span class="op">)</span> <span class="op">)</span> </code></pre></div>
+    <span class="op">)</span><span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"20% trimmed mean"</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_gray</a></span><span class="op">(</span>base_size<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"20% trimmed mean with \nno error bars"</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">85</span>,<span class="fl">115</span><span class="op">)</span> <span class="op">)</span> </code></pre></div>
 <div class="figure">
 <img src="Vignette4_files/figure-html/unnamed-chunk-7-1.png" alt="**Figure 2**. ``superbPlot`` with a custom-made descriptive statistic function " width="288"><p class="caption">
 <strong>Figure 2</strong>. <code>superbPlot</code> with a custom-made descriptive statistic function
@@ -229,56 +238,43 @@
 <a href="#creating-a-custom-made-interval-function-to-be-used-in-superbplot" class="anchor"></a>Creating a custom-made interval function to be used in <code>superbPlot</code>
 </h2>
 <p>It is also possible to create custom-made confidence interval functions.</p>
-<p>Hereafter, we add a confidence interval for the Cohen’s <span class="math inline">\(d_1\)</span>. We use the predictive approach documented in Lecoutre <span class="citation">(Cousineau &amp; Goulet-Pelletier, 2020; Lecoutre, 1999)</span> which requires the lambda-prime distribution provided in the <code>sadists</code> library <span class="citation">(Pav, 2020)</span>.</p>
+<p>Hereafter, we add a confidence interval for the 20% trimmed mean. We use the approach documented in Wilcox <span class="citation">(Wilcox, 2011)</span> which requires computing the winsorized standard deviation <code>winsor.sd</code> as available in the <code>psych</code> library <span class="citation">(Revelle, 2020)</span>.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R">    <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/shabbychef/sadists" class="external-link">sadists</a></span><span class="op">)</span>
+<code class="sourceCode R">    <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://personality-project.org/r/psych/" class="external-link">psych</a></span><span class="op">)</span>      <span class="co"># for winsor.sd</span>
 
-    <span class="va">CI.d1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">X</span>, <span class="va">gamma</span> <span class="op">=</span> <span class="fl">.95</span><span class="op">)</span> <span class="op">{</span>
-        <span class="va">n</span>    <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span>
-        <span class="va">dlow</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sadists/man/dlambdap.html" class="external-link">qlambdap</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">2</span><span class="op">-</span><span class="va">gamma</span><span class="op">/</span><span class="fl">2</span>, df <span class="op">=</span> <span class="va">n</span><span class="op">-</span><span class="fl">1</span>, t <span class="op">=</span> <span class="fu">d1</span><span class="op">(</span><span class="va">X</span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">)</span> 
-        <span class="va">dhig</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sadists/man/dlambdap.html" class="external-link">qlambdap</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">2</span><span class="op">+</span><span class="va">gamma</span><span class="op">/</span><span class="fl">2</span>, df <span class="op">=</span> <span class="va">n</span><span class="op">-</span><span class="fl">1</span>, t <span class="op">=</span> <span class="fu">d1</span><span class="op">(</span><span class="va">X</span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">)</span> 
-        <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">dlow</span>, <span class="va">dhig</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>
+    <span class="va">CI.trimmedmean</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">gamma</span> <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span><span class="op">{</span>
+        <span class="va">trim</span> <span class="op">&lt;-</span> <span class="fl">0.2</span>
+        <span class="va">g</span>    <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">floor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">*</span> <span class="fl">0.4</span><span class="op">)</span>
+        <span class="va">tc</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html" class="external-link">qt</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">2</span><span class="op">+</span><span class="va">gamma</span><span class="op">/</span><span class="fl">2</span>, df<span class="op">=</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">-</span><span class="va">g</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">)</span>
+        <span class="va">lo</span>   <span class="op">&lt;-</span> <span class="va">tc</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/pkg/psych/man/winsor.html" class="external-link">winsor.sd</a></span><span class="op">(</span><span class="va">x</span>, trim <span class="op">=</span><span class="fl">0.2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="fl">2</span><span class="op">*</span><span class="va">trim</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+        <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu">trimmedmean</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span><span class="va">lo</span>, <span class="fu">trimmedmean</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">+</span><span class="va">lo</span><span class="op">)</span>
     <span class="op">}</span>
 
     <span class="co"># we test as an example the data from group 1</span>
-    <span class="fu">CI.d1</span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span>  </code></pre></div>
-<pre><code>## [1] 0.07929312 0.91232550</code></pre>
+    <span class="fu">CI.trimmedmean</span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span>  </code></pre></div>
+<pre><code>## [1] 101.7281 110.8052</code></pre>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R">    <span class="co"># or check that it is a valid interval function</span>
-    <span class="fu">superb</span><span class="fu">:::</span><span class="fu">is.errorbar.function</span><span class="op">(</span><span class="st">"CI.d1"</span><span class="op">)</span></code></pre></div>
+    <span class="fu">superb</span><span class="fu">:::</span><span class="fu">is.errorbar.function</span><span class="op">(</span><span class="st">"CI.trimmedmean"</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>We have all we need to make a plot with error bars!</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R">    <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, 
         BSFactors <span class="op">=</span> <span class="st">"grp"</span>, 
-        statistic <span class="op">=</span> <span class="st">"d1"</span>, errorbar <span class="op">=</span> <span class="st">"CI"</span>,
+        statistic <span class="op">=</span> <span class="st">"trimmedmean"</span>, errorbar <span class="op">=</span> <span class="st">"CI"</span>,
         plotStyle<span class="op">=</span><span class="st">"line"</span>,
         adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>,
         variable <span class="op">=</span> <span class="st">"score"</span>
-    <span class="op">)</span><span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Cohen's d_1"</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"d_1 with 95% confidence interval of d_1"</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.5</span>,<span class="op">+</span><span class="fl">1.5</span><span class="op">)</span> <span class="op">)</span> </code></pre></div>
+    <span class="op">)</span><span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"20% trimmed mean"</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_gray</a></span><span class="op">(</span>base_size<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"20% trimmed mean with \n95% confidence interval of 20% trimmed mean"</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">85</span>,<span class="fl">115</span><span class="op">)</span> <span class="op">)</span> </code></pre></div>
 <div class="figure">
 <img src="Vignette4_files/figure-html/unnamed-chunk-9-1.png" alt="**Figure 3**. `superbPlot` with a custom-made descriptive sttistic function " width="288"><p class="caption">
 <strong>Figure 3</strong>. <code>superbPlot</code> with a custom-made descriptive sttistic function
 </p>
 </div>
-<p>Note that this difference-adjusted confidence interval is fully compatible with the Cohen’s <span class="math inline">\(d_p\)</span> (between the two groups) as <span class="math inline">\(d_p\)</span> is 0.498 with a 95% confidence interval of [-0.068, +1.059] <span class="citation">(Cousineau &amp; Goulet-Pelletier, 2020; all the formulas are from Goulet-Pelletier &amp; Cousineau, 2018)</span>.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R">    <span class="co"># compute the Cohen's dp</span>
-    <span class="va">dp</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">)</span><span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">var</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">var</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span>
-    <span class="va">dp</span></code></pre></div>
-<pre><code>## [1] 0.4981355</code></pre>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R">    <span class="co"># get the confidence interval of this </span>
-    <span class="va">lecoutre2007</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dp</span>, <span class="va">n</span>, <span class="va">gamma</span> <span class="op">=</span> <span class="fl">.95</span><span class="op">)</span> <span class="op">{</span>
-        <span class="va">dlow</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sadists/man/dlambdap.html" class="external-link">qlambdap</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">2</span><span class="op">-</span><span class="va">gamma</span><span class="op">/</span><span class="fl">2</span>, df <span class="op">=</span> <span class="fl">2</span><span class="op">*</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>, t <span class="op">=</span> <span class="va">dp</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">n</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span> <span class="op">)</span> 
-        <span class="va">dhig</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sadists/man/dlambdap.html" class="external-link">qlambdap</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">2</span><span class="op">+</span><span class="va">gamma</span><span class="op">/</span><span class="fl">2</span>, df <span class="op">=</span> <span class="fl">2</span><span class="op">*</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>, t <span class="op">=</span> <span class="va">dp</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">n</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span> <span class="op">)</span> 
-        <span class="va">limits</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">dlow</span>, <span class="va">dhig</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">n</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span>
-        <span class="va">limits</span>
-    <span class="op">}</span>
-    <span class="fu">lecoutre2007</span><span class="op">(</span><span class="va">dp</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span> <span class="op">)</span></code></pre></div>
-<pre><code>## [1] -0.06757432  1.05882487</code></pre>
+<p>The advantage of this measure of central tendancy is that it is a robust estimator. Robust measures are less likely to be adversly affected by suspicious data such as outliers. See <span class="citation">Wilcox (2011)</span> for more on robust estimation.</p>
 </div>
 <div id="creating-bootstrap-based-confidence-intervals" class="section level2">
 <h2 class="hasAnchor">
@@ -286,7 +282,7 @@
 <p>It is also possible to create bootstrap estimates of confidence intervals and integrate these into <code>superb</code>.</p>
 <p>The general idea is to subsample with replacement the sample and compute on this subsample the descriptive statistics. This process is repeated a large number of times (here, 10,000) and the quantiles containing, say, 95% of the results is a 95% precision interval (we call it a <em>precision interval</em> as bootstrap estimates the sampling variability, not the predictive variability).</p>
 <p>Here, we illustrate this process with the mean. The function must be name “<em>interval function</em>.mean,” so we choose to call it <code>myBootstrapCI.mean</code>.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R">    <span class="co"># we define myBootstrapPI which subsample the whole sample, here called X</span>
     <span class="va">myBootstrapPI.mean</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">X</span>, <span class="va">gamma</span> <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span> <span class="op">{</span>
       <span class="va">res</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span>
@@ -300,12 +296,12 @@
     <span class="fu">superb</span><span class="fu">:::</span><span class="fu">is.errorbar.function</span><span class="op">(</span><span class="st">"myBootstrapPI.mean"</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>This is all we need to make the plot which we can compare with the parametric CI</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R">    <span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, 
         BSFactors <span class="op">=</span> <span class="st">"grp"</span>, 
         variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"score"</span><span class="op">)</span>, 
         plotStyle<span class="op">=</span><span class="st">"line"</span>,
-        statistic <span class="op">=</span> <span class="st">"mean"</span>, errorbar <span class="op">=</span> <span class="st">"myBootstrapPI"</span>,
+        statistic <span class="op">=</span> <span class="st">"mean"</span>, errorbar <span class="op">=</span> <span class="st">"CI"</span>,
         adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>
     <span class="op">)</span> <span class="op">+</span> 
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"Group"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Score"</span><span class="op">)</span> <span class="op">+</span> 
@@ -318,7 +314,7 @@
         BSFactors <span class="op">=</span> <span class="st">"grp"</span>, 
         variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"score"</span><span class="op">)</span>, 
         plotStyle<span class="op">=</span><span class="st">"line"</span>,
-        statistic <span class="op">=</span> <span class="st">"mean"</span>, errorbar <span class="op">=</span> <span class="st">"CI"</span>,
+        statistic <span class="op">=</span> <span class="st">"mean"</span>, errorbar <span class="op">=</span> <span class="st">"myBootstrapPI"</span>,
         adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>
     <span class="op">)</span> <span class="op">+</span> 
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"Group"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Score"</span><span class="op">)</span> <span class="op">+</span> 
@@ -330,11 +326,11 @@
     <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span>
     <span class="va">plt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">plt1</span>, <span class="va">plt2</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
 <div class="figure">
-<img src="Vignette4_files/figure-html/unnamed-chunk-12-1.png" alt="**Figure 4**. `superbPlot` with a custom-made interval function." width="700"><p class="caption">
+<img src="Vignette4_files/figure-html/unnamed-chunk-11-1.png" alt="**Figure 4**. `superbPlot` with a custom-made interval function." width="700"><p class="caption">
 <strong>Figure 4</strong>. <code>superbPlot</code> with a custom-made interval function.
 </p>
 </div>
-<p>As seen, there is not much difference between the two. This was expected: when the normality assumption and the homogeneity of variances assumption are not invalid, the <em>parametric</em> confidence intervals of the mean (based on these assumptions) is identical on average to the bootstrap approach.</p>
+<p>As seen, there is not much difference between the two. This was expected: when the normality assumption is not invalid, the <em>parametric</em> confidence intervals of the mean (based on this assumption) is identical on average to the bootstrap approach.</p>
 </div>
 <div id="in-summary" class="section level2">
 <h2 class="hasAnchor">
@@ -356,23 +352,17 @@
 <h1 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
-<div id="ref-cg20" class="csl-entry">
-Cousineau, D., &amp; Goulet-Pelletier, J.-C. (2020). <em>A review of five techniques to derive confidence intervals with a special attention to the cohen’s dp in the between-group design</em>. PsyArXiv. <a href="https://doi.org/10.31234/osf.io/s2597" class="external-link">https://doi.org/10.31234/osf.io/s2597</a>
-</div>
-<div id="ref-gc18" class="csl-entry">
-Goulet-Pelletier, J.-C., &amp; Cousineau, D. (2018). A review of effect sizes and their confidence intervals, part i: The cohen’s d family. <em>The Quantitative Methods for Psychology</em>, <em>14</em>(4), 242–265. <a href="https://doi.org/10.20982/tqmp.14.4.p242" class="external-link">https://doi.org/10.20982/tqmp.14.4.p242</a>
-</div>
 <div id="ref-htc14" class="csl-entry">
 Harding, B., Tremblay, C., &amp; Cousineau, D. (2014). Standard errors: A review and evaluation of standard error estimators using monte carlo simulations. <em>The Quantitative Methods for Psychology</em>, <em>10</em>(2), 107–123.
 </div>
 <div id="ref-htc15" class="csl-entry">
 Harding, B., Tremblay, C., &amp; Cousineau, D. (2015). The standard error of the pearson skew. <em>The Quantitative Methods for Psychology</em>, <em>11</em>(1), 32–36.
 </div>
-<div id="ref-l99" class="csl-entry">
-Lecoutre, B. (1999). Two useful distributions for bayesian predictive procedures under normal models. <em>Journal of Statistical Planning and Inference</em>, <em>79</em>, 93–105. <a href="https://doi.org/10.1016/S0378-3758(98)00231-6" class="external-link">https://doi.org/10.1016/S0378-3758(98)00231-6</a>
+<div id="ref-r20" class="csl-entry">
+Revelle, W. (2020). <em>Psych: Procedures for psychological, psychometric, and personality research</em>. Evanston, Illinois: Northwestern University. Retrieved from <a href="https://CRAN.R-project.org/package=psych" class="external-link">https://CRAN.R-project.org/package=psych</a>
 </div>
-<div id="ref-p20" class="csl-entry">
-Pav, S. E. (2020). <em><span class="nocase">sadists</span>: Some additional distributions [<span>R</span> package]</em>. Retrieved from <a href="https://github.com/shabbychef/sadists" class="external-link">https://github.com/shabbychef/sadists</a>
+<div id="ref-w11" class="csl-entry">
+Wilcox, R. R. (2011). <em>Introduction to robust estimation and hypothesis testing</em>. Academic press.
 </div>
 </div>
 </div>

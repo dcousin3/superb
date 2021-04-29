@@ -1,7 +1,7 @@
 #' Data for Figure 2
 #'
 #' The data, taken from \insertCite{c17}{superb}7, is an example where the
-#' "stand-alone" 95% confidence interval of the means returns
+#' "stand-alone" 95\\% confidence interval of the means returns
 #' a result in contradiction with the result of a statistical test.
 #' The paradoxical result is resolved by using adjusted confidence intervals,
 #' here the correlation- and different-adjusted confidence interval.

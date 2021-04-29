@@ -131,24 +131,22 @@ superb:::is.gamma.required("SE.mean")
 ## Creating a custom-made descriptive statistic function to be used in superbPlot
 
 As an example, we create from scratch a descriptive statistic function that will
-be fed to ``superbPlot``. Following @gc18 , we implement the single-group design
-Cohen's d ($d_1$). This descriptive statistic is computed relative to an
-hypothetical population mean. Herein, we use the data from ``dataFigure1`` and
-assume that the population mean is 100.
+be fed to ``superbPlot``. Following @w11 , we implement the 20% trimmed mean. 
+This descriptive statistic is used to estimate the population mean. However,
+it is said to be a robust statistic as it is less affected by suspicious data. 
+Herein, we use the data from ``dataFigure1``.
 
 ```{r, message=FALSE, echo=TRUE}
-    # create a descriptive statistics
-    d1 <- function(X) {
-      mean(X-100)/sd(X) 
-    } 
+    # create a descriptive statistics, the 20% trimmed mean
+    trimmedmean    <- function(x) mean(x, trim = 0.2)
 
     # we can test it with the data from group 1...
     grp1 <- dataFigure1$score[dataFigure1$grp==1]
     grp2 <- dataFigure1$score[dataFigure1$grp==2]
-    d1(grp1)
+    trimmedmean(grp1)
 
     # or check that it is a valid statistic function
-    superb:::is.stat.function("d1")
+    superb:::is.stat.function("trimmedmean")
 ```
 
 Once we have the function, we can ask for a plot of this function with
@@ -156,14 +154,15 @@ Once we have the function, we can ask for a plot of this function with
 ```{r, message=FALSE, echo=TRUE, fig.height=4, fig.width=3, fig.cap="**Figure 2**. ``superbPlot`` with a custom-made descriptive statistic function "}
     superbPlot(dataFigure1, 
         BSFactors = "grp", 
-        statistic = "d1", errorbar = "none", #HERE the statistic name is given
+        statistic = "trimmedmean", errorbar = "none", #HERE the statistic name is given
         plotStyle="line",
         adjustments = list(purpose = "difference"),
         variable = "score",
         errorbarParams = list(width=0) # so that the null-width error bar is invisible
-    )+ ylab("Cohen's d_1") +
-    labs(title="d_1 with no error bars") +
-    coord_cartesian( ylim = c(-0.5,+1.5) ) 
+    )+ ylab("20% trimmed mean") +
+    theme_gray(base_size=10) +
+    labs(title="20% trimmed mean with \nno error bars") +
+    coord_cartesian( ylim = c(85,115) ) 
 ```
 
 
@@ -171,25 +170,26 @@ Once we have the function, we can ask for a plot of this function with
 
 It is also possible to create custom-made confidence interval functions.
 
-Hereafter, we add a confidence interval for the Cohen's $d_1$. We use the predictive 
-approach documented in Lecoutre [@l99; @cg20] which requires the lambda-prime distribution
-provided in the ``sadists`` library [@p20].
+Hereafter, we add a confidence interval for the 20% trimmed mean. We use the 
+approach documented in Wilcox [@w11] which requires computing the winsorized 
+standard deviation ``winsor.sd`` as available in the ``psych`` library [@r20].
 
-```{r}
-    library(sadists)
+```{r, message=FALSE}
+    library(psych)      # for winsor.sd
 
-    CI.d1 <- function(X, gamma = .95) {
-        n    <- length(X)
-        dlow <- qlambdap(1/2-gamma/2, df = n-1, t = d1(X) * sqrt(n) ) 
-        dhig <- qlambdap(1/2+gamma/2, df = n-1, t = d1(X) * sqrt(n) ) 
-        c(dlow, dhig) / sqrt(n)
+    CI.trimmedmean <- function(x, gamma = 0.95){
+        trim <- 0.2
+        g    <- floor(length(x) * 0.4)
+        tc   <- qt(1/2+gamma/2, df=(length(x)-g-1) )
+        lo   <- tc * winsor.sd(x, trim =0.2) / ((1-2*trim)*sqrt(length(x)))
+        c(trimmedmean(x) -lo, trimmedmean(x)+lo)
     }
 
     # we test as an example the data from group 1
-    CI.d1(grp1)  
+    CI.trimmedmean(grp1)  
 
     # or check that it is a valid interval function
-    superb:::is.errorbar.function("CI.d1")
+    superb:::is.errorbar.function("CI.trimmedmean")
 ```
 
 We have all we need to make a plot with error bars!
@@ -197,34 +197,19 @@ We have all we need to make a plot with error bars!
 ```{r, message=FALSE, echo=TRUE, fig.height=4, fig.width=3, fig.cap="**Figure 3**. `superbPlot` with a custom-made descriptive sttistic function "}
     superbPlot(dataFigure1, 
         BSFactors = "grp", 
-        statistic = "d1", errorbar = "CI",
+        statistic = "trimmedmean", errorbar = "CI",
         plotStyle="line",
         adjustments = list(purpose = "difference"),
         variable = "score"
-    )+ ylab("Cohen's d_1") +
-    labs(title="d_1 with 95% confidence interval of d_1") +
-    coord_cartesian( ylim = c(-0.5,+1.5) ) 
+    )+ ylab("20% trimmed mean") +
+    theme_gray(base_size=10) +
+    labs(title="20% trimmed mean with \n95% confidence interval of 20% trimmed mean") +
+    coord_cartesian( ylim = c(85,115) ) 
 ```
 
-Note that this difference-adjusted confidence interval is fully compatible with 
-the Cohen's $d_p$ (between the two groups) as $d_p$ is 0.498 with a 95% confidence 
-interval of [-0.068, +1.059] [all the formulas are from @gc18;@cg20].
-
-```{r}
-    # compute the Cohen's dp
-    dp <- (mean(grp1)-mean(grp2))/ sqrt((var(grp1)+var(grp2))/2)
-    dp
-
-    # get the confidence interval of this 
-    lecoutre2007 <- function(dp, n, gamma = .95) {
-        dlow <- qlambdap(1/2-gamma/2, df = 2*(n-1), t = dp * sqrt(n/2) ) 
-        dhig <- qlambdap(1/2+gamma/2, df = 2*(n-1), t = dp * sqrt(n/2) ) 
-        limits <- c(dlow, dhig) / sqrt(n/2)
-        limits
-    }
-    lecoutre2007(dp, length(grp1) )
-```
-
+The advantage of this measure of central tendancy is that it is a robust estimator. 
+Robust measures are less likely to be adversly affected by suspicious data such as
+outliers. See @w11 for more on robust estimation.
 
 ## Creating bootstrap-based confidence intervals 
 
@@ -261,7 +246,7 @@ This is all we need to make the plot which we can compare with the parametric CI
         BSFactors = "grp", 
         variable = c("score"), 
         plotStyle="line",
-        statistic = "mean", errorbar = "myBootstrapPI",
+        statistic = "mean", errorbar = "CI",
         adjustments = list(purpose = "difference")
     ) + 
     xlab("Group") + ylab("Score") + 
@@ -274,7 +259,7 @@ This is all we need to make the plot which we can compare with the parametric CI
         BSFactors = "grp", 
         variable = c("score"), 
         plotStyle="line",
-        statistic = "mean", errorbar = "CI",
+        statistic = "mean", errorbar = "myBootstrapPI",
         adjustments = list(purpose = "difference")
     ) + 
     xlab("Group") + ylab("Score") + 
@@ -288,8 +273,8 @@ This is all we need to make the plot which we can compare with the parametric CI
 ```
 
 As seen, there is not much difference between the two. This was expected:  when the 
-normality assumption and the homogeneity of variances assumption are not invalid, 
-the *parametric* confidence intervals of the mean (based on these assumptions) 
+normality assumption is not invalid, 
+the *parametric* confidence intervals of the mean (based on this assumption) 
 is identical on average to the bootstrap approach.
 
 

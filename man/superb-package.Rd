@@ -66,6 +66,14 @@ and example datasets described in the paper:  \itemize{
      \item{\code{dataFigure4}} illustrate the paradox of using stand-alone CI with population of finite size.
 }
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://dcousin3.github.io/superb}
+  \item Report bugs at \url{https://github.com/dcousin3/superb/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Denis Cousineau \email{denis.cousineau@uottawa.ca}
 

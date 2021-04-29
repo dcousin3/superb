@@ -15,7 +15,7 @@ data(dataFigure1)
 }
 \description{
 The data, taken from \insertCite{c17}{superb}, is an example where the
-"stand-alone" 95\% confidence interval of the means returns
+"stand-alone" 95\\\% confidence interval of the means returns
 a result in contradiction with the result of a statistical test.
 The paradoxical result is resolved by using adjusted confidence intervals,
 here the different-adjusted confidence interval.

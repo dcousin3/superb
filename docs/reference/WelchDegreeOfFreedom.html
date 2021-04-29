@@ -50,7 +50,7 @@
 <meta property="og:description" content="When variance across groups are heterogeneous,
 the Student t distribution with n - 1 df is not the exact distribution.
 However, Welch (1947), using methods of moments, was able to find the
-best-fitting t distribution. This distributin has degree of freedom reduced
+best-fitting t distribution. This distribution has degree of freedom reduced
 based on the sample sizes and the variances of the group tests. The present
 function returns the rectified degree of freedom" />
 <meta property="og:image" content="http://dcousin3.github.io/superb/logo.png" />
@@ -96,7 +96,7 @@ function returns the rectified degree of freedom" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5.900</span>
       </span>
     </div>
 
@@ -139,6 +139,9 @@ function returns the rectified degree of freedom" />
     <li>
       <a href="../articles/Vignette8.html">(advanced) Alternate ways to decorrelate repeated measures from transformations</a>
     </li>
+    <li>
+      <a href="../articles/Vignette9.html">Illustrating Cohen's d with ``superb``</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -146,7 +149,12 @@ function returns the rectified degree of freedom" />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/dcousin3/superb/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -161,15 +169,15 @@ function returns the rectified degree of freedom" />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Welch's rectified degree of freedom</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/dcousin3/superb/blob/master/R/WelchDegreeOfFreedom.R'><code>R/WelchDegreeOfFreedom.R</code></a></small>
     <div class="hidden name"><code>WelchDegreeOfFreedom.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>When variance across groups are heterogeneous,
-the Student t distribution with n - 1 df is not the exact distribution.
+the Student <code>t</code> distribution with <code>n - 1</code> df is not the exact distribution.
 However, Welch (1947), using methods of moments, was able to find the
-best-fitting t distribution. This distributin has degree of freedom reduced
+best-fitting <code>t</code> distribution. This distribution has degree of freedom reduced
 based on the sample sizes and the variances of the group tests. The present
 function returns the rectified degree of freedom</p>
     </div>
@@ -195,7 +203,7 @@ function returns the rectified degree of freedom</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>p the p-value of the null hypothesis that the data are spherical.</p>
+    <p>df the degrees of freedom rectified according to Welch (1947).</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>There are no references for Rd macro <code>\insertAllCites</code> on this help page.</p>

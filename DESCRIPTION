@@ -1,7 +1,7 @@
 Package: superb
 Type: Package
 Title: Summary plots with adjusted error bars
-Version: 0.9.5.0
+Version: 0.9.5.900
 Date: 2021-04-13
 Authors@R: c(
              person("Denis", "Cousineau", email = "denis.cousineau@uottawa.ca",
@@ -17,7 +17,9 @@ Author: Denis Cousineau [aut, cre],
     Bradley Harding [ctb],
     Marc-Andre Goulet [ctb],
     Jesika Walker [art]
-Maintainer: Denis Cousineau <denis.cousineau@uottawa.ca>
+Maintainer:     Denis Cousineau <denis.cousineau@uottawa.ca>
+BugReports: 	https://github.com/dcousin3/superb/issues
+URL:            https://dcousin3.github.io/superb
 Description: 
     Computes standard error and confidence interval of various descriptive statistics under 
     various designs and sampling schemes. The main function, superbPlot(), can either return a plot 
@@ -39,8 +41,10 @@ Imports:
     ggplot2 (>= 3.1.0),
     MASS,
     lsr (>= 0.5),
+    methods,
     Rdpack (>= 0.7),
-    stats
+    stats,
+    utils
 Suggests: 
     car,
     emojifont,
@@ -50,6 +54,7 @@ Suggests:
     knitr, 
     lattice,
     lawstat,
+    psych,
     reshape2,
     rmarkdown,
     sadists,

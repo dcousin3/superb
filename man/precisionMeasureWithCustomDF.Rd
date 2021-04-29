@@ -11,10 +11,10 @@ CIwithDF.mean(x, gamma = 0.95 )
 \item{x}{a vector of numbers, the sample data (mandatory);}
 
 \item{gamma}{a vector containing first a confidence level for CI (default 0.95) and
-a custom degree of freedom (default n-1 where n is the number of observations in x).}
+a custom degree of freedom (if unspecified, uses \code{n-1} where \code{n} is the number of observations in x).}
 }
 \value{
-the confidence interval (CI) where the t value is based on the custom-set degree of freedom.
+the confidence interval (CI) where the \code{t} value is based on the custom-set degree of freedom.
 }
 \description{
 The following three functions can be used with missing data.
