@@ -33,7 +33,7 @@ superbPlot.halfwidthline(
 
 \item{lineParams}{(optional) list of graphic directives that are sent to the geom_bar layer}
 
-\item{errorbarParams}{(optional) list of graphic directives that are sent to the geom_errorbar layer}
+\item{errorbarParams}{(optional) list of graphic directives that are sent to the geom_superberrorbar layer}
 
 \item{errorbarlightParams}{(optional) graphic directives for the second half of the error bar;}
 

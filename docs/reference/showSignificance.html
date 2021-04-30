@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>showSignificance — showSignificance • superb</title>
+<title>Annotate significance of results on plots — showSignificance • superb</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="showSignificance — showSignificance" />
+<meta property="og:title" content="Annotate significance of results on plots — showSignificance" />
 <meta property="og:description" content="showSignificance is used to add an annotation to
 a ggplot in the form of a bracket with a text. The bracket
 extends from x range (left, right) with a heigth of width. It is also possible
@@ -94,7 +94,7 @@ to have the bracket and the text vertical when y is a range (bottom, top)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5.900</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.6.0</span>
       </span>
     </div>
 
@@ -166,7 +166,7 @@ to have the bracket and the text vertical when y is a range (bottom, top)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>showSignificance</h1>
+    <h1>Annotate significance of results on plots</h1>
     <small class="dont-index">Source: <a href='https://github.com/dcousin3/superb/blob/master/R/showSignificance.R'><code>R/showSignificance.R</code></a></small>
     <div class="hidden name"><code>showSignificance.Rd</code></div>
     </div>
@@ -278,7 +278,7 @@ to have the bracket and the text vertical when y is a range (bottom, top).</p>
 <span class='va'>plt2</span> <span class='op'>+</span> <span class='fu'>showSignificance</span><span class='op'>(</span> <span class='fl'>3.75</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>70</span>,<span class='fl'>80</span><span class='op'>)</span>, <span class='op'>-</span><span class='fl'>0.1</span>, <span class='st'>"++1++"</span><span class='op'>)</span>
 </div><div class='img'><img src='showSignificance-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># an example with panels; the "panel" argument is used to identify on </span>
-<span class='co'># which panel to put the annotation</span>
+<span class='co'># which panel to put the annotation (or else they appear on all panels)</span>
 <span class='va'>plt3</span> <span class='op'>+</span> 
     <span class='fu'>showSignificance</span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.75</span>, <span class='fl'>1.25</span><span class='op'>)</span>, <span class='fl'>90</span>, <span class='op'>-</span><span class='fl'>1</span>, <span class='st'>"++1++"</span>, panel <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>Age<span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
     <span class='fu'>showSignificance</span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.75</span>, <span class='fl'>2.25</span><span class='op'>)</span>, <span class='fl'>90</span>, <span class='op'>-</span><span class='fl'>1</span>, <span class='st'>"++2++"</span>, panel <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>Age<span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 

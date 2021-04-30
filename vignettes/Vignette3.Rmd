@@ -215,14 +215,14 @@ tlbl <- paste( "(red) Difference-adjusted only\n",
             "(orange) Difference-adjusted and decorrelated with CA", sep="")
 
 # to make the plots all identical except for the decorrelation method
-makeplot <- function(dataset, decorrelationmethod, color, nudge) {
+makeplot <- function(dataset, decorrelationmethod, color, nudge, dir) {
     superbPlot(dataset, 
             WSFactors = "Moment(5)",  
             variables   = c("DV.1","DV.2","DV.3","DV.4","DV.5"), 
             adjustments=list(purpose = "difference", decorrelation = decorrelationmethod), 
-            errorbarParams = list(color=color, width= 0.1, position = position_nudge(nudge) ),
+            errorbarParams = list(color=color, width= 0.1, position = position_nudge(nudge), direction = dir ),
             plotStyle="line" ) + 
-        xlab("Group") + ylab("Score") + 
+        xlab("Moment") + ylab("Score") + 
         labs(subtitle=tlbl) +
         coord_cartesian( ylim = c(85,115) ) +
         theme_gray(base_size=16) +
@@ -232,10 +232,10 @@ makeplot <- function(dataset, decorrelationmethod, color, nudge) {
 }
 
 # generate the plots, nudging the error bars and using distinct colors
-pltrw <- makeplot(test, "none", "red",    -0.15)
-pltCM <- makeplot(test, "CM",   "blue",   -0.05)
-pltLM <- makeplot(test, "LM",   "chartreuse3",  +0.05)
-pltCA <- makeplot(test, "CA",   "orange", +0.15)
+pltrw <- makeplot(test, "none", "red",          -0.15, "both")
+pltCM <- makeplot(test, "CM",   "blue",         -0.05, "left")
+pltLM <- makeplot(test, "LM",   "chartreuse3",  +0.05, "both")
+pltCA <- makeplot(test, "CA",   "orange",       +0.15, "right")
 
 # transform the ggplots into "grob" so that they can be manipulated
 pltrwg <- ggplotGrob(pltrw)

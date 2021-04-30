@@ -1,5 +1,5 @@
 ######################################################################################
-#' @title showSignificance 
+#' @title Annotate significance of results on plots
 #'
 #' @aliases showSignificance showVerticalSignificance showHorizontalSignificance
 #'
@@ -73,7 +73,7 @@
 #' plt2 + showSignificance( 3.75, c(70,80), -0.1, "++1++")
 #' 
 #' # an example with panels; the "panel" argument is used to identify on 
-#' # which panel to put the annotation
+#' # which panel to put the annotation (or else they appear on all panels)
 #' plt3 + 
 #'     showSignificance( c(0.75, 1.25), 90, -1, "++1++", panel = list(Age= 1)) + 
 #'     showSignificance( c(1.75, 2.25), 90, -1, "++2++", panel = list(Age= 2)) + 

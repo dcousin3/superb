@@ -1,5 +1,5 @@
 ######################################################################################
-#' @title Cousineau and Laurencelle's lambda correction factor for cluster-randomized sampling
+#' @title Cousineau-Laurencelle's lambda correction for cluster-randomized sampling
 #'
 #' @md
 #'

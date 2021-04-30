@@ -130,7 +130,7 @@ GeomFlatViolin <-
 #' @param groupingfactor a string with the name of the column for which the data will be grouped on the plot;
 #' @param addfactors a string with up to two additional factors to make the rows and columns panels, in the form "fact1 ~ fact2";
 #' @param rawdata always contains "DV" for each participants and each level of the factors
-#' @param errorbarParams (optional) list of graphic directives that are sent to the geom_errorbar layer
+#' @param errorbarParams (optional) list of graphic directives that are sent to the geom_superberrorbar layer
 #' @param jitterParams (optional) list of graphic directives that are sent to the geom_bar layer
 #' @param violinParams (optional) list of graphic directives that are sent to the geom_bar layer
 #' @param facetParams (optional) list of graphic directives that are sent to the facet_grid layer
@@ -224,7 +224,7 @@ superbPlot.raincloud <- function(
         jitterParams
     )) +
     # the error bars; do.call so that errorbarParams can be integrated
-    do.call( geom_errorbar, modifyList(
+    do.call( geom_superberrorbar, modifyList(
         list(position = position_dodge(.25), width = 0.2, size = 1., color = "black",
             mapping = aes_string( ymin = "center + lowerwidth", ymax = "center + upperwidth") ),
         errorbarParams
@@ -264,7 +264,7 @@ superbPlot.raincloud <- function(
 #' @param rawdata always contains "DV" for each participants and each level of the factors
 #' @param pointParams (optional) list of graphic directives that are sent to the geom_bar layer
 #' @param lineParams (optional) list of graphic directives that are sent to the geom_bar layer
-#' @param errorbarParams (optional) list of graphic directives that are sent to the geom_errorbar layer
+#' @param errorbarParams (optional) list of graphic directives that are sent to the geom_superberrorbar layer
 #' @param errorbarlightParams (optional) graphic directives for the second half of the error bar;
 #' @param facetParams (optional) list of graphic directives that are sent to the facet_grid layer
 #' @param xAsFactor (optional) Boolean to indicate if the factor on the horizontal should continuous or discrete (default is discrete)
@@ -338,22 +338,8 @@ superbPlot.halfwidthline <- function(
             mapping = aes_string(group = ifelse(is.null(groupingfactor),1,groupingfactor) ) ),
         lineParams
     )) +
-#    # the thin error bars
-#    do.call(geom_errorbar, modifyList(
-#        list(width = 0.1, alpha = 0.75, size = 0.5, position = position_dodge(.15),
-#            mapping = aes_string(group = groupingfactor) ),
-#        errorbarlightParams
-#    )) + 
-#    # the thick, half-width, error bars
-#    do.call(geom_errorbar, modifyList(
-#        list(width = 0.01, size = 1.00, position = position_dodge(.15),
-#            aes_string(
-#                x = xfactor, y = "center", ymin = "center + hwlowerwidth", ymax = "center + hwupperwidth", 
-#                colour = groupingfactor ) ),
-#        errorbarParams
-#    )) + 
     # the error bars
-    do.call(geom_errorbar, modifyList(
+    do.call(geom_superberrorbar, modifyList(
         list(width = 0.1, size = 1.00, position = position_dodge(.15),
             aes_string(
                 x = xfactor, y = "center", ymin = "center + lowerwidth", ymax = "center + upperwidth", 

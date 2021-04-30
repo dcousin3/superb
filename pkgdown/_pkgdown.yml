@@ -9,9 +9,10 @@ reference:
       - '`superbData`'
       - '`GRD`'
   - title: Decorating plots
-    desc: Functions to add further decorations to the plot
+    desc: Functions to add further decorations to the plots
     contents:
       - '`showSignificance`'
+      - '`geom_superberrorbar`'
   - title: Plots
     desc: Built-in templates for plots
     contents:
@@ -24,21 +25,21 @@ reference:
       - '`superbPlot.raincloud`'
       - '`superbPlot.halfwidthline`'
   - title: Statistics
-    desc: Statistics
+    desc: Some statistics that can be plotted with superb
     contents:
       - '`summaryStatistics`'
       - '`precisionMeasures`'
       - '`precisionMeasureWithCustomDF`'
       - '`measuresWithMissingData`'
       - '`bootstrapPrecisionMeasures`'
+  - title: Tests 
+    desc: Statistical tests and inferential statistics
+    contents:
       - '`CousineauLaurencelleLambda`'
       - '`HyunhFeldtEpsilon`'
+      - '`MauchlySphericityTest`'
       - '`ShroutFleissICC1`'
       - '`WelchDegreeOfFreedom`'
-  - title: Tests
-    desc: Statistical tests
-    contents:
-      - '`MauchlySphericityTest`'
       - '`WinerCompoundSymmetryTest`'
   - title: Transformations 
     desc: Transformation functions

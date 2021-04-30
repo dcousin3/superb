@@ -1,7 +1,7 @@
 Package: superb
 Type: Package
 Title: Summary plots with adjusted error bars
-Version: 0.9.5.900
+Version: 0.9.6.0
 Date: 2021-04-13
 Authors@R: c(
              person("Denis", "Cousineau", email = "denis.cousineau@uottawa.ca",

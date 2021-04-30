@@ -34,7 +34,7 @@ superbPlot.pointjitterviolin(
 
 \item{violinParams}{(optional) list of graphic directives that are sent to the geom_bar layer}
 
-\item{errorbarParams}{(optional) list of graphic directives that are sent to the geom_errorbar layer}
+\item{errorbarParams}{(optional) list of graphic directives that are sent to the geom_superberrorbar layer}
 
 \item{facetParams}{(optional) list of graphic directives that are sent to the facet_grid layer}
 }

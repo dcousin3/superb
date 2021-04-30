@@ -1,11 +1,26 @@
+
+# superb 0.9.6.0 (April 30th, 2021)
+* Integrated an example of robust statistic in Vignette/Article 4: 
+   the 20% trimmed mean and its confidence interval;
+* Added ``showSignificance()`` to annotate group differences;
+* Added a note when missing data are in the dataframe;
+* Added automatic handling of initializers (see Vignette/Article 9 for an example);
+* Added a vignette dedicated to how to illustrate Cohen's d;
+* Added a ``geom_superberrorbar()`` with additional options for the tip markers;
+* ... all this on its way to the next release version 0.9.7.5, codename: 
+   "two-tail 95% confident". Stay tune as the best is still to come (and it is shiny!)
+
+
 # superb 0.9.5.0 (April 13th, 2021)
 
 * Second release on CRAN, codename "95% confident"
 * Expanded documentation once more
 
+
 # superb 0.9.4.7 (April 10th, 2021)
 
 * Added two vignettes
+
 
 # superb 0.9.4.6 (April 7th, 2021)
 
@@ -16,10 +31,12 @@
 * Added a message that indicate tryon adjustment value
 * Added a vignette on Welch, Tryon & superb
 
+
 # superb 0.9.4.5 (April 1st, 2021)
 
 * Implemented the raincloud plots
 * Converted messages from warning() to message()
+
 
 # superb 0.9.4.4 (March 2021)
 
@@ -29,6 +46,7 @@
 * Changed debug information for GRD
 * Converted in GRD the level ranges, e.g., "diff(1,5)", into numeric levels
 
+
 # superb 0.9.4.3 (March 2021)
 
 * Added superbData as a shortcut to superbPlot(... showPlot = FALSE)
@@ -36,12 +54,14 @@
 * Created a logo and improved web pages
 * Revised documentation
 
+
 # superb 0.9.4.2 (March 2021)
 
 * Initial release of the R version on CRAN
 * Added optional argument facetParams to the plotting functions
 * Made the plot function customizable
 * Wrote vignettes
+
 
 # superb 0.9.4.0 (September 2020)
 
@@ -51,18 +71,22 @@
 * Added pre and post-processing operators
 * Transcoded MeanPlot from Mathematica to R
 
+
 # GRD for R (version 1.0; January 2019)
 
 * Initial release of GRD 2.0 for the R platform
+
 
 # MeanPlot 0.5.0 (March 2017)
 
 * Last stable version maintained on Mathematical; Cousineau (2017) doi:10.5709/acp-0214-z
 * Updated legend manipulation following the release of Mathematica 9.0
 
+
 # GRD for SPSS (versions 1.0 and 2.0; July 2014 and October 2015)
 
 * Release of GRD 1.0 and 2.0 for SPSS
+
 
 # MeanPlot 0.4.x and prior (2009-2015)
 
