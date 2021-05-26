@@ -358,7 +358,7 @@ that most of them are indeed within the reference intervals.
 A more elaborate layout, although maybe redundant with the RI, is
 the ``pointjitterviolin``. Using it, we get
 
-```{r, message=FALSE, echo=TRUE, fig.width = 5, fig.cap="**Figure 3c**. Jittered dots and violins showing mean glucose level and 95% reference intervals with 95% confidence intervals."}
+```{r, message=FALSE, echo=TRUE, fig.width = 5, fig.cap="**Figure 3c**. Jittered dots and violins showing mean glucose level and 95% reference intervals with 95% confidence intervals of the tips' position."}
 # redo plt1; the other 2 are still in memory
 plt1 <- superbPlot(glucoselevels, 
             BSFactors = "concentration",  
@@ -380,10 +380,10 @@ ggplot() +
     annotation_custom(grob=plt3)
 ```
 
-## Reference intervals vs. the confidence interval of the means
+## Reference intervals vs. confidence intervals of the means
 
 As one last example, we want to show the difference between the
-reference intervals and the confidence interval of a summary statistic, 
+reference intervals and the confidence intervals of a summary statistic, 
 here the mean.
 
 To that end, we can create a foruth plot showing the confidence interval

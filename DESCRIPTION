@@ -42,6 +42,7 @@ Imports:
     MASS,
     lsr (>= 0.5),
     methods,
+    referenceIntervals,
     Rdpack (>= 0.7),
     stats,
     utils
@@ -55,7 +56,6 @@ Suggests:
     lattice,
     lawstat,
     psych,
-    referenceIntervals,
     reshape2,
     rmarkdown,
     sadists,
