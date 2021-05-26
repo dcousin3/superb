@@ -34,6 +34,9 @@
     <loc>http://dcousin3.github.io/superb/reference/HyunhFeldtEpsilon.html</loc>
   </url>
   <url>
+    <loc>http://dcousin3.github.io/superb/reference/makeTransparent.html</loc>
+  </url>
+  <url>
     <loc>http://dcousin3.github.io/superb/reference/MauchlySphericityTest.html</loc>
   </url>
   <url>
@@ -140,5 +143,8 @@
   </url>
   <url>
     <loc>http://dcousin3.github.io/superb/articles/Vignette9.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/articles/VignetteA.html</loc>
   </url>
 </urlset>

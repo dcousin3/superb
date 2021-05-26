@@ -155,7 +155,8 @@ plt <- grid.arrange(plt1, plt2, ncol=2)
 A second way to compare the two plots is to superimpose them, as in Figure 4:
 
 ```{r, message=FALSE, echo=TRUE, fig.height=4, fig.width=6, fig.cap="**Figure 4**. Two representations of the results with adjusted and unadjusted error bars on the same plot"}
-# generate the two plots, nudging the error bars, using distinct colors, and having the background transparent
+# generate the two plots, nudging the error bars, using distinct colors, and 
+# having the second plot's background transparent (with ``makeTransparent()`` )
 plt1 <- superbPlot(dataFigure1, 
         BSFactors = "grp", 
         variables = "score", 
@@ -165,9 +166,8 @@ plt1 <- superbPlot(dataFigure1,
     labs(title="(red) Difference-adjusted 95% confidence intervals\n(blue) (stand-alone) 95% confidence intervals") +
     coord_cartesian( ylim = c(85,115) ) +
     theme_gray(base_size=12) +
-    scale_x_discrete(labels=c("1" = "Collaborative\ngames", "2" = "Unstructured\nactivity")) +
-    theme(panel.background = element_rect(fill = "transparent"),
-         plot.background = element_rect(fill = "transparent", color = "white"))
+    scale_x_discrete(labels=c("1" = "Collaborative\ngames", "2" = "Unstructured\nactivity")) 
+
 
 plt2 <- superbPlot(dataFigure1, 
         BSFactors = "grp", 
@@ -179,13 +179,11 @@ plt2 <- superbPlot(dataFigure1,
     labs(title="(red) Difference-adjusted 95% confidence intervals\n(blue) (stand-alone) 95% confidence intervals") +
     coord_cartesian( ylim = c(85,115) ) + 
     theme_gray(base_size=12) +
-    scale_x_discrete(labels=c("1" = "Collaborative\ngames", "2" = "Unstructured\nactivity")) +
-    theme(panel.background = element_rect(fill = "transparent"),
-        plot.background = element_rect(fill = "transparent", color = "white"))
+    scale_x_discrete(labels=c("1" = "Collaborative\ngames", "2" = "Unstructured\nactivity"))
 
 # transform the ggplots into "grob" so that they can be manipulated
 plt1g <- ggplotGrob(plt1)
-plt2g <- ggplotGrob(plt2)
+plt2g <- ggplotGrob(plt2 + makeTransparent() )
 
 # put the two grob onto an empty ggplot (as the positions are the same, they will be overlayed)
 ggplot() + 

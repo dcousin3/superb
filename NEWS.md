@@ -1,5 +1,11 @@
+# superb 0.9.7.0 (May 25th, 2021)
+
+* Added a vignette on how to implement Reference Intervals (RI) into superb
+* Implemented ``makeTransparent()`` to ease the creation of plots with multiple
+    error bars.
 
 # superb 0.9.6.0 (April 30th, 2021)
+
 * Integrated an example of robust statistic in Vignette/Article 4: 
    the 20% trimmed mean and its confidence interval;
 * Added ``showSignificance()`` to annotate group differences;

@@ -74,7 +74,7 @@ GeomFlatViolin <-
       #    xmin = x,
       #    xmax = x + width / 2
       #  )
-      # Note (from D. Cousineau): did it without the pipe which was generating complaints from CRAN
+      # Note (from D. Cousineau): did it without the pipes which were generating complaints from CRAN
       dplyr::mutate(dplyr::group_by(data, group),
           ymin = min(y),
           ymax = max(y),
@@ -184,18 +184,21 @@ superbPlot.raincloud <- function(
     if (!xAsFactor) 
         summarydata[[xfactor]] = as.numeric(summarydata[[xfactor]])
 
+    # rename column "DV" as "center"
+    rawdata$center <- rawdata$DV
+
     # determining the type of jitter based on the presence or not of a groupingfac
     if (is.null(groupingfactor)) {
         do_jitters = do.call(geom_jitter, modifyList(
                         list(data = rawdata, alpha = 0.2, width = 0.2, height = 0.0,
-                             mapping = aes_string(y = "DV" ) ),
+                             mapping = aes_string(y = "center" ) ),
                         jitterParams
                     ) )
     } else {
         do_jitters = do.call( geom_point, modifyList(
                         list(data = rawdata, alpha = 0.5,
                             position = position_jitterdodge(dodge.width = .15, jitter.width=0.15), size = .5,
-                            mapping = aes_string(y = "DV") ),
+                            mapping = aes_string(y = "center") ),
                         jitterParams
                     ))
     }
@@ -213,7 +216,7 @@ superbPlot.raincloud <- function(
     do.call( geom_flat_violin, modifyList(
        list(data = rawdata, trim = FALSE, alpha = 0.2,
             position = position_nudge(x = .25, y = 0), size = 0.25,
-            mapping = aes_string(y = "DV") ),
+            mapping = aes_string(y = "center") ),
         violinParams
     )) +
     # the jittered data

@@ -61,6 +61,7 @@ WinerCompoundSymmetryTest <- function(dta, cols) {
     else
         M  <- -(n-1) * log( det(S1) / det(S0) )
     )
+    # presumably, this correction comes from Williams, 1976? Biometrika.
     cf <- (p * (p+1)^2 * (2*p-3) )/(6 * (n-1) * (p-1) * (p^2 + p -4))
     df <- p*(p+1)/2-2
     W  <- M * (1 - cf)

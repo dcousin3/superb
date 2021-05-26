@@ -30,7 +30,7 @@ reliable that those with short error bars.
 
 Error bars, which are drawn from measures of precision, comes in many flavors. There is
 the simple *standard error* (SE), the more famous *confidence interval* (CI), and 
-new proposals such as the *high density interval* (HDI). The package ``superb``
+new proposals such as the *highest density interval* (HDI). The package ``superb``
 has build-in functions for both the SE and CI, but any other measure of precision
 can be added (as shown in [Vignette 4](https://dcousin3.github.io/superb/articles/Vignette4.html)).
 
@@ -289,7 +289,7 @@ theme_gray(base_size=16) +
 scale_x_discrete(labels=c("1" = "Week 1", "2" = "Week 2", "3"="Week 3"))
 ``` 
 
-As you can see, the adjustments can be obtained with a single option inside the ``adjusments``
+As you can see, the adjustments can be obtained with a single option inside the ``adjustments``
 list. They are cumulative, i.e., more than one adjustment can be used, depending on the 
 situation.
 

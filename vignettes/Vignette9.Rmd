@@ -6,8 +6,8 @@ output:
   html_document:
     toc: TRUE
 description: >
-  This vignette 
-  two spaces.
+  This vignette shows how to illustrate Cohen's d
+  with superb.
 vignette: >
   %\VignetteIndexEntry{Illustrating Cohen's d with superb}
   %\VignetteEngine{knitr::rmarkdown}

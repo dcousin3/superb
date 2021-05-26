@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.7.0</span>
       </span>
     </div>
 
@@ -86,6 +86,9 @@
     </li>
     <li>
       <a href="../articles/Vignette9.html">Illustrating Cohen's d with ``superb``</a>
+    </li>
+    <li>
+      <a href="../articles/VignetteA.html">Illustrating Reference Intervals with ``superb``</a>
     </li>
   </ul>
 </li>
@@ -159,12 +162,12 @@
 <span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">testdata</span><span class="op">)</span></code></pre></div>
 <pre><code>##   id Difficulty score.day1 score.day2
-## 1  1          1   43.35747   36.60391
-## 2  2          1   53.04051   52.29637
-## 3  3          1   69.13826   62.69708
-## 4  4          1   46.30270   49.54727
-## 5  5          1   64.73417   45.31127
-## 6  6          1   41.00828   48.93702</code></pre>
+## 1  1          1   79.02395   70.95213
+## 2  2          1   93.40180   62.27314
+## 3  3          1   47.60400   41.82933
+## 4  4          1   76.54919   55.52540
+## 5  5          1   79.14545   61.44812
+## 6  6          1   56.82817   61.41505</code></pre>
 <p>For simplicity, we define a function whose arguments are the dataset and the layout:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mp</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">style</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>

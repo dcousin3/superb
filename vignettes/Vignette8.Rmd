@@ -139,15 +139,13 @@ ornate <- list(
     ylab("Score"),
     labs(   title=tlbl),
     coord_cartesian( ylim = c(12,18) ),
-    theme_light(base_size=16),
-    theme(plot.subtitle=element_text(size=12, color="black"), 
-          panel.background = element_rect(fill = "transparent"),
-          plot.background = element_rect(fill = "transparent", color = "white"))
+    theme_light(base_size=16)
 )
 
+# the plots on top are made transparent
 pCM2 <- ggplotGrob(pCM + ornate)
-pLM2 <- ggplotGrob(pLM + ornate)
-pNKM2 <- ggplotGrob(pNKM + ornate)
+pLM2 <- ggplotGrob(pLM + ornate + makeTransparent() )
+pNKM2 <- ggplotGrob(pNKM + ornate + makeTransparent() )
 
 # put the grobs onto an empty ggplot 
 ggplot() + 

@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.7.0</span>
       </span>
     </div>
 
@@ -86,6 +86,9 @@
     </li>
     <li>
       <a href="../articles/Vignette9.html">Illustrating Cohen's d with ``superb``</a>
+    </li>
+    <li>
+      <a href="../articles/VignetteA.html">Illustrating Reference Intervals with ``superb``</a>
     </li>
   </ul>
 </li>
@@ -227,7 +230,7 @@
 <ul>
 <li><p><code>CM</code>: This method uses <em>subject-centering</em> followed by a bias-correction step (otherwise the error bars are slightly overestimated) <span class="citation">(Cousineau, 2005; Morey, 2008)</span>.</p></li>
 <li><p><code>LM</code>: This method also uses <em>subject-centering</em> and bias-correction but when there are more than two measurements, it also equalizes the length of the error bars using a technique akin to pooled standard deviation measure <span class="citation">(Loftus &amp; Masson, 1994)</span>.</p></li>
-<li><p><code>CA</code>: this is the newest proposal. It directly uses the correlation (or the mean pairwise correlation when there are more than two measurement) to adjust the error bar length. In a nutshell, the error bar length are adjusted using a multiplicative term <span class="math inline">\(\sqrt{1-r}\)</span>. As an example, when $ r = .8$, the adjustment is <span class="math inline">\(\sqrt{1-.8} = 0.44\)</span>. That means that the error bars are 44% the length of the unadjusted error bars (that is, more than havlved).</p></li>
+<li><p><code>CA</code>: this is the newest proposal. It directly uses the correlation (or the mean pairwise correlation when there are more than two measurement) to adjust the error bar length. In a nutshell, the error bar length are adjusted using a multiplicative term <span class="math inline">\(\sqrt{1-r}\)</span>. As an example, when $ r = .8$, the adjustment is <span class="math inline">\(\sqrt{1-.8} = 0.44\)</span>. That means that the error bars are 44% the length of the unadjusted error bars (that is, less than half).</p></li>
 </ul>
 <p>Whichever method you choose have very little bearing on the actual result. As shown in <span class="citation">Cousineau (2019)</span>, all three methods are based on the same general concepts and they generate very little difference in the amount of adjustments.</p>
 <p>In the present dataset, the error bar are more than shorten by half! which clearly shows the benefit of the within-subject design on precision.</p>

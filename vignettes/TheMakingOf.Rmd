@@ -276,7 +276,7 @@ a significant difference between the two moments.
 # Making Figure 3
 
 The novel element in Figure 3 is the fact that the participants have been
-recruted by clusters of participants. 
+recruited by clusters of participants. 
 
 We first adapt the ornaments for this example:
 

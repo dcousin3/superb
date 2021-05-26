@@ -12,7 +12,8 @@ articles:
   Vignette7: Vignette7.html
   Vignette8: Vignette8.html
   Vignette9: Vignette9.html
-last_built: 2021-04-30T22:27Z
+  VignetteA: VignetteA.html
+last_built: 2021-05-26T14:58Z
 urls:
   reference: http://dcousin3.github.io/superb/reference
   article: http://dcousin3.github.io/superb/articles

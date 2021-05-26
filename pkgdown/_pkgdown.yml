@@ -13,6 +13,7 @@ reference:
     contents:
       - '`showSignificance`'
       - '`geom_superberrorbar`'
+      - '`makeTransparent`'
   - title: Plots
     desc: Built-in templates for plots
     contents:

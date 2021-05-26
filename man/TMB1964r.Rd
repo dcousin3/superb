@@ -73,7 +73,7 @@ superbPlot(TMB1964r,
     variables = c("T1","T2","T3","T4","T5","T6","T7"),
     adjustments = list(purpose="difference", decorrelation="CM"),
     plotStyle = "line", 
-    errorbarParams = list(size=0.05, position = position_dodge(.5) ),
+    errorbarParams = list(size=0.15, position = position_dodge(.5) ),
     pointParams = list(size=2.5, position = position_dodge(.5)),
     lineParams = list(size=0.25)
 ) + 

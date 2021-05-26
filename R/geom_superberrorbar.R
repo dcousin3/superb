@@ -64,11 +64,7 @@
 #'                         "\n(right)    99% confidence intervals",
 #'                         "\n(center) 99.9% confidence intervals")),
 #'         xlab("Moment"), ylab("Score"),
-#'         coord_cartesian( ylim = c(85,110) ),
-#'         theme_light(base_size=16),
-#'         theme(plot.title=element_text(size=12, color="black"), 
-#'               panel.background = element_rect(fill = "transparent"),
-#'               plot.background = element_rect(fill = "transparent", color = "white"))
+#'         coord_cartesian( ylim = c(85,110) )
 #' )
 #' 
 #' plt1 <- superbPlot(test, 
@@ -86,7 +82,7 @@
 #'             errorbarParams = list(direction = "right", tipgap = 0.5, tipformat = "double", 
 #'                                   width = 0.2, position = position_nudge(+0.05) ),
 #'             gamma     = 0.99,
-#'             plotStyle = "line" ) + ornate
+#'             plotStyle = "line" ) + ornate + makeTransparent()
 #' plt3 <- superbPlot(test, 
 #'             WSFactors = "Moment(5)",  
 #'             variables = c("DV.1","DV.2","DV.3","DV.4","DV.5"), 
@@ -94,7 +90,7 @@
 #'             errorbarParams = list(direction = "both", tipformat = "single", 
 #'                                   width = 0.2, position = position_nudge(0) ),
 #'             gamma     = 0.999,
-#'             plotStyle = "line" ) + ornate
+#'             plotStyle = "line" ) + ornate + makeTransparent()
 #' 
 #' # transform the ggplots into "grob" so that they can be manipulated
 #' plt1 <- ggplotGrob(plt1)

@@ -143,7 +143,7 @@ pairwise correlation when there are more than two measurement) to adjust the err
 length. In a nutshell, the error bar length are adjusted using a multiplicative term
 $\sqrt{1-r}$. As an example, when $ r = .8$, the adjustment is $\sqrt{1-.8} = 0.44$.
 That means that the error bars are 44% the length of the unadjusted error bars
-(that is, more than havlved).
+(that is, less than half).
 
 Whichever method you choose have very little bearing on the actual result. As 
 shown in @c19, all three methods are based on the same general concepts and 
@@ -225,11 +225,15 @@ makeplot <- function(dataset, decorrelationmethod, color, nudge, dir) {
         xlab("Moment") + ylab("Score") + 
         labs(subtitle=tlbl) +
         coord_cartesian( ylim = c(85,115) ) +
-        theme_gray(base_size=16) +
-        theme(plot.subtitle=element_text(size=12, color="black"), 
-              panel.background = element_rect(fill = "transparent"),
-              plot.background = element_rect(fill = "transparent", color = "white"))
+        theme_gray(base_size=16) 
 }
+
+theme_transparent <- theme(
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = "transparent",colour = NA),
+        plot.background = element_rect(fill = "transparent",colour = NA)
+        )
 
 # generate the plots, nudging the error bars and using distinct colors
 pltrw <- makeplot(test, "none", "red",          -0.15, "both")
@@ -239,9 +243,9 @@ pltCA <- makeplot(test, "CA",   "orange",       +0.15, "right")
 
 # transform the ggplots into "grob" so that they can be manipulated
 pltrwg <- ggplotGrob(pltrw)
-pltCMg <- ggplotGrob(pltCM)
-pltLMg <- ggplotGrob(pltLM)
-pltCAg <- ggplotGrob(pltCA)
+pltCMg <- ggplotGrob(pltCM + theme_transparent)
+pltLMg <- ggplotGrob(pltLM + theme_transparent)
+pltCAg <- ggplotGrob(pltCA + theme_transparent)
 
 # put the grobs onto an empty ggplot 
 ggplot() + 
