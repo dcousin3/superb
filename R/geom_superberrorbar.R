@@ -3,11 +3,13 @@
 #'
 #' @description ``geom_superberrorbar()`` is a geom for ggplots; it is based on 
 #'      the original geom_errorbar (and is totally compatible with it) but
-#'      expands this geom in two different ways. First, it is possible to
+#'      expands this geom in three different ways. First, it is possible to
 #'      decide whether the error bar tips are unidirectional, pointing to 
 #'      the "left" or to the "right" or if they go in "both" directions.
 #'      Second, it is possible to "double" or "triple" the horizontal marks
 #'      at the extremities of the error bar, with a "tipgap" of your liking.
+#'      Third, a new characteristici is vcolour to set a different colour for the
+#'      vertical part of the error bar. The colour can also be "NA" to have it invisible.
 #'
 #' @md
 #'
@@ -50,6 +52,11 @@
 #' ggplot(dta, aes_string(ymin="center-width", ymax="center+width", x = "grp" ) ) +
 #'   geom_superberrorbar(tipformat = "triple", width= 0.1, tipgap = 0.04, direction = "left")
 #' 
+#' # a final example with two-coloured, left-pointing tripled-tip error bars with small gaps
+#' ggplot(dta, aes_string(ymin="center-width", ymax="center+width", x = "grp" ) ) +
+#'   geom_superberrorbar(tipformat = "triple", width= 0.1, tipgap = 0.04, direction = "left",
+#'            colour = "black", vcolour = "NA")
+#' 
 #' # This new geom is integrated inside superbPlot() so that you can vary the 
 #' # error bar shapes. Let's see examples:
 #' 
@@ -82,7 +89,7 @@
 #'             errorbarParams = list(direction = "right", tipgap = 0.5, tipformat = "double", 
 #'                                   width = 0.2, position = position_nudge(+0.05) ),
 #'             gamma     = 0.99,
-#'             plotStyle = "line" ) + ornate + makeTransparent()
+#'             plotStyle = "line" ) + ornate 
 #' plt3 <- superbPlot(test, 
 #'             WSFactors = "Moment(5)",  
 #'             variables = c("DV.1","DV.2","DV.3","DV.4","DV.5"), 
@@ -90,12 +97,12 @@
 #'             errorbarParams = list(direction = "both", tipformat = "single", 
 #'                                   width = 0.2, position = position_nudge(0) ),
 #'             gamma     = 0.999,
-#'             plotStyle = "line" ) + ornate + makeTransparent()
+#'             plotStyle = "line" ) + ornate 
 #' 
 #' # transform the ggplots into "grob" so that they can be manipulated
 #' plt1 <- ggplotGrob(plt1)
-#' plt2 <- ggplotGrob(plt2)
-#' plt3 <- ggplotGrob(plt3)
+#' plt2 <- ggplotGrob(plt2 + makeTransparent() )
+#' plt3 <- ggplotGrob(plt3 + makeTransparent() )
 #' 
 #' # put the grobs onto an empty ggplot 
 #' ggplot() + 
@@ -105,7 +112,6 @@
 #'
 #' @export geom_superberrorbar
 ######################################################################################
-
 
 
 geom_superberrorbar <- function(
@@ -145,8 +151,9 @@ geom_superberrorbar <- function(
 `%||%` <- function(x, y) {if (is.null(x)) y else x }
 
 GeomsuperbErrorbar <- ggproto("GeomsuperbErrorbar", Geom,
-    default_aes = aes(
+    default_aes = aes( # the parameters
         colour    = "black", 
+        vcolour   = NULL, 
         size      = 0.5, 
         linetype  = 1, 
         width     = 0.5,
@@ -169,13 +176,13 @@ GeomsuperbErrorbar <- ggproto("GeomsuperbErrorbar", Geom,
         data3 <- data2   <- data # a quick copy
         # generates the main data frame
         data <- transform(data,
-            xmin = x - lefmul*width/2,   xmax = x + rigmul*width/2, width = NULL
+            xmin = x - lefmul*width/2,         xmax = x + rigmul*width/2, width = NULL
         )
         # if "double", double the data with shorter lines...
         if ((params$tipformat == "double")|(params$tipformat == "triple")) {
             data2 <- transform(data2,
-                ymin = ymin + params$tipgap, ymax = ymax - params$tipgap,
-                xmin = x - lefmul*width/2,   xmax = x + rigmul*width/2, width = NULL
+                ymin = ymin + params$tipgap,   ymax = ymax - params$tipgap,
+                xmin = x - lefmul*width/2,     xmax = x + rigmul*width/2, width = NULL
             )
             data <- rbind(data, data2)
         }
@@ -183,7 +190,7 @@ GeomsuperbErrorbar <- ggproto("GeomsuperbErrorbar", Geom,
         if (params$tipformat == "triple") {
             data3 <- transform(data3,
                 ymin = ymin + 2*params$tipgap, ymax = ymax - 2*params$tipgap,
-                xmin = x - lefmul*width/2,   xmax = x + rigmul*width/2, width = NULL
+                xmin = x - lefmul*width/2,     xmax = x + rigmul*width/2, width = NULL
             )
             data <- rbind(data, data3)
         }
@@ -194,10 +201,19 @@ GeomsuperbErrorbar <- ggproto("GeomsuperbErrorbar", Geom,
         data <- flip_data(data, flipped_aes)
         x    <- as.vector(rbind(data$xmin, data$xmax, NA, data$x,    data$x,    NA, data$xmin, data$xmax))
         y    <- as.vector(rbind(data$ymax, data$ymax, NA, data$ymax, data$ymin, NA, data$ymin, data$ymin))
+
+
+        # make the color list with 3 x for the upper tip, 2 x for the vertical, and 3 x for the lower tip
+        data$vcolour     <- data$vcolour %||% data$colour %||% params$colour 
+        collist = c()
+            for (i in 1:length(data$colour)) {
+            collist = c(collist, rep(data$colour[i],3),rep(data$vcolour[i],2),rep(data$colour[i],3))
+        }
         data <- vctrs::new_data_frame(list(
           x         = x,
           y         = y,
-          colour    = rep(data$colour, each = 8),
+#          colour    = rep(data$colour, each = 8), # when only a single color, use it 8 times
+          colour    = collist,
           alpha     = rep(data$alpha, each = 8),
           size      = rep(data$size, each = 8),
           linetype  = rep(data$linetype, each = 8),

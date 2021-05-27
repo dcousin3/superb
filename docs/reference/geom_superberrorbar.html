@@ -49,11 +49,13 @@
 <meta property="og:title" content="geom_superberrorbar for expanded error bar displays — geom_superberrorbar" />
 <meta property="og:description" content="geom_superberrorbar() is a geom for ggplots; it is based on
 the original geom_errorbar (and is totally compatible with it) but
-expands this geom in two different ways. First, it is possible to
+expands this geom in three different ways. First, it is possible to
 decide whether the error bar tips are unidirectional, pointing to
 the &quot;left&quot; or to the &quot;right&quot; or if they go in &quot;both&quot; directions.
 Second, it is possible to &quot;double&quot; or &quot;triple&quot; the horizontal marks
-at the extremities of the error bar, with a &quot;tipgap&quot; of your liking." />
+at the extremities of the error bar, with a &quot;tipgap&quot; of your liking.
+Third, a new characteristici is vcolour to set a different colour for the
+vertical part of the error bar. The colour can also be &quot;NA&quot; to have it invisible." />
 <meta property="og:image" content="http://dcousin3.github.io/superb/logo.png" />
 
 
@@ -146,6 +148,9 @@ at the extremities of the error bar, with a &quot;tipgap&quot; of your liking." 
     <li>
       <a href="../articles/VignetteA.html">Illustrating Reference Intervals with ``superb``</a>
     </li>
+    <li>
+      <a href="../articles/VignetteB.html">Non-factorial within-subject designs in ``superb``</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -180,11 +185,13 @@ at the extremities of the error bar, with a &quot;tipgap&quot; of your liking." 
     <div class="ref-description">
     <p><code>geom_superberrorbar()</code> is a geom for ggplots; it is based on
 the original geom_errorbar (and is totally compatible with it) but
-expands this geom in two different ways. First, it is possible to
+expands this geom in three different ways. First, it is possible to
 decide whether the error bar tips are unidirectional, pointing to
 the "left" or to the "right" or if they go in "both" directions.
 Second, it is possible to "double" or "triple" the horizontal marks
-at the extremities of the error bar, with a "tipgap" of your liking.</p>
+at the extremities of the error bar, with a "tipgap" of your liking.
+Third, a new characteristici is vcolour to set a different colour for the
+vertical part of the error bar. The colour can also be "NA" to have it invisible.</p>
     </div>
 
     <pre class="usage"><span class='fu'>geom_superberrorbar</span><span class='op'>(</span>
@@ -283,6 +290,11 @@ marker lines to the tips (default is "single")</p></td>
 <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>dta</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_string</a></span><span class='op'>(</span>ymin<span class='op'>=</span><span class='st'>"center-width"</span>, ymax<span class='op'>=</span><span class='st'>"center+width"</span>, x <span class='op'>=</span> <span class='st'>"grp"</span> <span class='op'>)</span> <span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>geom_superberrorbar</span><span class='op'>(</span>tipformat <span class='op'>=</span> <span class='st'>"triple"</span>, width<span class='op'>=</span> <span class='fl'>0.1</span>, tipgap <span class='op'>=</span> <span class='fl'>0.04</span>, direction <span class='op'>=</span> <span class='st'>"left"</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_superberrorbar-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># a final example with two-coloured, left-pointing tripled-tip error bars with small gaps</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>dta</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_string</a></span><span class='op'>(</span>ymin<span class='op'>=</span><span class='st'>"center-width"</span>, ymax<span class='op'>=</span><span class='st'>"center+width"</span>, x <span class='op'>=</span> <span class='st'>"grp"</span> <span class='op'>)</span> <span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_superberrorbar</span><span class='op'>(</span>tipformat <span class='op'>=</span> <span class='st'>"triple"</span>, width<span class='op'>=</span> <span class='fl'>0.1</span>, tipgap <span class='op'>=</span> <span class='fl'>0.04</span>, direction <span class='op'>=</span> <span class='st'>"left"</span>,
+           colour <span class='op'>=</span> <span class='st'>"black"</span>, vcolour <span class='op'>=</span> <span class='st'>"NA"</span><span class='op'>)</span>
+</div><div class='img'><img src='geom_superberrorbar-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># This new geom is integrated inside superbPlot() so that you can vary the </span>
 <span class='co'># error bar shapes. Let's see examples:</span>
 
@@ -315,7 +327,7 @@ marker lines to the tips (default is "single")</p></td>
             errorbarParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>direction <span class='op'>=</span> <span class='st'>"right"</span>, tipgap <span class='op'>=</span> <span class='fl'>0.5</span>, tipformat <span class='op'>=</span> <span class='st'>"double"</span>, 
                                   width <span class='op'>=</span> <span class='fl'>0.2</span>, position <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_nudge.html'>position_nudge</a></span><span class='op'>(</span><span class='op'>+</span><span class='fl'>0.05</span><span class='op'>)</span> <span class='op'>)</span>,
             gamma     <span class='op'>=</span> <span class='fl'>0.99</span>,
-            plotStyle <span class='op'>=</span> <span class='st'>"line"</span> <span class='op'>)</span> <span class='op'>+</span> <span class='va'>ornate</span> <span class='op'>+</span> <span class='fu'><a href='makeTransparent.html'>makeTransparent</a></span><span class='op'>(</span><span class='op'>)</span>
+            plotStyle <span class='op'>=</span> <span class='st'>"line"</span> <span class='op'>)</span> <span class='op'>+</span> <span class='va'>ornate</span> 
 <span class='va'>plt3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='superbPlot.html'>superbPlot</a></span><span class='op'>(</span><span class='va'>test</span>, 
             WSFactors <span class='op'>=</span> <span class='st'>"Moment(5)"</span>,  
             variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"DV.1"</span>,<span class='st'>"DV.2"</span>,<span class='st'>"DV.3"</span>,<span class='st'>"DV.4"</span>,<span class='st'>"DV.5"</span><span class='op'>)</span>, 
@@ -323,19 +335,19 @@ marker lines to the tips (default is "single")</p></td>
             errorbarParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>direction <span class='op'>=</span> <span class='st'>"both"</span>, tipformat <span class='op'>=</span> <span class='st'>"single"</span>, 
                                   width <span class='op'>=</span> <span class='fl'>0.2</span>, position <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_nudge.html'>position_nudge</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>)</span> <span class='op'>)</span>,
             gamma     <span class='op'>=</span> <span class='fl'>0.999</span>,
-            plotStyle <span class='op'>=</span> <span class='st'>"line"</span> <span class='op'>)</span> <span class='op'>+</span> <span class='va'>ornate</span> <span class='op'>+</span> <span class='fu'><a href='makeTransparent.html'>makeTransparent</a></span><span class='op'>(</span><span class='op'>)</span>
+            plotStyle <span class='op'>=</span> <span class='st'>"line"</span> <span class='op'>)</span> <span class='op'>+</span> <span class='va'>ornate</span> 
 
 <span class='co'># transform the ggplots into "grob" so that they can be manipulated</span>
 <span class='va'>plt1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplotGrob.html'>ggplotGrob</a></span><span class='op'>(</span><span class='va'>plt1</span><span class='op'>)</span>
-<span class='va'>plt2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplotGrob.html'>ggplotGrob</a></span><span class='op'>(</span><span class='va'>plt2</span><span class='op'>)</span>
-<span class='va'>plt3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplotGrob.html'>ggplotGrob</a></span><span class='op'>(</span><span class='va'>plt3</span><span class='op'>)</span>
+<span class='va'>plt2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplotGrob.html'>ggplotGrob</a></span><span class='op'>(</span><span class='va'>plt2</span> <span class='op'>+</span> <span class='fu'><a href='makeTransparent.html'>makeTransparent</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>)</span>
+<span class='va'>plt3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplotGrob.html'>ggplotGrob</a></span><span class='op'>(</span><span class='va'>plt3</span> <span class='op'>+</span> <span class='fu'><a href='makeTransparent.html'>makeTransparent</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>)</span>
 
 <span class='co'># put the grobs onto an empty ggplot </span>
 <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
     <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotation_custom.html'>annotation_custom</a></span><span class='op'>(</span>grob<span class='op'>=</span><span class='va'>plt1</span><span class='op'>)</span> <span class='op'>+</span> 
     <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotation_custom.html'>annotation_custom</a></span><span class='op'>(</span>grob<span class='op'>=</span><span class='va'>plt2</span><span class='op'>)</span> <span class='op'>+</span> 
     <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotation_custom.html'>annotation_custom</a></span><span class='op'>(</span>grob<span class='op'>=</span><span class='va'>plt3</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_superberrorbar-5.png' alt='' width='700' height='433' /></div><div class='input'>
+</div><div class='img'><img src='geom_superberrorbar-6.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

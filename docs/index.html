@@ -97,6 +97,9 @@
     <li>
       <a href="articles/VignetteA.html">Illustrating Reference Intervals with ``superb``</a>
     </li>
+    <li>
+      <a href="articles/VignetteB.html">Non-factorial within-subject designs in ``superb``</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -183,12 +186,12 @@
 <span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">testdata</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">##   id Difficulty  score.1  score.2</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1  1          A 62.01887 57.65787</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2  2          A 70.92757 78.54814</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3  3          A 59.94677 40.10554</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4  4          A 73.79457 72.41475</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5  5          A 69.87359 61.90160</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6  6          A 68.63705 65.81760</span></span></code></pre></div>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1  1          A 81.86513 77.24998</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2  2          A 61.12726 70.87107</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3  3          A 71.81594 70.54965</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4  4          A 58.09643 77.59829</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5  5          A 80.14352 79.72661</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6  6          A 66.85604 87.67744</span></span></code></pre></div>
 <p>The simulated scores are illustrated using using a more elaborated layout, the <code>pointjitterviolin</code> which, in addition to the mean and confidence interval, shows the raw data using jitter dots and the distribution using a violin plot:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">testdata</span>, 

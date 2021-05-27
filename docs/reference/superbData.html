@@ -143,6 +143,9 @@ according to the suberb framework. See (Cousineau 2017)
     <li>
       <a href="../articles/VignetteA.html">Illustrating Reference Intervals with ``superb``</a>
     </li>
+    <li>
+      <a href="../articles/VignetteB.html">Non-factorial within-subject designs in ``superb``</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -185,7 +188,8 @@ according to the <code>suberb</code> framework. See (Cousineau 2017)
   <span class='va'>data</span>,
   BSFactors <span class='op'>=</span> <span class='cn'>NULL</span>,
   WSFactors <span class='op'>=</span> <span class='cn'>NULL</span>,
-  <span class='va'>factorOrder</span>,
+  WSDesign <span class='op'>=</span> <span class='st'>"fullfactorial"</span>,
+  factorOrder <span class='op'>=</span> <span class='cn'>NULL</span>,
   <span class='va'>variables</span>,
   statistic <span class='op'>=</span> <span class='st'>"mean"</span>,
   errorbar <span class='op'>=</span> <span class='st'>"CI"</span>,
@@ -211,6 +215,10 @@ according to the <code>suberb</code> framework. See (Cousineau 2017)
     <tr>
       <th>WSFactors</th>
       <td><p>The name of the within-subject factor(s)</p></td>
+    </tr>
+    <tr>
+      <th>WSDesign</th>
+      <td><p>the within-subject design if not a full factorial design (default "fullfactorial")</p></td>
     </tr>
     <tr>
       <th>factorOrder</th>

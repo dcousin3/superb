@@ -137,6 +137,9 @@
     <li>
       <a href="../articles/VignetteA.html">Illustrating Reference Intervals with ``superb``</a>
     </li>
+    <li>
+      <a href="../articles/VignetteB.html">Non-factorial within-subject designs in ``superb``</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -167,13 +170,18 @@
       <small>Source: <a href='https://github.com/dcousin3/superb/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="superb-0970-may-25th-2021" class="section level1">
+    <div id="superb-0970-may-28th-2021" class="section level1">
 <h1 class="page-header" data-toc-text="0.9.7.0">
-<a href="#superb-0970-may-25th-2021" class="anchor"></a>superb 0.9.7.0 (May 25th, 2021)<small> Unreleased </small>
+<a href="#superb-0970-may-28th-2021" class="anchor"></a>superb 0.9.7.0 (May 28th, 2021)<small> Unreleased </small>
 </h1>
 <ul>
-<li>Added a vignette on how to implement Reference Intervals (RI) into superb</li>
-<li>implemented makeTransparent() to ease the creation of plots with multiple error bars.</li>
+<li>Added a vignette on how to implement Reference Intervals (RI) into <code>superb</code>
+</li>
+<li>Implemented <code><a href="../reference/makeTransparent.html">makeTransparent()</a></code> to ease the creation of plots with multiple error bars.</li>
+<li>Added a distinct vertical color, <code>vcolor</code>, to the <code><a href="../reference/geom_superberrorbar.html">geom_superberrorbar()</a></code>
+</li>
+<li>Added an argument “WSDesign” (default = “fullfactorial”) when the within-subject factors are not full-factorial.</li>
+<li>Added a vignette on how to plot non-full factorial datasets.</li>
 </ul>
 </div>
     <div id="superb-0960-april-30th-2021" class="section level1">

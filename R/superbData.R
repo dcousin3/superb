@@ -10,19 +10,24 @@
 #'      according to the `suberb` framework. See \insertCite{c17}{superb} for more.
 #'
 #' @param data Dataframe in wide format
+#'
 #' @param BSFactors The name of the columns containing the between-subject factor(s)
 #' @param WSFactors The name of the within-subject factor(s)
-#' @param factorOrder Order of factors as shown in the graph (x axis, groups, horizontal 
-#'       panels, vertical panels)
+#' @param WSDesign the within-subject design if not a full factorial design (default "fullfactorial")
 #' @param variables The dependent variable(s)
+#'
 #' @param statistic The summary statistic function to use
 #' @param errorbar The function that computes the error bar. Should be "CI" or "SE" or 
 #'      any function name. Defaults to "CI"
 #' @param gamma The coverage factor; necessary when errorbar == "CI". Default is 0.95.
+#' @param factorOrder Order of factors as shown in the graph (x axis, groups, horizontal 
+#'       panels, vertical panels)
+#'
 #' @param adjustments List of adjustments as described below.
 #'   Default is ``adjustments = list(purpose = "single", popSize = Inf, decorrelation = "none",
 #'              samplingDesign = "SRS")``
 #' @param clusterColumn used in conjunction with samplingDesign = "CRS", indicates which column contains the cluster membership
+#'
 #' @param preprocessfct  is a transform (or vector of) to be performed first on data matrix of each group
 #' @param postprocessfct is a transform (or vector of)
 #'
@@ -67,9 +72,10 @@
 
 
 superbData <- function(data, 
-    BSFactors      = NULL,            # vector of the between-subject factor columns
-    WSFactors      = NULL,            # vector of the names of the within-subject factors
-    factorOrder,                     # order of the factors for plots
+    BSFactors     = NULL,            # vector of the between-subject factor columns
+    WSFactors     = NULL,            # vector of the names of the within-subject factors
+    WSDesign      = "fullfactorial", # or ws levels of each variable if not a full factorial ws design
+    factorOrder   = NULL,            # order of the factors for plots
     variables,                       # dependent variable name(s)
     statistic     = "mean",          # descriptive statistics
     errorbar      = "CI",            # content of the error bars
@@ -92,15 +98,16 @@ superbData <- function(data,
     results <- superbPlot(data    = data, 
         BSFactors      = BSFactors,
         WSFactors      = WSFactors,
-        factorOrder    = factorOrder,
+        WSDesign       = WSDesign,
         variables      = variables,  
         statistic      = statistic,  
         errorbar       = errorbar, 
         gamma          = gamma, 
+        factorOrder    = factorOrder,
         adjustments    = adjustments,
+        clusterColumn  = clusterColumn,
         preprocessfct  = preprocessfct,
         postprocessfct = postprocessfct,
-        clusterColumn  = clusterColumn,
         showPlot       = FALSE
     )    
     summaryStatistics = results[[1]]

@@ -51,11 +51,13 @@ a layer containing error bars in a ggplot object
 \description{
 \code{geom_superberrorbar()} is a geom for ggplots; it is based on
 the original geom_errorbar (and is totally compatible with it) but
-expands this geom in two different ways. First, it is possible to
+expands this geom in three different ways. First, it is possible to
 decide whether the error bar tips are unidirectional, pointing to
 the "left" or to the "right" or if they go in "both" directions.
 Second, it is possible to "double" or "triple" the horizontal marks
 at the extremities of the error bar, with a "tipgap" of your liking.
+Third, a new characteristici is vcolour to set a different colour for the
+vertical part of the error bar. The colour can also be "NA" to have it invisible.
 }
 \examples{
 library(superb) # to import the geom_superberrorbar
@@ -79,6 +81,11 @@ ggplot(dta, aes_string(ymin="center-width", ymax="center+width", x = "grp" ) ) +
 # an example with left-pointing tripled-tip error bars with small gaps
 ggplot(dta, aes_string(ymin="center-width", ymax="center+width", x = "grp" ) ) +
   geom_superberrorbar(tipformat = "triple", width= 0.1, tipgap = 0.04, direction = "left")
+
+# a final example with two-coloured, left-pointing tripled-tip error bars with small gaps
+ggplot(dta, aes_string(ymin="center-width", ymax="center+width", x = "grp" ) ) +
+  geom_superberrorbar(tipformat = "triple", width= 0.1, tipgap = 0.04, direction = "left",
+           colour = "black", vcolour = "NA")
 
 # This new geom is integrated inside superbPlot() so that you can vary the 
 # error bar shapes. Let's see examples:
@@ -112,7 +119,7 @@ plt2 <- superbPlot(test,
             errorbarParams = list(direction = "right", tipgap = 0.5, tipformat = "double", 
                                   width = 0.2, position = position_nudge(+0.05) ),
             gamma     = 0.99,
-            plotStyle = "line" ) + ornate + makeTransparent()
+            plotStyle = "line" ) + ornate 
 plt3 <- superbPlot(test, 
             WSFactors = "Moment(5)",  
             variables = c("DV.1","DV.2","DV.3","DV.4","DV.5"), 
@@ -120,12 +127,12 @@ plt3 <- superbPlot(test,
             errorbarParams = list(direction = "both", tipformat = "single", 
                                   width = 0.2, position = position_nudge(0) ),
             gamma     = 0.999,
-            plotStyle = "line" ) + ornate + makeTransparent()
+            plotStyle = "line" ) + ornate 
 
 # transform the ggplots into "grob" so that they can be manipulated
 plt1 <- ggplotGrob(plt1)
-plt2 <- ggplotGrob(plt2)
-plt3 <- ggplotGrob(plt3)
+plt2 <- ggplotGrob(plt2 + makeTransparent() )
+plt3 <- ggplotGrob(plt3 + makeTransparent() )
 
 # put the grobs onto an empty ggplot 
 ggplot() + 

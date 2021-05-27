@@ -8,7 +8,8 @@ superbPlot(
   data,
   BSFactors = NULL,
   WSFactors = NULL,
-  factorOrder,
+  WSDesign = "fullfactorial",
+  factorOrder = NULL,
   variables,
   statistic = "mean",
   errorbar = "CI",
@@ -29,6 +30,8 @@ superbPlot(
 \item{BSFactors}{The name of the columns containing the between-subject factor(s)}
 
 \item{WSFactors}{The name of the within-subject factor(s)}
+
+\item{WSDesign}{the within-subject design if not a full factorial design (default "fullfactorial")}
 
 \item{factorOrder}{Order of factors as shown in the graph (in that order: x axis,
 groups, horizontal panels, vertical panels)}

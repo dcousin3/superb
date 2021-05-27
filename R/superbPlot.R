@@ -8,24 +8,31 @@
 #'      according to the ``suberb`` framework. See \insertCite{c17}{superb} for more.
 #'
 #' @param data Dataframe in wide format
+#'
 #' @param BSFactors The name of the columns containing the between-subject factor(s)
 #' @param WSFactors The name of the within-subject factor(s)
-#' @param factorOrder Order of factors as shown in the graph (in that order: x axis,
-#'       groups, horizontal panels, vertical panels)
+#' @param WSDesign the within-subject design if not a full factorial design (default "fullfactorial")
 #' @param variables The dependent variable(s) as strings
+#'
 #' @param statistic The summary statistic function to use as a string
 #' @param errorbar The function that computes the error bar. Should be "CI" or "SE" or 
 #'      any function name if you defined a custom function. Default to "CI"
 #' @param gamma The coverage factor; necessary when ``errorbar == "CI"``. Default is 0.95.
+#' @param factorOrder Order of factors as shown in the graph (in that order: x axis,
+#'       groups, horizontal panels, vertical panels)
+#'
 #' @param adjustments List of adjustments as described below.
 #'      Default is ``adjustments = list(purpose = "single", popSize = Inf, decorrelation = "none",
 #'              samplingDesign = "SRS")``
+#' @param clusterColumn used in conjunction with samplingDesign = "CRS", indicates which column contains the cluster membership
+#'
 #' @param showPlot Defaults to TRUE. Set to FALSE if you want the output to be the summary statistics and intervals.
 #' @param plotStyle The type of object to plot on the graph. See full list below.
 #'      Defaults to "bar".
-#' @param clusterColumn used in conjunction with samplingDesign = "CRS", indicates which column contains the cluster membership
+#'
 #' @param preprocessfct  is a transform (or vector of) to be performed first on data matrix of each group
 #' @param postprocessfct is a transform (or vector of)
+#'
 #' @param ...  In addition to the parameters above, superbPlot also accept a number of 
 #'  optional arguments that will be transmitted to the plotting function, such as
 #'  pointParams (a list of ggplot2 parameters to input inside geoms; see ?geom_bar2) and
@@ -118,9 +125,10 @@
 
 
 superbPlot <- function(data, 
-    BSFactors      = NULL,            # vector of the between-subject factor columns
-    WSFactors      = NULL,            # vector of the names of the within-subject factors
-    factorOrder,                     # order of the factors for plots
+    BSFactors     = NULL,            # vector of the between-subject factor columns
+    WSFactors     = NULL,            # vector of the names of the within-subject factors
+    WSDesign      = "fullfactorial", # or ws levels of each variable if not a full factorial ws design
+    factorOrder   = NULL,            # order of the factors for plots
     variables,                       # dependent variable name(s)
     statistic     = "mean",          # descriptive statistics
     errorbar      = "CI",            # content of the error bars
@@ -198,19 +206,35 @@ superbPlot <- function(data,
             WSFactors[i] <-            unlist(strsplit(WSFactors[i], '[()]'))[1]
         }
     }
-
     wslevel <- prod(wsLevels)
-    if (!(length(variables) == wslevel)) 
-            stop("superb::ERROR: The number of levels of the within-subject level(s) does not match the number of variables. Exiting...")
-    if ((wslevel == 1)&&(!(adjustments$decorrelation == "none"))) 
-            stop("superb::ERROR: Decorrelation is not to be used when there is no within-subject factors. Exiting...")
-    if(missing(factorOrder))  {
+
+    # 1.4c: setting factorOrder in case it is null
+    if(is.null(factorOrder))  {
         factorOrder <- c(WSFactors, BSFactors)
         if (('design' %in% getOption("superb.feedback") ) & (length(factorOrder[factorOrder != wsMissing])) > 1)  
                 message(paste("superb::FYI: The variables will be plotted in that order: ",
                           paste(factorOrder[factorOrder != wsMissing],collapse=", "),
                           " (use factorOrder to change).", sep=""))
     }
+
+    # 1.4d: checking WSFactors based on WSDesign
+    if (all(WSDesign == "fullfactorial")) {
+#print("processing full factorial design")
+        if (!(length(variables) == wslevel)) 
+                stop("superb::ERROR: The number of levels of the within-subject level(s) does not match the number of variables. Exiting...")
+        if ((wslevel == 1)&&(!(adjustments$decorrelation == "none"))) 
+                stop("superb::ERROR: Decorrelation is not to be used when there is no within-subject factors. Exiting...")
+    } else {
+#        print("processing partial design...")
+        if (!is.list(WSDesign) )
+                    stop("superb::ERROR: the WSdesign is not 'fullfactorial' (default) or a list. Exiting...")
+        if (length(WSDesign) != length(variables))
+                    stop("superb::ERROR: the WSDesign list is not of the same length as the variable vector. Exiting...")
+        if (!all(lapply(WSDesign, length)==length(WSFactors)))
+                    stop("superb::ERROR: the WSDesign does not contain vectors of factor levels, one per factor. Exiting...")
+#        print("done processing partial design")
+    }
+
 
     # 1.5: invalid column names where column names must be listed
     if (!(all(variables %in% names(data)))) 
@@ -229,8 +253,15 @@ superbPlot <- function(data,
             stop("superb::ERROR: showPlot must be TRUE or FALSE. Exiting...")
 
     # 1.7: align levels and corresponding variables
+#print("procesing levels")
+#print(wsLevels)
     weird        <-"+!+" # to make sure that these characters are not in the column names
-    combinaisons <- expand.grid(lapply(wsLevels,seq))
+    if (all(WSDesign == "fullfactorial")) {
+        combinaisons <- expand.grid(lapply(wsLevels,seq))
+    } else {
+        combinaisons <- data.frame(matrix(as.integer(unlist(WSDesign)),nrow=length(WSDesign), byrow = TRUE))
+    }
+#print(combinaisons)
     newnames     <- paste("DV", apply(combinaisons,1,paste,collapse=weird) ,sep=weird)
     design       <- cbind(combinaisons, variables, newnames)
     colnames(design)[1:length(WSFactors)] <- WSFactors
@@ -240,6 +271,7 @@ superbPlot <- function(data,
         message("superb::FYI: Here is how the within-subject variables are understood:")
         message(paste0(capture.output(print(design[,c(WSFactors, "variable") ])),collapse="\n")) 
     }
+#print("done procesing levels...")
 
     # 1.8: invalid functions 
     widthfct <- paste(errorbar, statistic, sep = ".")
