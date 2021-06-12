@@ -322,8 +322,8 @@ the population. It would be great if we could see these,
 don't you think?
 
 There are multiple ways to illustrate the individuals from a sample.
-One is using jitteded dots: each member of the sample is illustrated
-with a small dot whose vertical position can be jittered randomly
+One is using jittered dots: each member of the sample is illustrated
+with a small dot whose horizontal position can be jittered randomly
 to avoid that many dots superimposes and no longer be visible.
 
 These is a layout in ``superb`` that achieve exacly that, 
@@ -386,7 +386,7 @@ As one last example, we want to show the difference between the
 reference intervals and the confidence intervals of a summary statistic, 
 here the mean.
 
-To that end, we can create a foruth plot showing the confidence interval
+To that end, we can create a fourth plot showing the confidence interval
 of the means with
 
 ```{r, message=FALSE}

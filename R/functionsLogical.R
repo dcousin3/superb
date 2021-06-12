@@ -14,7 +14,7 @@ has.init.function <- function(fctname) {
 }
 
 is.stat.function <- function(fctname) {
-    if (has.init.function(fctname)) 
+    if (has.init.function(fctname)) # we launch the initialization
         do.call(paste("init", fctname, sep="."), list(data.frame(DV = c(1,2,3) )))
 
     # does the function provided by the user exists and compute from a list of data? 
@@ -35,7 +35,7 @@ is.errorbar.function <- function(fctname) {
 }
     
 is.interval.function <- function(fctname) {
-    if (has.init.function(fctname)) 
+    if (has.init.function(fctname)) # we launch the initialization
         do.call(paste("init", fctname, sep="."), list(data.frame(DV = c(1,2,3) )))
 
     # is the function provided by the user an interval, i.e., two numbers (e.g., CI) 
@@ -45,7 +45,7 @@ is.interval.function <- function(fctname) {
 }
 
 is.width.function <- function(fctname) {
-    if (has.init.function(fctname)) 
+    if (has.init.function(fctname)) # we launch the initialization
         do.call(paste("init", fctname, sep="."), list(data.frame(DV = c(1,2,3) )))
 
     # is the function provided by the user an interval, i.e., two numbers (e.g., CI) 

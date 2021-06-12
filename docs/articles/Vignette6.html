@@ -147,13 +147,13 @@
 ##  ------------------------------------------------------------</code></pre>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dta</span><span class="op">)</span></code></pre></div>
-<pre><code>##   id            DV
-## 1  1 -1.1704719769
-## 2  2 -0.8058850969
-## 3  3  0.7626759963
-## 4  4  0.0005591266
-## 5  5  0.8872344507
-## 6  6  0.5935936261</code></pre>
+<pre><code>##   id          DV
+## 1  1 -0.03098860
+## 2  2  0.93660246
+## 3  3 -1.27416808
+## 4  4  0.05723521
+## 5  5  0.23391474
+## 6  6 -1.74512937</code></pre>
 <p>By default, one hundred scores are generated from a normal distribution with mean 0 and standard deviation of 1. In other words, it generate 100 z scores. The dependent variable, the last column in the dataframe that will be generated is called by default <code>DV</code>. The first column is an “id” column containing a number identifying each <em>simulated</em> participant. To change the dependent variable’s name, use</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span> RenameDV <span class="op">=</span> <span class="st">"score"</span> <span class="op">)</span></code></pre></div>
@@ -255,14 +255,14 @@
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dta</span></code></pre></div>
 <pre><code>##   id Therapy         DV
-## 1  1       1 -0.8049771
-## 2  2       1 -0.3675445
-## 3  3       2  1.9283665
-## 4  4       2 -2.1005460
-## 5  5       2 -0.2492238
-## 6  6       2 -0.5576393
-## 7  7       2 -0.9370826
-## 8  8       3  1.6980170</code></pre>
+## 1  1       1  1.2351259
+## 2  2       1 -0.5445774
+## 3  3       2  1.3494670
+## 4  4       2  0.5547512
+## 5  5       2 -0.1210786
+## 6  6       2  0.8827121
+## 7  7       2 -0.9421234
+## 8  8       3 -0.4005532</code></pre>
 </div>
 <div id="choosing-the-population-distribution" class="section level2">
 <h2 class="hasAnchor">

@@ -36,7 +36,7 @@ the mean. However, these choices can be changed.
 
 The defaults are ``statistic = "mean", errorbar = "CI", gamma = 0.95``. For error bar
 functions that accept a gamma parameter (e.g., ``CI``, the gamma parameter is automatically 
-transfer to the function). For other functions that do not accept a gamma parameter 
+transfered to the function). For other functions that do not accept a gamma parameter 
 (e.g., ``SE``), the gamma parameter is unused.
 
 ## Changing the summary function to be plotted

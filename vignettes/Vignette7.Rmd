@@ -124,7 +124,7 @@ $$
 $$
 
 Hence, asking if the **lag** between the two groups is significant is actually asking
-
+    
 $$
 \DeclareMathOperator{\mean}{Mean}
 \begin{split}
@@ -187,7 +187,7 @@ the mid-point of the error bar with a small gap. We will see the reason
 for that in a minute.
 
 
-## Averaging in the square sense, do you count on me to do that visually?
+## Averaging in the square sense, do you expect me to do that visually?
 
 Averaging visually two lengths is already difficult, if it needs to be done
 in the square sense, that may be impossible... When averaging in the square sense, 

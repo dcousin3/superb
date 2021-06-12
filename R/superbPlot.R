@@ -219,20 +219,17 @@ superbPlot <- function(data,
 
     # 1.4d: checking WSFactors based on WSDesign
     if (all(WSDesign == "fullfactorial")) {
-#print("processing full factorial design")
         if (!(length(variables) == wslevel)) 
                 stop("superb::ERROR: The number of levels of the within-subject level(s) does not match the number of variables. Exiting...")
         if ((wslevel == 1)&&(!(adjustments$decorrelation == "none"))) 
                 stop("superb::ERROR: Decorrelation is not to be used when there is no within-subject factors. Exiting...")
     } else {
-#        print("processing partial design...")
         if (!is.list(WSDesign) )
                     stop("superb::ERROR: the WSdesign is not 'fullfactorial' (default) or a list. Exiting...")
         if (length(WSDesign) != length(variables))
                     stop("superb::ERROR: the WSDesign list is not of the same length as the variable vector. Exiting...")
         if (!all(lapply(WSDesign, length)==length(WSFactors)))
                     stop("superb::ERROR: the WSDesign does not contain vectors of factor levels, one per factor. Exiting...")
-#        print("done processing partial design")
     }
 
 
@@ -253,15 +250,12 @@ superbPlot <- function(data,
             stop("superb::ERROR: showPlot must be TRUE or FALSE. Exiting...")
 
     # 1.7: align levels and corresponding variables
-#print("procesing levels")
-#print(wsLevels)
     weird        <-"+!+" # to make sure that these characters are not in the column names
     if (all(WSDesign == "fullfactorial")) {
         combinaisons <- expand.grid(lapply(wsLevels,seq))
     } else {
         combinaisons <- data.frame(matrix(as.integer(unlist(WSDesign)),nrow=length(WSDesign), byrow = TRUE))
     }
-#print(combinaisons)
     newnames     <- paste("DV", apply(combinaisons,1,paste,collapse=weird) ,sep=weird)
     design       <- cbind(combinaisons, variables, newnames)
     colnames(design)[1:length(WSFactors)] <- WSFactors
@@ -269,9 +263,9 @@ superbPlot <- function(data,
     colnames(design)[length(WSFactors)+2] <- "newvars"
     if ( (length(wsLevels)>1) & ('design' %in% getOption("superb.feedback") ) ) {
         message("superb::FYI: Here is how the within-subject variables are understood:")
-        message(paste0(capture.output(print(design[,c(WSFactors, "variable") ])),collapse="\n")) 
+        temp = paste0(capture.output(print(design[,c(WSFactors, "variable") ], row.names=F)),collapse="\n")
+        message(temp) 
     }
-#print("done procesing levels...")
 
     # 1.8: invalid functions 
     widthfct <- paste(errorbar, statistic, sep = ".")
@@ -477,7 +471,7 @@ superbPlot <- function(data,
 
         # 6.2: if deccorrelate is CA: show rbar, test Winer
         if (adjustments$decorrelation == "CA") {
-            message(paste("superb::FYI: The average correlation per group is ", paste(unique(round(rs,4)), collapse=" ")) )
+            message(paste("superb::FYI: The average correlation per group is ", paste(unique(sprintf("%.4f",round(rs,4))), collapse=" ")) )
 
             winers <- suppressWarnings(plyr::ddply(data, .fun = "WinerCompoundSymmetryTest", .variables= BSFactors, variables)) 
             winers <- winers[,length(winers)]
@@ -489,7 +483,7 @@ superbPlot <- function(data,
         if (adjustments$decorrelation %in% c("CM","LM")) {
             epsGG <- suppressWarnings(plyr::ddply(data, .fun = "HyunhFeldtEpsilon", .variables= BSFactors, variables)) 
             epsGG <- epsGG[,length(epsGG)]
-            message(paste("superb::FYI: The HyunhFeldtEpsilon measure of sphericity per group are ", paste(round(epsGG,4), collapse=" ")) )
+            message(paste("superb::FYI: The HyunhFeldtEpsilon measure of sphericity per group are ", paste(sprintf("%.3f",round(epsGG, 4)), collapse=" ")) )
 
             winers <- suppressWarnings(plyr::ddply(data, .fun = "WinerCompoundSymmetryTest", .variables= BSFactors, variables) )
             winers <- winers[,length(winers)]
@@ -504,12 +498,12 @@ superbPlot <- function(data,
         
         # 6.4: if samplingDesign is CRS: print ICC, check that more than 8 clusters
         if (adjustments$samplingDesign == "CRS") {
-            message(paste("superb::FYI: The ICC1 per group are ", paste(round(ICCs,4), collapse=" ")) )
+            message(paste("superb::FYI: The ICC1 per group are ", paste(sprintf("%.3f",round(ICCs,3)), collapse=" ")) )
         }
 
         # 6.5: if objective is tryon: print tryon adjustment
         if (adjustments$purpose == "tryon") {
-            message(paste("superb::FYI: The tryon adjustments per measures are ", paste(round(padj,4), " compared to 1.4142.", collapse=" ")) )
+            message(paste("superb::FYI: The tryon adjustments per measures are ", paste("Measure ", 1:length(padj), ": ", sprintf("%.4f",round(padj,4)), sep="",collapse=", "), ", all compared to 1.4142.") )
         }
     }
     
