@@ -63,12 +63,15 @@
     options( superb.feedback = c('design','warnings','summary') )
     # Set the default bootstrap number of iterations to 5000; this is a minimum, avoid reducing it.
     options( superb.bootstrapIter = 5000)
+    # Set the default display of information in superbShiny()
+    options( superb.shiny = "silent" ) # default should be "silent" or else "display"
 }
 
 .onDetach <- function(libpath) {
     # remove the options
     options( superb.feedback = NULL )
     options( superb.bootstrapIter = NULL )
+    options( superb.shiny = NULL )
 }
 
 
