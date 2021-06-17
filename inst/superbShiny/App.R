@@ -764,9 +764,11 @@ checkWS <- function(session, input, output, i) {
 
 
 # a dummy function for quick and dirty debugging information
-mycat <- if (getOption("superb.shiny") == "display") {
-    cat("Display of feedback information turned on...\n")
-    cat
+mycat <- if (!is.null(getOption("superb.shiny"))) {
+    if (getOption("superb.shiny") == "display") {
+        cat("Display of feedback information turned on...\n")
+        cat
+    }
 } else {
     function(...) {} # do nothing!
 }
