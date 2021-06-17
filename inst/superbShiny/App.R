@@ -761,22 +761,22 @@ checkWS <- function(session, input, output, i) {
 }
 
 ####################################################################
-
-
-# a dummy function for quick and dirty debugging information
-mycat <- if (!is.null(getOption("superb.shiny"))) {
-    if (getOption("superb.shiny") == "display") {
-        cat("Display of feedback information turned on...\n")
-        cat
-    }
-} else {
-    function(...) {} # do nothing!
-}
   
 
 ####################################################################
 
 theServerFct <- function(input, output, session) {
+
+    # a dummy function for quick and dirty debugging information
+    mycat <- if (!is.null(getOption("superb.shiny"))) {
+        if (getOption("superb.shiny") == "display") {
+            cat("Display of feedback information turned on...\n")
+            cat
+        }
+    } else {
+        function(...) {} # do nothing!
+    }
+    mycat("Version 3\n")
 
     # Information collected as we go through the steps:
     info <- list() # list with $Step1, $Step2, $Step4, $Step5 and $Step6
@@ -1242,7 +1242,7 @@ theServerFct <- function(input, output, session) {
 ## THIS IS IS! RUN THE PROCESS
 ##########################################################
 
-mycat("Version 3\n")
+
 shinyApp(ui = thePage, server = theServerFct)
 
 
