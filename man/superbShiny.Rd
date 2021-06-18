@@ -7,7 +7,7 @@
 superbShiny()
 }
 \value{
-nothing.
+A plot that can be cut-and-paste.
 }
 \description{
 The function \code{suberbShiny()} provides a simple user interface

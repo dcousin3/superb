@@ -1,7 +1,7 @@
 Package: superb
 Type: Package
-Title: Summary plots with adjusted error bars
-Version: 0.9.7.0
+Title: Summary Plots with Adjusted Error Bars
+Version: 0.9.7.4
 Date: 2021-05-28
 Authors@R: c(
              person("Denis", "Cousineau", email = "denis.cousineau@uottawa.ca",
@@ -18,8 +18,8 @@ Author: Denis Cousineau [aut, cre],
     Marc-Andre Goulet [ctb],
     Jesika Walker [art]
 Maintainer:     Denis Cousineau <denis.cousineau@uottawa.ca>
-BugReports: 	https://github.com/dcousin3/superb/issues
-URL:            https://dcousin3.github.io/superb
+BugReports: 	https://github.com/dcousin3/superb/issues/
+URL:            https://dcousin3.github.io/superb/
 Description: 
     Computes standard error and confidence interval of various descriptive statistics under 
     various designs and sampling schemes. The main function, superbPlot(), can either return a plot 
@@ -37,14 +37,15 @@ RoxygenNote: 7.1.1
 Depends:
     R (>= 3.5.0)
 Imports: 
+    foreign,
+    psych,
     plyr (>= 1.8.4),
     ggplot2 (>= 3.1.0),
-    foreign,
     MASS,
     lsr (>= 0.5),
     methods,
-    referenceIntervals,
     Rdpack (>= 0.7),
+    referenceIntervals,
     stats,
     shiny,
     shinyBS,
@@ -59,7 +60,6 @@ Suggests:
     knitr, 
     lattice,
     lawstat,
-    psych,
     reshape2,
     rmarkdown,
     sadists,

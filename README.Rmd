@@ -16,20 +16,23 @@ library(ggplot2)
 options("superb.feedback" = "none") # shut down all information
 ```
 
-The library `superb`  offers three main functions, `superbPlot()`, `superbData()` and `GRD()`. 
-The purpose of
-`superbPlot()` is to provide a plot with summary statistics and correct
+The library `superb`  offers two main functionalities. First, it can be used
+to obtain plots with adjusted error bars. The main function is `superbPlot()`
+but you can also use `superbShiny()` for a graphical user interface requiring
+no programming nor scripting. 
+
+The purpose of `superbPlot()` is to provide a plot with 
+summary statistics and correct
 error bars. With simple adjustments, the error bar are adjusted
 to the design (within or between), to the purpose (single or pair-wise differences),
 to the sampling method (simple randomized samples or cluster
 randomized samples) and to the population size (infinite or of a specific
- size).
-
-The `superbData()` function does not generate the plot but returns the 
+ size). The `superbData()` function does not generate the plot but returns the 
 summary statistics and the interval boundaries. These can afterwards
-be output to other plotting environment.
+be sent to other plotting environment.
 
-`GRD()` is used to easily generate random data from any design (within or between) using
+ The second functionality is to generate random datasets. The function 
+ `GRD()` is used to easily generate random data from any design (within or between) using
 any population distribution with any parameters, and with various 
 effect sizes. `GRD()` is useful to test statistical procedures and plotting procedures 
 such as `superbPlot()`.
@@ -56,9 +59,19 @@ library(superb)
 
 # Examples
 
-This is a simple example illustrating the ToothGrowth (dependent 
-variable is `len`) of rats as a function of the `dose` of 
-vitamin and the form of the vitamin `supp` (pills or juice)
+The easiest is to use the graphical interface which can be 
+launched with 
+
+```{r, echo = TRUE, eval = FALSE}
+superbShiny()
+```
+
+The following examples use the script-based commands.
+
+Here is a simple example illustrating the ``ToothGrowth`` dataset
+of rats  (in which the dependent variable is `len`) 
+as a function of the `dose` of 
+vitamin and the form of the vitamin supplements `supp` (pills or juice)
 
 ```{r}
 superbPlot(ToothGrowth, 
@@ -138,7 +151,7 @@ along with the error bars. Some layouts can be used to visualize additional
 characteristics of the raw data. Finally, the resulting appearance can be customized 
 in various ways.
 
-The complete documentation is available on this [site](https://dcousin3.github.io/superb).
+The complete documentation is available on this [site](https://dcousin3.github.io/superb/).
 
 A general introduction to the `superb` framework underlying this 
 library is under consideration

@@ -617,8 +617,8 @@ test_that("Tryon vs. difference", {
         Population=list(
             mean = 100, 
             scores = "rnorm(1, mean = GM, sd = 10 * grp)"
-                        ),
-        SubjectsPerGroup = 25,
+        ),
+        SubjectsPerGroup = 50,
         Effects = list("grp" = slope(15) ) 
     )
     # do the plot twice with transparant background

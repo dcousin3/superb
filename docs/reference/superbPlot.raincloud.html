@@ -55,8 +55,6 @@ The functions has these parameters:" />
 
 
 
-
-
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -68,18 +66,9 @@ The functions has these parameters:" />
 
 
 
-<!-- dependencies from examples -->
-
-
-  
-
-  
-
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    
-
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -93,13 +82,19 @@ The functions has these parameters:" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.7.4</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -190,6 +185,7 @@ The functions has these parameters:</p>
   rawdata <span class='op'>=</span> <span class='cn'>NULL</span>,
   violinParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
   jitterParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  pointParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
   errorbarParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
   facetParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
   xAsFactor <span class='op'>=</span> <span class='cn'>TRUE</span>
@@ -220,11 +216,15 @@ The functions has these parameters:</p>
     </tr>
     <tr>
       <th>violinParams</th>
-      <td><p>(optional) list of graphic directives that are sent to the geom_bar layer</p></td>
+      <td><p>(optional) list of graphic directives that are sent to the geom_violin layer</p></td>
     </tr>
     <tr>
       <th>jitterParams</th>
-      <td><p>(optional) list of graphic directives that are sent to the geom_bar layer</p></td>
+      <td><p>(optional) list of graphic directives that are sent to the geom_jitter layer</p></td>
+    </tr>
+    <tr>
+      <th>pointParams</th>
+      <td><p>(optional) list of graphic directives that are sent to the geom_point layer</p></td>
     </tr>
     <tr>
       <th>errorbarParams</th>
@@ -278,11 +278,11 @@ The functions has these parameters:</p>
 
       <footer>
       <div class="copyright">
-  <p><p>Developed by Denis Cousineau.</p></p>
+  <p>Developed by Denis Cousineau.</p>
 </div>
 
 <div class="pkgdown">
-  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
@@ -290,8 +290,6 @@ The functions has these parameters:</p>
 
   
 
-
-  
 
   </body>
 </html>

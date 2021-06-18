@@ -5,6 +5,7 @@ reference:
   - title: Exported Functions
     desc: Main functions
     contents:
+      - '`superbShiny`'
       - '`superbPlot`'
       - '`superbData`'
       - '`GRD`'

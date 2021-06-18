@@ -89,7 +89,11 @@ glucoselevels <- GRD(BSFactors = "concentration(A,B,C,D,E)",
                     SubjectsPerGroup = 100,
                     RenameDV = "gl",
                     Effects = list("concentration" = extent(10) ),
-                    Population = list(mean = 100, stddev = 25) ) 
+                    Population = list(mean = 100, stddev = 20) ) 
+```
+```{r, message=FALSE, echo=FALSE}
+# as the package referenceIntervals cannot accommodate numbers below zero, lets remove them
+glucoselevels$gl[glucoselevels$gl<10]<-10
 ```
 
 This dataset will generate 100 individuals randomly 

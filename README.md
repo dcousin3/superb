@@ -9,18 +9,22 @@
 Status](https://www.r-pkg.org/badges/version/superb)](https://cran.r-project.org/package=superb)
 <!-- badges: end -->
 
-The library `superb` offers three main functions, `superbPlot()`,
-`superbData()` and `GRD()`. The purpose of `superbPlot()` is to provide
-a plot with summary statistics and correct error bars. With simple
-adjustments, the error bar are adjusted to the design (within or
-between), to the purpose (single or pair-wise differences), to the
-sampling method (simple randomized samples or cluster randomized
-samples) and to the population size (infinite or of a specific size).
+The library `superb` offers two main functionalities. First, it can be
+used to obtain plots with adjusted error bars. The main function is
+`superbPlot()` but you can also use `superbShiny()` for a graphical user
+interface requiring no programming nor scripting.
 
-The `superbData()` function does not generate the plot but returns the
-summary statistics and the interval boundaries. These can afterwards be
-output to other plotting environment.
+The purpose of `superbPlot()` is to provide a plot with summary
+statistics and correct error bars. With simple adjustments, the error
+bar are adjusted to the design (within or between), to the purpose
+(single or pair-wise differences), to the sampling method (simple
+randomized samples or cluster randomized samples) and to the population
+size (infinite or of a specific size). The `superbData()` function does
+not generate the plot but returns the summary statistics and the
+interval boundaries. These can afterwards be sent to other plotting
+environment.
 
+The second functionality is to generate random datasets. The function
 `GRD()` is used to easily generate random data from any design (within
 or between) using any population distribution with any parameters, and
 with various effect sizes. `GRD()` is useful to test statistical
@@ -44,9 +48,18 @@ library(superb)
 
 # Examples
 
-This is a simple example illustrating the ToothGrowth (dependent
-variable is `len`) of rats as a function of the `dose` of vitamin and
-the form of the vitamin `supp` (pills or juice)
+The easiest is to use the graphical interface which can be launched with
+
+``` r
+superbShiny()
+```
+
+The following examples use the script-based commands.
+
+Here is a simple example illustrating the `ToothGrowth` dataset of rats
+(in which the dependent variable is `len`) as a function of the `dose`
+of vitamin and the form of the vitamin supplements `supp` (pills or
+juice)
 
 ``` r
 superbPlot(ToothGrowth, 
@@ -54,7 +67,7 @@ superbPlot(ToothGrowth,
     variables = "len" )
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 In the above, the default summary statistic, the mean, is used. The
 error bars are, by default, the 95% confidence intervals. These two
@@ -71,7 +84,7 @@ superbPlot(ToothGrowth,
     statistic = "median")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 As a third example, we illustrate the harmonic means `hmedian` along
 with 99.9% confidence intervals using lines:
@@ -85,7 +98,7 @@ superbPlot(ToothGrowth,
     plotStyle = "line")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 The second function, `GRD()`, can be used to generate random data from
 designs with various within- and between-subject factors. This example
@@ -106,12 +119,12 @@ head(testdata)
 ```
 
     ##   id Difficulty  score.1  score.2
-    ## 1  1          A 76.51593 85.99830
-    ## 2  2          A 84.91497 52.98343
-    ## 3  3          A 54.13190 67.23024
-    ## 4  4          A 63.91156 59.12050
-    ## 5  5          A 87.95490 65.25933
-    ## 6  6          A 82.74399 60.58499
+    ## 1  1          A 70.52584 62.14225
+    ## 2  2          A 55.93521 58.37646
+    ## 3  3          A 73.11140 84.45923
+    ## 4  4          A 50.70112 47.50704
+    ## 5  5          A 88.17197 81.38254
+    ## 6  6          A 99.69965 70.12474
 
 The simulated scores are illustrated using using a more elaborated
 layout, the `pointjitterviolin` which, in addition to the mean and
@@ -129,7 +142,7 @@ superbPlot(testdata,
 )
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 In the above example, optional arguments `errorbarParams` and
 `pointParams` are used to inject specifications in the error bars and
@@ -144,7 +157,7 @@ visualize additional characteristics of the raw data. Finally, the
 resulting appearance can be customized in various ways.
 
 The complete documentation is available on this
-[site](https://dcousin3.github.io/superb).
+[site](https://dcousin3.github.io/superb/).
 
 A general introduction to the `superb` framework underlying this library
 is under consideration at *Advances in Methods and Practices in

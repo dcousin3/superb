@@ -11,7 +11,7 @@
 #'      user interface, nor is it possible to request an adjustment for cluster-
 #'      randomized sampling. These options are available with ``superbPlot()``.
 #'
-#' @return nothing.
+#' @return A plot that can be cut-and-paste.
 #'
 #' @references
 #' \insertAllCited{}

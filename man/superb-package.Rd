@@ -4,7 +4,7 @@
 \name{superb-package}
 \alias{superb}
 \alias{superb-package}
-\title{superb: Summary plots with adjusted error bars}
+\title{superb: Summary Plots with Adjusted Error Bars}
 \description{
 Computes standard error and confidence interval of various descriptive statistics under 
     various designs and sampling schemes. The main function, superbPlot(), can either return a plot 
@@ -69,8 +69,8 @@ and example datasets described in the paper:  \itemize{
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://dcousin3.github.io/superb}
-  \item Report bugs at \url{https://github.com/dcousin3/superb/issues}
+  \item \url{https://dcousin3.github.io/superb/}
+  \item Report bugs at \url{https://github.com/dcousin3/superb/issues/}
 }
 
 }
