@@ -215,6 +215,7 @@ theHelpModals <- list(
 
             br(),p(em("jitterParams")),
             bc("size = 0.5 # the size of the individual dots"),
+            bc("alpha=1, shape=21, fill=\"white\" # shapes above 20 have fillings"),
             p(em("violinParams")),
             bc("alpha =0.7, fill = \"green\" # the transparency and the color of the filling")
         ),
@@ -475,37 +476,37 @@ generateScript <- function( cI ) {
     bsfactline <- if (length(cI$Step2$BSFactors)==1) {
         paste(indent1, "BSFactors   = \"", cI$Step2$BSFactors, "\", ", sep="")
     } else if (length(cI$Step2$BSFactors) > 1) {
-        paste(indent1, "BSFactors   = c(\"",paste(cI$Step2$BSFactors, collapse="\", \""), "\")", sep="") 
+        paste(indent1, "BSFactors   = c(\"",paste(cI$Step2$BSFactors, collapse="\", \""), "\"), ", sep="") 
     } else {NA} # no between-subject factors
 
     wsfactline <- if (length(cI$Step2$WSFactors)==1) {
         paste(indent1, "WSFactors   = \"", cI$Step2$WSFactors, "\", ", sep="")
     } else if (length(cI$Step2$WSFactors) > 1) {
-        paste(indent1, "WSFactors   = c(\"", paste(cI$Step2$WSFactors, collapse="\", \""), "\")", sep="")
+        paste(indent1, "WSFactors   = c(\"", paste(cI$Step2$WSFactors, collapse="\", \""), "\"),", sep="")
     } else {NA} #no within-subject factors
 
     varsline <- if (length(cI$Step2$variables)==1) {
-        paste(indent1, "variables   = \"", cI$Step2$variables, "\"", sep="")
+        paste(indent1, "variables   = \"", cI$Step2$variables, "\",", sep="")
     } else if (length(cI$Step2$variables) > 1) {
-        paste(indent1, "variables   = c(\"",paste(cI$Step2$variables, collapse="\", \""), "\")", sep="") 
+        paste(indent1, "variables   = c(\"",paste(cI$Step2$variables, collapse="\", \""), "\"),", sep="") 
     } 
 
-    statline <- paste(indent1, "statistic   = \"", cI$Step2$statistic, "\"", sep="")
-    ebarline <- paste(indent1, "errorbar    = \"",  cI$Step2$errorbar, "\"", sep="")
+    statline <- paste(indent1, "statistic   = \"", cI$Step2$statistic, "\",", sep="")
+    ebarline <- paste(indent1, "errorbar    = \"",  cI$Step2$errorbar, "\",", sep="")
     gammline <- if (is.something(cI$Step2$gamma)) {
-        paste(indent1, "gamma       = ",  cI$Step2$gamma, sep="") 
+        paste(indent1, "gamma       = ",  cI$Step2$gamma, ",", sep="") 
     } else {NULL}
 
     script[3] <- paste3( 
         "# Step 2: Specify the experimental design",
-        "superbPlot(dataToPlot",
+        "superbPlot(dataToPlot,",
         bsfactline, 
         wsfactline,
         varsline,
         statline,
         ebarline,
         gammline,
-        sep = ",\n"
+        sep = "\n"
     )
 
     # Step 4==script[3]bis: Select adjustments
@@ -521,7 +522,7 @@ generateScript <- function( cI ) {
     } else {NA}
 
     script[3] <- paste3(
-        paste(script[3],",",sep=""),
+        script[3],
         paste(indent1, "adjustments = list(",sep=""),
         paste3(purpose, decorrelation, popsize, sep=",\n"),
         paste(indent1, ")", sep=""),
@@ -776,7 +777,7 @@ theServerFct <- function(input, output, session) {
     } else {
         function(...) {} # do nothing!
     }
-    mycat("Version 3\n")
+    mycat("App version 3.1\n")
 
     # Information collected as we go through the steps:
     info <- list() # list with $Step1, $Step2, $Step4, $Step5 and $Step6
@@ -966,13 +967,14 @@ theServerFct <- function(input, output, session) {
             updateTabsetPanel(session, "MainDisplay", selected = "Messages")
         } else {
             # collect information obtained on Step 2
-            info$Step2$data      <<- dataToPlot
-            info$Step2$BSFactors <<- input$superbBSFactors
-            info$Step2$WSFactors <<- if(length(WSFactorsNames)>0) {
+            info$Step2$data        <<- dataToPlot
+            info$Step2$BSFactors   <<- input$superbBSFactors
+            info$Step2$WSFactors   <<- if(length(WSFactorsNames)>0) {
                 paste(paste(WSFactorsNames,WSFactorsLevels, sep="("),")",sep="")
             } else {NULL}
-            info$Step2$variables <<- input$superbVariables
-            info$Completed       <<- 2
+            info$Step2$factorOrder <<- NULL        # reset as set on Step 5
+            info$Step2$variables   <<- input$superbVariables
+            info$Completed         <<- 2
     
             # update script
             script <- generateScript( info )

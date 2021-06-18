@@ -131,8 +131,9 @@ GeomFlatViolin <-
 #' @param addfactors a string with up to two additional factors to make the rows and columns panels, in the form "fact1 ~ fact2";
 #' @param rawdata always contains "DV" for each participants and each level of the factors
 #' @param errorbarParams (optional) list of graphic directives that are sent to the geom_superberrorbar layer
-#' @param jitterParams (optional) list of graphic directives that are sent to the geom_bar layer
-#' @param violinParams (optional) list of graphic directives that are sent to the geom_bar layer
+#' @param pointParams (optional) list of graphic directives that are sent to the geom_point layer
+#' @param jitterParams (optional) list of graphic directives that are sent to the geom_jitter layer
+#' @param violinParams (optional) list of graphic directives that are sent to the geom_violin layer
 #' @param facetParams (optional) list of graphic directives that are sent to the facet_grid layer
 #' @param xAsFactor (optional) Boolean to indicate if the factor on the horizontal should continuous or discrete (default is discrete)
 #'
@@ -173,7 +174,8 @@ superbPlot.raincloud <- function(
     rawdata        = NULL,     # unused
     # what follows are optional
     violinParams   = list(),   # merged into geom_flat_violin
-    jitterParams   = list(),   # merged into geom_flat_violin
+    jitterParams   = list(),   # merged into geom_jitter
+    pointParams    = list(),   # merged into geom_point
     errorbarParams = list(),   # merged into geom_errorbar
     facetParams    = list(),   # merged into facet_grid
     xAsFactor      = TRUE      # should the horizontal axis be continuous?
@@ -224,7 +226,7 @@ superbPlot.raincloud <- function(
     # the summary data
     do.call( geom_point, modifyList(
         list(position = position_dodge(.25),  size = 3.5, color = "black" ),
-        jitterParams
+        pointParams
     )) +
     # the error bars; do.call so that errorbarParams can be integrated
     do.call( geom_superberrorbar, modifyList(

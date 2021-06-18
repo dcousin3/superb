@@ -7,6 +7,9 @@
 #'      to plot standard error or confidence interval for various descriptive 
 #'      statistics under various designs, population size and purposes,
 #'      according to the ``suberb`` framework. See \insertCite{c17}{superb} for more.
+#'      Limitations: it is not possible to use custom-made statistics with the 
+#'      user interface, nor is it possible to request an adjustment for cluster-
+#'      randomized sampling. These options are available with ``superbPlot()``.
 #'
 #' @return nothing.
 #'

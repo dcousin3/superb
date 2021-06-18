@@ -5,7 +5,7 @@ account: superbplot
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 4285306
-bundleId: 4728075
-url: https://superbplot.shinyapps.io/superbshiny/
-when: 1623951798.24522
-lastSyncTime: 1623951798.24522
+bundleId: 4728721
+url: https://dcousin3.shinyapps.io/superbshiny/
+when: 1623964235.07186
+lastSyncTime: 1623964235.07186
