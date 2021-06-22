@@ -1,26 +1,31 @@
 ## Submission
-* New version 0.9.5.0 (nickname: "95% confident")
+
+* New version 0.9.7.5 (nickname: "two-tails 95% confident")
+
 
 ## Test environments
-* local WIN-64x install, R 4.0.3
+
+* local WIN-64x install, R 4.1.0
+
 * win-builder devel 
+
 * win-builder release
-* Ubuntu 16.04.6 LTS R release (travis-ci.org)
+
+* R-hub Ubuntu 20.04.1 LTS R release GCC(rhub.org)
+
+* R-hub Fedora, R-devel
+
+* no longer access to TRAVIS-CI after it migrated to .com...
+
 
 ## R CMD check results
 
 * There were no ERRORs and no WARNINGs.
 
-* There was 1 NOTE from Travis-CI: Docs folder exceeds 1 Mb: as this package
+* There was 1 NOTE: Docs folder exceeds 1 Mb: as this package
 is about creating plots, it is difficult to generate documentations
 with less than 1 Mb (that would represents only 4 to 5 examples). 
 
-* There was 1 NOTE from win-builder about the maintainer.
-
-* There was 1 NOTE for R-hub with DOI not existing (but they do exists).
-
-* The message from the previous CRAN package check results was corrected
-    ("Namespaces in Import field not imported")
 
 ## Downstream dependencies
 

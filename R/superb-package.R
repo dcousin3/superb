@@ -54,9 +54,6 @@
 "_PACKAGE"
 #> [1] "_PACKAGE"
 
-# a dummy function for quick and dirty debugging information in the shiny app
-mycat <- function(...) {}
-
 .onLoad <- function(libname, pkgname) {    
     # Set the default feedback traces displayed to all:
     #   summary:  in GRD, shows a summary of the design;

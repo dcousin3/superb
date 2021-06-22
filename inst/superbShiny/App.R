@@ -13,7 +13,6 @@ library(ggplot2)
 library(foreign) # for read.spss
 library(stringr) # for str_remove_all and str_replace_all
 
-  
 
 
 ##########################################################
@@ -736,7 +735,6 @@ checkWS <- function(session, input, output, i) {
     }
 
     if ((nchar(currentwsfact) > 0)&&(nchar(currentwsleve)>0)) {
-        mycat("S2: filled ws factor ",i,": ", isolate(currentwsfact), " with levels ", isolate(currentwsleve),"\n")
         if ((currentwsfact!=to.identifier(currentwsfact))||(currentwsleve!=to.integer(currentwsleve))) {
             updateButton(session, "S2Apply", disabled = TRUE)
         } else {
@@ -769,13 +767,15 @@ checkWS <- function(session, input, output, i) {
 theServerFct <- function(input, output, session) {
 
     # a dummy function for quick and dirty debugging information
-    mycat <- if (!is.null(getOption("superb.shiny"))) {
-        if (getOption("superb.shiny") == "display") {
-            cat("Display of feedback information turned on...\n")
-            cat
+    if (getOption("superb.shiny") == "display") {
+        cat("Display of feedback information turned on...\n")
+    }
+    mycat <- function(...) {
+        if (!is.null(getOption("superb.shiny"))) {
+            if (getOption("superb.shiny") == "display") {
+                cat(...)
+            }
         }
-    } else {
-        function(...) {} # do nothing!
     }
     mycat("App version 3.1\n")
 
