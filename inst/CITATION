@@ -1,4 +1,4 @@
-citHeader("To cite superb version 0.9.5.0 (codename '95% confident') in publications use:")
+citHeader("To cite superb version 0.9.7.5 (codename 'two-tail 95% confident') in publications use:")
 
 citEntry(
   entry    = "Article",
