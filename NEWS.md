@@ -1,10 +1,23 @@
+# superb 0.9.7.5 (June 23rd, 2021)
+
+* official release on CRAN of ``superb`` with the graphical user interface
+``superbShiny()``;
+
+* small changes to vignette TheMakingOf;
+
+
+# superb 0.9.7.4 (June 18th, 2021)
+
+* beta release of ``superbShiny()``, a graphical user interface to facilitate the
+use of superbPlot.
+
 # superb 0.9.7.0 (May 28th, 2021)
 
-* Added a vignette on how to implement Reference Intervals (RI) into ``superb``
-* Implemented ``makeTransparent()`` to ease the creation of plots with multiple error bars.
-* Added a distinct vertical color, ``vcolor``, to the ``geom_superberrorbar()``
+* Added a vignette on how to implement Reference Intervals (RI) into ``superb``;
+* Implemented ``makeTransparent()`` to ease the creation of plots with multiple error bars;
+* Added a distinct vertical color, ``vcolor``, to the ``geom_superberrorbar()``;
 * Added an argument "WSDesign" (default = "fullfactorial") when the within-subject
-    factors are not full-factorial.
+    factors are not full-factorial;
 * Added a vignette on how to plot non-full factorial datasets.
 
 # superb 0.9.6.0 (April 30th, 2021)
