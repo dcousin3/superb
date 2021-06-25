@@ -235,9 +235,20 @@ theHelpModals <- list(
 )
 
 theExtraModals <- list(
-    # cannot use input$ notation in here...
-    bsModal(id="superbnonfact", title = "Non-factorial design", trigger = "test",
-        uiOutput("superbNonFactorialDesign")
+    # hack the modal so that it has easyClose = FALSE
+    tlist <- searchreplaceit(
+        # hack the modal so that the Close button has an id to be observed upon
+        searchreplaceit(
+            bsModal(id="superbnonfact", title = "Non-factorial design", trigger = "test",
+                uiOutput("superbNonFactorialDesign")
+            ),
+            "button", list("class"="btn btn-default"),
+            "button", list("class"="btn btn-default action-button", "id"="nonfactclose", "data-dismiss"="modal"), 
+            replace=TRUE
+        ),
+        "div", list("class"="modal sbs-modal fade"),
+        "div", list("data-backdrop"="static", "data-keyboard"="false"),
+        replace=FALSE
     )
 )
 
@@ -421,11 +432,40 @@ galinefct <- function( i ) {
 
 # to enter factor levels in non-factorial design
 ## TO FINISH
-makeNonfactorialContent <- function(output, wsfactornames, wsfactorlevel) {
+makeNonfactorialContent <- function(output, varnames, wsfactornames, wsfactorlevels) {
     tlist = tagList(
-        p("You have defined ", paste3(wsfactornames, collapse=", "),
-        " with levels ", paste3(wsfactorlevel, collapse = " x "), ". "),
-        p("TO FINISH")
+        p("You have defined within-subject factor(s) ", 
+            strong(paste(wsfactornames, collapse=", ")),
+            " with ", paste(wsfactorlevels, collapse = " x "), 
+            " levels", 
+            ifelse(length(wsfactornames) >1, 
+                paste(" totalizing ", prod(wsfactorlevels), ".", sep=""),"."),
+            "However, only ", length(varnames), " dependent variables are listed."),
+        p("Please specify for each variable(s) to what levels of the within-subject factor(s) it belongs:"),
+        # make a table with factor names as columns and var names as line
+        tags$table(
+            tags$thead(
+                tags$th( lapply( wsfactornames, tags$td, 
+                                style="border-bottom: 1px solid #000;text-align: center;"
+                        )  )
+            ),
+            tags$tbody(
+                lapply(varnames, function(onevarname) {
+                    tags$tr(tags$td(onevarname), 
+                        lapply( wsfactornames, function(onewsname) {
+                                # hack the shiny code to adjust manually height of cells
+                                searchreplaceit(tags$td(textInput(paste("wscell",onevarname,onewsname,sep=""),
+                                                        label =NULL, width="50px") ),
+                                    "div", list("class"="form-group shiny-input-container"),
+                                    "div", list("style"="width:50px;height=26"), replace=TRUE 
+                                )
+                            }
+                        )
+                    )
+                })
+            )
+        ),
+        p("Click \"Close\" to resume Step 2")
     )
     output$superbNonFactorialDesign  <- renderUI({ tlist })
 }
@@ -484,6 +524,15 @@ generateScript <- function( cI ) {
         paste(indent1, "WSFactors   = c(\"", paste(cI$Step2$WSFactors, collapse="\", \""), "\"),", sep="")
     } else {NA} #no within-subject factors
 
+    wsnonfactline <- if(is.list(cI$Step2$WSDesign)) {
+        paste(indent1, "WSDesign    = list(", 
+            paste(unlist(lapply(cI$Step2$WSDesign, function(vec) paste("c(", paste(vec, collapse=", "),")", 
+                                                    sep=""))),
+                collapse=", "),
+            "),", 
+            sep="")
+    } else {NA}
+
     varsline <- if (length(cI$Step2$variables)==1) {
         paste(indent1, "variables   = \"", cI$Step2$variables, "\",", sep="")
     } else if (length(cI$Step2$variables) > 1) {
@@ -494,13 +543,14 @@ generateScript <- function( cI ) {
     ebarline <- paste(indent1, "errorbar    = \"",  cI$Step2$errorbar, "\",", sep="")
     gammline <- if (is.something(cI$Step2$gamma)) {
         paste(indent1, "gamma       = ",  cI$Step2$gamma, ",", sep="") 
-    } else {NULL}
+    } else {NA}
 
     script[3] <- paste3( 
         "# Step 2: Specify the experimental design",
         "superbPlot(dataToPlot,",
         bsfactline, 
         wsfactline,
+        wsnonfactline,
         varsline,
         statline,
         ebarline,
@@ -536,9 +586,9 @@ generateScript <- function( cI ) {
         paste(indent1, "factorOrder = c(\"", paste(cI$Step2$factorOrder,collapse="\", \""), "\")", sep="")
     else NA
     script[3] <- paste3(
-        script[3],
+        script[3], 
         paste3(plotlayout, factorord, sep=",\n"),
-        sep = "\n"
+        sep = ",\n"
     )
 
     if (cI$Completed <=4 ) {
@@ -592,7 +642,7 @@ runAndShowIt <- function( input, output, currentInfo) {
                 output$superbMessages4 <- renderUI(
                     tagList( h4("Step 5: Errors were raised by ggplot attribute(s)..."),
                         lapply(errorsE, pem)
-                    ))
+                ))
             }
         }
     }
@@ -721,7 +771,7 @@ generateCaption <- function( currentInfo ) {
 }
 
 
-checkWS <- function(session, input, output, i) {
+fillWSfactors <- function(session, input, output, i) {
     currentwsfact = input[[paste("wsfact",i,sep="")]]
     currentwsleve = input[[paste("wsleve",i,sep="")]]
     wsleve1toi = 1:i
@@ -742,21 +792,27 @@ checkWS <- function(session, input, output, i) {
                 updateButton(session, "S2Apply", disabled = TRUE)
                 output[[paste("superbWSFactors",i+1,sep="")]]  <- renderUI({ tagList( wslinefct(i+1) )})
             } else if (productwsleve > length(input$superbVariables)) {
-                updateButton(session, "S2Apply", disabled = TRUE)
-                for (j in seq(i+1, 4, length.out = 4-i)) #(i+1):4)
+                updateButton(session, "S2Apply", disabled = TRUE) 
+                wsShown <- i
+                for (j in seq(i+1, 4, length.out = 4-i))  { #(i+1):4) 
                     output[[paste("superbWSFactors",j,sep="")]]  <- renderUI({ })
+                 }
                # populate and open modal
-                makeNonfactorialContent(output, wsfact1toi, wsleve1toi )
+                makeNonfactorialContent(output, input$superbVariables, wsfact1toi, wsleve1toi )
                 toggleModal(session, "superbnonfact", toggle = "open")
-            } else { # all good
-                 for (j in seq(i+1, 4, length.out = 4-i))
+                # the levels are collected and validated upon button click
+            } else { # all good; a full-factorial design
+                wsShown <- -i
+                for (j in seq(i+1, 4, length.out = 4-i)) {
                     output[[paste("superbWSFactors",j,sep="")]]  <- renderUI({ })
+                 }
                 updateButton(session, "S2Apply", disabled = FALSE)
-                WSFactorsNames  <<- wsfact1toi
-                WSFactorsLevels <<- wsleve1toi
             }
         }
     } else updateButton(session, "S2Apply", disabled = TRUE)
+    WSFactorsNames  <<- wsfact1toi
+    WSFactorsLevels <<- wsleve1toi
+    return(wsShown)
 }
 
 ####################################################################
@@ -777,26 +833,28 @@ theServerFct <- function(input, output, session) {
             }
         }
     }
-    mycat("App version 3.1\n")
+    mycat("App version 3.1a; shipped with superb 0.9.7.5\n")
 
     # Information collected as we go through the steps:
     info <- list() # list with $Step1, $Step2, $Step4, $Step5 and $Step6
     info$Completed <- 0
 
     # Step2 information contains the arguments to superbPlot except...
-    info$Step2$statistic     <- "mean"      # set on Step 3 
-    info$Step2$errorbar      <- "CI"        # set on Step 3 
-    info$Step2$gamma         <- 0.95        # set on Step 3 
-    info$Step2$plotStyle     <- NULL        # set on Step 5
-    info$Step2$factorOrder   <- NULL        # set on Step 5
+    info$Step2$WSDesign      <- "fullfactorial" # changed on Step 2
+    info$Step2$statistic     <- "mean"          # changed on Step 3 
+    info$Step2$errorbar      <- "CI"            # changed on Step 3 
+    info$Step2$gamma         <- 0.95            # changed on Step 3 
+    info$Step2$plotStyle     <- NULL            # changed on Step 5
+    info$Step2$factorOrder   <- NULL            # changed on Step 5
     # ... the adjustments that are in Step4 (they will be sub-listed)...
-    info$Step4$purpose       <- "single"    # set on Step 4
-    info$Step4$decorrelation <- "none"      # set on Step 4
-    info$Step4$popSize       <- Inf         # set on Step 4
+    info$Step4$purpose       <- "single"        # changed on Step 4
+    info$Step4$decorrelation <- "none"          # changed on Step 4
+    info$Step4$popSize       <- Inf             # changed on Step 4
     # ... and Step5 and 6 which contains ggplot attributes and directives.
-    info$Step5               <- list()      # no graphic attributes added
-    info$Step6               <- list()      # no graphic directives added
+    info$Step5               <- list()          # no graphic attributes added
+    info$Step6               <- list()          # no graphic directives added
 
+    wsShown <- 0    # the number of within-subject factor lines shown
     gaShown <- 1    # the number of graphic attribute input box shown
     oldDeleteClicks <- rep(0,5)
 
@@ -885,6 +943,31 @@ theServerFct <- function(input, output, session) {
     ## STEP 2: Set the design
     ##########################################################
 
+    observeEvent(input$nonfactclose, ({
+        mycat("S2: Nonfactorial modal left!", "\n")
+
+        # determine how many WS factors have been given
+        wsfactornumbers <- wsShown
+        # extract the factor names
+        wsfactornames  <- 1:wsfactornumbers
+        for (j in 1:wsfactornumbers) {
+            wsfactornames[j]  <- to.identifier(input[[paste("wsfact",j,sep="")]])
+        }
+        # collect the non-factorial design levels        
+        res = list()
+        for (i in input$superbVariables) {
+            sub=c()
+            for (j in wsfactornames) {
+                sub = c(sub, input[[paste("wscell",i,j,sep="")]])   
+            }
+            res[[length(res)+1]] = sub
+        }
+        # return the non-factorial design levels
+        info$Step2$WSDesign <<- res
+        updateButton(session, "S2Apply", disabled = FALSE)
+    }))
+
+
     # for the two inputselect dropdown lists, remove the variables used
     observeEvent(input$superbBSFactors, ({
         mycat("S2: selecting BSFactors", "\n")
@@ -929,22 +1012,26 @@ theServerFct <- function(input, output, session) {
     # when within-subject design, reads the wsfactors with their levels
     observeEvent({list(input$wsfact1, input$wsleve1)}, ({
         updateButton(session, "S2Next", disabled = TRUE)
-        checkWS(session, input, output, 1)
+        wsShown <<- fillWSfactors(session, input, output, 1)
+        if (wsShown < 0) { info$Step2$WSDesign = "fullfactorial" }
     }), ignoreNULL=FALSE, ignoreInit = TRUE)
 
     observeEvent({list(input$wsfact2, input$wsleve2)}, ({
         updateButton(session, "S2Next", disabled = TRUE)
-        checkWS(session, input, output, 2)
+        wsShown <<- fillWSfactors(session, input, output, 2)
+        if (wsShown < 0) { info$Step2$WSDesign = "fullfactorial" }
     }), ignoreNULL=FALSE, ignoreInit = TRUE)
 
     observeEvent({list(input$wsfact3, input$wsleve3)}, ({
         updateButton(session, "S2Next", disabled = TRUE)
-        checkWS(session, input, output, 3)
+        wsShown <<- fillWSfactors(session, input, output, 3)
+        if (wsShown < 0) { info$Step2$WSDesign = "fullfactorial" }
     }), ignoreNULL=FALSE, ignoreInit = TRUE)
 
     observeEvent({list(input$wsfact4, input$wsleve4)}, ({
         updateButton(session, "S2Next", disabled = TRUE)
-        checkWS(session, input, output, 4)
+        wsShown <<- fillWSfactors(session, input, output, 4)
+        if (wsShown < 0) { info$Step2$WSDesign = "fullfactorial" }
     }), ignoreNULL=FALSE, ignoreInit = TRUE)
 
 
