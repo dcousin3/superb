@@ -73,10 +73,210 @@ options that will not be explored herein.
 
 Before we begin, let's load the needed libraries...
 
-```{r, message=FALSE, warning=FALSE}
+```{r, eval=FALSE, message=FALSE, warning=FALSE}
 library(ggplot2)            # for the graphing commands
 library(superb)             # for superbPlot and GRD
 library(referenceIntervals) # for computing reference intervals
+```
+```{r, eval=TRUE, message=FALSE, warning=FALSE, echo=FALSE}
+# the above pretend that referenceInterval was installed, but it is not installed
+# because its dependencies (gWidgets2tcltk, extremeValues) crashes travis-CI.com and shinyapps.io...
+# I reproduce the code here as is
+library(ggplot2)            # for the graphing commands
+library(superb)             # for superbPlot and GRD
+library(boot)
+library(car)
+library(stats)
+horn.outliers = function (data)
+{
+#   This function implements Horn's algorithm for outlier detection using
+#   Tukey's interquartile fences.
+
+	boxcox = car::powerTransform(data);
+	lambda = boxcox$lambda;
+	transData = data^lambda;
+    descriptives = summary(transData);
+    Q1 = descriptives[[2]];
+    Q3 = descriptives[[5]];
+    IQR = Q3 - Q1;
+
+	out = transData[transData <= (Q1 - 1.5*IQR) | transData >= (Q3 + 1.5*IQR)];
+	sub = transData[transData > (Q1 - 1.5*IQR) & transData < (Q3 + 1.5*IQR)];
+
+    return(list(outliers = out^(1/lambda), subset = sub^(1/lambda)));
+}
+refLimit = function(data, out.method = "horn", out.rm = FALSE, RI = "p", CI = "p",
+					refConf = 0.95, limitConf = 0.90, bootStat = "basic"){
+
+	cl = class(data);
+	if(cl == "data.frame"){
+		frameLabels = colnames(data);
+		dname = deparse(substitute(data));
+		result = lapply(data, singleRefLimit, dname, out.method, out.rm, RI, CI, refConf, limitConf, bootStat);
+		for(i in 1:length(data)){
+			result[[i]]$dname = frameLabels[i];
+		}
+		class(result) = "interval";
+	}
+	else{
+		frameLabels = NULL;
+		dname = deparse(substitute(data));
+		result = singleRefLimit(data, dname, out.method, out.rm, RI, CI, refConf, limitConf, bootStat);
+	}
+
+	return(result);
+}
+singleRefLimit = function(data, dname = "default", out.method = "horn", out.rm = FALSE,
+						RI = "p", CI = "p", refConf = 0.95, limitConf = 0.90, bootStat = "basic")
+{
+#	This function determines a reference interval from a vector of data samples.
+#	The default is a parametric calculation, but other options include a non-parametric
+#	calculation of reference interval with bootstrapped confidence intervals around the
+#	limits, and also the robust algorithm for calculating the reference interval with
+#	bootstrapped confidence intervals of the limits.
+
+	if(out.method == "dixon"){
+		output = dixon.outliers(data);
+	}
+	else if(out.method == "cook"){
+		output = cook.outliers(data);
+	}
+	else if(out.method == "vanderLoo"){
+		output = vanderLoo.outliers(data);
+	}
+	else{
+		output = horn.outliers(data);
+	}
+	if(out.rm == TRUE){
+		data = output$subset;
+	}
+
+  if(!bootStat %in% c("basic", "norm", "perc", "stud", "bca")) {
+		bootStat = "basic";
+	}
+
+	outliers = output$outliers;
+  n = length(data);
+  mean = mean(data, na.rm = TRUE);
+  sd = sd(data, na.rm = TRUE);
+  norm = NULL;
+
+#	Calculate a nonparametric reference interval.
+    if(RI == "n"){
+
+    	methodRI = "Reference Interval calculated nonparametrically";
+
+        data = sort(data);
+		holder = nonparRI(data, indices = 1:length(data), refConf);
+        lowerRefLimit = holder[1];
+        upperRefLimit = holder[2];
+        if(CI == "p"){
+        	CI = "n";
+        }
+    }
+
+#	Calculate a reference interval using the robust algorithm method.
+    if(RI == "r"){
+
+    	methodRI = "Reference Interval calculated using Robust algorithm";
+
+        holder = robust(data, 1:length(data), refConf);
+        lowerRefLimit = holder[1];
+        upperRefLimit = holder[2];
+        CI = "boot";
+    }
+
+#	Calculate a reference interval parametrically, with parametric confidence interval
+#	around the limits.
+    if(RI == "p"){
+
+#		http://www.statsdirect.com/help/parametric_methods/reference_range.htm
+#		https://en.wikipedia.org/wiki/Reference_range#Confidence_interval_of_limit
+
+		methodRI = "Reference Interval calculated parametrically";
+		methodCI = "Confidence Intervals calculated parametrically";
+
+		refZ = qnorm(1 - ((1 - refConf) / 2));
+		limitZ = qnorm(1 - ((1 - limitConf) / 2));
+
+		lowerRefLimit = mean - refZ * sd;
+		upperRefLimit = mean + refZ * sd;
+        se = sqrt(((sd^2)/n) + (((refZ^2)*(sd^2))/(2*n)));
+        lowerRefLowLimit = lowerRefLimit - limitZ * se;
+        lowerRefUpperLimit = lowerRefLimit + limitZ * se;
+        upperRefLowLimit = upperRefLimit - limitZ * se;
+        upperRefUpperLimit = upperRefLimit + limitZ * se;
+
+        shap_normalcy = shapiro.test(data);
+        shap_output = paste(c("Shapiro-Wilk: W = ", format(shap_normalcy$statistic,
+        					digits = 6), ", p-value = ", format(shap_normalcy$p.value,
+        					digits = 6)), collapse = "");
+        ks_normalcy = suppressWarnings(ks.test(data, "pnorm", m = mean, sd = sd));
+        ks_output = paste(c("Kolmorgorov-Smirnov: D = ", format(ks_normalcy$statistic,
+        					digits = 6), ", p-value = ", format(ks_normalcy$p.value,
+        					digits = 6)), collapse = "");
+        if(shap_normalcy$p.value < 0.05 | ks_normalcy$p.value < 0.05){
+        	norm = list(shap_output, ks_output);
+
+        }
+        else{
+        	norm = list(shap_output, ks_output);
+        }
+    }
+
+#	Calculate confidence interval around limits nonparametrically.
+    if(CI == "n"){
+
+    	if(n < 120){
+    		cat("\nSample size too small for non-parametric confidence intervals,
+    		bootstrapping instead\n");
+    		CI = "boot";
+    	}
+    	else{
+
+    		methodCI = "Confidence Intervals calculated nonparametrically";
+
+    		ranks = nonparRanks[which(nonparRanks$SampleSize == n),];
+  		  	lowerRefLowLimit = data[ranks$Lower];
+    		lowerRefUpperLimit = data[ranks$Upper];
+    		upperRefLowLimit = data[(n+1) - ranks$Upper];
+    		upperRefUpperLimit = data[(n+1) - ranks$Lower];
+		}
+    }
+
+#	Calculate bootstrapped confidence intervals around limits.
+	if(CI == "boot" & (RI == "n" | RI == "r")){
+
+		methodCI = "Confidence Intervals calculated by bootstrapping, R = 5000";
+
+		if(RI == "n"){
+			bootresult = boot::boot(data = data, statistic = nonparRI, refConf = refConf, R = 5000);
+		}
+		if(RI == "r"){
+			bootresult = boot::boot(data = data, statistic = robust, refConf = refConf, R = 5000);
+		}
+    	bootresultlower = boot::boot.ci(bootresult, conf = limitConf, type=bootStat, index = c(1,2));
+    	bootresultupper = boot::boot.ci(bootresult, conf = limitConf, type=bootStat, index = c(2,2));
+			bootresultlength = length(bootresultlower[[4]]);
+    	lowerRefLowLimit = bootresultlower[[4]][bootresultlength - 1];
+    	lowerRefUpperLimit = bootresultlower[[4]][bootresultlength];
+    	upperRefLowLimit = bootresultupper[[4]][bootresultlength - 1];
+    	upperRefUpperLimit = bootresultupper[[4]][bootresultlength];
+    }
+
+    RVAL = list(size = n, dname = dname, out.method = out.method, out.rm = out.rm,
+    			outliers = outliers, methodRI = methodRI, methodCI = methodCI,
+    			norm = norm, refConf = refConf, limitConf = limitConf,
+    			Ref_Int = c(lowerRefLimit = lowerRefLimit, upperRefLimit = upperRefLimit),
+    			Conf_Int = c(lowerRefLowLimit = lowerRefLowLimit,
+    						lowerRefUpperLimit = lowerRefUpperLimit,
+        					upperRefLowLimit = upperRefLowLimit,
+        					upperRefUpperLimit = upperRefUpperLimit));
+    class(RVAL) = "interval";
+    return(RVAL);
+}
+
+
 ```
 
 (if some of these packages are not on your computer, first install it
@@ -140,7 +340,7 @@ Let's define a short-name version of this with
 
 ```{r}
 RI.mean <- function(data, gamma = 0.95) {
-    referenceIntervals::refLimit(data, refConf = gamma)$Ref_Int
+    refLimit(data, refConf = gamma)$Ref_Int
 }
 ```
 

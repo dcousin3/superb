@@ -52,7 +52,6 @@ Imports:
     stringr,
     utils
 Suggests: 
-    car,
     emojifont,
     fMultivar,
     grid,
@@ -60,7 +59,7 @@ Suggests:
     knitr, 
     lattice,
     lawstat,
-    referenceIntervals,
+    boot, car,
     reshape2,
     rmarkdown,
     sadists,

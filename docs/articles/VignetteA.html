@@ -166,12 +166,12 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">glucoselevels</span><span class="op">)</span></code></pre></div>
 <pre><code>##   id concentration        gl
-## 1  1             A  82.53127
-## 2  2             A  49.39039
-## 3  3             A 125.11058
-## 4  4             A  92.23473
-## 5  5             A 142.02931
-## 6  6             A  80.07468</code></pre>
+## 1  1             A  67.82583
+## 2  2             A  66.13557
+## 3  3             A 122.82697
+## 4  4             A 123.93491
+## 5  5             A  83.22825
+## 6  6             A  80.78067</code></pre>
 <p>A simple plot could show the mean for each concentration along with the 95% confidence interval of the means, with e.g.,</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">glucoselevels</span>, 
@@ -182,7 +182,7 @@
             gamma     <span class="op">=</span> <span class="fl">0.95</span>,
             plotStyle <span class="op">=</span> <span class="st">"line"</span><span class="op">)</span></code></pre></div>
 <div class="figure">
-<img src="VignetteA_files/figure-html/unnamed-chunk-6-1.png" alt="**Figure 1**. Mean glucose level as a function of concentration." width="480"><p class="caption">
+<img src="VignetteA_files/figure-html/unnamed-chunk-7-1.png" alt="**Figure 1**. Mean glucose level as a function of concentration." width="480"><p class="caption">
 <strong>Figure 1</strong>. Mean glucose level as a function of concentration.
 </p>
 </div>
@@ -190,10 +190,10 @@
 <p>To convince yourself of that, ask for the smallest glucose level and the highest:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">glucoselevels</span><span class="op">$</span><span class="va">gl</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 42.50786</code></pre>
+<pre><code>## [1] 46.69473</code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">glucoselevels</span><span class="op">$</span><span class="va">gl</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 152.9225</code></pre>
+<pre><code>## [1] 159.8538</code></pre>
 <p>Instead of asking for an error bar representing a confidence interval (CI), let’s ask for error bar representing the reference intervals (RI).</p>
 <p>Reference intervals are not (at this time) shipped with <code>superb</code>. Let’s define a short-name version of this with</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
@@ -213,7 +213,7 @@
             gamma     <span class="op">=</span> <span class="fl">0.95</span>,   <span class="co"># select the coverage desired</span>
             plotStyle <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span></code></pre></div>
 <div class="figure">
-<img src="VignetteA_files/figure-html/unnamed-chunk-9-1.png" alt="**Figure 2**. Mean glucose level and 95% reference intervals as a function of concentration." width="480"><p class="caption">
+<img src="VignetteA_files/figure-html/unnamed-chunk-10-1.png" alt="**Figure 2**. Mean glucose level and 95% reference intervals as a function of concentration." width="480"><p class="caption">
 <strong>Figure 2</strong>. Mean glucose level and 95% reference intervals as a function of concentration.
 </p>
 </div>
@@ -243,7 +243,7 @@
             gamma     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.95</span>, <span class="fl">0.90</span><span class="op">)</span>,
             plotStyle <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> </code></pre></div>
 <div class="figure">
-<img src="VignetteA_files/figure-html/unnamed-chunk-11-1.png" alt="**Figure 3**. Mean glucose level and 90% confidence intervals of the upper RI tips." width="480"><p class="caption">
+<img src="VignetteA_files/figure-html/unnamed-chunk-12-1.png" alt="**Figure 3**. Mean glucose level and 90% confidence intervals of the upper RI tips." width="480"><p class="caption">
 <strong>Figure 3</strong>. Mean glucose level and 90% confidence intervals of the upper RI tips.
 </p>
 </div>
@@ -305,7 +305,7 @@
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">plt2</span><span class="op">)</span> <span class="op">+</span> 
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">plt3</span><span class="op">)</span></code></pre></div>
 <div class="figure">
-<img src="VignetteA_files/figure-html/unnamed-chunk-14-1.png" alt="**Figure 3a**. Mean glucose level and 95% reference intervals with 95% confidence intervals." width="480"><p class="caption">
+<img src="VignetteA_files/figure-html/unnamed-chunk-15-1.png" alt="**Figure 3a**. Mean glucose level and 95% reference intervals with 95% confidence intervals." width="480"><p class="caption">
 <strong>Figure 3a</strong>. Mean glucose level and 95% reference intervals with 95% confidence intervals.
 </p>
 </div>
@@ -337,7 +337,7 @@
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">plt2</span><span class="op">)</span> <span class="op">+</span> 
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">plt3</span><span class="op">)</span></code></pre></div>
 <div class="figure">
-<img src="VignetteA_files/figure-html/unnamed-chunk-15-1.png" alt="**Figure 3b**. Jittered dots showing mean glucose level and 95% reference intervals with 95% confidence intervals." width="480"><p class="caption">
+<img src="VignetteA_files/figure-html/unnamed-chunk-16-1.png" alt="**Figure 3b**. Jittered dots showing mean glucose level and 95% reference intervals with 95% confidence intervals." width="480"><p class="caption">
 <strong>Figure 3b</strong>. Jittered dots showing mean glucose level and 95% reference intervals with 95% confidence intervals.
 </p>
 </div>
@@ -364,7 +364,7 @@
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">plt2</span><span class="op">)</span> <span class="op">+</span> 
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">plt3</span><span class="op">)</span></code></pre></div>
 <div class="figure">
-<img src="VignetteA_files/figure-html/unnamed-chunk-16-1.png" alt="**Figure 3c**. Jittered dots and violins showing mean glucose level and 95% reference intervals with 95% confidence intervals of the tips' position." width="480"><p class="caption">
+<img src="VignetteA_files/figure-html/unnamed-chunk-17-1.png" alt="**Figure 3c**. Jittered dots and violins showing mean glucose level and 95% reference intervals with 95% confidence intervals of the tips' position." width="480"><p class="caption">
 <strong>Figure 3c</strong>. Jittered dots and violins showing mean glucose level and 95% reference intervals with 95% confidence intervals of the tips’ position.
 </p>
 </div>
@@ -396,7 +396,7 @@
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">plt3</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">plt4</span><span class="op">)</span></code></pre></div>
 <div class="figure">
-<img src="VignetteA_files/figure-html/unnamed-chunk-18-1.png" alt="**Figure 3d**. Jittered dots and violins showing mean glucose level +-95% confidence intervals of the mean, and 95% reference intervals with 95% confidence intervals." width="480"><p class="caption">
+<img src="VignetteA_files/figure-html/unnamed-chunk-19-1.png" alt="**Figure 3d**. Jittered dots and violins showing mean glucose level +-95% confidence intervals of the mean, and 95% reference intervals with 95% confidence intervals." width="480"><p class="caption">
 <strong>Figure 3d</strong>. Jittered dots and violins showing mean glucose level +-95% confidence intervals of the mean, and 95% reference intervals with 95% confidence intervals.
 </p>
 </div>
