@@ -1,4 +1,3 @@
 language: r
 r:
   - release
-r_binary_packages: - extremevalues, gWidgets2tcltk
