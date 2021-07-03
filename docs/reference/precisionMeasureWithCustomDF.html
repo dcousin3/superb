@@ -203,12 +203,15 @@ a custom degree of freedom (if unspecified, uses <code>n-1</code> where <code>n<
     <p>There are no references for Rd macro <code>\insertAllCites</code> on this help page.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># this will issue a warning as no custom degree of freedom is provided</span>
-<span class='fu'>CIwithDF.mean</span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span><span class='op'>)</span>, gamma <span class='op'>=</span> <span class='fl'>0.90</span><span class='op'>)</span>          
-</div><div class='output co'>#&gt; <span class='warning'>Warning: superb::FYI: No degree of freedom provided in gamma[2]; revert to CI</span></div><div class='output co'>#&gt; [1] 0.3141455 3.6858545</div><div class='input'><span class='co'># the confidence interval of the mean for 90% confidence level</span>
-<span class='fu'>CIwithDF.mean</span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span><span class='op'>)</span>, gamma <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.90</span>, <span class='fl'>1.5</span><span class='op'>)</span> <span class='op'>)</span> <span class='co'># uses 1.5 as df instead of 2.</span>
-</div><div class='output co'>#&gt; [1] -0.1391871  4.1391871</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># this will issue a warning as no custom degree of freedom is provided</span></span>
+<span class='r-in'><span class='fu'>CIwithDF.mean</span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span><span class='op'>)</span>, gamma <span class='op'>=</span> <span class='fl'>0.90</span><span class='op'>)</span>          </span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>superb::FYI: No degree of freedom provided in gamma[2]; revert to CI</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.3141455 3.6858545</span>
+<span class='r-in'><span class='co'># the confidence interval of the mean for 90% confidence level</span></span>
+<span class='r-in'><span class='fu'>CIwithDF.mean</span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span><span class='op'>)</span>, gamma <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.90</span>, <span class='fl'>1.5</span><span class='op'>)</span> <span class='op'>)</span> <span class='co'># uses 1.5 as df instead of 2.</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] -0.1391871  4.1391871</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

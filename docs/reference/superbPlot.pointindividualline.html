@@ -237,37 +237,39 @@ possible to add custom-make templates (see vignette 6). The functions, to be
     <p>a ggplot object</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># This will make a plot with points and individual lines for each subject's scores</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://health.adelaide.edu.au/psychology/ccs/teaching/lsr/'>lsr</a></span><span class='op'>)</span>
-
-<span class='co'># we take the Orange built-in data.frame which has a within-subject design</span>
-<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>Orange</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Tree"</span>,<span class='st'>"age"</span>,<span class='st'>"circ"</span><span class='op'>)</span>
-<span class='co'># turn the data into a wide format</span>
-<span class='va'>Orange.wide</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lsr/man/longToWide.html'>longToWide</a></span><span class='op'>(</span><span class='va'>Orange</span>, <span class='va'>circ</span> <span class='op'>~</span> <span class='va'>age</span><span class='op'>)</span>
-<span class='co'># the identifier to each tree must be in a column called id</span>
-<span class='va'>Orange.wide</span><span class='op'>$</span><span class='va'>id</span> <span class='op'>=</span> <span class='va'>Orange.wide</span><span class='op'>$</span><span class='va'>Tree</span>
-
-<span class='co'># Makes the plots two different way:</span>
-<span class='fu'><a href='superbPlot.html'>superbPlot</a></span><span class='op'>(</span> <span class='va'>Orange.wide</span>, WSFactors <span class='op'>=</span> <span class='st'>"age(7)"</span>,
-  variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"circ_118"</span>,<span class='st'>"circ_484"</span>,<span class='st'>"circ_664"</span>,<span class='st'>"circ_1004"</span>,<span class='st'>"circ_1231"</span>,<span class='st'>"circ_1372"</span>,<span class='st'>"circ_1582"</span><span class='op'>)</span>,
-  adjustments <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>purpose <span class='op'>=</span> <span class='st'>"difference"</span>, decorrelation <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span>,
-  plotStyle<span class='op'>=</span> <span class='st'>"pointindividualline"</span>
-<span class='op'>)</span>
-</div><div class='img'><img src='superbPlot.pointindividualline-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># if you extract the data with superbData, you can </span>
-<span class='co'># run this layout directly</span>
-<span class='va'>processedData</span> <span class='op'>&lt;-</span> <span class='fu'><a href='superbData.html'>superbData</a></span><span class='op'>(</span><span class='va'>Orange.wide</span>, WSFactors <span class='op'>=</span> <span class='st'>"age(7)"</span>,
-  variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"circ_118"</span>,<span class='st'>"circ_484"</span>,<span class='st'>"circ_664"</span>,<span class='st'>"circ_1004"</span>,<span class='st'>"circ_1231"</span>,<span class='st'>"circ_1372"</span>,<span class='st'>"circ_1582"</span><span class='op'>)</span>,
-  adjustments <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>purpose <span class='op'>=</span> <span class='st'>"difference"</span>, decorrelation <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span>,
-<span class='op'>)</span>
-
-<span class='fu'>superbPlot.pointindividualline</span><span class='op'>(</span><span class='va'>processedData</span><span class='op'>$</span><span class='va'>summaryStatistic</span>,
-   <span class='st'>"age"</span>,
-   <span class='cn'>NULL</span>,
-   <span class='st'>".~."</span>,
-   <span class='va'>processedData</span><span class='op'>$</span><span class='va'>rawData</span><span class='op'>)</span>
-</div><div class='img'><img src='superbPlot.pointindividualline-2.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># This will make a plot with points and individual lines for each subject's scores</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://health.adelaide.edu.au/psychology/ccs/teaching/lsr/'>lsr</a></span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># we take the Orange built-in data.frame which has a within-subject design</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>Orange</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Tree"</span>,<span class='st'>"age"</span>,<span class='st'>"circ"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># turn the data into a wide format</span></span>
+<span class='r-in'><span class='va'>Orange.wide</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lsr/man/longToWide.html'>longToWide</a></span><span class='op'>(</span><span class='va'>Orange</span>, <span class='va'>circ</span> <span class='op'>~</span> <span class='va'>age</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># the identifier to each tree must be in a column called id</span></span>
+<span class='r-in'><span class='va'>Orange.wide</span><span class='op'>$</span><span class='va'>id</span> <span class='op'>=</span> <span class='va'>Orange.wide</span><span class='op'>$</span><span class='va'>Tree</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Makes the plots two different way:</span></span>
+<span class='r-in'><span class='fu'><a href='superbPlot.html'>superbPlot</a></span><span class='op'>(</span> <span class='va'>Orange.wide</span>, WSFactors <span class='op'>=</span> <span class='st'>"age(7)"</span>,</span>
+<span class='r-in'>  variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"circ_118"</span>,<span class='st'>"circ_484"</span>,<span class='st'>"circ_664"</span>,<span class='st'>"circ_1004"</span>,<span class='st'>"circ_1231"</span>,<span class='st'>"circ_1372"</span>,<span class='st'>"circ_1582"</span><span class='op'>)</span>,</span>
+<span class='r-in'>  adjustments <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>purpose <span class='op'>=</span> <span class='st'>"difference"</span>, decorrelation <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span>,</span>
+<span class='r-in'>  plotStyle<span class='op'>=</span> <span class='st'>"pointindividualline"</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-plt'><img src='superbPlot.pointindividualline-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># if you extract the data with superbData, you can </span></span>
+<span class='r-in'><span class='co'># run this layout directly</span></span>
+<span class='r-in'><span class='va'>processedData</span> <span class='op'>&lt;-</span> <span class='fu'><a href='superbData.html'>superbData</a></span><span class='op'>(</span><span class='va'>Orange.wide</span>, WSFactors <span class='op'>=</span> <span class='st'>"age(7)"</span>,</span>
+<span class='r-in'>  variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"circ_118"</span>,<span class='st'>"circ_484"</span>,<span class='st'>"circ_664"</span>,<span class='st'>"circ_1004"</span>,<span class='st'>"circ_1231"</span>,<span class='st'>"circ_1372"</span>,<span class='st'>"circ_1582"</span><span class='op'>)</span>,</span>
+<span class='r-in'>  adjustments <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>purpose <span class='op'>=</span> <span class='st'>"difference"</span>, decorrelation <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span>,</span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>superbPlot.pointindividualline</span><span class='op'>(</span><span class='va'>processedData</span><span class='op'>$</span><span class='va'>summaryStatistic</span>,</span>
+<span class='r-in'>   <span class='st'>"age"</span>,</span>
+<span class='r-in'>   <span class='cn'>NULL</span>,</span>
+<span class='r-in'>   <span class='st'>".~."</span>,</span>
+<span class='r-in'>   <span class='va'>processedData</span><span class='op'>$</span><span class='va'>rawData</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='superbPlot.pointindividualline-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

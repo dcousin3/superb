@@ -22,7 +22,7 @@ library(ggplot2)
 ```
 
 The package ``superb`` facilitates the production of 
-summary statistic plots having the correct error bars. Error bars are
+summary statistic plots having adjusted error bars [@cgh21]. Error bars are
 measures of precision; they are meant to convey some indications of
 the trust we can place in a given result. Those results that come
 will large error bars (wide intervals) should be considered less

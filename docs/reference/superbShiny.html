@@ -50,10 +50,10 @@
 <meta property="og:description" content="The function suberbShiny() provides a simple user interface
 to plot standard error or confidence interval for various descriptive
 statistics under various designs, population size and purposes,
-according to the suberb framework. See (Cousineau 2017)
+according to the suberb framework. See (Cousineau et al. 2021)
  for more.
 Limitations: it is not possible to use custom-made statistics with the
-user interface, nor is it possible to request an adjustment for cluster-
+graphical user interface, nor is it possible to request an adjustment for cluster-
 randomized sampling. These options are available with superbPlot()." />
 <meta property="og:image" content="http://dcousin3.github.io/superb/logo.png" />
 
@@ -180,10 +180,10 @@ randomized sampling. These options are available with superbPlot()." />
     <p>The function <code>suberbShiny()</code> provides a simple user interface
 to plot standard error or confidence interval for various descriptive
 statistics under various designs, population size and purposes,
-according to the <code>suberb</code> framework. See (Cousineau 2017)
+according to the <code>suberb</code> framework. See (Cousineau et al. 2021)
  for more.
 Limitations: it is not possible to use custom-made statistics with the
-user interface, nor is it possible to request an adjustment for cluster-
+graphical user interface, nor is it possible to request an adjustment for cluster-
 randomized sampling. These options are available with <code><a href='superbPlot.html'>superbPlot()</a></code>.</p>
     </div>
 
@@ -195,20 +195,18 @@ randomized sampling. These options are available with <code><a href='superbPlot.
     <p>A plot that can be cut-and-paste.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Cousineau D (2017).
-&#8220;Varieties of confidence intervals.&#8221;
-<em>Advances in Cognitive Psychology</em>, <b>13</b>, 140 -- 155.
-doi: <a href='https://doi.org/10.5709/acp-0214-z'>10.5709/acp-0214-z</a>
-.</p>
+    <p>Cousineau D, Goulet M, Harding B (2021).
+&#8220;Summary plots with adjusted error bars: The superb framework with an implementation in R.&#8221;
+<em>Advances in Methods and Practices in Psychological Science</em>, <b>in press</b>, 1--46.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Launch the user interface: </span>
-<span class='co'># \donttest{</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-   <span class='fu'>superbShiny</span><span class='op'>(</span><span class='op'>)</span> 
-<span class='co'># }</span>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># Launch the user interface: </span></span>
+<span class='r-in'><span class='co'># \donttest{</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'>   <span class='fu'>superbShiny</span><span class='op'>(</span><span class='op'>)</span> </span>
+<span class='r-in'><span class='co'># }</span></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

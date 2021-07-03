@@ -156,7 +156,7 @@ shows the benefit of the within-subject design on precision.
 ## Making it simple
 
 With ``suberb``, all the decorrelation techniques are available using the adjustment
-``decorrelation``.
+``decorrelation`` [@cgh21].
 
 Consider the following
 

@@ -204,17 +204,18 @@ This test is described in (Abdi 2010)</p>
 <em>Encyclopedia of research design</em>, <b>1</b>(1), 544--548.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># creates a small data frames with 4 subject's scores for 5 measures:</span>
-<span class='va'>dta</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span>
-        <span class='va'>col1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3.</span>, <span class='fl'>6.</span>, <span class='fl'>2.</span>, <span class='fl'>2.</span>, <span class='fl'>5.</span><span class='op'>)</span>,
-        <span class='va'>col2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4.</span>, <span class='fl'>5.</span>, <span class='fl'>4.</span>, <span class='fl'>4.</span>, <span class='fl'>3.</span><span class='op'>)</span>,
-        <span class='va'>col3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.</span>, <span class='fl'>7.</span>, <span class='fl'>7.</span>, <span class='fl'>8.</span>, <span class='fl'>6.</span><span class='op'>)</span>,
-        <span class='va'>col4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>6.</span>, <span class='fl'>8.</span>, <span class='fl'>4.</span>, <span class='fl'>6.</span>, <span class='fl'>5.</span><span class='op'>)</span>
-    <span class='op'>)</span><span class='op'>)</span>
-<span class='co'># performs the test (here p = 0.5824)</span>
-<span class='fu'>MauchlySphericityTest</span><span class='op'>(</span><span class='va'>dta</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.5824426</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># creates a small data frames with 4 subject's scores for 5 measures:</span></span>
+<span class='r-in'><span class='va'>dta</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span></span>
+<span class='r-in'>        <span class='va'>col1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3.</span>, <span class='fl'>6.</span>, <span class='fl'>2.</span>, <span class='fl'>2.</span>, <span class='fl'>5.</span><span class='op'>)</span>,</span>
+<span class='r-in'>        <span class='va'>col2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4.</span>, <span class='fl'>5.</span>, <span class='fl'>4.</span>, <span class='fl'>4.</span>, <span class='fl'>3.</span><span class='op'>)</span>,</span>
+<span class='r-in'>        <span class='va'>col3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.</span>, <span class='fl'>7.</span>, <span class='fl'>7.</span>, <span class='fl'>8.</span>, <span class='fl'>6.</span><span class='op'>)</span>,</span>
+<span class='r-in'>        <span class='va'>col4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>6.</span>, <span class='fl'>8.</span>, <span class='fl'>4.</span>, <span class='fl'>6.</span>, <span class='fl'>5.</span><span class='op'>)</span></span>
+<span class='r-in'>    <span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># performs the test (here p = 0.5824)</span></span>
+<span class='r-in'><span class='fu'>MauchlySphericityTest</span><span class='op'>(</span><span class='va'>dta</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.5824426</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

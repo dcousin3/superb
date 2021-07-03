@@ -215,30 +215,34 @@ See (Shrout and Fleiss 1979)
 <em>Psychological bulletin</em>, <b>86</b>(2), 420.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># creates a small data frames with 4 subject's scores for 5 measures:</span>
-<span class='va'>dta</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span>
-        <span class='va'>clus</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>3</span><span class='op'>)</span>,
-        <span class='va'>col1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>4</span>, <span class='fl'>4</span>, <span class='fl'>6</span>, <span class='fl'>4</span>, <span class='fl'>5</span>, <span class='fl'>8</span>, <span class='fl'>8</span>, <span class='fl'>5</span>, <span class='fl'>8</span>, <span class='fl'>9</span>, <span class='fl'>9</span><span class='op'>)</span>
-    <span class='op'>)</span><span class='op'>)</span>
-
-<span class='fu'>ShroutFleissICC1</span><span class='op'>(</span><span class='va'>dta</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.4343434</div><div class='input'><span class='co'># 0.434343434 </span>
-<span class='fu'>ShroutFleissICC11</span><span class='op'>(</span><span class='va'>dta</span><span class='op'>[</span>, <span class='fl'>1</span><span class='op'>]</span>, <span class='va'>dta</span><span class='op'>[</span>,<span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.4343434</div><div class='input'><span class='co'># 0.434343434 </span>
-
-<span class='va'>dta2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span>
-        <span class='va'>clus</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>3</span><span class='op'>)</span>,
-        <span class='va'>col1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>5</span>, <span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>7</span>, <span class='fl'>7</span>, <span class='fl'>4</span>, <span class='fl'>7</span>, <span class='fl'>8</span>, <span class='fl'>8</span><span class='op'>)</span>,
-        <span class='va'>col1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>4</span>, <span class='fl'>4</span>, <span class='fl'>6</span>, <span class='fl'>4</span>, <span class='fl'>5</span>, <span class='fl'>8</span>, <span class='fl'>8</span>, <span class='fl'>5</span>, <span class='fl'>8</span>, <span class='fl'>9</span>, <span class='fl'>9</span><span class='op'>)</span>,
-        <span class='va'>col1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>7</span>, <span class='fl'>5</span>, <span class='fl'>6</span>, <span class='fl'>9</span>, <span class='fl'>9</span>, <span class='fl'>6</span>, <span class='fl'>9</span>, <span class='fl'>10</span>, <span class='fl'>10</span><span class='op'>)</span>
-    <span class='op'>)</span><span class='op'>)</span>
- 
-<span class='fu'>ShroutFleissICC1</span><span class='op'>(</span><span class='va'>dta2</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.754386</div><div class='input'><span class='co'># 0.7543859649 </span>
-<span class='fu'>ShroutFleissICC1k</span><span class='op'>(</span><span class='va'>dta2</span><span class='op'>[</span>, <span class='fl'>1</span><span class='op'>]</span>, <span class='va'>dta2</span><span class='op'>[</span>,<span class='fl'>2</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.754386</div><div class='input'><span class='co'># 0.7543859649 </span>
-  
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># creates a small data frames with 4 subject's scores for 5 measures:</span></span>
+<span class='r-in'><span class='va'>dta</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span></span>
+<span class='r-in'>        <span class='va'>clus</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>3</span><span class='op'>)</span>,</span>
+<span class='r-in'>        <span class='va'>col1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>4</span>, <span class='fl'>4</span>, <span class='fl'>6</span>, <span class='fl'>4</span>, <span class='fl'>5</span>, <span class='fl'>8</span>, <span class='fl'>8</span>, <span class='fl'>5</span>, <span class='fl'>8</span>, <span class='fl'>9</span>, <span class='fl'>9</span><span class='op'>)</span></span>
+<span class='r-in'>    <span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>ShroutFleissICC1</span><span class='op'>(</span><span class='va'>dta</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.4343434</span>
+<span class='r-in'><span class='co'># 0.434343434 </span></span>
+<span class='r-in'><span class='fu'>ShroutFleissICC11</span><span class='op'>(</span><span class='va'>dta</span><span class='op'>[</span>, <span class='fl'>1</span><span class='op'>]</span>, <span class='va'>dta</span><span class='op'>[</span>,<span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.4343434</span>
+<span class='r-in'><span class='co'># 0.434343434 </span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>dta2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span></span>
+<span class='r-in'>        <span class='va'>clus</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>3</span><span class='op'>)</span>,</span>
+<span class='r-in'>        <span class='va'>col1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>5</span>, <span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>7</span>, <span class='fl'>7</span>, <span class='fl'>4</span>, <span class='fl'>7</span>, <span class='fl'>8</span>, <span class='fl'>8</span><span class='op'>)</span>,</span>
+<span class='r-in'>        <span class='va'>col1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>4</span>, <span class='fl'>4</span>, <span class='fl'>6</span>, <span class='fl'>4</span>, <span class='fl'>5</span>, <span class='fl'>8</span>, <span class='fl'>8</span>, <span class='fl'>5</span>, <span class='fl'>8</span>, <span class='fl'>9</span>, <span class='fl'>9</span><span class='op'>)</span>,</span>
+<span class='r-in'>        <span class='va'>col1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>7</span>, <span class='fl'>5</span>, <span class='fl'>6</span>, <span class='fl'>9</span>, <span class='fl'>9</span>, <span class='fl'>6</span>, <span class='fl'>9</span>, <span class='fl'>10</span>, <span class='fl'>10</span><span class='op'>)</span></span>
+<span class='r-in'>    <span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'> </span>
+<span class='r-in'><span class='fu'>ShroutFleissICC1</span><span class='op'>(</span><span class='va'>dta2</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.754386</span>
+<span class='r-in'><span class='co'># 0.7543859649 </span></span>
+<span class='r-in'><span class='fu'>ShroutFleissICC1k</span><span class='op'>(</span><span class='va'>dta2</span><span class='op'>[</span>, <span class='fl'>1</span><span class='op'>]</span>, <span class='va'>dta2</span><span class='op'>[</span>,<span class='fl'>2</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.754386</span>
+<span class='r-in'><span class='co'># 0.7543859649 </span></span>
+<span class='r-in'>  </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

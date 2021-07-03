@@ -197,39 +197,54 @@ theHelpModals <- list(
         p(strong("Specific graphic attributes."),"You can add additional attributes to specific ",
             "plot's elements. For example, errorbarParams will inject additional attributes to the",
             "error bars. The attributes must be comma-separated. Here are some examples.",br(),
-            p(em("errorbarParams:")),
-            bc("position = position_dodge(width = .15) # shifts the error bars to the left"),
-            bc("width = .2, size = 3, colour = \"gray\"  # makes them wider, thicker or gray"),
-            bc("tipformat = \"triple\", tipgap = 0.4, direction = \"left\" # triple the tips"),
-
-            br(),p(em("barParams:")),
-            bc("linetype = 3, colour = \"black\", size = .5 #change line type, color, thickness"),
-
-            br(),p(em("pointParams:")),
-            bc("position = position_dodge(width = .15) # moves them away"),
-            bc("colour = \"gray\", size = 10.5         # change the color and the size"),
-
-            br(),p(em("lineParams")),
-            code("size=0.25, linetype=\"dashed\" "),
-
-            br(),p(em("jitterParams")),
-            bc("size = 0.5 # the size of the individual dots"),
-            bc("alpha=1, shape=21, fill=\"white\" # shapes above 20 have fillings"),
-            p(em("violinParams")),
-            bc("alpha =0.7, fill = \"green\" # the transparency and the color of the filling")
         ),
-        p(strong("General graphic directives"), "Provides graphic-wide directives that",
+        p(em("errorbarParams:")),
+            tags$table(
+                tags$tr(tags$td("shifts the error bars to the left"),tags$td(code("position = position_dodge(width = .15)"))),
+                tags$tr(tags$td("makes them wider, thicker or gray"),tags$td(code("width = .2, size = 3, colour = \"gray\""))),
+                tags$tr(tags$td("triple the tips"),tags$td(code("tipformat = \"triple\", tipgap = 0.4, direction = \"left\"")))
+            ),
+
+        br(),p(em("barParams:")),
+            tags$table(
+                tags$tr(tags$td("change line type, color, thickness"),tags$td(code("linetype = 3, colour = \"black\", size = .5"))),
+            ),
+
+        br(),p(em("pointParams:")),
+            tags$table(
+                tags$tr(tags$td("moves the points away"),tags$td(code("position = position_dodge(width = .15)"))),
+                tags$tr(tags$td("change their color and the size"),tags$td(code("colour = \"gray\", size = 10.5")))
+            ),
+
+        br(),p(em("lineParams")),
+            tags$table(
+                tags$tr(tags$td("change line thickness and line style"),tags$td(code("size=0.25, linetype=\"dashed\" ")))
+            ),
+
+        br(),p(em("jitterParams")),
+            tags$table(
+                tags$tr(tags$td("change the size of the individual dots"),tags$td(code("size = 0.5"))),
+                tags$tr(tags$td("shapes above 20 have fillings"),tags$td(code("alpha=1, shape=21, fill=\"white\"")))
+            ),
+            
+        br(),p(em("violinParams")),
+            tags$table(
+                tags$tr(tags$td("set the transparency and the color of the filling"),tags$td(code("alpha =0.7, fill = \"green\" ")))
+            ),
+
+        br(),p(strong("General graphic directives"), "Provides graphic-wide directives that",
             "will affect the whole figure. The directives must be one per line; you can ",
-            "comment some of these with #. Examples are: ",br(),
-            bc("coord_flip( ylim = c(50,100) ) # flip the plot sideways; nicer for rainplot"),
-            bc("labs(title =\"Main title\") # adds a title"),
-            bc("xlab(\"Moment\")        # adds a label on the x axis"),
-            bc("ylab(\"Score\")         # adds a label on the y-axis"),
-            bc("coord_cartesian( ylim = c(50,100) )  # restricts the vertical range"),
-            bc("showSignificance( c(1, 3), 90, -1, \"**\") # show **"),
-            bc(" scale_fill_manual( name = \"Group\", labels = c(\"Easy\", \"Hard\"), ",
-                    "values = c(\"blue\", \"purple\")) # change fill colors")
-        ),
+            "comment some of these with #. Examples are: "),
+            tags$table(
+                tags$tr(tags$td("flip the plot sideways; nicer for rainplot"),tags$td(code("coord_flip( ylim = c(50,100) )"))),
+                tags$tr(tags$td("adds a title"),tags$td(code("labs(title =\"Main title\")"))),
+                tags$tr(tags$td("adds a label on the x axis"),tags$td(code("xlab(\"Moment\")       "))),
+                tags$tr(tags$td("adds a label on the y-axis"),tags$td(code("ylab(\"Score\")        ")),),
+                tags$tr(tags$td("restricts the vertical range"),tags$td(code("coord_cartesian( ylim = c(50,100) ) ")),),
+                tags$tr(tags$td("show **"),tags$td(code("showSignificance( c(1, 3), 90, -1, \"**\")")),),
+                tags$tr(tags$td("change fill colors"),tags$td(code(" scale_fill_manual( name = \"Group\", labels = c(\"A\", \"B\"), ",
+                    "values = c(\"blue\", \"purple\"))")))
+            ),
         p("Check ggplot2 documentations regarding these attributes and directives.")
     )
 )
@@ -350,7 +365,7 @@ thePage <- fluidPage(
                     value = 5, style = "success"),
                 bsCollapsePanel("All done!", 
                     p(em("Thank you for using superb.")),
-                    p("If this app has been useful, do not forget to cite us!"),
+                    p("To cite this work, ", a("doi: PENDING, AMPPS", href="https://doi.org/PENDING/", target="_blank"),"."),
                     p("For issues, ", a("github.com/dcousin3/superb/issues", href="https://github.com/dcousin3/superb/issues", target="_blank"),"."),
                     p("Tip: Cut-and-paste the script generated (last tab) for", 
                       "easier re-run of the instructions and advanced customization."),
@@ -505,7 +520,7 @@ generateScript <- function( cI ) {
 
     # Step 1==script[2]: Load the data
     script[2] <- paste3( 
-        "# Step 1: Load the data",
+        "# Step 1: Load the data (adjust working directory if needed)",
         paste("dataToPlot <- read.",cI$Step1$ext,"(\"", cI$Step1$name, "\", header = TRUE)", sep=""),
         sep = "\n"
     )
@@ -772,6 +787,7 @@ generateCaption <- function( currentInfo ) {
 
 
 fillWSfactors <- function(session, input, output, i) {
+    wsShown.local <- 0
     currentwsfact = input[[paste("wsfact",i,sep="")]]
     currentwsleve = input[[paste("wsleve",i,sep="")]]
     wsleve1toi = 1:i
@@ -793,7 +809,7 @@ fillWSfactors <- function(session, input, output, i) {
                 output[[paste("superbWSFactors",i+1,sep="")]]  <- renderUI({ tagList( wslinefct(i+1) )})
             } else if (productwsleve > length(input$superbVariables)) {
                 updateButton(session, "S2Apply", disabled = TRUE) 
-                wsShown <- i
+                wsShown.local <- i
                 for (j in seq(i+1, 4, length.out = 4-i))  { #(i+1):4) 
                     output[[paste("superbWSFactors",j,sep="")]]  <- renderUI({ })
                  }
@@ -802,7 +818,7 @@ fillWSfactors <- function(session, input, output, i) {
                 toggleModal(session, "superbnonfact", toggle = "open")
                 # the levels are collected and validated upon button click
             } else { # all good; a full-factorial design
-                wsShown <- -i
+                wsShown.local <- -i
                 for (j in seq(i+1, 4, length.out = 4-i)) {
                     output[[paste("superbWSFactors",j,sep="")]]  <- renderUI({ })
                  }
@@ -812,7 +828,7 @@ fillWSfactors <- function(session, input, output, i) {
     } else updateButton(session, "S2Apply", disabled = TRUE)
     WSFactorsNames  <<- wsfact1toi
     WSFactorsLevels <<- wsleve1toi
-    return(wsShown)
+    return(wsShown.local)
 }
 
 ####################################################################
@@ -823,21 +839,16 @@ fillWSfactors <- function(session, input, output, i) {
 theServerFct <- function(input, output, session) {
 
     # a dummy function for quick and dirty debugging information
-    if (getOption("superb.shiny") == "display") {
-        cat("Display of feedback information turned on...\n")
-    }
     mycat <- function(...) {
         if (!is.null(getOption("superb.shiny"))) {
             if (getOption("superb.shiny") == "display") {
-                cat(...)
-            }
-        }
-    }
+                cat(...) } } }
+    mycat("Display of feedback information turned on...\n")
     mycat("App version 3.1a; shipped with superb 0.9.7.5\n")
 
     # Information collected as we go through the steps:
-    info <- list() # list with $Step1, $Step2, $Step4, $Step5 and $Step6
-    info$Completed <- 0
+    info           <- list() # list with $Step1, $Step2, $Step4, $Step5 and $Step6
+    info$Completed <- 0      # is Step 1 completed?
 
     # Step2 information contains the arguments to superbPlot except...
     info$Step2$WSDesign      <- "fullfactorial" # changed on Step 2
@@ -947,7 +958,7 @@ theServerFct <- function(input, output, session) {
         mycat("S2: Nonfactorial modal left!", "\n")
 
         # determine how many WS factors have been given
-        wsfactornumbers <- wsShown
+        wsfactornumbers <<- wsShown
         # extract the factor names
         wsfactornames  <- 1:wsfactornumbers
         for (j in 1:wsfactornumbers) {

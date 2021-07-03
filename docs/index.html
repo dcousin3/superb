@@ -22,7 +22,8 @@
     Computes standard error and confidence interval of various descriptive statistics under 
     various designs and sampling schemes. The main function, superbPlot(), can either return a plot 
     or a dataframe with the statistic and its precision interval so that other plotting package
-    can be used. See Cousineau (2017) &lt;doi:10.5709/acp-0214-z&gt; for a review or Cousineau (2005)
+    can be used. See Cousineau, Goulet &amp; Harding (in press, AMPPS) or Cousineau (2017)
+    &lt;doi:10.5709/acp-0214-z&gt; for a review or Cousineau (2005)
     &lt;doi:10.20982/tqmp.01.1.p042&gt;, Morey (2008) &lt;doi:10.20982/tqmp.04.2.p061&gt;, Baguley (2012)
     &lt;doi:10.3758/s13428-011-0123-7&gt;, Cousineau &amp; Laurencelle (2016) &lt;doi:10.1037/met0000055&gt;,
     Cousineau &amp; O'Brien (2014) &lt;doi:10.3758/s13428-013-0441-z&gt;, Calderini &amp; Harding 
@@ -193,13 +194,13 @@
     Effects    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"Day"</span> <span class="op">=</span> <span class="fu"><a href="reference/slope.html">slope</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span><span class="op">)</span> <span class="op">)</span>
 <span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">testdata</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">##   id Difficulty  score.1  score.2</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1  1          A 70.27344 47.95469</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2  2          A 74.25921 56.48621</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3  3          A 73.43237 70.31656</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4  4          A 72.94867 62.29598</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5  5          A 87.15440 79.19089</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6  6          A 47.72724 55.42129</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">##   id Difficulty  score.1   score.2</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1  1          A 87.50433 102.15152</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2  2          A 60.07547  51.97630</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3  3          A 75.34846  59.80454</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4  4          A 60.93139  55.34069</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5  5          A 81.91479  86.32453</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6  6          A 83.31082  84.09887</span></span></code></pre></div>
 <p>The simulated scores are illustrated using using a more elaborated layout, the <code>pointjitterviolin</code> which, in addition to the mean and confidence interval, shows the raw data using jitter dots and the distribution using a violin plot:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">testdata</span>, 
@@ -218,7 +219,14 @@
 <a href="#for-more" class="anchor"></a>For more</h1>
 <p>As seen, the library <code>superb</code> makes it easy to illustrate summary statistics along with the error bars. Some layouts can be used to visualize additional characteristics of the raw data. Finally, the resulting appearance can be customized in various ways.</p>
 <p>The complete documentation is available on this <a href="https://dcousin3.github.io/superb/">site</a>.</p>
-<p>A general introduction to the <code>superb</code> framework underlying this library is under consideration at <em>Advances in Methods and Practices in Psychological Sciences</em>.</p>
+<p>A general introduction to the <code>superb</code> framework underlying this library is in press at <em>Advances in Methods and Practices in Psychological Sciences</em> (Cousineau, Goulet, &amp; Harding, in press).</p>
+</div>
+<div id="references" class="section level1">
+<h1 class="hasAnchor">
+<a href="#references" class="anchor"></a>References</h1>
+<p>
+Cousineau D, Goulet M, Harding B (2021). “Summary plots with adjusted error bars: The superb framework with an implementation in R.” <em>Advances in Methods and Practices in Psychological Science</em>, <b>in press</b>, 1–46.
+</p>
 </div>
 
   </div>

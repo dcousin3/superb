@@ -133,7 +133,7 @@
 
     
     
-<p>The package <code>superb</code> facilitates the production of summary statistic plots having the correct error bars. Error bars are measures of precision; they are meant to convey some indications of the trust we can place in a given result. Those results that come will large error bars (wide intervals) should be considered less reliable that those with short error bars.</p>
+<p>The package <code>superb</code> facilitates the production of summary statistic plots having adjusted error bars <span class="citation">(Cousineau, Goulet, &amp; Harding, 2021)</span>. Error bars are measures of precision; they are meant to convey some indications of the trust we can place in a given result. Those results that come will large error bars (wide intervals) should be considered less reliable that those with short error bars.</p>
 <p>Error bars, which are drawn from measures of precision, comes in many flavors. There is the simple <em>standard error</em> (SE), the more famous <em>confidence interval</em> (CI), and new proposals such as the <em>highest density interval</em> (HDI). The package <code>superb</code> has build-in functions for both the SE and CI, but any other measure of precision can be added (as shown in <a href="https://dcousin3.github.io/superb/articles/Vignette4.html">Vignette 4</a>).</p>
 <p>All measures of precision are tailored for a given statistic. Hence, we have the <em>standard error of the mean</em>, the <em>standard error of the median</em>, the <em>confidence interval of the skew</em>, etc. For each and every statistic, there is a corresponding measure of precision. In what follows, we discuss the confidence interval, but everything that follows apply equally well to any measure of precision.</p>
 <p>The basic confidence interval can be termed a “stand-alone” confidence interval because it indicates the precision of a statistic in isolation. It is useful to compare this statistics to a criterion performance or any <em>a priori</em>-determined value. As shown in <a href="https://dcousin3.github.io/superb/articles/Vignette2.html">Vignette 2</a> and <a href="https://dcousin3.github.io/superb/articles/Vignette3.html">Vignette 3</a>, such “stand-alone” measures are inadequate when an observed result is to be compared to other observed results <span class="citation">(also see Cousineau, 2005, 2017)</span>.</p>
@@ -251,7 +251,7 @@
 <pre><code>## superb::FYI: The HyunhFeldtEpsilon measure of sphericity per group are  0.545</code></pre>
 <pre><code>## superb::FYI: Some of the groups' data are not spherical. Use error bars with caution.</code></pre>
 <p><img src="Vignette1_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
-<p>Unless you change the options to <code><a href="https://rdrr.io/r/base/options.html">options(superb.feedback = 'none')</a></code>, the command will issue some additional information. In the present data set, <span class="math inline">\(\varepsilon\)</span> is 0.54 which is low. A Mauchly test of sphericity indicates rejection of sphericity, so interpret the error bars with caution. All the messages issued beginning with <code>"FYI"</code> are just information. Hereafter, the warnings are inhibited.</p>
+<p>Unless you change the options to <code>options(superb.feedback = 'none')</code>, the command will issue some additional information. In the present data set, <span class="math inline">\(\varepsilon\)</span> is 0.54 which is low. A Mauchly test of sphericity indicates rejection of sphericity, so interpret the error bars with caution. All the messages issued beginning with <code>"FYI"</code> are just information. Hereafter, the warnings are inhibited.</p>
 </div>
 <div id="step-3-specify-the-sampling-procedure-and-the-population-size" class="section level2">
 <h2 class="hasAnchor">
@@ -296,6 +296,9 @@ Cousineau, D. (2017). Varieties of confidence intervals. <em>Advances in Cogniti
 </div>
 <div id="ref-c19" class="csl-entry">
 Cousineau, D. (2019). Correlation-adjusted standard errors and confidence intervals for within-subject designs: A simple multiplicative approach. <em>The Quantitative Methods for Psychology</em>, <em>15</em>, 226–241. <a href="https://doi.org/10.20982/tqmp.15.3.p226">https://doi.org/10.20982/tqmp.15.3.p226</a>
+</div>
+<div id="ref-cgh21" class="csl-entry">
+Cousineau, D., Goulet, M.-A., &amp; Harding, B. (2021). Summary plots with adjusted error bars: The superb framework with an implementation in <span>R</span>. <em>Advances in Methods and Practices in Psychological Science</em>, <em>in press</em>, 1–46.
 </div>
 <div id="ref-cl16" class="csl-entry">
 Cousineau, D., &amp; Laurencelle, L. (2016). A correction factor for the impact of cluster randomized sampling and its applications. <em>Psychological Methods</em>, <em>21</em>, 121–135. <a href="https://doi.org/10.1037/met0000055">https://doi.org/10.1037/met0000055</a>

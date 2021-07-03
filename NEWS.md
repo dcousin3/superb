@@ -2,7 +2,6 @@
 
 * official release on CRAN of ``superb`` with the graphical user interface
 ``superbShiny()``;
-
 * small changes to vignette TheMakingOf;
 
 

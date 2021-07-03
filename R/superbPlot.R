@@ -5,7 +5,7 @@
 #'
 #' @description The function ``suberbPlot()`` plots standard error or confidence interval for various descriptive 
 #'      statistics under various designs, sampling schemes, population size and purposes,
-#'      according to the ``suberb`` framework. See \insertCite{c17}{superb} for more.
+#'      according to the ``suberb`` framework. See \insertCite{cgh21}{superb} for more.
 #'
 #' @param data Dataframe in wide format
 #'

@@ -153,7 +153,7 @@
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>            <span class="co"># for the graphing commands</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dcousin3.github.io/superb/">superb</a></span><span class="op">)</span>             <span class="co"># for superbPlot and GRD</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">referenceIntervals</span><span class="op">)</span> <span class="co"># for computing reference intervals</span></code></pre></div>
-<p>(if some of these packages are not on your computer, first install it with for example <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("referenceIntervals")</a></code> )</p>
+<p>(if some of these packages are not on your computer, first install it with for example <code>install.packages("referenceIntervals")</code> )</p>
 <p>… then let’s create a ficticious data set on the fly:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">glucoselevels</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span>BSFactors <span class="op">=</span> <span class="st">"concentration(A,B,C,D,E)"</span>, 
@@ -166,12 +166,12 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">glucoselevels</span><span class="op">)</span></code></pre></div>
 <pre><code>##   id concentration        gl
-## 1  1             A  96.04250
-## 2  2             A  58.10745
-## 3  3             A  92.13362
-## 4  4             A  85.39279
-## 5  5             A  84.92771
-## 6  6             A 100.84180</code></pre>
+## 1  1             A  82.53127
+## 2  2             A  49.39039
+## 3  3             A 125.11058
+## 4  4             A  92.23473
+## 5  5             A 142.02931
+## 6  6             A  80.07468</code></pre>
 <p>A simple plot could show the mean for each concentration along with the 95% confidence interval of the means, with e.g.,</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">glucoselevels</span>, 
@@ -190,10 +190,10 @@
 <p>To convince yourself of that, ask for the smallest glucose level and the highest:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">glucoselevels</span><span class="op">$</span><span class="va">gl</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 29.10432</code></pre>
+<pre><code>## [1] 42.50786</code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">glucoselevels</span><span class="op">$</span><span class="va">gl</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 174.4165</code></pre>
+<pre><code>## [1] 152.9225</code></pre>
 <p>Instead of asking for an error bar representing a confidence interval (CI), let’s ask for error bar representing the reference intervals (RI).</p>
 <p>Reference intervals are not (at this time) shipped with <code>superb</code>. Let’s define a short-name version of this with</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">

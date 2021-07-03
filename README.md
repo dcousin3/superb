@@ -1,4 +1,4 @@
-
+﻿
 # superb: Summary plots with adjusted error bars
 
 <img src="logo.png" align="right" alt="" width="120" />
@@ -118,13 +118,13 @@ testdata <- GRD(
 head(testdata)
 ```
 
-    ##   id Difficulty  score.1  score.2
-    ## 1  1          A 70.27344 47.95469
-    ## 2  2          A 74.25921 56.48621
-    ## 3  3          A 73.43237 70.31656
-    ## 4  4          A 72.94867 62.29598
-    ## 5  5          A 87.15440 79.19089
-    ## 6  6          A 47.72724 55.42129
+    ##   id Difficulty  score.1   score.2
+    ## 1  1          A 87.50433 102.15152
+    ## 2  2          A 60.07547  51.97630
+    ## 3  3          A 75.34846  59.80454
+    ## 4  4          A 60.93139  55.34069
+    ## 5  5          A 81.91479  86.32453
+    ## 6  6          A 83.31082  84.09887
 
 The simulated scores are illustrated using using a more elaborated
 layout, the `pointjitterviolin` which, in addition to the mean and
@@ -160,5 +160,13 @@ The complete documentation is available on this
 [site](https://dcousin3.github.io/superb/).
 
 A general introduction to the `superb` framework underlying this library
-is under consideration at *Advances in Methods and Practices in
-Psychological Sciences*.
+is in press at *Advances in Methods and Practices in Psychological
+Sciences* (Cousineau, Goulet, & Harding, in press).
+
+# References
+
+<p>Cousineau D, Goulet M, Harding B (2021).
+“Summary plots with adjusted error bars: The superb framework with an implementation in R.”
+<em>Advances in Methods and Practices in Psychological Science</em>, <b>in press</b>, 1--46.
+</p>
+

@@ -1,5 +1,8 @@
----
+﻿---
+title: "README file"
 output: github_document
+bibliography: "inst/REFERENCES.bib"
+csl: "../inst/apa-6th.csl"
 ---
 
 # superb: Summary plots with adjusted error bars
@@ -154,7 +157,12 @@ in various ways.
 The complete documentation is available on this [site](https://dcousin3.github.io/superb/).
 
 A general introduction to the `superb` framework underlying this 
-library is under consideration
-at *Advances in Methods and Practices in Psychological Sciences*.
+library is in press
+at *Advances in Methods and Practices in Psychological Sciences* (Cousineau, Goulet, & Harding, in press).
 
+# References
 
+<p>Cousineau D, Goulet M, Harding B (2021).
+“Summary plots with adjusted error bars: The superb framework with an implementation in R.”
+<em>Advances in Methods and Practices in Psychological Science</em>, <b>in press</b>, 1--46.
+</p>

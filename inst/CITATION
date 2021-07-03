@@ -2,17 +2,17 @@ citHeader("To cite superb version 0.9.7.5 (codename 'two-tail 95% confident') in
 
 citEntry(
   entry    = "Article",
-  title    = "Summary statistics plotted with correct error bars: The superb framework and library for {R}",
+  title    = "Summary plots with adjusted error bars: The superb framework with an implementation in {R}",
   author   = personList(as.person("Denis Cousineau"), as.person("Marc-Andre Goulet"), as.person("Bradley Harding")),
   journal  = "Advances in Methods and Practices in Psychological Science",
-  year     = "Submitted",
-  volume   = "Submitted",
-  number   = "Submitted",
+  year     = "2021",
+  volume   = "in press",
+  number   = "in press",
   pages    = "1--46",
   url      = "https://dcousin3.github.io/superb/",
   textVersion = paste(
-    "Cousineau, D., Goulet, M.A., & Harding. B (submitted) ",
-    "Summary statistics plotted with correct error bars: The superb framework and library for {R}",
+    "Cousineau, D., Goulet, M.A., & Harding. B (in press) ",
+    "Summary plots with adjusted error bars: The superb framework with an implementation in R",
     "Advances in Methods and Practices in Psychological Science"
   )
 )

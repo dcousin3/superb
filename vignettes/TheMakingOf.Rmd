@@ -15,7 +15,7 @@ vignette: >
 ---
 
 Herein we provide the full code to realize Figures 1 to 4 that illustrate
-the (submitted) article describing the ``superb`` framework.
+the article describing the ``superb`` framework [@cgh21].
 These figures are based on ficticious data sets that are 
 provided with the package superb (``dataFigure1`` to ``dataFigure4``).
 

@@ -23,7 +23,7 @@ library(ggplot2)
 
 Most studies examine the effect of a certain factor on a measure. However, very rarely 
 do we have hypotheses stating what would be the expected result. Instead, we have a 
-control group to which the results of the treatment group will be compared.
+control group to which the results of the treatment group will be compared [@c17].
 
 ## A paradoxical example
 
@@ -120,7 +120,7 @@ superbPlot(dataFigure1,
 
 This is where the usefulness of ``superb`` is apparent: it only required an 
 option to mutate the plot from a plot showing means with stand-alone confidence
-intervals to a plot showing means with difference-adjusted confidence intervals.
+intervals to a plot showing means with difference-adjusted confidence intervals [@cgh21].
 
 ## Illustrating the impact of the adjustments
 
