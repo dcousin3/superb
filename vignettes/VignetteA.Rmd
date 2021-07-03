@@ -140,7 +140,7 @@ Let's define a short-name version of this with
 
 ```{r}
 RI.mean <- function(data, gamma = 0.95) {
-    refLimit(data, refConf = gamma)$Ref_Int
+    referenceIntervals::refLimit(data, refConf = gamma)$Ref_Int
 }
 ```
 
