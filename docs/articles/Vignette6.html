@@ -97,6 +97,9 @@
     <li>
       <a href="../articles/VignetteB.html">Non-factorial within-subject designs in ``superb``</a>
     </li>
+    <li>
+      <a href="../articles/VignetteC.html">Plotting proportions with ``superb``</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -152,12 +155,12 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">dta</span><span class="op">)</span></code></pre></div>
 <pre><code>##   id          DV
-## 1  1  0.04183301
-## 2  2  0.85228769
-## 3  3  0.35002590
-## 4  4  1.41676530
-## 5  5 -0.81412265
-## 6  6 -0.21276021</code></pre>
+## 1  1 -1.14850960
+## 2  2 -1.31648399
+## 3  3 -0.04314299
+## 4  4 -1.68437752
+## 5  5  0.36411729
+## 6  6 -0.88275596</code></pre>
 <p>By default, one hundred scores are generated from a normal distribution with mean 0 and standard deviation of 1. In other words, it generate 100 z scores. The dependent variable, the last column in the dataframe that will be generated is called by default <code>DV</code>. The first column is an “id” column containing a number identifying each <em>simulated</em> participant. To change the dependent variable’s name, use</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span> RenameDV <span class="op">=</span> <span class="st">"score"</span> <span class="op">)</span></code></pre></div>
@@ -258,15 +261,15 @@
 ##  ------------------------------------------------------------</code></pre>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dta</span></code></pre></div>
-<pre><code>##   id Therapy          DV
-## 1  1       1 -1.38788915
-## 2  2       1  0.02877662
-## 3  3       2  1.64126595
-## 4  4       2 -0.71265872
-## 5  5       2  1.98736233
-## 6  6       2 -1.22100214
-## 7  7       2  0.93140843
-## 8  8       3  1.79670077</code></pre>
+<pre><code>##   id Therapy         DV
+## 1  1       1 -0.5531851
+## 2  2       1 -0.4466152
+## 3  3       2  0.1089667
+## 4  4       2  3.4914785
+## 5  5       2 -1.2616382
+## 6  6       2  1.7556343
+## 7  7       2 -0.3763995
+## 8  8       3 -0.6179560</code></pre>
 </div>
 <div id="choosing-the-population-distribution" class="section level2">
 <h2 class="hasAnchor">

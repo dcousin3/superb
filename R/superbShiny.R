@@ -7,6 +7,8 @@
 #'      to plot standard error or confidence interval for various descriptive 
 #'      statistics under various designs, population size and purposes,
 #'      according to the ``suberb`` framework. See \insertCite{cgh21}{superb} for more.
+#'      Also see this \insertCite{w21}{youtube} presentation for a demo using
+#'      the shinyapps.io installation from https://dcousin3.shinyapps.io/superbshiny/
 #'      Limitations: it is not possible to use custom-made statistics with the 
 #'      graphical user interface, nor is it possible to request an adjustment for cluster-
 #'      randomized sampling. These options are available with ``superbPlot()``.

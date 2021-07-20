@@ -97,6 +97,9 @@
     <li>
       <a href="../articles/VignetteB.html">Non-factorial within-subject designs in ``superb``</a>
     </li>
+    <li>
+      <a href="../articles/VignetteC.html">Plotting proportions with ``superb``</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -169,12 +172,12 @@
 <span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">testdata</span><span class="op">)</span></code></pre></div>
 <pre><code>##   id Difficulty score.day1 score.day2
-## 1  1          1   66.36630   82.96512
-## 2  2          1   76.05747   59.79475
-## 3  3          1   58.89902   72.76364
-## 4  4          1   55.49849   61.83940
-## 5  5          1   54.38208   58.75808
-## 6  6          1   50.24219   62.86962</code></pre>
+## 1  1          1   74.19925   49.86481
+## 2  2          1   59.08857   60.24648
+## 3  3          1   57.94185   64.10653
+## 4  4          1   74.75269   57.80023
+## 5  5          1   90.54365   76.10613
+## 6  6          1   21.83548   28.79161</code></pre>
 <p>For simplicity, we define a function whose arguments are the dataset and the layout:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mp</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">style</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>

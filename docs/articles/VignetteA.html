@@ -97,6 +97,9 @@
     <li>
       <a href="../articles/VignetteB.html">Non-factorial within-subject designs in ``superb``</a>
     </li>
+    <li>
+      <a href="../articles/VignetteC.html">Plotting proportions with ``superb``</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -166,12 +169,12 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">glucoselevels</span><span class="op">)</span></code></pre></div>
 <pre><code>##   id concentration        gl
-## 1  1             A  67.82583
-## 2  2             A  66.13557
-## 3  3             A 122.82697
-## 4  4             A 123.93491
-## 5  5             A  83.22825
-## 6  6             A  80.78067</code></pre>
+## 1  1             A 111.89687
+## 2  2             A  92.74528
+## 3  3             A  76.67935
+## 4  4             A  71.14926
+## 5  5             A 128.29277
+## 6  6             A 105.11622</code></pre>
 <p>A simple plot could show the mean for each concentration along with the 95% confidence interval of the means, with e.g.,</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">glucoselevels</span>, 
@@ -190,10 +193,10 @@
 <p>To convince yourself of that, ask for the smallest glucose level and the highest:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">glucoselevels</span><span class="op">$</span><span class="va">gl</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 46.69473</code></pre>
+<pre><code>## [1] 43.90348</code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">glucoselevels</span><span class="op">$</span><span class="va">gl</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 159.8538</code></pre>
+<pre><code>## [1] 160.383</code></pre>
 <p>Instead of asking for an error bar representing a confidence interval (CI), let’s ask for error bar representing the reference intervals (RI).</p>
 <p>Reference intervals are not (at this time) shipped with <code>superb</code>. Let’s define a short-name version of this with</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
