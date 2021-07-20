@@ -63,5 +63,6 @@ Suggests:
     reshape2,
     rmarkdown,
     sadists,
+    scales,
     testthat
 RdMacros: Rdpack
