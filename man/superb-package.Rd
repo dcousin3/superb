@@ -9,7 +9,7 @@
 Computes standard error and confidence interval of various descriptive statistics under 
     various designs and sampling schemes. The main function, superbPlot(), can either return a plot 
     or a dataframe with the statistic and its precision interval so that other plotting package
-    can be used. See Cousineau, Goulet & Harding (2021) <doi:10.XXXX/XXXX> 
+    can be used. See Cousineau, Goulet & Harding (2021) <doi:10.1177/25152459211035109> 
     or Cousineau (2017) <doi:10.5709/acp-0214-z> for a review as well as Cousineau (2005)
     <doi:10.20982/tqmp.01.1.p042>, Morey (2008) <doi:10.20982/tqmp.04.2.p061>, Baguley (2012)
     <doi:10.3758/s13428-011-0123-7>, Cousineau & Laurencelle (2016) <doi:10.1037/met0000055>,
