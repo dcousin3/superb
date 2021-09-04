@@ -64,5 +64,6 @@ Suggests:
     rmarkdown,
     sadists,
     scales,
-    testthat
+    testthat,
+	tibble
 RdMacros: Rdpack

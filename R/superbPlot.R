@@ -165,8 +165,9 @@ superbPlot <- function(data,
     # STEP 1: Input validation
     ##############################################################################
     # 1.0: is the data actually data!
+	data <- as.data.frame(data) # coerce to data.frame if tibble or compatible
     if(!(is.data.frame(data)))
-            stop("superb::ERROR: data is not a data.frame. Exiting...")
+            stop("superb::ERROR: data is not a data.frame or similar data structure. Exiting...")
 
     # 1.1: missing adjustements
     if(is.null(adjustments$purpose))        {adjustments$purpose        <- "single"}
