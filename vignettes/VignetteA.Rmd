@@ -405,7 +405,7 @@ intervals of the upper part of the RI. This function requires
 two gammas, one for the RI level, and the second for the CI
 level. Thus, we get:
 
-````{r}        
+```{r}        
 ciloRI.mean <- function(data, gamma = c(0.95, 0.90) ) {
     refLimit(data, refConf = gamma[1], limitConf = gamma[2] )$Conf_Int[1:2]
 }
@@ -424,7 +424,7 @@ superbPlot(glucoselevels,
             statistic = "mean", errorbar = "cihiRI",
             gamma     = c(0.95, 0.90),
             plotStyle = "line" ) 
-````
+```
 
 Well, that is weird because now, we only see an error bar way up 
 there. The RI error bar is now longer visible because ``superbPlot()``

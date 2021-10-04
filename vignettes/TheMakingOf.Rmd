@@ -163,7 +163,7 @@ ornateWS <- list(
     theme_light(base_size = 16) +
     theme( plot.subtitle = element_text(size=12))
 )
-    ```
+```
 
 The difference in the present example is that the data are from a within-subject design
 with two repeated measures. The dataset must be in a wide format, e.g., 

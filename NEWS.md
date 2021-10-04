@@ -1,3 +1,10 @@
+# superb 0.9.7.6 (November 4th, 2021)
+
+* corrected one bug regarding variables with similar names
+* integrated tibble data format into superb
+* some output were missing in VignetteC and a backtick missing in VignetteA
+
+
 # superb 0.9.7.5 (June 23rd, 2021)
 
 * official release on CRAN of ``superb`` with the graphical user interface
