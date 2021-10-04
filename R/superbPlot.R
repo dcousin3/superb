@@ -327,7 +327,7 @@ superbPlot <- function(data,
     }
     
     runDebug("superb.2", "End of Step 2: Data post decorrelation", 
-        c("data.transformed2"), list(data.transformed) )
+        c("data.transformed2", "newnames2"), list(data.transformed, newnames) )
 
 
     ##############################################################################
@@ -335,8 +335,9 @@ superbPlot <- function(data,
     ##############################################################################
 
     # replace variable names with names based on design...
-    colnames(data.untransformed)[grep(paste(variables,collapse="|"),names(data.untransformed))] = newnames
-    colnames(data.transformed)[grep(paste(variables,collapse="|"),names(data.transformed))] = newnames
+    temp <- paste("^", variables, "$", collapse="|", sep="")
+    colnames(data.untransformed)[grep(temp, names(data.untransformed))] = newnames
+    colnames(data.transformed)[grep(temp, names(data.transformed))] = newnames
 
     # set data to long format using lsr (Navarro, 2015)
     data.untransformed.long <- suppressWarnings(lsr::wideToLong(data.untransformed, within = WSFactors, sep = weird))

@@ -4,6 +4,7 @@ context("Testing compatibility of suberbPlot with other structures")
 test_that("TESTS (1/1)", {
     options(superb.feedback = 'none') #shut down all superb-generated messages
 
+	library(superb)
 	library(tibble)
 
 	# Motivation data for 15 participants over three weeks in wide format:
@@ -38,7 +39,7 @@ test_that("TESTS (1/1)", {
 	)
     expect_equal( "ggplot" %in% class(plt), TRUE)
 
-	dta <- superbData(as.data.frame(tib), 
+	dta <- superbData(tib, 
 			   WSFactors = "Moment(3)",
 			   variables = c("Week 1", "Week 2", "Week 3"),
 			   adjustments = list(purpose = "difference")

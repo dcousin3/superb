@@ -287,10 +287,13 @@ Var_A = \frac{1}{4(n+1/2)}
     <span class="fu">SE.A</span><span class="op">(</span><span class="va">v</span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html">qchisq</a></span><span class="op">(</span><span class="va">gamma</span>, df<span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>This is all we need to make a basic plot with <code>suberbPlot()</code></p>
-<p>(… but we need a few libraries, so let’s load them here:</p>
-<p>)</p>
-<p>Here we go:</p>
+<p>… but we need a few libraries, so let’s load them here:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dcousin3.github.io/superb/">superb</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org">scales</a></span><span class="op">)</span>     <span class="co"># for asn_trans() non-linear scale</span></code></pre></div>
+<p>Here we go:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># ornate to decorate the plot a little bit...</span>
 <span class="va">ornate</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span> 
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">16</span><span class="op">)</span>,
@@ -316,7 +319,7 @@ Var_A = \frac{1}{4(n+1/2)}
 <h2 class="hasAnchor">
 <a href="#reversing-the-transformation-to-see-proportions-" class="anchor"></a>Reversing the transformation to see proportions.</h2>
 <p>The above plot shows Anscombe-transform scores. This may not be very intuitive. It is then possible to undo the transformation so as to plot proportions instead. The complicated part is to undo the confidence limits.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># the proportion of success for a vector of binary data 0|1</span>
 <span class="va">prop</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">v</span><span class="op">)</span><span class="op">{</span>
     <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span>
@@ -337,7 +340,7 @@ Var_A = \frac{1}{4(n+1/2)}
     <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">cilenlo</span>, <span class="va">cilenhi</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>Nothing more is needed. We can make the plot with these new functions:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, 
     BSFactors <span class="op">=</span> <span class="st">"group"</span>,
     variables <span class="op">=</span> <span class="st">"scores"</span>,
@@ -347,7 +350,7 @@ Var_A = \frac{1}{4(n+1/2)}
     plotStyle <span class="op">=</span> <span class="st">"line"</span>,
     errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"blue"</span><span class="op">)</span>
 <span class="op">)</span> <span class="op">+</span> <span class="va">ornate</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Proportions"</span> <span class="op">)</span> <span class="op">+</span> 
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>trans<span class="op">=</span><span class="fu">asn_trans</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>trans<span class="op">=</span><span class="fu"><a href="https://scales.r-lib.org/reference/asn_trans.html">asn_trans</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="VignetteC_files/figure-html/unnamed-chunk-8-1.png" alt="**Figure 2**. Proportion as a function of group." width="480"><p class="caption">
 <strong>Figure 2</strong>. Proportion as a function of group.
@@ -360,7 +363,7 @@ Var_A = \frac{1}{4(n+1/2)}
 <a href="#returning-to-the-example" class="anchor"></a>Returning to the example</h2>
 <p>What can we conclude from the plot? You noted that we plotted difference-adjusted confidence intervals. Hence, if at least one result is not included in the confidence interval of another result, then the chances are good that they differ significantly.</p>
 <p>Running an analysis of proportions, it indicates the presence of a main effect of Group (<span class="math inline">\(F(2,\infty)= 3.11, p = .045\)</span>).</p>
-<p>We see from the plot that the length of the error bars are about all the same, suggesting homogeneous variance (because all the sample are of comparable size). When error bars are of very different length, it is necessary to average them (and you may consider Tryon adjustment as well).</p>
+<p>We see from the plot that the length of the error bars are about all the same, suggesting homogeneous variance (because all the sample are of comparable size). This is always the case as Anscombe transform is a ‘variance-stabilizing’ transformation in the sense that it makes all the variances identical.</p>
 </div>
 <div id="in-summary" class="section level2">
 <h2 class="hasAnchor">

@@ -118,7 +118,6 @@ dta  <- data.frame( cbind(group = group, scores = scores ) )
 ```
 
 
-
 ## Defining the transformation in R
 
 In the following, we define the A (Anscombe) transformation, the standard 
@@ -141,15 +140,14 @@ CI.A <- function(v, gamma = 0.95){
 
 This is all we need to make a basic plot with ``suberbPlot()``
 
-(... but we need a few libraries, so let's load them here:
+... but we need a few libraries, so let's load them here:
 
-```{r, echo = FALSE, message = FALSE}
+```{r, echo = TRUE, message = FALSE}
 library(superb)
 library(ggplot2)
 library(scales)     # for asn_trans() non-linear scale
 ```
 
-)
 
 Here we go:
 
@@ -234,8 +232,8 @@ main effect of Group ($F(2,\infty)= 3.11, p = .045$).
 
 We see from the plot that the length of the error bars are about all the same,
 suggesting homogeneous variance (because all the sample are of comparable size).
-When error bars are of very different length, it is necessary to average them
-(and you may consider Tryon adjustment as well).
+This is always the case as Anscombe transform is a 'variance-stabilizing' 
+transformation in the sense that it makes all the variances identical.
 
 
 ## In summary
