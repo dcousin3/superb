@@ -1,3 +1,9 @@
+# superb 0.9.7.7 (November 19th, 2021)
+
+* Added a vignette for super with SPSS
+* Corrected superbShiny to show the doi and remove graphic directives
+* Updated the shinyapps.io version to match this one
+
 # superb 0.9.7.6 (November 4th, 2021)
 
 * corrected one bug regarding variables with similar names

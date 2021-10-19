@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.7.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.7.7</span>
       </span>
     </div>
 
@@ -99,6 +99,9 @@
     </li>
     <li>
       <a href="../articles/VignetteC.html">Plotting proportions with ``superb``</a>
+    </li>
+    <li>
+      <a href="../articles/VignetteD.html">``superb`` and SPSS</a>
     </li>
   </ul>
 </li>
@@ -255,14 +258,14 @@ d_1 = \frac{\vert \; M_1 - B \; \vert}{S_1}
 <span class="va">dp13</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">dp</span><span class="op">(</span><span class="va">grp3</span>, <span class="va">grp1</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>
 <span class="va">dp23</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">dp</span><span class="op">(</span><span class="va">grp3</span>, <span class="va">grp2</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">dp12</span>, <span class="va">dp13</span>, <span class="va">dp23</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 0.168 0.235 0.060</code></pre>
+<pre><code>## [1] 0.181 0.252 0.075</code></pre>
 <p>… and their 95% confidence intervals:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cidp12</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">CI.dp</span><span class="op">(</span><span class="va">grp2</span>, <span class="va">grp1</span>, <span class="fl">0.95</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>
 <span class="va">cidp13</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">CI.dp</span><span class="op">(</span><span class="va">grp3</span>, <span class="va">grp1</span>, <span class="fl">0.95</span> <span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>
 <span class="va">cidp23</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">CI.dp</span><span class="op">(</span><span class="va">grp3</span>, <span class="va">grp2</span>, <span class="fl">0.95</span> <span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">cidp12</span>,<span class="va">cidp13</span>,<span class="va">cidp23</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1]  0.043  0.292  0.110  0.359 -0.064  0.184</code></pre>
+<pre><code>## [1]  0.057  0.306  0.128  0.377 -0.049  0.199</code></pre>
 <p>Let’s put these numbers on the plot for easier examination using the graphic directives <code><a href="../reference/showSignificance.html">showSignificance()</a></code>:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, BSFactors  <span class="op">=</span> <span class="st">"Dose"</span>, variables <span class="op">=</span> <span class="st">"score"</span>, 

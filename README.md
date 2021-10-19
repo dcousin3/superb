@@ -1,4 +1,4 @@
-﻿
+
 # superb: Summary plots with adjusted error bars
 
 <img src="logo.png" align="right" alt="" width="120" />
@@ -166,12 +166,12 @@ Sciences* (Cousineau, Goulet, & Harding, in press).
 # References
 
 <p>Cousineau D, Goulet M, Harding B (2021).
-“Summary plots with adjusted error bars: The superb framework with an implementation in R.”
+"Summary plots with adjusted error bars: The superb framework with an implementation in R."
 <em>Advances in Methods and Practices in Psychological Science</em>, <b>2021</b>, 1--46.
 doi: https://doi.org/10.1177/25152459211035109
 </p>
 <p>Walker, J. A. L. (2021).
-“Summary plots with adjusted error bars (superb).”
+"Summary plots with adjusted error bars (superb)."
 <em>Youtube video</em>, <b><a href="https://www.youtube.com/watch?v=rw_6ll5nVus">accessible here</a>)</b>.
 </p>
 

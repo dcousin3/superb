@@ -365,7 +365,7 @@ thePage <- fluidPage(
                     value = 5, style = "success"),
                 bsCollapsePanel("All done!", 
                     p(em("Thank you for using superb.")),
-                    p("To cite this work, ", a("doi: PENDING, AMPPS", href="https://doi.org/PENDING/", target="_blank"),"."),
+                    p("To cite this work, ", a("doi: 10.1177/25152459211035109", href="https://doi.org/10.1177/25152459211035109", target="_blank"),"."),
                     p("For issues, ", a("github.com/dcousin3/superb/issues", href="https://github.com/dcousin3/superb/issues", target="_blank"),"."),
                     p("Tip: Cut-and-paste the script generated (last tab) for", 
                       "easier re-run of the instructions and advanced customization."),
