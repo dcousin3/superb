@@ -1297,6 +1297,7 @@ theServerFct <- function(input, output, session) {
 
             if (is.something(input$ornates)) 
                 info$Step6 <<- input$ornates
+            else info$Step6 <<- list()
             info$Completed           <<- 5
 
             # update script
