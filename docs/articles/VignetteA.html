@@ -172,12 +172,12 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">glucoselevels</span><span class="op">)</span></code></pre></div>
 <pre><code>##   id concentration        gl
-## 1  1             A 107.48268
-## 2  2             A  93.35686
-## 3  3             A 112.16505
-## 4  4             A  95.35360
-## 5  5             A 113.82540
-## 6  6             A  71.98219</code></pre>
+## 1  1             A  90.73947
+## 2  2             A  96.50025
+## 3  3             A  98.63235
+## 4  4             A 121.57453
+## 5  5             A 100.32982
+## 6  6             A 114.37684</code></pre>
 <p>A simple plot could show the mean for each concentration along with the 95% confidence interval of the means, with e.g.,</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">glucoselevels</span>, 
@@ -196,10 +196,10 @@
 <p>To convince yourself of that, ask for the smallest glucose level and the highest:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">glucoselevels</span><span class="op">$</span><span class="va">gl</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 23.96264</code></pre>
+<pre><code>## [1] 34.47711</code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">glucoselevels</span><span class="op">$</span><span class="va">gl</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 156.585</code></pre>
+<pre><code>## [1] 165.0177</code></pre>
 <p>Instead of asking for an error bar representing a confidence interval (CI), let’s ask for error bar representing the reference intervals (RI).</p>
 <p>Reference intervals are not (at this time) shipped with <code>superb</code>. Let’s define a short-name version of this with</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
@@ -253,7 +253,7 @@
 <strong>Figure 3</strong>. Mean glucose level and 90% confidence intervals of the upper RI tips.
 </p>
 </div>
-<p>Well, that is weird because now, we only see an error bar way up there. The RI error bar is now longer visible because <code><a href="../reference/superbPlot.html">superbPlot()</a></code> can only show one sort of error bar at a time.</p>
+<p>Well, that is weird because now, we only see an error bar way up there. The RI error bar is no longer visible because <code><a href="../reference/superbPlot.html">superbPlot()</a></code> can only show one sort of error bar at a time.</p>
 <p>Lets correct this. The gist of the following is to perform three plots, one showing the RI intervals (as Figure 2 above), a second showing the confidence interval of the RI top tips (as Figure 3 just above), and one last plot showing the confidence interval of the RI bottom tips. Plots 2 and 3 must be transparent so that they can be superimposed on top of plot 1.</p>
 <p>To that end, we use a set of graphic directives that makes the plot transparent. It will be appplied to plots 2 and 3 (it hides the grid (if any) and set the background of the whole plot and of the panel to transparent). This operation is made with the function <code><a href="../reference/makeTransparent.html">makeTransparent()</a></code>.</p>
 <p>It is also necessary that all plots have the same range, so that they align correctly when superimpose. To do so, we set the vertical range from 0 to 200. We also add a description in the title of the plot. These are all grouped in a list:</p>
@@ -311,7 +311,7 @@
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">plt2</span><span class="op">)</span> <span class="op">+</span> 
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">plt3</span><span class="op">)</span></code></pre></div>
 <div class="figure">
-<img src="VignetteA_files/figure-html/unnamed-chunk-15-1.png" alt="**Figure 3a**. Mean glucose level and 95% reference intervals with 95% confidence intervals." width="480"><p class="caption">
+<img src="VignetteA_files/figure-html/unnamed-chunk-15-1.png" alt="**Figure 3a**. Mean glucose level and 95% reference intervals with 95% confidence intervals." width="384"><p class="caption">
 <strong>Figure 3a</strong>. Mean glucose level and 95% reference intervals with 95% confidence intervals.
 </p>
 </div>
@@ -343,12 +343,12 @@
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">plt2</span><span class="op">)</span> <span class="op">+</span> 
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">plt3</span><span class="op">)</span></code></pre></div>
 <div class="figure">
-<img src="VignetteA_files/figure-html/unnamed-chunk-16-1.png" alt="**Figure 3b**. Jittered dots showing mean glucose level and 95% reference intervals with 95% confidence intervals." width="480"><p class="caption">
+<img src="VignetteA_files/figure-html/unnamed-chunk-16-1.png" alt="**Figure 3b**. Jittered dots showing mean glucose level and 95% reference intervals with 95% confidence intervals." width="384"><p class="caption">
 <strong>Figure 3b</strong>. Jittered dots showing mean glucose level and 95% reference intervals with 95% confidence intervals.
 </p>
 </div>
 <p>As seen, it is now easy to see the individuals from the sample and that most of them are indeed within the reference intervals.</p>
-<p>A more elaborate layout, although maybe redundant with the RI, is the <code>pointjitterviolin</code>. Using it, we get</p>
+<p>A more elaborate layout, although maybe redundant with the RI, is the <code>pointjitterviolin</code> as done in the next example.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># redo plt1; the other 2 are still in memory</span>
 <span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">glucoselevels</span>, 
@@ -364,16 +364,11 @@
 <span class="co"># transform the three plots into visual objects</span>
 <span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplotGrob.html">ggplotGrob</a></span><span class="op">(</span><span class="va">plt1</span><span class="op">)</span>
 
-<span class="co"># superimpose the grobs onto an empty ggplot </span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">plt1</span><span class="op">)</span> <span class="op">+</span> 
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">plt2</span><span class="op">)</span> <span class="op">+</span> 
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">plt3</span><span class="op">)</span></code></pre></div>
-<div class="figure">
-<img src="VignetteA_files/figure-html/unnamed-chunk-17-1.png" alt="**Figure 3c**. Jittered dots and violins showing mean glucose level and 95% reference intervals with 95% confidence intervals of the tips' position." width="480"><p class="caption">
-<strong>Figure 3c</strong>. Jittered dots and violins showing mean glucose level and 95% reference intervals with 95% confidence intervals of the tips’ position.
-</p>
-</div>
+<span class="co"># you may superimpose the grobs onto an empty ggplot </span>
+<span class="co">#ggplot() + </span>
+<span class="co">#    annotation_custom(grob=plt1) + </span>
+<span class="co">#    annotation_custom(grob=plt2) + </span>
+<span class="co">#    annotation_custom(grob=plt3)</span></code></pre></div>
 </div>
 <div id="reference-intervals-vs--confidence-intervals-of-the-means" class="section level2">
 <h2 class="hasAnchor">
@@ -402,7 +397,7 @@
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">plt3</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">plt4</span><span class="op">)</span></code></pre></div>
 <div class="figure">
-<img src="VignetteA_files/figure-html/unnamed-chunk-19-1.png" alt="**Figure 3d**. Jittered dots and violins showing mean glucose level +-95% confidence intervals of the mean, and 95% reference intervals with 95% confidence intervals." width="480"><p class="caption">
+<img src="VignetteA_files/figure-html/unnamed-chunk-19-1.png" alt="**Figure 3d**. Jittered dots and violins showing mean glucose level +-95% confidence intervals of the mean, and 95% reference intervals with 95% confidence intervals." width="384"><p class="caption">
 <strong>Figure 3d</strong>. Jittered dots and violins showing mean glucose level +-95% confidence intervals of the mean, and 95% reference intervals with 95% confidence intervals.
 </p>
 </div>

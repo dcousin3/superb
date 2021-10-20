@@ -220,7 +220,7 @@ superbPlot(dta,
 Repeated measures can also be generated from a multivariate normal 
 distribution with a correlation ``rho``, with, e.g., 
 
-```{r, fig.width=5, fig.height=5}
+```{r, fig.width=4, fig.height=4}
 dta <- GRD(
     WSFactors = 'Difficulty(1, 2)',
     SubjectsPerGroup = 1000,
@@ -234,7 +234,7 @@ for the mean and the standard deviations can be vectors of length
 equal to the number of repeated measures. However, covariances are
 constants.
 
-```{r, fig.width=5, fig.height=5}
+```{r, fig.width=4, fig.height=4}
 dta <- GRD(
     WSFactors = 'Difficulty(1, 2)',
     SubjectsPerGroup = 1000,

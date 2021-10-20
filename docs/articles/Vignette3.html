@@ -184,7 +184,7 @@
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">70</span>,<span class="fl">150</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>intercept <span class="op">=</span> <span class="fl">102.5</span>, slope <span class="op">=</span> <span class="fl">0</span>, colour <span class="op">=</span> <span class="st">"red"</span>, linetype<span class="op">=</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
 <div class="figure">
-<img src="Vignette3_files/figure-html/unnamed-chunk-4-1.png" alt="**Figure 1**. Representation of the individual participants" width="700"><p class="caption">
+<img src="Vignette3_files/figure-html/unnamed-chunk-4-1.png" alt="**Figure 1**. Representation of the individual participants" width="384"><p class="caption">
 <strong>Figure 1</strong>. Representation of the individual participants
 </p>
 </div>
@@ -209,7 +209,7 @@
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">70</span>,<span class="fl">150</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>intercept <span class="op">=</span> <span class="fl">102.5</span>, slope <span class="op">=</span> <span class="fl">0</span>, colour <span class="op">=</span> <span class="st">"red"</span>, size <span class="op">=</span> <span class="fl">0.5</span>, linetype<span class="op">=</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
 <div class="figure">
-<img src="Vignette3_files/figure-html/unnamed-chunk-5-1.png" alt="**Figure 2**. Representation of the *subject-centered* individual participants" width="700"><p class="caption">
+<img src="Vignette3_files/figure-html/unnamed-chunk-5-1.png" alt="**Figure 2**. Representation of the *subject-centered* individual participants" width="384"><p class="caption">
 <strong>Figure 2</strong>. Representation of the <em>subject-centered</em> individual participants
 </p>
 </div>
@@ -280,14 +280,14 @@
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span> <span class="op">=</span> <span class="st">"Collaborative games"</span>, <span class="st">"2"</span> <span class="op">=</span> <span class="st">"Unstructured activity"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">plt2</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html">grid.arrange</a></span><span class="op">(</span><span class="va">plt2a</span>,<span class="va">plt2b</span>,ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
 <div class="figure">
-<img src="Vignette3_files/figure-html/unnamed-chunk-8-1.png" alt="**Figure 3**. Means and 95% confidence intervals on raw data (left) and on decorrelated data (right)" width="700"><p class="caption">
+<img src="Vignette3_files/figure-html/unnamed-chunk-8-1.png" alt="**Figure 3**. Means and 95% confidence intervals on raw data (left) and on decorrelated data (right)" width="384"><p class="caption">
 <strong>Figure 3</strong>. Means and 95% confidence intervals on raw data (left) and on decorrelated data (right)
 </p>
 </div>
 <p>In the above plot, I used <code>decorrelation = "CA"</code>. When there is only two conditions, all the techniques return identical error bars.</p>
 <p>As another example illustrating the differences between the techniques, I generated random data for 5 measures with an amount of correlation of 0.8 in the population. In Figure 4 below, all error bars are superimposed on the same plot. As seen, there is only minor differences between the three techniques. The green lines all have the same length; this is the main characteristic of the Loftus and Masson approach, in contrast with the other two techniques.</p>
 <div class="figure">
-<img src="Vignette3_files/figure-html/unnamed-chunk-9-1.png" alt="**Figure 4**. All three decorelation techniques on the same plot along with un-decorrelated error bars" width="700"><p class="caption">
+<img src="Vignette3_files/figure-html/unnamed-chunk-9-1.png" alt="**Figure 4**. All three decorelation techniques on the same plot along with un-decorrelated error bars" width="384"><p class="caption">
 <strong>Figure 4</strong>. All three decorelation techniques on the same plot along with un-decorrelated error bars
 </p>
 </div>
@@ -309,7 +309,7 @@
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_gray</a></span><span class="op">(</span>base_size<span class="op">=</span><span class="fl">16</span><span class="op">)</span> <span class="op">+</span> 
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span> <span class="op">=</span> <span class="st">"Collaborative games"</span>, <span class="st">"2"</span> <span class="op">=</span> <span class="st">"Unstructured activity"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="figure">
-<img src="Vignette3_files/figure-html/unnamed-chunk-10-1.png" alt="**Figure 5**. Means and 95% confidence intervals along with individual scores depicted as lines" width="700"><p class="caption">
+<img src="Vignette3_files/figure-html/unnamed-chunk-10-1.png" alt="**Figure 5**. Means and 95% confidence intervals along with individual scores depicted as lines" width="384"><p class="caption">
 <strong>Figure 5</strong>. Means and 95% confidence intervals along with individual scores depicted as lines
 </p>
 </div>

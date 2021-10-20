@@ -223,14 +223,9 @@
 <strong>Figure 1d</strong>. Making and decorating right panel of Figure 1.
 </p>
 </div>
-<p>All three plots are showns side-by-side with:</p>
+<p>All three plots are shown side-by-side with:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html">grid.arrange</a></span><span class="op">(</span><span class="va">plt1a</span>, <span class="va">plt1b</span>, <span class="va">plt1c</span>, ncol<span class="op">=</span><span class="fl">3</span><span class="op">)</span></code></pre></div>
-<div class="figure">
-<img src="TheMakingOf_files/figure-html/unnamed-chunk-8-1.png" alt="**Figure 1**. The complete Figure 1." width="864"><p class="caption">
-<strong>Figure 1</strong>. The complete Figure 1.
-</p>
-</div>
 <p>and exported to a file, with, e.g.:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/grDevices/png.html">png</a></span><span class="op">(</span>filename <span class="op">=</span> <span class="st">"Figure1.png"</span>, width <span class="op">=</span> <span class="fl">640</span>, height <span class="op">=</span> <span class="fl">320</span><span class="op">)</span>
@@ -357,11 +352,6 @@
 <p>Assembling all four panels, we get:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html">grid.arrange</a></span><span class="op">(</span><span class="va">plt2a</span>, <span class="va">plt2b</span>, <span class="va">plt2c</span>, <span class="va">plt2d</span>,  ncol<span class="op">=</span><span class="fl">4</span><span class="op">)</span></code></pre></div>
-<div class="figure">
-<img src="TheMakingOf_files/figure-html/unnamed-chunk-18-1.png" alt="**Figure 2**. The complete Figure 2." width="864"><p class="caption">
-<strong>Figure 2</strong>. The complete Figure 2.
-</p>
-</div>
 <p>… which can be exported to a file as usual:</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/grDevices/png.html">png</a></span><span class="op">(</span>filename <span class="op">=</span> <span class="st">"Figure2.png"</span>, width <span class="op">=</span> <span class="fl">850</span>, height <span class="op">=</span> <span class="fl">320</span><span class="op">)</span>
@@ -443,11 +433,6 @@
 <p>Here is the complete Figure 3:</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html">grid.arrange</a></span><span class="op">(</span><span class="va">plt3a</span>, <span class="va">plt3b</span>, <span class="va">plt3c</span>, ncol<span class="op">=</span><span class="fl">3</span><span class="op">)</span></code></pre></div>
-<div class="figure">
-<img src="TheMakingOf_files/figure-html/unnamed-chunk-25-1.png" alt="**Figure 3**. The complete Figure 3." width="768"><p class="caption">
-<strong>Figure 3</strong>. The complete Figure 3.
-</p>
-</div>
 <p>This figure is saved as before with</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/grDevices/png.html">png</a></span><span class="op">(</span>filename <span class="op">=</span> <span class="st">"Figure3.png"</span>, width <span class="op">=</span> <span class="fl">640</span>, height <span class="op">=</span> <span class="fl">320</span><span class="op">)</span>
@@ -513,11 +498,6 @@
 <p>Which are reunited as usual:</p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plt4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html">grid.arrange</a></span><span class="op">(</span><span class="va">plt4a</span>, <span class="va">plt4b</span>, <span class="va">plt4c</span>, ncol<span class="op">=</span><span class="fl">3</span><span class="op">)</span></code></pre></div>
-<div class="figure">
-<img src="TheMakingOf_files/figure-html/unnamed-chunk-32-1.png" alt="**Figure 4**. The complete Figure 4." width="864"><p class="caption">
-<strong>Figure 4</strong>. The complete Figure 4.
-</p>
-</div>
 <p>…and saved with:</p>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/grDevices/png.html">png</a></span><span class="op">(</span>filename <span class="op">=</span> <span class="st">"Figure4.png"</span>, width <span class="op">=</span> <span class="fl">640</span>, height <span class="op">=</span> <span class="fl">320</span><span class="op">)</span>

@@ -252,16 +252,15 @@ possible to add custom-make templates (see vignette 6). The functions, to be
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># if you extract the data with superbData, you can </span></span>
 <span class='r-in'><span class='co'># run this layout directly</span></span>
-<span class='r-in'><span class='va'>processedData</span> <span class='op'>&lt;-</span> <span class='fu'><a href='superbData.html'>superbData</a></span><span class='op'>(</span><span class='va'>ToothGrowth</span>, </span>
-<span class='r-in'>   BSFactors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dose"</span>,<span class='st'>"supp"</span><span class='op'>)</span>, variables <span class='op'>=</span> <span class='st'>"len"</span></span>
-<span class='r-in'><span class='op'>)</span></span>
-<span class='r-in'></span>
-<span class='r-in'><span class='fu'>superbPlot.point</span><span class='op'>(</span><span class='va'>processedData</span><span class='op'>$</span><span class='va'>summaryStatistic</span>,</span>
-<span class='r-in'>   <span class='st'>"dose"</span>,</span>
-<span class='r-in'>   <span class='st'>"supp"</span>,</span>
-<span class='r-in'>   <span class='st'>".~."</span>,</span>
-<span class='r-in'>   <span class='va'>processedData</span><span class='op'>$</span><span class='va'>rawData</span><span class='op'>)</span></span>
-<span class='r-plt'><img src='superbPlot.point-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'>#processedData &lt;- superbData(ToothGrowth, </span></span>
+<span class='r-in'><span class='co'># BSFactors = c("dose","supp"), variables = "len"</span></span>
+<span class='r-in'><span class='co'>#)</span></span>
+<span class='r-in'><span class='co'>#</span></span>
+<span class='r-in'><span class='co'>#superbPlot.point(processedData$summaryStatistic,</span></span>
+<span class='r-in'><span class='co'>#   "dose",</span></span>
+<span class='r-in'><span class='co'>#   "supp",</span></span>
+<span class='r-in'><span class='co'>#   ".~.",</span></span>
+<span class='r-in'><span class='co'>#   processedData$rawData)</span></span>
 <span class='r-in'></span>
 </pre>
   </div>

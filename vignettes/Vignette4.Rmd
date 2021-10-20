@@ -45,7 +45,7 @@ In what follow, we use ``GRD()`` to generate a random dataset with an interactio
 (see [Vignette 6](https://dcousin3.github.io/superb/articles/Vignette6.html)) 
 then make plots varying the statistics displayed.
 
-```{r, message=FALSE, echo=TRUE, fig.cap="**Figure 1**. Various statistics and various measures of precisions"}
+```{r, message=FALSE, echo=TRUE, fig.height=4, fig.cap="**Figure 1**. Various statistics and various measures of precisions"}
 # shut down 'warnings', 'design' and 'summary' messages
 options(superb.feedback = 'none') 
 
@@ -241,7 +241,7 @@ Here, we illustrate this process with the mean. The function must be name
 
 This is all we need to make the plot which we can compare with the parametric CI
 
-```{r, message=FALSE, echo=TRUE, fig.cap="**Figure 4**. `superbPlot` with a custom-made interval function."}
+```{r, message=FALSE, echo=TRUE,  fig.height=4, fig.cap="**Figure 4**. `superbPlot` with a custom-made interval function."}
     plt1 <- superbPlot(dataFigure1, 
         BSFactors = "grp", 
         variable = c("score"), 

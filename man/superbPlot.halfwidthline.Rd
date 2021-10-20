@@ -59,14 +59,14 @@ superbPlot(ToothGrowth,
 
 # if you extract the data with superbData, you can 
 # run this layout directly
-processedData <- superbData(ToothGrowth, 
-   BSFactor = c("dose","supp"), variables = "len"
-)
-
-superbPlot.halfwidthline(processedData$summaryStatistic,
-   "dose",
-   "supp",
-   ".~.",
-   processedData$rawData)
+#processedData <- superbData(ToothGrowth, 
+#   BSFactor = c("dose","supp"), variables = "len"
+#)
+#
+#superbPlot.halfwidthline(processedData$summaryStatistic,
+#   "dose",
+#   "supp",
+#   ".~.",
+#   processedData$rawData)
 
 }

@@ -51,7 +51,7 @@ t.test(dataFigure2$pre, dataFigure2$post, var.equal=TRUE)
 However, examining the data, in which each participant's scores are shown with 
 a line, we get this:
 
-```{r, message=FALSE, echo=TRUE, fig.cap="**Figure 1**. Representation of the individual participants"}
+```{r, message=FALSE, echo=TRUE, fig.width = 4, fig.cap="**Figure 1**. Representation of the individual participants"}
 library(reshape2)
 
 # first transform the data in long format; the pre-post scores will go into column "variable"
@@ -81,7 +81,7 @@ mean (here 102.5, shown with a red dashed line).
 
 The following realizes this *subject-centered* plot for each participant.
 
-```{r, message=FALSE, echo=TRUE, fig.cap="**Figure 2**. Representation of the *subject-centered* individual participants"}
+```{r, message=FALSE, echo=TRUE, fig.width = 4, fig.cap="**Figure 2**. Representation of the *subject-centered* individual participants"}
 # use subjectCenteringTransform function 
 library(superb)
 df2 <- subjectCenteringTransform(dataFigure2, c("pre","post"))
@@ -160,7 +160,7 @@ With ``suberb``, all the decorrelation techniques are available using the adjust
 
 Consider the following
 
-```{r, message=FALSE, warning=FALSE, echo=TRUE, fig.cap="**Figure 3**. Means and 95% confidence intervals on raw data (left) and on decorrelated data (right)"}
+```{r, message=FALSE, warning=FALSE, echo=TRUE, fig.width = 4, fig.cap="**Figure 3**. Means and 95% confidence intervals on raw data (left) and on decorrelated data (right)"}
 options(superb.feedback = 'none') # shut down 'warnings' and 'design' interpretation messages
 library(gridExtra)
 
@@ -201,7 +201,7 @@ main characteristic of the Loftus and Masson approach, in contrast with the
 other two techniques.
 
 
-```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.cap="**Figure 4**. All three decorelation techniques on the same plot along with un-decorrelated error bars"}
+```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 4, fig.cap="**Figure 4**. All three decorelation techniques on the same plot along with un-decorrelated error bars"}
 # using GRD to generate data with correlation of .8 and a moderate effect
 options(superb.feedback = 'none') # shut down 'warnings' and 'design' interpretation messages
 test <- GRD(WSFactors = "Moment(5)", 
@@ -270,7 +270,7 @@ For illustrating individual differences, a style proposed is ``pointindividualli
 which --- as per Figure 1--- will show the individual scores along with the summary
 statistics and the error bars. For example:
 
-```{r, message=FALSE, warning=FALSE, echo=TRUE, fig.cap="**Figure 5**. Means and 95% confidence intervals along with individual scores depicted as lines"}
+```{r, message=FALSE, warning=FALSE, echo=TRUE, fig.width = 4, fig.cap="**Figure 5**. Means and 95% confidence intervals along with individual scores depicted as lines"}
 superbPlot(dataFigure2, 
     WSFactors    = "Moment(2)", 
     adjustments = list(purpose = "difference", decorrelation = "CM"), 

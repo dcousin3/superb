@@ -427,7 +427,7 @@ superbPlot(glucoselevels,
 ```
 
 Well, that is weird because now, we only see an error bar way up 
-there. The RI error bar is now longer visible because ``superbPlot()``
+there. The RI error bar is no longer visible because ``superbPlot()``
 can only show one sort of error bar at a time.
 
 Lets correct this. The gist of the following is to perform
@@ -505,7 +505,7 @@ and moved them sligtly to the left (position).
 Almost there. Lets turn these plots into graphic objects (``grob``), 
 then  superimpose them onto an empty plot:
 
-```{r, message=FALSE, echo=TRUE, fig.width = 5, fig.cap="**Figure 3a**. Mean glucose level and 95% reference intervals with 95% confidence intervals."}
+```{r, message=FALSE, echo=TRUE, fig.width = 4, fig.cap="**Figure 3a**. Mean glucose level and 95% reference intervals with 95% confidence intervals."}
 # transform the three plots into visual objects
 plt1 <- ggplotGrob(plt1)
 plt2 <- ggplotGrob(plt2)
@@ -534,7 +534,7 @@ These is a layout in ``superb`` that achieve exacly that,
 ``pointjitter``. You can for example redo plot 1 but changing
 the layout, then superimpose the plots again, as in
 
-```{r, message=FALSE, echo=TRUE, fig.width = 5, fig.cap="**Figure 3b**. Jittered dots showing mean glucose level and 95% reference intervals with 95% confidence intervals."}
+```{r, message=FALSE, echo=TRUE, fig.width = 4, fig.cap="**Figure 3b**. Jittered dots showing mean glucose level and 95% reference intervals with 95% confidence intervals."}
 # redo plt1; the other 2 are still in memory
 plt1 <- superbPlot(glucoselevels, 
             BSFactors = "concentration",  
@@ -560,9 +560,9 @@ As seen, it is now easy to see the individuals from the sample and
 that most of them are indeed within the reference intervals.
 
 A more elaborate layout, although maybe redundant with the RI, is
-the ``pointjitterviolin``. Using it, we get
+the ``pointjitterviolin`` as done in the next example.
 
-```{r, message=FALSE, echo=TRUE, fig.width = 5, fig.cap="**Figure 3c**. Jittered dots and violins showing mean glucose level and 95% reference intervals with 95% confidence intervals of the tips' position."}
+```{r, message=FALSE, echo=TRUE, fig.width = 4, fig.cap="**Figure 3c**. Jittered dots and violins showing mean glucose level and 95% reference intervals with 95% confidence intervals of the tips' position."}
 # redo plt1; the other 2 are still in memory
 plt1 <- superbPlot(glucoselevels, 
             BSFactors = "concentration",  
@@ -577,11 +577,11 @@ plt1 <- superbPlot(glucoselevels,
 # transform the three plots into visual objects
 plt1 <- ggplotGrob(plt1)
 
-# superimpose the grobs onto an empty ggplot 
-ggplot() + 
-    annotation_custom(grob=plt1) + 
-    annotation_custom(grob=plt2) + 
-    annotation_custom(grob=plt3)
+# you may superimpose the grobs onto an empty ggplot 
+#ggplot() + 
+#    annotation_custom(grob=plt1) + 
+#    annotation_custom(grob=plt2) + 
+#    annotation_custom(grob=plt3)
 ```
 
 ## Reference intervals vs. confidence intervals of the means
@@ -608,7 +608,7 @@ plt4 <- superbPlot(glucoselevels,
 This plot also has transparent theme as it will superimposed on the
 previous three plots:
 
-```{r, message=FALSE, echo=TRUE, fig.width = 5, fig.cap="**Figure 3d**. Jittered dots and violins showing mean glucose level +-95% confidence intervals of the mean, and 95% reference intervals with 95% confidence intervals."}
+```{r, message=FALSE, echo=TRUE, fig.width = 4, fig.cap="**Figure 3d**. Jittered dots and violins showing mean glucose level +-95% confidence intervals of the mean, and 95% reference intervals with 95% confidence intervals."}
 # transform that plot too into visual objects
 plt4 <- ggplotGrob(plt4)
 

@@ -95,35 +95,11 @@
 #'
 #'
 #' #only keep 2 sex and 2 languages; the remaining cases are too sparse.
-#' # even then, one cell is near empty. Only CA would work...
 #' mee3 <- TMB1964r[(TMB1964r$Language != "I prefer not to answer")&TMB1964r$Language !="Other",]
 #' 
 #' 
-#' # advanced plots are available, such as pointjitter ...
-#' superbPlot(mee3,
-#'     WSFactors = "T(7)",
-#'     BSFactors = c("Condition","Language"),
-#'     variables = c("T1","T2","T3","T4","T5","T6","T7"),
-#'     adjustments = list(purpose="difference", decorrelation="CM"), 
-#'     plotStyle = "pointjitter",
-#'     jitterParams = list(alpha = 0.25) #near transparent jitter points
-#' ) + 
-#' scale_fill_manual( name = "Amount of context", 
-#'     labels = c("Context 0", "Context 2", "Context 4", "Context 8"), 
-#'     values = c("blue", "black", "purple", "red")) +
-#' scale_colour_manual( name = "Amount of context", 
-#'     labels = c("Context 0", "Context 2", "Context 4", "Context 8"), 
-#'     values = c("blue", "black", "purple", "red")) +
-#' scale_shape_manual( name = "Amount of context",
-#'     labels = c("Context 0", "Context 2", "Context 4", "Context 8"), 
-#'     values = c("circle", "triangle", "square", "cross")) +
-#' theme_bw(base_size = 16) +
-#' labs(x = "Exposure duration (ms)", y = "Mean of correct responses" )+ 
-#' scale_x_discrete(labels=c("1" = "16.67", "2" = "33.33",
-#'     "3"="50.00", "4" = "66.67", "5"="83.33", "6"="100.00", "7"="116.67"))
-#' 
-#' 
-#' # ... and pointjitterviolin : a plot that superimposes the distribution as a violin plot
+#' # advanced plots are available, such as pointjitter 
+#' # and pointjitterviolin : a plot that superimposes the distribution as a violin plot
 #' # 
 #' superbPlot(mee3,
 #'     WSFactors = "T(7)",

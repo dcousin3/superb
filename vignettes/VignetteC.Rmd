@@ -151,7 +151,7 @@ library(scales)     # for asn_trans() non-linear scale
 
 Here we go:
 
-```{r, message=FALSE, echo=TRUE, fig.width = 5, fig.cap="**Figure 1**. Anscombe-transformed scores as a function of group."}
+```{r, message=FALSE, echo=TRUE, fig.width = 3, fig.cap="**Figure 1**. Anscombe-transformed scores as a function of group."}
 # ornate to decorate the plot a little bit...
 ornate = list( 
     theme_bw(base_size = 16),
@@ -200,7 +200,7 @@ CI.prop <- function(v, gamma = 0.95) {
 
 Nothing more is needed. We can make the plot with these new functions:
 
-```{r, message=FALSE, echo=TRUE, fig.width = 5, fig.cap="**Figure 2**. Proportion as a function of group."}
+```{r, message=FALSE, echo=TRUE, fig.width = 3, fig.cap="**Figure 2**. Proportion as a function of group."}
 superbPlot(dta, 
     BSFactors = "group",
     variables = "scores",

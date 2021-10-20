@@ -142,7 +142,7 @@ data frame) in which the measures are collated in the column ``DV``.
 
 Now let's make the plot, feeding ``d1`` as the statistic function:
 
-```{r, message=TRUE, echo=TRUE, fig.width = 5, fig.cap="**Figure 1**. d_1 scores along with 95% confidence interval."}
+```{r, message=TRUE, echo=TRUE, fig.width = 4, fig.cap="**Figure 1**. d_1 scores along with 95% confidence interval."}
 # show a plot with Cohen's d1 and difference-adjusted confidence intervals of d1
 superbPlot(dta, 
         BSFactors   = "Dose", variables = "score", 
@@ -218,7 +218,7 @@ c(cidp12,cidp13,cidp23)
 Let's put these numbers on the plot for easier examination using
 the graphic directives ``showSignificance()``:
 
-```{r, message=FALSE, echo=TRUE, fig.width=5, fig.cap="**Figure 2**. d_1 scores along with 95% confidence interval."}
+```{r, message=FALSE, echo=TRUE, fig.width=4, fig.cap="**Figure 2**. d_1 scores along with 95% confidence interval."}
 superbPlot(dta, BSFactors  = "Dose", variables = "score", 
         statistic = "d1",  errorbar  = "CI", gamma     = 0.95, 
         plotStyle = "line",

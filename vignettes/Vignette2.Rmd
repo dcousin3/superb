@@ -126,7 +126,7 @@ intervals to a plot showing means with difference-adjusted confidence intervals 
 
 Just for comparison purposes, let's show both plots side-by-side.
 
-```{r, message=FALSE, echo=TRUE, fig.cap="**Figure 3**. Two representation of the data with unadjusted (left) and adjusted (right) 95% confidence intervals"}
+```{r, message=FALSE, echo=TRUE, fig.height=4, fig.cap="**Figure 3**. Two representation of the data with unadjusted (left) and adjusted (right) 95% confidence intervals"}
 library(gridExtra)
 plt1 <- superbPlot(dataFigure1, 
         BSFactors = "grp", 

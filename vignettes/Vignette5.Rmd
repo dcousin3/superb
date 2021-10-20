@@ -149,12 +149,6 @@ grid.arrange(
     ncol=2)
 ```
 
-As of the ``raincloud`` with the same ornaments, we get
-
-```{r, fig.width= 7, fig.height = 3.5, fig.cap = "**Figure 2b**. The raincloud with ornamental styling added."}
-mp(testdata, "raincloud") + coord_flip() + ornate
-```
-
 These are just a few examples. However, if these layouts do not fit
 yours needs, it is possible to devise a custom-made layout and 
 inform ``superbPlot`` to use it. To that end, see the instructions
@@ -356,7 +350,7 @@ superbPlot.simpleWithOptions <- function(
 superb:::is.superbPlot.function("superbPlot.simpleWithOptions")
 ```
 
-```{r, message=FALSE, echo=TRUE, results='hide', fig.show='show', fig.cap="**Figure 4**. A simple figure with optional arguments"}
+```{r, message=FALSE, eval=FALSE, echo=TRUE, results='hide', fig.show='show', fig.cap="**Figure 4**. A simple figure with optional arguments"}
 superbPlot(TMB1964r,
     WSFactors = "T(7)",      
     BSFactors = "Condition",

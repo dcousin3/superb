@@ -129,7 +129,7 @@ pNKM <- superbPlot(dta, WSFactors = "moment(3)",
 
 In what follow, I justapose the three plots to see the differences:
 
-```{r, fig.height=5, fig.width=8, fig.cap = "**Figure 1**. Plot of the tree decorrelation methods based on subject transformation."}
+```{r, fig.height=4, fig.width=7, fig.cap = "**Figure 1**. Plot of the tree decorrelation methods based on subject transformation."}
 tlbl <- paste( "(red)    Subject centering & Bias correction == CM\n",
                "(orange) Subject centering, Bias correction & Pooling SDs == LM\n",
                "(blue)   Subject centering & Pooling SDs == NKM", sep="")

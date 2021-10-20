@@ -64,15 +64,15 @@ superbPlot( Orange.wide, WSFactors = "age(7)",
 
 # if you extract the data with superbData, you can 
 # run this layout directly
-processedData <- superbData(Orange.wide, WSFactors = "age(7)",
-  variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
-  adjustments = list(purpose = "difference", decorrelation = "none"),
-)
-
-superbPlot.pointindividualline(processedData$summaryStatistic,
-   "age",
-   NULL,
-   ".~.",
-   processedData$rawData)
+#processedData <- superbData(Orange.wide, WSFactors = "age(7)",
+#  variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
+#  adjustments = list(purpose = "difference", decorrelation = "none"),
+#)
+#
+#superbPlot.pointindividualline(processedData$summaryStatistic,
+#   "age",
+#   NULL,
+#   ".~.",
+#   processedData$rawData)
 
 }

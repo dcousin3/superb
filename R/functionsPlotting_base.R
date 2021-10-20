@@ -38,15 +38,15 @@
 #'
 #' # if you extract the data with superbData, you can 
 #' # run this layout directly
-#' processedData <- superbData(ToothGrowth, 
-#'    BSFactors = c("dose","supp"), variables = "len"
-#' )
-#'
-#' superbPlot.bar(processedData$summaryStatistic,
-#'    "dose",
-#'    "supp",
-#'    ".~.",
-#'    processedData$rawData)
+#' #processedData <- superbData(ToothGrowth, 
+#' #   BSFactors = c("dose","supp"), variables = "len"
+#' #)
+#' #
+#' #superbPlot.bar(processedData$summaryStatistic,
+#' #   "dose",
+#' #   "supp",
+#' #   ".~.",
+#' #   processedData$rawData)
 #'
 #' @export superbPlot.bar
 #'
@@ -136,15 +136,15 @@ superbPlot.bar <- function(
 #'
 #' # if you extract the data with superbData, you can 
 #' # run this layout directly
-#' processedData <- superbData(ToothGrowth, 
-#'    BSFactors = c("dose","supp"), variables = "len"
-#' )
-#'
-#' superbPlot.line(processedData$summaryStatistic,
-#'    "dose",
-#'    "supp",
-#'    ".~.",
-#'    processedData$rawData)
+#' #processedData <- superbData(ToothGrowth, 
+#' #   BSFactors = c("dose","supp"), variables = "len"
+#' #)
+#' #
+#' #superbPlot.line(processedData$summaryStatistic,
+#' #   "dose",
+#' #   "supp",
+#' #   ".~.",
+#' #   processedData$rawData)
 #'
 #' @export superbPlot.line
 #'
@@ -242,15 +242,15 @@ superbPlot.line <- function(
 #'
 #' # if you extract the data with superbData, you can 
 #' # run this layout directly
-#' processedData <- superbData(ToothGrowth, 
-#'    BSFactors = c("dose","supp"), variables = "len"
-#' )
-#'
-#' superbPlot.point(processedData$summaryStatistic,
-#'    "dose",
-#'    "supp",
-#'    ".~.",
-#'    processedData$rawData)
+#' #processedData <- superbData(ToothGrowth, 
+#' # BSFactors = c("dose","supp"), variables = "len"
+#' #)
+#' #
+#' #superbPlot.point(processedData$summaryStatistic,
+#' #   "dose",
+#' #   "supp",
+#' #   ".~.",
+#' #   processedData$rawData)
 #'
 #' @export superbPlot.point
 #'
@@ -345,15 +345,15 @@ superbPlot.point <- function(
 #'
 #' # if you extract the data with superbData, you can 
 #' # run this layout directly
-#' processedData <- superbData(ToothGrowth, 
-#'    BSFactors = c("dose","supp"), variables = "len"
-#' )
-#'
-#' superbPlot.pointjitter(processedData$summaryStatistic,
-#'    "dose",
-#'    "supp",
-#'    ".~.",
-#'    processedData$rawData)
+#' #processedData <- superbData(ToothGrowth, 
+#' #   BSFactors = c("dose","supp"), variables = "len"
+#' #)
+#' #
+#' #superbPlot.pointjitter(processedData$summaryStatistic,
+#' #   "dose",
+#' #   "supp",
+#' #   ".~.",
+#' #   processedData$rawData)
 #'
 #' @export superbPlot.pointjitter
 #'
@@ -465,15 +465,15 @@ superbPlot.pointjitter <- function(
 #'
 #' # if you extract the data with superbData, you can 
 #' # run this layout directly
-#' processedData <- superbData(ToothGrowth, 
-#'    BSFactors = c("dose","supp"), variables = "len"
-#' )
-#'
-#' superbPlot.pointjitterviolin(processedData$summaryStatistic,
-#'    "dose",
-#'    "supp",
-#'    ".~.",
-#'    processedData$rawData)
+#' #processedData <- superbData(ToothGrowth, 
+#' #   BSFactors = c("dose","supp"), variables = "len"
+#' #)
+#' #
+#' #superbPlot.pointjitterviolin(processedData$summaryStatistic,
+#' #   "dose",
+#' #   "supp",
+#' #   ".~.",
+#' #   processedData$rawData)
 #'
 #' @export superbPlot.pointjitterviolin
 #'
@@ -599,16 +599,16 @@ superbPlot.pointjitterviolin <- function(
 #' 
 #' # if you extract the data with superbData, you can 
 #' # run this layout directly
-#' processedData <- superbData(Orange.wide, WSFactors = "age(7)",
-#'   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
-#'   adjustments = list(purpose = "difference", decorrelation = "none"),
-#' )
-#'
-#' superbPlot.pointindividualline(processedData$summaryStatistic,
-#'    "age",
-#'    NULL,
-#'    ".~.",
-#'    processedData$rawData)
+#' #processedData <- superbData(Orange.wide, WSFactors = "age(7)",
+#' #  variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
+#' #  adjustments = list(purpose = "difference", decorrelation = "none"),
+#' #)
+#' #
+#' #superbPlot.pointindividualline(processedData$summaryStatistic,
+#' #   "age",
+#' #   NULL,
+#' #   ".~.",
+#' #   processedData$rawData)
 #' 
 #' @export superbPlot.pointindividualline
 #' @importFrom utils modifyList

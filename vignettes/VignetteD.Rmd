@@ -61,7 +61,7 @@ data <- read.spss(file, to.data.frame = TRUE)
 
 Finally, ask for a plot with 
 
-```{r, fig.width = 5, fig.cap="**Figure 1: A plot with SPSS data within R**"}
+```{r, fig.width = 4, eval=FALSE, fig.cap="**Figure 1: A plot with SPSS data within R**"}
 superbPlot( data, 
     WSFactors      = "Temps(2)",
     variables      = c("time1","time2"),
@@ -120,9 +120,9 @@ BEGIN PROGRAM R.
 END PROGRAM.
 ```
 
-Here are screen captures showing the syntax window and the resulting output window:
+Here are screen captures showing the syntax window:
 
-```{r fig2, echo=FALSE, fig.cap="**Figure 2: Syntax to generate a plot**", fig.width = 6, fig.height = 6}
+```{r fig2, echo=FALSE, fig.cap="**Figure 2: Syntax to generate a plot**", fig.width = 5, fig.height = 5}
 library(png)
 fle1 <- system.file("extdata", "Syntax1.png", package = "superb")
 img1 <- readPNG(fle1)
@@ -130,13 +130,6 @@ plot.new()
 rasterImage(img1, 0, 0, 1, 1)
 ```
 
-```{r fig3, echo=FALSE, fig.cap="**Figure 3: Plot generated**", fig.width = 6, fig.height = 6}
-library(png)
-fle2 <- system.file("extdata", "Output1.png", package = "superb")
-img2 <- readPNG(fle2)
-plot.new() 
-rasterImage(img2, 0, 0, 1, 1)
-```
 
 
 

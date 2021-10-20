@@ -56,14 +56,14 @@ superbPlot(ToothGrowth,
 
 # if you extract the data with superbData, you can 
 # run this layout directly
-processedData <- superbData(ToothGrowth, 
-   BSFactors = c("dose","supp"), variables = "len"
-)
-
-superbPlot.pointjitterviolin(processedData$summaryStatistic,
-   "dose",
-   "supp",
-   ".~.",
-   processedData$rawData)
+#processedData <- superbData(ToothGrowth, 
+#   BSFactors = c("dose","supp"), variables = "len"
+#)
+#
+#superbPlot.pointjitterviolin(processedData$summaryStatistic,
+#   "dose",
+#   "supp",
+#   ".~.",
+#   processedData$rawData)
 
 }
