@@ -235,7 +235,7 @@ black and white (no color instruction) and superimposed
 
 The result will be:
 
-```{r, message=FALSE, echo=FALSE, fig.cap="**Figure 3**. Mean score with 95% confidence interval using the ``simple`` plot layout."}
+```{r, message=FALSE, echo=FALSE, fig.height=3, fig.width=4, fig.cap="**Figure 3**. Mean score with 95% confidence interval using the ``simple`` plot layout."}
 superbPlot.simple <- function( summarydata, xfactor, groupingfactor, addfactors, rawdata ) {
     plot <- ggplot(
         data = summarydata,
@@ -470,7 +470,7 @@ superb:::is.superbPlot.function("superbPlot.smiley")
 
 It is all we need! It can be inserted in a ``superbPlot`` call:
 
-```{r, fig.width= 7, fig.height = 6, fig.cap = "**Figure 5**. smile!" }
+```{r, fig.width= 4, fig.height = 3, fig.cap = "**Figure 5**. smile!" }
 superbPlot(TMB1964r,
      WSFactors = "T(7)",      
      BSFactors = "Condition", 

@@ -144,7 +144,7 @@ dta <- GRD(
 Using ``scores``, it is possible to alter the parameters, for example, have a mean proportional
 to the group number, or the standard deviation proportional to the group number, as in:
 
-```{r}
+```{r, fig.height=3, fig.width=4}
 dta <- GRD(
     BSFactors = "Group(2)",
     Population = list(
@@ -185,7 +185,7 @@ the first level of the factor, ``y`` point for the second, etc.
 
 Here is a slope effect:
 
-```{r, message=FALSE}
+```{r, message=FALSE, fig.height=3, fig.width=4}
 dta <- GRD(
     BSFactors = 'Therapy(CBT, Control, Exercise)',
     WSFactors = 'Contrast(3)',
@@ -201,7 +201,7 @@ superbPlot(dta,
 Effects can also be any R code manipulating the factors, using ``Rexpression``.
 One example:
 
-```{r, message=FALSE}
+```{r, message=FALSE, fig.height=3, fig.width=4}
 dta <- GRD(
     BSFactors = 'Therapy(CBT,Control,Exercise)',
     WSFactors = 'Contrast(3) ',

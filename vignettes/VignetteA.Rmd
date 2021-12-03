@@ -309,7 +309,7 @@ head(glucoselevels)
 A simple plot could show the mean for each concentration along with
 the 95% confidence interval of the means, with e.g., 
 
-```{r, message=FALSE, echo=TRUE, fig.width = 5, fig.cap="**Figure 1**. Mean glucose level as a function of concentration."}
+```{r, message=FALSE, echo=TRUE, fig.width = 4, fig.cap="**Figure 1**. Mean glucose level as a function of concentration."}
 superbPlot(glucoselevels, 
             BSFactors = "concentration",  
             variables = "gl", 
@@ -361,7 +361,7 @@ change the position of the interval.
 
 This is all we need to make our first reference interval plots:
 
-```{r, message=FALSE, echo=TRUE, fig.width = 5, fig.cap="**Figure 2**. Mean glucose level and 95% reference intervals as a function of concentration."}
+```{r, message=FALSE, echo=TRUE, fig.width = 4, fig.cap="**Figure 2**. Mean glucose level and 95% reference intervals as a function of concentration."}
 superbPlot(glucoselevels, 
             BSFactors = "concentration",  
             variables = "gl", 
@@ -417,7 +417,7 @@ cihiRI.mean <- function(data, gamma = c(0.95, 0.90) ) {
 Again, this is all we need. We can for example use the following 
 to see the uncertainty in the top tips of all the RI:
 
-```{r, message=FALSE, echo=TRUE, fig.width = 5, fig.cap="**Figure 3**. Mean glucose level and 90% confidence intervals of the upper RI tips."}
+```{r, message=FALSE, echo=TRUE, fig.width = 4, fig.cap="**Figure 3**. Mean glucose level and 90% confidence intervals of the upper RI tips."}
 superbPlot(glucoselevels, 
             BSFactors = "concentration",  
             variables = "gl", 
