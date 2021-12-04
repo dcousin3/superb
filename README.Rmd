@@ -169,5 +169,5 @@ doi: https://doi.org/10.1177/25152459211035109
 </p>
 <p>Walker, J. A. L. (2021).
 "Summary plots with adjusted error bars (superb)."
-<em>Youtube video</em>, <b><a href="https://www.youtube.com/watch?v=rw_6ll5nVus">accessible here</a>)</b>.
+<em>Youtube video</em>, <b><a href="https://www.youtube.com/watch?v=rw_6ll5nVus">accessible here</a></b>.
 </p>

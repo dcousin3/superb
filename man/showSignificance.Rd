@@ -10,7 +10,7 @@ showSignificance(
   x,
   y,
   width,
-  text,
+  text = NULL,
   panel = list(),
   segmentParams = list(),
   textParams = list()
@@ -23,7 +23,7 @@ showSignificance(
 
 \item{width}{height of the annotation; for negative width, the legs extends towards the bottom;}
 
-\item{text}{string text to be display on the opposite side of width;}
+\item{text}{(optional) string text to be display on the opposite side of width;}
 
 \item{panel}{(optional) a list to identify in which panel to put the annotation;}
 
@@ -94,11 +94,13 @@ plt2 + showSignificance( 3.75, c(70,80), -0.1, "++1++")
 
 # an example with panels; the "panel" argument is used to identify on 
 # which panel to put the annotation (or else they appear on all panels)
+# and with arms of differing lengths, and one flat ending
 plt3 + 
-    showSignificance( c(0.75, 1.25), 90, -1, "++1++", panel = list(Age= 1)) + 
-    showSignificance( c(1.75, 2.25), 90, -1, "++2++", panel = list(Age= 2)) + 
-    showSignificance( c(0.75, 1.25), 90, -1, "++3++", panel = list(Age= 3)) +
-    showSignificance( c(1.75, 3.25), 95, -1, "++4++", panel = list(Age= 3))  
+    showSignificance( c(0.75, 1.25), 90, -2.5,      "++1++", panel = list(Age= 1)) + 
+    showSignificance( c(1.75, 2.25), 90, -2.5,      "++2++", panel = list(Age= 2)) + 
+    showSignificance( c(0.75, 1.25), 90, c(-10,-5), "++3++", panel = list(Age= 3)) +
+    showSignificance( c(2.00, 3.25), 95, -10,       "++4++", panel = list(Age= 3)) + 
+    showSignificance( c(1.75, 2.25), 85, 0,                  panel = list(Age= 3))  
 
 # here, we send additional directives to the annotations
 plt3 + 

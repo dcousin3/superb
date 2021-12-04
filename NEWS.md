@@ -1,6 +1,11 @@
+# superb 0.9.7.8 (December 10th, 2021)
+
+* Corrected a few typos.
+* The population size in superbShiny() was limited to 99,999. Corrected.
+
 # superb 0.9.7.7 (November 19th, 2021)
 
-* Added a vignette for super with SPSS
+* Added a vignette for superb with SPSS
 * Corrected superbShiny to show the doi and remove graphic directives
 * Updated the shinyapps.io version to match this one
 

@@ -13,7 +13,7 @@
 #' @param x (a vector of 2 when horizontal) indicates the limits of the annotation;
 #' @param y (a vector of 2 when vertical) the location of the annotation in the y direction
 #' @param width height of the annotation; for negative width, the legs extends towards the bottom;
-#' @param text string text to be display on the opposite side of width;
+#' @param text (optional) string text to be display on the opposite side of width;
 #' @param panel (optional) a list to identify in which panel to put the annotation;
 #' @param segmentParams (optional) a list of directives that will be sent to the geom_segment items;
 #' @param textParams (optional) a list of directives that will be sent to the geom_text item.
@@ -74,11 +74,13 @@
 #' 
 #' # an example with panels; the "panel" argument is used to identify on 
 #' # which panel to put the annotation (or else they appear on all panels)
+#' # and with arms of differing lengths, and one flat ending
 #' plt3 + 
-#'     showSignificance( c(0.75, 1.25), 90, -1, "++1++", panel = list(Age= 1)) + 
-#'     showSignificance( c(1.75, 2.25), 90, -1, "++2++", panel = list(Age= 2)) + 
-#'     showSignificance( c(0.75, 1.25), 90, -1, "++3++", panel = list(Age= 3)) +
-#'     showSignificance( c(1.75, 3.25), 95, -1, "++4++", panel = list(Age= 3))  
+#'     showSignificance( c(0.75, 1.25), 90, -2.5,      "++1++", panel = list(Age= 1)) + 
+#'     showSignificance( c(1.75, 2.25), 90, -2.5,      "++2++", panel = list(Age= 2)) + 
+#'     showSignificance( c(0.75, 1.25), 90, c(-10,-5), "++3++", panel = list(Age= 3)) +
+#'     showSignificance( c(2.00, 3.25), 95, -10,       "++4++", panel = list(Age= 3)) + 
+#'     showSignificance( c(1.75, 2.25), 85, 0,                  panel = list(Age= 3))  
 #' 
 #' # here, we send additional directives to the annotations
 #' plt3 + 
@@ -114,11 +116,12 @@ showSignificance <- function(
     x, 
     y,      
     width,
-    text, 
+    text		  = NULL, 
     panel         = list(), #
     segmentParams = list(), # optional: sent to geom_segment
     textParams    = list()  # optional: sent to geom_text
 ) {
+	if( is.null(text) || text == "") text = " "
     if (length(x) == 2) 
         showHorizontalSignificance(x, y, width, text, panel, segmentParams, textParams)
     else if (length(y) == 2)
@@ -141,7 +144,8 @@ showHorizontalSignificance <- function(
 
     # build data frames for the line segments and the text
     l1 <- data.frame(x = x[1], xend = x[2], y = y, yend = y)
-    l2 <- data.frame(x = x,    xend = x,    y = y, yend = y+width) 
+    l2 <- data.frame(x = x,    xend = x,    y = y, yend = y)
+	l2$yend <- l2$yend + width # to handle multiple length
     tx <- data.frame("label" = text, "x" = sum(x)/2, y = y)
 
     # if there are panels, add panel information to data frames.
@@ -162,7 +166,7 @@ showHorizontalSignificance <- function(
         ) ),
         do.call( geom_text, modifyList(
             list(data = tx, inherit.aes = FALSE, mapping = aes_string(x = "x", y = "y", label = "label"), 
-            hjust = 0.5, vjust = ifelse(sign(width)==1,3 * sign(width)/2,sign(width)/2)),
+            hjust = 0.5, vjust = ifelse(sign(width[1])==1, 3 * sign(width[1])/2, sign(width[1])/2)),
             textParams,
         ) )
     )
@@ -184,8 +188,9 @@ showVerticalSignificance <- function(
         stop ("superb::ShowVerticalSignificance: y must be a vector of 2 (up and down boundaries).")
 
     # build data frames for the line segments and the text
-    l1 <- data.frame(x = x, xend = x,        y = y[1], yend = y[2])
-    l2 <- data.frame(x = x, xend = x+width,  y = y, yend = y) 
+    l1 <- data.frame(x = x, xend = x, y = y[1], yend = y[2])
+    l2 <- data.frame(x = x, xend = x, y = y, yend = y) 
+	l2$xend <- l2$xend + width # to handle multiple length
     tx <- data.frame("label" = text, "y" = sum(y)/2, x = x)
 
     # if there are panels, add panel information to data frames.

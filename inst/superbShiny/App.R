@@ -13,7 +13,7 @@ library(ggplot2)
 library(foreign) # for read.spss
 library(stringr) # for str_remove_all and str_replace_all
 
-
+appversion <- "App version 3.1b; shipped with superb 0.9.7.8"
 
 ##########################################################
 ##########################################################
@@ -373,7 +373,8 @@ thePage <- fluidPage(
                       "and type quit() to leave."),
                     bsButton("S6Prev", "Previous"),
                     value = 6, style = "success")
-            )
+            ),
+			p( appversion, style="font-size: 10px;" )
         ),
         mainPanel(
             tabsetPanel( id = "MainDisplay",
@@ -582,7 +583,7 @@ generateScript <- function( cI ) {
     } else {NA}
     popsize       <- if (is.something(cI$Step4$popSize)) {
         if (cI$Step4$popSize != Inf) 
-            paste(indent2, "popSize       = ",   cI$Step4$popSize, sep="")
+            paste(indent2, "popSize       = ",   format(cI$Step4$popSize,scientific=FALSE), sep="")
     } else {NA}
 
     script[3] <- paste3(
@@ -844,7 +845,7 @@ theServerFct <- function(input, output, session) {
             if (getOption("superb.shiny") == "display") {
                 cat(...) } } }
     mycat("Display of feedback information turned on...\n")
-    mycat("App version 3.1a; shipped with superb 0.9.7.5\n")
+    mycat(appversion, "\n")
 
     # Information collected as we go through the steps:
     info           <- list() # list with $Step1, $Step2, $Step4, $Step5 and $Step6
@@ -1185,7 +1186,7 @@ theServerFct <- function(input, output, session) {
     observeEvent(input$S4Apply, ({
         mycat("S4: Apply clicked!", "\n")
         # some checks
-        if ((input$superbPopsize!="Inf")&&((to.numeric(input$superbPopsize)<1)||(as.character(to.numeric(input$superbPopsize))!=str_trim(input$superbPopsize)))) {
+        if ((input$superbPopsize!="Inf")&&((to.numeric(input$superbPopsize)<1)||(as.character(format(to.numeric(input$superbPopsize),scientific=FALSE))!=str_trim(input$superbPopsize)))) {
             output$superbMessages2 <- renderUI(
                 tagList( h4("Step 2: Inconsistent input"),
                     p("Population size must be `Inf` (infinite) or a positive integer.")
