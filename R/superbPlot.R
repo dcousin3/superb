@@ -343,6 +343,13 @@ superbPlot <- function(data,
     data.untransformed.long <- suppressWarnings(lsr::wideToLong(data.untransformed, within = WSFactors, sep = weird))
     data.transformed.long   <- suppressWarnings(lsr::wideToLong(data.transformed, within = WSFactors, sep = weird))
 
+    # needed because lsr turns the within indicators into strings, not numeric, causing order problems in plots (e.g., 1, 10, 2, ...)
+    # new 15 january 2022, version 0.9.7.9 
+    data.untransformed.long[WSFactors] <- mapply(
+        as.numeric, data.untransformed.long[WSFactors])
+    data.transformed.long[WSFactors] <- mapply(
+        as.numeric, data.transformed.long[WSFactors])
+
     # if there was no within-subject factor, a dummy had been added
     if (WSFactors[1]  == wsMissing) {
         # removing all traces of the dummy
@@ -361,6 +368,7 @@ superbPlot <- function(data,
 
     runDebug("superb.3", "End of Step 3: Reformat data frame into long format", 
         c("data.transformed.long2","factorOrder3"), list(data.transformed.long,factorOrder) )
+
 
 
     ##############################################################################
@@ -388,6 +396,7 @@ superbPlot <- function(data,
 
     ### put into FACTORs
     summaryStatistics <- plyr::ddply( data.transformed.long, .fun = aggregatefct, .variables = factorOrder ) 
+
     summaryStatistics[factorOrder]       <- lapply(summaryStatistics[factorOrder], as.factor)
     data.untransformed.long[factorOrder] <- lapply(data.untransformed.long[factorOrder], as.factor)
 

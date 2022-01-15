@@ -1,3 +1,8 @@
+
+# superb 0.9.7.9 (January 15th, 2022)
+
+* Corrected a problem in the order of the conditions when more then 10 were present.
+
 # superb 0.9.7.8 (December 10th, 2021)
 
 * Corrected a few typos.
