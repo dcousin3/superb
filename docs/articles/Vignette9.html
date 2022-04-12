@@ -62,6 +62,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="../articles/CustomizingSuperbPlots.html">Customizing `superb` plots</a>
+    </li>
+    <li>
       <a href="../articles/TheMakingOf.html">The making-of the figures in the article</a>
     </li>
     <li>
@@ -258,14 +261,14 @@ d_1 = \frac{\vert \; M_1 - B \; \vert}{S_1}
 <span class="va">dp13</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">dp</span><span class="op">(</span><span class="va">grp3</span>, <span class="va">grp1</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>
 <span class="va">dp23</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">dp</span><span class="op">(</span><span class="va">grp3</span>, <span class="va">grp2</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">dp12</span>, <span class="va">dp13</span>, <span class="va">dp23</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 0.006 0.129 0.131</code></pre>
+<pre><code>## [1] 0.115 0.227 0.111</code></pre>
 <p>… and their 95% confidence intervals:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cidp12</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">CI.dp</span><span class="op">(</span><span class="va">grp2</span>, <span class="va">grp1</span>, <span class="fl">0.95</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>
 <span class="va">cidp13</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">CI.dp</span><span class="op">(</span><span class="va">grp3</span>, <span class="va">grp1</span>, <span class="fl">0.95</span> <span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>
 <span class="va">cidp23</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">CI.dp</span><span class="op">(</span><span class="va">grp3</span>, <span class="va">grp2</span>, <span class="fl">0.95</span> <span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">cidp12</span>,<span class="va">cidp13</span>,<span class="va">cidp23</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] -0.118  0.130  0.005  0.253  0.007  0.255</code></pre>
+<pre><code>## [1] -0.009  0.239  0.103  0.351 -0.013  0.236</code></pre>
 <p>Let’s put these numbers on the plot for easier examination using the graphic directives <code><a href="../reference/showSignificance.html">showSignificance()</a></code>:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, BSFactors  <span class="op">=</span> <span class="st">"Dose"</span>, variables <span class="op">=</span> <span class="st">"score"</span>, 
@@ -311,7 +314,7 @@ d_1 = \frac{\vert \; M_1 - B \; \vert}{S_1}
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">compareCIlength</span><span class="op">(</span><span class="va">grp1</span>,<span class="va">grp3</span><span class="op">)</span></code></pre></div>
 <pre><code>##   dp.length d1.average.length
-## 1     0.248             0.248</code></pre>
+## 1     0.249             0.248</code></pre>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">compareCIlength</span><span class="op">(</span><span class="va">grp2</span>,<span class="va">grp3</span><span class="op">)</span></code></pre></div>
 <pre><code>##   dp.length d1.average.length
