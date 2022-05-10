@@ -59,7 +59,7 @@ Suggests:
     knitr, 
     lattice,
     lawstat,
-    boot, car,
+    boot, 
     png,
     reshape2,
     rmarkdown,

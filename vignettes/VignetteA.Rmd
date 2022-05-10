@@ -81,11 +81,11 @@ library(referenceIntervals) # for computing reference intervals
 ```{r, eval=TRUE, message=FALSE, warning=FALSE, echo=FALSE}
 # the above pretend that referenceInterval was installed, but it is not installed
 # because its dependencies (gWidgets2tcltk, extremeValues) crashes travis-CI.com and shinyapps.io...
-# I reproduce the code here as is
+# I reproduce the relevant code here as is
 library(ggplot2)            # for the graphing commands
 library(superb)             # for superbPlot and GRD
 library(boot)
-#library(car) ## not working on Travis currently...
+#library(car)               # not working on Travis anymore; this is a nightmare...
 library(stats)
 
 
