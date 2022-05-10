@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.7.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.0</span>
       </span>
     </div>
 
@@ -178,12 +178,12 @@
 <span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">testdata</span><span class="op">)</span></code></pre></div>
 <pre><code>##   id Difficulty score.day1 score.day2
-## 1  1          1   70.96102   47.65285
-## 2  2          1   71.43698   60.80503
-## 3  3          1   45.84989   61.21262
-## 4  4          1   49.56030   57.76787
-## 5  5          1   53.90659   52.86810
-## 6  6          1   55.27158   64.28176</code></pre>
+## 1  1          1   66.65149   60.23686
+## 2  2          1   41.09075   44.40679
+## 3  3          1   44.07416   43.30841
+## 4  4          1   93.25014   88.00161
+## 5  5          1   49.60057   43.61007
+## 6  6          1   69.52666   78.76672</code></pre>
 <p>For simplicity, we define a function whose arguments are the dataset and the layout:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mp</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">style</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
@@ -380,8 +380,10 @@
   <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"variable1"</span>, <span class="st">"variable2"</span>, <span class="st">"etc"</span><span class="op">)</span>,
   <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span> <span class="st">"var1InTheFct"</span>, <span class="st">"var2InTheFct"</span>, <span class="st">"varetcInTheFct"</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
+<pre><code>## ==&gt; Text to show when we get there &lt;==
+##     variables dumped in: variable1, variable2, etc</code></pre>
 <p>For example, the following will get the dataframes:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">superbPlot.empty</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span>
     <span class="va">summarydata</span>, <span class="va">xfactor</span>, <span class="va">groupingfactor</span>, <span class="va">addfactors</span>, <span class="va">rawdata</span> 
 <span class="op">)</span> <span class="op">{</span>
@@ -398,8 +400,10 @@
      variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"T1"</span>,<span class="st">"T2"</span>,<span class="st">"T3"</span>,<span class="st">"T4"</span>,<span class="st">"T5"</span>,<span class="st">"T6"</span>,<span class="st">"T7"</span><span class="op">)</span>,
      plotStyle <span class="op">=</span> <span class="st">"empty"</span> 
 <span class="op">)</span></code></pre></div>
+<pre><code>## ==&gt; Dumping the two dataframes &lt;==
+##     variables dumped in: summary, raw</code></pre>
 <p>You see <code>Dumping the two dataframes</code> followed by <code>summary</code> and <code>raw</code>. These two variables are now in the global environment and you can manipulate them. You can also use them in testing your plotting functions, for example</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">superbPlot.simple</span><span class="op">(</span><span class="va">summary</span>, <span class="st">"T"</span>, <span class="st">"Condition"</span>, <span class="st">".~."</span>, <span class="va">raw</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="an-example" class="section level2">
@@ -407,11 +411,11 @@
 <a href="#an-example" class="anchor"></a>An example</h2>
 <p>In what follow, we create a toy example where the raw data will be shown with smileys. Note that this example may not work in Rstudio (see “limitation” on emojifont <a href="https://CRAN.R-project.org/package=emojifont">page</a> )</p>
 <p>We first need the <code>emojifont</code> library</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("emojifont")</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/GuangchuangYu/emojifont">emojifont</a></span><span class="op">)</span></code></pre></div>
 <p>Then we define a <code>"smiley"</code> layout where the emojis are shown with <code>geom_text</code> layer:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">superbPlot.smiley</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span>
     <span class="va">summarydata</span>, <span class="va">xfactor</span>, <span class="va">groupingfactor</span>, <span class="va">addfactors</span>, <span class="va">rawdata</span> 
 <span class="op">)</span> <span class="op">{</span>
@@ -439,22 +443,18 @@
     <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">plot</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>We check that it is a <code>superbPlot</code>-compatible function:</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">superb</span><span class="fu">:::</span><span class="fu">is.superbPlot.function</span><span class="op">(</span><span class="st">"superbPlot.smiley"</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>It is all we need! It can be inserted in a <code>superbPlot</code> call:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">TMB1964r</span>,
      WSFactors <span class="op">=</span> <span class="st">"T(7)"</span>,      
      BSFactors <span class="op">=</span> <span class="st">"Condition"</span>, 
      variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"T1"</span>,<span class="st">"T2"</span>,<span class="st">"T3"</span>,<span class="st">"T4"</span>,<span class="st">"T5"</span>,<span class="st">"T6"</span>,<span class="st">"T7"</span><span class="op">)</span>,
      plotStyle <span class="op">=</span> <span class="st">"smiley"</span>
 <span class="op">)</span></code></pre></div>
-<div class="figure">
-<img src="Vignette5_files/figure-html/unnamed-chunk-22-1.png" alt="**Figure 5**. smile!" width="384"><p class="caption">
-<strong>Figure 5</strong>. smile!
-</p>
-</div>
+<p>(the result is not shown).</p>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">

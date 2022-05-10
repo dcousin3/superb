@@ -1,3 +1,7 @@
+# superb 0.95.0 (May 10th, 2022)
+
+* Added a new layout to display precision using a band rather than error bars
+* changed numbering of versions to two-digits version code.
 
 # superb 0.9.7.9 (January 15th, 2022)
 

@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.7.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.0</span>
       </span>
     </div>
 
@@ -206,18 +206,14 @@
     jitterParams   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>width <span class="op">=</span><span class="fl">0.1</span>, shape<span class="op">=</span><span class="fl">21</span>,size<span class="op">=</span><span class="fl">0.05</span>,alpha<span class="op">=</span><span class="fl">1</span><span class="op">)</span>, <span class="co"># less dispersed jitter dots,</span>
     violinParams   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>trim<span class="op">=</span><span class="cn">TRUE</span>, alpha<span class="op">=</span><span class="fl">1</span><span class="op">)</span>,                     <span class="co"># not transparent,</span>
     errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span>, size<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span>                   <span class="co"># wider bars, thicker lines.</span>
-<span class="op">)</span></code></pre></div>
-<pre><code>## superb::FYI: The HyunhFeldtEpsilon measure of sphericity per group are  0.677</code></pre>
-<pre><code>## superb::FYI: Some of the groups' data are not spherical. Use error bars with caution.</code></pre>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pltA</span></code></pre></div>
+<span class="op">)</span>
+<span class="va">pltA</span></code></pre></div>
 <div class="figure">
 <img src="CustomizingSuperbPlots_files/figure-html/unnamed-chunk-4-1.png" alt="Figure 2, preliminary version" width="643.2"><p class="caption">
 Figure 2, preliminary version
 </p>
 </div>
 <p>As seen, this plot is a standard, colorless, plot. It contains all that is needed; it is just plain drab and the labels are generic ones (on the vertical axis and on the horizontal axis).</p>
-<p>We can customize any <code>superb</code> plot by adding graphic directives one-by-one using the operator <code>+</code>, or we can collect all the directives in a list, and add this list once. As we have two plots with mostly the same directives, we use this second approach.</p>
 </div>
 <div id="adding-a-color-layer-to-the-plot" class="section level2">
 <h2 class="hasAnchor">
@@ -226,7 +222,7 @@ Figure 2, preliminary version
 <p>It is possible, post-hoc, to indicate that we wish additional layers in the plot.</p>
 <p>In the present, we want to add the <code>fill</code> and the <code>color</code> of dots layers. These layers are to be “connected” to the sole factor in the present example (that is, <code>Domain</code>). Consequently, the x-axis labels, the fill color and the dot color are all redondant information identifying the condition.</p>
 <p>To do this, simply add an aesthetic graphic directive to <code>pltA</code> with:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pltA</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Domain</span><span class="op">)</span>, colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Domain</span><span class="op">)</span><span class="op">)</span> </code></pre></div>
 <div class="figure">
 <img src="CustomizingSuperbPlots_files/figure-html/unnamed-chunk-5-1.png" alt="Figure 2, version with colors" width="643.2"><p class="caption">
@@ -237,9 +233,10 @@ Figure 2, version with colors
 <div id="adding-graphic-directives-for-fine-tuning-the-plot" class="section level2">
 <h2 class="hasAnchor">
 <a href="#adding-graphic-directives-for-fine-tuning-the-plot" class="anchor"></a>Adding graphic directives for fine-tuning the plot</h2>
+<p>We can customize any <code>superb</code> plot by adding graphic directives one-by-one using the operator <code>+</code>, or we can collect all the directives in a list, and add this list once. As we have two plots with mostly the same directives, we use this second approach.</p>
 <p>Typically, a plot is customized by picking a theme. The default <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw()</a></code> is grayish, so we move to <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic()</a></code>. We also customize specific aspects of this theme with <code><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme()</a></code> directives.</p>
 <p>These changes are all collected within the list <code>commonstyle</code> below:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">commonstyle</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span>,                             <span class="co"># It has no background, no bounding box.</span>
 
@@ -255,7 +252,7 @@ Figure 2, version with colors
     <span class="co"># Finally, we place tick marks on the units</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span> breaks<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op">)</span>,
 
-    <span class="co"># set the labels to be displayed (superb replace them with consecutive numbers...)</span>
+    <span class="co"># set the labels to be displayed </span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>name<span class="op">=</span><span class="st">"Domain"</span>, labels <span class="op">=</span> <span class="va">mylabels</span><span class="op">)</span>,
 
     <span class="co"># and set colours to both colour and fill layers</span>
@@ -263,7 +260,7 @@ Figure 2, version with colors
 <span class="op">)</span></code></pre></div>
 <p>We also changed the vertical scale (tick marks at designated positions) and the horizontal scale with names on the tick marks (sadly, <code>superb</code> replaces them with consecutive numbers…) and colors to fill the clouds (<code>fill</code>) and their borders (<code>colour</code>) as well as the rain drop colors.</p>
 <p>Examining this plot with the <code>commonstyle</code> added, we get</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">finalpltA</span> <span class="op">&lt;-</span> <span class="va">pltA</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Domain</span><span class="op">)</span>, colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Domain</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
     <span class="va">commonstyle</span> <span class="op">+</span>                           <span class="co"># all the above directive are added;</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">10</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span>     <span class="co"># the y-axis bounds are given ;</span>
@@ -279,8 +276,8 @@ Figure 2, final version
 <div id="making-the-second-row-of-the-figure" class="section level2">
 <h2 class="hasAnchor">
 <a href="#making-the-second-row-of-the-figure" class="anchor"></a>Making the second row of the figure</h2>
-<p>We do exactly the same for the second plot. We just change the data set to <code>dtaB</code> and in the last graphic directive, put options regarding specifically this second data set (smaller y-axis range, different label, etc.):</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<p>We do exactly the same for the second plot. We just change the data set to <code>dtaB</code> and in the last graphic directives, using options tailored specifically to this second data set (smaller y-axis range, different label, etc.):</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pltB</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dtaB</span>,        <span class="co"># plot for the second data set...</span>
     WSFactors <span class="op">=</span> <span class="st">"Domain(6)"</span>,    <span class="co"># ...a within-subject design with 6 levels</span>
     variables <span class="op">=</span> <span class="va">mylabels</span>,       <span class="co"># ...whose variables are contained in the above list</span>
@@ -294,11 +291,8 @@ Figure 2, final version
     jitterParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>width <span class="op">=</span><span class="fl">0.1</span>, shape<span class="op">=</span><span class="fl">21</span>,size<span class="op">=</span><span class="fl">0.05</span>,alpha<span class="op">=</span><span class="fl">1</span><span class="op">)</span>, <span class="co"># less dispersed jitter dots,</span>
     violinParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>trim<span class="op">=</span><span class="cn">TRUE</span>, alpha<span class="op">=</span><span class="fl">1</span>,adjust<span class="op">=</span><span class="fl">3</span><span class="op">)</span>,            <span class="co"># not semi-transparent, smoother</span>
     errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span>, size<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span>                 <span class="co"># wider bars, thicker lines.</span>
-<span class="op">)</span></code></pre></div>
-<pre><code>## superb::FYI: The HyunhFeldtEpsilon measure of sphericity per group are  0.695</code></pre>
-<pre><code>## superb::FYI: Some of the groups' data are not spherical. Use error bars with caution.</code></pre>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">finalpltB</span> <span class="op">&lt;-</span> <span class="va">pltB</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Domain</span><span class="op">)</span>, colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Domain</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+<span class="op">)</span>
+<span class="va">finalpltB</span> <span class="op">&lt;-</span> <span class="va">pltB</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Domain</span><span class="op">)</span>, colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Domain</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
     <span class="va">commonstyle</span> <span class="op">+</span>                           <span class="co"># the following three lines are the differences:</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">5</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span>      <span class="co"># the limits, 1 to 5, are different </span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"B"</span><span class="op">)</span> <span class="op">+</span>                       <span class="co"># the plot is differently-labeled</span>
@@ -313,8 +307,8 @@ Figure 2, bottom row
 <div id="combining-and-saving-both-plots" class="section level2">
 <h2 class="hasAnchor">
 <a href="#combining-and-saving-both-plots" class="anchor"></a>Combining and saving both plots</h2>
-<p>Finally, we assemble the two plots toghether</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<p>Finally, we assemble the two plots together</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">finalplt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html">grid.arrange</a></span><span class="op">(</span><span class="va">finalpltA</span>, <span class="va">finalpltB</span>, ncol<span class="op">=</span><span class="fl">1</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="CustomizingSuperbPlots_files/figure-html/unnamed-chunk-9-1.png" alt="Figure 2, final version" width="643.2"><p class="caption">
@@ -322,13 +316,13 @@ Figure 2, final version
 </p>
 </div>
 <p>It can be saved with high-resolution if desired with</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span> <span class="st">"Figure2.png"</span>,
     plot<span class="op">=</span><span class="va">finalplt</span>,
     device <span class="op">=</span> <span class="st">"png"</span>,
-    dpi <span class="op">=</span> <span class="fl">320</span>,          <span class="co"># pixel per inches</span>
-    units <span class="op">=</span> <span class="st">"cm"</span>,
-    width <span class="op">=</span> <span class="fl">17</span>,         <span class="co"># as per the article</span>
+    dpi <span class="op">=</span> <span class="fl">320</span>,          <span class="co"># pixels per inche</span>
+    units <span class="op">=</span> <span class="st">"cm"</span>,       <span class="co"># or "in" for dimensions in inches</span>
+    width <span class="op">=</span> <span class="fl">17</span>,         <span class="co"># as found in the article</span>
     height <span class="op">=</span> <span class="fl">13</span>
 <span class="op">)</span></code></pre></div>
 <p>That’s it!</p>

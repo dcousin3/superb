@@ -1,6 +1,6 @@
 ## Submission
 
-* New version 0.9.7.8
+* New version 0.95.0
 
 
 ## Test environments

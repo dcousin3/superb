@@ -258,7 +258,7 @@ test_that("test 6c: statistics of central tendency mean, median and gmean", {
     dta6 <- GRD( WSFactors = "Moment(3):Hand(2)",  
         Effects = list("Moment" = slope(5), "Hand" = slope(3)),
         SubjectsPerGroup = 6,
-        Population = list (mean = 20, stddev = 5, rho = 0.8) )
+        Population = list (mean = 20, stddev = 1, rho = 0.8) )
     p1 <- superbPlot(dta6, 
         WSFactor = c("Moment(3)","Hand(2)"),  
         variables = c("DV.1.1","DV.2.1","DV.3.1","DV.1.2","DV.2.2","DV.3.2"), 
@@ -566,11 +566,29 @@ test_that("Many tests with TMB1964r", {
         violinParams = list(alpha =0.7)
     )
 
+    dta <- superb::GRD( WSFactors = "timepoints (100) : condition(2)", 
+        SubjectsPerGroup = 100,
+        RenameDV = "activation",
+        Effects = list("timepoints" = extent(5), "condition" = extent(3) ),
+        Population=list(mean=50,stddev=10,rho=0.75)
+    )
+    plt6 <- superbPlot(dta, 
+       WSFactors   = c("timepoints(100)", "condition(2)"),
+       variables = colnames(dta)[2:201],   ## all the names of the dataframe except "id"
+       adjustments = list(
+            purpose       = "single",
+            decorrelation = "CM"        ## or none for no decorrelation
+       ),
+       plotStyle="lineBand",            # note the uppercase B 
+       pointParams = list(size= 1) 
+    )
+
     expect_equal( "ggplot" %in% class(plt1), TRUE)
     expect_equal( "ggplot" %in% class(plt2), TRUE)
     expect_equal( "ggplot" %in% class(plt3), TRUE)
     expect_equal( "ggplot" %in% class(plt4), TRUE)
     expect_equal( "ggplot" %in% class(plt5), TRUE)
+    expect_equal( "ggplot" %in% class(plt6), TRUE)
 
     # restores default information
     options(superb.feedback = c('design','warnings','summary'))

@@ -21,6 +21,7 @@ reference:
       - '`superbPlot.bar`'
       - '`superbPlot.point`'
       - '`superbPlot.line`'
+      - '`superbPlot.lineBand`'
       - '`superbPlot.pointjitter`'
       - '`superbPlot.pointjitterviolin`'
       - '`superbPlot.pointindividualline`'

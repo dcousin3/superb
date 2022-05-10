@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>superbPlot 'bar' layout — superbPlot.bar • superb</title>
+<title>superbPlot 'lineBand' layout — superbPlot.lineBand • superb</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,11 +46,11 @@
 
 
 
-<meta property="og:title" content="superbPlot 'bar' layout — superbPlot.bar" />
-<meta property="og:description" content="superbPlot comes with a few built-in templates for making the final plots.
-All produces ggplot objects that can be further customized. Additionally, it is
-possible to add custom-make templates (see vignette 6). The functions, to be
-&quot;superbPlot-compatible&quot;, must have these parameters:" />
+<meta property="og:title" content="superbPlot 'lineBand' layout — superbPlot.lineBand" />
+<meta property="og:description" content="The lineBand layout displays an error band instead of individual error bars. This layout is
+convenient when you have many points on your horizontal axis (so that the error bars are difficult to distinguish)
+and when the results are fairly smooth.
+The functions has these parameters:" />
 <meta property="og:image" content="http://dcousin3.github.io/superb/logo.png" />
 
 
@@ -176,27 +176,28 @@ possible to add custom-make templates (see vignette 6). The functions, to be
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>superbPlot 'bar' layout</h1>
-    <small class="dont-index">Source: <a href='https://github.com/dcousin3/superb/blob/master/R/functionsPlotting_base.R'><code>R/functionsPlotting_base.R</code></a></small>
-    <div class="hidden name"><code>superbPlot.bar.Rd</code></div>
+    <h1>superbPlot 'lineBand' layout</h1>
+    <small class="dont-index">Source: <a href='https://github.com/dcousin3/superb/blob/master/R/functionsPlotting_ribbon.R'><code>R/functionsPlotting_ribbon.R</code></a></small>
+    <div class="hidden name"><code>superbPlot.lineBand.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>superbPlot comes with a few built-in templates for making the final plots.
-All produces ggplot objects that can be further customized. Additionally, it is
-possible to add custom-make templates (see vignette 6). The functions, to be
-"superbPlot-compatible", must have these parameters:</p>
+    <p>The lineBand layout displays an error band instead of individual error bars. This layout is
+convenient when you have many points on your horizontal axis (so that the error bars are difficult to distinguish)
+and when the results are fairly smooth.</p>
+<p>The functions has these parameters:</p>
     </div>
 
-    <pre class="usage"><span class='fu'>superbPlot.bar</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>superbPlot.lineBand</span><span class='op'>(</span>
   <span class='va'>summarydata</span>,
   <span class='va'>xfactor</span>,
   <span class='va'>groupingfactor</span>,
   <span class='va'>addfactors</span>,
-  rawdata <span class='op'>=</span> <span class='cn'>NULL</span>,
-  barParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
-  errorbarParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  <span class='va'>rawdata</span>,
+  pointParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  lineParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
   facetParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  errorbandParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
   xAsFactor <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
 
@@ -224,16 +225,20 @@ possible to add custom-make templates (see vignette 6). The functions, to be
       <td><p>always contains "DV" for each participants and each level of the factors</p></td>
     </tr>
     <tr>
-      <th>barParams</th>
-      <td><p>(optional) list of graphic directives that are sent to the geom_bar layer</p></td>
+      <th>pointParams</th>
+      <td><p>(optional) list of graphic directives that are sent to the geom_point layer</p></td>
     </tr>
     <tr>
-      <th>errorbarParams</th>
-      <td><p>(optional) list of graphic directives that are sent to the geom_superberrorbar layer</p></td>
+      <th>lineParams</th>
+      <td><p>(optional) list of graphic directives that are sent to the geom_jitter layer</p></td>
     </tr>
     <tr>
       <th>facetParams</th>
       <td><p>(optional) list of graphic directives that are sent to the facet_grid layer</p></td>
+    </tr>
+    <tr>
+      <th>errorbandParams</th>
+      <td><p>(optional) list of graphic directives that are sent to the geom_ribbon layer</p></td>
     </tr>
     <tr>
       <th>xAsFactor</th>
@@ -244,24 +249,45 @@ possible to add custom-make templates (see vignette 6). The functions, to be
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a ggplot object</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>There are no references for Rd macro <code>\insertAllCites</code> on this help page.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='co'># This will make a plot with bars</span></span>
-<span class='r-in'><span class='fu'><a href='superbPlot.html'>superbPlot</a></span><span class='op'>(</span><span class='va'>ToothGrowth</span>, </span>
-<span class='r-in'>   BSFactors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dose"</span>,<span class='st'>"supp"</span><span class='op'>)</span>, variables <span class='op'>=</span> <span class='st'>"len"</span>,</span>
-<span class='r-in'>   plotStyle<span class='op'>=</span><span class='st'>"bar"</span> </span>
+    <pre class="examples"><span class='r-in'><span class='co'># this creates a fictious time series at 100 time points obtained in two conditions:</span></span>
+<span class='r-in'><span class='va'>dta</span> <span class='op'>&lt;-</span> <span class='fu'><a href='GRD.html'>GRD</a></span><span class='op'>(</span> WSFactors <span class='op'>=</span> <span class='st'>"timepoints (50) : condition(2)"</span>, </span>
+<span class='r-in'>    SubjectsPerGroup <span class='op'>=</span> <span class='fl'>100</span>,</span>
+<span class='r-in'>    RenameDV <span class='op'>=</span> <span class='st'>"activation"</span>,</span>
+<span class='r-in'>    Effects <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='st'>"timepoints"</span> <span class='op'>=</span> <span class='fu'><a href='slope.html'>extent</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>, <span class='st'>"condition"</span> <span class='op'>=</span> <span class='fu'><a href='slope.html'>extent</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span> <span class='op'>)</span>,</span>
+<span class='r-in'>    Population<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean<span class='op'>=</span><span class='fl'>50</span>,stddev<span class='op'>=</span><span class='fl'>10</span>,rho<span class='op'>=</span><span class='fl'>0.75</span><span class='op'>)</span></span>
 <span class='r-in'><span class='op'>)</span></span>
-<span class='r-plt'><img src='superbPlot.bar-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># This will make a plot with error band</span></span>
+<span class='r-in'><span class='fu'><a href='superbPlot.html'>superbPlot</a></span><span class='op'>(</span><span class='va'>dta</span>, </span>
+<span class='r-in'>   WSFactors   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"timepoints(50)"</span>, <span class='st'>"condition(2)"</span><span class='op'>)</span>,</span>
+<span class='r-in'>   variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>dta</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>:</span><span class='fl'>101</span><span class='op'>]</span>,   <span class='co'>## all the names of the dataframe except "id"</span></span>
+<span class='r-in'>   adjustments <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span></span>
+<span class='r-in'>        purpose       <span class='op'>=</span> <span class='st'>"single"</span>,</span>
+<span class='r-in'>        decorrelation <span class='op'>=</span> <span class='st'>"CM"</span>        <span class='co'>## or none for no decorrelation</span></span>
+<span class='r-in'>   <span class='op'>)</span>,</span>
+<span class='r-in'>   plotStyle<span class='op'>=</span><span class='st'>"lineBand"</span>,            <span class='co'># note the uppercase B </span></span>
+<span class='r-in'>   pointParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>size<span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>      <span class='co'># making points smaller has better look</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-plt'><img src='superbPlot.lineBand-1.png' alt='' width='700' height='433' /></span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># if you extract the data with superbData, you can </span></span>
 <span class='r-in'><span class='co'># run this layout directly</span></span>
-<span class='r-in'><span class='co'>#processedData &lt;- superbData(ToothGrowth, </span></span>
-<span class='r-in'><span class='co'>#   BSFactors = c("dose","supp"), variables = "len"</span></span>
+<span class='r-in'><span class='co'>#processedData &lt;- superbData(dta, </span></span>
+<span class='r-in'><span class='co'>#   WSFactors   = c("timepoints(100)", "condition(2)"), variables = colnames(dta)[2:201],</span></span>
+<span class='r-in'><span class='co'>#   adjustments = list(</span></span>
+<span class='r-in'><span class='co'>#        purpose       = "single",</span></span>
+<span class='r-in'><span class='co'>#        decorrelation = "CM"        ## or none for no decorrelation</span></span>
+<span class='r-in'><span class='co'>#   )</span></span>
 <span class='r-in'><span class='co'>#)</span></span>
 <span class='r-in'><span class='co'>#</span></span>
-<span class='r-in'><span class='co'>#superbPlot.bar(processedData$summaryStatistic,</span></span>
-<span class='r-in'><span class='co'>#   "dose",</span></span>
-<span class='r-in'><span class='co'>#   "supp",</span></span>
+<span class='r-in'><span class='co'>#superbPlot.lineBand(processedData$summaryStatistic,</span></span>
+<span class='r-in'><span class='co'>#   "timepoints",</span></span>
+<span class='r-in'><span class='co'>#   "condition",</span></span>
 <span class='r-in'><span class='co'>#   ".~.",</span></span>
 <span class='r-in'><span class='co'>#   processedData$rawData)</span></span>
 <span class='r-in'></span>

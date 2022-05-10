@@ -87,7 +87,7 @@ mylabels <- c("Verbal", "Numerical", "Spatial", "Creativity", "Intrapersonal", "
 
 We are ready to make the plot with the desired adjustments:
 
-```{r, fig.width=6.7, fig.height=2.5, fig.cap="Figure 2, preliminary version"}
+```{r, message=FALSE, fig.width=6.7, fig.height=2.5, fig.cap="Figure 2, preliminary version"}
 pltA <- superbPlot(dtaA,        # plot for the first data set...
     WSFactors = "Domain(6)",    # ...a within-subject design with 6 levels
     variables = mylabels,       # ...whose variables are contained in the above list
@@ -109,9 +109,6 @@ pltA
 As seen, this plot is a standard, colorless, plot. It contains all that is needed; it is just
 plain drab and the labels are generic ones (on the vertical axis and on the horizontal axis).
 
-We can customize any `superb` plot by adding graphic directives one-by-one using the operator `+`,
-or we can collect all the directives in a list, and add this list once.
-As we have two plots with mostly the same directives, we use this second approach.
 
 
 ## Adding a color layer to the plot
@@ -130,12 +127,16 @@ identifying the condition.
 
 To do this, simply add an aesthetic graphic directive to `pltA` with:
 
-```{r, fig.width=6.7, fig.height=2.5, fig.cap="Figure 2, version with colors"}
+```{r, message=FALSE, fig.width=6.7, fig.height=2.5, fig.cap="Figure 2, version with colors"}
 pltA + aes(fill = factor(Domain), colour = factor(Domain)) 
 ```
 
 
 ## Adding graphic directives for fine-tuning the plot
+
+We can customize any `superb` plot by adding graphic directives one-by-one using the operator `+`,
+or we can collect all the directives in a list, and add this list once.
+As we have two plots with mostly the same directives, we use this second approach.
 
 Typically, a plot is customized by picking a theme. The default `theme_bw()` is grayish, so
 we move to `theme_classic()`. We also customize specific aspects of this theme with `theme()`
@@ -159,7 +160,7 @@ commonstyle <- list(
     # Finally, we place tick marks on the units
     scale_y_continuous( breaks=1:10 ),
 
-    # set the labels to be displayed (superb replace them with consecutive numbers...)
+    # set the labels to be displayed 
     scale_x_discrete(name="Domain", labels = mylabels),
 
     # and set colours to both colour and fill layers
@@ -173,7 +174,7 @@ colors to fill the clouds (`fill`) and their borders (`colour`) as well as the r
 
 Examining this plot with the `commonstyle` added, we get
 
-```{r, fig.width=6.7, fig.height=2.5, fig.cap="Figure 2, final version"}
+```{r, message=FALSE, fig.width=6.7, fig.height=2.5, fig.cap="Figure 2, final version"}
 finalpltA <- pltA + aes(fill = factor(Domain), colour = factor(Domain)) + 
     commonstyle +                           # all the above directive are added;
     coord_cartesian( ylim = c(1,10) ) +     # the y-axis bounds are given ;
@@ -186,10 +187,10 @@ finalpltA
 ## Making the second row of the figure
 
 We do exactly the same for the second plot. We just change the data set to `dtaB` and in the last
-graphic directive, put options regarding specifically this second data set (smaller y-axis range, different
-label, etc.):
+graphic directives, using options tailored specifically to this second data set (smaller y-axis range, 
+different label, etc.):
 
-```{r, fig.width=6.7, fig.height=2.5, fig.cap="Figure 2, bottom row"}
+```{r, message=FALSE, fig.width=6.7, fig.height=2.5, fig.cap="Figure 2, bottom row"}
 pltB <- superbPlot(dtaB,        # plot for the second data set...
     WSFactors = "Domain(6)",    # ...a within-subject design with 6 levels
     variables = mylabels,       # ...whose variables are contained in the above list
@@ -216,9 +217,9 @@ finalpltB
 
 ## Combining and saving both plots
 
-Finally, we assemble the two plots toghether
+Finally, we assemble the two plots together
 
-```{r, fig.width=6.7, fig.height=5.0, fig.cap="Figure 2, final version"}
+```{r, message=FALSE, fig.width=6.7, fig.height=5.0, fig.cap="Figure 2, final version"}
 finalplt <- grid.arrange(finalpltA, finalpltB, ncol=1)
 ```
 
@@ -228,9 +229,9 @@ It can be saved with high-resolution if desired with
 ggsave( "Figure2.png",
     plot=finalplt,
     device = "png",
-    dpi = 320,          # pixel per inches
-    units = "cm",
-    width = 17,         # as per the article
+    dpi = 320,          # pixels per inche
+    units = "cm",       # or "in" for dimensions in inches
+    width = 17,         # as found in the article
     height = 13
 )
 ```

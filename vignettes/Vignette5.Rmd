@@ -375,7 +375,7 @@ when debugging the code. A useful function is to use ``runDebug()``.
 This function (shipped with ``suberb``) will display text and
 transfer any variables you want into the global environment.
 
-```{r, eval=FALSE, message=FALSE, echo=TRUE, results='hide'}
+```{r, eval=TRUE, message=TRUE, echo=TRUE}
 options(superb.feedback = 'all')
 runDebug( 'where are we?', "Text to show when we get there",
   c("variable1", "variable2", "etc"),
@@ -385,7 +385,7 @@ runDebug( 'where are we?', "Text to show when we get there",
 
 For example, the following will get the dataframes:
 
-```{r, message=TRUE, echo=TRUE, results='hide', fig.show='hide'}
+```{r, eval=TRUE, message=TRUE, echo=TRUE, fig.show='hide'}
 superbPlot.empty <- function(
     summarydata, xfactor, groupingfactor, addfactors, rawdata 
 ) {
@@ -470,7 +470,7 @@ superb:::is.superbPlot.function("superbPlot.smiley")
 
 It is all we need! It can be inserted in a ``superbPlot`` call:
 
-```{r, fig.width= 4, fig.height = 3, fig.cap = "**Figure 5**. smile!" }
+```{r, fig.width= 4, fig.height = 3, fig.cap = "**Figure 5**. smile!", fig.show='hide'}
 superbPlot(TMB1964r,
      WSFactors = "T(7)",      
      BSFactors = "Condition", 
@@ -478,5 +478,7 @@ superbPlot(TMB1964r,
      plotStyle = "smiley"
 )
 ```
+
+(the result is not shown).
 
 # References
