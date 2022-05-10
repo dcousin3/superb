@@ -90,7 +90,7 @@ library(stats)
 
 
 ### Power families:
-basicPower <- function(U,lambda, gamma=NULL) {
+basicPower <<- function(U,lambda, gamma=NULL) {
  if(!is.null(gamma)) basicPower(t(t(as.matrix(U) + gamma)), lambda) else{
  bp1 <- function(U,lambda){
   if(any(U[!is.na(U)] <= 0)) stop("First argument must be strictly positive.")
@@ -108,7 +108,7 @@ basicPower <- function(U,lambda, gamma=NULL) {
     bp1(out, lambda)
   out}}
 
-bcPower <- function(U, lambda, jacobian.adjusted=FALSE, gamma=NULL) {
+bcPower <<- function(U, lambda, jacobian.adjusted=FALSE, gamma=NULL) {
  if(!is.null(gamma)) bcPower(t(t(as.matrix(U) + gamma)), lambda, jacobian.adjusted) else{
  bc1 <- function(U, lambda){
   if(any(U[!is.na(U)] <= 0)) stop("First argument must be strictly positive.")
@@ -126,7 +126,7 @@ bcPower <- function(U, lambda, jacobian.adjusted=FALSE, gamma=NULL) {
     bc1(out, lambda)
   out}}
 
-yjPower <- function(U, lambda, jacobian.adjusted=FALSE) {
+yjPower <<- function(U, lambda, jacobian.adjusted=FALSE) {
  yj1 <- function(U, lambda){
   nonnegs <- U >= 0
   z <- rep(NA, length(U))
@@ -147,9 +147,9 @@ yjPower <- function(U, lambda, jacobian.adjusted=FALSE) {
     yj1(out, lambda)
   out}
 
-powerTransform <- function(object, ...) UseMethod("powerTransform")
+powerTransform <<- function(object, ...) UseMethod("powerTransform")
 
-powerTransform.default <- function(object, family="bcPower", ...) {
+powerTransform.default <<- function(object, family="bcPower", ...) {
    y <- object
    if(!inherits(y, "matrix") & !inherits(y, "data.frame")) {
        y <- matrix(y,ncol=1)
@@ -159,7 +159,7 @@ powerTransform.default <- function(object, family="bcPower", ...) {
    estimateTransform(x, y, NULL, family=family, ...)
    }
 
-powerTransform.lm <- function(object, family="bcPower", ...) {
+powerTransform.lm <<- function(object, family="bcPower", ...) {
     mf <- if(is.null(object$model))
             update(object, model=TRUE, method="model.frame")$model
             else object$model
@@ -174,7 +174,7 @@ powerTransform.lm <- function(object, family="bcPower", ...) {
   estimateTransform(x, y, w, family=family, ...)
   }
 
-powerTransform.formula <- function(object, data, subset, weights,
+powerTransform.formula <<- function(object, data, subset, weights,
               na.action, family="bcPower", ...) {
     mf <- match.call(expand.dots = FALSE)
     m <- match(c("object", "data", "subset", "weights", "na.action"),
@@ -195,7 +195,7 @@ powerTransform.formula <- function(object, data, subset, weights,
   estimateTransform(x, y, w, family=family, ...)
   }
 
-estimateTransform <- function(X, Y, weights=NULL, family="bcPower", ...) {
+estimateTransform <<- function(X, Y, weights=NULL, family="bcPower", ...) {
   Y <- as.matrix(Y)
   switch(family,
          bcnPower = estimateTransform.bcnPower(X, Y, weights,  ...),
@@ -204,7 +204,7 @@ estimateTransform <- function(X, Y, weights=NULL, family="bcPower", ...) {
 }
 
 # estimateTransform.default is renamed 'estimateTransform
-estimateTransform.default <- function(X, Y, weights=NULL,
+estimateTransform.default <<- function(X, Y, weights=NULL,
                     family="bcPower", start=NULL, method="L-BFGS-B", ...) { 
   fam <- function (U, lambda, jacobian.adjusted = FALSE, gamma = NULL) {
     if (!is.null(gamma)) 
@@ -289,14 +289,14 @@ estimateTransform.default <- function(X, Y, weights=NULL,
   res
 }
 
-print.powerTransform<-function(x, ...) {
+print.powerTransform <<- function(x, ...) {
    lambda <- x$lambda
    if (length(lambda) > 1) cat("Estimated transformation parameters \n")
    else cat("Estimated transformation parameter \n")
    print(x$lambda)
    invisible(x)}
 
-summary.powerTransform<-function(object,...){
+summary.powerTransform <<- function(object,...){
     one <- 1==length(object$lambda)
     label <- paste(object$family,
        (if(one) "Transformation to Normality" else
@@ -321,7 +321,7 @@ summary.powerTransform<-function(object,...){
     out
     }
 
-print.summary.powerTransform <- function(x, digits=4, ...) {
+print.summary.powerTransform <<- function(x, digits=4, ...) {
     n.trans <- nrow(x$result)
     cat(x$label)
     print(round(x$result, digits))
@@ -347,10 +347,10 @@ print.summary.powerTransform <- function(x, digits=4, ...) {
    }
 }
 
-coef.powerTransform <- function(object, round=FALSE, ...)
+coef.powerTransform <<- function(object, round=FALSE, ...)
   if(round==TRUE) object$roundlam else object$lambda
 
-vcov.powerTransform <- function(object,...) {
+vcov.powerTransform <<- function(object,...) {
   ans <- object$invHess
   rownames(ans) <- names(coef(object))
   colnames(ans) <- names(coef(object))
@@ -358,7 +358,7 @@ vcov.powerTransform <- function(object,...) {
 
 
 
-horn.outliers = function (data)
+horn.outliers <<- function (data)
 {
 #   This function implements Horn's algorithm for outlier detection using
 #   Tukey's interquartile fences.
@@ -376,7 +376,7 @@ horn.outliers = function (data)
 
     return(list(outliers = out^(1/lambda), subset = sub^(1/lambda)));
 }
-refLimit = function(data, out.method = "horn", out.rm = FALSE, RI = "p", CI = "p",
+refLimit <<- function(data, out.method = "horn", out.rm = FALSE, RI = "p", CI = "p",
 					refConf = 0.95, limitConf = 0.90, bootStat = "basic"){
 
 	cl = class(data);
@@ -397,7 +397,7 @@ refLimit = function(data, out.method = "horn", out.rm = FALSE, RI = "p", CI = "p
 
 	return(result);
 }
-singleRefLimit = function(data, dname = "default", out.method = "horn", out.rm = FALSE,
+singleRefLimit <<- function(data, dname = "default", out.method = "horn", out.rm = FALSE,
 						RI = "p", CI = "p", refConf = 0.95, limitConf = 0.90, bootStat = "basic")
 {
 #	This function determines a reference interval from a vector of data samples.
