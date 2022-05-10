@@ -363,7 +363,7 @@ horn.outliers <<- function (data)
 #   This function implements Horn's algorithm for outlier detection using
 #   Tukey's interquartile fences.
 
-	boxcox = car::powerTransform(data);
+	boxcox = powerTransform(data);
 	lambda = boxcox$lambda;
 	transData = data^lambda;
     descriptives = summary(transData);
