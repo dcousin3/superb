@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.1</span>
       </span>
     </div>
 
@@ -223,7 +223,6 @@ d_1 = \frac{\vert \; M_1 - B \; \vert}{S_1}
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"d_1 with difference-adjusted 95% confidence intervals of d_1"</span>,
      y     <span class="op">=</span> <span class="st">"d_1 relative to grand mean"</span><span class="op">)</span> </code></pre></div>
 <pre><code>## superb::FYI: Running initializer init.d1</code></pre>
-<pre><code>## superb::ADVICE: Some of the groups' variances are heterogeneous. Consider using purpose="tryon".</code></pre>
 <div class="figure">
 <img src="Vignette9_files/figure-html/unnamed-chunk-5-1.png" alt="**Figure 1**. d_1 scores along with 95% confidence interval." width="384"><p class="caption">
 <strong>Figure 1</strong>. d_1 scores along with 95% confidence interval.
@@ -231,7 +230,7 @@ d_1 = \frac{\vert \; M_1 - B \; \vert}{S_1}
 </div>
 <p>The difference between two <span class="math inline">\(d_1\)</span> is the Cohen’s <span class="math inline">\(d_p\)</span> and the difference-adjusted confidence intervals are adequate to compare two <span class="math inline">\(d_p\)</span>. For example, the <span class="math inline">\(d_1\)</span> of the first group is not <strong>included</strong> in the third group’s <span class="math inline">\(d_1\)</span> which indicates that the Cohen’s <span class="math inline">\(d_p\)</span> is significantly different from zero.</p>
 <p>Note that in the above, the initializer was detected and run automatically. You can check that the initializer is detectable with</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">superb</span><span class="fu">:::</span><span class="fu">has.init.function</span><span class="op">(</span><span class="st">"d1"</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 </div>
@@ -239,7 +238,7 @@ d_1 = \frac{\vert \; M_1 - B \; \vert}{S_1}
 <h2 class="hasAnchor">
 <a href="#checking-the-results" class="anchor"></a>Checking the results</h2>
 <p>To check the above, we could implement the formulas for the Cohen’s <span class="math inline">\(d_p\)</span> <span class="citation">(Cousineau &amp; Goulet-Pelletier, 2020)</span>:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dp</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span><span class="op">)</span> <span class="op">{</span>
         <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">X</span> <span class="op">-</span> <span class="va">Y</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span><span class="op">-</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>
     <span class="op">}</span> 
@@ -252,26 +251,26 @@ d_1 = \frac{\vert \; M_1 - B \; \vert}{S_1}
     <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">dlow</span>, <span class="va">dhig</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">n</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>Let’s extract the group’s data for intermediate computations:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">grp1</span> <span class="op">&lt;-</span> <span class="va">dta</span><span class="op">$</span><span class="va">score</span><span class="op">[</span><span class="va">dta</span><span class="op">$</span><span class="va">Dose</span><span class="op">==</span><span class="fl">1</span><span class="op">]</span>
 <span class="va">grp2</span> <span class="op">&lt;-</span> <span class="va">dta</span><span class="op">$</span><span class="va">score</span><span class="op">[</span><span class="va">dta</span><span class="op">$</span><span class="va">Dose</span><span class="op">==</span><span class="fl">2</span><span class="op">]</span>
 <span class="va">grp3</span> <span class="op">&lt;-</span> <span class="va">dta</span><span class="op">$</span><span class="va">score</span><span class="op">[</span><span class="va">dta</span><span class="op">$</span><span class="va">Dose</span><span class="op">==</span><span class="fl">3</span><span class="op">]</span></code></pre></div>
 <p>so that we can easily compute all three pairwise statistics:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dp12</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">dp</span><span class="op">(</span><span class="va">grp2</span>, <span class="va">grp1</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>
 <span class="va">dp13</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">dp</span><span class="op">(</span><span class="va">grp3</span>, <span class="va">grp1</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>
 <span class="va">dp23</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">dp</span><span class="op">(</span><span class="va">grp3</span>, <span class="va">grp2</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">dp12</span>, <span class="va">dp13</span>, <span class="va">dp23</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] -0.097  0.101  0.196</code></pre>
+<pre><code>## [1] 0.192 0.276 0.085</code></pre>
 <p>… and their 95% confidence intervals:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cidp12</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">CI.dp</span><span class="op">(</span><span class="va">grp2</span>, <span class="va">grp1</span>, <span class="fl">0.95</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>
 <span class="va">cidp13</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">CI.dp</span><span class="op">(</span><span class="va">grp3</span>, <span class="va">grp1</span>, <span class="fl">0.95</span> <span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>
 <span class="va">cidp23</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">CI.dp</span><span class="op">(</span><span class="va">grp3</span>, <span class="va">grp2</span>, <span class="fl">0.95</span> <span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">cidp12</span>,<span class="va">cidp13</span>,<span class="va">cidp23</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] -0.221  0.027 -0.023  0.225  0.072  0.320</code></pre>
+<pre><code>## [1]  0.068  0.317  0.152  0.401 -0.039  0.209</code></pre>
 <p>Let’s put these numbers on the plot for easier examination using the graphic directives <code><a href="../reference/showSignificance.html">showSignificance()</a></code>:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, BSFactors  <span class="op">=</span> <span class="st">"Dose"</span>, variables <span class="op">=</span> <span class="st">"score"</span>, 
         statistic <span class="op">=</span> <span class="st">"d1"</span>,  errorbar  <span class="op">=</span> <span class="st">"CI"</span>, gamma     <span class="op">=</span> <span class="fl">0.95</span>, 
         plotStyle <span class="op">=</span> <span class="st">"line"</span>,
@@ -295,7 +294,7 @@ d_1 = \frac{\vert \; M_1 - B \; \vert}{S_1}
 </div>
 <p>In the above, we used the fact that if both limits of the confidence interval are of the same sign, then they are on the same side with respect to zero, and therefore, excludes zero at a significance level of at least 5% (for 95% confidence intervals).</p>
 <p>Let’s examine how good the difference-adjusted CI of <span class="math inline">\(d_1\)</span> are compared to the CI of <span class="math inline">\(d_p\)</span>. The following function (a) get the length of the Cohen’s <span class="math inline">\(d_p\)</span> interval; (b) average (in the square sense, see <a href="https://dcousin3.github.io/superb/articles/Vignette7.html">here</a>) the two difference-adjusted confidence intervals of <span class="math inline">\(d_1\)</span>:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">compareCIlength</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">g1</span>, <span class="va">g2</span><span class="op">)</span> <span class="op">{</span>
     <span class="co"># compute the Cohen's dp confidence interval length</span>
     <span class="va">cilength.dp</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">CI.dp</span><span class="op">(</span><span class="va">g1</span>, <span class="va">g2</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">-</span><span class="fu">CI.dp</span><span class="op">(</span><span class="va">g1</span>, <span class="va">g2</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">3</span><span class="op">)</span>
@@ -311,15 +310,15 @@ d_1 = \frac{\vert \; M_1 - B \; \vert}{S_1}
 
 <span class="fu">compareCIlength</span><span class="op">(</span><span class="va">grp1</span>,<span class="va">grp2</span><span class="op">)</span></code></pre></div>
 <pre><code>##   dp.length d1.average.length
-## 1     0.248             0.248</code></pre>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+## 1     0.248             0.249</code></pre>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">compareCIlength</span><span class="op">(</span><span class="va">grp1</span>,<span class="va">grp3</span><span class="op">)</span></code></pre></div>
 <pre><code>##   dp.length d1.average.length
-## 1     0.248             0.248</code></pre>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+## 1     0.249             0.249</code></pre>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">compareCIlength</span><span class="op">(</span><span class="va">grp2</span>,<span class="va">grp3</span><span class="op">)</span></code></pre></div>
 <pre><code>##   dp.length d1.average.length
-## 1     0.249             0.248</code></pre>
+## 1     0.248             0.249</code></pre>
 <p>As seen, there is no difference until the third decimal. The small difference comes from the fact that the degrees of freedom are separated, not pooled.</p>
 </div>
 <div id="references" class="section level1 unnumbered">

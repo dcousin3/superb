@@ -1,3 +1,8 @@
+# superb 0.95.1 (May 12th, 2022)
+
+* Corrected the bug from 0.9.7.9 (kept bugging me!)
+* Reduced image resolution in vignettes
+
 # superb 0.95.0 (May 10th, 2022)
 
 * Added a new layout to display precision using a band rather than error bars
