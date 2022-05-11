@@ -3,8 +3,7 @@ title: "Why use difference-adjusted confidence intervals?"
 bibliography: "../inst/REFERENCES.bib"
 csl: "../inst/apa-6th.csl"
 output: 
-  html_document:
-    toc: TRUE
+  rmarkdown::html_vignette
 description: >
   This vignette explains the difference between a regular confidence interval
   and a difference-adjusted confidence interval.

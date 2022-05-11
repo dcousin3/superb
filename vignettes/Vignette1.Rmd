@@ -3,8 +3,7 @@ title: "Four steps to make your plot"
 bibliography: "../inst/REFERENCES.bib"
 csl: "../inst/apa-6th.csl"
 output: 
-  html_document:
-    toc: TRUE
+  rmarkdown::html_vignette
 description: >
   This vignette reviews the steps needed to realize your summary plot with correct
   error bars.

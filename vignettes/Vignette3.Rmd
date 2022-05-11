@@ -3,8 +3,7 @@ title: "Why use correlation-adjusted confidence intervals?"
 bibliography: "../inst/REFERENCES.bib"
 csl: "../inst/apa-6th.csl"
 output: 
-  html_document:
-    toc: TRUE
+  rmarkdown::html_vignette
 description: >
   This vignette explains the difference between a regular confidence interval
   and a correlation-adjusted confidence interval.

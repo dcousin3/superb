@@ -3,8 +3,7 @@ title: "The making-of the figures in the article"
 bibliography: "../inst/REFERENCES.bib"
 csl: "../inst/apa-6th.csl"
 output: 
-  html_document:
-    toc: TRUE
+  rmarkdown::html_vignette
 description: >
   This vignette provides all the steps needed to make the figures
   from the article.

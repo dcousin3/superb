@@ -3,8 +3,7 @@ title: "Using a custom statistic with its error bar"
 bibliography: "../inst/REFERENCES.bib"
 csl: "../inst/apa-6th.csl"
 output: 
-  html_document:
-    toc: TRUE
+  rmarkdown::html_vignette
 description: >
   In superb, it is possible to summarize your data set with any descriptive statistics.
   The most common descriptive statistics are built-in superbPlot, but if you wish to 
