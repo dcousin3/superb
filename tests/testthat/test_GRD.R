@@ -52,35 +52,35 @@ test_that("Obtaining feedback information (not required) and a summary", {
 })
 
 
-test_that("A complete test with plots and anova", {
-    options(superb.feedback = 'none')
-    library(lattice)
-    library("reshape2")
-    library(car)
+# test_that("A complete test with plots and anova", {
+    # options(superb.feedback = 'none')
+    # library(lattice)
+    # library("reshape2")
+    # library(car) #stupid package
 
-    dta <- GRD(
-        BSFactors = "difficulty(3) : gender (2)", 
-        WSFactors="day(2)",
-        SubjectsPerGroup=c(2,2,3,3,2,2)
-    )
+    # dta <- GRD(
+        # BSFactors = "difficulty(3) : gender (2)", 
+        # WSFactors="day(2)",
+        # SubjectsPerGroup=c(2,2,3,3,2,2)
+    # )
       
-    Day = factor(c("DV.1", "DV.2")) # good for anova but not for plot
-    dta$gender = factor(dta$gender, labels=c(1,2))
-    dta$difficulty = factor(dta$difficulty, labels=c(1,2,3))
-    anv1 = lm(cbind(DV.1, DV.2)~difficulty*gender, data=dta)
-    anv2 = Anova(anv1, idata=data.frame(Day), idesign=~Day, type=3)
-    summary(anv2, multivariate=F)
+    # Day = factor(c("DV.1", "DV.2")) # good for anova but not for plot
+    # dta$gender = factor(dta$gender, labels=c(1,2))
+    # dta$difficulty = factor(dta$difficulty, labels=c(1,2,3))
+    # anv1 = lm(cbind(DV.1, DV.2)~difficulty*gender, data=dta)
+    # anv2 = Anova(anv1, idata=data.frame(Day), idesign=~Day, type=3)
+    # summary(anv2, multivariate=F)
 
-    histogram(~ dta$DV.1 | difficulty, data = dta)
-    histogram(~ dta$DV.2 | difficulty, data = dta)
-    dta2 <- melt(dta, id.vars=c("difficulty","gender"))
-    dta3 <- dta2[dta2$variable != "id",]
-    dta3$gender = factor(dta3$gender, labels=c(1, 2))
-    expect_output( str(histogram(~ value | difficulty, data = dta3)), "List of 45" )
-    expect_output( str(histogram(~ value | difficulty + gender + variable, data = dta3)), "List of 45" )
-    # restores default information
-    options(superb.feedback = c('design','warnings','summary'))
-})
+    # histogram(~ dta$DV.1 | difficulty, data = dta)
+    # histogram(~ dta$DV.2 | difficulty, data = dta)
+    # dta2 <- melt(dta, id.vars=c("difficulty","gender"))
+    # dta3 <- dta2[dta2$variable != "id",]
+    # dta3$gender = factor(dta3$gender, labels=c(1, 2))
+    # expect_output( str(histogram(~ value | difficulty, data = dta3)), "List of 45" )
+    # expect_output( str(histogram(~ value | difficulty + gender + variable, data = dta3)), "List of 45" )
+    #restores default information
+    # options(superb.feedback = c('design','warnings','summary'))
+# })
 
 
 test_that("Defining population characteristics (ex. 1/2)", {

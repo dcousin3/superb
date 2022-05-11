@@ -143,7 +143,6 @@
 
     
     
-<pre><code>## Warning: package 'png' was built under R version 4.1.1</code></pre>
 <p>The purpose of <code>superb</code> it to make plots showing adjusted error bars. However, not everyone are using R. Luckily, for those of you who are using SPSS, you have three options: 1) R can read SPSS file and therefore, you can open the data and make the plot in R before returning to SPSS. 2) It is possible to use SPSS only –from a syntax window– get access to all the capabilities of <code>superb</code>. 3) Using the graphical user interface superbShiny, you can also open SPSS files. This interface is available online as well.</p>
 <p>In this vignette, we demonstrate how to use these three options to make a plot with SPSS data.</p>
 <div id="first-option-using-r" class="section level2">
@@ -151,16 +150,16 @@
 <a href="#first-option-using-r" class="anchor"></a>First option: Using R</h2>
 <p>Suppose that you have a file called <code>SPSS_Demo.sav</code>. Using the library <code>foreign</code>, you can open the file and use it in R to make your plot.</p>
 <p>The following syntax for example will open an SPSS file, assuming it is in a folder on your hard drive C:. First, set the working directory and the file name with</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="st">"c:"</span><span class="op">)</span>
 <span class="va">file</span> <span class="op">&lt;-</span> <span class="st">"Demo_SPSS.sav"</span></code></pre></div>
 <p>Then you are ready to read the file with the help of the <code>foreign</code> library</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://svn.r-project.org/R-packages/trunk/foreign/">foreign</a></span><span class="op">)</span>
 <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/foreign/man/read.spss.html">read.spss</a></span><span class="op">(</span><span class="va">file</span>, to.data.frame <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>## re-encoding from UTF-8</code></pre>
 <p>Finally, ask for a plot with</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span> <span class="va">data</span>, 
     WSFactors      <span class="op">=</span> <span class="st">"Temps(2)"</span>,
     variables      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"time1"</span>,<span class="st">"time2"</span><span class="op">)</span>,

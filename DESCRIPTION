@@ -52,6 +52,7 @@ Imports:
     stringr,
     utils
 Suggests: 
+    dplyr,
     emojifont,
     fMultivar,
     grid,
