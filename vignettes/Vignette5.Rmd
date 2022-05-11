@@ -44,6 +44,8 @@ The seven layout available in  ``superbPlot`` package are :
 
 * ``superbPlot.line()`` : shows the results as points and lines, 
 
+* ``superbPlot.lineBand()``: Shows the confidence intervals as a semi-transparent band rather than with bars.
+
 * ``superbPlot.point()``: shows the results as points only, 
 
 * ``superbPlot.bar()`` : shows the results using bars, 
@@ -68,7 +70,7 @@ own, custom-made function, it is a good thing to check that it is
 ``superbPlot``-compatible.
 
 
-## Illustrating the built-in layouts
+## Illustrating some of the built-in layouts
 
 To get a sense of the currently available layouts, we first generate 
 a dataset composed of randomly generated scores mimicking a 3 $\times$

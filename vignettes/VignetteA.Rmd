@@ -591,13 +591,13 @@ A simple plot could show the mean for each concentration along with
 the 95% confidence interval of the means, with e.g., 
 
 ```{r, message=FALSE, echo=TRUE, fig.width = 4, fig.cap="**Figure 1**. Mean glucose level as a function of concentration."}
-superbPlot(glucoselevels, 
-            BSFactors = "concentration",  
-            variables = "gl", 
-            statistic = "mean", 
-            errorbar  = "CI",
-            gamma     = 0.95,
-            plotStyle = "line")
+#superbPlot(glucoselevels, 
+#            BSFactors = "concentration",  
+#            variables = "gl", 
+#            statistic = "mean", 
+#            errorbar  = "CI",
+#            gamma     = 0.95,
+#            plotStyle = "line")
 ```
 
 As seen, glucose level means are affected by the concentration (that 
