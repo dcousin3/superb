@@ -1,7 +1,13 @@
 ## Submission
 
-* New version 0.95.0
+* New version 0.95.1
 
+
+## Comment
+
+* Found a way to reduce markedly the size of the documentation!
+
+* Corrected a bug that kept bugging me since version 0.9.7.9
 
 ## Test environments
 
@@ -15,9 +21,7 @@
 
 * There were no ERRORs and no WARNINGs.
 
-* There was 1 NOTE: Docs folder exceeds 1 Mb: as this package
-is about creating plots, it is difficult to generate documentations
-with less than 1 Mb (that would represents only 4 to 5 examples). 
+* There was 0 NOTE: 
 
 
 ## Downstream dependencies
