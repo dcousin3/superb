@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.2</span>
       </span>
     </div>
 
@@ -148,8 +148,10 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Load relevant packages</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dcousin3.github.io/superb/">superb</a></span><span class="op">)</span>             <span class="co"># for superbPlot</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>            <span class="co"># for all the graphic directives</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span>          <span class="co"># for grid.arrange</span></code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>            <span class="co"># for all the graphic directives</span></code></pre></div>
+<pre><code>## Warning: package 'ggplot2' was built under R version 4.1.3</code></pre>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span>          <span class="co"># for grid.arrange</span></code></pre></div>
 <p>If they are not present on your computer, first upload them to your computer with <code>install.packages("name of the package")</code>.</p>
 <div id="figure-2-of-hofer-langmann-burkart-and-neubauer-2022-" class="section level1">
 <h1 class="hasAnchor">
@@ -161,7 +163,7 @@
 <h2 class="hasAnchor">
 <a href="#generating-mock-data" class="anchor"></a>Generating mock data</h2>
 <p>We generate two sets of mock data from six sets of means and standard deviations:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Astats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
     MNs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">6.75</span>, <span class="fl">6.00</span>, <span class="fl">5.50</span>, <span class="fl">6.50</span>, <span class="fl">8.00</span>, <span class="fl">8.75</span><span class="op">)</span>,
     SDs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.00</span>, <span class="fl">3.00</span>, <span class="fl">3.50</span>, <span class="fl">3.50</span>, <span class="fl">1.25</span>, <span class="fl">1.25</span><span class="op">)</span>
@@ -187,11 +189,11 @@
 <h2 class="hasAnchor">
 <a href="#making-the-top-row-plot" class="anchor"></a>Making the top-row plot</h2>
 <p>For convenience, we make lists of the desired colors and labels we want to appear on the x-axis:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mycolors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"seagreen"</span>,<span class="st">"chocolate2"</span>,<span class="st">"mediumpurple3"</span>,<span class="st">"deeppink"</span>,<span class="st">"chartreuse4"</span>, <span class="st">"darkgoldenrod1"</span><span class="op">)</span>
 <span class="va">mylabels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Verbal"</span>, <span class="st">"Numerical"</span>, <span class="st">"Spatial"</span>, <span class="st">"Creativity"</span>, <span class="st">"Intrapersonal"</span>, <span class="st">"Interpersonal"</span><span class="op">)</span></code></pre></div>
 <p>We are ready to make the plot with the desired adjustments:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pltA</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dtaA</span>,        <span class="co"># plot for the first data set...</span>
     WSFactors <span class="op">=</span> <span class="st">"Domain(6)"</span>,    <span class="co"># ...a within-subject design with 6 levels</span>
     variables <span class="op">=</span> <span class="va">mylabels</span>,       <span class="co"># ...whose variables are contained in the above list</span>
@@ -222,7 +224,7 @@ Figure 2, preliminary version
 <p>It is possible, post-hoc, to indicate that we wish additional layers in the plot.</p>
 <p>In the present, we want to add the <code>fill</code> and the <code>color</code> of dots layers. These layers are to be “connected” to the sole factor in the present example (that is, <code>Domain</code>). Consequently, the x-axis labels, the fill color and the dot color are all redondant information identifying the condition.</p>
 <p>To do this, simply add an aesthetic graphic directive to <code>pltA</code> with:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pltA</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Domain</span><span class="op">)</span>, colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Domain</span><span class="op">)</span><span class="op">)</span> </code></pre></div>
 <div class="figure">
 <img src="CustomizingSuperbPlots_files/figure-html/unnamed-chunk-5-1.png" alt="Figure 2, version with colors" width="643.2"><p class="caption">
@@ -236,7 +238,7 @@ Figure 2, version with colors
 <p>We can customize any <code>superb</code> plot by adding graphic directives one-by-one using the operator <code>+</code>, or we can collect all the directives in a list, and add this list once. As we have two plots with mostly the same directives, we use this second approach.</p>
 <p>Typically, a plot is customized by picking a theme. The default <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw()</a></code> is grayish, so we move to <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic()</a></code>. We also customize specific aspects of this theme with <code><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme()</a></code> directives.</p>
 <p>These changes are all collected within the list <code>commonstyle</code> below:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">commonstyle</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span>,                             <span class="co"># It has no background, no bounding box.</span>
 
@@ -260,7 +262,7 @@ Figure 2, version with colors
 <span class="op">)</span></code></pre></div>
 <p>We also changed the vertical scale (tick marks at designated positions) and the horizontal scale with names on the tick marks (sadly, <code>superb</code> replaces them with consecutive numbers…) and colors to fill the clouds (<code>fill</code>) and their borders (<code>colour</code>) as well as the rain drop colors.</p>
 <p>Examining this plot with the <code>commonstyle</code> added, we get</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">finalpltA</span> <span class="op">&lt;-</span> <span class="va">pltA</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Domain</span><span class="op">)</span>, colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">Domain</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
     <span class="va">commonstyle</span> <span class="op">+</span>                           <span class="co"># all the above directive are added;</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">10</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span>     <span class="co"># the y-axis bounds are given ;</span>
@@ -277,7 +279,7 @@ Figure 2, final version
 <h2 class="hasAnchor">
 <a href="#making-the-second-row-of-the-figure" class="anchor"></a>Making the second row of the figure</h2>
 <p>We do exactly the same for the second plot. We just change the data set to <code>dtaB</code> and in the last graphic directives, using options tailored specifically to this second data set (smaller y-axis range, different label, etc.):</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pltB</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dtaB</span>,        <span class="co"># plot for the second data set...</span>
     WSFactors <span class="op">=</span> <span class="st">"Domain(6)"</span>,    <span class="co"># ...a within-subject design with 6 levels</span>
     variables <span class="op">=</span> <span class="va">mylabels</span>,       <span class="co"># ...whose variables are contained in the above list</span>
@@ -308,7 +310,7 @@ Figure 2, bottom row
 <h2 class="hasAnchor">
 <a href="#combining-and-saving-both-plots" class="anchor"></a>Combining and saving both plots</h2>
 <p>Finally, we assemble the two plots together</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">finalplt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html">grid.arrange</a></span><span class="op">(</span><span class="va">finalpltA</span>, <span class="va">finalpltB</span>, ncol<span class="op">=</span><span class="fl">1</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="CustomizingSuperbPlots_files/figure-html/unnamed-chunk-9-1.png" alt="Figure 2, final version" width="643.2"><p class="caption">
@@ -316,7 +318,7 @@ Figure 2, final version
 </p>
 </div>
 <p>It can be saved with high-resolution if desired with</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span> <span class="st">"Figure2.png"</span>,
     plot<span class="op">=</span><span class="va">finalplt</span>,
     device <span class="op">=</span> <span class="st">"png"</span>,

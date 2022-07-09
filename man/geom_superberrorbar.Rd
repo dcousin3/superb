@@ -51,13 +51,15 @@ a layer containing error bars in a ggplot object
 \description{
 \code{geom_superberrorbar()} is a geom for ggplots; it is based on
 the original geom_errorbar (and is totally compatible with it) but
-expands this geom in three different ways. First, it is possible to
+expands this geom in four different ways. First, it is possible to
 decide whether the error bar tips are unidirectional, pointing to
 the "left" or to the "right" or if they go in "both" directions.
 Second, it is possible to "double" or "triple" the horizontal marks
 at the extremities of the error bar, with a "tipgap" of your liking.
-Third, a new characteristici is vcolour to set a different colour for the
-vertical part of the error bar. The colour can also be "NA" to have it invisible.
+Third, an additiona characteristic is vcolour to set a different colour
+for the vertical part of the error bar. The colour can also be "NA" to
+have it invisible. Lastly, the error bar can be pointing "up" and "down"
+or go in "both" (the default)
 }
 \examples{
 library(superb) # to import the geom_superberrorbar
@@ -82,10 +84,15 @@ ggplot(dta, aes_string(ymin="center-width", ymax="center+width", x = "grp" ) ) +
 ggplot(dta, aes_string(ymin="center-width", ymax="center+width", x = "grp" ) ) +
   geom_superberrorbar(tipformat = "triple", width= 0.1, tipgap = 0.04, direction = "left")
 
+# an example with unidirectional error bars (here "up" bars)
+ggplot(dta, aes_string(y= "center", ymin="center-width", ymax="center+width", x = "grp" ) ) +
+  geom_bar(stat="identity", fill = "yellow") + 
+  geom_superberrorbar(pointing = "up")
+
 # a final example with two-coloured, left-pointing tripled-tip error bars with small gaps
 ggplot(dta, aes_string(ymin="center-width", ymax="center+width", x = "grp" ) ) +
   geom_superberrorbar(tipformat = "triple", width= 0.1, tipgap = 0.04, direction = "left",
-           colour = "black", vcolour = "NA")
+           colour = "black", vcolour = "orange")
 
 # This new geom is integrated inside superbPlot() so that you can vary the 
 # error bar shapes. Let's see examples:
@@ -97,9 +104,9 @@ test <- GRD(WSFactors = "Moment(5)",
             Population = list(mean = 100, stddev = 25, rho = 0.8) ) 
 
 ornate = list(
-        labs(title =paste("(left)      95\% confidence intervals",
-                        "\n(right)    99\% confidence intervals",
-                        "\n(center) 99.9\% confidence intervals")),
+        labs(title =paste("(left)            95\% confidence intervals",
+                        "\n(right)          99\% confidence intervals",
+                        "\n(center, up) 99.9\% confidence intervals")),
         xlab("Moment"), ylab("Score"),
         coord_cartesian( ylim = c(85,110) )
 )
@@ -108,7 +115,7 @@ plt1 <- superbPlot(test,
             WSFactors = "Moment(5)",  
             variables = c("DV.1","DV.2","DV.3","DV.4","DV.5"), 
             adjustments=list(purpose = "difference", decorrelation = "CA"), 
-            errorbarParams = list(direction = "left", 
+            errorbarParams = list(direction = "left", color="purple", 
                                   width = 0.2, position = position_nudge(-0.05) ),
             gamma     = 0.95,
             plotStyle = "line" ) + ornate
@@ -116,7 +123,7 @@ plt2 <- superbPlot(test,
             WSFactors = "Moment(5)",  
             variables = c("DV.1","DV.2","DV.3","DV.4","DV.5"), 
             adjustments=list(purpose = "difference", decorrelation = "CA"), 
-            errorbarParams = list(direction = "right", tipgap = 0.5, tipformat = "double", 
+            errorbarParams = list(direction = "right", tipgap = 0.25, tipformat = "double", 
                                   width = 0.2, position = position_nudge(+0.05) ),
             gamma     = 0.99,
             plotStyle = "line" ) + ornate 
@@ -124,7 +131,7 @@ plt3 <- superbPlot(test,
             WSFactors = "Moment(5)",  
             variables = c("DV.1","DV.2","DV.3","DV.4","DV.5"), 
             adjustments=list(purpose = "difference", decorrelation = "CA"), 
-            errorbarParams = list(direction = "both", tipformat = "single", 
+            errorbarParams = list(direction = "both", tipformat = "single", pointing="up", 
                                   width = 0.2, position = position_nudge(0) ),
             gamma     = 0.999,
             plotStyle = "line" ) + ornate 

@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.2</span>
       </span>
     </div>
 
@@ -142,6 +142,7 @@
 
     
     
+<pre><code>## Warning: package 'ggplot2' was built under R version 4.1.3</code></pre>
 <p>The methods <code>CM</code> <span class="citation">(Cousineau, 2005; Morey, 2008)</span> and <code>LM</code> <span class="citation">(Loftus &amp; Masson, 1994)</span> can be unified when the transformations they required are considered. In the Cousineau-Morey method, the raw data must be subject-centered and bias-corrected.</p>
 <p>Subject centering is obtained from</p>
 <p><span class="math display">\[
@@ -202,7 +203,7 @@ W_{ij} = \sqrt{\frac{S_p^2}{S_i^2}} \left( Z_{ij} - \bar{Z}_{\cdot{}j} \right) +
 <p>From that point of view, we see that the Nathoo, Kilshaw and Masson NKM <span class="citation">(Nathoo, Kilshaw, &amp; Masson, 2018; but see Heck, 2019 )</span> method is missing a bias-correction transformation, which explains why these error bars are shorter. The original proposal found in Cousineau, 2005, is also missing the bias correction step, which led Morey (2008) to supplement this approach. With these four approaches, we have exhausted all the possible combinations regarding decorrelation methods based on subject-centering.</p>
 <p>We added two arguments in superbPlot to handle this transformation approach, the first is <code>preprocessfct</code> and the second is <code>postprocessfct</code>.</p>
 <p>Assuming a dataset dta with replicated measures stored in say columns called <code>Score.1</code>, <code>Score.2</code> and <code>Score.3</code>, the command</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pCM</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, WSFactors <span class="op">=</span> <span class="st">"moment(3)"</span>,     
   variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Score.1"</span>,<span class="st">"Score.2"</span>,<span class="st">"Score.3"</span><span class="op">)</span>, 
   adjustments<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>decorrelation<span class="op">=</span><span class="st">"none"</span><span class="op">)</span>,
@@ -212,7 +213,7 @@ W_{ij} = \sqrt{\frac{S_p^2}{S_i^2}} \left( Z_{ij} - \bar{Z}_{\cdot{}j} \right) +
   errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"red"</span>, width<span class="op">=</span> <span class="fl">0.1</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html">position_nudge</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.05</span><span class="op">)</span> <span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <p>will reproduce the <code>CM</code> error bars because it decorrelates the data as per this method. With one additional transformation,</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pLM</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, WSFactors <span class="op">=</span> <span class="st">"moment(3)"</span>, 
   variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Score.1"</span>,<span class="st">"Score.2"</span>,<span class="st">"Score.3"</span><span class="op">)</span>, 
   adjustments<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>decorrelation<span class="op">=</span><span class="st">"none"</span><span class="op">)</span>,
@@ -222,7 +223,7 @@ W_{ij} = \sqrt{\frac{S_p^2}{S_i^2}} \left( Z_{ij} - \bar{Z}_{\cdot{}j} \right) +
   errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"orange"</span>, width<span class="op">=</span> <span class="fl">0.1</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html">position_nudge</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.0</span><span class="op">)</span> <span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <p>the <code>LM</code> method is reproduced. Finally, if the <code>biasCorrectionTransform</code> is omitted, we get the NKM error bars with:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pNKM</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, WSFactors <span class="op">=</span> <span class="st">"moment(3)"</span>, 
   variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Score.1"</span>,<span class="st">"Score.2"</span>,<span class="st">"Score.3"</span><span class="op">)</span>, 
   adjustments<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>decorrelation<span class="op">=</span><span class="st">"none"</span><span class="op">)</span>,
@@ -232,7 +233,7 @@ W_{ij} = \sqrt{\frac{S_p^2}{S_i^2}} \left( Z_{ij} - \bar{Z}_{\cdot{}j} \right) +
   errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"blue"</span>, width<span class="op">=</span> <span class="fl">0.1</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html">position_nudge</a></span><span class="op">(</span><span class="op">+</span><span class="fl">0.05</span><span class="op">)</span> <span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <p>In what follow, I justapose the three plots to see the differences:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tlbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span> <span class="st">"(red)    Subject centering &amp; Bias correction == CM\n"</span>,
                <span class="st">"(orange) Subject centering, Bias correction &amp; Pooling SDs == LM\n"</span>,
                <span class="st">"(blue)   Subject centering &amp; Pooling SDs == NKM"</span>, sep<span class="op">=</span><span class="st">""</span><span class="op">)</span>

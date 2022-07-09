@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.2</span>
       </span>
     </div>
 
@@ -142,6 +142,7 @@
 
     
     
+<pre><code>## Warning: package 'ggplot2' was built under R version 4.1.3</code></pre>
 <p>The package <code>superb</code> facilitates the production of summary statistic plots having adjusted error bars <span class="citation">(Cousineau, Goulet, &amp; Harding, 2021)</span>. Error bars are measures of precision; they are meant to convey some indications of the trust we can place in a given result. Those results that come will large error bars (wide intervals) should be considered less reliable that those with short error bars.</p>
 <p>Error bars, which are drawn from measures of precision, comes in many flavors. There is the simple <em>standard error</em> (SE), the more famous <em>confidence interval</em> (CI), and new proposals such as the <em>highest density interval</em> (HDI). The package <code>superb</code> has build-in functions for both the SE and CI, but any other measure of precision can be added (as shown in <a href="https://dcousin3.github.io/superb/articles/Vignette4.html">Vignette 4</a>).</p>
 <p>All measures of precision are tailored for a given statistic. Hence, we have the <em>standard error of the mean</em>, the <em>standard error of the median</em>, the <em>confidence interval of the skew</em>, etc. For each and every statistic, there is a corresponding measure of precision. In what follows, we discuss the confidence interval, but everything that follows apply equally well to any measure of precision.</p>
@@ -152,7 +153,7 @@
 <a href="#data-format" class="anchor"></a>Data format</h2>
 <p>The format of the data in <code>superb</code> follows the general convention “1 subject = 1 line,” that is, all the information regarding a given participant must stand on a single line. This format is called in R the <strong>wide format</strong>; in SPSS, SAS and other statistics software, this is the standard data organization. Further, the data must be contained within a <code>data.frame</code> with named columns. It is easy to go from <strong>wide format</strong> to <strong>long format</strong>, with, e.g., Navarro’s <code>wideToLong</code> excellent function <span class="citation">(Navarro, 2015)</span>.</p>
 <p>As an illustration, we use the following ficticious data set showing the performance of 15 participants on their motivation scores on Week 1, Week 2 and Week 3 for a program to stop smoking.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Motivation data for 15 participants over three weeks in wide format:</span>
 <span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
     <span class="fl">45</span>, <span class="fl">50</span>,  <span class="fl">59</span>,
@@ -189,7 +190,7 @@
 <p>In Figure 1 above, did you look at the result of, say, Week 1, in isolation? or did you compare it to the results obtained in the other weeks? The second perspective is actually to look at the <strong>difference</strong> between the results. if such is the case, the error bar shown on this plot are actually misleading because they are too short. The reason for that is further explored in <a href="https://dcousin3.github.io/superb/articles/Vignette2.html">Vignette 2</a>.</p>
 <p>In most experiments, one condition is <strong>compared</strong> to other conditions. In that case, we are interested in <strong>pair-wise</strong> differences between means, not by single results in isolation. Yet, the regular confidence intervals are valid only for results in isolation. Whenever you wish to compare a result to other results, to examine differences between conditions (which is, most of the time), you need to adjust the confidence interval lengths so that they remain adequate inference tools.</p>
 <p>In <code>superb</code>, you obtain an adjustment to error bar length with an option for the purpose of the plot. The default <code>purpose = "single"</code> returns stand-alone error bars (as in Figure 1); <code>purpose = "difference"</code> returns error bars valid for pair-wise comparisons. The minimum specification for the data frame above would therefore be</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, 
     WSFactors <span class="op">=</span> <span class="st">"Moment(3)"</span>,
     variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Week 1"</span>, <span class="st">"Week 2"</span>, <span class="st">"Week 3"</span><span class="op">)</span>,
@@ -202,7 +203,7 @@
 </p>
 </div>
 <p>The first argument is the data.frame, in wide format (here <code>dta</code>). The second argument describe the experimental design. Here, there is a single within-subject factor (<code>WSFactors</code>), called <code>Moment</code>. In within-subject factors, it is necessary to indicate how many level the factor has (here 3). The third argument indicates the columns in the data.frame containing the measurements. Three columns are involved. The name must match the column names in the data.frame. If unsure, check with</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">dta</span><span class="op">)</span></code></pre></div>
 <pre><code>##   Week 1 Week 2 Week 3
 ## 1     45     50     59
@@ -213,7 +214,7 @@
 ## 6     61     70     98</code></pre>
 <p>The argument in which the adjustments will be listed is called <code>adjustments</code> which is a list with —for the moment— an adjustment for the purpose of the plot: <code>purpose =  "difference"</code>. The standalone CI is the default (it can be obtained explicitly with <code>purpose= "single"</code>). These two expressions, <em>single</em> and <em>difference</em>, are from <span class="citation">Baguley (2012)</span>.</p>
 <p>Note that the plot obtained is a <code>ggplot</code> object to which additional graphing directives can be added. Figure 2 was actually obtained with these commands:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, 
     WSFactors <span class="op">=</span> <span class="st">"Moment(3)"</span>,
     variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Week 1"</span>, <span class="st">"Week 2"</span>, <span class="st">"Week 3"</span><span class="op">)</span>,
@@ -243,7 +244,7 @@
 </ul>
 <p>The three methods were compared in <span class="citation">Cousineau (2019)</span> and shown to be mathematically based on the same concepts and estimating the same precision. It is therefore a matter of personal preference which one you use.</p>
 <p>Figure 2 above will become Figure 3 if you add a decorrelation adjustment:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, 
     WSFactors <span class="op">=</span> <span class="st">"Moment(3)"</span>,
     variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Week 1"</span>, <span class="st">"Week 2"</span>, <span class="st">"Week 3"</span><span class="op">)</span>,
@@ -269,7 +270,7 @@
 <p>Other sampling methods includes <em>Stratified Sampling</em>, <em>Snowball Sampling</em>, <em>Convenience Sampling</em>, etc., none of which have a known impact on the precision of the measures.</p>
 <p>Also, determine if the population size is finite or infinite. When the population under scrutiny is finite, you may have a sizeable proportion of the population in your sample, which improves precision. In this case, the error bars will be shortened.</p>
 <p>These adjustments are implemented in <code>superb</code> with additional adjustments, such as</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># add (ficticious) cluster membership for each participant in the column "cluster"</span>
 <span class="va">dta</span><span class="op">$</span><span class="va">cluster</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
 

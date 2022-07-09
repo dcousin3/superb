@@ -14,9 +14,12 @@ the remaining columns will be left unchanged}
 }
 \value{
 a data.frame of the same form as dta with the variables transformed.
+
+This function is useful when passed to the argument \code{preprocessfct} of \code{superbPlot()}
+where it performs a modification of the data matrix.
 }
 \description{
-poolSDTransform  is a transformations that can
+\code{poolSDTransform}  is a transformations that can
 be applied to a matrix of data. The resulting matrix has the column-
 standard deviations equal to the pool standard deviations of the
 individual columns, the solution adopted by \insertCite{lm94}{superb}.

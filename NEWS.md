@@ -1,3 +1,8 @@
+# superb 0.95.2 (July 9th, 2022)
+
+* added an option "pointing" to error bars so that they can be pointing
+  "up", "down" or go in "both" directions (default)
+
 # superb 0.95.1 (May 12th, 2022)
 
 * Corrected the bug from 0.9.7.9 (kept bugging me!)

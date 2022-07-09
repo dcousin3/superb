@@ -49,13 +49,15 @@
 <meta property="og:title" content="geom_superberrorbar for expanded error bar displays — geom_superberrorbar" />
 <meta property="og:description" content="geom_superberrorbar() is a geom for ggplots; it is based on
 the original geom_errorbar (and is totally compatible with it) but
-expands this geom in three different ways. First, it is possible to
+expands this geom in four different ways. First, it is possible to
 decide whether the error bar tips are unidirectional, pointing to
 the &quot;left&quot; or to the &quot;right&quot; or if they go in &quot;both&quot; directions.
 Second, it is possible to &quot;double&quot; or &quot;triple&quot; the horizontal marks
 at the extremities of the error bar, with a &quot;tipgap&quot; of your liking.
-Third, a new characteristici is vcolour to set a different colour for the
-vertical part of the error bar. The colour can also be &quot;NA&quot; to have it invisible." />
+Third, an additiona characteristic is vcolour to set a different colour
+for the vertical part of the error bar. The colour can also be &quot;NA&quot; to
+have it invisible. Lastly, the error bar can be pointing &quot;up&quot; and &quot;down&quot;
+or go in &quot;both&quot; (the default)" />
 <meta property="og:image" content="http://dcousin3.github.io/superb/logo.png" />
 
 
@@ -88,7 +90,7 @@ vertical part of the error bar. The colour can also be &quot;NA&quot; to have it
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.2</span>
       </span>
     </div>
 
@@ -189,13 +191,15 @@ vertical part of the error bar. The colour can also be &quot;NA&quot; to have it
     <div class="ref-description">
     <p><code>geom_superberrorbar()</code> is a geom for ggplots; it is based on
 the original geom_errorbar (and is totally compatible with it) but
-expands this geom in three different ways. First, it is possible to
+expands this geom in four different ways. First, it is possible to
 decide whether the error bar tips are unidirectional, pointing to
 the "left" or to the "right" or if they go in "both" directions.
 Second, it is possible to "double" or "triple" the horizontal marks
 at the extremities of the error bar, with a "tipgap" of your liking.
-Third, a new characteristici is vcolour to set a different colour for the
-vertical part of the error bar. The colour can also be "NA" to have it invisible.</p>
+Third, an additiona characteristic is vcolour to set a different colour
+for the vertical part of the error bar. The colour can also be "NA" to
+have it invisible. Lastly, the error bar can be pointing "up" and "down"
+or go in "both" (the default)</p>
     </div>
 
     <pre class="usage"><span class='fu'>geom_superberrorbar</span><span class='op'>(</span>
@@ -298,11 +302,17 @@ marker lines to the tips (default is "single")</p></td>
 <span class='r-in'>  <span class='fu'>geom_superberrorbar</span><span class='op'>(</span>tipformat <span class='op'>=</span> <span class='st'>"triple"</span>, width<span class='op'>=</span> <span class='fl'>0.1</span>, tipgap <span class='op'>=</span> <span class='fl'>0.04</span>, direction <span class='op'>=</span> <span class='st'>"left"</span><span class='op'>)</span></span>
 <span class='r-plt'><img src='geom_superberrorbar-4.png' alt='' width='700' height='433' /></span>
 <span class='r-in'></span>
+<span class='r-in'><span class='co'># an example with unidirectional error bars (here "up" bars)</span></span>
+<span class='r-in'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>dta</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_string</a></span><span class='op'>(</span>y<span class='op'>=</span> <span class='st'>"center"</span>, ymin<span class='op'>=</span><span class='st'>"center-width"</span>, ymax<span class='op'>=</span><span class='st'>"center+width"</span>, x <span class='op'>=</span> <span class='st'>"grp"</span> <span class='op'>)</span> <span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span><span class='op'>(</span>stat<span class='op'>=</span><span class='st'>"identity"</span>, fill <span class='op'>=</span> <span class='st'>"yellow"</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span class='r-in'>  <span class='fu'>geom_superberrorbar</span><span class='op'>(</span>pointing <span class='op'>=</span> <span class='st'>"up"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_superberrorbar-5.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
 <span class='r-in'><span class='co'># a final example with two-coloured, left-pointing tripled-tip error bars with small gaps</span></span>
 <span class='r-in'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>dta</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes_.html'>aes_string</a></span><span class='op'>(</span>ymin<span class='op'>=</span><span class='st'>"center-width"</span>, ymax<span class='op'>=</span><span class='st'>"center+width"</span>, x <span class='op'>=</span> <span class='st'>"grp"</span> <span class='op'>)</span> <span class='op'>)</span> <span class='op'>+</span></span>
 <span class='r-in'>  <span class='fu'>geom_superberrorbar</span><span class='op'>(</span>tipformat <span class='op'>=</span> <span class='st'>"triple"</span>, width<span class='op'>=</span> <span class='fl'>0.1</span>, tipgap <span class='op'>=</span> <span class='fl'>0.04</span>, direction <span class='op'>=</span> <span class='st'>"left"</span>,</span>
-<span class='r-in'>           colour <span class='op'>=</span> <span class='st'>"black"</span>, vcolour <span class='op'>=</span> <span class='st'>"NA"</span><span class='op'>)</span></span>
-<span class='r-plt'><img src='geom_superberrorbar-5.png' alt='' width='700' height='433' /></span>
+<span class='r-in'>           colour <span class='op'>=</span> <span class='st'>"black"</span>, vcolour <span class='op'>=</span> <span class='st'>"orange"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='geom_superberrorbar-6.png' alt='' width='700' height='433' /></span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># This new geom is integrated inside superbPlot() so that you can vary the </span></span>
 <span class='r-in'><span class='co'># error bar shapes. Let's see examples:</span></span>
@@ -314,9 +324,9 @@ marker lines to the tips (default is "single")</p></td>
 <span class='r-in'>            Population <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mean <span class='op'>=</span> <span class='fl'>100</span>, stddev <span class='op'>=</span> <span class='fl'>25</span>, rho <span class='op'>=</span> <span class='fl'>0.8</span><span class='op'>)</span> <span class='op'>)</span> </span>
 <span class='r-in'></span>
 <span class='r-in'><span class='va'>ornate</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span></span>
-<span class='r-in'>        <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"(left)      95% confidence intervals"</span>,</span>
-<span class='r-in'>                        <span class='st'>"\n(right)    99% confidence intervals"</span>,</span>
-<span class='r-in'>                        <span class='st'>"\n(center) 99.9% confidence intervals"</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span class='r-in'>        <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"(left)            95% confidence intervals"</span>,</span>
+<span class='r-in'>                        <span class='st'>"\n(right)          99% confidence intervals"</span>,</span>
+<span class='r-in'>                        <span class='st'>"\n(center, up) 99.9% confidence intervals"</span><span class='op'>)</span><span class='op'>)</span>,</span>
 <span class='r-in'>        <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>xlab</a></span><span class='op'>(</span><span class='st'>"Moment"</span><span class='op'>)</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ylab</a></span><span class='op'>(</span><span class='st'>"Score"</span><span class='op'>)</span>,</span>
 <span class='r-in'>        <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_cartesian.html'>coord_cartesian</a></span><span class='op'>(</span> ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>85</span>,<span class='fl'>110</span><span class='op'>)</span> <span class='op'>)</span></span>
 <span class='r-in'><span class='op'>)</span></span>
@@ -325,7 +335,7 @@ marker lines to the tips (default is "single")</p></td>
 <span class='r-in'>            WSFactors <span class='op'>=</span> <span class='st'>"Moment(5)"</span>,  </span>
 <span class='r-in'>            variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"DV.1"</span>,<span class='st'>"DV.2"</span>,<span class='st'>"DV.3"</span>,<span class='st'>"DV.4"</span>,<span class='st'>"DV.5"</span><span class='op'>)</span>, </span>
 <span class='r-in'>            adjustments<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>purpose <span class='op'>=</span> <span class='st'>"difference"</span>, decorrelation <span class='op'>=</span> <span class='st'>"CA"</span><span class='op'>)</span>, </span>
-<span class='r-in'>            errorbarParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>direction <span class='op'>=</span> <span class='st'>"left"</span>, </span>
+<span class='r-in'>            errorbarParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>direction <span class='op'>=</span> <span class='st'>"left"</span>, color<span class='op'>=</span><span class='st'>"purple"</span>, </span>
 <span class='r-in'>                                  width <span class='op'>=</span> <span class='fl'>0.2</span>, position <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_nudge.html'>position_nudge</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>0.05</span><span class='op'>)</span> <span class='op'>)</span>,</span>
 <span class='r-in'>            gamma     <span class='op'>=</span> <span class='fl'>0.95</span>,</span>
 <span class='r-in'>            plotStyle <span class='op'>=</span> <span class='st'>"line"</span> <span class='op'>)</span> <span class='op'>+</span> <span class='va'>ornate</span></span>
@@ -333,7 +343,7 @@ marker lines to the tips (default is "single")</p></td>
 <span class='r-in'>            WSFactors <span class='op'>=</span> <span class='st'>"Moment(5)"</span>,  </span>
 <span class='r-in'>            variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"DV.1"</span>,<span class='st'>"DV.2"</span>,<span class='st'>"DV.3"</span>,<span class='st'>"DV.4"</span>,<span class='st'>"DV.5"</span><span class='op'>)</span>, </span>
 <span class='r-in'>            adjustments<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>purpose <span class='op'>=</span> <span class='st'>"difference"</span>, decorrelation <span class='op'>=</span> <span class='st'>"CA"</span><span class='op'>)</span>, </span>
-<span class='r-in'>            errorbarParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>direction <span class='op'>=</span> <span class='st'>"right"</span>, tipgap <span class='op'>=</span> <span class='fl'>0.5</span>, tipformat <span class='op'>=</span> <span class='st'>"double"</span>, </span>
+<span class='r-in'>            errorbarParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>direction <span class='op'>=</span> <span class='st'>"right"</span>, tipgap <span class='op'>=</span> <span class='fl'>0.25</span>, tipformat <span class='op'>=</span> <span class='st'>"double"</span>, </span>
 <span class='r-in'>                                  width <span class='op'>=</span> <span class='fl'>0.2</span>, position <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_nudge.html'>position_nudge</a></span><span class='op'>(</span><span class='op'>+</span><span class='fl'>0.05</span><span class='op'>)</span> <span class='op'>)</span>,</span>
 <span class='r-in'>            gamma     <span class='op'>=</span> <span class='fl'>0.99</span>,</span>
 <span class='r-in'>            plotStyle <span class='op'>=</span> <span class='st'>"line"</span> <span class='op'>)</span> <span class='op'>+</span> <span class='va'>ornate</span> </span>
@@ -341,7 +351,7 @@ marker lines to the tips (default is "single")</p></td>
 <span class='r-in'>            WSFactors <span class='op'>=</span> <span class='st'>"Moment(5)"</span>,  </span>
 <span class='r-in'>            variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"DV.1"</span>,<span class='st'>"DV.2"</span>,<span class='st'>"DV.3"</span>,<span class='st'>"DV.4"</span>,<span class='st'>"DV.5"</span><span class='op'>)</span>, </span>
 <span class='r-in'>            adjustments<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>purpose <span class='op'>=</span> <span class='st'>"difference"</span>, decorrelation <span class='op'>=</span> <span class='st'>"CA"</span><span class='op'>)</span>, </span>
-<span class='r-in'>            errorbarParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>direction <span class='op'>=</span> <span class='st'>"both"</span>, tipformat <span class='op'>=</span> <span class='st'>"single"</span>, </span>
+<span class='r-in'>            errorbarParams <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>direction <span class='op'>=</span> <span class='st'>"both"</span>, tipformat <span class='op'>=</span> <span class='st'>"single"</span>, pointing<span class='op'>=</span><span class='st'>"up"</span>, </span>
 <span class='r-in'>                                  width <span class='op'>=</span> <span class='fl'>0.2</span>, position <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_nudge.html'>position_nudge</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>)</span> <span class='op'>)</span>,</span>
 <span class='r-in'>            gamma     <span class='op'>=</span> <span class='fl'>0.999</span>,</span>
 <span class='r-in'>            plotStyle <span class='op'>=</span> <span class='st'>"line"</span> <span class='op'>)</span> <span class='op'>+</span> <span class='va'>ornate</span> </span>
@@ -356,7 +366,7 @@ marker lines to the tips (default is "single")</p></td>
 <span class='r-in'>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotation_custom.html'>annotation_custom</a></span><span class='op'>(</span>grob<span class='op'>=</span><span class='va'>plt1</span><span class='op'>)</span> <span class='op'>+</span> </span>
 <span class='r-in'>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotation_custom.html'>annotation_custom</a></span><span class='op'>(</span>grob<span class='op'>=</span><span class='va'>plt2</span><span class='op'>)</span> <span class='op'>+</span> </span>
 <span class='r-in'>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/annotation_custom.html'>annotation_custom</a></span><span class='op'>(</span>grob<span class='op'>=</span><span class='va'>plt3</span><span class='op'>)</span></span>
-<span class='r-plt'><img src='geom_superberrorbar-6.png' alt='' width='700' height='433' /></span>
+<span class='r-plt'><img src='geom_superberrorbar-7.png' alt='' width='700' height='433' /></span>
 <span class='r-in'></span>
 </pre>
   </div>

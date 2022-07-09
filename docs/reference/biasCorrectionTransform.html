@@ -82,7 +82,7 @@ is corrected for bias (Morey 2008)" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.2</span>
       </span>
     </div>
 
@@ -181,7 +181,7 @@ is corrected for bias (Morey 2008)" />
     </div>
 
     <div class="ref-description">
-    <p>biasCorrectionTransform  is a transformation that can
+    <p><code>biasCorrectionTransform</code>  is a transformation that can
 be applied to a matrix of data. The resulting matrix's variance
 is corrected for bias (Morey 2008)</p>
     </div>
@@ -205,6 +205,8 @@ the remaining columns will be left unchanged</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a data.frame of the same form as dta with the variables transformed.</p>
+<p>This function is useful when passed to the argument <code>preprocessfct</code> of <code><a href='superbPlot.html'>superbPlot()</a></code>
+where it performs a modification of the data matrix.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Morey RD (2008).

@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.2</span>
       </span>
     </div>
 
@@ -143,6 +143,7 @@
 
     
     
+<pre><code>## Warning: package 'ggplot2' was built under R version 4.1.3</code></pre>
 <p>In this vignette, we show how to illustrate reference intervals using <code>superb</code>. We also show how the precision of this interval limits could be illustrated. See <span class="citation">NCCLS (2000)</span> for a definition of reference intervals. In what follows, we use the package <code>referenceIntervals</code> from <span class="citation">Finnegan (2020)</span>.</p>
 <div id="what-is-a-reference-interval" class="section level2">
 <h2 class="hasAnchor">
@@ -158,13 +159,13 @@
 <a href="#displaying-a-reference-interval" class="anchor"></a>Displaying a reference interval</h2>
 <p>To accomplish the basic computations, we rely on the excellent <code>referenceIntervals</code> from <span class="citation">Finnegan (2020)</span>. This package offers many more options that will not be explored herein.</p>
 <p>Before we begin, let’s load the needed libraries…</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>            <span class="co"># for the graphing commands</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dcousin3.github.io/superb/">superb</a></span><span class="op">)</span>             <span class="co"># for superbPlot and GRD</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">referenceIntervals</span><span class="op">)</span> <span class="co"># for computing reference intervals</span></code></pre></div>
 <p>(if some of these packages are not on your computer, first install it with for example <code>install.packages("referenceIntervals")</code> )</p>
 <p>… then let’s create a ficticious data set on the fly:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">glucoselevels</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span>BSFactors <span class="op">=</span> <span class="st">"concentration(A,B,C,D,E)"</span>, 
                     SubjectsPerGroup <span class="op">=</span> <span class="fl">100</span>,
                     RenameDV <span class="op">=</span> <span class="st">"gl"</span>,
@@ -172,17 +173,17 @@
                     Population <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fl">100</span>, stddev <span class="op">=</span> <span class="fl">20</span><span class="op">)</span> <span class="op">)</span> </code></pre></div>
 <p>This dataset will generate 100 individuals randomly for each of the five concentrations (column <code>concentration</code>, with levels from A to E). The dependent variable, <em>glucose level</em>, is abbreviated to <code>gl</code>.</p>
 <p>Here is a snapshot of it:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">glucoselevels</span><span class="op">)</span></code></pre></div>
 <pre><code>##   id concentration        gl
-## 1  1             A 104.79566
-## 2  2             A 116.77377
-## 3  3             A  95.43507
-## 4  4             A  42.41689
-## 5  5             A  92.83135
-## 6  6             A  65.17418</code></pre>
+## 1  1             A  99.12745
+## 2  2             A 122.81563
+## 3  3             A 115.10792
+## 4  4             A  91.22355
+## 5  5             A 135.90182
+## 6  6             A  76.16294</code></pre>
 <p>A simple plot could show the mean for each concentration along with the 95% confidence interval of the means, with e.g.,</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#superbPlot(glucoselevels, </span>
 <span class="co">#            BSFactors = "concentration",  </span>
 <span class="co">#            variables = "gl", </span>
@@ -192,15 +193,15 @@
 <span class="co">#            plotStyle = "line")</span></code></pre></div>
 <p>As seen, glucose level means are affected by the concentration (that effect was requested in the <code><a href="../reference/GRD.html">GRD()</a></code> command above). Also note the vertical scale: it is very restricted around the means, yet, individuals are often much outside the visible part of the scale.</p>
 <p>To convince yourself of that, ask for the smallest glucose level and the highest:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">glucoselevels</span><span class="op">$</span><span class="va">gl</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 35.11441</code></pre>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<pre><code>## [1] 34.70889</code></pre>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">glucoselevels</span><span class="op">$</span><span class="va">gl</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 148.7342</code></pre>
+<pre><code>## [1] 171.4269</code></pre>
 <p>Instead of asking for an error bar representing a confidence interval (CI), let’s ask for error bar representing the reference intervals (RI).</p>
 <p>Reference intervals are not (at this time) shipped with <code>superb</code>. Let’s define a short-name version of this with</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">RI.mean</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">gamma</span> <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span> <span class="op">{</span>
     <span class="fu"><a href="https://rdrr.io/pkg/referenceIntervals/man/refLimit.html">refLimit</a></span><span class="op">(</span><span class="va">data</span>, refConf <span class="op">=</span> <span class="va">gamma</span><span class="op">)</span><span class="op">$</span><span class="va">Ref_Int</span>
 <span class="op">}</span></code></pre></div>
@@ -208,7 +209,7 @@
 <p>The one argument that we use is the confidence level of the reference interval, <code>refConf</code> (recommended is 95%, which is the default if none is specified).</p>
 <p>As you may note, the <code>RI</code> function is <em>attached</em> to the mean. This is arbitrary: in <code>superb</code>, error bars must be error bars of a summary statistic. You could have used any function, that won’t change the position of the interval.</p>
 <p>This is all we need to make our first reference interval plots:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">glucoselevels</span>, 
             BSFactors <span class="op">=</span> <span class="st">"concentration"</span>,  
             variables <span class="op">=</span> <span class="st">"gl"</span>, 
@@ -231,7 +232,7 @@
 <p>In the packge <code>referenceIntervals</code>, the function <code><a href="https://rdrr.io/pkg/referenceIntervals/man/refLimit.html">refLimit()</a></code> also produces this information by default. The novelty is that the confidence level of the confidence interval for the tips of the RI may be different from the reference interval level.</p>
 <p>As an example, the RI coverage interval might be a 95%, so as to include a wide proportion of the population, and the certainty on the tip positions of that RI might be low, e.g., 80%, because we fear that the sample is not the most representative.</p>
 <p>To acheive this, we wrap the <code><a href="https://rdrr.io/pkg/referenceIntervals/man/refLimit.html">refLimit()</a></code> function in a shorter name function, <code>ciloRI</code> for the confidence intervals of the lower part of the RI, and <code>cihiRI</code> for the confidence intervals of the upper part of the RI. This function requires two gammas, one for the RI level, and the second for the CI level. Thus, we get:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ciloRI.mean</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">gamma</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.95</span>, <span class="fl">0.90</span><span class="op">)</span> <span class="op">)</span> <span class="op">{</span>
     <span class="fu"><a href="https://rdrr.io/pkg/referenceIntervals/man/refLimit.html">refLimit</a></span><span class="op">(</span><span class="va">data</span>, refConf <span class="op">=</span> <span class="va">gamma</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, limitConf <span class="op">=</span> <span class="va">gamma</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">)</span><span class="op">$</span><span class="va">Conf_Int</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>
 <span class="op">}</span>
@@ -239,7 +240,7 @@
     <span class="fu"><a href="https://rdrr.io/pkg/referenceIntervals/man/refLimit.html">refLimit</a></span><span class="op">(</span><span class="va">data</span>, refConf <span class="op">=</span> <span class="va">gamma</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, limitConf <span class="op">=</span> <span class="va">gamma</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">)</span><span class="op">$</span><span class="va">Conf_Int</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
 <span class="op">}</span></code></pre></div>
 <p>Again, this is all we need. We can for example use the following to see the uncertainty in the top tips of all the RI:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">glucoselevels</span>, 
             BSFactors <span class="op">=</span> <span class="st">"concentration"</span>,  
             variables <span class="op">=</span> <span class="st">"gl"</span>, 
@@ -255,7 +256,7 @@
 <p>Lets correct this. The gist of the following is to perform three plots, one showing the RI intervals (as Figure 2 above), a second showing the confidence interval of the RI top tips (as Figure 3 just above), and one last plot showing the confidence interval of the RI bottom tips. Plots 2 and 3 must be transparent so that they can be superimposed on top of plot 1.</p>
 <p>To that end, we use a set of graphic directives that makes the plot transparent. It will be appplied to plots 2 and 3 (it hides the grid (if any) and set the background of the whole plot and of the panel to transparent). This operation is made with the function <code><a href="../reference/makeTransparent.html">makeTransparent()</a></code>.</p>
 <p>It is also necessary that all plots have the same range, so that they align correctly when superimpose. To do so, we set the vertical range from 0 to 200. We also add a description in the title of the plot. These are all grouped in a list:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ornate</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
         <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"(tick)     95% reference intervals (RI)"</span>,
                         <span class="st">"\n(red)      90% confidence intervals of upper 95% RI"</span>,
@@ -265,7 +266,7 @@
         <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span><span class="op">(</span>base_size<span class="op">=</span><span class="fl">14</span><span class="op">)</span> <span class="co"># smaller font</span>
 <span class="op">)</span></code></pre></div>
 <p>Now that these are dealt with, let’s do our three plots:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">glucoselevels</span>, 
             BSFactors <span class="op">=</span> <span class="st">"concentration"</span>,  
             variables <span class="op">=</span> <span class="st">"gl"</span>, 
@@ -297,7 +298,7 @@
             plotStyle <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> <span class="op">+</span> <span class="va">ornate</span> <span class="op">+</span> <span class="fu"><a href="../reference/makeTransparent.html">makeTransparent</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>Things to note: (1) only the second and third uses the transparent directives; (2) the confidence levels (<code>gamma</code>) have two numbers in plots 2 and 3: the first for the RI, the second for the CI of the RI; (3) with <code>errorbarParams</code>, we gave different attributes to the various error bars (purple color for the lower CI, for example) and moved them sligtly to the left (position).</p>
 <p>Almost there. Lets turn these plots into graphic objects (<code>grob</code>), then superimpose them onto an empty plot:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># transform the three plots into visual objects</span>
 <span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplotGrob.html">ggplotGrob</a></span><span class="op">(</span><span class="va">plt1</span><span class="op">)</span>
 <span class="va">plt2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplotGrob.html">ggplotGrob</a></span><span class="op">(</span><span class="va">plt2</span><span class="op">)</span>
@@ -320,7 +321,7 @@
 <p>Well, we are just begining! The whole point of the reference intervals is to provide an indication of the individuals in the population. It would be great if we could see these, don’t you think?</p>
 <p>There are multiple ways to illustrate the individuals from a sample. One is using jittered dots: each member of the sample is illustrated with a small dot whose horizontal position can be jittered randomly to avoid that many dots superimposes and no longer be visible.</p>
 <p>These is a layout in <code>superb</code> that achieve exacly that, <code>pointjitter</code>. You can for example redo plot 1 but changing the layout, then superimpose the plots again, as in</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># redo plt1; the other 2 are still in memory</span>
 <span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">glucoselevels</span>, 
             BSFactors <span class="op">=</span> <span class="st">"concentration"</span>,  
@@ -347,7 +348,7 @@
 </div>
 <p>As seen, it is now easy to see the individuals from the sample and that most of them are indeed within the reference intervals.</p>
 <p>A more elaborate layout, although maybe redundant with the RI, is the <code>pointjitterviolin</code> as done in the next example.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># redo plt1; the other 2 are still in memory</span>
 <span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">glucoselevels</span>, 
             BSFactors <span class="op">=</span> <span class="st">"concentration"</span>,  
@@ -373,7 +374,7 @@
 <a href="#reference-intervals-vs--confidence-intervals-of-the-means" class="anchor"></a>Reference intervals vs. confidence intervals of the means</h2>
 <p>As one last example, we want to show the difference between the reference intervals and the confidence intervals of a summary statistic, here the mean.</p>
 <p>To that end, we can create a fourth plot showing the confidence interval of the means with</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plt4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">glucoselevels</span>, 
             BSFactors <span class="op">=</span> <span class="st">"concentration"</span>,  
             variables <span class="op">=</span> <span class="st">"gl"</span>, 
@@ -384,7 +385,7 @@
             gamma     <span class="op">=</span> <span class="fl">0.95</span>,
             plotStyle <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> <span class="op">+</span> <span class="va">ornate</span> <span class="op">+</span> <span class="fu"><a href="../reference/makeTransparent.html">makeTransparent</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>This plot also has transparent theme as it will superimposed on the previous three plots:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># transform that plot too into visual objects</span>
 <span class="va">plt4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplotGrob.html">ggplotGrob</a></span><span class="op">(</span><span class="va">plt4</span><span class="op">)</span>
 

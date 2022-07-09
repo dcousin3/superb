@@ -14,9 +14,12 @@ the remaining columns will be left unchanged}
 }
 \value{
 a data.frame of the same form as dta with the variables transformed.
+
+This function is useful when passed to the argument \code{preprocessfct} of \code{superbPlot()}
+where it performs a modification of the data matrix.
 }
 \description{
-subjectCenteringTransform is a transformation that can
+\code{subjectCenteringTransform} is a transformation that can
 be applied to a matrix of data. the resulting matrix have means
 that are centered on the grand mean, subject-wise \insertCite{c05}{superb}.
 }

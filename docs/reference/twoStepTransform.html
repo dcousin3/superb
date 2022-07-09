@@ -47,7 +47,7 @@
 
 
 <meta property="og:title" content="two-step transform for subject centering and bias correction — twoStepTransform" />
-<meta property="og:description" content="twoStepTransform, is a transformation that can
+<meta property="og:description" content="twoStepTransform is a transformation that can
 be applied to a matrix of data. The resulting matrix is both
 subject-centered and bias corrected, a technique called
 the CM technique (Baguley 2012; Cousineau 2005; Morey 2008)" />
@@ -83,7 +83,7 @@ the CM technique (Baguley 2012; Cousineau 2005; Morey 2008)" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.2</span>
       </span>
     </div>
 
@@ -182,7 +182,7 @@ the CM technique (Baguley 2012; Cousineau 2005; Morey 2008)" />
     </div>
 
     <div class="ref-description">
-    <p>twoStepTransform, is a transformation that can
+    <p><code>twoStepTransform</code> is a transformation that can
 be applied to a matrix of data. The resulting matrix is both
 subject-centered and bias corrected, a technique called
 the CM technique (Baguley 2012; Cousineau 2005; Morey 2008)</p>
@@ -207,6 +207,8 @@ the remaining columns will be left unchanged</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a data.frame of the same form as dta with the variables transformed.</p>
+<p>This function is useful when passed to the argument <code>preprocessfct</code> of <code><a href='superbPlot.html'>superbPlot()</a></code>
+where it performs a modification of the data matrix.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Baguley T (2012).

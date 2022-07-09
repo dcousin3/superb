@@ -5,7 +5,7 @@
 #'
 #' @md
 #'
-#' @description twoStepTransform, is a transformation that can
+#' @description `twoStepTransform` is a transformation that can
 #'  be applied to a matrix of data. The resulting matrix is both 
 #'  subject-centered and bias corrected, a technique called
 #'  the CM technique \insertCite{b12,c05,m08}{superb}
@@ -15,6 +15,9 @@
 #'     the remaining columns will be left unchanged
 #'
 #' @return a data.frame of the same form as dta with the variables transformed.
+#'
+#' This function is useful when passed to the argument `preprocessfct` of `superbPlot()`
+#' where it performs a modification of the data matrix.
 #'
 #' @references
 #' \insertAllCited{}
@@ -40,7 +43,7 @@ twoStepTransform <- function(dta, variables) {
 #'
 #' @md
 #'
-#' @description subjectCenteringTransform is a transformation that can
+#' @description `subjectCenteringTransform` is a transformation that can
 #'  be applied to a matrix of data. the resulting matrix have means
 #'  that are centered on the grand mean, subject-wise \insertCite{c05}{superb}.
 #'
@@ -49,6 +52,9 @@ twoStepTransform <- function(dta, variables) {
 #'     the remaining columns will be left unchanged
 #'
 #' @return a data.frame of the same form as dta with the variables transformed.
+#'
+#' This function is useful when passed to the argument `preprocessfct` of `superbPlot()`
+#' where it performs a modification of the data matrix.
 #'
 #' @references
 #' \insertAllCited{}
@@ -72,7 +78,7 @@ subjectCenteringTransform <- function(dta, variables) {
 #'
 #' @md
 #'
-#' @description biasCorrectionTransform  is a transformation that can
+#' @description `biasCorrectionTransform`  is a transformation that can
 #'  be applied to a matrix of data. The resulting matrix's variance
 #'  is corrected for bias \insertCite{m08}{superb}
 #'
@@ -81,6 +87,9 @@ subjectCenteringTransform <- function(dta, variables) {
 #'     the remaining columns will be left unchanged
 #'
 #' @return a data.frame of the same form as dta with the variables transformed.
+#'
+#' This function is useful when passed to the argument `preprocessfct` of `superbPlot()`
+#' where it performs a modification of the data matrix.
 #'
 #' @references
 #' \insertAllCited{}
@@ -106,7 +115,7 @@ biasCorrectionTransform <- function(dta, variables) {
 #'
 #' @md
 #'
-#' @description poolSDTransform  is a transformations that can
+#' @description `poolSDTransform`  is a transformations that can
 #'  be applied to a matrix of data. The resulting matrix has the column-
 #'  standard deviations equal to the pool standard deviations of the 
 #'  individual columns, the solution adopted by \insertCite{lm94}{superb}.
@@ -116,6 +125,9 @@ biasCorrectionTransform <- function(dta, variables) {
 #'     the remaining columns will be left unchanged
 #'
 #' @return a data.frame of the same form as dta with the variables transformed.
+#'
+#' This function is useful when passed to the argument `preprocessfct` of `superbPlot()`
+#' where it performs a modification of the data matrix.
 #'
 #' @references
 #' \insertAllCited{}

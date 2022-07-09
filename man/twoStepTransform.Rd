@@ -14,9 +14,12 @@ the remaining columns will be left unchanged}
 }
 \value{
 a data.frame of the same form as dta with the variables transformed.
+
+This function is useful when passed to the argument \code{preprocessfct} of \code{superbPlot()}
+where it performs a modification of the data matrix.
 }
 \description{
-twoStepTransform, is a transformation that can
+\code{twoStepTransform} is a transformation that can
 be applied to a matrix of data. The resulting matrix is both
 subject-centered and bias corrected, a technique called
 the CM technique \insertCite{b12,c05,m08}{superb}

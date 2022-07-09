@@ -1,17 +1,21 @@
 ######################################################################################
+#' @name geom_superberrorbar
+#'
 #' @title geom_superberrorbar for expanded error bar displays 
+#'
+#' @md
 #'
 #' @description ``geom_superberrorbar()`` is a geom for ggplots; it is based on 
 #'      the original geom_errorbar (and is totally compatible with it) but
-#'      expands this geom in three different ways. First, it is possible to
+#'      expands this geom in four different ways. First, it is possible to
 #'      decide whether the error bar tips are unidirectional, pointing to 
 #'      the "left" or to the "right" or if they go in "both" directions.
 #'      Second, it is possible to "double" or "triple" the horizontal marks
 #'      at the extremities of the error bar, with a "tipgap" of your liking.
-#'      Third, a new characteristici is vcolour to set a different colour for the
-#'      vertical part of the error bar. The colour can also be "NA" to have it invisible.
-#'
-#' @md
+#'      Third, an additiona characteristic is vcolour to set a different colour
+#'      for the vertical part of the error bar. The colour can also be "NA" to
+#'      have it invisible. Lastly, the error bar can be pointing "up" and "down"
+#'      or go in "both" (the default)
 #'
 #' @param mapping (as usual) see geom_errorbar
 #' @param data  (as usual) see geom_errorbar
@@ -52,10 +56,15 @@
 #' ggplot(dta, aes_string(ymin="center-width", ymax="center+width", x = "grp" ) ) +
 #'   geom_superberrorbar(tipformat = "triple", width= 0.1, tipgap = 0.04, direction = "left")
 #' 
+#' # an example with unidirectional error bars (here "up" bars)
+#' ggplot(dta, aes_string(y= "center", ymin="center-width", ymax="center+width", x = "grp" ) ) +
+#'   geom_bar(stat="identity", fill = "yellow") + 
+#'   geom_superberrorbar(pointing = "up")
+#' 
 #' # a final example with two-coloured, left-pointing tripled-tip error bars with small gaps
 #' ggplot(dta, aes_string(ymin="center-width", ymax="center+width", x = "grp" ) ) +
 #'   geom_superberrorbar(tipformat = "triple", width= 0.1, tipgap = 0.04, direction = "left",
-#'            colour = "black", vcolour = "NA")
+#'            colour = "black", vcolour = "orange")
 #' 
 #' # This new geom is integrated inside superbPlot() so that you can vary the 
 #' # error bar shapes. Let's see examples:
@@ -67,9 +76,9 @@
 #'             Population = list(mean = 100, stddev = 25, rho = 0.8) ) 
 #' 
 #' ornate = list(
-#'         labs(title =paste("(left)      95% confidence intervals",
-#'                         "\n(right)    99% confidence intervals",
-#'                         "\n(center) 99.9% confidence intervals")),
+#'         labs(title =paste("(left)            95% confidence intervals",
+#'                         "\n(right)          99% confidence intervals",
+#'                         "\n(center, up) 99.9% confidence intervals")),
 #'         xlab("Moment"), ylab("Score"),
 #'         coord_cartesian( ylim = c(85,110) )
 #' )
@@ -78,7 +87,7 @@
 #'             WSFactors = "Moment(5)",  
 #'             variables = c("DV.1","DV.2","DV.3","DV.4","DV.5"), 
 #'             adjustments=list(purpose = "difference", decorrelation = "CA"), 
-#'             errorbarParams = list(direction = "left", 
+#'             errorbarParams = list(direction = "left", color="purple", 
 #'                                   width = 0.2, position = position_nudge(-0.05) ),
 #'             gamma     = 0.95,
 #'             plotStyle = "line" ) + ornate
@@ -86,7 +95,7 @@
 #'             WSFactors = "Moment(5)",  
 #'             variables = c("DV.1","DV.2","DV.3","DV.4","DV.5"), 
 #'             adjustments=list(purpose = "difference", decorrelation = "CA"), 
-#'             errorbarParams = list(direction = "right", tipgap = 0.5, tipformat = "double", 
+#'             errorbarParams = list(direction = "right", tipgap = 0.25, tipformat = "double", 
 #'                                   width = 0.2, position = position_nudge(+0.05) ),
 #'             gamma     = 0.99,
 #'             plotStyle = "line" ) + ornate 
@@ -94,7 +103,7 @@
 #'             WSFactors = "Moment(5)",  
 #'             variables = c("DV.1","DV.2","DV.3","DV.4","DV.5"), 
 #'             adjustments=list(purpose = "difference", decorrelation = "CA"), 
-#'             errorbarParams = list(direction = "both", tipformat = "single", 
+#'             errorbarParams = list(direction = "both", tipformat = "single", pointing="up", 
 #'                                   width = 0.2, position = position_nudge(0) ),
 #'             gamma     = 0.999,
 #'             plotStyle = "line" ) + ornate 
@@ -157,12 +166,13 @@ GeomsuperbErrorbar <- ggproto("GeomsuperbErrorbar", Geom,
         size      = 0.5, 
         linetype  = 1, 
         width     = 0.5,
-        alpha     = NA 
+        alpha     = NA,
+        pointing  = "both"
     ),
-    draw_key = draw_key_path,
+    draw_key     = draw_key_path,
     required_aes = c("x|y", "ymin|xmin", "ymax|xmax"),
     setup_params = function(data, params) {GeomLinerange$setup_params(data, params) },
-    extra_params = c("na.rm", "orientation", "direction", "tipformat", "tipgap"),
+    extra_params = c("na.rm", "orientation", "direction", "tipformat", "tipgap", "pointing"),
 
     setup_data = function(data, params) {
         # Based on direction, change xmin or xmax with a multiplier
@@ -173,11 +183,13 @@ GeomsuperbErrorbar <- ggproto("GeomsuperbErrorbar", Geom,
         data$flipped_aes <- params$flipped_aes
         data             <- flip_data(data, params$flipped_aes)
         data$width       <- data$width %||% params$width %||% (resolution(data$x, FALSE) * 0.9)
+
         data3 <- data2   <- data # a quick copy
         # generates the main data frame
         data <- transform(data,
             xmin = x - lefmul*width/2,         xmax = x + rigmul*width/2, width = NULL
         )
+
         # if "double", double the data with shorter lines...
         if ((params$tipformat == "double")|(params$tipformat == "triple")) {
             data2 <- transform(data2,
@@ -194,32 +206,46 @@ GeomsuperbErrorbar <- ggproto("GeomsuperbErrorbar", Geom,
             )
             data <- rbind(data, data3)
         }
+
+        # if the aesthetic y is not given, add it to the data frame (used for the center)
+        if (is.null(data$y) ) {data$y = (data$ymin+data$ymax)/2}
+
         flip_data(data, params$flipped_aes)
     },
 
     draw_panel = function(data, panel_params, coord, width = NULL, flipped_aes = FALSE) {
         data <- flip_data(data, flipped_aes)
-        x    <- as.vector(rbind(data$xmin, data$xmax, NA, data$x,    data$x,    NA, data$xmin, data$xmax))
-        y    <- as.vector(rbind(data$ymax, data$ymax, NA, data$ymax, data$ymin, NA, data$ymin, data$ymin))
+        # enter the top line, the median lines (in two halves), the bottom line
+        x    <- as.vector(rbind(data$xmin, data$xmax, NA, data$x,    data$x,    data$x,    data$x,    NA, data$xmin, data$xmax))
+        y    <- as.vector(rbind(data$ymax, data$ymax, NA, data$ymax, data$y,    data$y,    data$ymin, NA, data$ymin, data$ymin))
 
-
-        # make the color list with 3 x for the upper tip, 2 x for the vertical, and 3 x for the lower tip
+        # make the color list with 3 x for the upper tip, 4 x for the vertical, and 3 x for the lower tip
         data$vcolour     <- data$vcolour %||% data$colour %||% params$colour 
         collist = c()
-            for (i in 1:length(data$colour)) {
-            collist = c(collist, rep(data$colour[i],3),rep(data$vcolour[i],2),rep(data$colour[i],3))
+        for (i in 1:length(data$colour)) {
+#            collist = c(collist, rep(data$colour[i],3),rep(data$vcolour[i],2),rep(data$colour[i],3))
+            collist = c(collist, rep(data$colour[i],3),rep(data$vcolour[i],4),rep(data$colour[i],3))
         }
+
+        nblock = 10 #10 segment for each error bars: the top line, NA, the median line in two halfes, NA, the bottom line
+        # according to "pointing", force half of the bar to be invisible
+        thealphas = c( 
+            rep(ifelse(unique(data$pointing) != "down", data$alpha, 0), nblock/2 ),
+            rep(ifelse(unique(data$pointing) != "up",   data$alpha, 0), nblock/2 )
+        )
+        thealphas = rep( thealphas, nblock)
+
         data <- vctrs::new_data_frame(list(
           x         = x,
           y         = y,
-#          colour    = rep(data$colour, each = 8), # when only a single color, use it 8 times
           colour    = collist,
-          alpha     = rep(data$alpha, each = 8),
-          size      = rep(data$size, each = 8),
-          linetype  = rep(data$linetype, each = 8),
-          group     = rep(1:(nrow(data)), each = 8),
-          row.names = 1:(nrow(data) * 8)
+          alpha     = thealphas,
+          size      = rep(data$size, each = nblock),
+          linetype  = rep(data$linetype, each = nblock),
+          group     = rep(1:(nrow(data)), each = nblock),
+          row.names = 1:(nrow(data) * nblock)
         ))
+
         data <- flip_data(data, flipped_aes)
         GeomPath$draw_panel(data, panel_params, coord)
     }
