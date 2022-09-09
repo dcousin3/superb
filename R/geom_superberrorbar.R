@@ -216,9 +216,15 @@ GeomsuperbErrorbar <- ggproto("GeomsuperbErrorbar", Geom,
     draw_panel = function(data, panel_params, coord, width = NULL, flipped_aes = FALSE) {
         data <- flip_data(data, flipped_aes)
         # enter the top line, the median lines (in two halves), the bottom line
-        x    <- as.vector(rbind(data$xmin, data$xmax, NA, data$x,    data$x,    data$x,    data$x,    NA, data$xmin, data$xmax))
-        y    <- as.vector(rbind(data$ymax, data$ymax, NA, data$ymax, data$y,    data$y,    data$ymin, NA, data$ymin, data$ymin))
-
+        ifelse ( ((data$ymin <= data$y) & (data$y <= data$ymax) ), {
+            # if the error bar passes through the center, split it in two (for "pointing")
+            x    <- as.vector(rbind(data$xmin, data$xmax, NA, data$x,    data$x,    data$x,    data$x,    NA, data$xmin, data$xmax))
+            y    <- as.vector(rbind(data$ymax, data$ymax, NA, data$ymax, data$y,    data$y,    data$ymin, NA, data$ymin, data$ymin))
+        } , {
+            # if the error bar hangs out there, away from the center, just have one error bar ("pointing" is disabled de facto)
+            x    <- as.vector(rbind(data$xmin, data$xmax, NA, NA,        data$x,    data$x,    NA,        NA, data$xmin, data$xmax))
+            y    <- as.vector(rbind(data$ymax, data$ymax, NA, NA,        data$ymax, data$ymin, NA,        NA, data$ymin, data$ymin))
+        } )
         # make the color list with 3 x for the upper tip, 4 x for the vertical, and 3 x for the lower tip
         data$vcolour     <- data$vcolour %||% data$colour %||% params$colour 
         collist = c()

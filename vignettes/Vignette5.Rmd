@@ -16,7 +16,7 @@ vignette: >
 ---
 
 
-```{r, echo = FALSE, message = FALSE, results = 'hide'}
+```{r, echo = FALSE, warning=FALSE, message = FALSE, results = 'hide'}
 cat("this will be hidden; use for general initializations.\n")
 library(superb)
 library(ggplot2)
@@ -471,7 +471,7 @@ superb:::is.superbPlot.function("superbPlot.smiley")
 
 It is all we need! It can be inserted in a ``superbPlot`` call:
 
-```{r, fig.width= 4, fig.height = 3, fig.cap = "**Figure 5**. smile!", fig.show='hide'}
+```{r, fig.width= 4, fig.height = 3, fig.cap = "**Figure 5**. smile!"}
 superbPlot(TMB1964r,
      WSFactors = "T(7)",      
      BSFactors = "Condition", 
@@ -480,6 +480,5 @@ superbPlot(TMB1964r,
 )
 ```
 
-(the result is not shown).
 
 # References

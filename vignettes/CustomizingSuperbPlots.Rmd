@@ -23,7 +23,7 @@ scientific articles.
 
 In the following, we need the following libraries:
 
-```{r, message=FALSE, echo=TRUE, eval=TRUE}
+```{r, message=FALSE, warning=FALSE, echo=TRUE, eval=TRUE}
 ## Load relevant packages
 library(superb)             # for superbPlot
 library(ggplot2)            # for all the graphic directives

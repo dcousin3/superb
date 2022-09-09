@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.4</span>
       </span>
     </div>
 
@@ -143,7 +143,6 @@
 
     
     
-<pre><code>## Warning: package 'ggplot2' was built under R version 4.1.3</code></pre>
 <p>In this vignette, we show how to display a dataset with a non-full factorial within-subject design. A non-factorial design is when all the levels of a first factor are not fully crossed with all the levels of a second factor. For example, if you have a design <span class="math inline">\(A(4) \times B(4)\)</span>, you would expect in total 16 levels in a full-factorial design. If there are fewer than 16 levels, it would mean that some combinations were not measured. This could be because these conditions are uninteresting or impossible.</p>
 <p>In a between group design, non full-factorial designs are not problematic: the columns contains the level of the factors. If some levels are missing, it just results in a shorter data file. All the levels present are fully identifiable as the levels are in these columns.</p>
 <p>In within-subject design, this is a different matter: the columns must be matched to a condition. If some columns are missing, <code>superb</code> cannot guess which levels are present and which are absent. It is therefore necessary to specify what levels the columns represent.</p>
@@ -229,7 +228,7 @@ WSDesign  = list(c(1,1), c(2,1), c(3,1), c(4,1), c(2,2), c(3,2),
 <h2 class="hasAnchor">
 <a href="#returning-to-the-example" class="anchor"></a>Returning to the example</h2>
 <p>let’s try this with a random data set. It will simulate response times for participants to response <strong>Word</strong> or **Non-word* to the presented strings. As <code><a href="../reference/GRD.html">GRD()</a></code> can only generate full factorial design, we will delete some columns aftewards.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Fulldta</span> <span class="op">&lt;-</span> <span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span> 
                 WSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Nletters(4)"</span>,<span class="st">"Nuppercase(4)"</span><span class="op">)</span>,
                 Effects <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"Nletters"</span> <span class="op">=</span> <span class="fu"><a href="../reference/slope.html">slope</a></span><span class="op">(</span><span class="fl">25</span><span class="op">)</span>,
@@ -238,7 +237,7 @@ WSDesign  = list(c(1,1), c(2,1), c(3,1), c(4,1), c(2,2), c(3,2),
 <span class="op">)</span></code></pre></div>
 <p>This dataset simulate an effect of the number of letters (increasing response times by 25 ms for each additional letter) and of the number of uppercase letters (decreasing response times by 25 ms for each additional uppercase letter).</p>
 <p>The full data can be plotted withou any difficulty with <code><a href="../reference/superbPlot.html">superbPlot()</a></code>:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">Fulldta</span>,
     WSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Nletters(4)"</span>,<span class="st">"Nuppercase(4)"</span><span class="op">)</span>,
     variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"DV.1.1"</span>,<span class="st">"DV.2.1"</span>,<span class="st">"DV.3.1"</span>,<span class="st">"DV.4.1"</span>,
@@ -253,7 +252,7 @@ WSDesign  = list(c(1,1), c(2,1), c(3,1), c(4,1), c(2,2), c(3,2),
 </p>
 </div>
 <p>To simulate a more realistic dataset, we must remove the impossible conditions:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># destroying the six impossible columns</span>
 <span class="va">dta</span><span class="op">$</span><span class="va">DV.1.2</span> <span class="op">=</span> <span class="cn">NULL</span> <span class="co"># e.g., the condition showing one letter with 2 upper-cases.</span>
 <span class="va">dta</span><span class="op">$</span><span class="va">DV.1.3</span> <span class="op">=</span> <span class="cn">NULL</span>
@@ -262,7 +261,7 @@ WSDesign  = list(c(1,1), c(2,1), c(3,1), c(4,1), c(2,2), c(3,2),
 <span class="va">dta</span><span class="op">$</span><span class="va">DV.2.4</span> <span class="op">=</span> <span class="cn">NULL</span>
 <span class="va">dta</span><span class="op">$</span><span class="va">DV.3.4</span> <span class="op">=</span> <span class="cn">NULL</span></code></pre></div>
 <p>after which the plot can be performed:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>,
     WSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Nletters(4)"</span>,<span class="st">"Nuppercase(4)"</span><span class="op">)</span>,
     variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"DV.1.1"</span>,<span class="st">"DV.2.1"</span>,<span class="st">"DV.3.1"</span>,<span class="st">"DV.4.1"</span>,<span class="st">"DV.2.2"</span>,<span class="st">"DV.3.2"</span>,

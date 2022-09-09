@@ -1,8 +1,7 @@
 ---
-title: "README file"
 output: github_document
 bibliography: "inst/REFERENCES.bib"
-csl: "../inst/apa-6th.csl"
+csl: "inst/apa-6th.csl"
 ---
 
 # superb: Summary plots with adjusted error bars
@@ -12,7 +11,7 @@ csl: "../inst/apa-6th.csl"
 [![CRAN Status](https://www.r-pkg.org/badges/version/superb)](https://cran.r-project.org/package=superb)
 <!-- badges: end -->
 
-```{r, echo = FALSE, message = FALSE, results = 'hide'}
+```{r, echo = FALSE, message = FALSE, results = 'hide', warning = FALSE}
 cat("this will be hidden; use for general initializations.\n")
 library(superb)
 library(ggplot2)

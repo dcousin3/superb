@@ -47,7 +47,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.4</span>
       </span>
     </div>
 
@@ -146,7 +146,7 @@
 <p><img src="logo.png" align="right" alt="" width="120"></p>
 <!-- badges: start -->
 <p><a href="https://cran.r-project.org/package=superb"><img src="https://www.r-pkg.org/badges/version/superb" alt="CRAN Status"></a> <!-- badges: end --></p>
-<p>The library <code>superb</code> offers two main functionalities. First, it can be used to obtain plots with adjusted error bars. The main function is <code><a href="reference/superbPlot.html">superbPlot()</a></code> but you can also use <code><a href="reference/superbShiny.html">superbShiny()</a></code> for a graphical user interface requiring no programming nor scripting.</p>
+<p>The library <code>superb</code> offers two main functionalities. First, it can be used to obtain plots with adjusted error bars. The main function is <code><a href="reference/superbPlot.html">superbPlot()</a></code> but you can also use <code><a href="reference/superbShiny.html">superbShiny()</a></code> for a graphical user interface requiring no programming nor scripting. See the nice tutorial by Walker (2021).</p>
 <p>The purpose of <code><a href="reference/superbPlot.html">superbPlot()</a></code> is to provide a plot with summary statistics and correct error bars. With simple adjustments, the error bar are adjusted to the design (within or between), to the purpose (single or pair-wise differences), to the sampling method (simple randomized samples or cluster randomized samples) and to the population size (infinite or of a specific size). The <code><a href="reference/superbData.html">superbData()</a></code> function does not generate the plot but returns the summary statistics and the interval boundaries. These can afterwards be sent to other plotting environment.</p>
 <p>The second functionality is to generate random datasets. The function <code><a href="reference/GRD.html">GRD()</a></code> is used to easily generate random data from any design (within or between) using any population distribution with any parameters, and with various effect sizes. <code><a href="reference/GRD.html">GRD()</a></code> is useful to test statistical procedures and plotting procedures such as <code><a href="reference/superbPlot.html">superbPlot()</a></code>.</p>
 </div>
@@ -203,13 +203,13 @@
     Effects    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"Day"</span> <span class="op">=</span> <span class="fu"><a href="reference/slope.html">slope</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span><span class="op">)</span> <span class="op">)</span>
 <span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">testdata</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">##   id Difficulty  score.1   score.2</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1  1          A 87.50433 102.15152</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2  2          A 60.07547  51.97630</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3  3          A 75.34846  59.80454</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4  4          A 60.93139  55.34069</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5  5          A 81.91479  86.32453</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6  6          A 83.31082  84.09887</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">##   id Difficulty  score.1  score.2</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1  1          A 76.69231 85.77375</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2  2          A 92.88855 83.89971</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3  3          A 92.97811 62.47879</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4  4          A 74.78780 85.36461</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5  5          A 71.32131 67.14748</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6  6          A 96.39692 67.74471</span></span></code></pre></div>
 <p>The simulated scores are illustrated using using a more elaborated layout, the <code>pointjitterviolin</code> which, in addition to the mean and confidence interval, shows the raw data using jitter dots and the distribution using a violin plot:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">testdata</span>, 
@@ -237,8 +237,13 @@
 Cousineau D, Goulet M, Harding B (2021). “Summary plots with adjusted error bars: The superb framework with an implementation in R.” <em>Advances in Methods and Practices in Psychological Science</em>, <b>2021</b>, 1–46. doi: <a href="https://doi.org/10.1177/25152459211035109" class="uri">https://doi.org/10.1177/25152459211035109</a>
 </p>
 <p>
-Walker, J. A. L. (2021). “Summary plots with adjusted error bars (superb).” <em>Youtube video</em>, <b><a href="https://www.youtube.com/watch?v=rw_6ll5nVus">accessible here</a>)</b>.
+Walker, J. A. L. (2021). “Summary plots with adjusted error bars (superb).” <em>Youtube video</em>, <b><a href="https://www.youtube.com/watch?v=rw_6ll5nVus">accessible here</a></b>.
 </p>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-w21" class="csl-entry">
+Walker, J. A. L. (2021). <em>Summary plots with adjusted error bars (superb)</em>. Retrieved from <a href="https://www.youtube.com/watch?v=rw_6ll5nVus" class="uri">https://www.youtube.com/watch?v=rw_6ll5nVus</a>
+</div>
+</div>
 </div>
 
   </div>

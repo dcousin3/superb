@@ -14,7 +14,7 @@ vignette: >
 ---
 
 
-```{r, echo = FALSE, message = FALSE, results = 'hide'}
+```{r, echo = FALSE, warning=FALSE, message = FALSE, results = 'hide'}
 cat("this will be hidden; use for general initializations.\n")
 library(superb)
 library(ggplot2)
@@ -153,7 +153,7 @@ Here we go:
 ```{r, message=FALSE, echo=TRUE, fig.width = 3, fig.cap="**Figure 1**. Anscombe-transformed scores as a function of group."}
 # ornate to decorate the plot a little bit...
 ornate = list( 
-    theme_bw(base_size = 16),
+    theme_bw(base_size = 10),
     labs(x = "Group" ),
     scale_x_discrete(labels=c("Group A", "Group B", "Group C"))
 )

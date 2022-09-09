@@ -1,13 +1,11 @@
 ## Submission
 
-* New version 0.95.1
+* New version 0.95.3
 
 
 ## Comment
 
-* Found a way to reduce markedly the size of the documentation!
-
-* Corrected a bug that kept bugging me since version 0.9.7.9
+* Corrected a bug with geom_superberrorbar
 
 ## Test environments
 
@@ -20,7 +18,6 @@
 ## R CMD check results
 
 * There were no ERRORs and no WARNINGs.
-
 * There was 0 NOTE: 
 
 
