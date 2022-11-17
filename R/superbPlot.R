@@ -303,9 +303,14 @@ superbPlot <- function(data,
     # STEP 2: Decorrelate repeated-measure variables if needed; apply transforms
     ##############################################################################
 
+complement <- function(x, U) {U[is.na(pmatch(U,x))]}
+x <- c(BSFactors, variables)
+U <- names(data)
+
     # keep a copy before transforming the data
-    data.untransformed <- data
-    data.transformed   <- data
+    # 2022.11.17: sort the columns, bsfactors & wsvariables first
+    data.untransformed <- data[ c(x, complement(x,U)) ]
+    data.transformed   <- data[ c(x, complement(x,U)) ]
 
     # We do this step for each group and only on columns with repeated measures.
     if (adjustments$decorrelation == "CM" || adjustments$decorrelation == "LM") {

@@ -217,7 +217,7 @@ comparisons.
 
 ## In conclusion
 
-Adjusting the confidence intervals is important to have coherence between the text 
+Adjusting the confidence intervals is important to have coherence between the test 
 and the figure. If you are to claim that there is no difference but show Figure 1,
 an examinator (you know, a reviewer) may raise a red flag and cast doubt on your
 conclusions (opening the door to many rounds of reviews or rejection if this is a 
