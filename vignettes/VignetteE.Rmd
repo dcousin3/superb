@@ -1,0 +1,155 @@
+---
+title: "Adding labels to ``superb`` plots"
+bibliography: "../inst/REFERENCES.bib"
+csl: "../inst/apa-6th.csl"
+output: 
+  rmarkdown::html_vignette
+description: >
+  This vignette shows how to add labels to plots generated
+  from superb.
+vignette: >
+  %\VignetteIndexEntry{Labels and ``superb`` plots}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+
+```{r, echo = FALSE, warning=FALSE, message = FALSE, results = 'hide', warning = FALSE}
+cat("this will be hidden; use for general initializations.\n")
+library(superb)
+library(ggplot2)
+options(superb.feedback = 'none')
+```
+
+# Adding labels to your superb plot
+
+It is possible to add labels to your plot. For example, adding the score 
+above a bar. This is done using the `geom_text` graphic directive from
+`ggplot2` library.
+
+Two situations are possible:
+1- the labels are actually summary statistics computed by superb
+2- the labels are other information not contained in the summary statistics.
+
+
+
+
+
+## 1- the labels are actually summary statistics computed by superb
+
+When processing the data, superb is actually building a data frame with only the 
+relevant statistics that are named internally "center", "lowerwidth" and 
+"upperwidth". The first is the statistic to be displayed (e.g., the mean), the
+other two are the lower and upper limit of the error bar, relative to center.
+
+Hence, if you want to show the summary statistic, you can build you summary 
+plot, e.g., 
+
+```{r, eval=TRUE}
+library(superb)
+library(ggplot2)
+t <- superbPlot(ToothGrowth, 
+    BSFactors = c("dose","supp"), 
+    variables = "len" )
+```
+
+then add to `t` the labels with 
+
+```{r, fig.width = 4, eval=TRUE, fig.cap="**Figure 1: A basic plot**"}
+t + geom_text(aes(x=dose, y=center, label=center) )
+```
+
+The labels will be poorly placed, so you can adjust their position with 
+
+```{r, fig.width = 4, eval=TRUE, fig.cap="**Figure 2: A better-looking plot**"}
+t + geom_text(aes(x=dose, y=center, label=center), 
+      position = position_dodge(0.9),
+      vjust = 1.5,color = "black" )
+```
+
+You can round, or format or color, the statistics, with e.g.,
+
+```{r, eval=FALSE}
+t + geom_text(aes(x=dose, y=center, label=round(center)), 
+      position=position_dodge(0.9),vjust=1.5,color="black")
+t + geom_text(aes(x=dose, y=center, label=sprintf('%.1f', center)), 
+      position=position_dodge(0.9),vjust=1.5,color="black")
+t + geom_text(aes(x=dose, y=center, label=sprintf('%.1f', center), color=supp), 
+      position=position_dodge(0.9), vjust=-1.5)
+```
+
+
+You can also show the factor names rather than the summary statistics, as
+they are contained in the summary statistics data frame. For example:
+
+```{r, fig.width = 4, eval=TRUE, fig.cap="**Figure 3: A plot with conditions on the bars**"}
+t + geom_text(aes(x=dose, y=center, label=supp), # changed "label"
+      position=position_dodge(0.9),
+      vjust=1.5,color="black")
+```
+
+Finally, multiple labels can be added if desired:
+
+```{r, fig.width = 4, eval=TRUE, fig.cap="**Figure 4: A plethora of labels**"}
+t + geom_text(aes(x=dose, y=center, label=sprintf('%.1f', center)), color="black", position=position_dodge(0.9), vjust=-1) + 
+ geom_text(aes(x=dose, y=center,label=supp), position=position_dodge(0.9), vjust=1.5, color="black") +
+ geom_text(aes(x=dose, y=center+upperwidth, label=round(center+upperwidth)), position=position_dodge(0.9), vjust=-1, color="gray43") 
+```
+
+
+At any time, you can consult what is the summary statistics data frame produced
+by replacing `superbPlot()` with `superbData()`
+
+```{r, eval=TRUE}
+d <- superbData(ToothGrowth, 
+    BSFactors = c("dose","supp"), 
+    variables = "len" )
+d$summaryStatistics
+```
+
+
+## 2- the labels are other information not contained in the summary statistics.
+
+If your labels are not compiled in the summary statistics data frame, you 
+can still connect to the original data frame and use its content. For 
+example, lets' suppose we have the names of the rats in the ToothGrowth
+data frame (I de-anonymize them, but they won't object to this as they are
+rats, and dead by now!)
+
+```{r, eval=TRUE}
+# taken from library(babynames)
+# head(unique(babynames[order(-babynames$prop),]$name),60)
+names=c(
+ "John",        "William",     "Mary",        "Robert",      "James",      
+ "Linda",       "Michael",     "Charles",     "George",      "David",     
+ "Jennifer",    "Shirley",     "Richard",     "Barbara",     "Jason",      
+ "Lisa",        "Betty",       "Christopher", "Dorothy",     "Patricia",   
+ "Helen",       "Jessica",     "Ashley",      "Donald",      "Anna",       
+ "Joseph",      "Deborah",     "Frank",       "Mark",        "Matthew",    
+ "Thomas",      "Debra",       "Susan",       "Margaret",    "Carol",      
+ "Amanda",      "Brian",       "Joshua",      "Henry",       "Harry",      
+ "Ruth",        "Amy",         "Emma",        "Edward",      "Ronald",     
+ "Daniel",      "Gary",        "Elizabeth",   "Melissa",     "Sandra",     
+ "Michelle",    "Karen",       "Kimberly",    "Joan",        "Brittany",   
+ "Judith",      "Larry",       "Cynthia",     "Andrew",      "Steven")
+# append the names as the last columns of ToothGrowth
+ToothGrowth$names <- names
+
+head(ToothGrowth)
+```
+
+
+```{r, fig.width = 4, eval=TRUE, fig.cap="**Figure 5: Individual cases' labels**"}
+t + geom_text(aes(x=factor(dose), y=len, label=names),
+      data=ToothGrowth, # new: I add the original data frame
+      color="black", position=position_dodge(0.9), vjust=-1.) 
+```
+
+# In summary
+
+Labels can be added with the usual `geom_text` graphic directives. Additional 
+information can be found regarding this method.
+
+
+
+

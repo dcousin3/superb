@@ -119,13 +119,13 @@ testdata <- GRD(
 head(testdata)
 ```
 
-    ##   id Difficulty  score.1  score.2
-    ## 1  1          A 71.85471 60.99042
-    ## 2  2          A 75.38883 80.81828
-    ## 3  3          A 71.49369 65.71568
-    ## 4  4          A 75.61244 76.91244
-    ## 5  5          A 72.00624 74.53779
-    ## 6  6          A 65.64535 84.85339
+    ##   id Difficulty   score.1  score.2
+    ## 1  1          A 101.23069 93.76455
+    ## 2  2          A  58.03047 62.32300
+    ## 3  3          A  66.68143 77.45241
+    ## 4  4          A  92.70082 86.61349
+    ## 5  5          A  47.26510 60.94935
+    ## 6  6          A  67.46061 67.70803
 
 The simulated scores are illustrated using using a more elaborated
 layout, the `pointjitterviolin` which, in addition to the mean and

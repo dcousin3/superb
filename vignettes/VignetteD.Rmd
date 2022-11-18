@@ -20,7 +20,6 @@ library(superb)
 library(ggplot2)
 library(png)
 options(superb.feedback = c('design','warnings') )
-
 ```
 
 The purpose of ``superb`` it to make plots showing adjusted error bars. However, not everyone 

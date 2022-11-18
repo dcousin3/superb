@@ -1,3 +1,8 @@
+# superb 0.95.5 (November 18th, 2022)
+
+* Tweaked column selection so that the variable argument can be
+  given columns names in different order than the order in the dataframe. 
+
 # superb 0.95.4 (September 9th, 2022)
 
 * tweaked "pointing" so that for error bars not lying on both side of the central tendency, 

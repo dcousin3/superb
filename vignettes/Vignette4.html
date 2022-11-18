@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Using a custom statistic with its error bar</title>
+
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Using a custom statistic with its error bar</h1>
+
+
+
+<p>By default, <code>superbPlot</code> generates mean plots along with 95% confidence intervals of the mean. However, these choices can be changed.</p>
+<ul>
+<li><p>To change the summary statistics, use the argument <code>statistic =</code>;</p></li>
+<li><p>To change the interval function, use the argument <code>errorbar =</code>. The abbreviation <code>CI</code> stands for confidence interval; <code>SE</code> stands for standard error.</p></li>
+<li><p>With <code>CI</code>, to change the confidence level, use the argument <code>gamma =</code>;</p></li>
+</ul>
+<p>The defaults are <code>statistic = &quot;mean&quot;, errorbar = &quot;CI&quot;, gamma = 0.95</code>. For error bar functions that accept a gamma parameter (e.g., <code>CI</code>, the gamma parameter is automatically transfered to the function). For other functions that do not accept a gamma parameter (e.g., <code>SE</code>), the gamma parameter is unused.</p>
+<div id="changing-the-summary-function-to-be-plotted" class="section level2">
+<h2>Changing the summary function to be plotted</h2>
+<p>In what follow, we use <code>GRD()</code> to generate a random dataset with an interaction (see <a href="https://dcousin3.github.io/superb/articles/Vignette6.html">Vignette 6</a>) then make plots varying the statistics displayed.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># shut down &#39;warnings&#39;, &#39;design&#39; and &#39;summary&#39; messages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">superb.feedback =</span> <span class="st">&#39;none&#39;</span>) </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a random dataset from a (3 x 2) design, entirely within subject.</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># The sample size is very small (n=5) and the correlation between scores is high (rho = .8)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> <span class="fu">GRD</span>( </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">WSFactors  =</span> <span class="st">&quot;Moment(3): Dose(2)&quot;</span>, </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Effects    =</span> <span class="fu">list</span>(<span class="st">&quot;Dose*Moment&quot;</span><span class="ot">=</span><span class="fu">custom</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>)), </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">SubjectsPerGroup =</span> <span class="dv">50</span>, </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Population =</span> <span class="fu">list</span>( <span class="at">mean=</span><span class="dv">10</span>, <span class="at">stddev =</span> <span class="dv">5</span>, <span class="at">rho =</span> .<span class="dv">80</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># a quick function to call superbPlot</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>makeplot <span class="ot">&lt;-</span> <span class="cf">function</span>(statfct, errorbarfct, gam, rg, subttl) {</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">superbPlot</span>(dta, </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">WSFactors  =</span> <span class="fu">c</span>(<span class="st">&quot;Moment(3)&quot;</span>,<span class="st">&quot;Dose(2)&quot;</span>), </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">variables =</span> <span class="fu">c</span>(<span class="st">&quot;DV.1.1&quot;</span>,<span class="st">&quot;DV.2.1&quot;</span>,<span class="st">&quot;DV.3.1&quot;</span>,<span class="st">&quot;DV.1.2&quot;</span>,<span class="st">&quot;DV.2.2&quot;</span>,<span class="st">&quot;DV.3.2&quot;</span>), </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">statistic =</span> statfct, </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">errorbar  =</span> errorbarfct, </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">gamma     =</span> gam, </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">plotStyle =</span> <span class="st">&quot;line&quot;</span>,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">adjustments =</span> <span class="fu">list</span>(<span class="at">purpose=</span><span class="st">&quot;difference&quot;</span>, <span class="at">decorrelation=</span><span class="st">&quot;CM&quot;</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span> <span class="fu">ylab</span>(subttl) <span class="sc">+</span> <span class="fu">coord_cartesian</span>( <span class="at">ylim =</span> rg )</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>} </span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">makeplot</span>(<span class="st">&quot;mean&quot;</span>,      <span class="st">&quot;CI&quot;</span>, .<span class="dv">95</span>, <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">14</span>), <span class="st">&quot;Mean +- 95% CI of the mean&quot;</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">makeplot</span>(<span class="st">&quot;mean&quot;</span>,      <span class="st">&quot;SE&quot;</span>, .<span class="dv">00</span>, <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">14</span>), <span class="st">&quot;Mean +- SE of the mean&quot;</span>)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">makeplot</span>(<span class="st">&quot;median&quot;</span>,    <span class="st">&quot;CI&quot;</span>, .<span class="dv">95</span>, <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">14</span>), <span class="st">&quot;Median +- 95% CI of the median&quot;</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">makeplot</span>(<span class="st">&quot;fisherskew&quot;</span>,<span class="st">&quot;CI&quot;</span>, .<span class="dv">95</span>, <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>,<span class="sc">+</span><span class="dv">2</span>), <span class="st">&quot;Fisher skew +- 95% CI&quot;</span>)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">grid.arrange</span>(p1,p2,p3,p4, <span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="figure">
+<img src="data:image/png;base64,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" alt />
+<p class="caption"><strong>Figure 1</strong>. Various statistics and various measures of precisions</p>
+</div>
+</div>
+<div id="determining-that-a-summary-function-is-valid-to-use-in-superbplot" class="section level2">
+<h2>Determining that a summary function is valid to use in superbPlot</h2>
+<p>Any summary function can be accepted by <code>superbPlot</code>, as long as it is given within double-quote. The built-in statistics functions such as <code>mean</code> and <code>median</code> can be given. Actually, any descriptive statistics, not just central tendency, can be provided. That includes <code>IQR</code>, <code>mad</code>, etc. To be valid, the function must return a number when given a vector of numbers.</p>
+<p>In doubt, you can test if the function is valid for <code>superbPlot</code> with (note the triple colon):</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>superb<span class="sc">:::</span><span class="fu">is.stat.function</span>(<span class="st">&quot;mean&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Likewise, any error bar function can be accepted by <code>superbPlot</code>. These functions must be named with two part, separated with a dot <code>&quot;interval function&quot;.&quot;descriptive statistic&quot;</code>. For example, the function <code>CI.mean</code> is the confidence interval of the mean. Other functions are <code>SE.mean</code>, <code>SE.median</code>, <code>CI.fisherskew</code>, etc. The <code>superb</code> library provides some 20+ such functions. <span class="citation">Harding, Tremblay, &amp; Cousineau (2014)</span> and <span class="citation">Harding, Tremblay, &amp; Cousineau (2015)</span> reviewed some of these functions.</p>
+<p>The error bar functions can be of three types:</p>
+<ul>
+<li><p>a function that returns a width. Standard error functions are example of this type of function. With width function, the error bar extend plus and minus that width around the descriptive statistics.</p></li>
+<li><p>an interval function. Such functions returns the actual lower and upper limits of the interval and therefore are used as is to draw the bar (i.e., they are not relative to the descriptive statistics). Confidence interval functions are of this type.</p></li>
+<li><p><code>&quot;none&quot;</code>. This keyword produces an error bar of null width.</p></li>
+</ul>
+<p>The interval function can be tested to see if it exists:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>superb<span class="sc">:::</span><span class="fu">is.errorbar.function</span>(<span class="st">&quot;SE.mean&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>To see if a gamma is required for a certain interval function, you can try</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>superb<span class="sc">:::</span><span class="fu">is.gamma.required</span>(<span class="st">&quot;SE.mean&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+</div>
+<div id="creating-a-custom-made-descriptive-statistic-function-to-be-used-in-superbplot" class="section level2">
+<h2>Creating a custom-made descriptive statistic function to be used in superbPlot</h2>
+<p>As an example, we create from scratch a descriptive statistic function that will be fed to <code>superbPlot</code>. Following <span class="citation">Wilcox (2011)</span> , we implement the 20% trimmed mean. This descriptive statistic is used to estimate the population mean. However, it is said to be a robust statistic as it is less affected by suspicious data. Herein, we use the data from <code>dataFigure1</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    <span class="co"># create a descriptive statistics, the 20% trimmed mean</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    trimmedmean    <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">mean</span>(x, <span class="at">trim =</span> <span class="fl">0.2</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># we can test it with the data from group 1...</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    grp1 <span class="ot">&lt;-</span> dataFigure1<span class="sc">$</span>score[dataFigure1<span class="sc">$</span>grp<span class="sc">==</span><span class="dv">1</span>]</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    grp2 <span class="ot">&lt;-</span> dataFigure1<span class="sc">$</span>score[dataFigure1<span class="sc">$</span>grp<span class="sc">==</span><span class="dv">2</span>]</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">trimmedmean</span>(grp1)</span></code></pre></div>
+<pre><code>## [1] 106.2667</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>    <span class="co"># or check that it is a valid statistic function</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    superb<span class="sc">:::</span><span class="fu">is.stat.function</span>(<span class="st">&quot;trimmedmean&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Once we have the function, we can ask for a plot of this function with</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">superbPlot</span>(dataFigure1, </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">BSFactors =</span> <span class="st">&quot;grp&quot;</span>, </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">statistic =</span> <span class="st">&quot;trimmedmean&quot;</span>, <span class="at">errorbar =</span> <span class="st">&quot;none&quot;</span>, <span class="co">#HERE the statistic name is given</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">plotStyle=</span><span class="st">&quot;line&quot;</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">adjustments =</span> <span class="fu">list</span>(<span class="at">purpose =</span> <span class="st">&quot;difference&quot;</span>),</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">variable =</span> <span class="st">&quot;score&quot;</span>,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">errorbarParams =</span> <span class="fu">list</span>(<span class="at">width=</span><span class="dv">0</span>) <span class="co"># so that the null-width error bar is invisible</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    )<span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&quot;20% trimmed mean&quot;</span>) <span class="sc">+</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_gray</span>(<span class="at">base_size=</span><span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;20% trimmed mean with </span><span class="sc">\n</span><span class="st">no error bars&quot;</span>) <span class="sc">+</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_cartesian</span>( <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">85</span>,<span class="dv">115</span>) ) </span></code></pre></div>
+<div class="figure">
+<img src="data:image/png;base64,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" alt />
+<p class="caption"><strong>Figure 2</strong>. <code>superbPlot</code> with a custom-made descriptive statistic function</p>
+</div>
+</div>
+<div id="creating-a-custom-made-interval-function-to-be-used-in-superbplot" class="section level2">
+<h2>Creating a custom-made interval function to be used in <code>superbPlot</code></h2>
+<p>It is also possible to create custom-made confidence interval functions.</p>
+<p>Hereafter, we add a confidence interval for the 20% trimmed mean. We use the approach documented in Wilcox <span class="citation">(Wilcox, 2011)</span> which requires computing the winsorized standard deviation <code>winsor.sd</code> as available in the <code>psych</code> library <span class="citation">(Revelle, 2020)</span>.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(psych)      <span class="co"># for winsor.sd</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    CI.trimmedmean <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">gamma =</span> <span class="fl">0.95</span>){</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        trim <span class="ot">&lt;-</span> <span class="fl">0.2</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        g    <span class="ot">&lt;-</span> <span class="fu">floor</span>(<span class="fu">length</span>(x) <span class="sc">*</span> <span class="fl">0.4</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        tc   <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span><span class="sc">+</span>gamma<span class="sc">/</span><span class="dv">2</span>, <span class="at">df=</span>(<span class="fu">length</span>(x)<span class="sc">-</span>g<span class="dv">-1</span>) )</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        lo   <span class="ot">&lt;-</span> tc <span class="sc">*</span> <span class="fu">winsor.sd</span>(x, <span class="at">trim =</span><span class="fl">0.2</span>) <span class="sc">/</span> ((<span class="dv">1-2</span><span class="sc">*</span>trim)<span class="sc">*</span><span class="fu">sqrt</span>(<span class="fu">length</span>(x)))</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(<span class="fu">trimmedmean</span>(x) <span class="sc">-</span>lo, <span class="fu">trimmedmean</span>(x)<span class="sc">+</span>lo)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># we test as an example the data from group 1</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">CI.trimmedmean</span>(grp1)  </span></code></pre></div>
+<pre><code>## [1] 101.7281 110.8052</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>    <span class="co"># or check that it is a valid interval function</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    superb<span class="sc">:::</span><span class="fu">is.errorbar.function</span>(<span class="st">&quot;CI.trimmedmean&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>We have all we need to make a plot with error bars!</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">superbPlot</span>(dataFigure1, </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">BSFactors =</span> <span class="st">&quot;grp&quot;</span>, </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">statistic =</span> <span class="st">&quot;trimmedmean&quot;</span>, <span class="at">errorbar =</span> <span class="st">&quot;CI&quot;</span>,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">plotStyle=</span><span class="st">&quot;line&quot;</span>,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">adjustments =</span> <span class="fu">list</span>(<span class="at">purpose =</span> <span class="st">&quot;difference&quot;</span>),</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">variable =</span> <span class="st">&quot;score&quot;</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    )<span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&quot;20% trimmed mean&quot;</span>) <span class="sc">+</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_gray</span>(<span class="at">base_size=</span><span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;20% trimmed mean with </span><span class="sc">\n</span><span class="st">95% confidence interval of 20% trimmed mean&quot;</span>) <span class="sc">+</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_cartesian</span>( <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">85</span>,<span class="dv">115</span>) ) </span></code></pre></div>
+<div class="figure">
+<img src="data:image/png;base64,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" alt />
+<p class="caption"><strong>Figure 3</strong>. <code>superbPlot</code> with a custom-made descriptive sttistic function</p>
+</div>
+<p>The advantage of this measure of central tendancy is that it is a robust estimator. Robust measures are less likely to be adversly affected by suspicious data such as outliers. See <span class="citation">Wilcox (2011)</span> for more on robust estimation.</p>
+</div>
+<div id="creating-bootstrap-based-confidence-intervals" class="section level2">
+<h2>Creating bootstrap-based confidence intervals</h2>
+<p>It is also possible to create bootstrap estimates of confidence intervals and integrate these into <code>superb</code>.</p>
+<p>The general idea is to subsample with replacement the sample and compute on this subsample the descriptive statistics. This process is repeated a large number of times (here, 10,000) and the quantiles containing, say, 95% of the results is a 95% precision interval (we call it a <em>precision interval</em> as bootstrap estimates the sampling variability, not the predictive variability).</p>
+<p>Here, we illustrate this process with the mean. The function must be name “<em>interval function</em>.mean,” so we choose to call it <code>myBootstrapCI.mean</code>.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>    <span class="co"># we define myBootstrapPI which subsample the whole sample, here called X</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    myBootstrapPI.mean <span class="ot">&lt;-</span> <span class="cf">function</span>(X, <span class="at">gamma =</span> <span class="fl">0.95</span>) {</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>      res <span class="ot">=</span> <span class="fu">c</span>()</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>) {</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        res[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">sample</span>(X, <span class="fu">length</span>(X), <span class="at">replace =</span> T))</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">quantile</span>(res, <span class="fu">c</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span> <span class="sc">-</span> gamma<span class="sc">/</span><span class="dv">2</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span> <span class="sc">+</span> gamma<span class="sc">/</span><span class="dv">2</span>))</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># we check that it is a valid interval function</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    superb<span class="sc">:::</span><span class="fu">is.errorbar.function</span>(<span class="st">&quot;myBootstrapPI.mean&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>This is all we need to make the plot which we can compare with the parametric CI</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>    plt1 <span class="ot">&lt;-</span> <span class="fu">superbPlot</span>(dataFigure1, </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">BSFactors =</span> <span class="st">&quot;grp&quot;</span>, </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">variable =</span> <span class="fu">c</span>(<span class="st">&quot;score&quot;</span>), </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">plotStyle=</span><span class="st">&quot;line&quot;</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">statistic =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">errorbar =</span> <span class="st">&quot;CI&quot;</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">adjustments =</span> <span class="fu">list</span>(<span class="at">purpose =</span> <span class="st">&quot;difference&quot;</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span> </span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">&quot;Group&quot;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&quot;Score&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;means and difference-adjusted</span><span class="sc">\n</span><span class="st">95% confidence intervals&quot;</span>) <span class="sc">+</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_cartesian</span>( <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">85</span>,<span class="dv">115</span>) ) <span class="sc">+</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_gray</span>(<span class="at">base_size=</span><span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;1&quot;</span> <span class="ot">=</span> <span class="st">&quot;Collaborative games&quot;</span>, <span class="st">&quot;2&quot;</span> <span class="ot">=</span> <span class="st">&quot;Unstructured activity&quot;</span>))</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    plt2 <span class="ot">&lt;-</span> <span class="fu">superbPlot</span>(dataFigure1, </span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">BSFactors =</span> <span class="st">&quot;grp&quot;</span>, </span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">variable =</span> <span class="fu">c</span>(<span class="st">&quot;score&quot;</span>), </span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">plotStyle=</span><span class="st">&quot;line&quot;</span>,</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">statistic =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">errorbar =</span> <span class="st">&quot;myBootstrapPI&quot;</span>,</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">adjustments =</span> <span class="fu">list</span>(<span class="at">purpose =</span> <span class="st">&quot;difference&quot;</span>)</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span> </span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">&quot;Group&quot;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&quot;Score&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;means and difference-adjusted</span><span class="sc">\n</span><span class="st">95% bootstrap confidence intervals&quot;</span>) <span class="sc">+</span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_cartesian</span>( <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">85</span>,<span class="dv">115</span>) ) <span class="sc">+</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_gray</span>(<span class="at">base_size=</span><span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;1&quot;</span> <span class="ot">=</span> <span class="st">&quot;Collaborative games&quot;</span>, <span class="st">&quot;2&quot;</span> <span class="ot">=</span> <span class="st">&quot;Unstructured activity&quot;</span>))</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(gridExtra)</span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>    plt <span class="ot">&lt;-</span> <span class="fu">grid.arrange</span>(plt1, plt2, <span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="figure">
+<img src="data:image/png;base64,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" alt />
+<p class="caption"><strong>Figure 4</strong>. <code>superbPlot</code> with a custom-made interval function.</p>
+</div>
+<p>As seen, there is not much difference between the two. This was expected: when the normality assumption is not invalid, the <em>parametric</em> confidence intervals of the mean (based on this assumption) is identical on average to the bootstrap approach.</p>
+</div>
+<div id="in-summary" class="section level2">
+<h2>In summary</h2>
+<p>The function <code>superbPlot()</code> is entirely customizable: you can put any descriptive statistic function and any interval function into <code>superbPlot()</code>. In a sense, <code>superbPlot()</code> is simply a proxy that manage the dataset and produces standardized dataframes apt to be transmitted to a <code>ggplot()</code> specification. It is also possible to obtain the summary dataframe by issuing the argument <code>showPlot = FALSE</code> or by using the related function <code>superbData()</code>.</p>
+<p>The function <code>superbPlot</code> is also customizable with regards to the plot produced. Included in the package are</p>
+<ul>
+<li><p><code>superbPlot.line</code> : shows the results as points and lines,</p></li>
+<li><p><code>superbPlot.point</code>: shows the results as points only,</p></li>
+<li><p><code>superbPlot.bar</code> : shows the results using bars,</p></li>
+<li><p><code>superbPlot.pointjitter</code>: shows the results with points, and the raw data with jittered points,</p></li>
+<li><p><code>superbPlot.pointjitterviolin</code>: also shows violin plot behind the jitter points, and</p></li>
+<li><p><code>superbPlot.pointindividualline</code>: show the results with fat points, and individual results with thin lines,</p></li>
+<li><p><code>superbPlot.raincloud</code>: show the results along with clouds (violin distributions) and rain drops (jittered raw data),</p></li>
+</ul>
+<p><a href="https://dcousin3.github.io/superb/articles/Vignette5.html">Vignette 5</a> shows how to create new layouts. Proposals are welcome!</p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1 class="unnumbered">References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-htc14" class="csl-entry">
+Harding, B., Tremblay, C., &amp; Cousineau, D. (2014). Standard errors: A review and evaluation of standard error estimators using monte carlo simulations. <em>The Quantitative Methods for Psychology</em>, <em>10</em>(2), 107–123.
+</div>
+<div id="ref-htc15" class="csl-entry">
+Harding, B., Tremblay, C., &amp; Cousineau, D. (2015). The standard error of the pearson skew. <em>The Quantitative Methods for Psychology</em>, <em>11</em>(1), 32–36.
+</div>
+<div id="ref-r20" class="csl-entry">
+Revelle, W. (2020). <em>Psych: Procedures for psychological, psychometric, and personality research</em>. Evanston, Illinois: Northwestern University. Retrieved from <a href="https://CRAN.R-project.org/package=psych">https://CRAN.R-project.org/package=psych</a>
+</div>
+<div id="ref-w11" class="csl-entry">
+Wilcox, R. R. (2011). <em>Introduction to robust estimation and hypothesis testing</em>. Academic press.
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
