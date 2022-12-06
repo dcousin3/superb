@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.6</span>
       </span>
     </div>
 
@@ -371,13 +371,22 @@ Var_A = \frac{1}{4(n+1/2)}
 <h2 class="hasAnchor">
 <a href="#returning-to-the-example" class="anchor"></a>Returning to the example</h2>
 <p>What can we conclude from the plot? You noted that we plotted difference-adjusted confidence intervals. Hence, if at least one result is not included in the confidence interval of another result, then the chances are good that they differ significantly.</p>
-<p>Running an analysis of proportions, it indicates the presence of a main effect of Group (<span class="math inline">\(F(2,\infty)= 3.11, p = .045\)</span>).</p>
+<p>Running an analysis of proportions, it indicates the presence of a main effect of Group (<span class="math inline">\(F(2,\infty)= 3.11, p = .045\)</span>). How to perform an analysis of proportions (ANOPA) is explained in <span class="citation">Laurencelle &amp; Cousineau (2023)</span>.</p>
 <p>We see from the plot that the length of the error bars are about all the same, suggesting homogeneous variance (because all the sample are of comparable size). This is always the case as Anscombe transform is a ‘variance-stabilizing’ transformation in the sense that it makes all the variances identical.</p>
 </div>
 <div id="in-summary" class="section level2">
 <h2 class="hasAnchor">
 <a href="#in-summary" class="anchor"></a>In summary</h2>
-<p>The <code>superb</code> framework can be used to display any summary statistics. Here, we showed how <code><a href="../reference/superbPlot.html">superbPlot()</a></code> can be used with proportions.</p>
+<p>The <code>superb</code> framework can be used to display any summary statistics. Here, we showed how <code><a href="../reference/superbPlot.html">superbPlot()</a></code> can be used with proportions. For within-subject designs involving proportions, it is also possible to use the correlation adjustments <span class="citation">(as demonstrated in Laurencelle &amp; Cousineau, 2023)</span>.</p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1 class="hasAnchor">
+<a href="#references" class="anchor"></a>References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-lc23" class="csl-entry">
+Laurencelle, L., &amp; Cousineau, D. (2023). Analysis of proportions using arcsine transform with any experimental design. <em>Frontiers in Psychology</em>.
+</div>
+</div>
 </div>
   </div>
 
