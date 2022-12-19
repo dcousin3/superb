@@ -4,6 +4,7 @@
 # logical functions:    
 #################################################################################
 
+
 has.init.function <- function(fctname) {
     # does the function has a "init.fctname" initializer?
     iname <- paste("init", fctname, sep=".")

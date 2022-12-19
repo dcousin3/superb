@@ -27,6 +27,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -39,23 +41,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.6</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -68,7 +64,7 @@
       <a href="../articles/TheMakingOf.html">The making-of the figures in the article</a>
     </li>
     <li>
-      <a href="../articles/Vignette1.html">Four steps to make your plot</a>
+      <a href="../articles/Vignette1.html">Three steps to make your plot</a>
     </li>
     <li>
       <a href="../articles/Vignette2.html">Why use difference-adjusted confidence intervals?</a>
@@ -109,6 +105,9 @@
     <li>
       <a href="../articles/VignetteE.html">Adding labels to ``superb`` plots</a>
     </li>
+    <li>
+      <a href="../articles/VignetteF.html">Plotting frequencies using ``superb``</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -117,7 +116,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/dcousin3/superb/">
+  <a href="https://github.com/dcousin3/superb/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -132,57 +131,76 @@
 
       
 
-      </header><script src="VignetteD_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>
 <code>superb</code> and SPSS</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/dcousin3/superb/blob/master/../vignettes/VignetteD.Rmd"><code>../vignettes/VignetteD.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/dcousin3/superb/blob/HEAD/../vignettes/VignetteD.Rmd" class="external-link"><code>../vignettes/VignetteD.Rmd</code></a></small>
       <div class="hidden name"><code>VignetteD.Rmd</code></div>
 
     </div>
 
     
     
-<p>The purpose of <code>superb</code> it to make plots showing adjusted error bars. However, not everyone are using R. Luckily, for those of you who are using SPSS, you have three options: 1) R can read SPSS file and therefore, you can open the data and make the plot in R before returning to SPSS. 2) It is possible to use SPSS only –from a syntax window– get access to all the capabilities of <code>superb</code>. 3) Using the graphical user interface superbShiny, you can also open SPSS files. This interface is available online as well.</p>
-<p>In this vignette, we demonstrate how to use these three options to make a plot with SPSS data.</p>
-<div id="first-option-using-r" class="section level2">
-<h2 class="hasAnchor">
-<a href="#first-option-using-r" class="anchor"></a>First option: Using R</h2>
-<p>Suppose that you have a file called <code>SPSS_Demo.sav</code>. Using the library <code>foreign</code>, you can open the file and use it in R to make your plot.</p>
-<p>The following syntax for example will open an SPSS file, assuming it is in a folder on your hard drive C:. First, set the working directory and the file name with</p>
+<p>The purpose of <code>superb</code> it to make plots showing adjusted
+error bars. However, not everyone are using R. Luckily, for those of you
+who are using SPSS, you have three options: 1) R can read SPSS file and
+therefore, you can open the data and make the plot in R before returning
+to SPSS. 2) It is possible to use SPSS only –from a syntax window– get
+access to all the capabilities of <code>superb</code>. 3) Using the
+graphical user interface superbShiny, you can also open SPSS files. This
+interface is available online as well.</p>
+<p>In this vignette, we demonstrate how to use these three options to
+make a plot with SPSS data.</p>
+<div class="section level3">
+<h3 id="first-option-using-r">First option: Using R<a class="anchor" aria-label="anchor" href="#first-option-using-r"></a>
+</h3>
+<p>Suppose that you have a file called <code>SPSS_Demo.sav</code>. Using
+the library <code>foreign</code>, you can open the file and use it in R
+to make your plot.</p>
+<p>The following syntax for example will open an SPSS file, assuming it
+is in a folder on your hard drive C:. First, set the working directory
+and the file name with</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="st">"c:"</span><span class="op">)</span>
-<span class="va">file</span> <span class="op">&lt;-</span> <span class="st">"Demo_SPSS.sav"</span></code></pre></div>
-<p>Then you are ready to read the file with the help of the <code>foreign</code> library</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"c:"</span><span class="op">)</span></span>
+<span><span class="va">file</span> <span class="op">&lt;-</span> <span class="st">"Demo_SPSS.sav"</span></span></code></pre></div>
+<p>Then you are ready to read the file with the help of the
+<code>foreign</code> library</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://svn.r-project.org/R-packages/trunk/foreign/">foreign</a></span><span class="op">)</span>
-<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/foreign/man/read.spss.html">read.spss</a></span><span class="op">(</span><span class="va">file</span>, to.data.frame <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<pre><code>## re-encoding from UTF-8</code></pre>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://svn.r-project.org/R-packages/trunk/foreign/" class="external-link">foreign</a></span><span class="op">)</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/foreign/man/read.spss.html" class="external-link">read.spss</a></span><span class="op">(</span><span class="va">file</span>, to.data.frame <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## re-encoding from UTF-8</span></span></code></pre>
 <p>Finally, ask for a plot with</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span> <span class="va">data</span>, 
-    WSFactors      <span class="op">=</span> <span class="st">"Temps(2)"</span>,
-    variables      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"time1"</span>,<span class="st">"time2"</span><span class="op">)</span>,
-    plotStyle      <span class="op">=</span> <span class="st">"line"</span>,
-    adjustments    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"single"</span>, 
-                          decorrelation <span class="op">=</span> <span class="st">"CA"</span><span class="op">)</span>,
-    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span>,
-    pointParams    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span> size <span class="op">=</span> <span class="fl">2</span>, color <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span> <span class="va">data</span>, </span>
+<span>    WSFactors      <span class="op">=</span> <span class="st">"Temps(2)"</span>,</span>
+<span>    variables      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"time1"</span>,<span class="st">"time2"</span><span class="op">)</span>,</span>
+<span>    plotStyle      <span class="op">=</span> <span class="st">"line"</span>,</span>
+<span>    adjustments    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"single"</span>, </span>
+<span>                          decorrelation <span class="op">=</span> <span class="st">"CA"</span><span class="op">)</span>,</span>
+<span>    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span>,</span>
+<span>    pointParams    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> size <span class="op">=</span> <span class="fl">2</span>, color <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="second-option-using-spss" class="section level2">
-<h2 class="hasAnchor">
-<a href="#second-option-using-spss" class="anchor"></a>Second option: Using SPSS</h2>
-<p>The recent versions of SPSS comes bundled with an R interpretor. Further, if you open a Syntax window (menu File: New: Syntax), you can send R instructions enclosed within <code>BEGIN PROGRAM R.</code> and <code>END PROGRAM</code>.</p>
-<p>To know if your SPSS installation has R installed, you could for example type these instructions:</p>
+<div class="section level3">
+<h3 id="second-option-using-spss">Second option: Using SPSS<a class="anchor" aria-label="anchor" href="#second-option-using-spss"></a>
+</h3>
+<p>The recent versions of SPSS comes bundled with an R interpretor.
+Further, if you open a Syntax window (menu File: New: Syntax), you can
+send R instructions enclosed within <code>BEGIN PROGRAM R.</code> and
+<code>END PROGRAM</code>.</p>
+<p>To know if your SPSS installation has R installed, you could for
+example type these instructions:</p>
 <pre class="{r}"><code>BEGIN PROGRAM R.
     # a quick test
     cat("R is up and running: ", R.version.string, "\n")
 END PROGRAM.</code></pre>
-<p>then select them all and press Ctrl-R to execute. It R is accepted within SPSS, you should see an ouptut indicating the version of R installed. It has to be R above 4.0.</p>
+<p>then select them all and press Ctrl-R to execute. It R is accepted
+within SPSS, you should see an ouptut indicating the version of R
+installed. It has to be R above 4.0.</p>
 <p>If things are working, then you are ready to make your plot with</p>
 <pre class="{r}"><code>BEGIN PROGRAM R.
     # this will install superb if needed; may take a few minutes
@@ -213,26 +231,38 @@ END PROGRAM.</code></pre>
 </p>
 </div>
 </div>
-<div id="third-option-using-a-graphical-user-interface" class="section level2">
-<h2 class="hasAnchor">
-<a href="#third-option-using-a-graphical-user-interface" class="anchor"></a>Third option: Using a graphical user interface</h2>
-<p>A graphical user interface is available at <a href="https://dcousin3.shinyapps.io/superbshiny/">this link</a></p>
-<p>This interface can read a few file format, including SPSS files. You can consult a Youtube demonstration <a href="https://www.youtube.com/watch?v=rw_6ll5nVus">here</a>.</p>
+<div class="section level3">
+<h3 id="third-option-using-a-graphical-user-interface">Third option: Using a graphical user interface<a class="anchor" aria-label="anchor" href="#third-option-using-a-graphical-user-interface"></a>
+</h3>
+<p>A graphical user interface is available at <a href="https://dcousin3.shinyapps.io/superbshiny/" class="external-link">this link</a></p>
+<p>This interface can read a few file format, including SPSS files. You
+can consult a Youtube demonstration <a href="https://www.youtube.com/watch?v=rw_6ll5nVus" class="external-link">here</a>.</p>
 </div>
-<div id="in-summary" class="section level2">
-<h2 class="hasAnchor">
-<a href="#in-summary" class="anchor"></a>In summary</h2>
-<p>The <code>superb</code> framework can be used to display any summary statistics. Here, we showed how <code><a href="../reference/superbPlot.html">superbPlot()</a></code> can be used with SPSS datasets.</p>
-<p>I thank Michael Cantinotti for raising my awarness to the fact that new versions of SPSS can show plots produced within <code>BEGIN PROGRAM R.</code> and <code>END PROGRAM.</code> syntax lines and providing a short example.</p>
+<div class="section level3">
+<h3 id="in-summary">In summary<a class="anchor" aria-label="anchor" href="#in-summary"></a>
+</h3>
+<p>The <code>superb</code> framework can be used to display any summary
+statistics. Here, we showed how <code><a href="../reference/superbPlot.html">superbPlot()</a></code> can be used
+with SPSS datasets.</p>
+<p>I thank Michael Cantinotti for raising my awarness to the fact that
+new versions of SPSS can show plots produced within
+<code>BEGIN PROGRAM R.</code> and <code>END PROGRAM.</code> syntax lines
+and providing a short example.</p>
 </div>
-<div id="references" class="section level1">
-<h1 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h1>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <p>
-Cousineau D, Goulet M, Harding B (2021). “Summary plots with adjusted error bars: The superb framework with an implementation in R.” <em>Advances in Methods and Practices in Psychological Science</em>, <b>2021</b>, 1–46. doi: <a href="https://doi.org/10.1177/25152459211035109" class="uri">https://doi.org/10.1177/25152459211035109</a>
+Cousineau D, Goulet M, Harding B (2021). “Summary plots with adjusted
+error bars: The superb framework with an implementation in R.”
+<em>Advances in Methods and Practices in Psychological Science</em>,
+<b>2021</b>, 1–46. doi: <a href="https://doi.org/10.1177/25152459211035109" class="external-link uri">https://doi.org/10.1177/25152459211035109</a>
 </p>
 <p>
-Walker, J. A. L. (2021). “Summary plots with adjusted error bars (superb).” <em>Youtube video</em>, <b><a href="https://www.youtube.com/watch?v=rw_6ll5nVus">accessible here</a>)</b>.
+Walker, J. A. L. (2021). “Summary plots with adjusted error bars
+(superb).” <em>Youtube video</em>,
+<b><a href="https://www.youtube.com/watch?v=rw_6ll5nVus" class="external-link">accessible
+here</a>)</b>.
 </p>
 </div>
   </div>
@@ -248,11 +278,13 @@ Walker, J. A. L. (2021). “Summary plots with adjusted error bars (superb).” 
 
 
       <footer><div class="copyright">
-  <p>Developed by Denis Cousineau.</p>
+  <p></p>
+<p>Developed by Denis Cousineau.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -260,6 +292,8 @@ Walker, J. A. L. (2021). “Summary plots with adjusted error bars (superb).” 
 
   
 
+
+  
 
   </body>
 </html>

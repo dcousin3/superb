@@ -8,7 +8,7 @@ description: >
   This vignette examines the assessment of mean differences when variances are
   unequal, its relation with Welch test and how Tryon adjustments can help.
 vignette: >
-  %\VignetteIndexEntry{Unequal variances, Welch test, Tryon adjustments, and superb}
+  %\VignetteIndexEntry{Unequal variances, Welch test, Tryon adjustment, and ``superb``}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---

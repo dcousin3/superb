@@ -18,9 +18,9 @@ Author: Denis Cousineau [aut, cre],
     Bradley Harding [ctb],
     Marc-Andre Goulet [ctb],
     Jesika Walker [art, pre]
-Maintainer:     Denis Cousineau <denis.cousineau@uottawa.ca>
-BugReports: 	https://github.com/dcousin3/superb/issues/
-URL:            https://dcousin3.github.io/superb/
+Maintainer: Denis Cousineau <denis.cousineau@uottawa.ca>
+BugReports: https://github.com/dcousin3/superb/issues/
+URL: https://dcousin3.github.io/superb/
 Description: 
     Computes standard error and confidence interval of various descriptive statistics under 
     various designs and sampling schemes. The main function, superbPlot(), can either return a plot 
@@ -35,7 +35,7 @@ License: GPL-3
 Encoding: UTF-8
 VignetteBuilder: knitr
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3
 Depends:
     R (>= 3.5.0)
 Imports: 

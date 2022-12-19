@@ -35,6 +35,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -47,23 +49,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.6</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -76,7 +72,7 @@
       <a href="articles/TheMakingOf.html">The making-of the figures in the article</a>
     </li>
     <li>
-      <a href="articles/Vignette1.html">Four steps to make your plot</a>
+      <a href="articles/Vignette1.html">Three steps to make your plot</a>
     </li>
     <li>
       <a href="articles/Vignette2.html">Why use difference-adjusted confidence intervals?</a>
@@ -117,6 +113,9 @@
     <li>
       <a href="articles/VignetteE.html">Adding labels to ``superb`` plots</a>
     </li>
+    <li>
+      <a href="articles/VignetteF.html">Plotting frequencies using ``superb``</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -125,7 +124,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/dcousin3/superb/">
+  <a href="https://github.com/dcousin3/superb/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -143,108 +142,108 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<div id="superb-summary-plots-with-adjusted-error-bars" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#superb-summary-plots-with-adjusted-error-bars" class="anchor"></a>superb: Summary plots with adjusted error bars</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="superb-summary-plots-with-adjusted-error-bars">superb: Summary plots with adjusted error bars<a class="anchor" aria-label="anchor" href="#superb-summary-plots-with-adjusted-error-bars"></a>
+</h1></div>
 <p><img src="logo.png" align="right" alt="" width="120"></p>
 <!-- badges: start -->
-<p><a href="https://cran.r-project.org/package=superb"><img src="https://www.r-pkg.org/badges/version/superb" alt="CRAN Status"></a> <!-- badges: end --></p>
+
 <p>The library <code>superb</code> offers two main functionalities. First, it can be used to obtain plots with adjusted error bars. The main function is <code><a href="reference/superbPlot.html">superbPlot()</a></code> but you can also use <code><a href="reference/superbShiny.html">superbShiny()</a></code> for a graphical user interface requiring no programming nor scripting. See the nice tutorial by Walker (2021).</p>
 <p>The purpose of <code><a href="reference/superbPlot.html">superbPlot()</a></code> is to provide a plot with summary statistics and correct error bars. With simple adjustments, the error bar are adjusted to the design (within or between), to the purpose (single or pair-wise differences), to the sampling method (simple randomized samples or cluster randomized samples) and to the population size (infinite or of a specific size). The <code><a href="reference/superbData.html">superbData()</a></code> function does not generate the plot but returns the summary statistics and the interval boundaries. These can afterwards be sent to other plotting environment.</p>
 <p>The second functionality is to generate random datasets. The function <code><a href="reference/GRD.html">GRD()</a></code> is used to easily generate random data from any design (within or between) using any population distribution with any parameters, and with various effect sizes. <code><a href="reference/GRD.html">GRD()</a></code> is useful to test statistical procedures and plotting procedures such as <code><a href="reference/superbPlot.html">superbPlot()</a></code>.</p>
 </div>
-<div id="installation" class="section level1">
-<h1 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h1>
+<div class="section level1">
+<h1 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h1>
 <p>The official <strong>CRAN</strong> version can be installed with</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"superb"</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dcousin3.github.io/superb/">superb</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"superb"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dcousin3.github.io/superb/" class="external-link">superb</a></span><span class="op">)</span></span></code></pre></div>
 <p>The development version can be accessed through GitHub:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"dcousin3/superb"</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dcousin3.github.io/superb/">superb</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"dcousin3/superb"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dcousin3.github.io/superb/" class="external-link">superb</a></span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="examples" class="section level1">
-<h1 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h1>
+<div class="section level1">
+<h1 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+</h1>
 <p>The easiest is to use the graphical interface which can be launched with</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/superbShiny.html">superbShiny</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/superbShiny.html">superbShiny</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>The following examples use the script-based commands.</p>
 <p>Here is a simple example illustrating the <code>ToothGrowth</code> dataset of rats (in which the dependent variable is <code>len</code>) as a function of the <code>dose</code> of vitamin and the form of the vitamin supplements <code>supp</code> (pills or juice)</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">ToothGrowth</span>, 
-    BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dose"</span>,<span class="st">"supp"</span><span class="op">)</span>, 
-    variables <span class="op">=</span> <span class="st">"len"</span> <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">ToothGrowth</span>, </span>
+<span>    BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dose"</span>,<span class="st">"supp"</span><span class="op">)</span>, </span>
+<span>    variables <span class="op">=</span> <span class="st">"len"</span> <span class="op">)</span></span></code></pre></div>
 <p><img src="README_files/figure-gfm/unnamed-chunk-6-1.png"><!-- --></p>
 <p>In the above, the default summary statistic, the mean, is used. The error bars are, by default, the 95% confidence intervals. These two choices can be changed with the <code>statistic</code> and the <code>errorbar</code> arguments.</p>
 <p>This second example explicitly indicates to display the <code>median</code> instead of the default <code>mean</code> summary statistics</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">ToothGrowth</span>, 
-    BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dose"</span>,<span class="st">"supp"</span><span class="op">)</span>, 
-    variables <span class="op">=</span> <span class="st">"len"</span>,
-    statistic <span class="op">=</span> <span class="st">"median"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">ToothGrowth</span>, </span>
+<span>    BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dose"</span>,<span class="st">"supp"</span><span class="op">)</span>, </span>
+<span>    variables <span class="op">=</span> <span class="st">"len"</span>,</span>
+<span>    statistic <span class="op">=</span> <span class="st">"median"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="README_files/figure-gfm/unnamed-chunk-7-1.png"><!-- --></p>
 <p>As a third example, we illustrate the harmonic means <code>hmedian</code> along with 99.9% confidence intervals using lines:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">ToothGrowth</span>, 
-    BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dose"</span>,<span class="st">"supp"</span><span class="op">)</span>, 
-    variables <span class="op">=</span> <span class="st">"len"</span>,
-    statistic <span class="op">=</span> <span class="st">"hmean"</span>, 
-    errorbar <span class="op">=</span> <span class="st">"CI"</span>, gamma <span class="op">=</span> <span class="fl">0.999</span>,
-    plotStyle <span class="op">=</span> <span class="st">"line"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">ToothGrowth</span>, </span>
+<span>    BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dose"</span>,<span class="st">"supp"</span><span class="op">)</span>, </span>
+<span>    variables <span class="op">=</span> <span class="st">"len"</span>,</span>
+<span>    statistic <span class="op">=</span> <span class="st">"hmean"</span>, </span>
+<span>    errorbar <span class="op">=</span> <span class="st">"CI"</span>, gamma <span class="op">=</span> <span class="fl">0.999</span>,</span>
+<span>    plotStyle <span class="op">=</span> <span class="st">"line"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="README_files/figure-gfm/unnamed-chunk-8-1.png"><!-- --></p>
 <p>The second function, <code><a href="reference/GRD.html">GRD()</a></code>, can be used to generate random data from designs with various within- and between-subject factors. This example generates scores for 300 simulated participants in a 3 x 2 design with repeated-measures on <code>Day</code>s. Only the factor <code>Day</code> is simulated to improve the scores by reducing it:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">testdata</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/GRD.html">GRD</a></span><span class="op">(</span>
-    RenameDV   <span class="op">=</span> <span class="st">"score"</span>, 
-    SubjectsPerGroup <span class="op">=</span> <span class="fl">100</span>, 
-    BSFactors  <span class="op">=</span> <span class="st">"Difficulty(A,B,C)"</span>, 
-    WSFactors  <span class="op">=</span> <span class="st">"Day(2)"</span>,
-    Population <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fl">75</span>,stddev <span class="op">=</span> <span class="fl">12</span>,rho <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>,
-    Effects    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"Day"</span> <span class="op">=</span> <span class="fu"><a href="reference/slope.html">slope</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span><span class="op">)</span> <span class="op">)</span>
-<span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">testdata</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">testdata</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/GRD.html">GRD</a></span><span class="op">(</span></span>
+<span>    RenameDV   <span class="op">=</span> <span class="st">"score"</span>, </span>
+<span>    SubjectsPerGroup <span class="op">=</span> <span class="fl">100</span>, </span>
+<span>    BSFactors  <span class="op">=</span> <span class="st">"Difficulty(A,B,C)"</span>, </span>
+<span>    WSFactors  <span class="op">=</span> <span class="st">"Day(2)"</span>,</span>
+<span>    Population <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fl">75</span>,stddev <span class="op">=</span> <span class="fl">12</span>,rho <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>,</span>
+<span>    Effects    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"Day"</span> <span class="op">=</span> <span class="fu"><a href="reference/slope.html">slope</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span><span class="op">)</span> <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">testdata</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">##   id Difficulty  score.1  score.2</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1  1          A 82.54816 82.52906</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2  2          A 86.32756 94.56680</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3  3          A 80.35264 55.83209</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4  4          A 62.46200 50.49017</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5  5          A 88.47327 75.41065</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6  6          A 96.00536 91.94386</span></span></code></pre></div>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1  1          A 80.48632 71.69466</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2  2          A 78.65204 77.28213</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3  3          A 89.70597 87.54105</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4  4          A 70.40304 81.00853</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5  5          A 77.42992 58.76891</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6  6          A 65.87263 75.82688</span></span></code></pre></div>
 <p>The simulated scores are illustrated using using a more elaborated layout, the <code>pointjitterviolin</code> which, in addition to the mean and confidence interval, shows the raw data using jitter dots and the distribution using a violin plot:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">testdata</span>, 
-    BSFactors  <span class="op">=</span> <span class="st">"Difficulty"</span>, 
-    WSFactors  <span class="op">=</span> <span class="st">"Day(2)"</span>,
-    variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"score.1"</span>,<span class="st">"score.2"</span><span class="op">)</span>,
-    plotStyle <span class="op">=</span> <span class="st">"pointjitterviolin"</span>,
-    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span>,
-    pointParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span> size <span class="op">=</span> <span class="fl">3</span>, color <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">testdata</span>, </span>
+<span>    BSFactors  <span class="op">=</span> <span class="st">"Difficulty"</span>, </span>
+<span>    WSFactors  <span class="op">=</span> <span class="st">"Day(2)"</span>,</span>
+<span>    variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"score.1"</span>,<span class="st">"score.2"</span><span class="op">)</span>,</span>
+<span>    plotStyle <span class="op">=</span> <span class="st">"pointjitterviolin"</span>,</span>
+<span>    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span>,</span>
+<span>    pointParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> size <span class="op">=</span> <span class="fl">3</span>, color <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="README_files/figure-gfm/unnamed-chunk-10-1.png"><!-- --></p>
 <p>In the above example, optional arguments <code>errorbarParams</code> and <code>pointParams</code> are used to inject specifications in the error bars and the points respectively. When these arguments are used, they override the defaults from <code><a href="reference/superbPlot.html">superbPlot()</a></code>.</p>
 </div>
-<div id="for-more" class="section level1">
-<h1 class="hasAnchor">
-<a href="#for-more" class="anchor"></a>For more</h1>
+<div class="section level1">
+<h1 id="for-more">For more<a class="anchor" aria-label="anchor" href="#for-more"></a>
+</h1>
 <p>As seen, the library <code>superb</code> makes it easy to illustrate summary statistics along with the error bars. Some layouts can be used to visualize additional characteristics of the raw data. Finally, the resulting appearance can be customized in various ways.</p>
-<p>The complete documentation is available on this <a href="https://dcousin3.github.io/superb/">site</a>.</p>
+<p>The complete documentation is available on this <a href="https://dcousin3.github.io/superb/" class="external-link">site</a>.</p>
 <p>A general introduction to the <code>superb</code> framework underlying this library is in press at <em>Advances in Methods and Practices in Psychological Sciences</em> (Cousineau, Goulet, &amp; Harding, in press).</p>
 </div>
-<div id="references" class="section level1">
-<h1 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h1>
+<div class="section level1">
+<h1 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h1>
 <p>
-Cousineau D, Goulet M, Harding B (2021). “Summary plots with adjusted error bars: The superb framework with an implementation in R.” <em>Advances in Methods and Practices in Psychological Science</em>, <b>2021</b>, 1–46. doi: <a href="https://doi.org/10.1177/25152459211035109" class="uri">https://doi.org/10.1177/25152459211035109</a>
+Cousineau D, Goulet M, Harding B (2021). “Summary plots with adjusted error bars: The superb framework with an implementation in R.” <em>Advances in Methods and Practices in Psychological Science</em>, <b>2021</b>, 1–46. doi: <a href="https://doi.org/10.1177/25152459211035109" class="external-link uri">https://doi.org/10.1177/25152459211035109</a>
 </p>
 <p>
-Walker, J. A. L. (2021). “Summary plots with adjusted error bars (superb).” <em>Youtube video</em>, <b><a href="https://www.youtube.com/watch?v=rw_6ll5nVus">accessible here</a></b>.
+Walker, J. A. L. (2021). “Summary plots with adjusted error bars (superb).” <em>Youtube video</em>, <b><a href="https://www.youtube.com/watch?v=rw_6ll5nVus" class="external-link">accessible here</a></b>.
 </p>
 <div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
 <div id="ref-w21" class="csl-entry">
-Walker, J. A. L. (2021). <em>Summary plots with adjusted error bars (superb)</em>. Retrieved from <a href="https://www.youtube.com/watch?v=rw_6ll5nVus" class="uri">https://www.youtube.com/watch?v=rw_6ll5nVus</a>
+Walker, J. A. L. (2021). <em>Summary plots with adjusted error bars (superb)</em>. Retrieved from <a href="https://www.youtube.com/watch?v=rw_6ll5nVus" class="external-link uri">https://www.youtube.com/watch?v=rw_6ll5nVus</a>
 </div>
 </div>
 </div>
@@ -253,33 +252,41 @@ Walker, J. A. L. (2021). <em>Summary plots with adjusted error bars (superb)</em
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=superb">https://​cloud.r-project.org/​package=superb</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/dcousin3/superb/">https://​github.com/​dcousin3/​superb/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/dcousin3/superb/issues/">https://​github.com/​dcousin3/​superb/​issues/​</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=superb" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/dcousin3/superb/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/dcousin3/superb/issues/" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></li>
+<li><a href="https://www.r-project.org/Licenses/GPL-3" class="external-link">GPL-3</a></li>
 </ul>
 </div>
+
+
 <div class="citation">
-<h2>Citation</h2>
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="authors.html">Citing superb</a></li>
+<li><a href="authors.html#citation">Citing superb</a></li>
 </ul>
 </div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>Denis Cousineau <br><small class="roles"> Author, maintainer </small>  </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="authors.html">More about authors...</a></li>
+</ul>
+</div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://cran.r-project.org/package=superb" class="external-link"><img src="https://www.r-pkg.org/badges/version/superb" alt="CRAN Status"></a></li>
 </ul>
 </div>
 
@@ -288,11 +295,13 @@ Walker, J. A. L. (2021). <em>Summary plots with adjusted error bars (superb)</em
 
 
       <footer><div class="copyright">
-  <p>Developed by Denis Cousineau.</p>
+  <p></p>
+<p>Developed by Denis Cousineau.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -300,6 +309,8 @@ Walker, J. A. L. (2021). <em>Summary plots with adjusted error bars (superb)</em
 
   
 
+
+  
 
   </body>
 </html>

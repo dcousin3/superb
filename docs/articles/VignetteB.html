@@ -27,6 +27,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -39,23 +41,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.6</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -68,7 +64,7 @@
       <a href="../articles/TheMakingOf.html">The making-of the figures in the article</a>
     </li>
     <li>
-      <a href="../articles/Vignette1.html">Four steps to make your plot</a>
+      <a href="../articles/Vignette1.html">Three steps to make your plot</a>
     </li>
     <li>
       <a href="../articles/Vignette2.html">Why use difference-adjusted confidence intervals?</a>
@@ -109,6 +105,9 @@
     <li>
       <a href="../articles/VignetteE.html">Adding labels to ``superb`` plots</a>
     </li>
+    <li>
+      <a href="../articles/VignetteF.html">Plotting frequencies using ``superb``</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -117,7 +116,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/dcousin3/superb/">
+  <a href="https://github.com/dcousin3/superb/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -132,30 +131,58 @@
 
       
 
-      </header><script src="VignetteB_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Non-factorial within-subject designs in <code>superb</code>
+      <h1 data-toc-skip>Non-factorial within-subject designs in
+<code>superb</code>
 </h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/dcousin3/superb/blob/master/../vignettes/VignetteB.Rmd"><code>../vignettes/VignetteB.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/dcousin3/superb/blob/HEAD/../vignettes/VignetteB.Rmd" class="external-link"><code>../vignettes/VignetteB.Rmd</code></a></small>
       <div class="hidden name"><code>VignetteB.Rmd</code></div>
 
     </div>
 
     
     
-<p>In this vignette, we show how to display a dataset with a non-full factorial within-subject design. A non-factorial design is when all the levels of a first factor are not fully crossed with all the levels of a second factor. For example, if you have a design <span class="math inline">\(A(4) \times B(4)\)</span>, you would expect in total 16 levels in a full-factorial design. If there are fewer than 16 levels, it would mean that some combinations were not measured. This could be because these conditions are uninteresting or impossible.</p>
-<p>In a between group design, non full-factorial designs are not problematic: the columns contains the level of the factors. If some levels are missing, it just results in a shorter data file. All the levels present are fully identifiable as the levels are in these columns.</p>
-<p>In within-subject design, this is a different matter: the columns must be matched to a condition. If some columns are missing, <code>superb</code> cannot guess which levels are present and which are absent. It is therefore necessary to specify what levels the columns represent.</p>
-<div id="an-example" class="section level2">
-<h2 class="hasAnchor">
-<a href="#an-example" class="anchor"></a>An example</h2>
-<p>Consider a case where participants are presented with strings of 1 to 4 letters for which a decision must be made, e.g., <em>Is this a real word?</em>. The strings can be composed of a variable number of letters between 1 and 4, but also, with a variable number of upper-case letters, between 1 and 4. All the combinations of string length and uppercase are presented within subjects.</p>
-<p>This design cannot be a a full factorial design. Indeed, when 1 letter is presented, it is not possible that the number of upper-case letter be 2, 3 or 4.</p>
-<p>To handle that case, it is possible to specify a <code>WSDesign</code> argument. By default, this argument is <code>"fullfactorial"</code>. When not full factorial, a list is given with, for each variables used as dependent variable, the levels of the factors they correspond.</p>
-<p>Consider this table with number of letters presented (from 1 to 4), and number of upper-case letters (from 1 to all). The valid cases are</p>
+<p>In this vignette, we show how to display a dataset with a non-full
+factorial within-subject design. A non-factorial design is when all the
+levels of a first factor are not fully crossed with all the levels of a
+second factor. For example, if you have a design <span class="math inline">\(A(4) \times B(4)\)</span>, you would expect in
+total 16 levels in a full-factorial design. If there are fewer than 16
+levels, it would mean that some combinations were not measured. This
+could be because these conditions are uninteresting or impossible.</p>
+<p>In a between group design, non full-factorial designs are not
+problematic: the columns contains the level of the factors. If some
+levels are missing, it just results in a shorter data file. All the
+levels present are fully identifiable as the levels are in these
+columns.</p>
+<p>In within-subject design, this is a different matter: the columns
+must be matched to a condition. If some columns are missing,
+<code>superb</code> cannot guess which levels are present and which are
+absent. It is therefore necessary to specify what levels the columns
+represent.</p>
+<div class="section level2">
+<h2 id="an-example">An example<a class="anchor" aria-label="anchor" href="#an-example"></a>
+</h2>
+<p>Consider a case where participants are presented with strings of 1 to
+4 letters for which a decision must be made, e.g., <em>Is this a real
+word?</em>. The strings can be composed of a variable number of letters
+between 1 and 4, but also, with a variable number of upper-case letters,
+between 1 and 4. All the combinations of string length and uppercase are
+presented within subjects.</p>
+<p>This design cannot be a a full factorial design. Indeed, when 1
+letter is presented, it is not possible that the number of upper-case
+letter be 2, 3 or 4.</p>
+<p>To handle that case, it is possible to specify a
+<code>WSDesign</code> argument. By default, this argument is
+<code>"fullfactorial"</code>. When not full factorial, a list is given
+with, for each variables used as dependent variable, the levels of the
+factors they correspond.</p>
+<p>Consider this table with number of letters presented (from 1 to 4),
+and number of upper-case letters (from 1 to all). The valid cases
+are</p>
 <table class="table">
 <thead><tr class="header">
 <th></th>
@@ -215,76 +242,102 @@
 </tr>
 </tbody>
 </table>
-<p>There are 10 conditions (instead of the <span class="math inline">\(4 \times 4\)</span> if the design had been full factorial). The table provide for each variables the levels of the two factors they correspond to.</p>
+<p>There are 10 conditions (instead of the <span class="math inline">\(4
+\times 4\)</span> if the design had been full factorial). The table
+provide for each variables the levels of the two factors they correspond
+to.</p>
 </div>
-<div id="informing-superb-of-a-non-full-factorial-within-subject-design" class="section level2">
-<h2 class="hasAnchor">
-<a href="#informing-superb-of-a-non-full-factorial-within-subject-design" class="anchor"></a>Informing <code>superb</code> of a non-full factorial within-subject design</h2>
-<p>In <code><a href="../reference/superbPlot.html">superbPlot()</a></code> or <code><a href="../reference/superbData.html">superbData()</a></code>, we indicate non full factorial design with:</p>
+<div class="section level2">
+<h2 id="informing-superb-of-a-non-full-factorial-within-subject-design">Informing <code>superb</code> of a non-full factorial within-subject
+design<a class="anchor" aria-label="anchor" href="#informing-superb-of-a-non-full-factorial-within-subject-design"></a>
+</h2>
+<p>In <code><a href="../reference/superbPlot.html">superbPlot()</a></code> or <code><a href="../reference/superbData.html">superbData()</a></code>, we
+indicate non full factorial design with:</p>
 <pre><code>WSFactors = c("Nletters","Nuppercase"),
 variables = c("var1","var2","var3","var4","var5","var6",
                 "var7","var8","var9","var10"),
 WSDesign  = list(c(1,1), c(2,1), c(3,1), c(4,1), c(2,2), c(3,2),
                  c(4,2), c(3,3), c(4,3), c(4,4)),</code></pre>
 </div>
-<div id="returning-to-the-example" class="section level2">
-<h2 class="hasAnchor">
-<a href="#returning-to-the-example" class="anchor"></a>Returning to the example</h2>
-<p>let’s try this with a random data set. It will simulate response times for participants to response <strong>Word</strong> or **Non-word* to the presented strings. As <code><a href="../reference/GRD.html">GRD()</a></code> can only generate full factorial design, we will delete some columns aftewards.</p>
+<div class="section level2">
+<h2 id="returning-to-the-example">Returning to the example<a class="anchor" aria-label="anchor" href="#returning-to-the-example"></a>
+</h2>
+<p>let’s try this with a random data set. It will simulate response
+times for participants to response <strong>Word</strong> or **Non-word*
+to the presented strings. As <code><a href="../reference/GRD.html">GRD()</a></code> can only generate full
+factorial design, we will delete some columns aftewards.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">Fulldta</span> <span class="op">&lt;-</span> <span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span> 
-                WSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Nletters(4)"</span>,<span class="st">"Nuppercase(4)"</span><span class="op">)</span>,
-                Effects <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"Nletters"</span> <span class="op">=</span> <span class="fu"><a href="../reference/slope.html">slope</a></span><span class="op">(</span><span class="fl">25</span><span class="op">)</span>,
-                               <span class="st">"Nuppercase"</span> <span class="op">=</span> <span class="fu"><a href="../reference/slope.html">slope</a></span><span class="op">(</span><span class="op">-</span><span class="fl">25</span><span class="op">)</span> <span class="op">)</span>,
-                Population <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fl">400</span>, stddev <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
-<p>This dataset simulate an effect of the number of letters (increasing response times by 25 ms for each additional letter) and of the number of uppercase letters (decreasing response times by 25 ms for each additional uppercase letter).</p>
-<p>The full data can be plotted withou any difficulty with <code><a href="../reference/superbPlot.html">superbPlot()</a></code>:</p>
+<code class="sourceCode R"><span><span class="va">Fulldta</span> <span class="op">&lt;-</span> <span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span> </span>
+<span>                WSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Nletters(4)"</span>,<span class="st">"Nuppercase(4)"</span><span class="op">)</span>,</span>
+<span>                Effects <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"Nletters"</span> <span class="op">=</span> <span class="fu"><a href="../reference/slope.html">slope</a></span><span class="op">(</span><span class="fl">25</span><span class="op">)</span>,</span>
+<span>                               <span class="st">"Nuppercase"</span> <span class="op">=</span> <span class="fu"><a href="../reference/slope.html">slope</a></span><span class="op">(</span><span class="op">-</span><span class="fl">25</span><span class="op">)</span> <span class="op">)</span>,</span>
+<span>                Population <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fl">400</span>, stddev <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>This dataset simulate an effect of the number of letters (increasing
+response times by 25 ms for each additional letter) and of the number of
+uppercase letters (decreasing response times by 25 ms for each
+additional uppercase letter).</p>
+<p>The full data can be plotted withou any difficulty with
+<code><a href="../reference/superbPlot.html">superbPlot()</a></code>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">Fulldta</span>,
-    WSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Nletters(4)"</span>,<span class="st">"Nuppercase(4)"</span><span class="op">)</span>,
-    variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"DV.1.1"</span>,<span class="st">"DV.2.1"</span>,<span class="st">"DV.3.1"</span>,<span class="st">"DV.4.1"</span>,
-                  <span class="st">"DV.1.2"</span>,<span class="st">"DV.2.2"</span>,<span class="st">"DV.3.2"</span>,<span class="st">"DV.4.2"</span>,
-                  <span class="st">"DV.1.3"</span>,<span class="st">"DV.2.3"</span>,<span class="st">"DV.3.3"</span>,<span class="st">"DV.4.3"</span>,
-                  <span class="st">"DV.1.4"</span>,<span class="st">"DV.2.4"</span>,<span class="st">"DV.3.4"</span>,<span class="st">"DV.4.4"</span><span class="op">)</span>,
-    plotStyle<span class="op">=</span><span class="st">"line"</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">Fulldta</span>,</span>
+<span>    WSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Nletters(4)"</span>,<span class="st">"Nuppercase(4)"</span><span class="op">)</span>,</span>
+<span>    variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DV.1.1"</span>,<span class="st">"DV.2.1"</span>,<span class="st">"DV.3.1"</span>,<span class="st">"DV.4.1"</span>,</span>
+<span>                  <span class="st">"DV.1.2"</span>,<span class="st">"DV.2.2"</span>,<span class="st">"DV.3.2"</span>,<span class="st">"DV.4.2"</span>,</span>
+<span>                  <span class="st">"DV.1.3"</span>,<span class="st">"DV.2.3"</span>,<span class="st">"DV.3.3"</span>,<span class="st">"DV.4.3"</span>,</span>
+<span>                  <span class="st">"DV.1.4"</span>,<span class="st">"DV.2.4"</span>,<span class="st">"DV.3.4"</span>,<span class="st">"DV.4.4"</span><span class="op">)</span>,</span>
+<span>    plotStyle<span class="op">=</span><span class="st">"line"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="VignetteB_files/figure-html/unnamed-chunk-3-1.png" alt="**Figure 1**. Mean response times to say **Word** or **Non-word**." width="384"><p class="caption">
-<strong>Figure 1</strong>. Mean response times to say <strong>Word</strong> or <strong>Non-word</strong>.
+<strong>Figure 1</strong>. Mean response times to say
+<strong>Word</strong> or <strong>Non-word</strong>.
 </p>
 </div>
-<p>To simulate a more realistic dataset, we must remove the impossible conditions:</p>
+<p>To simulate a more realistic dataset, we must remove the impossible
+conditions:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># destroying the six impossible columns</span>
-<span class="va">dta</span><span class="op">$</span><span class="va">DV.1.2</span> <span class="op">=</span> <span class="cn">NULL</span> <span class="co"># e.g., the condition showing one letter with 2 upper-cases.</span>
-<span class="va">dta</span><span class="op">$</span><span class="va">DV.1.3</span> <span class="op">=</span> <span class="cn">NULL</span>
-<span class="va">dta</span><span class="op">$</span><span class="va">DV.1.4</span> <span class="op">=</span> <span class="cn">NULL</span>
-<span class="va">dta</span><span class="op">$</span><span class="va">DV.2.3</span> <span class="op">=</span> <span class="cn">NULL</span>
-<span class="va">dta</span><span class="op">$</span><span class="va">DV.2.4</span> <span class="op">=</span> <span class="cn">NULL</span>
-<span class="va">dta</span><span class="op">$</span><span class="va">DV.3.4</span> <span class="op">=</span> <span class="cn">NULL</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># destroying the six impossible columns</span></span>
+<span><span class="va">dta</span><span class="op">$</span><span class="va">DV.1.2</span> <span class="op">=</span> <span class="cn">NULL</span> <span class="co"># e.g., the condition showing one letter with 2 upper-cases.</span></span>
+<span><span class="va">dta</span><span class="op">$</span><span class="va">DV.1.3</span> <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="va">dta</span><span class="op">$</span><span class="va">DV.1.4</span> <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="va">dta</span><span class="op">$</span><span class="va">DV.2.3</span> <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="va">dta</span><span class="op">$</span><span class="va">DV.2.4</span> <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="va">dta</span><span class="op">$</span><span class="va">DV.3.4</span> <span class="op">=</span> <span class="cn">NULL</span></span></code></pre></div>
 <p>after which the plot can be performed:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>,
-    WSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Nletters(4)"</span>,<span class="st">"Nuppercase(4)"</span><span class="op">)</span>,
-    variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"DV.1.1"</span>,<span class="st">"DV.2.1"</span>,<span class="st">"DV.3.1"</span>,<span class="st">"DV.4.1"</span>,<span class="st">"DV.2.2"</span>,<span class="st">"DV.3.2"</span>,
-                  <span class="st">"DV.4.2"</span>,<span class="st">"DV.3.3"</span>,<span class="st">"DV.4.3"</span>,<span class="st">"DV.4.4"</span><span class="op">)</span>,
-    WSDesign  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span>,  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">1</span><span class="op">)</span>,  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>,  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">2</span><span class="op">)</span>,
-                     <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">3</span><span class="op">)</span>,  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span>,
-    plotStyle<span class="op">=</span><span class="st">"line"</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>,</span>
+<span>    WSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Nletters(4)"</span>,<span class="st">"Nuppercase(4)"</span><span class="op">)</span>,</span>
+<span>    variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DV.1.1"</span>,<span class="st">"DV.2.1"</span>,<span class="st">"DV.3.1"</span>,<span class="st">"DV.4.1"</span>,<span class="st">"DV.2.2"</span>,<span class="st">"DV.3.2"</span>,</span>
+<span>                  <span class="st">"DV.4.2"</span>,<span class="st">"DV.3.3"</span>,<span class="st">"DV.4.3"</span>,<span class="st">"DV.4.4"</span><span class="op">)</span>,</span>
+<span>    WSDesign  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span>,  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">1</span><span class="op">)</span>,  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>,  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">2</span><span class="op">)</span>,</span>
+<span>                     <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">3</span><span class="op">)</span>,  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    plotStyle<span class="op">=</span><span class="st">"line"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="VignetteB_files/figure-html/unnamed-chunk-5-1.png" alt="**Figure 2**. Mean response times to say **Word** or **Non-word**." width="384"><p class="caption">
-<strong>Figure 2</strong>. Mean response times to say <strong>Word</strong> or <strong>Non-word</strong>.
+<strong>Figure 2</strong>. Mean response times to say
+<strong>Word</strong> or <strong>Non-word</strong>.
 </p>
 </div>
-<p>Really, the only new manipulation is the use of <code>WSDesign</code> where for each within-subject variable in the dataset, the levels of the corresponding factors (in the order they were given in <code>WSFactors</code>) are listed.</p>
-<p>(note that the WSDesign levels superseeds the total number of levels, <em>4</em>, given in the <code>WSFactors</code>. Hence, <code>Nletters</code> could be given as <code>Nletters(99)</code> or as <code>Nletters(1)</code>, that has no longer any impact on the plot.)</p>
+<p>Really, the only new manipulation is the use of <code>WSDesign</code>
+where for each within-subject variable in the dataset, the levels of the
+corresponding factors (in the order they were given in
+<code>WSFactors</code>) are listed.</p>
+<p>(note that the WSDesign levels superseeds the total number of levels,
+<em>4</em>, given in the <code>WSFactors</code>. Hence,
+<code>Nletters</code> could be given as <code>Nletters(99)</code> or as
+<code>Nletters(1)</code>, that has no longer any impact on the
+plot.)</p>
 </div>
-<div id="in-summary" class="section level2">
-<h2 class="hasAnchor">
-<a href="#in-summary" class="anchor"></a>In summary</h2>
-<p>Full-factorial design are generally prefered as powerfull analyses can manipulate such data (for example, the ANOVA). Further, causality in experimental designs are more aptly assessed with the full-factorial design. However, it is not always possible or usefull to run a full-factorial design.</p>
+<div class="section level2">
+<h2 id="in-summary">In summary<a class="anchor" aria-label="anchor" href="#in-summary"></a>
+</h2>
+<p>Full-factorial design are generally prefered as powerfull analyses
+can manipulate such data (for example, the ANOVA). Further, causality in
+experimental designs are more aptly assessed with the full-factorial
+design. However, it is not always possible or usefull to run a
+full-factorial design.</p>
 </div>
   </div>
 
@@ -299,11 +352,13 @@ WSDesign  = list(c(1,1), c(2,1), c(3,1), c(4,1), c(2,2), c(3,2),
 
 
       <footer><div class="copyright">
-  <p>Developed by Denis Cousineau.</p>
+  <p></p>
+<p>Developed by Denis Cousineau.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -311,6 +366,8 @@ WSDesign  = list(c(1,1), c(2,1), c(3,1), c(4,1), c(2,2), c(3,2),
 
   
 
+
+  
 
   </body>
 </html>

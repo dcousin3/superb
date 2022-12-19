@@ -27,6 +27,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -39,23 +41,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.6</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -68,7 +64,7 @@
       <a href="../articles/TheMakingOf.html">The making-of the figures in the article</a>
     </li>
     <li>
-      <a href="../articles/Vignette1.html">Four steps to make your plot</a>
+      <a href="../articles/Vignette1.html">Three steps to make your plot</a>
     </li>
     <li>
       <a href="../articles/Vignette2.html">Why use difference-adjusted confidence intervals?</a>
@@ -109,6 +105,9 @@
     <li>
       <a href="../articles/VignetteE.html">Adding labels to ``superb`` plots</a>
     </li>
+    <li>
+      <a href="../articles/VignetteF.html">Plotting frequencies using ``superb``</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -117,7 +116,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/dcousin3/superb/">
+  <a href="https://github.com/dcousin3/superb/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -132,37 +131,60 @@
 
       
 
-      </header><script src="Vignette8_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>(advanced) Alternate ways to decorrelate repeated measures from transformations</h1>
+      <h1 data-toc-skip>(advanced) Alternate ways to decorrelate
+repeated measures from transformations</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/dcousin3/superb/blob/master/../vignettes/Vignette8.Rmd"><code>../vignettes/Vignette8.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/dcousin3/superb/blob/HEAD/../vignettes/Vignette8.Rmd" class="external-link"><code>../vignettes/Vignette8.Rmd</code></a></small>
       <div class="hidden name"><code>Vignette8.Rmd</code></div>
 
     </div>
 
     
     
-<p>The methods <code>CM</code> <span class="citation">(Cousineau, 2005; Morey, 2008)</span> and <code>LM</code> <span class="citation">(Loftus &amp; Masson, 1994)</span> can be unified when the transformations they required are considered. In the Cousineau-Morey method, the raw data must be subject-centered and bias-corrected.</p>
+<p>The methods <code>CM</code> <span class="citation">(Cousineau, 2005;
+Morey, 2008)</span> and <code>LM</code> <span class="citation">(Loftus
+&amp; Masson, 1994)</span> can be unified when the transformations they
+required are considered. In the Cousineau-Morey method, the raw data
+must be subject-centered and bias-corrected.</p>
 <p>Subject centering is obtained from</p>
 <p><span class="math display">\[
 Y_{ij} = X_{ij} - \bar{X}_{i\cdot} + \bar{\bar{X}}
 \]</span></p>
-<p>in which <span class="math inline">\(i = 1..n\)</span> and <span class="math inline">\(j=1..C\)</span> where <span class="math inline">\(n\)</span> is the number of participants and <span class="math inline">\(C\)</span> is the number of repeated measures (sometimes noted with <span class="math inline">\(J\)</span>).</p>
+<p>in which <span class="math inline">\(i = 1..n\)</span> and <span class="math inline">\(j=1..C\)</span> where <span class="math inline">\(n\)</span> is the number of participants and <span class="math inline">\(C\)</span> is the number of repeated measures
+(sometimes noted with <span class="math inline">\(J\)</span>).</p>
 <p>Bias-correction is obtained from</p>
 <p><span class="math display">\[
-Z_{ij} = \sqrt{\frac{C}{C-1}} \left( Y_{ij} - \bar{Y}_{\cdot{}j} \right) + \bar{Y}_{\cdot{}j}
+Z_{ij} = \sqrt{\frac{C}{C-1}} \left( Y_{ij} - \bar{Y}_{\cdot{}j} \right)
++ \bar{Y}_{\cdot{}j}
 \]</span></p>
-<p>These two operations can be performed with two matrix transformations. In comparison, the <code>LM</code> method requires one additional step, that is, pooling standard deviation, also achievable with the following transformation.</p>
+<p>These two operations can be performed with two matrix
+transformations. In comparison, the <code>LM</code> method requires one
+additional step, that is, pooling standard deviation, also achievable
+with the following transformation.</p>
 <p><span class="math display">\[
-W_{ij} = \sqrt{\frac{S_p^2}{S_i^2}} \left( Z_{ij} - \bar{Z}_{\cdot{}j} \right) + \bar{Z}_{\cdot{}j}
+W_{ij} = \sqrt{\frac{S_p^2}{S_i^2}} \left( Z_{ij} - \bar{Z}_{\cdot{}j}
+\right) + \bar{Z}_{\cdot{}j}
 \]</span></p>
-<p>in which <span class="math inline">\(S_j^2\)</span> is the variance in measurement <span class="math inline">\(j\)</span> and <span class="math inline">\(S_p^2\)</span> is the pooled variance across all <span class="math inline">\(j\)</span> mesurements.</p>
-<p>With this approach, we can categorize all the proposals to repeated measure precision as requiring or not certain transformations. Table 1 shows these.</p>
-<p><strong>Table 1</strong>. Transformations required to implement one of the repeated-measures method. Preprocessing must precede post-processing</p>
+<p>in which <span class="math inline">\(S_j^2\)</span> is the variance
+in measurement <span class="math inline">\(j\)</span> and <span class="math inline">\(S_p^2\)</span> is the pooled variance across all
+<span class="math inline">\(j\)</span> mesurements.</p>
+<p>With this approach, we can categorize all the proposals to repeated
+measure precision as requiring or not certain transformations. Table 1
+shows these.</p>
+<p><strong>Table 1</strong>. Transformations required to implement one
+of the repeated-measures method. Preprocessing must precede
+post-processing</p>
 <table class="table">
+<colgroup>
+<col width="22%">
+<col width="22%">
+<col width="22%">
+<col width="32%">
+</colgroup>
 <thead><tr class="header">
 <th>Method</th>
 <th>preprocessing</th>
@@ -202,94 +224,130 @@ W_{ij} = \sqrt{\frac{S_p^2}{S_i^2}} \left( Z_{ij} - \bar{Z}_{\cdot{}j} \right) +
 </tr>
 </tbody>
 </table>
-<p>From that point of view, we see that the Nathoo, Kilshaw and Masson NKM <span class="citation">(Nathoo, Kilshaw, &amp; Masson, 2018; but see Heck, 2019 )</span> method is missing a bias-correction transformation, which explains why these error bars are shorter. The original proposal found in Cousineau, 2005, is also missing the bias correction step, which led Morey (2008) to supplement this approach. With these four approaches, we have exhausted all the possible combinations regarding decorrelation methods based on subject-centering.</p>
-<p>We added two arguments in superbPlot to handle this transformation approach, the first is <code>preprocessfct</code> and the second is <code>postprocessfct</code>.</p>
-<p>Assuming a dataset dta with replicated measures stored in say columns called <code>Score.1</code>, <code>Score.2</code> and <code>Score.3</code>, the command</p>
+<p>From that point of view, we see that the Nathoo, Kilshaw and Masson
+NKM <span class="citation">(Nathoo, Kilshaw, &amp; Masson, 2018; but see
+Heck, 2019 )</span> method is missing a bias-correction transformation,
+which explains why these error bars are shorter. The original proposal
+found in Cousineau, 2005, is also missing the bias correction step,
+which led Morey (2008) to supplement this approach. With these four
+approaches, we have exhausted all the possible combinations regarding
+decorrelation methods based on subject-centering.</p>
+<p>We added two arguments in superbPlot to handle this transformation
+approach, the first is <code>preprocessfct</code> and the second is
+<code>postprocessfct</code>.</p>
+<p>Assuming a dataset dta with replicated measures stored in say columns
+called <code>Score.1</code>, <code>Score.2</code> and
+<code>Score.3</code>, the command</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pCM</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, WSFactors <span class="op">=</span> <span class="st">"moment(3)"</span>,     
-  variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Score.1"</span>,<span class="st">"Score.2"</span>,<span class="st">"Score.3"</span><span class="op">)</span>, 
-  adjustments<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>decorrelation<span class="op">=</span><span class="st">"none"</span><span class="op">)</span>,
-  preprocessfct <span class="op">=</span> <span class="st">"subjectCenteringTransform"</span>,
-  postprocessfct <span class="op">=</span> <span class="st">"biasCorrectionTransform"</span>,
-  plotStyle <span class="op">=</span> <span class="st">"pointjitter"</span>,
-  errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"red"</span>, width<span class="op">=</span> <span class="fl">0.1</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html">position_nudge</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.05</span><span class="op">)</span> <span class="op">)</span>
-<span class="op">)</span></code></pre></div>
-<p>will reproduce the <code>CM</code> error bars because it decorrelates the data as per this method. With one additional transformation,</p>
+<code class="sourceCode R"><span><span class="va">pCM</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, WSFactors <span class="op">=</span> <span class="st">"moment(3)"</span>,     </span>
+<span>  variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Score.1"</span>,<span class="st">"Score.2"</span>,<span class="st">"Score.3"</span><span class="op">)</span>, </span>
+<span>  adjustments<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>decorrelation<span class="op">=</span><span class="st">"none"</span><span class="op">)</span>,</span>
+<span>  preprocessfct <span class="op">=</span> <span class="st">"subjectCenteringTransform"</span>,</span>
+<span>  postprocessfct <span class="op">=</span> <span class="st">"biasCorrectionTransform"</span>,</span>
+<span>  plotStyle <span class="op">=</span> <span class="st">"pointjitter"</span>,</span>
+<span>  errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"red"</span>, width<span class="op">=</span> <span class="fl">0.1</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html" class="external-link">position_nudge</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.05</span><span class="op">)</span> <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>will reproduce the <code>CM</code> error bars because it decorrelates
+the data as per this method. With one additional transformation,</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pLM</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, WSFactors <span class="op">=</span> <span class="st">"moment(3)"</span>, 
-  variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Score.1"</span>,<span class="st">"Score.2"</span>,<span class="st">"Score.3"</span><span class="op">)</span>, 
-  adjustments<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>decorrelation<span class="op">=</span><span class="st">"none"</span><span class="op">)</span>,
-  preprocessfct <span class="op">=</span> <span class="st">"subjectCenteringTransform"</span>,
-  postprocessfct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"biasCorrectionTransform"</span>,<span class="st">"poolSDTransform"</span><span class="op">)</span>,
-  plotStyle <span class="op">=</span> <span class="st">"line"</span>,
-  errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"orange"</span>, width<span class="op">=</span> <span class="fl">0.1</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html">position_nudge</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.0</span><span class="op">)</span> <span class="op">)</span>
-<span class="op">)</span></code></pre></div>
-<p>the <code>LM</code> method is reproduced. Finally, if the <code>biasCorrectionTransform</code> is omitted, we get the NKM error bars with:</p>
+<code class="sourceCode R"><span><span class="va">pLM</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, WSFactors <span class="op">=</span> <span class="st">"moment(3)"</span>, </span>
+<span>  variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Score.1"</span>,<span class="st">"Score.2"</span>,<span class="st">"Score.3"</span><span class="op">)</span>, </span>
+<span>  adjustments<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>decorrelation<span class="op">=</span><span class="st">"none"</span><span class="op">)</span>,</span>
+<span>  preprocessfct <span class="op">=</span> <span class="st">"subjectCenteringTransform"</span>,</span>
+<span>  postprocessfct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"biasCorrectionTransform"</span>,<span class="st">"poolSDTransform"</span><span class="op">)</span>,</span>
+<span>  plotStyle <span class="op">=</span> <span class="st">"line"</span>,</span>
+<span>  errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"orange"</span>, width<span class="op">=</span> <span class="fl">0.1</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html" class="external-link">position_nudge</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.0</span><span class="op">)</span> <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>the <code>LM</code> method is reproduced. Finally, if the
+<code>biasCorrectionTransform</code> is omitted, we get the NKM error
+bars with:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pNKM</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, WSFactors <span class="op">=</span> <span class="st">"moment(3)"</span>, 
-  variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Score.1"</span>,<span class="st">"Score.2"</span>,<span class="st">"Score.3"</span><span class="op">)</span>, 
-  adjustments<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>decorrelation<span class="op">=</span><span class="st">"none"</span><span class="op">)</span>,
-  preprocessfct <span class="op">=</span> <span class="st">"subjectCenteringTransform"</span>,
-  postprocessfct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"poolSDTransform"</span><span class="op">)</span>,
-  plotStyle <span class="op">=</span> <span class="st">"line"</span>,
-  errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"blue"</span>, width<span class="op">=</span> <span class="fl">0.1</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html">position_nudge</a></span><span class="op">(</span><span class="op">+</span><span class="fl">0.05</span><span class="op">)</span> <span class="op">)</span>
-<span class="op">)</span></code></pre></div>
-<p>In what follow, I justapose the three plots to see the differences:</p>
+<code class="sourceCode R"><span><span class="va">pNKM</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, WSFactors <span class="op">=</span> <span class="st">"moment(3)"</span>, </span>
+<span>  variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Score.1"</span>,<span class="st">"Score.2"</span>,<span class="st">"Score.3"</span><span class="op">)</span>, </span>
+<span>  adjustments<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>decorrelation<span class="op">=</span><span class="st">"none"</span><span class="op">)</span>,</span>
+<span>  preprocessfct <span class="op">=</span> <span class="st">"subjectCenteringTransform"</span>,</span>
+<span>  postprocessfct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"poolSDTransform"</span><span class="op">)</span>,</span>
+<span>  plotStyle <span class="op">=</span> <span class="st">"line"</span>,</span>
+<span>  errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"blue"</span>, width<span class="op">=</span> <span class="fl">0.1</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html" class="external-link">position_nudge</a></span><span class="op">(</span><span class="op">+</span><span class="fl">0.05</span><span class="op">)</span> <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>In what follow, I justapose the three plots to see the
+differences:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tlbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span> <span class="st">"(red)    Subject centering &amp; Bias correction == CM\n"</span>,
-               <span class="st">"(orange) Subject centering, Bias correction &amp; Pooling SDs == LM\n"</span>,
-               <span class="st">"(blue)   Subject centering &amp; Pooling SDs == NKM"</span>, sep<span class="op">=</span><span class="st">""</span><span class="op">)</span>
-
-<span class="va">ornate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Group"</span><span class="op">)</span>,
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"Score"</span><span class="op">)</span>,
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>   title<span class="op">=</span><span class="va">tlbl</span><span class="op">)</span>,
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">12</span>,<span class="fl">18</span><span class="op">)</span> <span class="op">)</span>,
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span><span class="op">(</span>base_size<span class="op">=</span><span class="fl">10</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="co"># the plots on top are made transparent</span>
-<span class="va">pCM2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplotGrob.html">ggplotGrob</a></span><span class="op">(</span><span class="va">pCM</span> <span class="op">+</span> <span class="va">ornate</span><span class="op">)</span>
-<span class="va">pLM2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplotGrob.html">ggplotGrob</a></span><span class="op">(</span><span class="va">pLM</span> <span class="op">+</span> <span class="va">ornate</span> <span class="op">+</span> <span class="fu"><a href="../reference/makeTransparent.html">makeTransparent</a></span><span class="op">(</span><span class="op">)</span> <span class="op">)</span>
-<span class="va">pNKM2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplotGrob.html">ggplotGrob</a></span><span class="op">(</span><span class="va">pNKM</span> <span class="op">+</span> <span class="va">ornate</span> <span class="op">+</span> <span class="fu"><a href="../reference/makeTransparent.html">makeTransparent</a></span><span class="op">(</span><span class="op">)</span> <span class="op">)</span>
-
-<span class="co"># put the grobs onto an empty ggplot </span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">pCM2</span><span class="op">)</span> <span class="op">+</span> 
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">pLM2</span><span class="op">)</span> <span class="op">+</span> 
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">pNKM2</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tlbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span> <span class="st">"(red)    Subject centering &amp; Bias correction == CM\n"</span>,</span>
+<span>               <span class="st">"(orange) Subject centering, Bias correction &amp; Pooling SDs == LM\n"</span>,</span>
+<span>               <span class="st">"(blue)   Subject centering &amp; Pooling SDs == NKM"</span>, sep<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ornate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"Group"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Score"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>   title<span class="op">=</span><span class="va">tlbl</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12</span>,<span class="fl">18</span><span class="op">)</span> <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_light</a></span><span class="op">(</span>base_size<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># the plots on top are made transparent</span></span>
+<span><span class="va">pCM2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplotGrob.html" class="external-link">ggplotGrob</a></span><span class="op">(</span><span class="va">pCM</span> <span class="op">+</span> <span class="va">ornate</span><span class="op">)</span></span>
+<span><span class="va">pLM2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplotGrob.html" class="external-link">ggplotGrob</a></span><span class="op">(</span><span class="va">pLM</span> <span class="op">+</span> <span class="va">ornate</span> <span class="op">+</span> <span class="fu"><a href="../reference/makeTransparent.html">makeTransparent</a></span><span class="op">(</span><span class="op">)</span> <span class="op">)</span></span>
+<span><span class="va">pNKM2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplotGrob.html" class="external-link">ggplotGrob</a></span><span class="op">(</span><span class="va">pNKM</span> <span class="op">+</span> <span class="va">ornate</span> <span class="op">+</span> <span class="fu"><a href="../reference/makeTransparent.html">makeTransparent</a></span><span class="op">(</span><span class="op">)</span> <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># put the grobs onto an empty ggplot </span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html" class="external-link">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">pCM2</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html" class="external-link">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">pLM2</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html" class="external-link">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">pNKM2</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="Vignette8_files/figure-html/unnamed-chunk-5-1.png" alt="**Figure 1**. Plot of the tree decorrelation methods based on subject transformation." width="672"><p class="caption">
-<strong>Figure 1</strong>. Plot of the tree decorrelation methods based on subject transformation.
+<strong>Figure 1</strong>. Plot of the tree decorrelation methods based
+on subject transformation.
 </p>
 </div>
-<p>The method from Cousineau (2005) missing the bias-correction step is not shown as it should not be used.</p>
-<div id="in-summary" class="section level2">
-<h2 class="hasAnchor">
-<a href="#in-summary" class="anchor"></a>In summary</h2>
-<p>All the decorrelation methods based on transformations have (probably) been explored. An alternative approach using correlation was proposed in <span class="citation">Cousineau (2019)</span>. All these approaches requires sphericity of the data. Other approaches are required to overcome this sphericity limitations.</p>
+<p>The method from Cousineau (2005) missing the bias-correction step is
+not shown as it should not be used.</p>
+<div class="section level3">
+<h3 id="in-summary">In summary<a class="anchor" aria-label="anchor" href="#in-summary"></a>
+</h3>
+<p>All the decorrelation methods based on transformations have
+(probably) been explored. An alternative approach using correlation was
+proposed in <span class="citation">Cousineau (2019)</span>. All these
+approaches requires sphericity of the data. Other approaches are
+required to overcome this sphericity limitations.</p>
 </div>
-<div id="references" class="section level1 unnumbered">
-<h1 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h1>
+<div class="section level2">
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
 <div id="ref-c05" class="csl-entry">
-Cousineau, D. (2005). Confidence intervals in within-subject designs: A simpler solution to <span>L</span>oftus and <span>M</span>asson’s method. <em>Tutorials in Quantitative Methods for Psychology</em>, <em>1</em>, 42–45. <a href="https://doi.org/10.20982/tqmp.01.1.p042">https://doi.org/10.20982/tqmp.01.1.p042</a>
+Cousineau, D. (2005). Confidence intervals in within-subject designs: A
+simpler solution to <span>L</span>oftus and <span>M</span>asson’s
+method. <em>Tutorials in Quantitative Methods for Psychology</em>,
+<em>1</em>, 42–45. <a href="https://doi.org/10.20982/tqmp.01.1.p042" class="external-link">https://doi.org/10.20982/tqmp.01.1.p042</a>
 </div>
 <div id="ref-c19" class="csl-entry">
-Cousineau, D. (2019). Correlation-adjusted standard errors and confidence intervals for within-subject designs: A simple multiplicative approach. <em>The Quantitative Methods for Psychology</em>, <em>15</em>, 226–241. <a href="https://doi.org/10.20982/tqmp.15.3.p226">https://doi.org/10.20982/tqmp.15.3.p226</a>
+Cousineau, D. (2019). Correlation-adjusted standard errors and
+confidence intervals for within-subject designs: A simple multiplicative
+approach. <em>The Quantitative Methods for Psychology</em>, <em>15</em>,
+226–241. <a href="https://doi.org/10.20982/tqmp.15.3.p226" class="external-link">https://doi.org/10.20982/tqmp.15.3.p226</a>
 </div>
 <div id="ref-h19" class="csl-entry">
-Heck, D. W. (2019). Accounting for estimation uncertainty and shrinkage in bayesian within-subject intervals: A comment on <span>N</span>athoo, <span>K</span>ilshaw, and <span>M</span>asson (2018). <em>Journal of Mathematical Psychology</em>, <em>88</em>, 27–31. <a href="https://doi.org/10.1016/j.jmp.2018.11.002">https://doi.org/10.1016/j.jmp.2018.11.002</a>
+Heck, D. W. (2019). Accounting for estimation uncertainty and shrinkage
+in bayesian within-subject intervals: A comment on <span>N</span>athoo,
+<span>K</span>ilshaw, and <span>M</span>asson (2018). <em>Journal of
+Mathematical Psychology</em>, <em>88</em>, 27–31. <a href="https://doi.org/10.1016/j.jmp.2018.11.002" class="external-link">https://doi.org/10.1016/j.jmp.2018.11.002</a>
 </div>
 <div id="ref-lm94" class="csl-entry">
-Loftus, G. R., &amp; Masson, M. E. J. (1994). Using confidence intervals in within-subject designs. <em>Psychonomic Bulletin &amp; Review</em>, <em>1</em>, 476–490. <a href="https://doi.org/10.3758/BF03210951">https://doi.org/10.3758/BF03210951</a>
+Loftus, G. R., &amp; Masson, M. E. J. (1994). Using confidence intervals
+in within-subject designs. <em>Psychonomic Bulletin &amp; Review</em>,
+<em>1</em>, 476–490. <a href="https://doi.org/10.3758/BF03210951" class="external-link">https://doi.org/10.3758/BF03210951</a>
 </div>
 <div id="ref-m08" class="csl-entry">
-Morey, R. D. (2008). Confidence intervals from normalized data: A correction to <span>C</span>ousineau (2005). <em>Tutorials in Quantitative Methods for Psychology</em>, <em>4</em>, 61–64. <a href="https://doi.org/10.20982/tqmp.04.2.p061">https://doi.org/10.20982/tqmp.04.2.p061</a>
+Morey, R. D. (2008). Confidence intervals from normalized data: A
+correction to <span>C</span>ousineau (2005). <em>Tutorials in
+Quantitative Methods for Psychology</em>, <em>4</em>, 61–64. <a href="https://doi.org/10.20982/tqmp.04.2.p061" class="external-link">https://doi.org/10.20982/tqmp.04.2.p061</a>
 </div>
 <div id="ref-nkm18" class="csl-entry">
-Nathoo, F. S., Kilshaw, R. E., &amp; Masson, M. E. J. (2018). A better (bayesian) interval estimate for within-subject designs. <em>Journal of Mathematical Psychology</em>, <em>86</em>, 1–9. <a href="https://doi.org/10.1016/j.jmp.2018.07.005">https://doi.org/10.1016/j.jmp.2018.07.005</a>
+Nathoo, F. S., Kilshaw, R. E., &amp; Masson, M. E. J. (2018). A better
+(bayesian) interval estimate for within-subject designs. <em>Journal of
+Mathematical Psychology</em>, <em>86</em>, 1–9. <a href="https://doi.org/10.1016/j.jmp.2018.07.005" class="external-link">https://doi.org/10.1016/j.jmp.2018.07.005</a>
 </div>
 </div>
 </div>
@@ -306,11 +364,13 @@ Nathoo, F. S., Kilshaw, R. E., &amp; Masson, M. E. J. (2018). A better (bayesian
 
 
       <footer><div class="copyright">
-  <p>Developed by Denis Cousineau.</p>
+  <p></p>
+<p>Developed by Denis Cousineau.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -318,6 +378,8 @@ Nathoo, F. S., Kilshaw, R. E., &amp; Masson, M. E. J. (2018). A better (bayesian
 
   
 
+
+  
 
   </body>
 </html>

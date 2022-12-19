@@ -1,0 +1,231 @@
+---
+title: "Plotting frequencies using ``superb``"
+bibliography: "../inst/REFERENCES.bib"
+csl: "../inst/apa-6th.csl"
+output: 
+  rmarkdown::html_vignette
+description: >
+  This vignette shows how to plot frequencies along
+  with confidence intervals.
+vignette: >
+  %\VignetteIndexEntry{Plotting frequencies using ``superb``}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+
+```{r, echo = FALSE, warning=FALSE, message = FALSE, results = 'hide', warning = FALSE}
+cat("this will be hidden; use for general initializations.\n")
+library(superb)
+library(ggplot2)
+options(superb.feedback = 'none')
+```
+
+
+## How to plot frequencies along with confidence intervals using ``superb``
+
+Many studies collect data that are categorized according to one or some factors. For example, it is possible to categorize a sample of college students based on their gender and on their projects after college is finished (go to university, get a job, etc.). Here, there are two "factors": gender and plans post studies. The measure for each participant is in which of the "cells" the participant is categorized. Typically, the data are summarized as _frequencies_, that is, the _count_ of participants in each of the various combinations of the factor levels. For two classification factors, the data are said to be two-way classfication data, or to form a contingency table. Nothing prevent from having more than 2 factors, e.g., a three-way classification data.
+
+Although frequencies are often given in a table, these tables provides very little insight with regards to trends. It is far more adviseable to illustrate the frequencies using a plot showing the count in each levels of the factors. However, to be truly informative, such a plot should be accompanied with error bars such as the confidence interval. Herein, we show how this can be done. 
+
+We adopted an approach based on the pivot method developed by @cp34. This method is given in an analytic form in @lt96. Such confidence intervals are commonly non-symmetrical around the estimate; they are also exact or conservative, in which case the length of the interval tends to be too long when the frequencies are small [@c90].
+
+Given the total sample size $N$ in all the cells, each observed frequency $n$ in a given cell is used to get lower and upper confidence bounds around the proportion $\hat{p}=n/N$ with the formula:
+\[
+    \hat{\pi}_{\,\text{low}}=\left(
+        1+\frac{N-n+1}{n F_{1-\alpha/2}(2n,2(N-n+1)}
+    \right)^{-1}
+    < \hat{\pi} <
+    \left( 
+        1+\frac{N-n}{(n+1) F_{\alpha/2}(2(n+1),2(N-x)}
+    \right)^{-1}
+    =\hat{\pi}_{\,\text{high}} 
+\]
+in which  $F_{q}$ denotes the $100\;q$% quantile of an $F$ distribution and $1-\alpha $ the desired coverage of the interval, often 95%. The interval 
+\[
+    \{n_{\,\text{low}}, n_{\,\text{high}} \} = N \, \times\, \{ \hat{\pi}_{\,\text{low}}, \hat{\pi}_{\,\text{high}} \} 
+\]
+is then used as a $100 (1-\alpha)$% confidence interval of the observed frequency $n$ which can be used to compare one frequency to an expected or theoretical frequency. Such an unadjusted confidence interval is termed a *stand-alone confidence interval* [@cgh21]. 
+
+As more commonly, we wish to compare an observed frequency to another observed frequency, a _difference-adjusted_ confidence interval is sought. To obtain a difference-adjusted confidence interval, it is required to multiply the interval width by 2, 
+\[
+    n_{\,\text{low}}^* =  2(n-n_{\,\text{low}})+n 
+\]
+\[
+    n_{\,\text{high}}^* =  2(n_{\,\text{high}}-n)+n
+\]
+where the asterisk denotes difference-adjusted confidence interval limits.  Thus, the interval  
+\[
+    \{ n^*_{\,\text{low}}, n^*_{\,\text{high}} \} 
+\]
+is the _difference-adjusted_ $100 (1-\alpha)$% confidence interval [@b12]. The difference-adjusted confidence intervals allow comparing the frequencies pairwise rather than to a theoretical frequency. 
+
+
+
+## Why multiply the stand-alone CI length by 2?
+
+The reason for the multiplication by 2 is two-fold. First, to obtain a difference-adjusted confidence interval (CI), it is necessary to multiply the CI width by $\sqrt{2}$ (under the assumption of homogeneous variance). Second, as the total must necessarily be equal to $N$, the observed frequencies are correlated and this correlation equals $-1 / (C-1)$ where $C$ is the number of class. As this CI is meant for pair-wise comparisons, $C$ is replaced by 2 in this formula, resulting in a second, correlation-based, correction of $\sqrt{1-r} = \sqrt{1 - (-1/(2-1))} = \sqrt{2}$. As usual, both corrections to the CI width are multiplicative.
+
+
+
+
+## One illustration
+
+To illustrate the method on a real data set, we enter the data set found in @lm71. The data counts the number of teenagers based (first factor) on their gender an on (second factor) their educational vocation (the type of studies they want to complete in the future). The sample is composed of 617 teens. To generate the dataset, we use the following:
+
+```{r, eval=TRUE}
+dta <- data.frame(
+    vocation = factor(unlist(lapply(c("Secondary","Vocational","Teacher","Gymnasium","University"), function(p) rep(p,2))), 
+                    levels = c("Secondary","Vocational","Teacher","Gymnasium","University")),
+    gender  = factor(rep(c("Boys","Girls"),5), levels=c("Boys","Girls")),
+    obsfreq   = c(62,61,121,149,26,41,33,20,84,20)
+)
+```
+
+The function ``factor`` uses the argument ``levels`` to specify the order in which the items are to be plotted; otherwise, the default order is alphabetic order.
+
+If you have the data in a file, it is actually a lot more easier to import the file!
+
+Here are the data _in extenso_:
+```{r, eval=TRUE}
+dta
+```
+
+
+To have a quick-and-dirty plot, just display the raw counts with no error bars
+
+```{r, eval=TRUE, fig.width = 6, eval=TRUE, fig.cap="**Figure 1: A quick-and-dirty plot**"}
+plt1 <- superbPlot(
+    dta,
+    BSFactors = c("vocation","gender"),
+    variables = "obsfreq",                      # name of the column with the counts
+    statistic = "identity",                     # the raw data as is
+    errorbar  = "none",                         # no error bars
+    # the following is for the look of the plot
+    plotStyle      = "line",                    # style of the plot
+    lineParams     = list( size = 1.0)          # thicker lines as well
+)
+plt1
+```
+
+
+
+ 
+## Define the confidence interval function
+
+First, we need the summary function that computes the frequency. This is actually the datum stored in the data frame, so there is nothing to compute.
+
+```{r, eval=TRUE}
+count <- function(x) x[1]
+```
+
+
+Second, we need an initalizer that will fetch the total sample size $N$ and dump it in the global environment for later use:
+
+```{r, eval=TRUE}
+init.count <- function(df) {
+    totalcount <<- sum(df$DV)
+}
+```
+
+Third and lastly, we compute the confidence interval limits using @cp34 approach using the @lt96  analytic expression:
+
+```{r, eval=TRUE}
+CI.count <- function(n, gamma=0.95) {
+    N <- totalcount    
+
+    # Clopper & Pearson CI from Leemis & Trivedi, 1996
+    plow <- (1+(N-n+1)/((n+0)*qf(1/2-gamma/2,2*(n+0),2*(N-n+1))))^(-1)
+    phig <- (1+(N-n+0)/((n+1)*qf(1/2+gamma/2,2*(n+1),2*(N-n+0))))^(-1)
+
+    # convert to CI on counts
+    nlow <- totalcount * plow
+    nhig <- totalcount * phig
+
+    # increase width for difference- and correlation-adjustments
+    2 * c( nlow[1]-n[1], nhig[1]-n[1] ) + n[1]
+}
+```
+
+This is it! All the statistical functions needed to make the plot are in place.
+
+
+## Make a count plot with confidence intervals
+
+
+```{r, eval=TRUE, fig.width = 6, eval=TRUE, fig.cap="**Figure 2: A complete plot**"}
+plt2 <- superbPlot(
+    dta,
+    BSFactors = c("vocation","gender"),
+    variables = "obsfreq",
+    statistic = "count",                           # the function defined above
+    errorbar  = "CI",                              # its CI define above
+    # the following is for the look of the plot
+    plotStyle      = "line",                       # style of the plot
+    errorbarParams = list( width =0.5, size=0.75 ),# have thicker error bars
+    lineParams     = list( size = 1.0)             # thicker lines as well
+)
+plt2
+```
+
+The plot is drab so let's add some ornaments to it:
+
+```{r, eval=TRUE, fig.width = 6, eval=TRUE, fig.cap="**Figure 3: An ornated plot**"}
+ornate <- list(
+    xlab("Educational vocation"),                      # label on the x-axis
+    ylab("Observed frequency"),                        # label on the y-axis
+    theme_bw(base_size = 16),                          # black and white theme
+    scale_x_discrete(guide = guide_axis(n.dodge = 2))  # unalign labels
+    # etc. anything accepted by ggplots can be added.
+)
+plt3 <- plt2 + ornate
+plt3
+```
+
+
+## The benefit of the plot
+
+If you look at the plot, it becomes readily apparent that the boys and the girls had (in the 1960s) the same educational aspirations. The only exception is with regards to attending university where girls where fewer to have this aspiration.
+
+Now return to the data listed above, and tell me if you had noticed that. *Most certainly not*. Tables are terribly inefficient tools to convey trends whereas plots are 
+ideal to that end. When combined with a decent measure of error (here, the confidence interval), it is fairly easy to decide if the trends are reliable or accidental.
+
+
+
+
+## Are we sure?
+
+The plot with _difference-adjusted_ confidence interval is a very reliable tool to make inference-by-eye. In doubt however, go run the exact test. In the present case, we performed an ANOFA (Analysis of Frequency tAble; @lc23b). It shows that the interaction is highly significant; subsequent simple effect analyses show that this is
+indeed the university aspiration that triggered that interaction.
+
+ANOFA table:
+
+|                 |   $G$      | df	| $G_{corrected}$ | $p$      |  
+|-----------------|------------|-----|----------------|----------|
+|Total	          | 266.8894   | 9	|                 |          |
+|  Aspiration (A) | 215.0163   | 4  | 214.6684	      | < 0.0001 |
+|  Gender (B)     |   1.9865   | 1	|   1.9849        | 0.1589   |
+|  A $\times$ B   |  49.8867   | 4  |  49.5554        | < 0.0001 |
+
+Decomposition of the interaction and the Aspiration effects:
+
+| Simple effect                     | $G$     | df| $G_{corrected}$	 | $p$   |
+|-----------------------------------|---------|---|----------|----------|
+| Gender within Secondary school    | 0.0081  | 1 | 0.0081	 | 0.9282   |
+| Gender within Vocational training | 2.9089  | 1 | 2.9078	 | 0.0881   |
+| Gender within Teacher college     | 3.3868  | 1 | 3.3855	 | 0.0658   |
+| Gender within Gymnasium           | 3.2214  | 1 | 3.2201	 | 0.0727   |
+| Gender within University          | 42.3478 | 1 | 42.3307	 | <0.0001  |
+
+
+
+## In summary
+
+
+Frequencies, a.k.a. counts, can be displayed with appropriate confidence intervals without any problem. They are just another regular dependent variable in the researcher's toolkit. 
+
+
+
+# References
+
+

@@ -1,7 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://dcousin3.github.io/superb/404.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/articles/CustomizingSuperbPlots.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/articles/TheMakingOf.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/articles/Vignette1.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/articles/Vignette2.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/articles/Vignette3.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/articles/Vignette4.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/articles/Vignette5.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/articles/Vignette6.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/articles/Vignette7.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/articles/Vignette8.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/articles/Vignette9.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/articles/VignetteA.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/articles/VignetteB.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/articles/VignetteC.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/articles/VignetteD.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/articles/VignetteE.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/articles/VignetteF.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/authors.html</loc>
+  </url>
+  <url>
     <loc>http://dcousin3.github.io/superb/index.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/news/index.html</loc>
   </url>
   <url>
     <loc>http://dcousin3.github.io/superb/reference/biasCorrectionTransform.html</loc>
@@ -32,6 +95,9 @@
   </url>
   <url>
     <loc>http://dcousin3.github.io/superb/reference/HyunhFeldtEpsilon.html</loc>
+  </url>
+  <url>
+    <loc>http://dcousin3.github.io/superb/reference/index.html</loc>
   </url>
   <url>
     <loc>http://dcousin3.github.io/superb/reference/makeTransparent.html</loc>
@@ -82,6 +148,9 @@
     <loc>http://dcousin3.github.io/superb/reference/superbPlot.halfwidthline.html</loc>
   </url>
   <url>
+    <loc>http://dcousin3.github.io/superb/reference/superbPlot.html</loc>
+  </url>
+  <url>
     <loc>http://dcousin3.github.io/superb/reference/superbPlot.line.html</loc>
   </url>
   <url>
@@ -103,9 +172,6 @@
     <loc>http://dcousin3.github.io/superb/reference/superbPlot.raincloud.html</loc>
   </url>
   <url>
-    <loc>http://dcousin3.github.io/superb/reference/superbPlot.html</loc>
-  </url>
-  <url>
     <loc>http://dcousin3.github.io/superb/reference/superbShiny.html</loc>
   </url>
   <url>
@@ -119,53 +185,5 @@
   </url>
   <url>
     <loc>http://dcousin3.github.io/superb/reference/WinerCompoundSymmetryTest.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/CustomizingSuperbPlots.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/TheMakingOf.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/Vignette1.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/Vignette2.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/Vignette3.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/Vignette4.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/Vignette5.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/Vignette6.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/Vignette7.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/Vignette8.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/Vignette9.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/VignetteA.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/VignetteB.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/VignetteC.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/VignetteD.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/VignetteE.html</loc>
   </url>
 </urlset>

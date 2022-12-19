@@ -27,6 +27,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -39,23 +41,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.6</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -68,7 +64,7 @@
       <a href="../articles/TheMakingOf.html">The making-of the figures in the article</a>
     </li>
     <li>
-      <a href="../articles/Vignette1.html">Four steps to make your plot</a>
+      <a href="../articles/Vignette1.html">Three steps to make your plot</a>
     </li>
     <li>
       <a href="../articles/Vignette2.html">Why use difference-adjusted confidence intervals?</a>
@@ -109,6 +105,9 @@
     <li>
       <a href="../articles/VignetteE.html">Adding labels to ``superb`` plots</a>
     </li>
+    <li>
+      <a href="../articles/VignetteF.html">Plotting frequencies using ``superb``</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -117,7 +116,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/dcousin3/superb/">
+  <a href="https://github.com/dcousin3/superb/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -132,48 +131,59 @@
 
       
 
-      </header><script src="VignetteE_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Adding labels to <code>superb</code> plots</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/dcousin3/superb/blob/master/../vignettes/VignetteE.Rmd"><code>../vignettes/VignetteE.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/dcousin3/superb/blob/HEAD/../vignettes/VignetteE.Rmd" class="external-link"><code>../vignettes/VignetteE.Rmd</code></a></small>
       <div class="hidden name"><code>VignetteE.Rmd</code></div>
 
     </div>
 
     
     
-<div id="adding-labels-to-your-superb-plot" class="section level1">
-<h1 class="hasAnchor">
-<a href="#adding-labels-to-your-superb-plot" class="anchor"></a>Adding labels to your superb plot</h1>
-<p>It is possible to add labels to your plot. For example, adding the score above a bar. This is done using the <code>geom_text</code> graphic directive from <code>ggplot2</code> library.</p>
-<p>Two situations are possible: 1- the labels are actually summary statistics computed by superb 2- the labels are other information not contained in the summary statistics.</p>
-<div id="the-labels-are-actually-summary-statistics-computed-by-superb" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-labels-are-actually-summary-statistics-computed-by-superb" class="anchor"></a>1- the labels are actually summary statistics computed by superb</h2>
-<p>When processing the data, superb is actually building a data frame with only the relevant statistics that are named internally “center,” “lowerwidth” and “upperwidth.” The first is the statistic to be displayed (e.g., the mean), the other two are the lower and upper limit of the error bar, relative to center.</p>
-<p>Hence, if you want to show the summary statistic, you can build you summary plot, e.g.,</p>
+<div class="section level2">
+<h2 id="adding-labels-to-your-superb-plot">Adding labels to your superb plot<a class="anchor" aria-label="anchor" href="#adding-labels-to-your-superb-plot"></a>
+</h2>
+<p>It is possible to add labels to your plot. For example, adding the
+score above a bar. This is done using the <code>geom_text</code> graphic
+directive from <code>ggplot2</code> library.</p>
+<p>Two situations are possible: 1- the labels are actually summary
+statistics computed by superb 2- the labels are other information not
+contained in the summary statistics.</p>
+<div class="section level3">
+<h3 id="the-labels-are-actually-summary-statistics-computed-by-superb">1- the labels are actually summary statistics computed by
+superb<a class="anchor" aria-label="anchor" href="#the-labels-are-actually-summary-statistics-computed-by-superb"></a>
+</h3>
+<p>When processing the data, superb is actually building a data frame
+with only the relevant statistics that are named internally “center”,
+“lowerwidth” and “upperwidth”. The first is the statistic to be
+displayed (e.g., the mean), the other two are the lower and upper limit
+of the error bar, relative to center.</p>
+<p>Hence, if you want to show the summary statistic, you can build you
+summary plot, e.g.,</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dcousin3.github.io/superb/">superb</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
-<span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">ToothGrowth</span>, 
-    BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dose"</span>,<span class="st">"supp"</span><span class="op">)</span>, 
-    variables <span class="op">=</span> <span class="st">"len"</span> <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dcousin3.github.io/superb/" class="external-link">superb</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">ToothGrowth</span>, </span>
+<span>    BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dose"</span>,<span class="st">"supp"</span><span class="op">)</span>, </span>
+<span>    variables <span class="op">=</span> <span class="st">"len"</span> <span class="op">)</span></span></code></pre></div>
 <p>then add to <code>t</code> the labels with</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">t</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">dose</span>, y<span class="op">=</span><span class="va">center</span>, label<span class="op">=</span><span class="va">center</span><span class="op">)</span> <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">t</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">dose</span>, y<span class="op">=</span><span class="va">center</span>, label<span class="op">=</span><span class="va">center</span><span class="op">)</span> <span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="VignetteE_files/figure-html/unnamed-chunk-3-1.png" alt="**Figure 1: A basic plot**" width="384"><p class="caption">
 <strong>Figure 1: A basic plot</strong>
 </p>
 </div>
-<p>The labels will be poorly placed, so you can adjust their position with</p>
+<p>The labels will be poorly placed, so you can adjust their position
+with</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">t</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">dose</span>, y<span class="op">=</span><span class="va">center</span>, label<span class="op">=</span><span class="va">center</span><span class="op">)</span>, 
-      position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">position_dodge</a></span><span class="op">(</span><span class="fl">0.9</span><span class="op">)</span>,
-      vjust <span class="op">=</span> <span class="fl">1.5</span>,color <span class="op">=</span> <span class="st">"black"</span> <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">t</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">dose</span>, y<span class="op">=</span><span class="va">center</span>, label<span class="op">=</span><span class="va">center</span><span class="op">)</span>, </span>
+<span>      position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span><span class="fl">0.9</span><span class="op">)</span>,</span>
+<span>      vjust <span class="op">=</span> <span class="fl">1.5</span>,color <span class="op">=</span> <span class="st">"black"</span> <span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="VignetteE_files/figure-html/unnamed-chunk-4-1.png" alt="**Figure 2: A better-looking plot**" width="384"><p class="caption">
 <strong>Figure 2: A better-looking plot</strong>
@@ -181,17 +191,19 @@
 </div>
 <p>You can round, or format or color, the statistics, with e.g.,</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">t</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">dose</span>, y<span class="op">=</span><span class="va">center</span>, label<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">center</span><span class="op">)</span><span class="op">)</span>, 
-      position<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">position_dodge</a></span><span class="op">(</span><span class="fl">0.9</span><span class="op">)</span>,vjust<span class="op">=</span><span class="fl">1.5</span>,color<span class="op">=</span><span class="st">"black"</span><span class="op">)</span>
-<span class="va">t</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">dose</span>, y<span class="op">=</span><span class="va">center</span>, label<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">'%.1f'</span>, <span class="va">center</span><span class="op">)</span><span class="op">)</span>, 
-      position<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">position_dodge</a></span><span class="op">(</span><span class="fl">0.9</span><span class="op">)</span>,vjust<span class="op">=</span><span class="fl">1.5</span>,color<span class="op">=</span><span class="st">"black"</span><span class="op">)</span>
-<span class="va">t</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">dose</span>, y<span class="op">=</span><span class="va">center</span>, label<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">'%.1f'</span>, <span class="va">center</span><span class="op">)</span>, color<span class="op">=</span><span class="va">supp</span><span class="op">)</span>, 
-      position<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">position_dodge</a></span><span class="op">(</span><span class="fl">0.9</span><span class="op">)</span>, vjust<span class="op">=</span><span class="op">-</span><span class="fl">1.5</span><span class="op">)</span></code></pre></div>
-<p>You can also show the factor names rather than the summary statistics, as they are contained in the summary statistics data frame. For example:</p>
+<code class="sourceCode R"><span><span class="va">t</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">dose</span>, y<span class="op">=</span><span class="va">center</span>, label<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">center</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>      position<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span><span class="fl">0.9</span><span class="op">)</span>,vjust<span class="op">=</span><span class="fl">1.5</span>,color<span class="op">=</span><span class="st">"black"</span><span class="op">)</span></span>
+<span><span class="va">t</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">dose</span>, y<span class="op">=</span><span class="va">center</span>, label<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">'%.1f'</span>, <span class="va">center</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>      position<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span><span class="fl">0.9</span><span class="op">)</span>,vjust<span class="op">=</span><span class="fl">1.5</span>,color<span class="op">=</span><span class="st">"black"</span><span class="op">)</span></span>
+<span><span class="va">t</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">dose</span>, y<span class="op">=</span><span class="va">center</span>, label<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">'%.1f'</span>, <span class="va">center</span><span class="op">)</span>, color<span class="op">=</span><span class="va">supp</span><span class="op">)</span>, </span>
+<span>      position<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span><span class="fl">0.9</span><span class="op">)</span>, vjust<span class="op">=</span><span class="op">-</span><span class="fl">1.5</span><span class="op">)</span></span></code></pre></div>
+<p>You can also show the factor names rather than the summary
+statistics, as they are contained in the summary statistics data frame.
+For example:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">t</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">dose</span>, y<span class="op">=</span><span class="va">center</span>, label<span class="op">=</span><span class="va">supp</span><span class="op">)</span>, <span class="co"># changed "label"</span>
-      position<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">position_dodge</a></span><span class="op">(</span><span class="fl">0.9</span><span class="op">)</span>,
-      vjust<span class="op">=</span><span class="fl">1.5</span>,color<span class="op">=</span><span class="st">"black"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">t</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">dose</span>, y<span class="op">=</span><span class="va">center</span>, label<span class="op">=</span><span class="va">supp</span><span class="op">)</span>, <span class="co"># changed "label"</span></span>
+<span>      position<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span><span class="fl">0.9</span><span class="op">)</span>,</span>
+<span>      vjust<span class="op">=</span><span class="fl">1.5</span>,color<span class="op">=</span><span class="st">"black"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="VignetteE_files/figure-html/unnamed-chunk-6-1.png" alt="**Figure 3: A plot with conditions on the bars**" width="384"><p class="caption">
 <strong>Figure 3: A plot with conditions on the bars</strong>
@@ -199,63 +211,70 @@
 </div>
 <p>Finally, multiple labels can be added if desired:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">t</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">dose</span>, y<span class="op">=</span><span class="va">center</span>, label<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">'%.1f'</span>, <span class="va">center</span><span class="op">)</span><span class="op">)</span>, color<span class="op">=</span><span class="st">"black"</span>, position<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">position_dodge</a></span><span class="op">(</span><span class="fl">0.9</span><span class="op">)</span>, vjust<span class="op">=</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span> 
- <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">dose</span>, y<span class="op">=</span><span class="va">center</span>,label<span class="op">=</span><span class="va">supp</span><span class="op">)</span>, position<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">position_dodge</a></span><span class="op">(</span><span class="fl">0.9</span><span class="op">)</span>, vjust<span class="op">=</span><span class="fl">1.5</span>, color<span class="op">=</span><span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
- <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">dose</span>, y<span class="op">=</span><span class="va">center</span><span class="op">+</span><span class="va">upperwidth</span>, label<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">center</span><span class="op">+</span><span class="va">upperwidth</span><span class="op">)</span><span class="op">)</span>, position<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">position_dodge</a></span><span class="op">(</span><span class="fl">0.9</span><span class="op">)</span>, vjust<span class="op">=</span><span class="op">-</span><span class="fl">1</span>, color<span class="op">=</span><span class="st">"gray43"</span><span class="op">)</span> </code></pre></div>
+<code class="sourceCode R"><span><span class="va">t</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">dose</span>, y<span class="op">=</span><span class="va">center</span>, label<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">'%.1f'</span>, <span class="va">center</span><span class="op">)</span><span class="op">)</span>, color<span class="op">=</span><span class="st">"black"</span>, position<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span><span class="fl">0.9</span><span class="op">)</span>, vjust<span class="op">=</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span> </span>
+<span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">dose</span>, y<span class="op">=</span><span class="va">center</span>,label<span class="op">=</span><span class="va">supp</span><span class="op">)</span>, position<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span><span class="fl">0.9</span><span class="op">)</span>, vjust<span class="op">=</span><span class="fl">1.5</span>, color<span class="op">=</span><span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
+<span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">dose</span>, y<span class="op">=</span><span class="va">center</span><span class="op">+</span><span class="va">upperwidth</span>, label<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">center</span><span class="op">+</span><span class="va">upperwidth</span><span class="op">)</span><span class="op">)</span>, position<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span><span class="fl">0.9</span><span class="op">)</span>, vjust<span class="op">=</span><span class="op">-</span><span class="fl">1</span>, color<span class="op">=</span><span class="st">"gray43"</span><span class="op">)</span> </span></code></pre></div>
 <div class="figure">
 <img src="VignetteE_files/figure-html/unnamed-chunk-7-1.png" alt="**Figure 4: A plethora of labels**" width="384"><p class="caption">
 <strong>Figure 4: A plethora of labels</strong>
 </p>
 </div>
-<p>At any time, you can consult what is the summary statistics data frame produced by replacing <code><a href="../reference/superbPlot.html">superbPlot()</a></code> with <code><a href="../reference/superbData.html">superbData()</a></code></p>
+<p>At any time, you can consult what is the summary statistics data
+frame produced by replacing <code><a href="../reference/superbPlot.html">superbPlot()</a></code> with
+<code><a href="../reference/superbData.html">superbData()</a></code></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbData.html">superbData</a></span><span class="op">(</span><span class="va">ToothGrowth</span>, 
-    BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dose"</span>,<span class="st">"supp"</span><span class="op">)</span>, 
-    variables <span class="op">=</span> <span class="st">"len"</span> <span class="op">)</span>
-<span class="va">d</span><span class="op">$</span><span class="va">summaryStatistics</span></code></pre></div>
-<pre><code>##   dose supp center lowerwidth upperwidth
-## 1  0.5   OJ  13.23  -3.190283   3.190283
-## 2  0.5   VC   7.98  -1.964824   1.964824
-## 3    1   OJ  22.70  -2.797727   2.797727
-## 4    1   VC  16.77  -1.799343   1.799343
-## 5    2   OJ  26.06  -1.899314   1.899314
-## 6    2   VC  26.14  -3.432090   3.432090</code></pre>
+<code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbData.html">superbData</a></span><span class="op">(</span><span class="va">ToothGrowth</span>, </span>
+<span>    BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dose"</span>,<span class="st">"supp"</span><span class="op">)</span>, </span>
+<span>    variables <span class="op">=</span> <span class="st">"len"</span> <span class="op">)</span></span>
+<span><span class="va">d</span><span class="op">$</span><span class="va">summaryStatistics</span></span></code></pre></div>
+<pre><code><span><span class="co">##   dose supp center lowerwidth upperwidth</span></span>
+<span><span class="co">## 1  0.5   OJ  13.23  -3.190283   3.190283</span></span>
+<span><span class="co">## 2  0.5   VC   7.98  -1.964824   1.964824</span></span>
+<span><span class="co">## 3    1   OJ  22.70  -2.797727   2.797727</span></span>
+<span><span class="co">## 4    1   VC  16.77  -1.799343   1.799343</span></span>
+<span><span class="co">## 5    2   OJ  26.06  -1.899314   1.899314</span></span>
+<span><span class="co">## 6    2   VC  26.14  -3.432090   3.432090</span></span></code></pre>
 </div>
-<div id="the-labels-are-other-information-not-contained-in-the-summary-statistics-" class="section level2">
-<h2 class="hasAnchor">
-<a href="#the-labels-are-other-information-not-contained-in-the-summary-statistics-" class="anchor"></a>2- the labels are other information not contained in the summary statistics.</h2>
-<p>If your labels are not compiled in the summary statistics data frame, you can still connect to the original data frame and use its content. For example, lets’ suppose we have the names of the rats in the ToothGrowth data frame (I de-anonymize them, but they won’t object to this as they are rats, and dead by now!)</p>
+<div class="section level3">
+<h3 id="the-labels-are-other-information-not-contained-in-the-summary-statistics-">2- the labels are other information not contained in the summary
+statistics.<a class="anchor" aria-label="anchor" href="#the-labels-are-other-information-not-contained-in-the-summary-statistics-"></a>
+</h3>
+<p>If your labels are not compiled in the summary statistics data frame,
+you can still connect to the original data frame and use its content.
+For example, lets’ suppose we have the names of the rats in the
+ToothGrowth data frame (I de-anonymize them, but they won’t object to
+this as they are rats, and dead by now!)</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># taken from library(babynames)</span>
-<span class="co"># head(unique(babynames[order(-babynames$prop),]$name),60)</span>
-<span class="va">names</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
- <span class="st">"John"</span>,        <span class="st">"William"</span>,     <span class="st">"Mary"</span>,        <span class="st">"Robert"</span>,      <span class="st">"James"</span>,      
- <span class="st">"Linda"</span>,       <span class="st">"Michael"</span>,     <span class="st">"Charles"</span>,     <span class="st">"George"</span>,      <span class="st">"David"</span>,     
- <span class="st">"Jennifer"</span>,    <span class="st">"Shirley"</span>,     <span class="st">"Richard"</span>,     <span class="st">"Barbara"</span>,     <span class="st">"Jason"</span>,      
- <span class="st">"Lisa"</span>,        <span class="st">"Betty"</span>,       <span class="st">"Christopher"</span>, <span class="st">"Dorothy"</span>,     <span class="st">"Patricia"</span>,   
- <span class="st">"Helen"</span>,       <span class="st">"Jessica"</span>,     <span class="st">"Ashley"</span>,      <span class="st">"Donald"</span>,      <span class="st">"Anna"</span>,       
- <span class="st">"Joseph"</span>,      <span class="st">"Deborah"</span>,     <span class="st">"Frank"</span>,       <span class="st">"Mark"</span>,        <span class="st">"Matthew"</span>,    
- <span class="st">"Thomas"</span>,      <span class="st">"Debra"</span>,       <span class="st">"Susan"</span>,       <span class="st">"Margaret"</span>,    <span class="st">"Carol"</span>,      
- <span class="st">"Amanda"</span>,      <span class="st">"Brian"</span>,       <span class="st">"Joshua"</span>,      <span class="st">"Henry"</span>,       <span class="st">"Harry"</span>,      
- <span class="st">"Ruth"</span>,        <span class="st">"Amy"</span>,         <span class="st">"Emma"</span>,        <span class="st">"Edward"</span>,      <span class="st">"Ronald"</span>,     
- <span class="st">"Daniel"</span>,      <span class="st">"Gary"</span>,        <span class="st">"Elizabeth"</span>,   <span class="st">"Melissa"</span>,     <span class="st">"Sandra"</span>,     
- <span class="st">"Michelle"</span>,    <span class="st">"Karen"</span>,       <span class="st">"Kimberly"</span>,    <span class="st">"Joan"</span>,        <span class="st">"Brittany"</span>,   
- <span class="st">"Judith"</span>,      <span class="st">"Larry"</span>,       <span class="st">"Cynthia"</span>,     <span class="st">"Andrew"</span>,      <span class="st">"Steven"</span><span class="op">)</span>
-<span class="co"># append the names as the last columns of ToothGrowth</span>
-<span class="va">ToothGrowth</span><span class="op">$</span><span class="va">names</span> <span class="op">&lt;-</span> <span class="va">names</span>
-
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">ToothGrowth</span><span class="op">)</span></code></pre></div>
-<pre><code>##    len supp dose   names
-## 1  4.2   VC  0.5    John
-## 2 11.5   VC  0.5 William
-## 3  7.3   VC  0.5    Mary
-## 4  5.8   VC  0.5  Robert
-## 5  6.4   VC  0.5   James
-## 6 10.0   VC  0.5   Linda</code></pre>
+<code class="sourceCode R"><span><span class="co"># taken from library(babynames)</span></span>
+<span><span class="co"># head(unique(babynames[order(-babynames$prop),]$name),60)</span></span>
+<span><span class="va">names</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span> <span class="st">"John"</span>,        <span class="st">"William"</span>,     <span class="st">"Mary"</span>,        <span class="st">"Robert"</span>,      <span class="st">"James"</span>,      </span>
+<span> <span class="st">"Linda"</span>,       <span class="st">"Michael"</span>,     <span class="st">"Charles"</span>,     <span class="st">"George"</span>,      <span class="st">"David"</span>,     </span>
+<span> <span class="st">"Jennifer"</span>,    <span class="st">"Shirley"</span>,     <span class="st">"Richard"</span>,     <span class="st">"Barbara"</span>,     <span class="st">"Jason"</span>,      </span>
+<span> <span class="st">"Lisa"</span>,        <span class="st">"Betty"</span>,       <span class="st">"Christopher"</span>, <span class="st">"Dorothy"</span>,     <span class="st">"Patricia"</span>,   </span>
+<span> <span class="st">"Helen"</span>,       <span class="st">"Jessica"</span>,     <span class="st">"Ashley"</span>,      <span class="st">"Donald"</span>,      <span class="st">"Anna"</span>,       </span>
+<span> <span class="st">"Joseph"</span>,      <span class="st">"Deborah"</span>,     <span class="st">"Frank"</span>,       <span class="st">"Mark"</span>,        <span class="st">"Matthew"</span>,    </span>
+<span> <span class="st">"Thomas"</span>,      <span class="st">"Debra"</span>,       <span class="st">"Susan"</span>,       <span class="st">"Margaret"</span>,    <span class="st">"Carol"</span>,      </span>
+<span> <span class="st">"Amanda"</span>,      <span class="st">"Brian"</span>,       <span class="st">"Joshua"</span>,      <span class="st">"Henry"</span>,       <span class="st">"Harry"</span>,      </span>
+<span> <span class="st">"Ruth"</span>,        <span class="st">"Amy"</span>,         <span class="st">"Emma"</span>,        <span class="st">"Edward"</span>,      <span class="st">"Ronald"</span>,     </span>
+<span> <span class="st">"Daniel"</span>,      <span class="st">"Gary"</span>,        <span class="st">"Elizabeth"</span>,   <span class="st">"Melissa"</span>,     <span class="st">"Sandra"</span>,     </span>
+<span> <span class="st">"Michelle"</span>,    <span class="st">"Karen"</span>,       <span class="st">"Kimberly"</span>,    <span class="st">"Joan"</span>,        <span class="st">"Brittany"</span>,   </span>
+<span> <span class="st">"Judith"</span>,      <span class="st">"Larry"</span>,       <span class="st">"Cynthia"</span>,     <span class="st">"Andrew"</span>,      <span class="st">"Steven"</span><span class="op">)</span></span>
+<span><span class="co"># append the names as the last columns of ToothGrowth</span></span>
+<span><span class="va">ToothGrowth</span><span class="op">$</span><span class="va">names</span> <span class="op">&lt;-</span> <span class="va">names</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ToothGrowth</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##    len supp dose   names</span></span>
+<span><span class="co">## 1  4.2   VC  0.5    John</span></span>
+<span><span class="co">## 2 11.5   VC  0.5 William</span></span>
+<span><span class="co">## 3  7.3   VC  0.5    Mary</span></span>
+<span><span class="co">## 4  5.8   VC  0.5  Robert</span></span>
+<span><span class="co">## 5  6.4   VC  0.5   James</span></span>
+<span><span class="co">## 6 10.0   VC  0.5   Linda</span></span></code></pre>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">t</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">dose</span><span class="op">)</span>, y<span class="op">=</span><span class="va">len</span>, label<span class="op">=</span><span class="va">names</span><span class="op">)</span>,
-      data<span class="op">=</span><span class="va">ToothGrowth</span>, <span class="co"># new: I add the original data frame</span>
-      color<span class="op">=</span><span class="st">"black"</span>, position<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">position_dodge</a></span><span class="op">(</span><span class="fl">0.9</span><span class="op">)</span>, vjust<span class="op">=</span><span class="op">-</span><span class="fl">1.</span><span class="op">)</span> </code></pre></div>
+<code class="sourceCode R"><span><span class="va">t</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">dose</span><span class="op">)</span>, y<span class="op">=</span><span class="va">len</span>, label<span class="op">=</span><span class="va">names</span><span class="op">)</span>,</span>
+<span>      data<span class="op">=</span><span class="va">ToothGrowth</span>, <span class="co"># new: I add the original data frame</span></span>
+<span>      color<span class="op">=</span><span class="st">"black"</span>, position<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span><span class="fl">0.9</span><span class="op">)</span>, vjust<span class="op">=</span><span class="op">-</span><span class="fl">1.</span><span class="op">)</span> </span></code></pre></div>
 <div class="figure">
 <img src="VignetteE_files/figure-html/unnamed-chunk-10-1.png" alt="**Figure 5: Individual cases' labels**" width="384"><p class="caption">
 <strong>Figure 5: Individual cases’ labels</strong>
@@ -263,10 +282,12 @@
 </div>
 </div>
 </div>
-<div id="in-summary" class="section level1">
-<h1 class="hasAnchor">
-<a href="#in-summary" class="anchor"></a>In summary</h1>
-<p>Labels can be added with the usual <code>geom_text</code> graphic directives. Additional information can be found regarding this method.</p>
+<div class="section level2">
+<h2 id="in-summary">In summary<a class="anchor" aria-label="anchor" href="#in-summary"></a>
+</h2>
+<p>Labels can be added with the usual <code>geom_text</code> graphic
+directives. Additional information can be found regarding this
+method.</p>
 </div>
   </div>
 
@@ -281,11 +302,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Denis Cousineau.</p>
+  <p></p>
+<p>Developed by Denis Cousineau.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -293,6 +316,8 @@
 
   
 
+
+  
 
   </body>
 </html>

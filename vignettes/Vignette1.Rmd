@@ -1,5 +1,5 @@
 ---
-title: "Four steps to make your plot"
+title: "Three steps to make your plot"
 bibliography: "../inst/REFERENCES.bib"
 csl: "../inst/apa-6th.csl"
 output: 

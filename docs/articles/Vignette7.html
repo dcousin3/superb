@@ -27,6 +27,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -39,23 +41,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.95.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.6</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -68,7 +64,7 @@
       <a href="../articles/TheMakingOf.html">The making-of the figures in the article</a>
     </li>
     <li>
-      <a href="../articles/Vignette1.html">Four steps to make your plot</a>
+      <a href="../articles/Vignette1.html">Three steps to make your plot</a>
     </li>
     <li>
       <a href="../articles/Vignette2.html">Why use difference-adjusted confidence intervals?</a>
@@ -109,6 +105,9 @@
     <li>
       <a href="../articles/VignetteE.html">Adding labels to ``superb`` plots</a>
     </li>
+    <li>
+      <a href="../articles/VignetteF.html">Plotting frequencies using ``superb``</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -117,7 +116,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/dcousin3/superb/">
+  <a href="https://github.com/dcousin3/superb/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -132,278 +131,395 @@
 
       
 
-      </header><script src="Vignette7_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Unequal variances, Welch test, Tryon adjustment, and <code>superb</code>
+      <h1 data-toc-skip>Unequal variances, Welch test, Tryon adjustment,
+and <code>superb</code>
 </h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/dcousin3/superb/blob/master/../vignettes/Vignette7.Rmd"><code>../vignettes/Vignette7.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/dcousin3/superb/blob/HEAD/../vignettes/Vignette7.Rmd" class="external-link"><code>../vignettes/Vignette7.Rmd</code></a></small>
       <div class="hidden name"><code>Vignette7.Rmd</code></div>
 
     </div>
 
     
     
-<p>When the group’s variances are heterogeneous, it may results in error bars of differing length. It is then possible than one of the error bar includes the other mean, but that the second error bar does not. What can we conclude in such circumstances? This vignette explores this questions, examining Welch test solution, and Tryon adjustment along the way.</p>
-<div id="a-simple-example" class="section level2">
-<h2 class="hasAnchor">
-<a href="#a-simple-example" class="anchor"></a>A simple example</h2>
-<p>Consider this example where two groups have been examined. Herein, the sample sizes are equal, but what follows does not depends on this.</p>
+<p>When the group’s variances are heterogeneous, it may results in error
+bars of differing length. It is then possible than one of the error bar
+includes the other mean, but that the second error bar does not. What
+can we conclude in such circumstances? This vignette explores this
+questions, examining Welch test solution, and Tryon adjustment along the
+way.</p>
+<div class="section level3">
+<h3 id="a-simple-example">A simple example<a class="anchor" aria-label="anchor" href="#a-simple-example"></a>
+</h3>
+<p>Consider this example where two groups have been examined. Herein,
+the sample sizes are equal, but what follows does not depends on
+this.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">grp1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span> <span class="fl">56</span>,  <span class="fl">54</span>,  <span class="fl">73</span>,  <span class="fl">46</span>,  <span class="fl">59</span>,  <span class="fl">62</span>,  <span class="fl">55</span>,  <span class="fl">53</span>,  <span class="fl">77</span>,  <span class="fl">60</span>,  <span class="fl">69</span>,  <span class="fl">66</span>,  <span class="fl">63</span>, 
-           <span class="fl">62</span>,  <span class="fl">53</span>,  <span class="fl">82</span>,  <span class="fl">74</span>,  <span class="fl">70</span>,  <span class="fl">65</span>,  <span class="fl">70</span>,  <span class="fl">72</span>,  <span class="fl">65</span>,  <span class="fl">56</span>,  <span class="fl">58</span>,  <span class="fl">83</span><span class="op">)</span>
-<span class="va">grp2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span> <span class="fl">51</span>,  <span class="fl">99</span>, <span class="fl">194</span>, <span class="fl">123</span>,  <span class="fl">40</span>,  <span class="fl">83</span>,  <span class="fl">87</span>, <span class="fl">117</span>,  <span class="fl">46</span>,  <span class="fl">89</span>,  <span class="fl">61</span>,  <span class="fl">81</span>,  <span class="fl">53</span>, 
-          <span class="fl">141</span>,  <span class="fl">52</span>,  <span class="fl">53</span>,  <span class="fl">39</span>,  <span class="fl">96</span>,  <span class="fl">14</span>,  <span class="fl">81</span>,  <span class="fl">63</span>,  <span class="fl">66</span>,  <span class="fl">80</span>, <span class="fl">113</span>,  <span class="fl">82</span><span class="op">)</span></code></pre></div>
-<p>These two groups have means of 64.12 and 80.16. However, they also have quite differing standard deviations, 9.493 and 37.918. The second is over four times larger than the first, which denotes a very heterogeneous variance situation.</p>
-<p>Let’s reunite the <code>score</code>s of these two datasets in a single data frame with a <code>group</code> indicator so that we can do a first plot:</p>
+<code class="sourceCode R"><span><span class="va">grp1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="fl">56</span>,  <span class="fl">54</span>,  <span class="fl">73</span>,  <span class="fl">46</span>,  <span class="fl">59</span>,  <span class="fl">62</span>,  <span class="fl">55</span>,  <span class="fl">53</span>,  <span class="fl">77</span>,  <span class="fl">60</span>,  <span class="fl">69</span>,  <span class="fl">66</span>,  <span class="fl">63</span>, </span>
+<span>           <span class="fl">62</span>,  <span class="fl">53</span>,  <span class="fl">82</span>,  <span class="fl">74</span>,  <span class="fl">70</span>,  <span class="fl">65</span>,  <span class="fl">70</span>,  <span class="fl">72</span>,  <span class="fl">65</span>,  <span class="fl">56</span>,  <span class="fl">58</span>,  <span class="fl">83</span><span class="op">)</span></span>
+<span><span class="va">grp2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="fl">51</span>,  <span class="fl">99</span>, <span class="fl">194</span>, <span class="fl">123</span>,  <span class="fl">40</span>,  <span class="fl">83</span>,  <span class="fl">87</span>, <span class="fl">117</span>,  <span class="fl">46</span>,  <span class="fl">89</span>,  <span class="fl">61</span>,  <span class="fl">81</span>,  <span class="fl">53</span>, </span>
+<span>          <span class="fl">141</span>,  <span class="fl">52</span>,  <span class="fl">53</span>,  <span class="fl">39</span>,  <span class="fl">96</span>,  <span class="fl">14</span>,  <span class="fl">81</span>,  <span class="fl">63</span>,  <span class="fl">66</span>,  <span class="fl">80</span>, <span class="fl">113</span>,  <span class="fl">82</span><span class="op">)</span></span></code></pre></div>
+<p>These two groups have means of 64.12 and 80.16. However, they also
+have quite differing standard deviations, 9.493 and 37.918. The second
+is over four times larger than the first, which denotes a very
+heterogeneous variance situation.</p>
+<p>Let’s reunite the <code>score</code>s of these two datasets in a
+single data frame with a <code>group</code> indicator so that we can do
+a first plot:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dtaHetero</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span>
-    id    <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">)</span>,
-    group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">)</span> <span class="op">)</span>,
-    score <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">grp1</span>, <span class="va">grp2</span><span class="op">)</span>
-<span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">dtaHetero</span><span class="op">)</span></code></pre></div>
-<pre><code>##   id group score
-## 1  1     1    56
-## 2  2     1    54
-## 3  3     1    73
-## 4  4     1    46
-## 5  5     1    59
-## 6  6     1    62</code></pre>
-<p>(just to make the plots look nicer, I prepare some directives that will be added to these:</p>
+<code class="sourceCode R"><span><span class="va">dtaHetero</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span></span>
+<span>    id    <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">)</span> <span class="op">)</span>,</span>
+<span>    score <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">grp1</span>, <span class="va">grp2</span><span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dtaHetero</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##   id group score</span></span>
+<span><span class="co">## 1  1     1    56</span></span>
+<span><span class="co">## 2  2     1    54</span></span>
+<span><span class="co">## 3  3     1    73</span></span>
+<span><span class="co">## 4  4     1    46</span></span>
+<span><span class="co">## 5  5     1    59</span></span>
+<span><span class="co">## 6  6     1    62</span></span></code></pre>
+<p>(just to make the plots look nicer, I prepare some directives that
+will be added to these:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dcousin3.github.io/superb/">superb</a></span><span class="op">)</span>             <span class="co"># to make the summary plot</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>            <span class="co"># for all the graphic directives</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span>          <span class="co"># for grid.arrange</span>
-
-<span class="va">ornate</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Difference"</span><span class="op">)</span>, 
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Pre-\nTreatment"</span>,<span class="st">"Post-\nTreatment"</span><span class="op">)</span><span class="op">)</span>,
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"Score"</span><span class="op">)</span>,
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">40</span>,<span class="op">+</span><span class="fl">110</span><span class="op">)</span> <span class="op">)</span>,
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span> plot.subtitle <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">24</span><span class="op">)</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
-<p>). We are now ready to make a first plot. The adjustment <code>purpose = "difference"</code> is necessary as we plan to compare the two results.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dtaHetero</span>, 
-                 BSFactors    <span class="op">=</span> <span class="st">"group"</span>, 
-                 variables   <span class="op">=</span> <span class="st">"score"</span>, 
-                 adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>,
-                 gamma       <span class="op">=</span> <span class="fl">0.95</span>,
-                 statistic   <span class="op">=</span> <span class="st">"mean"</span>, 
-                 errorbar    <span class="op">=</span> <span class="st">"CI"</span>,
-                 plotStyle   <span class="op">=</span> <span class="st">"line"</span>,
-                 lineParams  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="co">#the line is made transparent</span>
-<span class="op">)</span> <span class="op">+</span> <span class="va">ornate</span></code></pre></div>
-<pre><code>## superb::ADVICE: Some of the groups' variances are heterogeneous. Consider using purpose="tryon".</code></pre>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dcousin3.github.io/superb/" class="external-link">superb</a></span><span class="op">)</span>             <span class="co"># to make the summary plot</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>            <span class="co"># for all the graphic directives</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span>          <span class="co"># for grid.arrange</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: package 'gridExtra' was built under R version 4.1.3</span></span></code></pre>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ornate</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"Difference"</span><span class="op">)</span>, </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">scale_x_discrete</a></span><span class="op">(</span>labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Pre-\nTreatment"</span>,<span class="st">"Post-\nTreatment"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Score"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">40</span>,<span class="op">+</span><span class="fl">110</span><span class="op">)</span> <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_light</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span> plot.subtitle <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">24</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>). We are now ready to make a first plot. The adjustment
+<code>purpose = "difference"</code> is necessary as we plan to compare
+the two results.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pt</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">pt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dtaHetero</span>, </span>
+<span>                 BSFactors    <span class="op">=</span> <span class="st">"group"</span>, </span>
+<span>                 variables   <span class="op">=</span> <span class="st">"score"</span>, </span>
+<span>                 adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>,</span>
+<span>                 gamma       <span class="op">=</span> <span class="fl">0.95</span>,</span>
+<span>                 statistic   <span class="op">=</span> <span class="st">"mean"</span>, </span>
+<span>                 errorbar    <span class="op">=</span> <span class="st">"CI"</span>,</span>
+<span>                 plotStyle   <span class="op">=</span> <span class="st">"line"</span>,</span>
+<span>                 lineParams  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="co">#the line is made transparent</span></span>
+<span><span class="op">)</span> <span class="op">+</span> <span class="va">ornate</span></span></code></pre></div>
+<pre><code><span><span class="co">## superb::ADVICE: Some of the groups' variances are heterogeneous. Consider using purpose="tryon".</span></span></code></pre>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pt</span></span></code></pre></div>
 <div class="figure">
 <img src="Vignette7_files/figure-html/unnamed-chunk-5-1.png" alt="**Figure 1**. Plot of dtaHerero showing heterogeneous error bars." width="288"><p class="caption">
-<strong>Figure 1</strong>. Plot of dtaHerero showing heterogeneous error bars.
+<strong>Figure 1</strong>. Plot of dtaHerero showing heterogeneous error
+bars.
 </p>
 </div>
-<p>As seen, the two error bars deliver a different message: the left one suggests a huge difference between the means, the right one does not. How do we settle this?</p>
+<p>As seen, the two error bars deliver a different message: the left one
+suggests a huge difference between the means, the right one does not.
+How do we settle this?</p>
 </div>
-<div id="averaging-the-error-bars-sort-of" class="section level2">
-<h2 class="hasAnchor">
-<a href="#averaging-the-error-bars-sort-of" class="anchor"></a>Averaging the error bars, sort of…</h2>
-<p>Error bars are depiction of an error variance. However, they are actually based on the standard errors which are the square root of the error variances.</p>
-<p>Standard errors cannot be sumed (or averaged), only error variances can. Thus, when averaging the two error bars, it is their squares that must be averaged (followed by a square root). This operation is called the <strong>mean in the square sense</strong>. It is denoted <strong>mean* </strong> hereafter.</p>
-<p>Given that the first error bar is given by <span class="math inline">\(\bar{X}_1 \pm \sqrt{2} \;t \; SE_1\)</span> and the second, by <span class="math inline">\(\bar{X}_2 \pm \sqrt{2} \;t \; SE_2\)</span>, where <span class="math inline">\(\bar{X}_i\)</span> is the average of the <span class="math inline">\(i^{\text{th}}\)</span> group and <span class="math inline">\(SE_i\)</span> is the standard error of the the <span class="math inline">\(i^{\text{th}}\)</span> group, averaging the error bar lengths can be simplified to</p>
+<div class="section level3">
+<h3 id="averaging-the-error-bars-sort-of">Averaging the error bars, sort of…<a class="anchor" aria-label="anchor" href="#averaging-the-error-bars-sort-of"></a>
+</h3>
+<p>Error bars are depiction of an error variance. However, they are
+actually based on the standard errors which are the square root of the
+error variances.</p>
+<p>Standard errors cannot be sumed (or averaged), only error variances
+can. Thus, when averaging the two error bars, it is their squares that
+must be averaged (followed by a square root). This operation is called
+the <strong>mean in the square sense</strong>. It is denoted
+<strong>mean* </strong> hereafter.</p>
+<p>Given that the first error bar is given by <span class="math inline">\(\bar{X}_1 \pm \sqrt{2} \;t \; SE_1\)</span> and
+the second, by <span class="math inline">\(\bar{X}_2 \pm \sqrt{2} \;t \;
+SE_2\)</span>, where <span class="math inline">\(\bar{X}_i\)</span> is
+the average of the <span class="math inline">\(i^{\text{th}}\)</span>
+group and <span class="math inline">\(SE_i\)</span> is the standard
+error of the the <span class="math inline">\(i^{\text{th}}\)</span>
+group, averaging the error bar lengths can be simplified to</p>
 <p><span class="math display">\[
 \DeclareMathOperator{\mean}{Mean}
 \begin{split}
-\mean{^*}( \text{ the two confidence intervals }) &amp;= \mean{^*} \left( \sqrt{2} \;t \; SE_1, \sqrt{2} \; t \; SE_2 \right) \\
-&amp;=  \sqrt{\mean \left( (\sqrt{2} \;t \;SE_1)^2, (\sqrt{2} \;t \;SE_2)^2 \right) } \\
-&amp;=  \sqrt{\mean \left( 2 \;t^2 \;SE_1^2, 2 \;t^2 \;SE_2^2 \right) } \\
+\mean{^*}( \text{ the two confidence intervals }) &amp;= \mean{^*}
+\left( \sqrt{2} \;t \; SE_1, \sqrt{2} \; t \; SE_2 \right) \\
+&amp;=  \sqrt{\mean \left( (\sqrt{2} \;t \;SE_1)^2, (\sqrt{2} \;t
+\;SE_2)^2 \right) } \\
+&amp;=  \sqrt{\mean \left( 2 \;t^2 \;SE_1^2, 2 \;t^2 \;SE_2^2 \right) }
+\\
 &amp;= \sqrt{2} \;t\; \sqrt{\mean( SE_1^2, SE_2^2) } \\
 &amp;= \sqrt{2} \;t\; \sqrt{ \frac{SE_1^2 + SE_2^2}{2} } \\
-&amp;= t \;\sqrt{SE_1^2 + SE_2^2} 
+&amp;= t \;\sqrt{SE_1^2 + SE_2^2}
 \end{split}
 \]</span></p>
-<p>Hence, asking if the <strong>lag</strong> between the two groups is significant is actually asking</p>
+<p>Hence, asking if the <strong>lag</strong> between the two groups is
+significant is actually asking</p>
 <p><span class="math display">\[
 \DeclareMathOperator{\mean}{Mean}
 \begin{split}
-\text{Reject $H_0$ if }&amp; {\bar{X}_1-\bar{X}_2} &gt; \mean^*( \text{ the two confidence intervals })\\
-\text{Reject $H_0$ if }&amp; {\bar{X}_1-\bar{X}_2} &gt; t\; {\sqrt{SE_1^2 + SE_2^2}} \\
-\text{Reject $H_0$ if }&amp; \frac{\bar{X}_1-\bar{X}_2} {\sqrt{SE_1^2 + SE_2^2}} &gt; t \\
+\text{Reject $H_0$ if }&amp; {\bar{X}_1-\bar{X}_2} &gt; \mean^*( \text{
+the two confidence intervals })\\
+\text{Reject $H_0$ if }&amp; {\bar{X}_1-\bar{X}_2} &gt; t\;
+{\sqrt{SE_1^2 + SE_2^2}} \\
+\text{Reject $H_0$ if }&amp; \frac{\bar{X}_1-\bar{X}_2} {\sqrt{SE_1^2 +
+SE_2^2}} &gt; t \\
 \end{split}
 \]</span></p>
 <p>which is precisely the definition of a Welch test <span class="citation">(Welch, 1947)</span>.</p>
-<p>In other word, when appraising the general length of the error bars, you are actually performing a Welch test. This test is arguably the only mean test we need <span class="citation">(Delacre, Lakens, &amp; Leys, 2017)</span>.</p>
+<p>In other word, when appraising the general length of the error bars,
+you are actually performing a Welch test. This test is arguably the only
+mean test we need <span class="citation">(Delacre, Lakens, &amp; Leys,
+2017)</span>.</p>
 </div>
-<div id="a-real-welch-test-with-your-eyes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#a-real-welch-test-with-your-eyes" class="anchor"></a>A real Welch test with your eyes</h2>
-<p>Actually, the above is not entirely true, as the degrees of freedom of the <span class="math inline">\(t\)</span> multiplier is only based on the number of observations in each group (<span class="math inline">\(n-1\)</span>).</p>
-<p>To really have a Welch test, it is necessary to (1) pool the degrees of freedom of the groups together; (2) rectify this degree of freedom based on the amount of heterogeneity in the data.</p>
-<p>To get the rectified degrees of freedom according to Welch, you can issue</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Welch's rectified degrees of freedom</span>
-<span class="va">wdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/WelchDegreeOfFreedom.html">WelchDegreeOfFreedom</a></span><span class="op">(</span><span class="va">dtaHetero</span>, <span class="st">"score"</span>,<span class="st">"group"</span><span class="op">)</span></code></pre></div>
-<p>in which <code>"score"</code> is the column(s) containing the dependent variable(s) and <code>"group"</code> is the column(s) containing the group identifiers. Here, the result is 26.9965 (compared to <span class="math inline">\(n_1+n_2-2\)</span>, that is 48, indicating a fairly large reduction in degree of freedom caused by a fairly important heterogeneity.</p>
-<p>In <code>superb</code>, it is possible to override the default degree of freedom using the error bar estimator <code>errorbar = CIwithDF"</code> and then in the <code>gamma</code> argument, use a vector with both the confidence level desired and the rectified degree of freedom, as in <code>gamma = c(0.95, 26.9965)</code>. Lets have a small plot of this:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pw</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dtaHetero</span>, 
-                 BSFactors   <span class="op">=</span> <span class="st">"group"</span>, 
-                 variables   <span class="op">=</span> <span class="st">"score"</span>, 
-                 adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>,
-                 gamma       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.95</span>, <span class="va">wdf</span><span class="op">)</span>,         <span class="co"># new! </span>
-                 statistic   <span class="op">=</span> <span class="st">"mean"</span>, 
-                 errorbar    <span class="op">=</span> <span class="st">"CIwithDF"</span>,           <span class="co"># new!</span>
-                 plotStyle   <span class="op">=</span> <span class="st">"halfwidthline"</span>,
-                 lineParams  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
-<span class="op">)</span> <span class="op">+</span> <span class="va">ornate</span></code></pre></div>
-<pre><code>## superb::ADVICE: Some of the groups' variances are heterogeneous. Consider using purpose="tryon".</code></pre>
+<div class="section level3">
+<h3 id="a-real-welch-test-with-your-eyes">A real Welch test with your eyes<a class="anchor" aria-label="anchor" href="#a-real-welch-test-with-your-eyes"></a>
+</h3>
+<p>Actually, the above is not entirely true, as the degrees of freedom
+of the <span class="math inline">\(t\)</span> multiplier is only based
+on the number of observations in each group (<span class="math inline">\(n-1\)</span>).</p>
+<p>To really have a Welch test, it is necessary to (1) pool the degrees
+of freedom of the groups together; (2) rectify this degree of freedom
+based on the amount of heterogeneity in the data.</p>
+<p>To get the rectified degrees of freedom according to Welch, you can
+issue</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Welch's rectified degrees of freedom</span></span>
+<span><span class="va">wdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/WelchDegreeOfFreedom.html">WelchDegreeOfFreedom</a></span><span class="op">(</span><span class="va">dtaHetero</span>, <span class="st">"score"</span>,<span class="st">"group"</span><span class="op">)</span></span></code></pre></div>
+<p>in which <code>"score"</code> is the column(s) containing the
+dependent variable(s) and <code>"group"</code> is the column(s)
+containing the group identifiers. Here, the result is 26.9965 (compared
+to <span class="math inline">\(n_1+n_2-2\)</span>, that is 48,
+indicating a fairly large reduction in degree of freedom caused by a
+fairly important heterogeneity.</p>
+<p>In <code>superb</code>, it is possible to override the default degree
+of freedom using the error bar estimator
+<code>errorbar = CIwithDF"</code> and then in the <code>gamma</code>
+argument, use a vector with both the confidence level desired and the
+rectified degree of freedom, as in
+<code>gamma = c(0.95, 26.9965)</code>. Lets have a small plot of
+this:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pw</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">pw</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dtaHetero</span>, </span>
+<span>                 BSFactors   <span class="op">=</span> <span class="st">"group"</span>, </span>
+<span>                 variables   <span class="op">=</span> <span class="st">"score"</span>, </span>
+<span>                 adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>,</span>
+<span>                 gamma       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.95</span>, <span class="va">wdf</span><span class="op">)</span>,         <span class="co"># new! </span></span>
+<span>                 statistic   <span class="op">=</span> <span class="st">"mean"</span>, </span>
+<span>                 errorbar    <span class="op">=</span> <span class="st">"CIwithDF"</span>,           <span class="co"># new!</span></span>
+<span>                 plotStyle   <span class="op">=</span> <span class="st">"halfwidthline"</span>,</span>
+<span>                 lineParams  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op">+</span> <span class="va">ornate</span></span></code></pre></div>
+<pre><code><span><span class="co">## superb::ADVICE: Some of the groups' variances are heterogeneous. Consider using purpose="tryon".</span></span></code></pre>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pw</span></span></code></pre></div>
 <div class="figure">
 <img src="Vignette7_files/figure-html/unnamed-chunk-7-1.png" alt="**Figure 2**. Plot of dtaHerero with rectified degree of freedom." width="288"><p class="caption">
-<strong>Figure 2</strong>. Plot of dtaHerero with rectified degree of freedom.
+<strong>Figure 2</strong>. Plot of dtaHerero with rectified degree of
+freedom.
 </p>
 </div>
-<p>In this plot, I used a different layout, the <code>"halfwidthline"</code> which shows the mid-point of the error bar with a small gap. We will see the reason for that in a minute.</p>
+<p>In this plot, I used a different layout, the
+<code>"halfwidthline"</code> which shows the mid-point of the error bar
+with a small gap. We will see the reason for that in a minute.</p>
 </div>
-<div id="averaging-in-the-square-sense-do-you-expect-me-to-do-that-visually" class="section level2">
-<h2 class="hasAnchor">
-<a href="#averaging-in-the-square-sense-do-you-expect-me-to-do-that-visually" class="anchor"></a>Averaging in the square sense, do you expect me to do that visually?</h2>
-<p>Averaging visually two lengths is already difficult, if it needs to be done in the square sense, that may be impossible… When averaging in the square sense, the longer lines have a stronger influence on the means so that ignoring this fact, we would tend to underestimate the mean length.</p>
-<p>The first solution is not to bother. The usual average and the average in the square sense returns sensibly the same length. Therefore, if your results are not ambiguous, there is no need to worry any more.</p>
-<p>The second solution is to adjust the error bar length so that they are amenable to the usual average. This is actually what Tryon’s adjustment does <span class="citation">(Tryon, 2001)</span>. When the variances are truly homogeneous, the correction for examining pair-wise comparision is an increase by a factor of <span class="math inline">\(\sqrt{2}\)</span>. When we deviate from homogeneity, Tryon’s adjustment tends to be a little larger than 1.41 to compensate for the underestimation introduced by regular averaging. This transformation is right on so that the usual mean of the two error bars, following a Tryon transformation, will precisely indicate whether the means are included in the mean error bar length.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pwt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dtaHetero</span>, 
-                  BSFactors   <span class="op">=</span> <span class="st">"group"</span>, 
-                  variables   <span class="op">=</span> <span class="st">"score"</span>, 
-                  adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"tryon"</span><span class="op">)</span>, <span class="co">#new!</span>
-                  gamma       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.95</span>, <span class="va">wdf</span><span class="op">)</span>,
-                  statistic   <span class="op">=</span> <span class="st">"mean"</span>, 
-                  errorbar    <span class="op">=</span> <span class="st">"CIwithDF"</span>,
-                  plotStyle   <span class="op">=</span> <span class="st">"halfwidthline"</span>,
-                  lineParams  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
-<span class="op">)</span><span class="op">+</span> <span class="va">ornate</span></code></pre></div>
-<pre><code>## superb::FYI: The tryon adjustments per measures are  Measure 1: 1.6489 , all compared to 1.4142.</code></pre>
+<div class="section level3">
+<h3 id="averaging-in-the-square-sense-do-you-expect-me-to-do-that-visually">Averaging in the square sense, do you expect me to do that
+visually?<a class="anchor" aria-label="anchor" href="#averaging-in-the-square-sense-do-you-expect-me-to-do-that-visually"></a>
+</h3>
+<p>Averaging visually two lengths is already difficult, if it needs to
+be done in the square sense, that may be impossible… When averaging in
+the square sense, the longer lines have a stronger influence on the
+means so that ignoring this fact, we would tend to underestimate the
+mean length.</p>
+<p>The first solution is not to bother. The usual average and the
+average in the square sense returns sensibly the same length. Therefore,
+if your results are not ambiguous, there is no need to worry any
+more.</p>
+<p>The second solution is to adjust the error bar length so that they
+are amenable to the usual average. This is actually what Tryon’s
+adjustment does <span class="citation">(Tryon, 2001)</span>. When the
+variances are truly homogeneous, the correction for examining pair-wise
+comparision is an increase by a factor of <span class="math inline">\(\sqrt{2}\)</span>. When we deviate from
+homogeneity, Tryon’s adjustment tends to be a little larger than 1.41 to
+compensate for the underestimation introduced by regular averaging. This
+transformation is right on so that the usual mean of the two error bars,
+following a Tryon transformation, will precisely indicate whether the
+means are included in the mean error bar length.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pwt</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">pwt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dtaHetero</span>, </span>
+<span>                  BSFactors   <span class="op">=</span> <span class="st">"group"</span>, </span>
+<span>                  variables   <span class="op">=</span> <span class="st">"score"</span>, </span>
+<span>                  adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"tryon"</span><span class="op">)</span>, <span class="co">#new!</span></span>
+<span>                  gamma       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.95</span>, <span class="va">wdf</span><span class="op">)</span>,</span>
+<span>                  statistic   <span class="op">=</span> <span class="st">"mean"</span>, </span>
+<span>                  errorbar    <span class="op">=</span> <span class="st">"CIwithDF"</span>,</span>
+<span>                  plotStyle   <span class="op">=</span> <span class="st">"halfwidthline"</span>,</span>
+<span>                  lineParams  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">+</span> <span class="va">ornate</span></span></code></pre></div>
+<pre><code><span><span class="co">## superb::FYI: The tryon adjustments per measures are  Measure 1: 1.6489 , all compared to 1.4142.</span></span></code></pre>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pwt</span></span></code></pre></div>
 <div class="figure">
 <img src="Vignette7_files/figure-html/unnamed-chunk-8-1.png" alt="**Figure 3**. Plot of dtaHerero with rectified degree of freedom and Tryon' difference-adjusted error bars." width="288"><p class="caption">
-<strong>Figure 3</strong>. Plot of dtaHerero with rectified degree of freedom and Tryon’ difference-adjusted error bars.
+<strong>Figure 3</strong>. Plot of dtaHerero with rectified degree of
+freedom and Tryon’ difference-adjusted error bars.
 </p>
 </div>
 </div>
-<div id="finally-are-the-groups-different-or-not" class="section level2">
-<h2 class="hasAnchor">
-<a href="#finally-are-the-groups-different-or-not" class="anchor"></a>Finally, are the groups different or not?</h2>
+<div class="section level3">
+<h3 id="finally-are-the-groups-different-or-not">Finally, are the groups different or not?<a class="anchor" aria-label="anchor" href="#finally-are-the-groups-different-or-not"></a>
+</h3>
 <p>Let’s return to the whole question that motivated this vignette.</p>
-<p>If we used the difference-adjusted error bars, then we need to average in the square sense the error bars. Lets do that:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># get the summary statistics with superbData</span>
-<span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbData.html">superbData</a></span><span class="op">(</span><span class="va">dtaHetero</span>, 
-                BSFactors   <span class="op">=</span> <span class="st">"group"</span>, 
-                variables   <span class="op">=</span> <span class="st">"score"</span>, 
-                adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>,
-                gamma       <span class="op">=</span> <span class="fl">0.95</span>,
-                statistic   <span class="op">=</span> <span class="st">"mean"</span>, errorbar <span class="op">=</span> <span class="st">"CI"</span>
-<span class="op">)</span></code></pre></div>
-<pre><code>## superb::ADVICE: Some of the groups' variances are heterogeneous. Consider using purpose="tryon".</code></pre>
+<p>If we used the difference-adjusted error bars, then we need to
+average in the square sense the error bars. Lets do that:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># keep only the summary statistics:</span>
-<span class="va">t2</span> <span class="op">&lt;-</span> <span class="va">t</span><span class="op">$</span><span class="va">summaryStatistics</span>
-
-<span class="co"># the length is in column "upperwidth", for lines 1 and 2,</span>
-<span class="co"># so lets do the mean in the square sense:</span>
-<span class="va">tmean2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span> <span class="op">(</span><span class="va">t2</span><span class="op">$</span><span class="va">upperwidth</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">t2</span><span class="op">$</span><span class="va">upperwidth</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span> <span class="op">)</span></code></pre></div>
-<p>which equals 16.135. By comparison, here is the regular mean:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tmean</span>    <span class="op">&lt;-</span> <span class="op">(</span><span class="va">t2</span><span class="op">$</span><span class="va">upperwidth</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="va">t2</span><span class="op">$</span><span class="va">upperwidth</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">)</span><span class="op">/</span><span class="fl">2</span></code></pre></div>
-<p>which equals 13.838. This shows that in the present case, the usual average of the error bars is a length too short compared to the adequate average (in the square sense).</p>
-<p>We’ll add a line segment of that length in the subsequent plot. Let’s do the same following Tryon’s adjusment and Welch rectified degrees of freedom:</p>
+<code class="sourceCode R"><span><span class="co"># get the summary statistics with superbData</span></span>
+<span><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbData.html">superbData</a></span><span class="op">(</span><span class="va">dtaHetero</span>, </span>
+<span>                BSFactors   <span class="op">=</span> <span class="st">"group"</span>, </span>
+<span>                variables   <span class="op">=</span> <span class="st">"score"</span>, </span>
+<span>                adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>,</span>
+<span>                gamma       <span class="op">=</span> <span class="fl">0.95</span>,</span>
+<span>                statistic   <span class="op">=</span> <span class="st">"mean"</span>, errorbar <span class="op">=</span> <span class="st">"CI"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## superb::ADVICE: Some of the groups' variances are heterogeneous. Consider using purpose="tryon".</span></span></code></pre>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># get the summary statistics with superbData</span>
-<span class="va">wt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbData.html">superbData</a></span><span class="op">(</span><span class="va">dtaHetero</span>, 
-                BSFactors   <span class="op">=</span> <span class="st">"group"</span>, 
-                variables   <span class="op">=</span> <span class="st">"score"</span>, 
-                adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"tryon"</span><span class="op">)</span>,
-                gamma       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.95</span>, <span class="va">wdf</span><span class="op">)</span>,
-                statistic   <span class="op">=</span> <span class="st">"mean"</span>, errorbar <span class="op">=</span> <span class="st">"CIwithDF"</span>
-<span class="op">)</span></code></pre></div>
-<pre><code>## superb::FYI: The tryon adjustments per measures are  Measure 1: 1.6489 , all compared to 1.4142.</code></pre>
+<code class="sourceCode R"><span><span class="co"># keep only the summary statistics:</span></span>
+<span><span class="va">t2</span> <span class="op">&lt;-</span> <span class="va">t</span><span class="op">$</span><span class="va">summaryStatistics</span></span>
+<span></span>
+<span><span class="co"># the length is in column "upperwidth", for lines 1 and 2,</span></span>
+<span><span class="co"># so lets do the mean in the square sense:</span></span>
+<span><span class="va">tmean2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span> <span class="op">(</span><span class="va">t2</span><span class="op">$</span><span class="va">upperwidth</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">t2</span><span class="op">$</span><span class="va">upperwidth</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span> <span class="op">)</span></span></code></pre></div>
+<p>which equals 16.135. By comparison, here is the regular mean:</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tmean</span>    <span class="op">&lt;-</span> <span class="op">(</span><span class="va">t2</span><span class="op">$</span><span class="va">upperwidth</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="va">t2</span><span class="op">$</span><span class="va">upperwidth</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">)</span><span class="op">/</span><span class="fl">2</span></span></code></pre></div>
+<p>which equals 13.838. This shows that in the present case, the usual
+average of the error bars is a length too short compared to the adequate
+average (in the square sense).</p>
+<p>We’ll add a line segment of that length in the subsequent plot. Let’s
+do the same following Tryon’s adjusment and Welch rectified degrees of
+freedom:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">wt2</span> <span class="op">&lt;-</span> <span class="va">wt</span><span class="op">$</span><span class="va">summaryStatistics</span>
-<span class="va">wmean</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">wt2</span><span class="op">$</span><span class="va">upperwidth</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">+</span><span class="va">wt2</span><span class="op">$</span><span class="va">upperwidth</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span></code></pre></div>
-<p>As seen, both length are very similar, 16.135 for the first, and 16.041 for the second. The small difference comes from the fact that in the Tryon-adjusted error bars, the degree of freedom were rectified by Welch’s formula rather than being unpooled.</p>
-<p>With Tryon’s adjustment, the length can be averaged, which means that half of each length totalizes the average length: this is where the <code>halfwidthline</code> error bars come handy: we see the half of their length. Hence, if they are aligned, their sum is exactly equal to the lag between the two means.</p>
+<code class="sourceCode R"><span><span class="co"># get the summary statistics with superbData</span></span>
+<span><span class="va">wt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbData.html">superbData</a></span><span class="op">(</span><span class="va">dtaHetero</span>, </span>
+<span>                BSFactors   <span class="op">=</span> <span class="st">"group"</span>, </span>
+<span>                variables   <span class="op">=</span> <span class="st">"score"</span>, </span>
+<span>                adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"tryon"</span><span class="op">)</span>,</span>
+<span>                gamma       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.95</span>, <span class="va">wdf</span><span class="op">)</span>,</span>
+<span>                statistic   <span class="op">=</span> <span class="st">"mean"</span>, errorbar <span class="op">=</span> <span class="st">"CIwithDF"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## superb::FYI: The tryon adjustments per measures are  Measure 1: 1.6489 , all compared to 1.4142.</span></span></code></pre>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">wt2</span> <span class="op">&lt;-</span> <span class="va">wt</span><span class="op">$</span><span class="va">summaryStatistics</span></span>
+<span><span class="va">wmean</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">wt2</span><span class="op">$</span><span class="va">upperwidth</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">+</span><span class="va">wt2</span><span class="op">$</span><span class="va">upperwidth</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span></span></code></pre></div>
+<p>As seen, both length are very similar, 16.135 for the first, and
+16.041 for the second. The small difference comes from the fact that in
+the Tryon-adjusted error bars, the degree of freedom were rectified by
+Welch’s formula rather than being unpooled.</p>
+<p>With Tryon’s adjustment, the length can be averaged, which means that
+half of each length totalizes the average length: this is where the
+<code>halfwidthline</code> error bars come handy: we see the half of
+their length. Hence, if they are aligned, their sum is exactly equal to
+the lag between the two means.</p>
 <p>Lets represent all this:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># showing all three plots, with reference lines in red</span>
-<span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html">grid.arrange</a></span><span class="op">(</span>
-    <span class="va">pt</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"Difference-adjusted 95% CI\n with default degree of freedom"</span><span class="op">)</span> <span class="op">+</span> 
-        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span> x <span class="op">=</span> <span class="fl">1.15</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, label <span class="op">=</span> <span class="st">"power-2 mean"</span>, angle <span class="op">=</span> <span class="fl">90</span><span class="op">)</span> <span class="op">+</span>
-        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span> x <span class="op">=</span> <span class="fl">1.55</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, label <span class="op">=</span> <span class="st">"regular mean"</span>, angle <span class="op">=</span> <span class="fl">90</span><span class="op">)</span> <span class="op">+</span>
-        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">-</span><span class="va">tmean2</span><span class="op">/</span><span class="fl">2</span>, colour <span class="op">=</span> <span class="st">"red"</span>, size <span class="op">=</span> <span class="fl">0.5</span>, linetype<span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span> 
-        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">+</span><span class="va">tmean2</span><span class="op">/</span><span class="fl">2</span>, colour <span class="op">=</span> <span class="st">"red"</span>, size <span class="op">=</span> <span class="fl">0.5</span>, linetype<span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span> 
-        <span class="co"># arrow for the power-2 mean</span>
-        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html">geom_segment</a></span><span class="op">(</span>arrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/arrow.html">arrow</a></span><span class="op">(</span>length <span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fl">0.4</span>,<span class="st">"cm"</span><span class="op">)</span><span class="op">)</span>, x<span class="op">=</span><span class="fl">1.33</span>, y<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, 
-                xend<span class="op">=</span><span class="fl">1.33</span>, yend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">+</span><span class="va">tmean2</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span>
-        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html">geom_segment</a></span><span class="op">(</span>arrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/arrow.html">arrow</a></span><span class="op">(</span>length <span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fl">0.4</span>,<span class="st">"cm"</span><span class="op">)</span><span class="op">)</span>, x<span class="op">=</span><span class="fl">1.333</span>, y<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, 
-                xend<span class="op">=</span><span class="fl">1.33</span>, yend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">-</span><span class="va">tmean2</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span> 
-        <span class="co"># arrow for the regular mean</span>
-        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html">geom_segment</a></span><span class="op">(</span>arrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/arrow.html">arrow</a></span><span class="op">(</span>length <span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fl">0.4</span>,<span class="st">"cm"</span><span class="op">)</span><span class="op">)</span>, x<span class="op">=</span><span class="fl">1.66</span>, y<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, 
-                xend<span class="op">=</span><span class="fl">1.66</span>, yend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">+</span><span class="va">tmean</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span>
-        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html">geom_segment</a></span><span class="op">(</span>arrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/arrow.html">arrow</a></span><span class="op">(</span>length <span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fl">0.4</span>,<span class="st">"cm"</span><span class="op">)</span><span class="op">)</span>, x<span class="op">=</span><span class="fl">1.66</span>, y<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, 
-                xend<span class="op">=</span><span class="fl">1.66</span>, yend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">-</span><span class="va">tmean</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span>, 
-    <span class="va">pw</span>  <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"Difference-adjusted 95% CI\nwith df from Welch"</span><span class="op">)</span>,
-
-    <span class="va">pwt</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"Tryon-adjusted 95% CI\nwith df from Welch"</span><span class="op">)</span> <span class="op">+</span>
-        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="va">wt2</span><span class="op">$</span><span class="va">upperwidth</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">/</span><span class="fl">2</span>, colour <span class="op">=</span> <span class="st">"red"</span>, size <span class="op">=</span> <span class="fl">0.5</span>, linetype<span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span> 
-        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">+</span><span class="va">wt2</span><span class="op">$</span><span class="va">lowerwidth</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">/</span><span class="fl">2</span>, colour <span class="op">=</span> <span class="st">"red"</span>, size <span class="op">=</span> <span class="fl">0.5</span>, linetype<span class="op">=</span><span class="fl">2</span><span class="op">)</span>,
- ncol<span class="op">=</span><span class="fl">3</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># showing all three plots, with reference lines in red</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span></span>
+<span>    <span class="va">pt</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"Difference-adjusted 95% CI\n with default degree of freedom"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span> x <span class="op">=</span> <span class="fl">1.15</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, label <span class="op">=</span> <span class="st">"power-2 mean"</span>, angle <span class="op">=</span> <span class="fl">90</span><span class="op">)</span> <span class="op">+</span></span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span> x <span class="op">=</span> <span class="fl">1.55</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, label <span class="op">=</span> <span class="st">"regular mean"</span>, angle <span class="op">=</span> <span class="fl">90</span><span class="op">)</span> <span class="op">+</span></span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">-</span><span class="va">tmean2</span><span class="op">/</span><span class="fl">2</span>, colour <span class="op">=</span> <span class="st">"red"</span>, size <span class="op">=</span> <span class="fl">0.5</span>, linetype<span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">+</span><span class="va">tmean2</span><span class="op">/</span><span class="fl">2</span>, colour <span class="op">=</span> <span class="st">"red"</span>, size <span class="op">=</span> <span class="fl">0.5</span>, linetype<span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>        <span class="co"># arrow for the power-2 mean</span></span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html" class="external-link">geom_segment</a></span><span class="op">(</span>arrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">arrow</a></span><span class="op">(</span>length <span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.4</span>,<span class="st">"cm"</span><span class="op">)</span><span class="op">)</span>, x<span class="op">=</span><span class="fl">1.33</span>, y<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, </span>
+<span>                xend<span class="op">=</span><span class="fl">1.33</span>, yend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">+</span><span class="va">tmean2</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html" class="external-link">geom_segment</a></span><span class="op">(</span>arrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">arrow</a></span><span class="op">(</span>length <span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.4</span>,<span class="st">"cm"</span><span class="op">)</span><span class="op">)</span>, x<span class="op">=</span><span class="fl">1.333</span>, y<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, </span>
+<span>                xend<span class="op">=</span><span class="fl">1.33</span>, yend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">-</span><span class="va">tmean2</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>        <span class="co"># arrow for the regular mean</span></span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html" class="external-link">geom_segment</a></span><span class="op">(</span>arrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">arrow</a></span><span class="op">(</span>length <span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.4</span>,<span class="st">"cm"</span><span class="op">)</span><span class="op">)</span>, x<span class="op">=</span><span class="fl">1.66</span>, y<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, </span>
+<span>                xend<span class="op">=</span><span class="fl">1.66</span>, yend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">+</span><span class="va">tmean</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html" class="external-link">geom_segment</a></span><span class="op">(</span>arrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">arrow</a></span><span class="op">(</span>length <span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.4</span>,<span class="st">"cm"</span><span class="op">)</span><span class="op">)</span>, x<span class="op">=</span><span class="fl">1.66</span>, y<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, </span>
+<span>                xend<span class="op">=</span><span class="fl">1.66</span>, yend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">-</span><span class="va">tmean</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span>, </span>
+<span>    <span class="va">pw</span>  <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"Difference-adjusted 95% CI\nwith df from Welch"</span><span class="op">)</span>,</span>
+<span></span>
+<span>    <span class="va">pwt</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"Tryon-adjusted 95% CI\nwith df from Welch"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span><span class="op">+</span><span class="va">wt2</span><span class="op">$</span><span class="va">upperwidth</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">/</span><span class="fl">2</span>, colour <span class="op">=</span> <span class="st">"red"</span>, size <span class="op">=</span> <span class="fl">0.5</span>, linetype<span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">grp2</span><span class="op">)</span><span class="op">+</span><span class="va">wt2</span><span class="op">$</span><span class="va">lowerwidth</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">/</span><span class="fl">2</span>, colour <span class="op">=</span> <span class="st">"red"</span>, size <span class="op">=</span> <span class="fl">0.5</span>, linetype<span class="op">=</span><span class="fl">2</span><span class="op">)</span>,</span>
+<span> ncol<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">i</span> Please use `linewidth` instead.</span></span></code></pre>
 <div class="figure">
 <img src="Vignette7_files/figure-html/unnamed-chunk-12-1.png" alt="**Figure 4**. All three plots with relevant markers in red." width="864"><p class="caption">
 <strong>Figure 4</strong>. All three plots with relevant markers in red.
 </p>
 </div>
-<p>From the Tryon-adjusted confidence intervals, we see that the average length is precisely the lag between the means. In other word, the two groups are borderline significantly different. Still not convinced? Let’s do a Welch test:</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span> <span class="va">grp1</span>, <span class="va">grp2</span>, 
-        var.equal<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
-<pre><code>## 
-##  Welch Two Sample t-test
-## 
-## data:  grp1 and grp2
-## t = -2.0518, df = 26.996, p-value = 0.05001
-## alternative hypothesis: true difference in means is not equal to 0
-## 95 percent confidence interval:
-##  -3.208072e+01  7.239399e-04
-## sample estimates:
-## mean of x mean of y 
-##     64.12     80.16</code></pre>
-<p>The difference is right on the limit of significance at the .05 level, mirroring the 95% confidence level used in the plot.</p>
+<p>From the Tryon-adjusted confidence intervals, we see that the average
+length is precisely the lag between the means. In other word, the two
+groups are borderline significantly different. Still not convinced?
+Let’s do a Welch test:</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span> <span class="va">grp1</span>, <span class="va">grp2</span>, </span>
+<span>        var.equal<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">##  Welch Two Sample t-test</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## data:  grp1 and grp2</span></span>
+<span><span class="co">## t = -2.0518, df = 26.996, p-value = 0.05001</span></span>
+<span><span class="co">## alternative hypothesis: true difference in means is not equal to 0</span></span>
+<span><span class="co">## 95 percent confidence interval:</span></span>
+<span><span class="co">##  -3.208072e+01  7.239399e-04</span></span>
+<span><span class="co">## sample estimates:</span></span>
+<span><span class="co">## mean of x mean of y </span></span>
+<span><span class="co">##     64.12     80.16</span></span></code></pre>
+<p>The difference is right on the limit of significance at the .05
+level, mirroring the 95% confidence level used in the plot.</p>
 </div>
-<div id="in-summary" class="section level2">
-<h2 class="hasAnchor">
-<a href="#in-summary" class="anchor"></a>In summary</h2>
-<p><code>superb</code> is making error bars from separate error estimations. Hence, whenever the sample sizes are quite unequal, the variances are quite heterogeneous, or both, the inference performed by eyes are actually the same as performing a Welch test of means. When both samples sizes are equal and variances are homogeneouse, there is no difference between a Welch test and a <em>t</em> test.</p>
-<p>When the degree of freedom are rectified and Tryon’s ajustment is used, the center of both confidence intervals should be exactly aligned to indicate that their mean fills exactly the gap.</p>
-<p>Although the Tryon/Welch pair lets you make very precise inferences, visually and practically speaking, the difference between the rectified Welch degree of freedom adjustments and a plot with the default degree of freedom are undetectable (as evidence by the first plot and the second plot of Figure 4 just above).</p>
-<p>If you can perform average in the square sense, the difference adjustment is perfect. In doubt, consider applying the Tryon adjustment when the variances are cleary heterogeneous.</p>
+<div class="section level3">
+<h3 id="in-summary">In summary<a class="anchor" aria-label="anchor" href="#in-summary"></a>
+</h3>
+<p><code>superb</code> is making error bars from separate error
+estimations. Hence, whenever the sample sizes are quite unequal, the
+variances are quite heterogeneous, or both, the inference performed by
+eyes are actually the same as performing a Welch test of means. When
+both samples sizes are equal and variances are homogeneouse, there is no
+difference between a Welch test and a <em>t</em> test.</p>
+<p>When the degree of freedom are rectified and Tryon’s ajustment is
+used, the center of both confidence intervals should be exactly aligned
+to indicate that their mean fills exactly the gap.</p>
+<p>Although the Tryon/Welch pair lets you make very precise inferences,
+visually and practically speaking, the difference between the rectified
+Welch degree of freedom adjustments and a plot with the default degree
+of freedom are undetectable (as evidence by the first plot and the
+second plot of Figure 4 just above).</p>
+<p>If you can perform average in the square sense, the difference
+adjustment is perfect. In doubt, consider applying the Tryon adjustment
+when the variances are cleary heterogeneous.</p>
 </div>
-<div id="references" class="section level1 unnumbered">
-<h1 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h1>
+<div class="section level2">
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
 <div id="ref-dll17" class="csl-entry">
-Delacre, M., Lakens, D., &amp; Leys, C. (2017). Why psychologists should by default use welch’s t-test instead of student’s t-test. <em>International Review of Social Psychology</em>, <em>30</em>(1). <a href="https://doi.org/10.5334/irsp.82">https://doi.org/10.5334/irsp.82</a>
+Delacre, M., Lakens, D., &amp; Leys, C. (2017). Why psychologists should
+by default use welch’s t-test instead of student’s t-test.
+<em>International Review of Social Psychology</em>, <em>30</em>(1). <a href="https://doi.org/10.5334/irsp.82" class="external-link">https://doi.org/10.5334/irsp.82</a>
 </div>
 <div id="ref-t01" class="csl-entry">
-Tryon, W. W. (2001). Evaluating statistical difference, equivalence, and indeterminacy using inferential confidence intervals: An integrated alternative method of conducting null hypothesis statistical tests. <em>Psychological Methods</em>, <em>6</em>, 371–386. <a href="https://doi.org/10.1037/1082-989X.6.4.371">https://doi.org/10.1037/1082-989X.6.4.371</a>
+Tryon, W. W. (2001). Evaluating statistical difference, equivalence, and
+indeterminacy using inferential confidence intervals: An integrated
+alternative method of conducting null hypothesis statistical tests.
+<em>Psychological Methods</em>, <em>6</em>, 371–386. <a href="https://doi.org/10.1037/1082-989X.6.4.371" class="external-link">https://doi.org/10.1037/1082-989X.6.4.371</a>
 </div>
 <div id="ref-w47" class="csl-entry">
-Welch, B. L. (1947). The generalization of student’s’ problem when several different population variances are involved. <em>Biometrika</em>, <em>34</em>(1/2), 28–35. <a href="https://doi.org/10.1093/biomet/34.1-2.28">https://doi.org/10.1093/biomet/34.1-2.28</a>
+Welch, B. L. (1947). The generalization of student’s’ problem when
+several different population variances are involved.
+<em>Biometrika</em>, <em>34</em>(1/2), 28–35. <a href="https://doi.org/10.1093/biomet/34.1-2.28" class="external-link">https://doi.org/10.1093/biomet/34.1-2.28</a>
 </div>
 </div>
 </div>
@@ -420,11 +536,13 @@ Welch, B. L. (1947). The generalization of student’s’ problem when several d
 
 
       <footer><div class="copyright">
-  <p>Developed by Denis Cousineau.</p>
+  <p></p>
+<p>Developed by Denis Cousineau.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -432,6 +550,8 @@ Welch, B. L. (1947). The generalization of student’s’ problem when several d
 
   
 
+
+  
 
   </body>
 </html>

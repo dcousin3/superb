@@ -8,7 +8,7 @@ description: >
   This vignette shows how to illustrate Cohen's d
   with superb.
 vignette: >
-  %\VignetteIndexEntry{Illustrating Cohen's d with superb}
+  %\VignetteIndexEntry{Illustrating Cohen's d with ``superb``}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
