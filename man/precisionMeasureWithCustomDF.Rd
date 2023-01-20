@@ -11,16 +11,14 @@ CIwithDF.mean(x, gamma = 0.95 )
 \item{x}{a vector of numbers, the sample data (mandatory);}
 
 \item{gamma}{a vector containing first a confidence level for CI (default 0.95) and
-a custom degree of freedom (if unspecified, uses \code{n-1} where \code{n} is the number of observations in x).}
+a custom degree of freedom (when unspecified, it uses \code{n-1} where \code{n} is the number of observations in x).}
 }
 \value{
 the confidence interval (CI) where the \code{t} value is based on the custom-set degree of freedom.
 }
 \description{
-The following three functions can be used with missing data.
-They return the mean, the standard error of the mean and the confidence interval of the mean.
-Note that we hesitated to provide these functions: you should deal with missing data prior
-to making your plot.
+The following function accept an arbitrary defined degree
+of freedom (df). This df must be inserted in gamma after the confidence level.
 }
 \examples{
 # this will issue a warning as no custom degree of freedom is provided

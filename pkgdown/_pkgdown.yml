@@ -67,3 +67,25 @@ reference:
       - '`extent`'
       - '`custom`'
       - '`Rexpression`'
+articles:
+- title: Articles
+  navbar: ~
+  contents:
+  - Vignette1
+  - Vignette2
+  - Vignette3
+  - TheMakingOf
+  - CustomizingSuperbPlots
+  - VignetteE
+  - Vignette9
+  - VignetteC
+  - VignetteF
+  - VignetteA
+  - Vignette7
+  - Vignette8
+  - VignetteB
+  - Vignette4
+  - Vignette5
+  - VignetteD
+  - Vignette6
+  

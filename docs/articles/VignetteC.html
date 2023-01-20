@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.7</span>
       </span>
     </div>
 
@@ -58,12 +58,6 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/CustomizingSuperbPlots.html">Customizing `superb` plots</a>
-    </li>
-    <li>
-      <a href="../articles/TheMakingOf.html">The making-of the figures in the article</a>
-    </li>
-    <li>
       <a href="../articles/Vignette1.html">Three steps to make your plot</a>
     </li>
     <li>
@@ -73,13 +67,25 @@
       <a href="../articles/Vignette3.html">Why use correlation-adjusted confidence intervals?</a>
     </li>
     <li>
-      <a href="../articles/Vignette4.html">Using a custom statistic with its error bar</a>
+      <a href="../articles/TheMakingOf.html">The making-of the figures in the article</a>
     </li>
     <li>
-      <a href="../articles/Vignette5.html">Devising custom plot layouts</a>
+      <a href="../articles/CustomizingSuperbPlots.html">Customizing `superb` plots</a>
     </li>
     <li>
-      <a href="../articles/Vignette6.html">Generating ready-to-analyze datasets with GRD</a>
+      <a href="../articles/VignetteE.html">Adding labels to ``superb`` plots</a>
+    </li>
+    <li>
+      <a href="../articles/Vignette9.html">Plotting Cohen's d with ``superb``</a>
+    </li>
+    <li>
+      <a href="../articles/VignetteC.html">Plotting proportions with ``superb``</a>
+    </li>
+    <li>
+      <a href="../articles/VignetteF.html">Plotting frequencies using ``superb``</a>
+    </li>
+    <li>
+      <a href="../articles/VignetteA.html">Plotting Reference Intervals with ``superb``</a>
     </li>
     <li>
       <a href="../articles/Vignette7.html">Unequal variances, Welch test, Tryon adjustment, and ``superb``</a>
@@ -88,25 +94,19 @@
       <a href="../articles/Vignette8.html">(advanced) Alternate ways to decorrelate repeated measures from transformations</a>
     </li>
     <li>
-      <a href="../articles/Vignette9.html">Illustrating Cohen's d with ``superb``</a>
+      <a href="../articles/VignetteB.html">(advanced) Non-factorial within-subject designs in ``superb``</a>
     </li>
     <li>
-      <a href="../articles/VignetteA.html">Illustrating Reference Intervals with ``superb``</a>
+      <a href="../articles/Vignette4.html">Using a custom statistic with its error bar within ``superb``</a>
     </li>
     <li>
-      <a href="../articles/VignetteB.html">Non-factorial within-subject designs in ``superb``</a>
-    </li>
-    <li>
-      <a href="../articles/VignetteC.html">Plotting proportions with ``superb``</a>
+      <a href="../articles/Vignette5.html">Using a custom plot layout within ``superb``</a>
     </li>
     <li>
       <a href="../articles/VignetteD.html">``superb`` and SPSS</a>
     </li>
     <li>
-      <a href="../articles/VignetteE.html">Adding labels to ``superb`` plots</a>
-    </li>
-    <li>
-      <a href="../articles/VignetteF.html">Plotting frequencies using ``superb``</a>
+      <a href="../articles/Vignette6.html">Generating ready-to-analyze datasets with GRD</a>
     </li>
   </ul>
 </li>
@@ -244,13 +244,13 @@ participants.</p>
 <td>Group 2</td>
 <td>18</td>
 <td>28</td>
-<td>63.6%</td>
+<td>64.3%</td>
 </tr>
 <tr class="odd">
 <td>Group 3</td>
 <td>10</td>
 <td>26</td>
-<td>38.9%</td>
+<td>38.5%</td>
 </tr>
 </tbody>
 </table>
@@ -321,7 +321,7 @@ intervals:</p>
 <span>    <span class="fl">0.5</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">v</span><span class="op">+</span><span class="fl">1</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="va">CI.A</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">v</span>, <span class="va">gamma</span> <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span><span class="op">{</span></span>
-<span>    <span class="fu">SE.A</span><span class="op">(</span><span class="va">v</span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html" class="external-link">qchisq</a></span><span class="op">(</span><span class="va">gamma</span>, df<span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="op">)</span></span>
+<span>    <span class="fu">SE.A</span><span class="op">(</span><span class="va">v</span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html" class="external-link">qchisq</a></span><span class="op">(</span><span class="va">gamma</span>, df<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>This is all we need to make a basic plot with
 <code>suberbPlot()</code></p>
@@ -413,10 +413,10 @@ difference-adjusted confidence intervals. Hence, if at least one result
 is not included in the confidence interval of another result, then the
 chances are good that they differ significantly.</p>
 <p>Running an analysis of proportions, it indicates the presence of a
-main effect of Group (<span class="math inline">\(F(2,\infty)= 3.11, p =
-.045\)</span>). How to perform an analysis of proportions (ANOPA) is
+main effect of Group (<span class="math inline">\(F(2,\infty)= 3.06, p =
+.047\)</span>). How to perform an analysis of proportions (ANOPA) is
 explained in <span class="citation">Laurencelle &amp; Cousineau
-(2023)</span>.</p>
+(2022)</span>.</p>
 <p>We see from the plot that the length of the error bars are about all
 the same, suggesting homogeneous variance (because all the sample are of
 comparable size). This is always the case as Anscombe transform is a
@@ -430,16 +430,16 @@ variances identical.</p>
 statistics. Here, we showed how <code><a href="../reference/superbPlot.html">superbPlot()</a></code> can be used
 with proportions. For within-subject designs involving proportions, it
 is also possible to use the correlation adjustments <span class="citation">(as demonstrated in Laurencelle &amp; Cousineau,
-2023)</span>.</p>
+2022)</span>.</p>
 </div>
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
 <div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
 <div id="ref-lc23" class="csl-entry">
-Laurencelle, L., &amp; Cousineau, D. (2023). Analysis of proportions
+Laurencelle, L., &amp; Cousineau, D. (2022). Analysis of proportions
 using arcsine transform with any experimental design. <em>Frontiers in
-Psychology</em>.
+Psychology</em>, <em>13</em>. <a href="https://doi.org/10.3389/fpsyg.2022.1045436" class="external-link">https://doi.org/10.3389/fpsyg.2022.1045436</a>
 </div>
 </div>
 </div>

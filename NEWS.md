@@ -1,3 +1,16 @@
+# superb 0.95.7 (January 19th, 2023)
+
+* Added pairwise deletion for the computation of the mean correlation in case of missing data with CA
+* Removed ggplot2 depleted functions "aes_string" in favor of "aes"
+* Removed ggplot2 depleted attribute "size" in favor of "linewidth"
+* Added the lineBand plot in the Shiny interface
+
+# superb 0.95.6 (December 24th, 2022)
+
+* Added documentation related to plotting frequencies
+* Harmonized a bit the other vignettes' format.
+* Updated version in shinyapps.io
+
 # superb 0.95.5 (November 18th, 2022)
 
 * Tweaked column selection so that the variable argument can be

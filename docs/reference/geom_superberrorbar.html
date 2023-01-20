@@ -27,7 +27,7 @@ or go in "both" (the default)'><meta property="og:image" content="http://dcousin
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.7</span>
       </span>
     </div>
 
@@ -42,12 +42,6 @@ or go in "both" (the default)'><meta property="og:image" content="http://dcousin
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/CustomizingSuperbPlots.html">Customizing `superb` plots</a>
-    </li>
-    <li>
-      <a href="../articles/TheMakingOf.html">The making-of the figures in the article</a>
-    </li>
-    <li>
       <a href="../articles/Vignette1.html">Three steps to make your plot</a>
     </li>
     <li>
@@ -57,13 +51,25 @@ or go in "both" (the default)'><meta property="og:image" content="http://dcousin
       <a href="../articles/Vignette3.html">Why use correlation-adjusted confidence intervals?</a>
     </li>
     <li>
-      <a href="../articles/Vignette4.html">Using a custom statistic with its error bar</a>
+      <a href="../articles/TheMakingOf.html">The making-of the figures in the article</a>
     </li>
     <li>
-      <a href="../articles/Vignette5.html">Devising custom plot layouts</a>
+      <a href="../articles/CustomizingSuperbPlots.html">Customizing `superb` plots</a>
     </li>
     <li>
-      <a href="../articles/Vignette6.html">Generating ready-to-analyze datasets with GRD</a>
+      <a href="../articles/VignetteE.html">Adding labels to ``superb`` plots</a>
+    </li>
+    <li>
+      <a href="../articles/Vignette9.html">Plotting Cohen's d with ``superb``</a>
+    </li>
+    <li>
+      <a href="../articles/VignetteC.html">Plotting proportions with ``superb``</a>
+    </li>
+    <li>
+      <a href="../articles/VignetteF.html">Plotting frequencies using ``superb``</a>
+    </li>
+    <li>
+      <a href="../articles/VignetteA.html">Plotting Reference Intervals with ``superb``</a>
     </li>
     <li>
       <a href="../articles/Vignette7.html">Unequal variances, Welch test, Tryon adjustment, and ``superb``</a>
@@ -72,25 +78,19 @@ or go in "both" (the default)'><meta property="og:image" content="http://dcousin
       <a href="../articles/Vignette8.html">(advanced) Alternate ways to decorrelate repeated measures from transformations</a>
     </li>
     <li>
-      <a href="../articles/Vignette9.html">Illustrating Cohen's d with ``superb``</a>
+      <a href="../articles/VignetteB.html">(advanced) Non-factorial within-subject designs in ``superb``</a>
     </li>
     <li>
-      <a href="../articles/VignetteA.html">Illustrating Reference Intervals with ``superb``</a>
+      <a href="../articles/Vignette4.html">Using a custom statistic with its error bar within ``superb``</a>
     </li>
     <li>
-      <a href="../articles/VignetteB.html">Non-factorial within-subject designs in ``superb``</a>
-    </li>
-    <li>
-      <a href="../articles/VignetteC.html">Plotting proportions with ``superb``</a>
+      <a href="../articles/Vignette5.html">Using a custom plot layout within ``superb``</a>
     </li>
     <li>
       <a href="../articles/VignetteD.html">``superb`` and SPSS</a>
     </li>
     <li>
-      <a href="../articles/VignetteE.html">Adding labels to ``superb`` plots</a>
-    </li>
-    <li>
-      <a href="../articles/VignetteF.html">Plotting frequencies using ``superb``</a>
+      <a href="../articles/Vignette6.html">Generating ready-to-analyze datasets with GRD</a>
     </li>
   </ul></li>
 <li>
@@ -214,37 +214,33 @@ marker lines to the tips (default is "single")</p></dd>
 <span class="r-in"><span><span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>grp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>, center<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>, width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1.5</span><span class="op">)</span> <span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># an example with none of the new features = a regular error bar</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">dta</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_.html" class="external-link">aes_string</a></span><span class="op">(</span>ymin<span class="op">=</span><span class="st">"center-width"</span>, ymax<span class="op">=</span><span class="st">"center+width"</span>, x <span class="op">=</span> <span class="st">"grp"</span> <span class="op">)</span> <span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">dta</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin<span class="op">=</span><span class="va">center</span><span class="op">-</span><span class="va">width</span>, ymax<span class="op">=</span><span class="va">center</span><span class="op">+</span><span class="va">width</span>, x <span class="op">=</span> <span class="va">grp</span> <span class="op">)</span> <span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_superberrorbar</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`aes_string()` was deprecated in ggplot2 3.0.0.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">i</span> Please use tidy evaluation ideoms with `aes()`</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Using the `size` aesthietic with geom_path was deprecated in ggplot2 3.4.0.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">i</span> Please use the `linewidth` aesthetic instead.</span>
 <span class="r-plt img"><img src="geom_superberrorbar-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># an example with left-pointing error bars</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">dta</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_.html" class="external-link">aes_string</a></span><span class="op">(</span>ymin<span class="op">=</span><span class="st">"center-width"</span>, ymax<span class="op">=</span><span class="st">"center+width"</span>, x <span class="op">=</span> <span class="st">"grp"</span> <span class="op">)</span> <span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">dta</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin<span class="op">=</span><span class="va">center</span><span class="op">-</span><span class="va">width</span>, ymax<span class="op">=</span><span class="va">center</span><span class="op">+</span><span class="va">width</span>, x <span class="op">=</span> <span class="va">grp</span> <span class="op">)</span> <span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_superberrorbar</span><span class="op">(</span>direction<span class="op">=</span><span class="st">"left"</span>, width <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_superberrorbar-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># an example with doubled-tipped error bar and the default tipgap</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">dta</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_.html" class="external-link">aes_string</a></span><span class="op">(</span>ymin<span class="op">=</span><span class="st">"center-width"</span>, ymax<span class="op">=</span><span class="st">"center+width"</span>, x <span class="op">=</span> <span class="st">"grp"</span> <span class="op">)</span> <span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">dta</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin<span class="op">=</span><span class="va">center</span><span class="op">-</span><span class="va">width</span>, ymax<span class="op">=</span><span class="va">center</span><span class="op">+</span><span class="va">width</span>, x <span class="op">=</span> <span class="va">grp</span> <span class="op">)</span> <span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_superberrorbar</span><span class="op">(</span>tipformat <span class="op">=</span> <span class="st">"double"</span>, width <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_superberrorbar-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># an example with left-pointing tripled-tip error bars with small gaps</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">dta</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_.html" class="external-link">aes_string</a></span><span class="op">(</span>ymin<span class="op">=</span><span class="st">"center-width"</span>, ymax<span class="op">=</span><span class="st">"center+width"</span>, x <span class="op">=</span> <span class="st">"grp"</span> <span class="op">)</span> <span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">dta</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin<span class="op">=</span><span class="va">center</span><span class="op">-</span><span class="va">width</span>, ymax<span class="op">=</span><span class="va">center</span><span class="op">+</span><span class="va">width</span>, x <span class="op">=</span> <span class="va">grp</span> <span class="op">)</span> <span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_superberrorbar</span><span class="op">(</span>tipformat <span class="op">=</span> <span class="st">"triple"</span>, width<span class="op">=</span> <span class="fl">0.1</span>, tipgap <span class="op">=</span> <span class="fl">0.04</span>, direction <span class="op">=</span> <span class="st">"left"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_superberrorbar-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># an example with unidirectional error bars (here "up" bars)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">dta</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_.html" class="external-link">aes_string</a></span><span class="op">(</span>y<span class="op">=</span> <span class="st">"center"</span>, ymin<span class="op">=</span><span class="st">"center-width"</span>, ymax<span class="op">=</span><span class="st">"center+width"</span>, x <span class="op">=</span> <span class="st">"grp"</span> <span class="op">)</span> <span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">dta</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y<span class="op">=</span> <span class="va">center</span>, ymin<span class="op">=</span><span class="va">center</span><span class="op">-</span><span class="va">width</span>, ymax<span class="op">=</span><span class="va">center</span><span class="op">+</span><span class="va">width</span>, x <span class="op">=</span> <span class="va">grp</span> <span class="op">)</span> <span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span>stat<span class="op">=</span><span class="st">"identity"</span>, fill <span class="op">=</span> <span class="st">"yellow"</span><span class="op">)</span> <span class="op">+</span> </span></span>
 <span class="r-in"><span>  <span class="fu">geom_superberrorbar</span><span class="op">(</span>pointing <span class="op">=</span> <span class="st">"up"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_superberrorbar-5.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># a final example with two-coloured, left-pointing tripled-tip error bars with small gaps</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">dta</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_.html" class="external-link">aes_string</a></span><span class="op">(</span>ymin<span class="op">=</span><span class="st">"center-width"</span>, ymax<span class="op">=</span><span class="st">"center+width"</span>, x <span class="op">=</span> <span class="st">"grp"</span> <span class="op">)</span> <span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">dta</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin<span class="op">=</span><span class="va">center</span><span class="op">-</span><span class="va">width</span>, ymax<span class="op">=</span><span class="va">center</span><span class="op">+</span><span class="va">width</span>, x <span class="op">=</span> <span class="va">grp</span> <span class="op">)</span> <span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_superberrorbar</span><span class="op">(</span>tipformat <span class="op">=</span> <span class="st">"triple"</span>, width<span class="op">=</span> <span class="fl">0.1</span>, tipgap <span class="op">=</span> <span class="fl">0.04</span>, direction <span class="op">=</span> <span class="st">"left"</span>,</span></span>
 <span class="r-in"><span>           colour <span class="op">=</span> <span class="st">"black"</span>, vcolour <span class="op">=</span> <span class="st">"orange"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_superberrorbar-6.png" alt="" width="700" height="433"></span>

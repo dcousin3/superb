@@ -1,5 +1,5 @@
 ---
-title: "Using a custom statistic with its error bar"
+title: "Using a custom statistic with its error bar within ``superb``"
 bibliography: "../inst/REFERENCES.bib"
 csl: "../inst/apa-6th.csl"
 output: 
@@ -11,7 +11,7 @@ description: >
   vignette explains how to add a custom descriptive statistic and how to add its 
   precision interval to superbPlot.
 vignette: >
-  %\VignetteIndexEntry{Using a custom statistic with its error bar}
+  %\VignetteIndexEntry{Using a custom statistic with its error bar within ``superb``}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---

@@ -334,9 +334,9 @@ test_that("test 6f: adding ggplot options to the error bars, to the points", {
       statistic = "mean", errorbar = "CI", gamma = .999,
       adjustments = list(purpose = "difference"),
       # see geom_errorbar for the possible arguments
-      errorbarParams = list(width = .2, size = 3, colour = "gray"),
+      errorbarParams = list(width = .2, linewidth = 3, colour = "gray"),
       # see geom_point or geom_bar for possible arguments
-      barParams = list(linetype = 3, colour = "black", size = .5)  
+      barParams = list(linetype = 3, colour = "black", linewidth = .5)  
     )
 
     expect_equal( "ggplot" %in% class(p), TRUE)
@@ -352,7 +352,7 @@ test_that("test 6g: adding ggplot options to the error bars, to the points (bis)
       adjustments = list(purpose = "difference"),
       plotStyle = "line",
       # see geom_errorbar for the possible arguments
-      errorbarParams = list(width = .02, size = 0.1, colour = "gray"),
+      errorbarParams = list(width = .02, linewidth = 0.1, colour = "gray"),
       # see geom_point or geom_bar for possible arguments
       pointParams = list(colour = "gray", size = 10.5)  
     )
@@ -527,8 +527,8 @@ test_that("Many tests with TMB1964r", {
     }
     ###### BASIC PLOTS ######
     plt1 <- mp("bar",
-        errorbarParams = list(size=0.75, position = position_dodge(.95) ),
-        barParams = list(size=0.5)
+        errorbarParams = list(linewidth=0.75, position = position_dodge(.95) ),
+        barParams = list(linewidth=0.5)
     ) + 
     scale_colour_manual( name = "asdf", 
         labels = c("Context 0", "Context 2", "Context 4", "Context 8"), 
@@ -542,9 +542,9 @@ test_that("Many tests with TMB1964r", {
         "3"="50.00", "4" = "66.67", "5"="83.33", "6"="100.00", "7"="116.67"))
 
     plt2 <- mp("line",
-        errorbarParams = list(size=0.75, width = 0.2, position = position_dodge(.5) ),
+        errorbarParams = list(linewidth=0.75, width = 0.2, position = position_dodge(.5) ),
         pointParams = list(size=2.5, position = position_dodge(.5)),
-        lineParams = list(size=0.25)
+        lineParams = list(linewidth=0.25)
     )
 
     plt3 <- mp("point",

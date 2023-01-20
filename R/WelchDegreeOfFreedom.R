@@ -5,7 +5,7 @@
 #'
 #' @description When variance across groups are heterogeneous,
 #'   the Student ``t`` distribution with ``n - 1`` df is not the exact distribution. 
-#'   However, Welch (1947), using methods of moments, was able to find the 
+#'   However, \insertCite{w47}{superb}, using methods of moments, was able to find the 
 #'   best-fitting ``t`` distribution. This distribution has degree of freedom reduced
 #'   based on the sample sizes and the variances of the group tests. The present
 #'   function returns the rectified degree of freedom

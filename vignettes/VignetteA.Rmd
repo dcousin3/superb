@@ -1,5 +1,5 @@
 ---
-title: "Illustrating Reference Intervals with ``superb``"
+title: "Plotting Reference Intervals with ``superb``"
 bibliography: "../inst/REFERENCES.bib"
 csl: "../inst/apa-6th.csl"
 output: 
@@ -8,7 +8,7 @@ description: >
   This vignette shows how to illustrate reference intervals
   using superb.
 vignette: >
-  %\VignetteIndexEntry{Illustrating Reference Intervals with ``superb``}
+  %\VignetteIndexEntry{Plotting Reference Intervals with ``superb``}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---

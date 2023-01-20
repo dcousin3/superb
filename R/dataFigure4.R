@@ -34,13 +34,13 @@
 #'     variables = c("score"), plotStyle="bar" ) + 
 #'   xlab("Group") + ylab("Score") + labs(title="Difference-adjusted 95% CI\n") +
 #'   coord_cartesian( ylim = c(85,115) ) +
-#'   geom_hline(yintercept = 100, colour = "black", size = 0.5, linetype=2)
+#'   geom_hline(yintercept = 100, colour = "black", linewidth = 0.5, linetype=2)
 #' plt4b = superbPlot(dataFigure4, BSFactors = "group",
 #'     adjustments=list(purpose = "single", popSize = 50 ), 
 #'     variables = c("score"), plotStyle="bar" ) + 
 #'   xlab("Group") + ylab("Score") + labs(title="Population size and difference-\nadjusted 95% CI") +
 #'   coord_cartesian( ylim = c(85,115) ) + 
-#'   geom_hline(yintercept = 100, colour = "black", size = 0.5, linetype=2)
+#'   geom_hline(yintercept = 100, colour = "black", linewidth = 0.5, linetype=2)
 #' plt4 = grid.arrange(plt4a,plt4b,ncol=2)
 #' 
 #' ## realise the correct t-test to see the discrepancy

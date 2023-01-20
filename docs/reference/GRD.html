@@ -22,7 +22,7 @@ presented in Calderini and Harding (2019)
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.7</span>
       </span>
     </div>
 
@@ -37,12 +37,6 @@ presented in Calderini and Harding (2019)
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/CustomizingSuperbPlots.html">Customizing `superb` plots</a>
-    </li>
-    <li>
-      <a href="../articles/TheMakingOf.html">The making-of the figures in the article</a>
-    </li>
-    <li>
       <a href="../articles/Vignette1.html">Three steps to make your plot</a>
     </li>
     <li>
@@ -52,13 +46,25 @@ presented in Calderini and Harding (2019)
       <a href="../articles/Vignette3.html">Why use correlation-adjusted confidence intervals?</a>
     </li>
     <li>
-      <a href="../articles/Vignette4.html">Using a custom statistic with its error bar</a>
+      <a href="../articles/TheMakingOf.html">The making-of the figures in the article</a>
     </li>
     <li>
-      <a href="../articles/Vignette5.html">Devising custom plot layouts</a>
+      <a href="../articles/CustomizingSuperbPlots.html">Customizing `superb` plots</a>
     </li>
     <li>
-      <a href="../articles/Vignette6.html">Generating ready-to-analyze datasets with GRD</a>
+      <a href="../articles/VignetteE.html">Adding labels to ``superb`` plots</a>
+    </li>
+    <li>
+      <a href="../articles/Vignette9.html">Plotting Cohen's d with ``superb``</a>
+    </li>
+    <li>
+      <a href="../articles/VignetteC.html">Plotting proportions with ``superb``</a>
+    </li>
+    <li>
+      <a href="../articles/VignetteF.html">Plotting frequencies using ``superb``</a>
+    </li>
+    <li>
+      <a href="../articles/VignetteA.html">Plotting Reference Intervals with ``superb``</a>
     </li>
     <li>
       <a href="../articles/Vignette7.html">Unequal variances, Welch test, Tryon adjustment, and ``superb``</a>
@@ -67,25 +73,19 @@ presented in Calderini and Harding (2019)
       <a href="../articles/Vignette8.html">(advanced) Alternate ways to decorrelate repeated measures from transformations</a>
     </li>
     <li>
-      <a href="../articles/Vignette9.html">Illustrating Cohen's d with ``superb``</a>
+      <a href="../articles/VignetteB.html">(advanced) Non-factorial within-subject designs in ``superb``</a>
     </li>
     <li>
-      <a href="../articles/VignetteA.html">Illustrating Reference Intervals with ``superb``</a>
+      <a href="../articles/Vignette4.html">Using a custom statistic with its error bar within ``superb``</a>
     </li>
     <li>
-      <a href="../articles/VignetteB.html">Non-factorial within-subject designs in ``superb``</a>
-    </li>
-    <li>
-      <a href="../articles/VignetteC.html">Plotting proportions with ``superb``</a>
+      <a href="../articles/Vignette5.html">Using a custom plot layout within ``superb``</a>
     </li>
     <li>
       <a href="../articles/VignetteD.html">``superb`` and SPSS</a>
     </li>
     <li>
-      <a href="../articles/VignetteE.html">Adding labels to ``superb`` plots</a>
-    </li>
-    <li>
-      <a href="../articles/VignetteF.html">Plotting frequencies using ``superb``</a>
+      <a href="../articles/Vignette6.html">Generating ready-to-analyze datasets with GRD</a>
     </li>
   </ul></li>
 <li>
@@ -197,12 +197,12 @@ doi: <a href="https://doi.org/10.20982/tqmp.15.1.p001" class="external-link">10.
 <span class="r-in"><span> <span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu">GRD</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dta</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   id         DV</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1 -0.7474518</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2  1.3154914</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  3 -0.5264611</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  4  0.7925478</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  5  0.8215506</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  6 -1.0290319</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1  0.8890200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2 -0.0102100</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  3 -0.6053364</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  4 -2.0550582</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  5 -0.7373531</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  6  0.5706970</span>
 <span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">DV</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="GRD-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>

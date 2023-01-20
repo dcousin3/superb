@@ -303,9 +303,9 @@ superbPlot <- function(data,
     # STEP 2: Decorrelate repeated-measure variables if needed; apply transforms
     ##############################################################################
 
-complement <- function(x, U) {U[is.na(pmatch(U,x))]}
-x <- c(BSFactors, variables)
-U <- names(data)
+    complement <- function(x, U) {U[is.na(pmatch(U,x))]}
+    x <- c(BSFactors, variables)
+    U <- names(data)
 
     # keep a copy before transforming the data
     # 2022.11.17: sort the columns, bsfactors & wsvariables first
@@ -569,7 +569,7 @@ U <- names(data)
 
 meanCorrelation <- function(X, cols) {
     # the mean pair-wise correlations from many columns of the dataframe X
-    rs   <- cor(X[cols])
+    rs   <- cor(X[cols], use = "pairwise.complete.obs" )
     rbar <- mean(rs[upper.tri(rs)])
     rbar
 }

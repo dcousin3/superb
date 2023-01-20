@@ -12,8 +12,9 @@ library(superb)
 library(ggplot2)
 library(foreign) # for read.spss
 library(stringr) # for str_remove_all and str_replace_all
+library(dplyr)
 
-appversion <- "App version 3.2; shipped with superb 0.95.0"
+appversion <- "App version 3.4; shipped with superb 0.95.7"
 
 ##########################################################
 ##########################################################
@@ -342,7 +343,7 @@ thePage <- fluidPage(
                     selectInput("superbPlotorder", "Select the order in which factors are plotted", 
                         multiple = TRUE, choices=c(""), selected="" ),
                     selectInput("superbLayout", "Select the plots' layout",
-                        choices=c("bar","point","line","lineBand","pointjitter","pointjitterviolin","pointindividualline","raincloud","halfwidthline"),
+                        choices=c("bar","point","line","lineBand","pointjitter","pointjitterviolin","pointindividualline","raincloud","halfwidthline","lineBand"),
                         multiple = FALSE, selectize = FALSE),
                     strong("Specific graphic attributes (comma separated)"),br(),
                     div(style="display:inline-block", # if one choice is named, they must all be?

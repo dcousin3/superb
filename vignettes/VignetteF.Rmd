@@ -95,6 +95,9 @@ dta
 To have a quick-and-dirty plot, just display the raw counts with no error bars
 
 ```{r, eval=TRUE, fig.width = 6, eval=TRUE, fig.cap="**Figure 1: A quick-and-dirty plot**"}
+library(superb)
+library(ggplot2)
+
 plt1 <- superbPlot(
     dta,
     BSFactors = c("vocation","gender"),

@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.7</span>
       </span>
     </div>
 
@@ -58,12 +58,6 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/CustomizingSuperbPlots.html">Customizing `superb` plots</a>
-    </li>
-    <li>
-      <a href="../articles/TheMakingOf.html">The making-of the figures in the article</a>
-    </li>
-    <li>
       <a href="../articles/Vignette1.html">Three steps to make your plot</a>
     </li>
     <li>
@@ -73,13 +67,25 @@
       <a href="../articles/Vignette3.html">Why use correlation-adjusted confidence intervals?</a>
     </li>
     <li>
-      <a href="../articles/Vignette4.html">Using a custom statistic with its error bar</a>
+      <a href="../articles/TheMakingOf.html">The making-of the figures in the article</a>
     </li>
     <li>
-      <a href="../articles/Vignette5.html">Devising custom plot layouts</a>
+      <a href="../articles/CustomizingSuperbPlots.html">Customizing `superb` plots</a>
     </li>
     <li>
-      <a href="../articles/Vignette6.html">Generating ready-to-analyze datasets with GRD</a>
+      <a href="../articles/VignetteE.html">Adding labels to ``superb`` plots</a>
+    </li>
+    <li>
+      <a href="../articles/Vignette9.html">Plotting Cohen's d with ``superb``</a>
+    </li>
+    <li>
+      <a href="../articles/VignetteC.html">Plotting proportions with ``superb``</a>
+    </li>
+    <li>
+      <a href="../articles/VignetteF.html">Plotting frequencies using ``superb``</a>
+    </li>
+    <li>
+      <a href="../articles/VignetteA.html">Plotting Reference Intervals with ``superb``</a>
     </li>
     <li>
       <a href="../articles/Vignette7.html">Unequal variances, Welch test, Tryon adjustment, and ``superb``</a>
@@ -88,25 +94,19 @@
       <a href="../articles/Vignette8.html">(advanced) Alternate ways to decorrelate repeated measures from transformations</a>
     </li>
     <li>
-      <a href="../articles/Vignette9.html">Illustrating Cohen's d with ``superb``</a>
+      <a href="../articles/VignetteB.html">(advanced) Non-factorial within-subject designs in ``superb``</a>
     </li>
     <li>
-      <a href="../articles/VignetteA.html">Illustrating Reference Intervals with ``superb``</a>
+      <a href="../articles/Vignette4.html">Using a custom statistic with its error bar within ``superb``</a>
     </li>
     <li>
-      <a href="../articles/VignetteB.html">Non-factorial within-subject designs in ``superb``</a>
-    </li>
-    <li>
-      <a href="../articles/VignetteC.html">Plotting proportions with ``superb``</a>
+      <a href="../articles/Vignette5.html">Using a custom plot layout within ``superb``</a>
     </li>
     <li>
       <a href="../articles/VignetteD.html">``superb`` and SPSS</a>
     </li>
     <li>
-      <a href="../articles/VignetteE.html">Adding labels to ``superb`` plots</a>
-    </li>
-    <li>
-      <a href="../articles/VignetteF.html">Plotting frequencies using ``superb``</a>
+      <a href="../articles/Vignette6.html">Generating ready-to-analyze datasets with GRD</a>
     </li>
   </ul>
 </li>
@@ -229,8 +229,11 @@ want to appear on the x-axis:</p>
 <span>    jitterParams   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span><span class="fl">0.1</span>, shape<span class="op">=</span><span class="fl">21</span>,size<span class="op">=</span><span class="fl">0.05</span>,alpha<span class="op">=</span><span class="fl">1</span><span class="op">)</span>, <span class="co"># less dispersed jitter dots,</span></span>
 <span>    violinParams   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>trim<span class="op">=</span><span class="cn">TRUE</span>, alpha<span class="op">=</span><span class="fl">1</span><span class="op">)</span>,                     <span class="co"># not transparent,</span></span>
 <span>    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span>, size<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span>                   <span class="co"># wider bars, thicker lines.</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">pltA</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning in (function (mapping = NULL, data = NULL, stat = "identity", position =</span></span>
+<span><span class="co">## "identity", : Ignoring unknown parameters: `size`</span></span></code></pre>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pltA</span></span></code></pre></div>
 <div class="figure">
 <img src="CustomizingSuperbPlots_files/figure-html/unnamed-chunk-4-1.png" alt="Figure 2, preliminary version" width="643.2"><p class="caption">
 Figure 2, preliminary version
@@ -255,7 +258,7 @@ Consequently, the x-axis labels, the fill color and the dot color are
 all redondant information identifying the condition.</p>
 <p>To do this, simply add an aesthetic graphic directive to
 <code>pltA</code> with:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pltA</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">Domain</span><span class="op">)</span>, colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">Domain</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
 <div class="figure">
 <img src="CustomizingSuperbPlots_files/figure-html/unnamed-chunk-5-1.png" alt="Figure 2, version with colors" width="643.2"><p class="caption">
@@ -277,7 +280,7 @@ approach.</p>
 theme with <code><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme()</a></code> directives.</p>
 <p>These changes are all collected within the list
 <code>commonstyle</code> below:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">commonstyle</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span>,                             <span class="co"># It has no background, no bounding box.</span></span>
 <span></span>
@@ -308,7 +311,7 @@ to fill the clouds (<code>fill</code>) and their borders
 (<code>colour</code>) as well as the rain drop colors.</p>
 <p>Examining this plot with the <code>commonstyle</code> added, we
 get</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">finalpltA</span> <span class="op">&lt;-</span> <span class="va">pltA</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">Domain</span><span class="op">)</span>, colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">Domain</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="va">commonstyle</span> <span class="op">+</span>                           <span class="co"># all the above directive are added;</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">10</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span>     <span class="co"># the y-axis bounds are given ;</span></span>
@@ -328,7 +331,7 @@ Figure 2, final version
 set to <code>dtaB</code> and in the last graphic directives, using
 options tailored specifically to this second data set (smaller y-axis
 range, different label, etc.):</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pltB</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dtaB</span>,        <span class="co"># plot for the second data set...</span></span>
 <span>    WSFactors <span class="op">=</span> <span class="st">"Domain(6)"</span>,    <span class="co"># ...a within-subject design with 6 levels</span></span>
 <span>    variables <span class="op">=</span> <span class="va">mylabels</span>,       <span class="co"># ...whose variables are contained in the above list</span></span>
@@ -342,8 +345,11 @@ range, different label, etc.):</p>
 <span>    jitterParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span><span class="fl">0.1</span>, shape<span class="op">=</span><span class="fl">21</span>,size<span class="op">=</span><span class="fl">0.05</span>,alpha<span class="op">=</span><span class="fl">1</span><span class="op">)</span>, <span class="co"># less dispersed jitter dots,</span></span>
 <span>    violinParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>trim<span class="op">=</span><span class="cn">TRUE</span>, alpha<span class="op">=</span><span class="fl">1</span>,adjust<span class="op">=</span><span class="fl">3</span><span class="op">)</span>,            <span class="co"># not semi-transparent, smoother</span></span>
 <span>    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span>, size<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span>                 <span class="co"># wider bars, thicker lines.</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">finalpltB</span> <span class="op">&lt;-</span> <span class="va">pltB</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">Domain</span><span class="op">)</span>, colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">Domain</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning in (function (mapping = NULL, data = NULL, stat = "identity", position =</span></span>
+<span><span class="co">## "identity", : Ignoring unknown parameters: `size`</span></span></code></pre>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">finalpltB</span> <span class="op">&lt;-</span> <span class="va">pltB</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">Domain</span><span class="op">)</span>, colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">Domain</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="va">commonstyle</span> <span class="op">+</span>                           <span class="co"># the following three lines are the differences:</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">5</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span>      <span class="co"># the limits, 1 to 5, are different </span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"B"</span><span class="op">)</span> <span class="op">+</span>                       <span class="co"># the plot is differently-labeled</span></span>
@@ -359,7 +365,7 @@ Figure 2, bottom row
 <h3 id="combining-and-saving-both-plots">Combining and saving both plots<a class="anchor" aria-label="anchor" href="#combining-and-saving-both-plots"></a>
 </h3>
 <p>Finally, we assemble the two plots together</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">finalplt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">finalpltA</span>, <span class="va">finalpltB</span>, ncol<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="CustomizingSuperbPlots_files/figure-html/unnamed-chunk-9-1.png" alt="Figure 2, final version" width="643.2"><p class="caption">
@@ -367,7 +373,7 @@ Figure 2, final version
 </p>
 </div>
 <p>It can be saved with high-resolution if desired with</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span> <span class="st">"Figure2.png"</span>,</span>
 <span>    plot<span class="op">=</span><span class="va">finalplt</span>,</span>
 <span>    device <span class="op">=</span> <span class="st">"png"</span>,</span>

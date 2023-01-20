@@ -48,9 +48,9 @@
 #'     variables = c("T1","T2","T3","T4","T5","T6","T7"),
 #'     adjustments = list(purpose="difference", decorrelation="CM"),
 #'     plotStyle = "line", 
-#'     errorbarParams = list(width = 0.5, size=1.25, position = position_dodge(.5) ),
+#'     errorbarParams = list(width = 0.5, linewidth=1.25, position = position_dodge(.5) ),
 #'     pointParams = list(size=2.5, position = position_dodge(.5)),
-#'     lineParams = list(size=1.25)
+#'     lineParams = list(linewidth=1.25)
 #' )
 #' plt
 #' 
@@ -77,9 +77,9 @@
 #'     variables = c("T1","T2","T3","T4","T5","T6","T7"),
 #'     adjustments = list(purpose="difference", decorrelation="CM"),
 #'     plotStyle = "line", 
-#'     errorbarParams = list(size=0.15, position = position_dodge(.5) ),
+#'     errorbarParams = list(linewidth=0.15, position = position_dodge(.5) ),
 #'     pointParams = list(size=2.5, position = position_dodge(.5)),
-#'     lineParams = list(size=0.25)
+#'     lineParams = list(linewidth=0.25)
 #' ) + 
 #' scale_colour_manual( 
 #'     labels = c("Context 0", "Context 2", "Context 4", "Context 8"), 

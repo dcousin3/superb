@@ -48,7 +48,7 @@ install.packages("superb")
 library(superb)
 ```
 
-The development version can be accessed through GitHub:
+The development version `r packageVersion("superb")` can be accessed through GitHub:
 
 ```{r, echo = TRUE, eval = FALSE}
 devtools::install_github("dcousin3/superb")
@@ -96,7 +96,7 @@ superbPlot(ToothGrowth,
 ```
 
 As a third example, we illustrate the  harmonic means
-`hmedian` along with 99.9% confidence intervals using lines:
+`hmean` along with 99.9% confidence intervals using lines:
 
 ```{r}
 superbPlot(ToothGrowth, 
@@ -156,8 +156,8 @@ in various ways.
 The complete documentation is available on this [site](https://dcousin3.github.io/superb/).
 
 A general introduction to the `superb` framework underlying this 
-library is in press
-at *Advances in Methods and Practices in Psychological Sciences* (Cousineau, Goulet, & Harding, in press).
+library is published
+at *Advances in Methods and Practices in Psychological Sciences* (Cousineau, Goulet, & Harding, 2021).
 
 # References
 

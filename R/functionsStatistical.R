@@ -74,16 +74,14 @@ fisherkurtosis <- function(x) {
 #'
 #' @md
 #'
-#' @description The following three functions can be used with missing data. 
-#' They return the mean, the standard error of the mean and the confidence interval of the mean.
-#' Note that we hesitated to provide these functions: you should deal with missing data prior
-#' to making your plot.
+#' @description The following function accept an arbitrary defined degree  
+#' of freedom (df). This df must be inserted in gamma after the confidence level.
 #' 
 #' @usage CIwithDF.mean(x, gamma = 0.95 )
 #' 
 #' @param x a vector of numbers, the sample data (mandatory);
 #' @param gamma a vector containing first a confidence level for CI (default 0.95) and
-#'   a custom degree of freedom (if unspecified, uses ``n-1`` where ``n`` is the number of observations in x).
+#'   a custom degree of freedom (when unspecified, it uses ``n-1`` where ``n`` is the number of observations in x).
 #'
 #' @return the confidence interval (CI) where the ``t`` value is based on the custom-set degree of freedom.
 #'
@@ -127,9 +125,10 @@ CIwithDF.mean <- function(x, gamma = 0.95) {
 #' @md
 #'
 #' @description The following three functions can be used with missing data. 
-#' They return the mean, the standard error of the mean and the confidence interval of the mean.
-#' Note that we hesitated to provide these functions: you should deal with missing data prior
-#' to making your plot.
+#' They return the mean, the standard error of the mean and the confidence 
+#' interval of the mean.Note that we hesitated to provide these functions: you 
+#' should deal withmissing data prior to making your plot.
+#' Also note that for repeated-measure design, only CA adjustment is available.
 #' 
 #' @usage meanNArm(x)
 #' @usage SE.meanNArm(x)
@@ -138,8 +137,8 @@ CIwithDF.mean <- function(x, gamma = 0.95) {
 #' @param x a vector of numbers, the sample data (mandatory);
 #' @param gamma a confidence level for CI (default 0.95).
 #'
-#' @return the means, a measure of precision (SE) or an interval of precision (CI)
-#'   in the presence of missing data.
+#' @return the means, a measure of precision (SE) or an interval of precision 
+#'   (CI) in the presence of missing data.
 #'
 #' @examples
 #' # the confidence interval of the mean for default 95% and 90% confidence level
@@ -468,11 +467,11 @@ CI.fisherkurtosis <- function(x, gamma = 0.95){
 #' all ``bootstrapPI.fct()`` produces the lower and upper limits of an interval.
 #' These estimates are based on 5,000 sub-samples by default. Change this 
 #' default with``options("superb.bootstrapIter" = number )``.
-#' See \insertCite{et94}{superb} for a comprehensive introduction.
+#' See \insertCite{et94;textual}{superb} for a comprehensive introduction.
 #' The bootstrap estimates are called PI which stands for Precision intervals.
 #' This is to denote that they estimate the sampling distribution, not the 
 #' predictive distribution on which all confidence intervals are based
-#' \insertCite{@rpw19; @pl10; @l99}{superb}.
+#' \insertCite{rpw19,pl10,l99}{superb}.
 #' 
 #' @usage bootstrapSE.mean(x)
 #' @usage bootstrapPI.mean(x, gamma)

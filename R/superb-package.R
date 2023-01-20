@@ -74,4 +74,11 @@
     options( superb.shiny = NULL )
 }
 
+# to inhibit "no visible binding for global variable" errors from :
+# showSignificance :
+globalVariables(c("yend","xend","label"))
+# superbPlot.bar and all the superbPlot.xxx functions
+globalVariables(c("center","lowerwidth","upperwidth","hwlowerwidth","hwupperwidth"))
+# superbPlot.pointindividualline
+globalVariables(c("id"))
 

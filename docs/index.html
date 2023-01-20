@@ -20,8 +20,8 @@
 <script src="pkgdown.js"></script><meta property="og:title" content="Summary Plots with Adjusted Error Bars">
 <meta property="og:description" content="
     Computes standard error and confidence interval of various descriptive statistics under 
-    various designs and sampling schemes. The main function, superbPlot(), can either return a plot 
-    or a dataframe with the statistic and its precision interval so that other plotting package
+    various designs and sampling schemes. The main function, superbPlot(), return a plot. superbData() 
+    returns a dataframe with the statistic and its precision interval so that other plotting package
     can be used. See Cousineau and colleagues (2021) &lt;doi:10.1177/25152459211035109&gt; 
     or Cousineau (2017) &lt;doi:10.5709/acp-0214-z&gt; for a review as well as Cousineau (2005)
     &lt;doi:10.20982/tqmp.01.1.p042&gt;, Morey (2008) &lt;doi:10.20982/tqmp.04.2.p061&gt;, Baguley (2012)
@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.7</span>
       </span>
     </div>
 
@@ -66,12 +66,6 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/CustomizingSuperbPlots.html">Customizing `superb` plots</a>
-    </li>
-    <li>
-      <a href="articles/TheMakingOf.html">The making-of the figures in the article</a>
-    </li>
-    <li>
       <a href="articles/Vignette1.html">Three steps to make your plot</a>
     </li>
     <li>
@@ -81,13 +75,25 @@
       <a href="articles/Vignette3.html">Why use correlation-adjusted confidence intervals?</a>
     </li>
     <li>
-      <a href="articles/Vignette4.html">Using a custom statistic with its error bar</a>
+      <a href="articles/TheMakingOf.html">The making-of the figures in the article</a>
     </li>
     <li>
-      <a href="articles/Vignette5.html">Devising custom plot layouts</a>
+      <a href="articles/CustomizingSuperbPlots.html">Customizing `superb` plots</a>
     </li>
     <li>
-      <a href="articles/Vignette6.html">Generating ready-to-analyze datasets with GRD</a>
+      <a href="articles/VignetteE.html">Adding labels to ``superb`` plots</a>
+    </li>
+    <li>
+      <a href="articles/Vignette9.html">Plotting Cohen's d with ``superb``</a>
+    </li>
+    <li>
+      <a href="articles/VignetteC.html">Plotting proportions with ``superb``</a>
+    </li>
+    <li>
+      <a href="articles/VignetteF.html">Plotting frequencies using ``superb``</a>
+    </li>
+    <li>
+      <a href="articles/VignetteA.html">Plotting Reference Intervals with ``superb``</a>
     </li>
     <li>
       <a href="articles/Vignette7.html">Unequal variances, Welch test, Tryon adjustment, and ``superb``</a>
@@ -96,25 +102,19 @@
       <a href="articles/Vignette8.html">(advanced) Alternate ways to decorrelate repeated measures from transformations</a>
     </li>
     <li>
-      <a href="articles/Vignette9.html">Illustrating Cohen's d with ``superb``</a>
+      <a href="articles/VignetteB.html">(advanced) Non-factorial within-subject designs in ``superb``</a>
     </li>
     <li>
-      <a href="articles/VignetteA.html">Illustrating Reference Intervals with ``superb``</a>
+      <a href="articles/Vignette4.html">Using a custom statistic with its error bar within ``superb``</a>
     </li>
     <li>
-      <a href="articles/VignetteB.html">Non-factorial within-subject designs in ``superb``</a>
-    </li>
-    <li>
-      <a href="articles/VignetteC.html">Plotting proportions with ``superb``</a>
+      <a href="articles/Vignette5.html">Using a custom plot layout within ``superb``</a>
     </li>
     <li>
       <a href="articles/VignetteD.html">``superb`` and SPSS</a>
     </li>
     <li>
-      <a href="articles/VignetteE.html">Adding labels to ``superb`` plots</a>
-    </li>
-    <li>
-      <a href="articles/VignetteF.html">Plotting frequencies using ``superb``</a>
+      <a href="articles/Vignette6.html">Generating ready-to-analyze datasets with GRD</a>
     </li>
   </ul>
 </li>
@@ -159,7 +159,7 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"superb"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dcousin3.github.io/superb/" class="external-link">superb</a></span><span class="op">)</span></span></code></pre></div>
-<p>The development version can be accessed through GitHub:</p>
+<p>The development version 0.95.7 can be accessed through GitHub:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"dcousin3/superb"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dcousin3.github.io/superb/" class="external-link">superb</a></span><span class="op">)</span></span></code></pre></div>
@@ -185,7 +185,7 @@
 <span>    variables <span class="op">=</span> <span class="st">"len"</span>,</span>
 <span>    statistic <span class="op">=</span> <span class="st">"median"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="README_files/figure-gfm/unnamed-chunk-7-1.png"><!-- --></p>
-<p>As a third example, we illustrate the harmonic means <code>hmedian</code> along with 99.9% confidence intervals using lines:</p>
+<p>As a third example, we illustrate the harmonic means <code>hmean</code> along with 99.9% confidence intervals using lines:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">ToothGrowth</span>, </span>
 <span>    BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dose"</span>,<span class="st">"supp"</span><span class="op">)</span>, </span>
@@ -206,12 +206,12 @@
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">testdata</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">##   id Difficulty  score.1  score.2</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1  1          A 80.48632 71.69466</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2  2          A 78.65204 77.28213</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3  3          A 89.70597 87.54105</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4  4          A 70.40304 81.00853</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5  5          A 77.42992 58.76891</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6  6          A 65.87263 75.82688</span></span></code></pre></div>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1  1          A 81.54852 79.72760</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2  2          A 77.84744 82.16740</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3  3          A 77.48167 44.72805</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4  4          A 58.80350 60.71347</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5  5          A 63.06234 55.33552</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6  6          A 55.96149 44.95868</span></span></code></pre></div>
 <p>The simulated scores are illustrated using using a more elaborated layout, the <code>pointjitterviolin</code> which, in addition to the mean and confidence interval, shows the raw data using jitter dots and the distribution using a violin plot:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">testdata</span>, </span>
@@ -230,7 +230,7 @@
 </h1>
 <p>As seen, the library <code>superb</code> makes it easy to illustrate summary statistics along with the error bars. Some layouts can be used to visualize additional characteristics of the raw data. Finally, the resulting appearance can be customized in various ways.</p>
 <p>The complete documentation is available on this <a href="https://dcousin3.github.io/superb/" class="external-link">site</a>.</p>
-<p>A general introduction to the <code>superb</code> framework underlying this library is in press at <em>Advances in Methods and Practices in Psychological Sciences</em> (Cousineau, Goulet, &amp; Harding, in press).</p>
+<p>A general introduction to the <code>superb</code> framework underlying this library is published at <em>Advances in Methods and Practices in Psychological Sciences</em> (Cousineau, Goulet, &amp; Harding, 2021).</p>
 </div>
 <div class="section level1">
 <h1 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>

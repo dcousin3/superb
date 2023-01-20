@@ -19,7 +19,7 @@ df the degrees of freedom rectified according to Welch (1947).
 \description{
 When variance across groups are heterogeneous,
 the Student \code{t} distribution with \code{n - 1} df is not the exact distribution.
-However, Welch (1947), using methods of moments, was able to find the
+However, \insertCite{w47}{superb}, using methods of moments, was able to find the
 best-fitting \code{t} distribution. This distribution has degree of freedom reduced
 based on the sample sizes and the variances of the group tests. The present
 function returns the rectified degree of freedom

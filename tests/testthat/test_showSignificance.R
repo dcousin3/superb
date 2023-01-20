@@ -125,7 +125,7 @@ test_that("Advanced example", {
                                 family  = "mono",       # courrier font
                                 colour= "chartreuse3"   # dark green color
             ), 
-            segmentParams = list(size = 1.,             # thicker lines
+            segmentParams = list(linewidth = 1.,             # thicker lines
                                 arrow   = arrow(length = unit(0.2, "cm") ), # arrow heads
                                 colour = "chartreuse3"  # dark green color as well
             )
@@ -134,7 +134,7 @@ test_that("Advanced example", {
             textParams    = list(size = 5,              # larger font
                                 family  = "serif",      # times font
                                 alpha = 0.2 ),          # transparent
-            segmentParams = list(size = 2., 
+            segmentParams = list(linewidth = 2., 
                                 arrow   = arrow(length = unit(0.2, "cm") ), 
                                 alpha = 0.2, 
                                 lineend = "round"       # so that line end overlap nicely

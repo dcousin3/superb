@@ -57,8 +57,8 @@ One example of results could be
 |               | s    | n    | proportion |
 |---------------|------|------|------------|
 | Group 1       | 10   | 30   | 33.3%      |
-| Group 2       | 18   | 28   | 63.6%      |
-| Group 3       | 10   | 26   | 38.9%      |   
+| Group 2       | 18   | 28   | 64.3%      |
+| Group 3       | 10   | 26   | 38.5%      |   
 
 Although making a plot of these proportions is easy, how can you plot error bars
 around these proportions? 
@@ -133,7 +133,7 @@ SE.A <- function(v) {
     0.5 / sqrt(length(v+1/2))
 }
 CI.A <- function(v, gamma = 0.95){
-    SE.A(v) * sqrt( qchisq(gamma, df=1) )
+    SE.A(v) * sqrt(qchisq(gamma, df=1))
 }
 ```
 
@@ -227,7 +227,7 @@ confidence interval of another result, then the chances are good that they diffe
 significantly. 
 
 Running an analysis of proportions, it indicates the presence of a
-main effect of Group ($F(2,\infty)= 3.11, p = .045$). How to perform 
+main effect of Group ($F(2,\infty)= 3.06, p = .047$). How to perform 
 an analysis of proportions (ANOPA) is explained in @lc23.
 
 We see from the plot that the length of the error bars are about all the same,

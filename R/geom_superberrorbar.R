@@ -41,28 +41,28 @@
 #' dta <- data.frame(grp = c(1,2,3), center=c(1,2,3), width = c(1,1,1.5) )
 #'
 #' # an example with none of the new features = a regular error bar
-#' ggplot(dta, aes_string(ymin="center-width", ymax="center+width", x = "grp" ) ) +
+#' ggplot(dta, aes(ymin=center-width, ymax=center+width, x = grp ) ) +
 #'   geom_superberrorbar()
 #'
 #' # an example with left-pointing error bars
-#' ggplot(dta, aes_string(ymin="center-width", ymax="center+width", x = "grp" ) ) +
+#' ggplot(dta, aes(ymin=center-width, ymax=center+width, x = grp ) ) +
 #'   geom_superberrorbar(direction="left", width = 0.1)
 #'
 #' # an example with doubled-tipped error bar and the default tipgap
-#' ggplot(dta, aes_string(ymin="center-width", ymax="center+width", x = "grp" ) ) +
+#' ggplot(dta, aes(ymin=center-width, ymax=center+width, x = grp ) ) +
 #'   geom_superberrorbar(tipformat = "double", width = 0.1)
 #'
 #' # an example with left-pointing tripled-tip error bars with small gaps
-#' ggplot(dta, aes_string(ymin="center-width", ymax="center+width", x = "grp" ) ) +
+#' ggplot(dta, aes(ymin=center-width, ymax=center+width, x = grp ) ) +
 #'   geom_superberrorbar(tipformat = "triple", width= 0.1, tipgap = 0.04, direction = "left")
 #' 
 #' # an example with unidirectional error bars (here "up" bars)
-#' ggplot(dta, aes_string(y= "center", ymin="center-width", ymax="center+width", x = "grp" ) ) +
+#' ggplot(dta, aes(y= center, ymin=center-width, ymax=center+width, x = grp ) ) +
 #'   geom_bar(stat="identity", fill = "yellow") + 
 #'   geom_superberrorbar(pointing = "up")
 #' 
 #' # a final example with two-coloured, left-pointing tripled-tip error bars with small gaps
-#' ggplot(dta, aes_string(ymin="center-width", ymax="center+width", x = "grp" ) ) +
+#' ggplot(dta, aes(ymin=center-width, ymax=center+width, x = grp ) ) +
 #'   geom_superberrorbar(tipformat = "triple", width= 0.1, tipgap = 0.04, direction = "left",
 #'            colour = "black", vcolour = "orange")
 #' 
@@ -163,7 +163,7 @@ GeomsuperbErrorbar <- ggproto("GeomsuperbErrorbar", Geom,
     default_aes = aes( # the parameters
         colour    = "black", 
         vcolour   = NULL, 
-        size      = 0.5, 
+        linewidth = 0.5, 
         linetype  = 1, 
         width     = 0.5,
         alpha     = NA,
@@ -246,7 +246,7 @@ GeomsuperbErrorbar <- ggproto("GeomsuperbErrorbar", Geom,
           y         = y,
           colour    = collist,
           alpha     = thealphas,
-          size      = rep(data$size, each = nblock),
+          linewidth = rep(data$linewidth, each = nblock),
           linetype  = rep(data$linetype, each = nblock),
           group     = rep(1:(nrow(data)), each = nblock),
           row.names = 1:(nrow(data) * nblock)

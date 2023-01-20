@@ -20,7 +20,7 @@ to have the bracket and the text vertical when y is a range (bottom, top)."><met
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.7</span>
       </span>
     </div>
 
@@ -35,12 +35,6 @@ to have the bracket and the text vertical when y is a range (bottom, top)."><met
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/CustomizingSuperbPlots.html">Customizing `superb` plots</a>
-    </li>
-    <li>
-      <a href="../articles/TheMakingOf.html">The making-of the figures in the article</a>
-    </li>
-    <li>
       <a href="../articles/Vignette1.html">Three steps to make your plot</a>
     </li>
     <li>
@@ -50,13 +44,25 @@ to have the bracket and the text vertical when y is a range (bottom, top)."><met
       <a href="../articles/Vignette3.html">Why use correlation-adjusted confidence intervals?</a>
     </li>
     <li>
-      <a href="../articles/Vignette4.html">Using a custom statistic with its error bar</a>
+      <a href="../articles/TheMakingOf.html">The making-of the figures in the article</a>
     </li>
     <li>
-      <a href="../articles/Vignette5.html">Devising custom plot layouts</a>
+      <a href="../articles/CustomizingSuperbPlots.html">Customizing `superb` plots</a>
     </li>
     <li>
-      <a href="../articles/Vignette6.html">Generating ready-to-analyze datasets with GRD</a>
+      <a href="../articles/VignetteE.html">Adding labels to ``superb`` plots</a>
+    </li>
+    <li>
+      <a href="../articles/Vignette9.html">Plotting Cohen's d with ``superb``</a>
+    </li>
+    <li>
+      <a href="../articles/VignetteC.html">Plotting proportions with ``superb``</a>
+    </li>
+    <li>
+      <a href="../articles/VignetteF.html">Plotting frequencies using ``superb``</a>
+    </li>
+    <li>
+      <a href="../articles/VignetteA.html">Plotting Reference Intervals with ``superb``</a>
     </li>
     <li>
       <a href="../articles/Vignette7.html">Unequal variances, Welch test, Tryon adjustment, and ``superb``</a>
@@ -65,25 +71,19 @@ to have the bracket and the text vertical when y is a range (bottom, top)."><met
       <a href="../articles/Vignette8.html">(advanced) Alternate ways to decorrelate repeated measures from transformations</a>
     </li>
     <li>
-      <a href="../articles/Vignette9.html">Illustrating Cohen's d with ``superb``</a>
+      <a href="../articles/VignetteB.html">(advanced) Non-factorial within-subject designs in ``superb``</a>
     </li>
     <li>
-      <a href="../articles/VignetteA.html">Illustrating Reference Intervals with ``superb``</a>
+      <a href="../articles/Vignette4.html">Using a custom statistic with its error bar within ``superb``</a>
     </li>
     <li>
-      <a href="../articles/VignetteB.html">Non-factorial within-subject designs in ``superb``</a>
-    </li>
-    <li>
-      <a href="../articles/VignetteC.html">Plotting proportions with ``superb``</a>
+      <a href="../articles/Vignette5.html">Using a custom plot layout within ``superb``</a>
     </li>
     <li>
       <a href="../articles/VignetteD.html">``superb`` and SPSS</a>
     </li>
     <li>
-      <a href="../articles/VignetteE.html">Adding labels to ``superb`` plots</a>
-    </li>
-    <li>
-      <a href="../articles/VignetteF.html">Plotting frequencies using ``superb``</a>
+      <a href="../articles/Vignette6.html">Generating ready-to-analyze datasets with GRD</a>
     </li>
   </ul></li>
 <li>
@@ -239,7 +239,7 @@ to have the bracket and the text vertical when y is a range (bottom, top).</p>
 <span class="r-in"><span>                            family  <span class="op">=</span> <span class="st">"mono"</span>,       <span class="co"># courrier font</span></span></span>
 <span class="r-in"><span>                            colour<span class="op">=</span> <span class="st">"chartreuse3"</span>   <span class="co"># dark green color</span></span></span>
 <span class="r-in"><span>        <span class="op">)</span>, </span></span>
-<span class="r-in"><span>        segmentParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">1.</span>,             <span class="co"># thicker lines</span></span></span>
+<span class="r-in"><span>        segmentParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">1.</span>,             <span class="co"># thicker lines</span></span></span>
 <span class="r-in"><span>                            arrow   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">arrow</a></span><span class="op">(</span>length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="st">"cm"</span><span class="op">)</span> <span class="op">)</span>, <span class="co"># arrow heads</span></span></span>
 <span class="r-in"><span>                            colour <span class="op">=</span> <span class="st">"chartreuse3"</span>  <span class="co"># dark green color as well</span></span></span>
 <span class="r-in"><span>        <span class="op">)</span></span></span>
@@ -248,7 +248,7 @@ to have the bracket and the text vertical when y is a range (bottom, top).</p>
 <span class="r-in"><span>        textParams    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">5</span>,              <span class="co"># larger font</span></span></span>
 <span class="r-in"><span>                            family  <span class="op">=</span> <span class="st">"serif"</span>,      <span class="co"># times font</span></span></span>
 <span class="r-in"><span>                            alpha <span class="op">=</span> <span class="fl">0.3</span> <span class="op">)</span>,          <span class="co"># transparent</span></span></span>
-<span class="r-in"><span>        segmentParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2.</span>, </span></span>
+<span class="r-in"><span>        segmentParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">2.</span>, </span></span>
 <span class="r-in"><span>                            arrow   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">arrow</a></span><span class="op">(</span>length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="st">"cm"</span><span class="op">)</span> <span class="op">)</span>, </span></span>
 <span class="r-in"><span>                            alpha <span class="op">=</span> <span class="fl">0.3</span>, </span></span>
 <span class="r-in"><span>                            lineend <span class="op">=</span> <span class="st">"round"</span>       <span class="co"># so that line end overlap nicely</span></span></span>

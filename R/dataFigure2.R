@@ -34,13 +34,13 @@
 #'     variables = c("pre","post"), plotStyle="bar" ) + 
 #'   xlab("Group") + ylab("Score") + labs(title="Difference-adjusted 95% CI\n") +
 #'   coord_cartesian( ylim = c(85,115) ) +
-#'   geom_hline(yintercept = 100, colour = "black", size = 0.5, linetype=2)
+#'   geom_hline(yintercept = 100, colour = "black", linewidth = 0.5, linetype=2)
 #' plt2b <- superbPlot(dataFigure2, WSFactors = "Moment(2)", 
 #'     adjustments=list(purpose = "difference", decorrelation = "CA"), 
 #'     variables = c("pre","post"), plotStyle="bar" ) + 
 #'   xlab("Group") + ylab("Score") + labs(title="Correlation and difference-adjusted\n95% CI") +
 #'   coord_cartesian( ylim = c(85,115) ) + 
-#'   geom_hline(yintercept = 100, colour = "black", size = 0.5, linetype=2)
+#'   geom_hline(yintercept = 100, colour = "black", linewidth = 0.5, linetype=2)
 #' plt2  <- grid.arrange(plt2a,plt2b,ncol=2)
 #' 
 #' ## realise the correct t-test to see the discrepancy

@@ -40,7 +40,7 @@ install.packages("superb")
 library(superb)
 ```
 
-The development version can be accessed through GitHub:
+The development version 0.95.7 can be accessed through GitHub:
 
 ``` r
 devtools::install_github("dcousin3/superb")
@@ -87,8 +87,8 @@ superbPlot(ToothGrowth,
 
 ![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
-As a third example, we illustrate the harmonic means `hmedian` along
-with 99.9% confidence intervals using lines:
+As a third example, we illustrate the harmonic means `hmean` along with
+99.9% confidence intervals using lines:
 
 ``` r
 superbPlot(ToothGrowth, 
@@ -120,12 +120,12 @@ head(testdata)
 ```
 
     ##   id Difficulty  score.1  score.2
-    ## 1  1          A 80.48632 71.69466
-    ## 2  2          A 78.65204 77.28213
-    ## 3  3          A 89.70597 87.54105
-    ## 4  4          A 70.40304 81.00853
-    ## 5  5          A 77.42992 58.76891
-    ## 6  6          A 65.87263 75.82688
+    ## 1  1          A 81.54852 79.72760
+    ## 2  2          A 77.84744 82.16740
+    ## 3  3          A 77.48167 44.72805
+    ## 4  4          A 58.80350 60.71347
+    ## 5  5          A 63.06234 55.33552
+    ## 6  6          A 55.96149 44.95868
 
 The simulated scores are illustrated using using a more elaborated
 layout, the `pointjitterviolin` which, in addition to the mean and
@@ -161,8 +161,8 @@ The complete documentation is available on this
 [site](https://dcousin3.github.io/superb/).
 
 A general introduction to the `superb` framework underlying this library
-is in press at *Advances in Methods and Practices in Psychological
-Sciences* (Cousineau, Goulet, & Harding, in press).
+is published at *Advances in Methods and Practices in Psychological
+Sciences* (Cousineau, Goulet, & Harding, 2021).
 
 # References
 

@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Devising custom plot layouts • superb</title>
+<title>Using a custom plot layout within ``superb`` • superb</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Devising custom plot layouts">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Using a custom plot layout within ``superb``">
 <meta property="og:description" content="superbPlot can generate either line plots, barcharts, or point plots.  However, additional layout can be programmed. In this vignette, we  show how to add custom layouts in superbPlot. As an example, we show how to implement additional layouts.
 ">
 <meta property="og:image" content="http://dcousin3.github.io/superb/logo.png">
@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.7</span>
       </span>
     </div>
 
@@ -58,12 +58,6 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/CustomizingSuperbPlots.html">Customizing `superb` plots</a>
-    </li>
-    <li>
-      <a href="../articles/TheMakingOf.html">The making-of the figures in the article</a>
-    </li>
-    <li>
       <a href="../articles/Vignette1.html">Three steps to make your plot</a>
     </li>
     <li>
@@ -73,13 +67,25 @@
       <a href="../articles/Vignette3.html">Why use correlation-adjusted confidence intervals?</a>
     </li>
     <li>
-      <a href="../articles/Vignette4.html">Using a custom statistic with its error bar</a>
+      <a href="../articles/TheMakingOf.html">The making-of the figures in the article</a>
     </li>
     <li>
-      <a href="../articles/Vignette5.html">Devising custom plot layouts</a>
+      <a href="../articles/CustomizingSuperbPlots.html">Customizing `superb` plots</a>
     </li>
     <li>
-      <a href="../articles/Vignette6.html">Generating ready-to-analyze datasets with GRD</a>
+      <a href="../articles/VignetteE.html">Adding labels to ``superb`` plots</a>
+    </li>
+    <li>
+      <a href="../articles/Vignette9.html">Plotting Cohen's d with ``superb``</a>
+    </li>
+    <li>
+      <a href="../articles/VignetteC.html">Plotting proportions with ``superb``</a>
+    </li>
+    <li>
+      <a href="../articles/VignetteF.html">Plotting frequencies using ``superb``</a>
+    </li>
+    <li>
+      <a href="../articles/VignetteA.html">Plotting Reference Intervals with ``superb``</a>
     </li>
     <li>
       <a href="../articles/Vignette7.html">Unequal variances, Welch test, Tryon adjustment, and ``superb``</a>
@@ -88,25 +94,19 @@
       <a href="../articles/Vignette8.html">(advanced) Alternate ways to decorrelate repeated measures from transformations</a>
     </li>
     <li>
-      <a href="../articles/Vignette9.html">Illustrating Cohen's d with ``superb``</a>
+      <a href="../articles/VignetteB.html">(advanced) Non-factorial within-subject designs in ``superb``</a>
     </li>
     <li>
-      <a href="../articles/VignetteA.html">Illustrating Reference Intervals with ``superb``</a>
+      <a href="../articles/Vignette4.html">Using a custom statistic with its error bar within ``superb``</a>
     </li>
     <li>
-      <a href="../articles/VignetteB.html">Non-factorial within-subject designs in ``superb``</a>
-    </li>
-    <li>
-      <a href="../articles/VignetteC.html">Plotting proportions with ``superb``</a>
+      <a href="../articles/Vignette5.html">Using a custom plot layout within ``superb``</a>
     </li>
     <li>
       <a href="../articles/VignetteD.html">``superb`` and SPSS</a>
     </li>
     <li>
-      <a href="../articles/VignetteE.html">Adding labels to ``superb`` plots</a>
-    </li>
-    <li>
-      <a href="../articles/VignetteF.html">Plotting frequencies using ``superb``</a>
+      <a href="../articles/Vignette6.html">Generating ready-to-analyze datasets with GRD</a>
     </li>
   </ul>
 </li>
@@ -134,7 +134,9 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Devising custom plot layouts</h1>
+      <h1 data-toc-skip>Using a custom plot layout within
+<code>superb</code>
+</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/dcousin3/superb/blob/HEAD/../vignettes/Vignette5.Rmd" class="external-link"><code>../vignettes/Vignette5.Rmd</code></a></small>
@@ -206,12 +208,12 @@ factors have main effets on the scores.</p>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">testdata</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   id Difficulty score.day1 score.day2</span></span>
-<span><span class="co">## 1  1          1   85.07927   64.37615</span></span>
-<span><span class="co">## 2  2          1   60.09261   56.19721</span></span>
-<span><span class="co">## 3  3          1   69.64408   53.13080</span></span>
-<span><span class="co">## 4  4          1   65.09013   71.37219</span></span>
-<span><span class="co">## 5  5          1   64.65851   49.64102</span></span>
-<span><span class="co">## 6  6          1   71.08932   69.53124</span></span></code></pre>
+<span><span class="co">## 1  1          1   58.06477   47.07895</span></span>
+<span><span class="co">## 2  2          1   72.82918   57.40968</span></span>
+<span><span class="co">## 3  3          1   75.31459   48.79663</span></span>
+<span><span class="co">## 4  4          1   57.16185   42.30216</span></span>
+<span><span class="co">## 5  5          1   74.97960   61.11640</span></span>
+<span><span class="co">## 6  6          1   62.38521   66.86874</span></span></code></pre>
 <p>For simplicity, we define a function whose arguments are the dataset
 and the layout:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -372,22 +374,22 @@ the <code>simple</code> plot layout.
 <span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span></span>
 <span>        data <span class="op">=</span> <span class="va">summarydata</span>, </span>
-<span>        mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_.html" class="external-link">aes_string</a></span><span class="op">(</span> x <span class="op">=</span> <span class="va">xfactor</span>, y <span class="op">=</span> <span class="st">"center"</span>, group<span class="op">=</span><span class="va">groupingfactor</span><span class="op">)</span></span>
+<span>        mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span> x <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="fu"><a href="https://rlang.r-lib.org/reference/sym.html" class="external-link">sym</a></span><span class="op">(</span><span class="va">xfactor</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">center</span>, group <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="fu"><a href="https://rlang.r-lib.org/reference/sym.html" class="external-link">sym</a></span><span class="op">(</span><span class="va">groupingfactor</span><span class="op">)</span> <span class="op">)</span></span>
 <span>    <span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_errorbar</a></span><span class="op">(</span> mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_.html" class="external-link">aes_string</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="st">"center + lowerwidth"</span>, </span>
-<span>                                        ymax <span class="op">=</span> <span class="st">"center + upperwidth"</span><span class="op">)</span>  <span class="op">)</span><span class="op">+</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_errorbar</a></span><span class="op">(</span> mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">center</span> <span class="op">+</span> <span class="va">lowerwidth</span>, </span>
+<span>                                 ymax <span class="op">=</span> <span class="va">center</span> <span class="op">+</span> <span class="va">upperwidth</span><span class="op">)</span>  <span class="op">)</span><span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">facet_grid</a></span><span class="op">(</span> <span class="va">addfactors</span> <span class="op">)</span></span>
 <span>        </span>
 <span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">plot</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>The first instruction, <code>ggplot</code> defines the source data to
 be <code>summarydata</code> with horizontal axis being in the string
-<code>xfactor</code> (this is the reason that <code>mapping</code> must
-be given with <code>aes_string</code>). The position of the descriptive
+<code>xfactor</code> (the piece of instructions <code>!!sym( )</code>
+converts the string into a variable). The position of the descriptive
 statistics is automatically computed and stored in a column called
-<code>"center"</code>.</p>
-<p>The second instruction put points for each <code>"center"</code>, and
+<code>center</code>.</p>
+<p>The second instruction put points for each <code>center</code>, and
 the third instruction places error bars. In that case, the
 <code>ymin</code> and <code>ymax</code> information are contained in
 <code>center+lowerwidth</code> and <code>center+upperwidth</code> where
@@ -433,15 +435,15 @@ graphic directives inside the layers, e.g., inside
 <span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span></span>
 <span>        data <span class="op">=</span> <span class="va">summarydata</span>, </span>
-<span>        mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_.html" class="external-link">aes_string</a></span><span class="op">(</span> x <span class="op">=</span> <span class="va">xfactor</span>, y <span class="op">=</span> <span class="st">"center"</span>, group<span class="op">=</span><span class="st">"Condition"</span><span class="op">)</span></span>
+<span>        mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span> x <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="fu"><a href="https://rlang.r-lib.org/reference/sym.html" class="external-link">sym</a></span><span class="op">(</span><span class="va">xfactor</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">center</span>, group<span class="op">=</span><span class="va">Condition</span><span class="op">)</span></span>
 <span>    <span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span> <span class="va">geom_point</span>, <span class="fu"><a href="https://rdrr.io/r/utils/modifyList.html" class="external-link">modifyList</a></span><span class="op">(</span></span>
 <span>       <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> color <span class="op">=</span><span class="st">"black"</span> <span class="op">)</span>,</span>
 <span>        <span class="va">myownParams</span></span>
 <span>    <span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span> <span class="va">geom_errorbar</span>, <span class="fu"><a href="https://rdrr.io/r/utils/modifyList.html" class="external-link">modifyList</a></span><span class="op">(</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_.html" class="external-link">aes_string</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="st">"center + lowerwidth"</span>, </span>
-<span>                                   ymax <span class="op">=</span> <span class="st">"center + upperwidth"</span><span class="op">)</span>  <span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">center</span> <span class="op">+</span> <span class="va">lowerwidth</span>, </span>
+<span>                            ymax <span class="op">=</span> <span class="va">center</span> <span class="op">+</span> <span class="va">upperwidth</span><span class="op">)</span>  <span class="op">)</span>,</span>
 <span>        <span class="va">myownParams</span> </span>
 <span>    <span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">facet_grid</a></span><span class="op">(</span> <span class="va">addfactors</span> <span class="op">)</span></span>
@@ -519,27 +521,28 @@ shown with smileys. Note that this example may not work in Rstudio (see
 <p>Then we define a <code>"smiley"</code> layout where the emojis are
 shown with <code>geom_text</code> layer:</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">superbPlot.smiley</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span></span>
-<span>    <span class="va">summarydata</span>, <span class="va">xfactor</span>, <span class="va">groupingfactor</span>, <span class="va">addfactors</span>, <span class="va">rawdata</span> </span>
-<span><span class="op">)</span> <span class="op">{</span></span>
+<code class="sourceCode R"><span><span class="va">superbPlot.smiley</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span> <span class="va">summarydata</span>, <span class="va">xfactor</span>, <span class="va">groupingfactor</span>, <span class="va">addfactors</span>, <span class="va">rawdata</span> <span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="co"># the early part bears on summary data with variable "center"</span></span>
 <span>    <span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span></span>
-<span>        data <span class="op">=</span> <span class="va">summarydata</span>, </span>
-<span>        mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_.html" class="external-link">aes_string</a></span><span class="op">(</span></span>
-<span>            x <span class="op">=</span> <span class="va">xfactor</span>, y <span class="op">=</span> <span class="st">"center"</span>, </span>
-<span>            fill <span class="op">=</span> <span class="va">groupingfactor</span>, </span>
-<span>            shape <span class="op">=</span> <span class="va">groupingfactor</span>, </span>
-<span>            colour <span class="op">=</span> <span class="va">groupingfactor</span><span class="op">)</span></span>
+<span>        data    <span class="op">=</span> <span class="va">summarydata</span>, </span>
+<span>        mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span></span>
+<span>            x      <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="fu"><a href="https://rlang.r-lib.org/reference/sym.html" class="external-link">sym</a></span><span class="op">(</span><span class="va">xfactor</span><span class="op">)</span>, </span>
+<span>            y      <span class="op">=</span> <span class="va">center</span>, </span>
+<span>            fill   <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="fu"><a href="https://rlang.r-lib.org/reference/sym.html" class="external-link">sym</a></span><span class="op">(</span><span class="va">groupingfactor</span><span class="op">)</span>, </span>
+<span>            shape  <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="fu"><a href="https://rlang.r-lib.org/reference/sym.html" class="external-link">sym</a></span><span class="op">(</span><span class="va">groupingfactor</span><span class="op">)</span>, </span>
+<span>            colour <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="fu"><a href="https://rlang.r-lib.org/reference/sym.html" class="external-link">sym</a></span><span class="op">(</span><span class="va">groupingfactor</span><span class="op">)</span> <span class="op">)</span></span>
 <span>    <span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">.95</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_errorbar</a></span><span class="op">(</span> width <span class="op">=</span> <span class="fl">.6</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span><span class="fl">.95</span><span class="op">)</span>, </span>
-<span>              mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_.html" class="external-link">aes_string</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="st">"center + lowerwidth"</span>, ymax <span class="op">=</span> <span class="st">"center + upperwidth"</span><span class="op">)</span> </span>
+<span>              mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">center</span> <span class="op">+</span> <span class="va">lowerwidth</span>, ymax <span class="op">=</span> <span class="va">center</span> <span class="op">+</span> <span class="va">upperwidth</span><span class="op">)</span> </span>
 <span>    <span class="op">)</span><span class="op">+</span> </span>
 <span>    <span class="co"># this part bears on the rawdata only with variable "DV"</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">rawdata</span>, </span>
 <span>              position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html" class="external-link">position_jitter</a></span><span class="op">(</span><span class="fl">0.5</span><span class="op">)</span>,</span>
-<span>              family<span class="op">=</span><span class="st">"EmojiOne"</span>, label<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/emojifont/man/emoji.html" class="external-link">emoji</a></span><span class="op">(</span><span class="st">"smile"</span><span class="op">)</span>, size<span class="op">=</span><span class="fl">6</span>, </span>
-<span>              mapping<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_.html" class="external-link">aes_string</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">xfactor</span>, y<span class="op">=</span><span class="st">"DV"</span>, group <span class="op">=</span> <span class="va">groupingfactor</span><span class="op">)</span></span>
+<span>              family   <span class="op">=</span> <span class="st">"EmojiOne"</span>,</span>
+<span>              label    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/emojifont/man/emoji.html" class="external-link">emoji</a></span><span class="op">(</span><span class="st">"smile"</span><span class="op">)</span>, </span>
+<span>              size     <span class="op">=</span> <span class="fl">6</span>, </span>
+<span>              mapping  <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="fu"><a href="https://rlang.r-lib.org/reference/sym.html" class="external-link">sym</a></span><span class="op">(</span><span class="va">xfactor</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">DV</span>, group <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="fu"><a href="https://rlang.r-lib.org/reference/sym.html" class="external-link">sym</a></span><span class="op">(</span><span class="va">groupingfactor</span><span class="op">)</span> <span class="op">)</span></span>
 <span>    <span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">facet_grid</a></span><span class="op">(</span> <span class="va">addfactors</span> <span class="op">)</span></span>
 <span>        </span>
@@ -550,8 +553,8 @@ function:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">superb</span><span class="fu">:::</span><span class="fu">is.superbPlot.function</span><span class="op">(</span><span class="st">"superbPlot.smiley"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
-<p>It is all we need! It can be inserted in a <code>superbPlot</code>
-call:</p>
+<p>It is all we need! This layout can be inserted in a
+<code>superbPlot</code> call:</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">TMB1964r</span>,</span>
 <span>     WSFactors <span class="op">=</span> <span class="st">"T(7)"</span>,      </span>

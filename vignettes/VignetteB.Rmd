@@ -1,5 +1,5 @@
 ---
-title: "Non-factorial within-subject designs in ``superb``"
+title: "(advanced) Non-factorial within-subject designs in ``superb``"
 bibliography: "../inst/REFERENCES.bib"
 csl: "../inst/apa-6th.csl"
 output: 
@@ -8,7 +8,7 @@ description: >
   This vignette shows how to handle non-factorial designs
   using superb.
 vignette: >
-  %\VignetteIndexEntry{Non-factorial within-subject designs in ``superb``}
+  %\VignetteIndexEntry{(advanced) Non-factorial within-subject designs in ``superb``}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---

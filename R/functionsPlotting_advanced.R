@@ -106,7 +106,9 @@ GeomFlatViolin <-
     draw_key = draw_key_polygon,
 
     default_aes = aes(
-      weight = 1, colour = "grey20", fill = "white", size = 0.5,
+#      weight = 1, colour = "grey20", fill = "white", size = 0.5, 
+      weight = 1, colour = "grey20", fill = "white", linewidth = 0.5,
+
       alpha = NA, linetype = "solid"
     ),
 
@@ -181,6 +183,7 @@ superbPlot.raincloud <- function(
     xAsFactor      = TRUE      # should the horizontal axis be continuous?
 ) {
     runDebug("raincloud", "Entering superbPlot.raincloud", c("xfactor2", "groupingfactor2", "addfactors2"), list(xfactor, groupingfactor, addfactors))
+    mysym <- function(x) { if(is.character(x)) sym(x) else x }
 
     # depending on the scale of the x-axis.
     if (!xAsFactor) 
@@ -193,14 +196,16 @@ superbPlot.raincloud <- function(
     if (is.null(groupingfactor)) {
         do_jitters = do.call(geom_jitter, modifyList(
                         list(data = rawdata, alpha = 0.2, width = 0.2, height = 0.0,
-                             mapping = aes_string(y = "center" ) ),
+                             #mapping = aes_string(y = "center" ) ),
+                             mapping = aes(y = center ) ),
                         jitterParams
                     ) )
     } else {
         do_jitters = do.call( geom_point, modifyList(
                         list(data = rawdata, alpha = 0.5,
                             position = position_jitterdodge(dodge.width = .15, jitter.width=0.15), size = .5,
-                            mapping = aes_string(y = "center") ),
+                            #mapping = aes_string(y = "center") ),
+                            mapping = aes(y = center) ),
                         jitterParams
                     ))
     }
@@ -208,17 +213,25 @@ superbPlot.raincloud <- function(
     # let's do the plot!
     plot <- ggplot(
         summarydata, 
-        aes_string(
-            x = xfactor, y = "center", 
-            fill = groupingfactor, 
-            shape = groupingfactor, 
-            colour = groupingfactor
+#        aes_string(
+#            x = xfactor, y = "center", 
+#            fill = groupingfactor, 
+#            shape = groupingfactor, 
+#            colour = groupingfactor
+#       Because aes_string is deprecated, we switch to the magical pair !!sym(string)...
+        aes(
+            x = !!mysym(xfactor), y = center, 
+            fill = !!mysym(groupingfactor), 
+            shape = !!mysym(groupingfactor), 
+            colour = !!mysym(groupingfactor)
     )) +
     # the flat_violin; do.call so that violinParams can be integrated
     do.call( geom_flat_violin, modifyList(
        list(data = rawdata, trim = FALSE, alpha = 0.2,
-            position = position_nudge(x = .25, y = 0), size = 0.25,
-            mapping = aes_string(y = "center") ),
+#            position = position_nudge(x = .25, y = 0), size = 0.25,
+            position = position_nudge(x = .25, y = 0), linewidth = 0.25,
+            #mapping = aes_string(y = "center") ),
+            mapping = aes(y = center) ),
         violinParams
     )) +
     # the jittered data
@@ -230,8 +243,9 @@ superbPlot.raincloud <- function(
     )) +
     # the error bars; do.call so that errorbarParams can be integrated
     do.call( geom_superberrorbar, modifyList(
-        list(position = position_dodge(.25), width = 0.2, size = 1., color = "black",
-            mapping = aes_string( ymin = "center + lowerwidth", ymax = "center + upperwidth") ),
+        list(position = position_dodge(.25), width = 0.2, linewidth = 1., color = "black",
+            #mapping = aes_string( ymin = "center + lowerwidth", ymax = "center + upperwidth") ),
+            mapping = aes( ymin = center + lowerwidth, ymax = center + upperwidth) ),
         errorbarParams
     )) +
     # the panels (rows or both rows and columns, NULL if no facet)
@@ -315,6 +329,7 @@ superbPlot.halfwidthline <- function(
     xAsFactor           = TRUE      # should the horizontal axis be continuous?
 ) {
     runDebug("halfwidthline", "Entering superbPlot.halfwidthline", c("xfactor2", "groupingfactor2", "addfactors2", "params"), list(xfactor, groupingfactor, addfactors, list(pointParams=pointParams, lineParams=lineParams, errorbarParams=errorbarParams)))
+    mysym <- function(x) { if(is.character(x)) sym(x) else x }
 
     # compute half-width limits
     summarydata$hwlowerwidth = summarydata$lowerwidth/2
@@ -327,40 +342,51 @@ superbPlot.halfwidthline <- function(
     # let's do the plot!
     plot <- ggplot(
         summarydata, 
-        aes_string(
-            x = xfactor, y = "center", ymin = "center + lowerwidth", ymax = "center + upperwidth", 
-            colour = groupingfactor
+#        aes_string(
+#            x = xfactor, y = "center", ymin = "center + lowerwidth", ymax = "center + upperwidth", 
+#            colour = groupingfactor
+#       Because aes_string is deprecated, we switch to the magical pair !!sym(string)...
+        aes(
+            x = !!mysym(xfactor), y = center, ymin = center + lowerwidth, ymax = center + upperwidth, 
+            colour = !!mysym(groupingfactor)
     )) +
     # the points ...
     do.call(geom_point, modifyList(
         list(size = 3, position = position_dodge(width = .15), 
-            mapping = aes_string(group = groupingfactor) ),
+            #mapping = aes_string(group = groupingfactor) ),
+            mapping = aes(group = !!mysym(groupingfactor)) ),
         pointParams
     )) +
     # ... and the lines connecting the points
     do.call(geom_line, modifyList(
         list(position = position_dodge(width = .15), 
-            mapping = aes_string(group = ifelse(is.null(groupingfactor),1,groupingfactor) ) ),
+            #mapping = aes_string(group = ifelse(is.null(groupingfactor),1,groupingfactor) ) ),
+            mapping = aes(group = !!mysym(ifelse(is.null(groupingfactor),1,groupingfactor)) ) ),
         lineParams
     )) +
     # the error bars
     do.call(geom_superberrorbar, modifyList(
-        list(width = 0.1, size = 1.00, position = position_dodge(.15),
-            aes_string(
-                x = xfactor, y = "center", ymin = "center + lowerwidth", ymax = "center + upperwidth", 
-                colour = groupingfactor ) ),
+        list(width = 0.1, linewidth = 1.00, position = position_dodge(.15),
+#            aes_string(
+#                x = xfactor, y = "center", ymin = "center + lowerwidth", ymax = "center + upperwidth", 
+#                colour = groupingfactor ) ),
+            aes(
+                x = !!mysym(xfactor), y = center, ymin = center + lowerwidth, ymax = center + upperwidth, 
+                colour = !!mysym(groupingfactor) ) ),
         errorbarParams
     )) + 
     # the lower small white points to cut the line in two
     do.call(geom_point, modifyList(
         list(color = "white", size = 1.5, position = position_dodge(.15),
-            mapping = aes_string(group = groupingfactor, y = "center + hwlowerwidth") ),
+            #mapping = aes_string(group = groupingfactor, y = "center + hwlowerwidth") ),
+            mapping = aes(group = !!mysym(groupingfactor), y = center + hwlowerwidth) ),
         errorbarlightParams
     )) + 
     # the uppersmall white points to cut the line in two
     do.call(geom_point, modifyList(
         list(color = "white", size = 1.5, position = position_dodge(.15),
-            mapping = aes_string(group = groupingfactor, y = "center + hwupperwidth") ),
+            #mapping = aes_string(group = groupingfactor, y = "center + hwupperwidth") ),
+            mapping = aes(group = !!mysym(groupingfactor), y = center + hwupperwidth) ),
         errorbarlightParams
     )) + 
     # the panels (rows or both rows and columns, NULL if no facet)

@@ -1,8 +1,8 @@
-######################################################
-######################################################
-##  the basic plot formats: bar, line, point
-######################################################
-######################################################
+##################################################################
+##################################################################
+##  the basic plot formats: bar, line, pointm pointindividualline
+##################################################################
+##################################################################
 
 
 ######################################################################################
@@ -66,6 +66,7 @@ superbPlot.bar <- function(
     xAsFactor      = TRUE      # should the horizontal axis be continuous?
 ) {
     runDebug("bar", "Entering superbPlot.bar", c("xfactor2", "groupingfactor2", "addfactors2"), list(xfactor, groupingfactor, addfactors))
+    mysym <- function(x) { if(is.character(x)) sym(x) else x }
 
     # depending on the scale of the x-axis.
     if (!xAsFactor) 
@@ -74,11 +75,17 @@ superbPlot.bar <- function(
     # let's do the plot!
     plot <- ggplot(
         summarydata, 
-        aes_string(
-            x = xfactor, y = "center", 
-            fill = groupingfactor, 
-            shape = groupingfactor, 
-            colour = groupingfactor
+#        aes_string(
+#            x = xfactor, y = "center", 
+#            fill = groupingfactor, 
+#            shape = groupingfactor, 
+#            colour = groupingfactor
+#       Because aes_string is deprecated, we switch to the magical pair !!mysym(string)...
+        aes(
+            x = !!mysym(xfactor), y = center, 
+            fill = !!mysym(groupingfactor), 
+            shape = !!mysym(groupingfactor), 
+            colour = !!mysym(groupingfactor)
     )) +
     # the histograms; do.call so that pointParams can be integrated
     do.call( geom_bar, modifyList(
@@ -88,7 +95,9 @@ superbPlot.bar <- function(
     )) +
     # the error bars; do.call so that errorbarParams can be integrated
     do.call( geom_superberrorbar, modifyList(
-        list(width = .6, position = position_dodge(.95), mapping = aes_string(ymin = "center + lowerwidth", ymax = "center + upperwidth") ),
+        list(width = .6, position = position_dodge(.95), mapping = 
+            #aes_string(ymin = "center + lowerwidth", ymax = "center + upperwidth") ),
+            aes(ymin = center + lowerwidth, ymax = center + upperwidth) ),
         errorbarParams
     )) +
     # the panels (rows or both rows and columns, NULL if no facet)
@@ -167,6 +176,7 @@ superbPlot.line <- function(
     runDebug("line", "Entering superbPlot.line", c("xfactor2", "groupingfactor2", "addfactors2", "params"), 
         list(xfactor, groupingfactor, addfactors, list(pointParams=pointParams, lineParams=lineParams, errorbarParams=errorbarParams))
     )
+    mysym <- function(x) { if(is.character(x)) sym(x) else x }
 
     # depending on the scale of the x-axis.
     if (!xAsFactor) 
@@ -175,27 +185,34 @@ superbPlot.line <- function(
     # let's do the plot!
     plot <- ggplot(
         summarydata, 
-        aes_string(
-            x = xfactor, y = "center", ymin = "center + lowerwidth", ymax = "center + upperwidth", 
-#            shape = groupingfactor, 
-            colour = groupingfactor
+#        aes_string(
+#            x = xfactor, y = "center", ymin = "center + lowerwidth", ymax = "center + upperwidth", 
+##            shape = groupingfactor, 
+#            colour = groupingfactor
+#       Because aes_string is deprecated, we switch to the magical pair !!mysym(string)...
+        aes(
+            x = !!mysym(xfactor), y = center, ymin = center + lowerwidth, ymax = center + upperwidth, 
+            colour = !!mysym(groupingfactor)
     )) +
     # the points ...
     do.call(geom_point, modifyList(
         list(size = 3, position = position_dodge(width = .15), 
-            mapping = aes_string(group = groupingfactor) ),
+            #mapping = aes_string(group = groupingfactor) ),
+            mapping = aes(group = !!mysym(groupingfactor) ) ),
         pointParams
     )) +
     # ... and the lines connecting the points
     do.call(geom_line, modifyList(
         list(position = position_dodge(width = .15), 
-            mapping = aes_string(group = ifelse(is.null(groupingfactor),1,groupingfactor) ) ),
+            #mapping = aes_string(group = ifelse(is.null(groupingfactor),1,groupingfactor) ) ),
+            mapping = aes(group = !!mysym(ifelse(is.null(groupingfactor),1,groupingfactor)) ) ),
         lineParams
     )) +
     # the error bars
     do.call(geom_superberrorbar, modifyList(
-        list(width = 0.1, size = 0.75, position = position_dodge(.15),
-            mapping = aes_string(group = groupingfactor) ),
+        list(width = 0.1, linewidth = 0.75, position = position_dodge(.15),
+            #mapping = aes_string(group = groupingfactor) ),
+            mapping = aes(group = !!mysym(groupingfactor)) ),
         errorbarParams
     )) + 
     # the panels (rows or both rows and columns, NULL if no facet)
@@ -270,6 +287,7 @@ superbPlot.point <- function(
     xAsFactor      = TRUE      # should the horizontal axis be continuous?
 ) {
     runDebug("point", "Entering superbPlot.point", c("xfactor2", "groupingfactor2", "addfactors2"), list(xfactor, groupingfactor, addfactors))
+    mysym <- function(x) { if(is.character(x)) sym(x) else x }
 
     # depending on the scale of the x-axis.
     if (!xAsFactor) 
@@ -278,20 +296,28 @@ superbPlot.point <- function(
     # let's do the plot!
     plot <- ggplot(
         summarydata, 
-        aes_string(
-            x = xfactor, y = "center", 
-            shape = groupingfactor, 
-            colour = groupingfactor
+#        aes_string(
+#            x = xfactor, y = "center", 
+#            shape = groupingfactor, 
+#            colour = groupingfactor
+#       Because aes_string is deprecated, we switch to the magical pair !!mysym(string)...
+        aes(
+            x = !!mysym(xfactor), y = center, 
+            shape = !!mysym(groupingfactor), 
+            colour = !!mysym(groupingfactor)
     )) + 
     # the points 
     do.call(geom_point, modifyList(
         list(size = 3, position = position_dodge(width = .15), 
-            mapping = aes_string(group = groupingfactor) ),
+            #mapping = aes_string(group = groupingfactor) ),
+            mapping = aes(group = !!mysym(groupingfactor)) ),
         pointParams
     )) +
     # the error bars
     do.call(geom_superberrorbar, modifyList(
-         list(width = 0.2, size = 0.5, position = position_dodge(.15), mapping = aes_string(ymin = "center + lowerwidth", ymax = "center + upperwidth") ),
+         list(width = 0.2, linewidth = 0.5, position = position_dodge(.15), 
+            #mapping = aes_string(ymin = "center + lowerwidth", ymax = "center + upperwidth") ),
+            mapping = aes(ymin = center + lowerwidth, ymax = center + upperwidth) ),
          errorbarParams
     )) +
     # the panels (rows or both rows and columns, NULL if no facet)
@@ -374,6 +400,7 @@ superbPlot.pointjitter <- function(
 ) {
     runDebug("pointjitter", "Entering superbPlot.pointjitter", 
         c("xfactor2", "groupingfactor2", "addfactors2","pointParams2","jitterParams2","errorbarParams2"), list(xfactor, groupingfactor, addfactors, pointParams, jitterParams, errorbarParams))
+    mysym <- function(x) { if(is.character(x)) sym(x) else x }
 
     # rename column "DV" to "center"
     rawdata$center <- rawdata$DV
@@ -388,14 +415,16 @@ superbPlot.pointjitter <- function(
     if (is.null(groupingfactor)) {
         do_jitters = do.call(geom_jitter, modifyList(
                         list(data = rawdata, alpha = 0.2, width = 0.2, height = 0.0,
-                             mapping = aes_string(y = "center" ) ),
+                             #mapping = aes_string(y = "center" ) ),
+                             mapping = aes(y = center ) ),
                         jitterParams
                     ) )
     } else {
         do_jitters = do.call(geom_point, modifyList(
                         list(data = rawdata , alpha = 0.2,
                             position = position_jitterdodge(jitter.width=0.1 , dodge.width=0.5 ),
-                            mapping = aes_string(y = "center", color = groupingfactor  ) ),
+                            #mapping = aes_string(y = "center", color = groupingfactor  ) ),
+                            mapping = aes(y = center, color = !!mysym(groupingfactor)  ) ),
                         jitterParams
                     ) )
     }
@@ -403,7 +432,8 @@ superbPlot.pointjitter <- function(
     # let's do the plot!
     plot <- ggplot(
         summarydata, 
-        aes_string( x = xfactor, color = groupingfactor )
+        #aes_string( x = xfactor, color = groupingfactor )
+        aes( x = !!mysym(xfactor), color = !!mysym(groupingfactor) )
     ) + 
     # the jitters 
     do_jitters +
@@ -411,13 +441,15 @@ superbPlot.pointjitter <- function(
     do.call(geom_point, modifyList(
         list(position = position_dodge(width = .5), 
             size=3,
-            mapping = aes_string(group = groupingfactor, y = "center" ) ),
+            #mapping = aes_string(group = groupingfactor, y = "center" ) ),
+            mapping = aes(group = !!mysym(groupingfactor), y = center ) ),
         pointParams
     )) + 
     # the error bars; define ymin, ymax only in errorbar
     do.call(geom_superberrorbar, modifyList(
-        list(position = position_dodge(.5), width = 0.1, size = 0.75,
-            mapping = aes_string(group = groupingfactor, ymin = "center + lowerwidth", ymax = "center + upperwidth") ),
+        list(position = position_dodge(.5), width = 0.1, linewidth = 0.75,
+            #mapping = aes_string(group = groupingfactor, ymin = "center + lowerwidth", ymax = "center + upperwidth") ),
+            mapping = aes(group = !!mysym(groupingfactor), ymin = center + lowerwidth, ymax = center + upperwidth) ),
         errorbarParams
     )) + 
     # the panels (rows or both rows and columns, NULL if no facet)
@@ -494,6 +526,7 @@ superbPlot.pointjitterviolin <- function(
 ) {
     runDebug("pointjitterviolin", "Entering superbPlot.pointjitterviolin", 
         c("xfactor2", "groupingfactor2", "addfactors2","pointParams2","jitterParams2","violinParams2","errorbarParams2"), list(xfactor, groupingfactor, addfactors, pointParams, jitterParams, violinParams, errorbarParams))
+    mysym <- function(x) { if(is.character(x)) sym(x) else x }
 
     # rename column "DV" as "center"
     rawdata$center <- rawdata$DV
@@ -502,12 +535,14 @@ superbPlot.pointjitterviolin <- function(
     if (is.null(groupingfactor)) {
         do_jitters = do.call(geom_jitter, modifyList(
                         list(data = rawdata, alpha = 0.2, width = 0.2, height = 0.0,
-                             mapping = aes_string( y = "center" ) ),
+                             #mapping = aes_string( y = "center" ) ),
+                             mapping = aes( y = center ) ),
                         jitterParams
                     ) )
         do_violins = do.call( geom_violin, modifyList(
                         list(data     = rawdata,
-                             mapping  = aes_string( y = "center" ), 
+                             #mapping  = aes_string( y = "center" ), 
+                             mapping  = aes( y = center ), 
                              scale    = "area", trim = FALSE, alpha = 0.25),
                         violinParams
                     ) )
@@ -515,13 +550,15 @@ superbPlot.pointjitterviolin <- function(
         do_jitters = do.call(geom_point, modifyList(
                         list(data = rawdata , alpha = 0.2,
                             position = position_jitterdodge(jitter.width=0.1 , dodge.width=.75 ),
-                            mapping = aes_string(y = "center", group = groupingfactor  ) ),
+                            #mapping = aes_string(y = "center", group = groupingfactor  ) ),
+                            mapping = aes(y = center, group = !!mysym(groupingfactor)  ) ),
                         jitterParams
                     ) )
         do_violins = do.call( geom_violin, modifyList(
                         list(data    = rawdata, 
                              position= position_dodge(.75), #"dodge",
-                             mapping = aes_string( y = "center", fill = groupingfactor), 
+                             #mapping = aes_string( y = "center", fill = groupingfactor), 
+                             mapping = aes( y = center, fill = !!mysym(groupingfactor) ), 
                              scale   = "area", trim = FALSE, alpha = 0.25),
                         violinParams
                     ) )
@@ -529,7 +566,8 @@ superbPlot.pointjitterviolin <- function(
     
     # let's do the plot!
     plot <- ggplot(data    = summarydata, 
-                   mapping = aes_string(x = xfactor, colour = groupingfactor )
+                   #mapping = aes_string(x = xfactor, colour = groupingfactor )
+                   mapping = aes(x = !!mysym(xfactor), colour = !!mysym(groupingfactor) )
         ) +
         # violins in the back
         do_violins +
@@ -537,12 +575,16 @@ superbPlot.pointjitterviolin <- function(
         do_jitters +
         # and finally the points and the error bars
         do.call( geom_point, modifyList(
-            list(mapping = aes_string(group = groupingfactor, y = "center"), 
+            list(
+                #mapping = aes_string(group = groupingfactor, y = "center"), 
+                mapping = aes(group = !!mysym(groupingfactor), y = center), 
                 size = 3, position = position_dodge(.75) ),
             pointParams) ) +
         do.call( geom_superberrorbar, modifyList(
-            list(mapping = aes_string(group = groupingfactor, ymin = "center+lowerwidth", ymax = "center+upperwidth"), 
-                position = position_dodge(.75), width = 0.1, size = .75),
+            list(
+                #mapping = aes_string(group = groupingfactor, ymin = "center+lowerwidth", ymax = "center+upperwidth"), 
+                mapping = aes(group = !!mysym(groupingfactor), ymin = center+lowerwidth, ymax = center+upperwidth), 
+                position = position_dodge(.75), width = 0.1, linewidth = .75),
             errorbarParams) )+
         do.call( facet_grid, modifyList(
             list( rows = addfactors ),
@@ -629,6 +671,7 @@ superbPlot.pointindividualline <- function(
 ) {
     runDebug("pointindividualline", "Entering superbPlot.pointindividualline", 
         c("xfactor2", "groupingfactor2", "addfactors2","pointParams2","lineParams2","errorbarParams2"), list(xfactor, groupingfactor, addfactors, pointParams, lineParams, errorbarParams))
+    mysym <- function(x) { if(is.character(x)) sym(x) else x }
 
     # rename column "DV" as "center"
     rawdata$center <- rawdata$DV
@@ -636,34 +679,41 @@ superbPlot.pointindividualline <- function(
     # let's do the plot!
     plot <- ggplot(
         data = summarydata, 
-        aes_string(
-            x = xfactor,   
-            colour = groupingfactor
+#        aes_string(
+#            x = xfactor,   
+#            colour = groupingfactor
+        aes(
+            x = !!mysym(xfactor),   
+            colour = !!mysym(groupingfactor)
     )) + 
     # the individual lines 
     do.call(geom_line, modifyList(
         list(data = rawdata,
             size=0.2, alpha = 0.25,
-            mapping = aes_string( y = "center", group = "id" ) ),
+            #mapping = aes_string( y = "center", group = "id" ) ),
+            mapping = aes( y = center, group = id ) ),
         lineParams
     )) +
     # the individual points 
     do.call(geom_point, modifyList(
         list(data = rawdata, alpha = 0.25,
-            mapping = aes_string(y = "center", group = "id") ),
+            #mapping = aes_string(y = "center", group = "id") ),
+            mapping = aes(y = center, group = id) ),
         pointParams
     )) + 
     # the points 
     do.call(geom_point, modifyList(
         list(position = position_dodge(width = .5), 
             size=3,
-            mapping = aes_string(y = "center", group = groupingfactor) ),
+            #mapping = aes_string(y = "center", group = groupingfactor) ),
+            mapping = aes(y = center, group = !!mysym(groupingfactor)) ),
         pointParams
     )) + 
     # the error bars; define ymin, ymax only in errorbar
     do.call(geom_superberrorbar, modifyList(
-        list(position = position_dodge(.5), width = 0.1, size = 0.75,
-            mapping = aes_string(group = groupingfactor, ymin = "center + lowerwidth", ymax = "center + upperwidth") ),
+        list(position = position_dodge(.5), width = 0.1, linewidth = 0.75,
+            #mapping = aes_string(group = groupingfactor, ymin = "center + lowerwidth", ymax = "center + upperwidth") ),
+            mapping = aes(group = !!mysym(groupingfactor), ymin = center + lowerwidth, ymax = center + upperwidth) ),
         errorbarParams
     )) + 
     # the panels (rows or both rows and columns, NULL if no facet)

@@ -1,5 +1,5 @@
 ---
-title: "Devising custom plot layouts"
+title: "Using a custom plot layout within ``superb``"
 bibliography: "../inst/REFERENCES.bib"
 csl: "../inst/apa-6th.csl"
 output: 
@@ -10,7 +10,7 @@ description: >
   show how to add custom layouts in superbPlot. As an example,
   we show how to implement additional layouts.
 vignette: >
-  %\VignetteIndexEntry{Devising custom plot layouts}
+  %\VignetteIndexEntry{Using a custom plot layout within ``superb``}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
@@ -240,10 +240,10 @@ The result will be:
 superbPlot.simple <- function( summarydata, xfactor, groupingfactor, addfactors, rawdata ) {
     plot <- ggplot(
         data = summarydata,
-        mapping = aes_string( x = xfactor, y = "center", group= groupingfactor)
+        mapping = aes( x = !!sym(xfactor), y = center, group= !!sym(groupingfactor))
     ) +
     geom_point( ) +
-    geom_errorbar( mapping = aes_string(ymin = "center + lowerwidth", ymax = "center + upperwidth")  )+
+    geom_errorbar( mapping = aes(ymin = center + lowerwidth, ymax = center + upperwidth)  )+
     facet_grid( addfactors )
        
     return(plot)
@@ -264,11 +264,11 @@ superbPlot.simple <- function(
 ) {
     plot <- ggplot(
         data = summarydata, 
-        mapping = aes_string( x = xfactor, y = "center", group=groupingfactor)
+        mapping = aes( x = !!sym(xfactor), y = center, group = !!sym(groupingfactor) )
     ) +
     geom_point(  ) +
-    geom_errorbar( mapping = aes_string(ymin = "center + lowerwidth", 
-                                        ymax = "center + upperwidth")  )+ 
+    geom_errorbar( mapping = aes(ymin = center + lowerwidth, 
+                                 ymax = center + upperwidth)  )+ 
     facet_grid( addfactors )
         
     return(plot)
@@ -277,11 +277,11 @@ superbPlot.simple <- function(
 
 The first instruction, ``ggplot`` defines the source data to be 
 ``summarydata`` with horizontal axis being in the string ``xfactor``
-(this is the reason that ``mapping`` must be given with ``aes_string``).
+(the piece of instructions ``!!sym( )`` converts the string into a variable).
 The position of the descriptive statistics is automatically 
-computed and stored in a column called ``"center"``.
+computed and stored in a column called ``center``.
 
-The second instruction put points for each ``"center"``, and 
+The second instruction put points for each ``center``, and 
 the third instruction places error bars. In that case, the ``ymin`` and 
 ``ymax`` information are contained in ``center+lowerwidth`` and
 ``center+upperwidth`` where ``lowerwidth`` and ``upperwidth`` are
@@ -333,15 +333,15 @@ superbPlot.simpleWithOptions <- function(
 ) {
     plot <- ggplot(
         data = summarydata, 
-        mapping = aes_string( x = xfactor, y = "center", group="Condition")
+        mapping = aes( x = !!sym(xfactor), y = center, group=Condition)
     ) +
     do.call( geom_point, modifyList(
        list( color ="black" ),
         myownParams
     )) + 
     do.call( geom_errorbar, modifyList(
-        list( mapping = aes_string(ymin = "center + lowerwidth", 
-                                   ymax = "center + upperwidth")  ),
+        list( mapping = aes(ymin = center + lowerwidth, 
+                            ymax = center + upperwidth)  ),
         myownParams 
     )) + 
     facet_grid( addfactors )
@@ -435,27 +435,28 @@ Then we define a ``"smiley"`` layout where the emojis are shown
 with ``geom_text`` layer:
 
 ```{r}
-superbPlot.smiley <- function(
-    summarydata, xfactor, groupingfactor, addfactors, rawdata 
-) {
+superbPlot.smiley <- function( summarydata, xfactor, groupingfactor, addfactors, rawdata ) {
     # the early part bears on summary data with variable "center"
     plot <- ggplot(
-        data = summarydata, 
-        mapping = aes_string(
-            x = xfactor, y = "center", 
-            fill = groupingfactor, 
-            shape = groupingfactor, 
-            colour = groupingfactor)
+        data    = summarydata, 
+        mapping = aes(
+            x      = !!sym(xfactor), 
+            y      = center, 
+            fill   = !!sym(groupingfactor), 
+            shape  = !!sym(groupingfactor), 
+            colour = !!sym(groupingfactor) )
     ) +
     geom_point(position = position_dodge(width = .95)) +
     geom_errorbar( width = .6, position = position_dodge(.95), 
-              mapping = aes_string(ymin = "center + lowerwidth", ymax = "center + upperwidth") 
+              mapping = aes(ymin = center + lowerwidth, ymax = center + upperwidth) 
     )+ 
     # this part bears on the rawdata only with variable "DV"
     geom_text(data = rawdata, 
               position = position_jitter(0.5),
-              family="EmojiOne", label=emoji("smile"), size=6, 
-              mapping=aes_string(x=xfactor, y="DV", group = groupingfactor)
+              family   = "EmojiOne",
+              label    = emoji("smile"), 
+              size     = 6, 
+              mapping  = aes(x = !!sym(xfactor), y = DV, group = !!sym(groupingfactor) )
     ) +
     facet_grid( addfactors )
         
@@ -469,7 +470,7 @@ We check that it is a ``superbPlot``-compatible function:
 superb:::is.superbPlot.function("superbPlot.smiley")
 ```
 
-It is all we need! It can be inserted in a ``superbPlot`` call:
+It is all we need! This layout can be inserted in a ``superbPlot`` call:
 
 ```{r, fig.width= 4, fig.height = 3, fig.cap = "**Figure 5**. smile!"}
 superbPlot(TMB1964r,

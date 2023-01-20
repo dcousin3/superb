@@ -90,7 +90,7 @@
 #'                             family  = "mono",       # courrier font
 #'                             colour= "chartreuse3"   # dark green color
 #'         ), 
-#'         segmentParams = list(size = 1.,             # thicker lines
+#'         segmentParams = list(linewidth = 1.,             # thicker lines
 #'                             arrow   = arrow(length = unit(0.2, "cm") ), # arrow heads
 #'                             colour = "chartreuse3"  # dark green color as well
 #'         )
@@ -99,7 +99,7 @@
 #'         textParams    = list(size = 5,              # larger font
 #'                             family  = "serif",      # times font
 #'                             alpha = 0.3 ),          # transparent
-#'         segmentParams = list(size = 2., 
+#'         segmentParams = list(linewidth = 2., 
 #'                             arrow   = arrow(length = unit(0.2, "cm") ), 
 #'                             alpha = 0.3, 
 #'                             lineend = "round"       # so that line end overlap nicely
@@ -141,6 +141,7 @@ showHorizontalSignificance <- function(
 ) {
     if (length(x) != 2) 
         stop ("superb::ShowSignificance: x must be a vector of 2 (left and right boundaries).")
+    mysym <- function(x) { if(is.character(x)) sym(x) else x }
 
     # build data frames for the line segments and the text
     l1 <- data.frame(x = x[1], xend = x[2], y = y, yend = y)
@@ -157,16 +158,25 @@ showHorizontalSignificance <- function(
 
     list(
         do.call( geom_segment, modifyList(
-            list(data = l1, inherit.aes = FALSE, mapping = aes_string(x = "x", y = "y", yend = "yend", xend = "xend") ),
+            list(data = l1, inherit.aes = FALSE, 
+                #mapping = aes_string(x = "x", y = "y", yend = "yend", xend = "xend") 
+                mapping = aes(x = x, y = y, yend = yend, xend = xend) 
+            ),
             segmentParams[names(segmentParams) != "arrow"]
         ) ),
         do.call( geom_segment, modifyList(
-            list(data = l2, inherit.aes = FALSE, mapping = aes_string(x = "x", y = "y", yend = "yend", xend = "xend") ),
+            list(data = l2, inherit.aes = FALSE, 
+                #mapping = aes_string(x = "x", y = "y", yend = "yend", xend = "xend") 
+                mapping = aes(x = x, y = y, yend = yend, xend = xend) 
+            ),
             segmentParams
         ) ),
         do.call( geom_text, modifyList(
-            list(data = tx, inherit.aes = FALSE, mapping = aes_string(x = "x", y = "y", label = "label"), 
-            hjust = 0.5, vjust = ifelse(sign(width[1])==1, 3 * sign(width[1])/2, sign(width[1])/2)),
+            list(data = tx, inherit.aes = FALSE, 
+                #mapping = aes_string(x = "x", y = "y", label = "label"), 
+                mapping = aes(x = x, y = y, label = label), 
+                hjust = 0.5, vjust = ifelse(sign(width[1])==1, 3 * sign(width[1])/2, sign(width[1])/2)
+            ),
             textParams,
         ) )
     )
@@ -202,16 +212,25 @@ showVerticalSignificance <- function(
 
     list(
         do.call( geom_segment, modifyList(
-            list(data = l1, inherit.aes = FALSE, mapping = aes_string(x = "x", y = "y", yend = "yend", xend = "xend") ),
+            list(data = l1, inherit.aes = FALSE, 
+                #mapping = aes_string(x = "x", y = "y", yend = "yend", xend = "xend") 
+                mapping = aes(x = x, y = y, yend = yend, xend = xend) 
+            ),
             segmentParams[names(segmentParams) != "arrow"]
         ) ),
         do.call( geom_segment, modifyList(
-            list(data = l2, inherit.aes = FALSE, mapping = aes_string(x = "x", y = "y", yend = "yend", xend = "xend") ),
+            list(data = l2, inherit.aes = FALSE, 
+                #mapping = aes_string(x = "x", y = "y", yend = "yend", xend = "xend") 
+                mapping = aes(x = x, y = y, yend = yend, xend = xend) 
+            ),
             segmentParams
         ) ),
         do.call( geom_text, modifyList(
-            list(data = tx, inherit.aes = FALSE, mapping = aes_string(x = "x", y = "y", label = "label"), 
-            hjust = 0.5, vjust = ifelse(sign(width)==1,3 * sign(width)/2,sign(width)/2), angle = 270),
+            list(data = tx, inherit.aes = FALSE, 
+                #mapping = aes_string(x = "x", y = "y", label = "label"), 
+                mapping = aes(x = x, y = y, label = label), 
+                hjust = 0.5, vjust = ifelse(sign(width)==1,3 * sign(width)/2,sign(width)/2), angle = 270
+            ),
             textParams,
         ) )
     )
