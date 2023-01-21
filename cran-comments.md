@@ -1,11 +1,13 @@
 ## Submission
 
-* New version 0.95.3
-
+* New version 0.95.7
 
 ## Comment
 
-* Corrected a bug with geom_superberrorbar
+* Added pairwise deletion for the computation of the mean correlation in case of missing data with CA
+* Removed ggplot2 depleted functions "aes_string" in favor of "aes"
+* Removed ggplot2 depleted attribute "size" in favor of "linewidth"
+* Added the lineBand plot in the Shiny interface
 
 ## Test environments
 
