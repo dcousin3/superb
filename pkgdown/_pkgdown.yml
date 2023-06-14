@@ -8,6 +8,7 @@ reference:
       - '`superbShiny`'
       - '`superbPlot`'
       - '`superbData`'
+      - '`superbToWide`'
       - '`GRD`'
   - title: Decorating plots
     desc: Functions to add further decorations to the plots
@@ -88,4 +89,3 @@ articles:
   - Vignette5
   - VignetteD
   - Vignette6
-  

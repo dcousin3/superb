@@ -129,6 +129,8 @@ options(superb.feedback = 'none') # shut down 'warnings' and 'design' interpreta
 names(Orange) <- c("Tree","age","circ")
 # turn the data into a wide format
 Orange.wide <- longToWide(Orange, circ ~ age)
+# or use superbToWide, whose arguments are the same as superbPlot():
+Orange.wide <- superbToWide(Orange, id = "Tree", WSFactors = c("age"), variable = "circ") 
 
 # Makes the plots two different way:
 p1=superbPlot( Orange.wide, WSFactors = "age(7)",

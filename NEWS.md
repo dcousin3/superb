@@ -1,3 +1,10 @@
+# superb 0.95.8 (June 13th, 2023)
+
+* Added superbToWide to ease the conversion to wide format
+* A few tiny corrections to the documentation
+* Updated references
+* Note that updates are spaced more and more as the library is now very stable
+
 # superb 0.95.7 (January 19th, 2023)
 
 * Added pairwise deletion for the computation of the mean correlation in case of missing data with CA

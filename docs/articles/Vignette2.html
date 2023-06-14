@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.8</span>
       </span>
     </div>
 
@@ -282,10 +282,8 @@ difference-adjusted confidence intervals <span class="citation">(Cousineau, Goul
 </h3>
 <p>Just for comparison purposes, let’s show both plots side-by-side.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: package 'gridExtra' was built under R version 4.1.3</span></span></code></pre>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, </span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span></span>
+<span><span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, </span>
 <span>        BSFactors <span class="op">=</span> <span class="st">"grp"</span>, </span>
 <span>        variables <span class="op">=</span> <span class="st">"score"</span>, </span>
 <span>        plotStyle<span class="op">=</span><span class="st">"line"</span> <span class="op">)</span> <span class="op">+</span> </span>
@@ -315,7 +313,7 @@ unadjusted (left) and adjusted (right) 95% confidence intervals
 </div>
 <p>A second way to compare the two plots is to superimpose them, as in
 Figure 4:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># generate the two plots, nudging the error bars, using distinct colors, and </span></span>
 <span><span class="co"># having the second plot's background transparent (with ``makeTransparent()`` )</span></span>
 <span><span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, </span>

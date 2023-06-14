@@ -19,7 +19,7 @@ runDebug(where, title, vars, vals)
 puts in the globalenvironment the variables named "vars"
 }
 \description{
-runDebug is an internal function used by GRD and superbPlot
+runDebug is an internal function used by GRD and superb
 to help in debugging the functions. It assigns in the global environment
 the variables that are local to a function so that they become visible.
 }

@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.8</span>
       </span>
     </div>
 
@@ -172,9 +172,8 @@ and the file name with</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://svn.r-project.org/R-packages/trunk/foreign/" class="external-link">foreign</a></span><span class="op">)</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/foreign/man/read.spss.html" class="external-link">read.spss</a></span><span class="op">(</span><span class="va">file</span>, to.data.frame <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## re-encoding from UTF-8</span></span></code></pre>
 <p>Finally, ask for a plot with</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span> <span class="va">data</span>, </span>
 <span>    WSFactors      <span class="op">=</span> <span class="st">"Temps(2)"</span>,</span>
 <span>    variables      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"time1"</span>,<span class="st">"time2"</span><span class="op">)</span>,</span>
@@ -194,36 +193,30 @@ send R instructions enclosed within <code>BEGIN PROGRAM R.</code> and
 <code>END PROGRAM</code>.</p>
 <p>To know if your SPSS installation has R installed, you could for
 example type these instructions:</p>
-<pre class="{r}"><code>BEGIN PROGRAM R.
-    # a quick test
-    cat("R is up and running: ", R.version.string, "\n")
-END PROGRAM.</code></pre>
+<p><code>{r} BEGIN PROGRAM R.     # a quick test     cat("R is up and running: ", R.version.string, "\n") END PROGRAM.</code></p>
 <p>then select them all and press Ctrl-R to execute. It R is accepted
 within SPSS, you should see an ouptut indicating the version of R
 installed. It has to be R above 4.0.</p>
 <p>If things are working, then you are ready to make your plot with</p>
-<pre class="{r}"><code>BEGIN PROGRAM R.
-    # this will install superb if needed; may take a few minutes
-    if(!require(superb)) 
-        install.packages("superb", type="binary", repos = "http://cran.us.r-project.org")
-
-    # set the library to be in used
-    library(superb)  
-
-    # transfer the data from SPSS into R
-    data &lt;- spssdata.GetDataFromSPSS() 
-
-    # all good! make a plot using superbPlot()
-    superbPlot(   data, 
-                  WSFactors      = "Temps(2)",
-                  variables      = c("time1","time2"),
-                  plotStyle      = "line",
-                  adjustments    = list(purpose = "single", decorrelation = "CA"),
-                  errorbarParams = list(color = "purple"),
-                  pointParams    = list( size = 2, color = "purple")
-    )
-
-END PROGRAM.</code></pre>
+<p>```{r} BEGIN PROGRAM R. # this will install superb if needed; may
+take a few minutes if(!require(superb)) install.packages(“superb”,
+type=“binary”, repos = “<a href="http://cran.us.r-project.org" class="external-link uri">http://cran.us.r-project.org</a>”)</p>
+<pre><code><span><span class="co"># set the library to be in used</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dcousin3.github.io/superb/" class="external-link">superb</a></span><span class="op">)</span>  </span>
+<span></span>
+<span><span class="co"># transfer the data from SPSS into R</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">spssdata.GetDataFromSPSS</span><span class="op">(</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co"># all good! make a plot using superbPlot()</span></span>
+<span><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span>   <span class="va">data</span>, </span>
+<span>              WSFactors      <span class="op">=</span> <span class="st">"Temps(2)"</span>,</span>
+<span>              variables      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"time1"</span>,<span class="st">"time2"</span><span class="op">)</span>,</span>
+<span>              plotStyle      <span class="op">=</span> <span class="st">"line"</span>,</span>
+<span>              adjustments    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"single"</span>, decorrelation <span class="op">=</span> <span class="st">"CA"</span><span class="op">)</span>,</span>
+<span>              errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span>,</span>
+<span>              pointParams    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> size <span class="op">=</span> <span class="fl">2</span>, color <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre>
+<p>END PROGRAM. ```</p>
 <p>Here are screen captures showing the syntax window:</p>
 <div class="figure">
 <img src="VignetteD_files/figure-html/fig2-1.png" alt="**Figure 2: Syntax to generate a plot**" width="768"><p class="caption">

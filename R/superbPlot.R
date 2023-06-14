@@ -98,6 +98,8 @@
 #' names(Orange) <- c("Tree","age","circ")
 #' # turn the data into a wide format
 #' Orange.wide <- longToWide(Orange, circ ~ age)
+#' # or use superbToWide, whose arguments are the same as superbPlot():
+#' Orange.wide <- superbToWide(Orange, id = "Tree", WSFactors = c("age"), variable = "circ") 
 #' 
 #' # Makes the plots two different way:
 #' p1=superbPlot( Orange.wide, WSFactors = "age(7)",
@@ -232,7 +234,6 @@ superbPlot <- function(data,
         if (!all(lapply(WSDesign, length)==length(WSFactors)))
                     stop("superb::ERROR: the WSDesign does not contain vectors of factor levels, one per factor. Exiting...")
     }
-
 
     # 1.5: invalid column names where column names must be listed
     if (!(all(variables %in% names(data)))) 

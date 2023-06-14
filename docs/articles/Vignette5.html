@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.8</span>
       </span>
     </div>
 
@@ -208,12 +208,12 @@ factors have main effets on the scores.</p>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">testdata</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   id Difficulty score.day1 score.day2</span></span>
-<span><span class="co">## 1  1          1   51.23670   31.13831</span></span>
-<span><span class="co">## 2  2          1   52.62041   46.89243</span></span>
-<span><span class="co">## 3  3          1   62.30158   61.89827</span></span>
-<span><span class="co">## 4  4          1   75.94883   57.87194</span></span>
-<span><span class="co">## 5  5          1   63.12413   63.97677</span></span>
-<span><span class="co">## 6  6          1   82.57882   67.05966</span></span></code></pre>
+<span><span class="co">## 1  1          1   57.28527   71.56708</span></span>
+<span><span class="co">## 2  2          1   54.03810   62.08641</span></span>
+<span><span class="co">## 3  3          1   85.83190   81.05452</span></span>
+<span><span class="co">## 4  4          1   63.92051   66.07455</span></span>
+<span><span class="co">## 5  5          1   55.20443   68.57020</span></span>
+<span><span class="co">## 6  6          1   66.68804   60.72759</span></span></code></pre>
 <p>For simplicity, we define a function whose arguments are the dataset
 and the layout:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -237,10 +237,8 @@ them</p>
 <span><span class="va">p5</span> <span class="op">&lt;-</span> <span class="fu">mp</span><span class="op">(</span><span class="va">testdata</span>, <span class="st">"pointjitterviolin"</span><span class="op">)</span></span>
 <span><span class="va">p6</span> <span class="op">&lt;-</span> <span class="fu">mp</span><span class="op">(</span><span class="va">testdata</span>, <span class="st">"pointindividualline"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: package 'gridExtra' was built under R version 4.1.3</span></span></code></pre>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">p1</span>,<span class="va">p2</span>,<span class="va">p3</span>,<span class="va">p4</span>,<span class="va">p5</span>,<span class="va">p6</span>,ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">p1</span>,<span class="va">p2</span>,<span class="va">p3</span>,<span class="va">p4</span>,<span class="va">p5</span>,<span class="va">p6</span>,ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="Vignette5_files/figure-html/unnamed-chunk-5-1.png" alt="**Figure 1a**. Look of the six built-in layouts on the same random dataset" width="672"><p class="caption">
 <strong>Figure 1a</strong>. Look of the six built-in layouts on the same
@@ -249,7 +247,7 @@ random dataset
 </div>
 <p>The last format, a <code>raincloud</code> plot <span class="citation">(Allen et al., 2021)</span>, is better seen with
 coordinates flipped over:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">mp</span><span class="op">(</span><span class="va">testdata</span>, <span class="st">"raincloud"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="external-link">coord_flip</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="Vignette5_files/figure-html/unnamed-chunk-6-1.png" alt="**Figure 1b**. The seventh layout, the raincloud" width="672"><p class="caption">
@@ -258,7 +256,7 @@ coordinates flipped over:</p>
 </div>
 <p>For more controls, you can manually set the colors, the fills and/or
 the shapes, as done here in a list:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ornate</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_colour_manual</a></span><span class="op">(</span> name <span class="op">=</span> <span class="st">"Difference"</span>, </span>
 <span>        labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Easy"</span>, <span class="st">"Hard"</span>, <span class="st">"Unthinkable"</span><span class="op">)</span>, </span>
@@ -307,7 +305,7 @@ function name begins with <code>superbPlot.</code>; (ii) the function
 accept very specific arguments with very precise names.</p>
 <p>Here is the header for a function corresponding to a plot style
 called, say, <em>foo</em> (<code>plotStyle = "foo"</code>):</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">superbPlot.foo</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span></span>
 <span>    <span class="va">summarydata</span>,</span>
 <span>    <span class="va">xfactor</span>,       </span>
@@ -368,7 +366,7 @@ the <code>simple</code> plot layout.
 </div>
 <p>To make this plot, we design a function
 <code>superbPlot.simple</code> as:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">superbPlot.simple</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span></span>
 <span>    <span class="va">summarydata</span>, <span class="va">xfactor</span>, <span class="va">groupingfactor</span>, <span class="va">addfactors</span>, <span class="va">rawdata</span></span>
 <span><span class="op">)</span> <span class="op">{</span></span>
@@ -399,13 +397,13 @@ computed and stored in the <code>summarydata</code> dataframe.</p>
 remaining factors.</p>
 <p>You can check that this function is
 <code>superbPlot</code>-compatible with:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">superb</span><span class="fu">:::</span><span class="fu">is.superbPlot.function</span><span class="op">(</span><span class="st">"superbPlot.simple"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
 <p>If <code>TRUE</code>, then we are ready to use this layout, here with
 the demo dataset <code>TMB1964r</code> whose result was shown above in
 Figure 3:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">TMB1964r</span>,</span>
 <span>     WSFactors <span class="op">=</span> <span class="st">"T(7)"</span>,      </span>
 <span>     BSFactors <span class="op">=</span> <span class="st">"Condition"</span>,</span>
@@ -422,13 +420,13 @@ graphic directives inside the layers, e.g., inside
 <code>geom_point</code>.</p>
 <p>A convenient method is with <code>do.call</code> and
 <code>modifyList</code>, for example:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>    <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span> <span class="va">geom_point</span>, <span class="fu"><a href="https://rdrr.io/r/utils/modifyList.html" class="external-link">modifyList</a></span><span class="op">(</span></span>
 <span>       <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> size<span class="op">=</span> <span class="fl">3</span> <span class="co">##etc., the default directives##</span></span>
 <span>       <span class="op">)</span>, <span class="va">myownParams</span></span>
 <span>    <span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>A full example it therefore</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">superbPlot.simpleWithOptions</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span></span>
 <span>    <span class="va">summarydata</span>, <span class="va">xfactor</span>, <span class="va">groupingfactor</span>, <span class="va">addfactors</span>, <span class="va">rawdata</span>,</span>
 <span>    <span class="va">myownParams</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>  <span class="co">## will be used to add the optional arguments to the function</span></span>
@@ -452,7 +450,7 @@ graphic directives inside the layers, e.g., inside
 <span><span class="op">}</span></span>
 <span><span class="fu">superb</span><span class="fu">:::</span><span class="fu">is.superbPlot.function</span><span class="op">(</span><span class="st">"superbPlot.simpleWithOptions"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">TMB1964r</span>,</span>
 <span>    WSFactors <span class="op">=</span> <span class="st">"T(7)"</span>,      </span>
 <span>    BSFactors <span class="op">=</span> <span class="st">"Condition"</span>,</span>
@@ -473,7 +471,7 @@ parameters, one for the points, the other for the error bars.</p>
 debugging the code. A useful function is to use <code><a href="../reference/runDebug.html">runDebug()</a></code>.
 This function (shipped with <code>suberb</code>) will display text and
 transfer any variables you want into the global environment.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>superb.feedback <span class="op">=</span> <span class="st">'all'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/runDebug.html">runDebug</a></span><span class="op">(</span> <span class="st">'where are we?'</span>, <span class="st">"Text to show when we get there"</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"variable1"</span>, <span class="st">"variable2"</span>, <span class="st">"etc"</span><span class="op">)</span>,</span>
@@ -482,7 +480,7 @@ transfer any variables you want into the global environment.</p>
 <pre><code><span><span class="co">## ==&gt; Text to show when we get there &lt;==</span></span>
 <span><span class="co">##     variables dumped in: variable1, variable2, etc</span></span></code></pre>
 <p>For example, the following will get the dataframes:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">superbPlot.empty</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span></span>
 <span>    <span class="va">summarydata</span>, <span class="va">xfactor</span>, <span class="va">groupingfactor</span>, <span class="va">addfactors</span>, <span class="va">rawdata</span> </span>
 <span><span class="op">)</span> <span class="op">{</span></span>
@@ -505,7 +503,7 @@ transfer any variables you want into the global environment.</p>
 <code>summary</code> and <code>raw</code>. These two variables are now
 in the global environment and you can manipulate them. You can also use
 them in testing your plotting functions, for example</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">superbPlot.simple</span><span class="op">(</span><span class="va">summary</span>, <span class="st">"T"</span>, <span class="st">"Condition"</span>, <span class="st">".~."</span>, <span class="va">raw</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -515,12 +513,12 @@ them in testing your plotting functions, for example</p>
 shown with smileys. Note that this example may not work in Rstudio (see
 “limitation” on emojifont <a href="https://CRAN.R-project.org/package=emojifont" class="external-link">page</a> )</p>
 <p>We first need the <code>emojifont</code> library</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("emojifont")</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/GuangchuangYu/emojifont" class="external-link">emojifont</a></span><span class="op">)</span></span></code></pre></div>
 <p>Then we define a <code>"smiley"</code> layout where the emojis are
 shown with <code>geom_text</code> layer:</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">superbPlot.smiley</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span> <span class="va">summarydata</span>, <span class="va">xfactor</span>, <span class="va">groupingfactor</span>, <span class="va">addfactors</span>, <span class="va">rawdata</span> <span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="co"># the early part bears on summary data with variable "center"</span></span>
 <span>    <span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span></span>
@@ -550,12 +548,12 @@ shown with <code>geom_text</code> layer:</p>
 <span><span class="op">}</span></span></code></pre></div>
 <p>We check that it is a <code>superbPlot</code>-compatible
 function:</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">superb</span><span class="fu">:::</span><span class="fu">is.superbPlot.function</span><span class="op">(</span><span class="st">"superbPlot.smiley"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
 <p>It is all we need! This layout can be inserted in a
 <code>superbPlot</code> call:</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">TMB1964r</span>,</span>
 <span>     WSFactors <span class="op">=</span> <span class="st">"T(7)"</span>,      </span>
 <span>     BSFactors <span class="op">=</span> <span class="st">"Condition"</span>, </span>

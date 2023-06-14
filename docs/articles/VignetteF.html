@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.8</span>
       </span>
     </div>
 
@@ -186,8 +186,8 @@ and upper confidence bounds around the proportion <span class="math inline">\(\h
     \right)^{-1}
     =\hat{\pi}_{\,\text{high}}
 \]</span> in which <span class="math inline">\(F_{q}\)</span> denotes
-the <span class="math inline">\(100\;q\)</span>% quantile of an <span class="math inline">\(F\)</span> distribution and $1-$ the desired
-coverage of the interval, often 95%. The interval <span class="math display">\[
+the <span class="math inline">\(100\;q\)</span>% quantile of an <span class="math inline">\(F\)</span> distribution and <span class="math inline">\(1-\alpha\)</span> the desired coverage of the
+interval, often 95%. The interval <span class="math display">\[
     \{n_{\,\text{low}}, n_{\,\text{high}} \} = N \, \times\, \{
 \hat{\pi}_{\,\text{low}}, \hat{\pi}_{\,\text{high}} \}
 \]</span> is then used as a <span class="math inline">\(100
@@ -328,17 +328,15 @@ in place.</p>
 <span>    <span class="va">dta</span>,</span>
 <span>    BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"vocation"</span>,<span class="st">"gender"</span><span class="op">)</span>,</span>
 <span>    variables <span class="op">=</span> <span class="st">"obsfreq"</span>,</span>
-<span>    statistic <span class="op">=</span> <span class="st">"count"</span>,                           <span class="co"># the function defined above</span></span>
-<span>    errorbar  <span class="op">=</span> <span class="st">"CI"</span>,                              <span class="co"># its CI define above</span></span>
+<span>    statistic <span class="op">=</span> <span class="st">"count"</span>,                                 <span class="co"># the function defined above</span></span>
+<span>    errorbar  <span class="op">=</span> <span class="st">"CI"</span>,                                    <span class="co"># its CI define above</span></span>
 <span>    <span class="co"># the following is for the look of the plot</span></span>
-<span>    plotStyle      <span class="op">=</span> <span class="st">"line"</span>,                       <span class="co"># style of the plot</span></span>
-<span>    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> width <span class="op">=</span><span class="fl">0.5</span>, size<span class="op">=</span><span class="fl">0.75</span> <span class="op">)</span>,<span class="co"># have thicker error bars</span></span>
-<span>    lineParams     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> size <span class="op">=</span> <span class="fl">1.0</span><span class="op">)</span>             <span class="co"># thicker lines as well</span></span>
+<span>    plotStyle      <span class="op">=</span> <span class="st">"line"</span>,                             <span class="co"># style of the plot</span></span>
+<span>    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> width <span class="op">=</span><span class="fl">0.5</span>, linewidth <span class="op">=</span><span class="fl">0.75</span> <span class="op">)</span>,<span class="co"># have thicker error bars</span></span>
+<span>    lineParams     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> size <span class="op">=</span> <span class="fl">1.0</span><span class="op">)</span>                   <span class="co"># thicker lines as well</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## superb::FYI: Running initializer init.count</span></span></code></pre>
-<pre><code><span><span class="co">## Warning in (function (mapping = NULL, data = NULL, stat = "identity", position =</span></span>
-<span><span class="co">## "identity", : Ignoring unknown parameters: `size`</span></span></code></pre>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plt2</span></span></code></pre></div>
 <div class="figure">
 <img src="VignetteF_files/figure-html/unnamed-chunk-8-1.png" alt="**Figure 2: A complete plot**" width="576"><p class="caption">
@@ -346,7 +344,7 @@ in place.</p>
 </p>
 </div>
 <p>The plot is drab so let’s add some ornaments to it:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ornate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"Educational vocation"</span><span class="op">)</span>,                      <span class="co"># label on the x-axis</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Observed frequency"</span><span class="op">)</span>,                        <span class="co"># label on the y-axis</span></span>
@@ -382,9 +380,9 @@ easy to decide if the trends are reliable or accidental.</p>
 very reliable tool to make inference-by-eye. In doubt however, go run
 the exact test. In the present case, we performed an ANOFA (Analysis of
 Frequency tAble; <span class="citation">Laurencelle &amp; Cousineau
-(submitted)</span>). It shows that the interaction is highly
-significant; subsequent simple effect analyses show that this is indeed
-the university aspiration that triggered that interaction.</p>
+(2023)</span>). It shows that the interaction is highly significant;
+subsequent simple effect analyses show that this is indeed the
+university aspiration that triggered that interaction.</p>
 <p>ANOFA table:</p>
 <table class="table">
 <thead><tr class="header">
@@ -513,8 +511,9 @@ with adjusted error bars: The superb framework with an implementation in
 Science</em>, <em>4</em>, 1–18. <a href="https://doi.org/10.1177/25152459211035109" class="external-link">https://doi.org/10.1177/25152459211035109</a>
 </div>
 <div id="ref-lc23b" class="csl-entry">
-Laurencelle, L., &amp; Cousineau, D. (submitted). Analysis of frequency
-tables using ANOFA. <em>Submitted</em>.
+Laurencelle, L., &amp; Cousineau, D. (2023). Analysis of frequency
+tables: The ANOFA framework. <em>The Quantitative Methods for
+Psychology</em>, <em>19</em>, 173–193. <a href="https://doi.org/10.20982/tqmp.19.2.p173" class="external-link">https://doi.org/10.20982/tqmp.19.2.p173</a>
 </div>
 <div id="ref-lt96" class="csl-entry">
 Leemis, L. M., &amp; Trivedi, K. S. (1996). A comparison of approximate

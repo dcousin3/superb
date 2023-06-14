@@ -20,7 +20,7 @@ according to the suberb framework. See (Cousineau et al. 2021)
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.8</span>
       </span>
     </div>
 
@@ -240,7 +240,7 @@ sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Samp
     <p>Cousineau D, Goulet M, Harding B (2021).
 “Summary plots with adjusted error bars: The superb framework with an implementation in R.”
 <em>Advances in Methods and Practices in Psychological Science</em>, <b>4</b>, 1--18.
-doi: <a href="https://doi.org/10.1177/25152459211035109" class="external-link">10.1177/25152459211035109</a>
+<a href="https://doi.org/10.1177/25152459211035109" class="external-link">doi:10.1177/25152459211035109</a>
 .</p>
     </div>
 
@@ -282,6 +282,8 @@ doi: <a href="https://doi.org/10.1177/25152459211035109" class="external-link">1
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">Orange</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Tree"</span>,<span class="st">"age"</span>,<span class="st">"circ"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># turn the data into a wide format</span></span></span>
 <span class="r-in"><span><span class="va">Orange.wide</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lsr/man/longToWide.html" class="external-link">longToWide</a></span><span class="op">(</span><span class="va">Orange</span>, <span class="va">circ</span> <span class="op">~</span> <span class="va">age</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># or use superbToWide, whose arguments are the same as superbPlot():</span></span></span>
+<span class="r-in"><span><span class="va">Orange.wide</span> <span class="op">&lt;-</span> <span class="fu"><a href="superbToWide.html">superbToWide</a></span><span class="op">(</span><span class="va">Orange</span>, id <span class="op">=</span> <span class="st">"Tree"</span>, WSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age"</span><span class="op">)</span>, variable <span class="op">=</span> <span class="st">"circ"</span><span class="op">)</span> </span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Makes the plots two different way:</span></span></span>
 <span class="r-in"><span><span class="va">p1</span><span class="op">=</span><span class="fu">superbPlot</span><span class="op">(</span> <span class="va">Orange.wide</span>, WSFactors <span class="op">=</span> <span class="st">"age(7)"</span>,</span></span>
