@@ -111,7 +111,8 @@ The second function, `GRD()`, can be used to generate random data
 from designs with various within- and between-subject factors.
 This example generates scores for 300 simulated participants in 
 a 3 x 2 design with repeated-measures on `Day`s. Only
-the factor `Day` is simulated to improve the scores by reducing it:
+the factor `Day` is modeled as impacting the scores (the reduce by 3 points on the 
+second day):
 
 ```{r}
 testdata <- GRD(

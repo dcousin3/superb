@@ -1,9 +1,9 @@
 <Math define article =``article``>
 <Math define refid =``lm71``>
-<Math define author =``Light, R. J. and Margolin, B. H.``>
-<Math define title =``An Analysis of Variance for Categorical Data``>
-<Math define journal =``Journal of the American Statistical Association``>
-<Math define year =``1971``>
-<Math define volume =``66``>
-<Math define pages =``534-544``>
-<Math define doi =``10.1080/01621459.1971.10482297``>
+<Math define author =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define title =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define journal =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define year =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define volume =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define pages =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define doi =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>

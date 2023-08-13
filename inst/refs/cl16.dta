@@ -1,3 +1,9 @@
 <Math define article =``article``>
 <Math define refid =``cl16``>
-<Math define author =``Cousineau, Denis and Laurencelle, L.``>
+<Math define author =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define title =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define year =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define journal =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define volume =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define pages =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define doi =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>

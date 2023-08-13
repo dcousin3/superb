@@ -1,6 +1,9 @@
 <Math define article =``article``>
 <Math define refid =``lc23b``>
-<Math define author =``Laurencelle, L. and Cousineau, D.``>
-<Math define title =``Analysis of frequency tables using ANOFA``>
-<Math define year =``submitted``>
-<Math define journal =``submitted``>
+<Math define author =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define title =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define year =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define journal =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define pages =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define volume =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define doi =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>

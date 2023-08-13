@@ -1,3 +1,7 @@
+# superb 0.95.81 (August 13th, 2023)
+
+* Updated CustomizingSuperbPlots vignettes.
+
 # superb 0.95.8 (June 13th, 2023)
 
 * Added superbToWide to ease the conversion to wide format

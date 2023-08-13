@@ -1,9 +1,9 @@
-citHeader("To cite superb version 0.9.7.6 in publications use:")
+citHeader("To cite superb version 0.95.8 in publications use:")
 
-citEntry(
-  entry    = "Article",
+bibentry(
+  bibtype  = "Article",
   title    = "Summary plots with adjusted error bars: The superb framework with an implementation in {R}",
-  author   = personList(as.person("Denis Cousineau"), as.person("Marc-Andre Goulet"), as.person("Bradley Harding")),
+  author   = c("Denis Cousineau", "Marc-Andre Goulet", "Bradley Harding"),
   journal  = "Advances in Methods and Practices in Psychological Science",
   year     = "2021",
   volume   = "4",

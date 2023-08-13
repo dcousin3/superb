@@ -1,9 +1,9 @@
 <Math define article =``article``>
 <Math define refid =``lt96``>
-<Math define author =``Leemis, L. M. and Trivedi, K. S.``>
-<Math define title =``A comparison of approximate interval estimators for the Bernoulli parameter``>
-<Math define journal =``The American Statistician``>
-<Math define year =``1996``>
-<Math define volume =``50``>
-<Math define number =``1``>
-<Math define pages =``63-68``>
+<Math define author =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define title =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define journal =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define year =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define volume =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define number =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define pages =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>

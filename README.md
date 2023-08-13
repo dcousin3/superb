@@ -40,7 +40,7 @@ install.packages("superb")
 library(superb)
 ```
 
-The development version 0.95.8 can be accessed through GitHub:
+The development version 0.95.81 can be accessed through GitHub:
 
 ``` r
 devtools::install_github("dcousin3/superb")
@@ -104,8 +104,8 @@ superbPlot(ToothGrowth,
 The second function, `GRD()`, can be used to generate random data from
 designs with various within- and between-subject factors. This example
 generates scores for 300 simulated participants in a 3 x 2 design with
-repeated-measures on `Day`s. Only the factor `Day` is simulated to
-improve the scores by reducing it:
+repeated-measures on `Day`s. Only the factor `Day` is modeled as
+impacting the scores (the reduce by 3 points on the second day):
 
 ``` r
 testdata <- GRD(
@@ -120,12 +120,12 @@ head(testdata)
 ```
 
     ##   id Difficulty   score.1  score.2
-    ## 1  1          A  76.48712 88.92925
-    ## 2  2          A  61.06493 91.27699
-    ## 3  3          A  74.09488 73.53955
-    ## 4  4          A  79.47281 67.15976
-    ## 5  5          A  73.36243 72.24774
-    ## 6  6          A 108.23035 83.57417
+    ## 1  1          A 106.86564 64.76500
+    ## 2  2          A  78.91065 85.40242
+    ## 3  3          A  62.04082 72.16045
+    ## 4  4          A  85.70698 78.50553
+    ## 5  5          A  80.63688 73.83186
+    ## 6  6          A  45.27361 52.69945
 
 The simulated scores are illustrated using using a more elaborated
 layout, the `pointjitterviolin` which, in addition to the mean and

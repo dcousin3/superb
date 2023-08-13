@@ -1,6 +1,6 @@
 <Math define book =``book``>
 <Math define refid =``et94``>
-<Math define title =``An introduction to the bootstrap``>
-<Math define author =``Efron, Bradley and Tibshirani, Robert J``>
-<Math define year =``1994``>
-<Math define publisher =``CRC press``>
+<Math define title =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define author =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define year =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define publisher =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>

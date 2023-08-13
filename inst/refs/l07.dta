@@ -1,9 +1,9 @@
 <Math define article =``article``>
 <Math define refid =``l07``>
-<Math define author =``Lecoutre, B.``>
-<Math define title =``Another look at confidence intervals from the noncentral T distribution``>
-<Math define year =``2007``>
-<Math define journal =``Journal of Modern Applied Statistical Methods``>
-<Math define volume =``6``>
-<Math define pages =``107 -- 116``>
-<Math define doi =``10.22237/jmasm/1177992600``>
+<Math define author =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define title =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define year =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define journal =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define volume =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define pages =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define doi =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>

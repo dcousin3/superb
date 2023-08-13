@@ -1,7 +1,7 @@
 <Math define article =``article``>
 <Math define refid =``rpw19``>
-<Math define author =``Rousselet, G. A. and Pernet, C. R. and Wilcox, R. R.``>
-<Math define title =``A practical introduction to the bootstrap: A versatile method to make inferences by using data-driven simulations``>
-<Math define year =``2019``>
-<Math define journal =``psyArXiv``>
-<Math define doi =``10.31234/osf.io/h8ft7``>
+<Math define author =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define title =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define year =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define journal =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define doi =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>

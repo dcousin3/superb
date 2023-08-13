@@ -1,8 +1,8 @@
 <Math define article =``article``>
 <Math define refid =``allen2019raincloud``>
-<Math define title =``Raincloud plots: A multi-platform tool for robust data visualization``>
-<Math define author =``Allen, Micah and Poggiali, Davide and Whitaker, Kirstie and Marshall, Tom Rhys and Kievit, Rogier A``>
-<Math define journal =``Wellcome open research``>
-<Math define volume =``4``>
-<Math define year =``2019``>
-<Math define publisher =``The Wellcome Trust``>
+<Math define title =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define author =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define journal =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define volume =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define year =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define publisher =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>

@@ -1,9 +1,9 @@
 <Math define article =``article``>
 <Math define refid =``dll17``>
-<Math define author =``Delacre, Marie and Lakens, Daniel and Leys, Christophe``>
-<Math define title =``Why psychologists should by default use Welch's t-test instead of Student's t-test``>
-<Math define year =``2017``>
-<Math define journal =``International Review of Social Psychology``>
-<Math define volume =``30``>
-<Math define number =``1``>
-<Math define doi =``10.5334/irsp.82``>
+<Math define author =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define title =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define year =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define journal =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define volume =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define number =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define doi =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>

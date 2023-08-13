@@ -1,9 +1,9 @@
 <Math define article =``article``>
 <Math define refid =``h19``>
-<Math define author =``Heck, D. W.``>
-<Math define title =``Accounting for estimation uncertainty and shrinkage in bayesian within-subject intervals: A comment on Nathoo, Kilshaw, and Masson (2018)``>
-<Math define year =``2019``>
-<Math define journal =``Journal of Mathematical Psychology``>
-<Math define volume =``88``>
-<Math define pages =``27 -- 31``>
-<Math define doi =``10.1016/j.jmp.2018.11.002``>
+<Math define author =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define title =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define year =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define journal =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define volume =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define pages =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define doi =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>

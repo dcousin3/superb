@@ -750,7 +750,7 @@ plt1 <- superbPlot(glucoselevels,
             statistic = "mean", 
             errorbar  = "RI",
             gamma     = 0.95,
-            errorbarParams = list(width = 0.0, size = 1.5,
+            errorbarParams = list(width = 0.0, linewidth = 1.5,
                                   position = position_nudge( 0.0) ),
             plotStyle = "line" ) + ornate
 plt2 <- superbPlot(glucoselevels, 
@@ -759,7 +759,7 @@ plt2 <- superbPlot(glucoselevels,
             statistic = "mean", 
             errorbar  = "cihiRI",
             gamma     = c(0.95, 0.90),
-            errorbarParams = list(width = 0.2, size = 0.2, color = "red",
+            errorbarParams = list(width = 0.2, linewidth = 0.2, color = "red",
                                   direction = "left",
                                   position = position_nudge(-0.15) ),
             plotStyle = "line" ) + ornate + makeTransparent()
@@ -769,7 +769,7 @@ plt3 <- superbPlot(glucoselevels,
             statistic = "mean", 
             errorbar  = "ciloRI",
             gamma     = c(0.95, 0.90),
-            errorbarParams = list(width = 0.2, size = 0.2, color = "purple",
+            errorbarParams = list(width = 0.2, linewidth = 0.2, color = "purple",
                                   direction = "left",
                                   position = position_nudge(-0.15) ),
             plotStyle = "line" ) + ornate + makeTransparent()
@@ -822,7 +822,7 @@ plt1 <- superbPlot(glucoselevels,
             statistic = "mean", 
             errorbar  = "RI",
             gamma     = 0.95,
-            errorbarParams = list(width = 0.0, size = 1.5,
+            errorbarParams = list(width = 0.0, linewidth = 1.5,
                                   position = position_nudge( 0.0) ),
             plotStyle = "pointjitter" ) + ornate
 
@@ -850,7 +850,7 @@ plt1 <- superbPlot(glucoselevels,
             statistic = "mean", 
             errorbar  = "RI",
             gamma     = 0.95,
-            errorbarParams = list(width = 0.0, size = 1.5,
+            errorbarParams = list(width = 0.0, linewidth = 1.5,
                                   position = position_nudge( 0.0) ),
             plotStyle = "pointjitterviolin" ) + ornate
 
@@ -879,7 +879,7 @@ plt4 <- superbPlot(glucoselevels,
             variables = "gl", 
             statistic = "mean", 
             errorbar  = "CI",  # just the regular CI of the mean
-            errorbarParams = list(width = 0.2, size = 1.5, color = "blue",
+            errorbarParams = list(width = 0.2, linewidth = 1.5, color = "blue",
                                   position = position_nudge( 0.00) ),
             gamma     = 0.95,
             plotStyle = "line" ) + ornate + makeTransparent()
@@ -923,6 +923,5 @@ they show the extend of the sample, irrespective of what the other
 samples might look like.
 
 
-(date: 10 May 2022)
 
 # References

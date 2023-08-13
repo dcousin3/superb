@@ -1,9 +1,9 @@
 <Math define article =``article``>
 <Math define refid =``l99``>
-<Math define author =``Lecoutre, B.``>
-<Math define title =``Two useful distributions for Bayesian predictive procedures under normal models``>
-<Math define year =``1999``>
-<Math define journal =``Journal of Statistical Planning and Inference``>
-<Math define volume =``79``>
-<Math define pages =``93 -- 105``>
-<Math define doi =``10.1016/S0378-3758(98)00231-6``>
+<Math define author =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define title =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define year =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define journal =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define volume =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define pages =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define doi =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>

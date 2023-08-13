@@ -106,16 +106,16 @@ superbToWide <- function(data,
         c("BSFactors2","WSFactors2","variable2","data2"), 
         list( BSFactors, WSFactors, variable, data ) )
 
-    ##############################################################################
-    # STEP 2: We're all good. Lets do the reshaping
-    ##############################################################################
-	remainingvars <- setdiff(names(data), c(WSFactors, variable))
-	if (length(WSFactors) > 1) { # concatenate the factor levels in a single column 'within'
-		collapsed.treatments <- apply(as.matrix(data[, WSFactors]), 1, paste, collapse = "_")
-		data <- data[, setdiff(names(data), WSFactors)]
-		data$within <- collapsed.treatments
-		WSFactors <- "within"
-	}
+    ##################################################################################
+    # STEP 2: We're all good. Lets do the reshaping (following Navarro's lsr approach)
+    ##################################################################################
+    remainingvars <- setdiff(names(data), c(WSFactors, variable))
+    if (length(WSFactors) > 1) { # concatenate the factor levels in a single column 'within'
+        collapsed.treatments <- apply(as.matrix(data[, WSFactors]), 1, paste, collapse = "_")
+        data <- data[, setdiff(names(data), WSFactors)]
+        data$within <- collapsed.treatments # put the concatenated levels in a new column
+        WSFactors <- "within"               # use that new column from now on
+    }
     times <- unique(data[, WSFactors])
     varying <- list()
     for (i in seq_along(variable)) varying[[i]] <- paste(variable[i], times, sep = "_")
@@ -123,7 +123,7 @@ superbToWide <- function(data,
 			direction = "wide", times = times, v.names = variable, 
 			timevar = WSFactors)
     rownames(res) <- NULL
-	
+
 	return(res)
 }
 

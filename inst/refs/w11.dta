@@ -1,6 +1,6 @@
 <Math define book =``book``>
 <Math define refid =``w11``>
-<Math define title =``Introduction to robust estimation and hypothesis testing``>
-<Math define author =``Wilcox, Rand R``>
-<Math define year =``2011``>
-<Math define publisher =``Academic press``>
+<Math define title =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define author =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define year =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define publisher =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>

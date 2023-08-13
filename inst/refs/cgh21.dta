@@ -1,9 +1,9 @@
 <Math define article =``article``>
 <Math define refid =``cgh21``>
-<Math define author =``Denis Cousineau and Marc-Andre Goulet and Bradley Harding``>
-<Math define title =``Summary plots with adjusted error bars: The superb framework with an implementation in R``>
-<Math define journal =``Advances in Methods and Practices in Psychological Science``>
-<Math define year =``2021``>
-<Math define volume =``4``>
-<Math define pages =``1--18``>
-<Math define doi =``10.1177/25152459211035109``>
+<Math define author =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define title =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define journal =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define year =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define volume =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define pages =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define doi =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>

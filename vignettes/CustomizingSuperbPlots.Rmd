@@ -17,9 +17,10 @@ Creating a plot involves reading raw data and compiling these into summary stati
 This step is handled by `superb` transparently. The second, more involving step, however
 is to customize the plots so that it looks appealing to the readers.
 
-In this vignette, we go rapidly over superb functionalities. Instead, we provide a worked-out 
-example to produce a fully customized rain-drop plot. We proceed with examples taken from 
-scientific articles.
+In this vignette, we go rapidly over `superb` functionalities. Instead, we provide worked-out 
+examples producing fully customized plots. We proceed with examples taken from 
+scientific articles. The first example produces a rain-drop plot, the second a bar plot
+whose origin is not zero.
 
 In the following, we need the following libraries:
 
@@ -100,7 +101,7 @@ pltA <- superbPlot(dtaA,        # plot for the first data set...
     pointParams    = list(size = 0.75),
     jitterParams   = list(width =0.1, shape=21,size=0.05,alpha=1), # less dispersed jitter dots,
     violinParams   = list(trim=TRUE, alpha=1),                     # not transparent,
-    errorbarParams = list(width = 0.1, size=0.5)                   # wider bars, thicker lines.
+    errorbarParams = list(width = 0.1, linewidth=0.5)              # wider bars, thicker lines.
 )
 pltA
 ```
@@ -148,12 +149,12 @@ commonstyle <- list(
     theme_classic(),                             # It has no background, no bounding box.
 
     # We customize this theme further:
-    theme(axis.line=element_line(size=0.50),     # We make the axes thicker...
-        axis.text = element_text(size = 10),     # their text bigger...
-        axis.title = element_text(size = 12),    # their labels bigger...
-        plot.title = element_text(size = 10),    # and the title bigger as well.
-        panel.grid = element_blank(),            # We remove the grid lines
-        legend.position = "none"                 # ... and we hide the side legend.
+    theme(axis.line=element_line(linewidth=0.50), # We make the axes thicker...
+        axis.text = element_text(size = 10),      # their text bigger...
+        axis.title = element_text(size = 12),     # their labels bigger...
+        plot.title = element_text(size = 10),     # and the title bigger as well.
+        panel.grid = element_blank(),             # We remove the grid lines
+        legend.position = "none"                  # ... and we hide the side legend.
     ),
 
     # Finally, we place tick marks on the units
@@ -237,6 +238,193 @@ ggsave( "Figure2.png",
 
 That's it!
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Figure 2 of Ma and Abrams, 2023.
+
+In their study, @ma23 examined whether participants can suppress attentional deployment 
+under unpredictable visual distractor attributes. They found for the first time that
+observers can indeed suppress salient, unique colored, distractors even if the 
+color was not known before hand.
+
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE, eval=TRUE}
+# load manually the data for the purpose of the vignette
+cleandata <- data.frame(
+  subject   = c(201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224),
+  absentrt  = c(0.9069648,0.7501645,0.8143321,0.9850208,0.9279098,0.9620722,1.0160006,0.8921083,0.6041074,0.647717,0.6705584,0.9938026,0.8073152,1.079257,0.8648441,0.7923577,0.7683727,0.9004377,0.9590628,0.7619962,0.7245308,0.9070973,0.6244701,0.6991465),
+  presentrt = c(0.8805836,0.7227798,0.7173632,0.9084251,0.8596929,0.8488763,0.9039185,0.867465,0.5874631,0.6320984,0.6598097,0.9046643,0.7659111,0.8824536,0.8235161,0.783525,0.6950923,0.8531382,0.8037397,0.674048,0.6987675,0.8272449,0.6298569,0.6853342),
+  absentacc = c(0.984375,0.9375,0.953125,0.984375,0.875,0.859375,0.953125,0.953125,0.9375,0.921875,0.953125,0.875,0.96875,0.984375,0.84375,0.921875,0.921875,0.90625,0.953125,1,0.9375,0.984375,0.96875,0.9375),
+  presentacc= c(0.984375,0.9921875,0.9765625,0.9921875,0.9375,0.9140625,0.9921875,0.9453125,0.96875,0.9609375,0.9765625,0.9375,0.984375,0.9765625,0.9765625,0.9140625,0.96875,0.9140625,0.9921875,0.9609375,0.9921875,0.9765625,0.9375,0.890625)
+)
+```
+
+To proceed, first get to the authors' OSF https://osf.io/r52db and follow the 
+instructions to obtain the dataframe `cleandata`. 
+
+Because response times (RTs) were recorded in second, we convert them to milisecond:
+
+```{r}
+cleandata$absentrt = cleandata$absentrt*1000
+cleandata$presentrt = cleandata$presentrt*1000
+```
+
+As a check, here is the first six lines of that data frame:
+
+```{r}
+head(cleandata)
+```
+
+Please select the colors desired for the bars:
+
+```{r}
+mycolors = c("black","lightgray")
+```
+
+In addition to the above libraries, we also need the `scales` library so
+that we can modify the vertical axis of the plot. Indeed, bar charts by 
+default start at zero, but for the present data (response times and 
+mean accuracies), a scales which does not start from zero is more appropriate.
+We then create a shift transformation function with a non-zero start $d$:
+
+```{r}
+library(scales)     # for a translated scale using trans_new()
+
+shift_trans = function(d = 0) {
+  scales::trans_new("shift", transform = function(x) x - d, inverse = function(y) y + d)
+}
+```
+
+We're all set! We are ready to make the first plot, here RTs, as a function
+of the presence or absence of the colored distractor. Because (a) we want
+to compare the bars, we use difference-adjusted confidence intervals; (b) the
+data were collected in a within-subject design, we use a correlation-adjusted
+confidence intervals.
+
+```{r, fig.width=3, fig.height=4, fig.cap="Figure 1, preliminary version"}
+# defaults are means with 95% confidence intervals, so not specified
+pltA <- superbPlot( cleandata,
+    WSFactors = "target(2)",
+    variables = c("absentrt", "presentrt"),
+    adjustments = list(
+        purpose = "difference", 
+        decorrelation = "CM"),
+    errorbarParams = list(colour = "gray35", width = 0.05)
+)
+pltA
+```
+
+As this is the default, the vertical axis starts at zero. Let's add
+the `shift_trans` scale, limit the range to 720-900, and show breaks 
+on every 20 units:
+
+```{r, fig.width=3, fig.height=4, fig.cap="Figure 2, version with adequate vertical scale"}
+# attached the shifted scale to it
+pltA <- pltA + scale_y_continuous(
+    trans = shift_trans(720),      # use translated bars
+    limits = c(720,899),           # limit the plot range
+    breaks = seq(720,880,20),      # define major ticks
+    expand = c(0,0) )              # no expansions over the plotting area
+pltA
+```
+
+We can do better: changing the default fonts, remove the legend, etc. We store
+these graphic directives in a list because the same are used for the accuracy plot:
+
+```{r, fig.width=3, fig.height=4, fig.cap="Figure 3, version  with theme and details adjusted"}
+ornaments <- list(
+    theme_classic(base_size = 14) + theme( legend.position = "none" ),
+    aes(width = 0.5, fill = factor(target), colour = factor(target) ),
+    scale_discrete_manual(aesthetic =c("fill","colour"), values = mycolors),
+    scale_x_discrete(name="Color Singleton\nDistractor", labels = c("Absent","Present"))
+)
+pltA <- pltA + ornaments + ylab("Reaction time (ms)")
+pltA
+```
+
+Finally, we put an indication regarding the significant result:
+
+```{r, fig.width=3, fig.height=4, fig.cap="Figure 4, final version for RTs"}
+pltA <- pltA + showSignificance( c(1,2), 870, -8, 
+    "Singleton presence\nbenefit, p < .001",
+    segmentParams = list(linewidth = 1))
+
+# this is it! Check the result   
+pltA
+```
+
+No need to go over all the details for the mean accuracy plot. We do all the
+steps in a single command:
+
+```{r, fig.width=3, fig.height=4, fig.cap="Figure 5, final version for mean accuracies"}
+pltB <- superbPlot( cleandata,
+    WSFactors = "target(2)",
+    variables = c("absentacc", "presentacc"),
+    adjustments = list(
+        purpose = "difference", 
+        decorrelation = "CM"),
+    errorbarParams = list(colour = "gray35", width = 0.05)
+) + 
+scale_y_continuous(
+    trans = shift_trans(0.9),           # use translated bars
+    limits = c(0.9, 1.0),               # limit the plot range
+    breaks = seq(0.90, 1.00, 0.01),     # define major ticks
+    expand = c(0,0) ) +                 # remove empty space around plotting surface
+ornaments + 
+ylab("Accuracy (proportion correct)") +
+showSignificance( c(1,2), 0.985, -0.005, 
+    "Singleton presence\nbenefit, p = .010", 
+    segmentParams = list(linewidth = 1) )
+
+# this is it! Check the result   
+pltB
+```
+
+
+Put the two plots side-by-side and save your work!
+
+```{r, fig.width=6, fig.height=4, fig.cap="Figure 6, final version"}
+finalplt <- grid.arrange(pltA, pltB, ncol=2)
+#ggsave( "Figure2b.png",
+#    plot=finalplt,
+#    device = "png",
+#    dpi = 320,          # pixels per inche
+#    units = "cm",       # or "in" for dimensions in inches
+#    width = 20,         # as found in the article
+#    height = 15
+#)
+```
+
+Regarding the information provided by `superb`:
+
+```{r}
+## superb::FYI: The HyunhFeldtEpsilon measure of sphericity per group are  1.000
+## superb::FYI: All the groups' data are compound symmetric. Consider using CA.
+```
+
+note that with only two repeated measures, sphericity is always met (Epsilon = 1.00) 
+so nothing to do with this comment. Compound symmetry is a weaker form of the
+sphericity assumption. When compound symmetry is met, you can decorrelate the
+data using either ``CM`` or ``CA``. You won't see much differences between the
+two techniques, so you may as well ignore this comment.
+
+
+Enjoy!
 
 
 # References

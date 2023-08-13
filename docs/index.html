@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.81</span>
       </span>
     </div>
 
@@ -75,15 +75,6 @@
       <a href="articles/Vignette3.html">Why use correlation-adjusted confidence intervals?</a>
     </li>
     <li>
-      <a href="articles/TheMakingOf.html">The making-of the figures in the article</a>
-    </li>
-    <li>
-      <a href="articles/CustomizingSuperbPlots.html">Customizing `superb` plots</a>
-    </li>
-    <li>
-      <a href="articles/VignetteE.html">Adding labels to ``superb`` plots</a>
-    </li>
-    <li>
       <a href="articles/Vignette9.html">Plotting Cohen's d with ``superb``</a>
     </li>
     <li>
@@ -94,6 +85,15 @@
     </li>
     <li>
       <a href="articles/VignetteA.html">Plotting Reference Intervals with ``superb``</a>
+    </li>
+    <li>
+      <a href="articles/TheMakingOf.html">The making-of the figures in the article</a>
+    </li>
+    <li>
+      <a href="articles/CustomizingSuperbPlots.html">Customizing `superb` plots</a>
+    </li>
+    <li>
+      <a href="articles/VignetteE.html">Adding labels to ``superb`` plots</a>
     </li>
     <li>
       <a href="articles/Vignette7.html">Unequal variances, Welch test, Tryon adjustment, and ``superb``</a>
@@ -159,7 +159,7 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"superb"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dcousin3.github.io/superb/" class="external-link">superb</a></span><span class="op">)</span></span></code></pre></div>
-<p>The development version 0.95.8 can be accessed through GitHub:</p>
+<p>The development version 0.95.81 can be accessed through GitHub:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"dcousin3/superb"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dcousin3.github.io/superb/" class="external-link">superb</a></span><span class="op">)</span></span></code></pre></div>
@@ -194,7 +194,7 @@
 <span>    errorbar <span class="op">=</span> <span class="st">"CI"</span>, gamma <span class="op">=</span> <span class="fl">0.999</span>,</span>
 <span>    plotStyle <span class="op">=</span> <span class="st">"line"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="README_files/figure-gfm/unnamed-chunk-8-1.png"><!-- --></p>
-<p>The second function, <code><a href="reference/GRD.html">GRD()</a></code>, can be used to generate random data from designs with various within- and between-subject factors. This example generates scores for 300 simulated participants in a 3 x 2 design with repeated-measures on <code>Day</code>s. Only the factor <code>Day</code> is simulated to improve the scores by reducing it:</p>
+<p>The second function, <code><a href="reference/GRD.html">GRD()</a></code>, can be used to generate random data from designs with various within- and between-subject factors. This example generates scores for 300 simulated participants in a 3 x 2 design with repeated-measures on <code>Day</code>s. Only the factor <code>Day</code> is modeled as impacting the scores (the reduce by 3 points on the second day):</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">testdata</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/GRD.html">GRD</a></span><span class="op">(</span></span>
 <span>    RenameDV   <span class="op">=</span> <span class="st">"score"</span>, </span>
@@ -206,12 +206,12 @@
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">testdata</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="do">##   id Difficulty   score.1  score.2</span></span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="do">## 1  1          A  76.48712 88.92925</span></span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="do">## 2  2          A  61.06493 91.27699</span></span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="do">## 3  3          A  74.09488 73.53955</span></span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="do">## 4  4          A  79.47281 67.15976</span></span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="do">## 5  5          A  73.36243 72.24774</span></span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="do">## 6  6          A 108.23035 83.57417</span></span></code></pre></div>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="do">## 1  1          A 106.86564 64.76500</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="do">## 2  2          A  78.91065 85.40242</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="do">## 3  3          A  62.04082 72.16045</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="do">## 4  4          A  85.70698 78.50553</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="do">## 5  5          A  80.63688 73.83186</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="do">## 6  6          A  45.27361 52.69945</span></span></code></pre></div>
 <p>The simulated scores are illustrated using using a more elaborated layout, the <code>pointjitterviolin</code> which, in addition to the mean and confidence interval, shows the raw data using jitter dots and the distribution using a violin plot:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">testdata</span>, </span>

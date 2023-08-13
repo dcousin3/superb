@@ -1,9 +1,9 @@
 <Math define article =``article``>
 <Math define refid =``nkm18``>
-<Math define author =``Nathoo, F. S. and Kilshaw, R. E. and Masson, M. E. J.``>
-<Math define title =``A better (bayesian) interval estimate for within-subject designs``>
-<Math define year =``2018``>
-<Math define journal =``Journal of Mathematical Psychology``>
-<Math define volume =``86``>
-<Math define pages =``1 -- 9``>
-<Math define doi =``10.1016/j.jmp.2018.07.005``>
+<Math define author =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define title =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define year =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define journal =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define volume =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define pages =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define doi =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>

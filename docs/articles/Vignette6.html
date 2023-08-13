@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.81</span>
       </span>
     </div>
 
@@ -67,15 +67,6 @@
       <a href="../articles/Vignette3.html">Why use correlation-adjusted confidence intervals?</a>
     </li>
     <li>
-      <a href="../articles/TheMakingOf.html">The making-of the figures in the article</a>
-    </li>
-    <li>
-      <a href="../articles/CustomizingSuperbPlots.html">Customizing `superb` plots</a>
-    </li>
-    <li>
-      <a href="../articles/VignetteE.html">Adding labels to ``superb`` plots</a>
-    </li>
-    <li>
       <a href="../articles/Vignette9.html">Plotting Cohen's d with ``superb``</a>
     </li>
     <li>
@@ -86,6 +77,15 @@
     </li>
     <li>
       <a href="../articles/VignetteA.html">Plotting Reference Intervals with ``superb``</a>
+    </li>
+    <li>
+      <a href="../articles/TheMakingOf.html">The making-of the figures in the article</a>
+    </li>
+    <li>
+      <a href="../articles/CustomizingSuperbPlots.html">Customizing `superb` plots</a>
+    </li>
+    <li>
+      <a href="../articles/VignetteE.html">Adding labels to ``superb`` plots</a>
     </li>
     <li>
       <a href="../articles/Vignette7.html">Unequal variances, Welch test, Tryon adjustment, and ``superb``</a>
@@ -170,12 +170,12 @@ undergrads <span class="citation">(Cousineau, 2020)</span>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dta</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   id         DV</span></span>
-<span><span class="co">## 1  1  0.3827158</span></span>
-<span><span class="co">## 2  2 -0.2275252</span></span>
-<span><span class="co">## 3  3 -0.2556701</span></span>
-<span><span class="co">## 4  4 -0.4042288</span></span>
-<span><span class="co">## 5  5 -0.5431609</span></span>
-<span><span class="co">## 6  6  0.7313418</span></span></code></pre>
+<span><span class="co">## 1  1 -0.3697427</span></span>
+<span><span class="co">## 2  2  0.4522699</span></span>
+<span><span class="co">## 3  3  1.8273876</span></span>
+<span><span class="co">## 4  4 -0.5079872</span></span>
+<span><span class="co">## 5  5  0.5253484</span></span>
+<span><span class="co">## 6  6 -0.9340551</span></span></code></pre>
 <p>By default, one hundred scores are generated from a normal
 distribution with mean 0 and standard deviation of 1. In other words, it
 generate 100 z scores. The dependent variable, the last column in the
@@ -298,14 +298,14 @@ Unequal group sizes can be specified with:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dta</span></span></code></pre></div>
 <pre><code><span><span class="co">##   id Therapy         DV</span></span>
-<span><span class="co">## 1  1       1  1.8462554</span></span>
-<span><span class="co">## 2  2       1  0.1943341</span></span>
-<span><span class="co">## 3  3       2 -1.4306120</span></span>
-<span><span class="co">## 4  4       2 -0.9266213</span></span>
-<span><span class="co">## 5  5       2 -0.8117828</span></span>
-<span><span class="co">## 6  6       2  1.4856818</span></span>
-<span><span class="co">## 7  7       2 -0.3317269</span></span>
-<span><span class="co">## 8  8       3 -0.3838537</span></span></code></pre>
+<span><span class="co">## 1  1       1 -0.6112325</span></span>
+<span><span class="co">## 2  2       1  0.2799822</span></span>
+<span><span class="co">## 3  3       2  0.2354828</span></span>
+<span><span class="co">## 4  4       2  2.3743005</span></span>
+<span><span class="co">## 5  5       2  1.3976353</span></span>
+<span><span class="co">## 6  6       2  0.2917445</span></span>
+<span><span class="co">## 7  7       2 -0.1473227</span></span>
+<span><span class="co">## 8  8       3 -0.5825971</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="choosing-the-population-distribution">Choosing the population distribution<a class="anchor" aria-label="anchor" href="#choosing-the-population-distribution"></a>

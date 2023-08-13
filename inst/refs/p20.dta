@@ -1,7 +1,7 @@
 <Math define misc =``misc``>
 <Math define refid =``p20``>
-<Math define author =``Steven E. Pav``>
-<Math define year =``2020``>
-<Math define title =``sadists: Some Additional Distributions [R package]``>
-<Math define version =``0.2.4``>
-<Math define url =``https://github.com/shabbychef/sadists``>
+<Math define author =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define year =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define title =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define version =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
+<Math define url =``<Math ifdef xx>asdf <Math endifdef><Math endifdef yy> faj f<Math endifdef xx>``>
