@@ -102,11 +102,11 @@ test_that("Testing the built-in plotting function", {
     p5 <- superbPlot.pointjitterviolin(dta, "dose", 
          "supp", ".~dose", tg, list(color="black"), list(color="purple") ) +
         scale_x_continuous("mean ratings")
-    expect_output( str(p1), "List of 9")
-    expect_output( str(p2), "List of 9")
-    expect_output( str(p3), "List of 9")
-    expect_output( str(p4), "List of 9")
-    expect_output( str(p5), "List of 9")
+    expect_s3_class(p1, "ggplot")
+    expect_s3_class(p2, "ggplot")
+    expect_s3_class(p3, "ggplot")
+    expect_s3_class(p4, "ggplot")
+    expect_s3_class(p5, "ggplot")
 })
 
 
