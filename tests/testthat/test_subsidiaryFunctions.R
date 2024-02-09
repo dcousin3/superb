@@ -85,8 +85,8 @@ test_that("Testing the built-in plotting function", {
                     dose       = cbind(c(0.5,0.5,1,1,2,2)),
                     supp       = cbind(c("OJ","VC","OJ","VC","OJ","VC")),
                     center     = cbind(c(13,8,22,17,26,26)),
-                    lowerwidth = cbind(c(-3,-2,-3,-2,-2,-4)),
-                    upperwidth = cbind(c(+3,+2,+3,+2,+2,+4))
+                    lowerwidth = cbind(c(-1,-.5,-1.5,-1,-1,-2)),
+                    upperwidth = cbind(c(+1,+.5,+1.5,+1,+1,+2))
             )
     tg  <- ToothGrowth
     tg$DV <- tg$len
@@ -98,15 +98,29 @@ test_that("Testing the built-in plotting function", {
     p3 <- superbPlot.point(dta, "dose", 
         "supp", ".~.", tg, list(), list() )
     p4 <- superbPlot.pointjitter(dta, "dose", 
-        "supp", ".~.", tg, list(color="black"), list(color="purple") )
+        "supp", ".~.", tg, list(color="black"), errorbarParams = list(color="purple")  ) +
+        scale_y_continuous("mean ratings") + scale_color_hue(l=40, c=35)
     p5 <- superbPlot.pointjitterviolin(dta, "dose", 
-         "supp", ".~dose", tg, list(color="black"), list(color="purple") ) +
-        scale_x_continuous("mean ratings")
-    expect_output( str(p1), "List of 9")
-    expect_output( str(p2), "List of 9")
-    expect_output( str(p3), "List of 9")
-    expect_output( str(p4), "List of 9")
-    expect_output( str(p5), "List of 9")
+         "supp", ".~dose", tg, list(color="black"), errorbarParams = list(color="purple") ) +
+        scale_y_continuous("mean ratings") + scale_color_hue(l=40, c=35)
+    expect_error( print(p1), NA )		# ok switched to dodge2
+    expect_error( print(p2), NA )
+    expect_error( print(p3), NA )
+    expect_error( print(p4), NA )		
+    expect_error( print(p5), NA )	
+	
+	
+	# the newer plot layouts
+	p6 <- superbPlot.boxplot(dta, "dose", "supp", ".~.", tg,  list(color="red") ) 
+	p7 <- superbPlot.lineBand(dta, "dose", "supp", ".~.", tg)
+	p8 <- superbPlot.raincloud(dta, "dose", "supp", ".~dose", tg) 
+	p9 <- superbPlot.halfwidthline(dta, "dose", "supp", ".~.", tg) 
+
+    expect_error( print(p6), NA )		
+	expect_error( print(p7), NA )
+	expect_error( print(p8), NA )		
+	expect_error( print(p9), NA )
+	
 })
 
 
@@ -116,3 +130,5 @@ test_that("Testing the runDebug functions", {
     expect_equal( runDebug("design","THIS IS A TEST OF runDebug",c(),list()), NULL)
 
 })
+
+

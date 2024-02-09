@@ -71,7 +71,8 @@
 #' 
 #' # using GRD to generate random data with a moderate effect
 #' options(superb.feedback = 'none') # shut down 'warnings' and 'design' interpretation messages
-#' test <- GRD(WSFactors = "Moment(5)", 
+#' test <- GRD(SubjectsPerGroup  = 20,
+#'			   WSFactors = "Moment(5)", 
 #'             Effects = list("Moment" = extent(10) ),
 #'             Population = list(mean = 100, stddev = 25, rho = 0.8) ) 
 #' 

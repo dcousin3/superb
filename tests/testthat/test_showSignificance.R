@@ -2,12 +2,14 @@ context("Testing showSignificance")
 
 
 test_that("Simplest example", {
+	old <- options() 
+	on.exit(options(old)) 
+    options("superb.feedback" = 'none')
+
     # quelques tests systematiques...
     library(superb)
     library(ggplot2)
     library(grid)
-    options(superb.feedback = 'none')
-
     # making one random data set with three factors 2 x 3 x (3)
     dta <- GRD(
         BSFactors = c("Group(2)","Age(3)"), 
@@ -40,16 +42,20 @@ test_that("Simplest example", {
     expect_equal( "ggplot" %in% class(plt2), TRUE)
   
   # restores default information
-    options(superb.feedback = c('design','warnings','summary'))
+    options("superb.feedback" = c('design','warnings','summary'))
 })
 
 
 
 test_that("Example with panels", {
+	old <- options() 
+	on.exit(options(old)) 
+    options("superb.feedback" = 'none')
+
+    # quelques tests systematiques...
     library(superb)
     library(ggplot2)
     library(grid)
-    options(superb.feedback = 'none')
 
     # making one random data set with three factors 2 x 3 x (3)
     dta <- GRD(
@@ -84,15 +90,18 @@ test_that("Example with panels", {
     expect_equal( "ggplot" %in% class(plt3), TRUE)
   
   # restores default information
-    options(superb.feedback = c('design','warnings','summary'))
+    options("superb.feedback" = c('design','warnings','summary'))
 })
 
 
 test_that("Advanced example", {
+	old <- options() 
+	on.exit(options(old)) 
+    options("superb.feedback" = 'none')
+
     library(superb)
     library(ggplot2)
     library(grid)
-    options(superb.feedback = 'none')
 
     # making one random data set with three factors 2 x 3 x (3)
     dta <- GRD(
@@ -145,5 +154,5 @@ test_that("Advanced example", {
     expect_equal( "ggplot" %in% class(plt3), TRUE)
   
   # restores default information
-    options(superb.feedback = c('design','warnings','summary'))
+    options("superb.feedback" = c('design','warnings','summary'))
 })

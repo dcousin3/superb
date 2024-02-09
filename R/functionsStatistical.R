@@ -74,8 +74,13 @@ fisherkurtosis <- function(x) {
 #'
 #' @md
 #'
-#' @description The following function accept an arbitrary defined degree  
-#' of freedom (df). This df must be inserted in gamma after the confidence level.
+#' @description The following function computes a confidence interval with
+#' custom degree of freedom. The default is to use N-1 but this number is not
+#' always appropriate. For example, when there are heterogeneous variances, 
+#' the confidence interval of the mean should mirror a Welsh test where the
+#' degrees of freedom are altered based on variances. The function `CIwithDF.mean()`
+#' accept an arbitrary defined degree of freedom (df). 
+#' The df must be combined to the argument `gamma` after the confidence level.
 #' 
 #' @usage CIwithDF.mean(x, gamma = 0.95 )
 #' 
@@ -84,6 +89,9 @@ fisherkurtosis <- function(x) {
 #'   a custom degree of freedom (when unspecified, it uses ``n-1`` where ``n`` is the number of observations in x).
 #'
 #' @return the confidence interval (CI) where the ``t`` value is based on the custom-set degree of freedom.
+#'
+#' @details See the vignette "Unequal variances, Welch test, Tryon adjustment, and superb"
+#' for an example of use.
 #'
 #' @examples
 #' # this will issue a warning as no custom degree of freedom is provided
@@ -127,7 +135,7 @@ CIwithDF.mean <- function(x, gamma = 0.95) {
 #' @description The following three functions can be used with missing data. 
 #' They return the mean, the standard error of the mean and the confidence 
 #' interval of the mean.Note that we hesitated to provide these functions: you 
-#' should deal withmissing data prior to making your plot.
+#' should deal with missing data prior to making your plot.
 #' Also note that for repeated-measure design, only CA adjustment is available.
 #' 
 #' @usage meanNArm(x)

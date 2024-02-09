@@ -89,13 +89,14 @@ superbPlot.bar <- function(
     )) +
     # the histograms; do.call so that pointParams can be integrated
     do.call( geom_bar, modifyList(
-       list(position = position_dodge(width = .95),
+       list(position = position_dodge2(width = .50),
             stat = "identity" ),
         barParams
     )) +
     # the error bars; do.call so that errorbarParams can be integrated
     do.call( geom_superberrorbar, modifyList(
-        list(width = .6, position = position_dodge(.95), mapping = 
+        list(position = position_dodge2(width = .50),  #removed width before position.
+		mapping = 
             #aes_string(ymin = "center + lowerwidth", ymax = "center + upperwidth") ),
             aes(ymin = center + lowerwidth, ymax = center + upperwidth) ),
         errorbarParams
@@ -404,7 +405,7 @@ superbPlot.pointjitter <- function(
 
     # rename column "DV" to "center"
     rawdata$center <- rawdata$DV
-
+					
     # depending on the scale of the x-axis.
     if (!xAsFactor) {
         summarydata[[xfactor]] = as.numeric(summarydata[[xfactor]])
@@ -415,7 +416,6 @@ superbPlot.pointjitter <- function(
     if (is.null(groupingfactor)) {
         do_jitters = do.call(geom_jitter, modifyList(
                         list(data = rawdata, alpha = 0.2, width = 0.2, height = 0.0,
-                             #mapping = aes_string(y = "center" ) ),
                              mapping = aes(y = center ) ),
                         jitterParams
                     ) )
@@ -556,7 +556,7 @@ superbPlot.pointjitterviolin <- function(
                     ) )
         do_violins = do.call( geom_violin, modifyList(
                         list(data    = rawdata, 
-                             position= position_dodge(.75), #"dodge",
+                             position= position_dodge(0.75), #"dodge",
                              #mapping = aes_string( y = "center", fill = groupingfactor), 
                              mapping = aes( y = center, fill = !!mysym(groupingfactor) ), 
                              scale   = "area", trim = FALSE, alpha = 0.25),

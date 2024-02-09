@@ -2,7 +2,9 @@ context("Testing compatibility of suberbPlot with other structures")
 
 
 test_that("TESTS (1/1)", {
-    options(superb.feedback = 'none') #shut down all superb-generated messages
+	old <- options() 
+	on.exit(options(old)) 
+    options("superb.feedback" = 'none') #shut down all superb-generated messages
 
 	library(superb)
 	library(tibble)
@@ -49,6 +51,6 @@ test_that("TESTS (1/1)", {
 
 
     # restores default information
-    options(superb.feedback = c('design','warnings','summary'))
+    options("superb.feedback" = c('design','warnings','summary'))
 
 })

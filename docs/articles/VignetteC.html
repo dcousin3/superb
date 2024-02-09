@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.81</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.202402</span>
       </span>
     </div>
 
@@ -330,8 +330,9 @@ intervals:</p>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dcousin3.github.io/superb/" class="external-link">superb</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org" class="external-link">scales</a></span><span class="op">)</span>     <span class="co"># for asn_trans() non-linear scale</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: package 'scales' was built under R version 4.3.2</span></span></code></pre>
 <p>Here we go:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ornate to decorate the plot a little bit...</span></span>
 <span><span class="va">ornate</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,</span>
@@ -361,7 +362,7 @@ group.
 intuitive. It is then possible to undo the transformation so as to plot
 proportions instead. The complicated part is to undo the confidence
 limits.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># the proportion of success for a vector of binary data 0|1</span></span>
 <span><span class="va">prop</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">v</span><span class="op">)</span><span class="op">{</span></span>
 <span>    <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span></span>
@@ -383,7 +384,7 @@ limits.</p>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Nothing more is needed. We can make the plot with these new
 functions:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, </span>
 <span>    BSFactors <span class="op">=</span> <span class="st">"group"</span>,</span>
 <span>    variables <span class="op">=</span> <span class="st">"scores"</span>,</span>
@@ -393,7 +394,7 @@ functions:</p>
 <span>    plotStyle <span class="op">=</span> <span class="st">"line"</span>,</span>
 <span>    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"blue"</span><span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op">+</span> <span class="va">ornate</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Proportions"</span> <span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>trans<span class="op">=</span><span class="fu"><a href="https://scales.r-lib.org/reference/asn_trans.html" class="external-link">asn_trans</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>trans<span class="op">=</span><span class="fu"><a href="https://scales.r-lib.org/reference/transform_asn.html" class="external-link">asn_trans</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="VignetteC_files/figure-html/unnamed-chunk-8-1.png" alt="**Figure 2**. Proportion as a function of group." width="288"><p class="caption">
 <strong>Figure 2</strong>. Proportion as a function of group.
@@ -414,8 +415,7 @@ chances are good that they differ significantly.</p>
 <p>Running an analysis of proportions, it indicates the presence of a
 main effect of Group (<span class="math inline">\(F(2,\infty)= 3.06, p =
 .047\)</span>). How to perform an analysis of proportions (ANOPA) is
-explained in <span class="citation">Laurencelle &amp; Cousineau
-(2022)</span>.</p>
+explained in <span class="citation">(<strong>lc23?</strong>)</span>.</p>
 <p>We see from the plot that the length of the error bars are about all
 the same, suggesting homogeneous variance (because all the sample are of
 comparable size). This is always the case as Anscombe transform is a
@@ -428,19 +428,11 @@ variances identical.</p>
 <p>The <code>superb</code> framework can be used to display any summary
 statistics. Here, we showed how <code><a href="../reference/superbPlot.html">superbPlot()</a></code> can be used
 with proportions. For within-subject designs involving proportions, it
-is also possible to use the correlation adjustments <span class="citation">(as demonstrated in Laurencelle &amp; Cousineau,
-2022)</span>.</p>
+is also possible to use the correlation adjustments <span class="citation">(as demonstrated in <strong>lc23?</strong>)</span>.</p>
 </div>
 <div class="section level2">
-<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
-<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
-<div id="ref-lc23" class="csl-entry">
-Laurencelle, L., &amp; Cousineau, D. (2022). Analysis of proportions
-using arcsine transform with any experimental design. <em>Frontiers in
-Psychology</em>, <em>13</em>. <a href="https://doi.org/10.3389/fpsyg.2022.1045436" class="external-link">https://doi.org/10.3389/fpsyg.2022.1045436</a>
-</div>
-</div>
 </div>
   </div>
 

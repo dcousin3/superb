@@ -314,10 +314,10 @@ superbPlot.raincloud <- function(
 ######################################################################################
 
 superbPlot.halfwidthline <- function(
-    summarydata,               # a summary result data.frame
-    xfactor,                   # the factor on the horizontal axis  
-    groupingfactor,            # the factor for multiple lines/bars within the plot
-    addfactors,                # the factor(s) to make multiple panels
+    summarydata,           		    # a summary result data.frame
+    xfactor,                   		# the factor on the horizontal axis  
+    groupingfactor,            		# the factor for multiple lines/bars within the plot
+    addfactors,                		# the factor(s) to make multiple panels
     # what follows is unused and optional
     rawdata             = NULL,     # unused
     # what follows are optional

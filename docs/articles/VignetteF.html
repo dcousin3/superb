@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.81</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.202402</span>
       </span>
     </div>
 
@@ -334,17 +334,15 @@ in place.</p>
 <span>    plotStyle      <span class="op">=</span> <span class="st">"line"</span>,                             <span class="co"># style of the plot</span></span>
 <span>    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> width <span class="op">=</span><span class="fl">0.5</span>, linewidth <span class="op">=</span><span class="fl">0.75</span> <span class="op">)</span>,<span class="co"># have thicker error bars</span></span>
 <span>    lineParams     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> size <span class="op">=</span> <span class="fl">1.0</span><span class="op">)</span>                   <span class="co"># thicker lines as well</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## superb::FYI: Running initializer init.count</span></span></code></pre>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">plt2</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span><span class="va">plt2</span></span></code></pre></div>
 <div class="figure">
 <img src="VignetteF_files/figure-html/unnamed-chunk-8-1.png" alt="**Figure 2: A complete plot**" width="576"><p class="caption">
 <strong>Figure 2: A complete plot</strong>
 </p>
 </div>
 <p>The plot is drab so let’s add some ornaments to it:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ornate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"Educational vocation"</span><span class="op">)</span>,                      <span class="co"># label on the x-axis</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Observed frequency"</span><span class="op">)</span>,                        <span class="co"># label on the y-axis</span></span>
@@ -379,7 +377,7 @@ easy to decide if the trends are reliable or accidental.</p>
 <p>The plot with <em>difference-adjusted</em> confidence interval is a
 very reliable tool to make inference-by-eye. In doubt however, go run
 the exact test. In the present case, we performed an ANOFA (Analysis of
-Frequency tAble; <span class="citation">Laurencelle &amp; Cousineau
+Frequency datA; <span class="citation">Laurencelle &amp; Cousineau
 (2023)</span>). It shows that the interaction is highly significant;
 subsequent simple effect analyses show that this is indeed the
 university aspiration that triggered that interaction.</p>

@@ -80,12 +80,15 @@ The possible adjustements are the following
 \item purpose: The purpose of the comparisons. Defaults to "single".
 Can be "single", "difference", or "tryon".
 \item decorrelation: Decorrelation method for repeated measure designs.
-Chooses among the methods "CM", "LM", "CA" or "none". Defaults to "none".
+Chooses among the methods "CM", "LM", "CA", "UA", or "none". Defaults to
+"none". "CA" is correlation-adjusted \insertCite{c19}{superb};
+"UA" is based on the unitary Alpha method (derived from the Cronbach alpha);
+see \insertCite{lc22}{superb}.
 \item samplingDesign: Sampling method to obtain the sample. implemented
 sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Sampling).
 }
 
-In version 0.9.5, the layouts for plots are the following:
+In version 0.97.5, the layouts for plots are the following:
 \itemize{
 \item "bar" Shows the summary statistics with bars and error bars;
 \item "line" Shows the summary statistics with lines connecting the conditions over the first factor;
@@ -121,24 +124,25 @@ xlab("Dose") + ylab("Tooth Growth") +
 theme_bw()
 
 # This example is based on repeated measures
-library(lsr)
 library(gridExtra)
 options(superb.feedback = 'none') # shut down 'warnings' and 'design' interpretation messages
 
-# define shorter column names...
+# Use the Orange example, but let's define shorter column names...
 names(Orange) <- c("Tree","age","circ")
-# turn the data into a wide format
-Orange.wide <- longToWide(Orange, circ ~ age)
-# or use superbToWide, whose arguments are the same as superbPlot():
+# ... and turn the data into a wide format using superbToWide:
 Orange.wide <- superbToWide(Orange, id = "Tree", WSFactors = c("age"), variable = "circ") 
 
-# Makes the plots two different way:
+# This example contains 5 trees whose diameter (in mm) has been measured at various age (in days):
+head(Orange.wide)
+
+# Makes the plots first without decorrelation:
 p1=superbPlot( Orange.wide, WSFactors = "age(7)",
   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
   adjustments = list(purpose = "difference", decorrelation = "none")
 ) + 
   xlab("Age level") + ylab("Trunk diameter (mm)") +
-  coord_cartesian( ylim = c(0,250) ) + labs(title="Basic confidence intervals")
+  coord_cartesian( ylim = c(0,250) ) + labs(title="''Standalone'' confidence intervals")
+# ... and then with decorrelation (technique Correlation-adjusted CA):
 p2=superbPlot( Orange.wide, WSFactors = "age(7)",
   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
   adjustments = list(purpose = "difference", decorrelation = "CA")

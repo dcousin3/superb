@@ -27,7 +27,7 @@ the means, a measure of precision (SE) or an interval of precision
 The following three functions can be used with missing data.
 They return the mean, the standard error of the mean and the confidence
 interval of the mean.Note that we hesitated to provide these functions: you
-should deal withmissing data prior to making your plot.
+should deal with missing data prior to making your plot.
 Also note that for repeated-measure design, only CA adjustment is available.
 }
 \examples{

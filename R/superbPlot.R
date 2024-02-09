@@ -48,11 +48,14 @@
 #' * purpose: The purpose of the comparisons. Defaults to "single". 
 #'      Can be "single", "difference", or "tryon".
 #' * decorrelation: Decorrelation method for repeated measure designs. 
-#'      Chooses among the methods "CM", "LM", "CA" or "none". Defaults to "none".
+#'      Chooses among the methods "CM", "LM", "CA", "UA", or "none". Defaults to 
+#'      "none". "CA" is correlation-adjusted \insertCite{c19}{superb};
+#'      "UA" is based on the unitary Alpha method (derived from the Cronbach alpha);
+#'      see \insertCite{lc22}{superb}.
 #' * samplingDesign: Sampling method to obtain the sample. implemented 
 #'          sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Sampling).
 #'
-#' In version 0.9.5, the layouts for plots are the following:
+#' In version 0.97.5, the layouts for plots are the following:
 #' * "bar" Shows the summary statistics with bars and error bars;
 #' * "line" Shows the summary statistics with lines connecting the conditions over the first factor;
 #' * "point" Shows the summary statistics with isolated points
@@ -90,24 +93,25 @@
 #' theme_bw()
 #'
 #' # This example is based on repeated measures
-#' library(lsr)
 #' library(gridExtra)
 #' options(superb.feedback = 'none') # shut down 'warnings' and 'design' interpretation messages
 #' 
-#' # define shorter column names...
+#' # Use the Orange example, but let's define shorter column names...
 #' names(Orange) <- c("Tree","age","circ")
-#' # turn the data into a wide format
-#' Orange.wide <- longToWide(Orange, circ ~ age)
-#' # or use superbToWide, whose arguments are the same as superbPlot():
+#' # ... and turn the data into a wide format using superbToWide:
 #' Orange.wide <- superbToWide(Orange, id = "Tree", WSFactors = c("age"), variable = "circ") 
-#' 
-#' # Makes the plots two different way:
+#'
+#' # This example contains 5 trees whose diameter (in mm) has been measured at various age (in days):
+#' head(Orange.wide)
+#'
+#' # Makes the plots first without decorrelation:
 #' p1=superbPlot( Orange.wide, WSFactors = "age(7)",
 #'   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
 #'   adjustments = list(purpose = "difference", decorrelation = "none")
 #' ) + 
 #'   xlab("Age level") + ylab("Trunk diameter (mm)") +
-#'   coord_cartesian( ylim = c(0,250) ) + labs(title="Basic confidence intervals")
+#'   coord_cartesian( ylim = c(0,250) ) + labs(title="''Standalone'' confidence intervals")
+#' # ... and then with decorrelation (technique Correlation-adjusted CA):
 #' p2=superbPlot( Orange.wide, WSFactors = "age(7)",
 #'   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
 #'   adjustments = list(purpose = "difference", decorrelation = "CA")
@@ -138,7 +142,7 @@ superbPlot <- function(data,
     adjustments   = list(
         purpose        = "single",   # is "single" or "difference"
         popSize        = Inf,        # is Inf or a specific positive integer
-        decorrelation  = "none",     # is "CM", "LM", "CA" or "none"
+        decorrelation  = "none",     # is "CM", "LM", "CA", "UA", or "none"
         samplingDesign = "SRS"       # is "SRS" or "CRS" (in which case use clusterColumn)
     ),
     showPlot      = TRUE,            # show a plot or else summary statistics
@@ -186,7 +190,7 @@ superbPlot <- function(data,
             stop("superb::ERROR: popSize should be a positive number or Inf (or a list of these). Exiting...")
     if (!(adjustments$purpose %in% c("single","difference","tryon"))) 
             stop("superb::ERROR: Invalid purpose. Did you mean 'difference'? Exiting...")
-    if (!(adjustments$decorrelation %in% c("none","CM","LM","CA"))) 
+    if (!(adjustments$decorrelation %in% c("none","CM","LM","CA","UA"))) 
             stop("superb::ERROR: Invalid decorrelation method. Did you mean 'CM'? Exiting...")
     if (!(adjustments$samplingDesign %in% c("SRS","CRS"))) 
             stop("superb::ERROR: Invalid samplingDesign. Did you mean 'SRS'? Exiting...")
@@ -265,7 +269,7 @@ superbPlot <- function(data,
     colnames(design)[length(WSFactors)+2] <- "newvars"
     if ( (length(wsLevels)>1) & ('design' %in% getOption("superb.feedback") ) ) {
         message("superb::FYI: Here is how the within-subject variables are understood:")
-        temp = paste0(capture.output(print(design[,c(WSFactors, "variable") ], row.names=F)),collapse="\n")
+        temp = paste0(capture.output(print(design[,c(WSFactors, "variable") ], row.names=FALSE)),collapse="\n")
         message(temp) 
     }
 
@@ -373,7 +377,8 @@ superbPlot <- function(data,
     # if the function has an initializer, run it on the long-format data
     if (has.init.function(statistic)) {
         iname = paste("init",statistic, sep=".")
-        message("superb::FYI: Running initializer ", iname)
+        if (!("none" %in% getOption("superb.feedback")))
+            message("superb::FYI: Running initializer ", iname)
         do.call(iname, list(data.untransformed.long) )
     }
 
@@ -463,6 +468,11 @@ superbPlot <- function(data,
         # the rs must be expanded for each repeated measures
         rs  <- rep(rs, wslevel)
         sqrt(1- rs)
+    } else if (adjustments$decorrelation == "UA") {
+        rs <- plyr::ddply(data, .fun = unitaryAlpha, .variables = BSFactors, cols = variables)$V1
+        # the rs must be expanded for each repeated measures
+        rs  <- rep(rs, wslevel)
+        sqrt(1- rs)
     } else {1}
 
     # All done: apply the corrections to all the widths
@@ -492,8 +502,8 @@ superbPlot <- function(data,
         }
 
         # 6.2: if deccorrelate is CA: show rbar, test Winer
-        if (adjustments$decorrelation == "CA") {
-            message(paste("superb::FYI: The average correlation per group is ", paste(unique(sprintf("%.4f",round(rs,4))), collapse=" ")) )
+        if ((adjustments$decorrelation == "CA")||(adjustments$decorrelation == "UA")) {
+            message(paste("superb::FYI: The average","","correlation per group is ", paste(unique(sprintf("%.4f",round(rs,4))), collapse=" ")) )
 
             winers <- suppressWarnings(plyr::ddply(data, .fun = "WinerCompoundSymmetryTest", .variables= BSFactors, variables)) 
             winers <- winers[,length(winers)]
@@ -510,7 +520,7 @@ superbPlot <- function(data,
             winers <- suppressWarnings(plyr::ddply(data, .fun = "WinerCompoundSymmetryTest", .variables= BSFactors, variables) )
             winers <- winers[,length(winers)]
             if (all(winers>.05, na.rm = TRUE))
-                message("superb::FYI: All the groups' data are compound symmetric. Consider using CA." )
+                message("superb::FYI: All the groups' data are compound symmetric. Consider using CA or UA." )
 
             mauchlys <- plyr::ddply(data, .fun = "MauchlySphericityTest", .variables= BSFactors, variables) 
             mauchlys <- mauchlys[,length(mauchlys)]
@@ -565,7 +575,7 @@ superbPlot <- function(data,
 
 
 #################################################################################
-# statistics functions: colSDs; meanCorrelation
+# statistics functions: colSDs; meanCorrelation; unitaryAlpha
 #################################################################################
 
 meanCorrelation <- function(X, cols) {
@@ -575,6 +585,18 @@ meanCorrelation <- function(X, cols) {
     rbar
 }
 
+unitaryAlpha <- function(X, cols) {
+#print(head(X))
+#print(str(X))
+#x<<- X
+	m <- as.matrix(X[,cols])
+
+	k <- dim(m)[2]
+	V <- var(apply(m, 1, FUN=sum))
+	S <- sum(apply(m, 2, FUN=var))
+	(V-S)/((k-1)*S)
+}
+
 colSDs = function (x) {
     # the equivalent of colMeans for standard deviations
     if (is.vector(x))          sd(x)
@@ -582,6 +604,7 @@ colSDs = function (x) {
     else if (is.data.frame(x)) apply(x, 2, sd)
     else "what the fuck??"
 }
+
 
 
 ##################################################################   

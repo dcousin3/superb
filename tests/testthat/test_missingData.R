@@ -2,7 +2,10 @@ context("Testing missing data")
 
 
 test_that("Between-subject design", {
-    options(superb.feedback = 'none')
+	old <- options() 
+	on.exit(options(old)) 
+    options("superb.feedback" = 'none')
+
     library(ggplot2)
 
     dataToPlotBS <- GRD( BSFactors="grp(2)",
@@ -23,12 +26,15 @@ test_that("Between-subject design", {
 
     expect_equal( "ggplot" %in% class(pltB), TRUE)
     # restores default information
-    options(superb.feedback = c('design','warnings','summary'))
+    options("superb.feedback" = c('design','warnings','summary'))
 })
 
 
 test_that("Within-subject design", {
-    options(superb.feedback = 'none')
+	old <- options() 
+	on.exit(options(old)) 
+    options("superb.feedback" = 'none')
+
     library(ggplot2)
 
     dataToPlotWS <- GRD( WSFactors="moment(2)",
@@ -49,6 +55,6 @@ test_that("Within-subject design", {
 
     expect_equal( "ggplot" %in% class(pltW), TRUE)
     # restores default information
-    options(superb.feedback = c('design','warnings','summary'))
+    options("superb.feedback" = c('design','warnings','summary'))
 })
 

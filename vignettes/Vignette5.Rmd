@@ -98,7 +98,7 @@ mp <- function(data, style, ...) {
         WSFactors = "Day(2)",
         BSFactors = "Difficulty",
         variables = c("score.day1", "score.day2"),
-        adjustments = list(purpose="difference", decorrelation="CM"),
+        adjustments = list(purpose="difference", decorrelation="CA"),
         plotStyle = style,
         ...
     )+labs(title = paste("Layout is ''",style,"''",sep=""))
@@ -119,10 +119,17 @@ library(gridExtra)
 grid.arrange(p1,p2,p3,p4,p5,p6,ncol=2)
 ```
 
-The last format, a ``raincloud`` plot [@pw21], is better seen with coordinates flipped over:
+A cool format, a ``raincloud`` plot [@pw21], is better seen with coordinates flipped over:
 
 ```{r, fig.width =7, fig.height = 3.5, fig.cap = "**Figure 1b**. The seventh layout, the raincloud"}
 mp(testdata, "raincloud") + coord_flip()
+```
+
+Finally, the following shows the latest layout, a box plot, better for showing median and 
+confidence interval of the median, obtained with 
+
+```{r, fig.width= 5, fig.height = 3, fig.cap = "**Figure 1c**. Box plot of the data"}
+mp(testdata, "boxplot", statistic = "median", pointParams = list(color="orange"))
 ```
 
 For more controls, you can manually set the colors, the fills and/or

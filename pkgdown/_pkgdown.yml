@@ -28,6 +28,7 @@ reference:
       - '`superbPlot.pointindividualline`'
       - '`superbPlot.raincloud`'
       - '`superbPlot.halfwidthline`'
+      - '`superbPlot.boxplot`'
   - title: Statistics
     desc: Some statistics that can be plotted with superb
     contents:

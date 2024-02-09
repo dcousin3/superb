@@ -17,8 +17,17 @@ a custom degree of freedom (when unspecified, it uses \code{n-1} where \code{n} 
 the confidence interval (CI) where the \code{t} value is based on the custom-set degree of freedom.
 }
 \description{
-The following function accept an arbitrary defined degree
-of freedom (df). This df must be inserted in gamma after the confidence level.
+The following function computes a confidence interval with
+custom degree of freedom. The default is to use N-1 but this number is not
+always appropriate. For example, when there are heterogeneous variances,
+the confidence interval of the mean should mirror a Welsh test where the
+degrees of freedom are altered based on variances. The function \code{CIwithDF.mean()}
+accept an arbitrary defined degree of freedom (df).
+The df must be combined to the argument \code{gamma} after the confidence level.
+}
+\details{
+See the vignette "Unequal variances, Welch test, Tryon adjustment, and superb"
+for an example of use.
 }
 \examples{
 # this will issue a warning as no custom degree of freedom is provided

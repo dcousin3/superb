@@ -198,7 +198,7 @@ ideal to that end. When combined with a decent measure of error (here, the confi
 
 ## Are we sure?
 
-The plot with _difference-adjusted_ confidence interval is a very reliable tool to make inference-by-eye. In doubt however, go run the exact test. In the present case, we performed an ANOFA (Analysis of Frequency tAble; @lc23b). It shows that the interaction is highly significant; subsequent simple effect analyses show that this is
+The plot with _difference-adjusted_ confidence interval is a very reliable tool to make inference-by-eye. In doubt however, go run the exact test. In the present case, we performed an ANOFA (Analysis of Frequency datA; @lc23b). It shows that the interaction is highly significant; subsequent simple effect analyses show that this is
 indeed the university aspiration that triggered that interaction.
 
 ANOFA table:

@@ -60,18 +60,18 @@
     #   design:   in superbPlot, shows information on how the within-subject variables are understood
     #   warnings: in superbPlot, returns 'FYI' messages about the data to help decide if the appropriate error bars were used
     # You can use 'all' to see all the feedback informations.
-    options( superb.feedback = c('design','warnings','summary') )
+    options( "superb.feedback" = c('design','warnings','summary') )
     # Set the default bootstrap number of iterations to 5000; this is a minimum, avoid reducing it.
-    options( superb.bootstrapIter = 5000)
+    options( "superb.bootstrapIter" = 5000)
     # Set the default display of information in superbShiny()
-    options( superb.shiny = "silent" ) # default should be "silent" or else "display"
+    options( "superb.shiny" = "silent" ) # default should be "silent" or else "display"
 }
 
 .onDetach <- function(libpath) {
     # remove the options
-    options( superb.feedback = NULL )
-    options( superb.bootstrapIter = NULL )
-    options( superb.shiny = NULL )
+    options( "superb.feedback"	= NULL )
+    options( "superb.bootstrapIter" = NULL )
+    options( "superb.shiny" = NULL )
 }
 
 # to inhibit "no visible binding for global variable" errors from :
@@ -81,4 +81,6 @@ globalVariables(c("yend","xend","label"))
 globalVariables(c("center","lowerwidth","upperwidth","hwlowerwidth","hwupperwidth"))
 # superbPlot.pointindividualline
 globalVariables(c("id"))
+# superbPlot.boxplot
+globalVariables(c("DV"))
 
