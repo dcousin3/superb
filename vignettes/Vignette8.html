@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>(advanced) Alternate ways to decorrelate repeated measures from transformations</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">
+
+div.csl-bib-body { }
+div.csl-entry {
+clear: both;
+}
+.hanging div.csl-entry {
+margin-left:2em;
+text-indent:-2em;
+}
+div.csl-left-margin {
+min-width:2em;
+float:left;
+}
+div.csl-right-inline {
+margin-left:2em;
+padding-left:1em;
+}
+div.csl-indent {
+margin-left: 2em;
+}
+</style>
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">(advanced) Alternate ways to decorrelate
+repeated measures from transformations</h1>
+
+
+
+<p>The methods <code>CM</code> <span class="citation">(Cousineau, 2005;
+Morey, 2008)</span> and <code>LM</code> <span class="citation">(Loftus
+&amp; Masson, 1994)</span> can be unified when the transformations they
+required are considered. In the Cousineau-Morey method, the raw data
+must be subject-centered and bias-corrected.</p>
+<p>Subject centering is obtained from</p>
+<p><span class="math display">\[
+Y_{ij} = X_{ij} - \bar{X}_{i\cdot} + \bar{\bar{X}}
+\]</span></p>
+<p>in which <span class="math inline">\(i = 1..n\)</span> and <span class="math inline">\(j=1..C\)</span> where <span class="math inline">\(n\)</span> is the number of participants and <span class="math inline">\(C\)</span> is the number of repeated measures
+(sometimes noted with <span class="math inline">\(J\)</span>).</p>
+<p>Bias-correction is obtained from</p>
+<p><span class="math display">\[
+Z_{ij} = \sqrt{\frac{C}{C-1}} \left( Y_{ij} - \bar{Y}_{\cdot{}j} \right)
++ \bar{Y}_{\cdot{}j}
+\]</span></p>
+<p>These two operations can be performed with two matrix
+transformations. In comparison, the <code>LM</code> method requires one
+additional step, that is, pooling standard deviation, also achievable
+with the following transformation.</p>
+<p><span class="math display">\[
+W_{ij} = \sqrt{\frac{S_p^2}{S_i^2}} \left( Z_{ij} - \bar{Z}_{\cdot{}j}
+\right) + \bar{Z}_{\cdot{}j}
+\]</span></p>
+<p>in which <span class="math inline">\(S_j^2\)</span> is the variance
+in measurement <span class="math inline">\(j\)</span> and <span class="math inline">\(S_p^2\)</span> is the pooled variance across all
+<span class="math inline">\(j\)</span> mesurements.</p>
+<p>With this approach, we can categorize all the proposals to repeated
+measure precision as requiring or not certain transformations. Table 1
+shows these.</p>
+<p><strong>Table 1</strong>. Transformations required to implement one
+of the repeated-measures method. Preprocessing must precede
+post-processing</p>
+<table>
+<colgroup>
+<col width="22%" />
+<col width="22%" />
+<col width="22%" />
+<col width="32%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>preprocessing</th>
+<th>postprocessing</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Stand-alone</td>
+<td>-</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Cousineau, 2005</td>
+<td>Subject-centering</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>CM</td>
+<td>Subject-centering</td>
+<td>Bias-correction</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>NKM</td>
+<td>Subject-centering</td>
+<td>-</td>
+<td>pool standard deviations</td>
+</tr>
+<tr class="odd">
+<td>LM</td>
+<td>Subject-centering</td>
+<td>Bias-correction</td>
+<td>pool standard deviations</td>
+</tr>
+</tbody>
+</table>
+<p>From that point of view, we see that the Nathoo, Kilshaw and Masson
+NKM <span class="citation">(Nathoo, Kilshaw, &amp; Masson, 2018; but see
+Heck, 2019 )</span> method is missing a bias-correction transformation,
+which explains why these error bars are shorter. The original proposal
+found in Cousineau, 2005, is also missing the bias correction step,
+which led Morey (2008) to supplement this approach. With these four
+approaches, we have exhausted all the possible combinations regarding
+decorrelation methods based on subject-centering.</p>
+<p>We added two arguments in superbPlot to handle this transformation
+approach, the first is <code>preprocessfct</code> and the second is
+<code>postprocessfct</code>.</p>
+<p>Assuming a dataset dta with replicated measures stored in say columns
+called <code>Score.1</code>, <code>Score.2</code> and
+<code>Score.3</code>, the command</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>pCM <span class="ot">&lt;-</span> <span class="fu">superbPlot</span>(dta, <span class="at">WSFactors =</span> <span class="st">&quot;moment(3)&quot;</span>,     </span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(<span class="st">&quot;Score.1&quot;</span>,<span class="st">&quot;Score.2&quot;</span>,<span class="st">&quot;Score.3&quot;</span>), </span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="at">adjustments=</span><span class="fu">list</span>(<span class="at">decorrelation=</span><span class="st">&quot;none&quot;</span>),</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  <span class="at">preprocessfct =</span> <span class="st">&quot;subjectCenteringTransform&quot;</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  <span class="at">postprocessfct =</span> <span class="st">&quot;biasCorrectionTransform&quot;</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>  <span class="at">plotStyle =</span> <span class="st">&quot;pointjitter&quot;</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>  <span class="at">errorbarParams =</span> <span class="fu">list</span>(<span class="at">color=</span><span class="st">&quot;red&quot;</span>, <span class="at">width=</span> <span class="fl">0.1</span>, <span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="sc">-</span><span class="fl">0.05</span>) )</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>)</span></code></pre></div>
+<p>will reproduce the <code>CM</code> error bars because it decorrelates
+the data as per this method. With one additional transformation,</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>pLM <span class="ot">&lt;-</span> <span class="fu">superbPlot</span>(dta, <span class="at">WSFactors =</span> <span class="st">&quot;moment(3)&quot;</span>, </span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(<span class="st">&quot;Score.1&quot;</span>,<span class="st">&quot;Score.2&quot;</span>,<span class="st">&quot;Score.3&quot;</span>), </span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">adjustments=</span><span class="fu">list</span>(<span class="at">decorrelation=</span><span class="st">&quot;none&quot;</span>),</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="at">preprocessfct =</span> <span class="st">&quot;subjectCenteringTransform&quot;</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="at">postprocessfct =</span> <span class="fu">c</span>(<span class="st">&quot;biasCorrectionTransform&quot;</span>,<span class="st">&quot;poolSDTransform&quot;</span>),</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="at">plotStyle =</span> <span class="st">&quot;line&quot;</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="at">errorbarParams =</span> <span class="fu">list</span>(<span class="at">color=</span><span class="st">&quot;orange&quot;</span>, <span class="at">width=</span> <span class="fl">0.1</span>, <span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="sc">-</span><span class="fl">0.0</span>) )</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>)</span></code></pre></div>
+<p>the <code>LM</code> method is reproduced. Finally, if the
+<code>biasCorrectionTransform</code> is omitted, we get the NKM error
+bars with:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>pNKM <span class="ot">&lt;-</span> <span class="fu">superbPlot</span>(dta, <span class="at">WSFactors =</span> <span class="st">&quot;moment(3)&quot;</span>, </span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="at">variables =</span> <span class="fu">c</span>(<span class="st">&quot;Score.1&quot;</span>,<span class="st">&quot;Score.2&quot;</span>,<span class="st">&quot;Score.3&quot;</span>), </span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="at">adjustments=</span><span class="fu">list</span>(<span class="at">decorrelation=</span><span class="st">&quot;none&quot;</span>),</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  <span class="at">preprocessfct =</span> <span class="st">&quot;subjectCenteringTransform&quot;</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  <span class="at">postprocessfct =</span> <span class="fu">c</span>(<span class="st">&quot;poolSDTransform&quot;</span>),</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>  <span class="at">plotStyle =</span> <span class="st">&quot;line&quot;</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>  <span class="at">errorbarParams =</span> <span class="fu">list</span>(<span class="at">color=</span><span class="st">&quot;blue&quot;</span>, <span class="at">width=</span> <span class="fl">0.1</span>, <span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="sc">+</span><span class="fl">0.05</span>) )</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>)</span></code></pre></div>
+<p>In what follow, I justapose the three plots to see the
+differences:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>tlbl <span class="ot">&lt;-</span> <span class="fu">paste</span>( <span class="st">&quot;(red)    Subject centering &amp; Bias correction == CM</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>               <span class="st">&quot;(orange) Subject centering, Bias correction &amp; Pooling SDs == LM</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>               <span class="st">&quot;(blue)   Subject centering &amp; Pooling SDs == NKM&quot;</span>, <span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>ornate <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">&quot;Group&quot;</span>),</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">&quot;Score&quot;</span>),</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>    <span class="fu">labs</span>(   <span class="at">title=</span>tlbl),</span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>    <span class="fu">coord_cartesian</span>( <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">12</span>,<span class="dv">18</span>) ),</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>    <span class="fu">theme_light</span>(<span class="at">base_size=</span><span class="dv">10</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>)</span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co"># the plots on top are made transparent</span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>pCM2 <span class="ot">&lt;-</span> <span class="fu">ggplotGrob</span>(pCM <span class="sc">+</span> ornate)</span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>pLM2 <span class="ot">&lt;-</span> <span class="fu">ggplotGrob</span>(pLM <span class="sc">+</span> ornate <span class="sc">+</span> <span class="fu">makeTransparent</span>() )</span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>pNKM2 <span class="ot">&lt;-</span> <span class="fu">ggplotGrob</span>(pNKM <span class="sc">+</span> ornate <span class="sc">+</span> <span class="fu">makeTransparent</span>() )</span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a><span class="co"># put the grobs onto an empty ggplot </span></span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a>    <span class="fu">annotation_custom</span>(<span class="at">grob=</span>pCM2) <span class="sc">+</span> </span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a>    <span class="fu">annotation_custom</span>(<span class="at">grob=</span>pLM2) <span class="sc">+</span> </span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a>    <span class="fu">annotation_custom</span>(<span class="at">grob=</span>pNKM2)</span></code></pre></div>
+<div class="float">
+<img src="data:image/png;base64,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" alt="Figure 1. Plot of the tree decorrelation methods based on subject transformation." />
+<div class="figcaption"><strong>Figure 1</strong>. Plot of the tree
+decorrelation methods based on subject transformation.</div>
+</div>
+<p>The method from Cousineau (2005) missing the bias-correction step is
+not shown as it should not be used.</p>
+<div id="in-summary" class="section level2">
+<h2>In summary</h2>
+<p>All the decorrelation methods based on transformations have
+(probably) been explored. An alternative approach using correlation was
+proposed in <span class="citation">Cousineau (2019)</span>. All these
+approaches requires sphericity of the data. Other approaches are
+required to overcome this sphericity limitations.</p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1 class="unnumbered">References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-c05" class="csl-entry">
+Cousineau, D. (2005). Confidence intervals in within-subject designs: A
+simpler solution to <span>L</span>oftus and <span>M</span>asson’s
+method. <em>Tutorials in Quantitative Methods for Psychology</em>,
+<em>1</em>, 42–45. <a href="https://doi.org/10.20982/tqmp.01.1.p042">https://doi.org/10.20982/tqmp.01.1.p042</a>
+</div>
+<div id="ref-c19" class="csl-entry">
+Cousineau, D. (2019). Correlation-adjusted standard errors and
+confidence intervals for within-subject designs: A simple multiplicative
+approach. <em>The Quantitative Methods for Psychology</em>, <em>15</em>,
+226–241. <a href="https://doi.org/10.20982/tqmp.15.3.p226">https://doi.org/10.20982/tqmp.15.3.p226</a>
+</div>
+<div id="ref-h19" class="csl-entry">
+Heck, D. W. (2019). Accounting for estimation uncertainty and shrinkage
+in bayesian within-subject intervals: A comment on <span>N</span>athoo,
+<span>K</span>ilshaw, and <span>M</span>asson (2018). <em>Journal of
+Mathematical Psychology</em>, <em>88</em>, 27–31. <a href="https://doi.org/10.1016/j.jmp.2018.11.002">https://doi.org/10.1016/j.jmp.2018.11.002</a>
+</div>
+<div id="ref-lm94" class="csl-entry">
+Loftus, G. R., &amp; Masson, M. E. J. (1994). Using confidence intervals
+in within-subject designs. <em>Psychonomic Bulletin &amp; Review</em>,
+<em>1</em>, 476–490. <a href="https://doi.org/10.3758/BF03210951">https://doi.org/10.3758/BF03210951</a>
+</div>
+<div id="ref-m08" class="csl-entry">
+Morey, R. D. (2008). Confidence intervals from normalized data: A
+correction to <span>C</span>ousineau (2005). <em>Tutorials in
+Quantitative Methods for Psychology</em>, <em>4</em>, 61–64. <a href="https://doi.org/10.20982/tqmp.04.2.p061">https://doi.org/10.20982/tqmp.04.2.p061</a>
+</div>
+<div id="ref-nkm18" class="csl-entry">
+Nathoo, F. S., Kilshaw, R. E., &amp; Masson, M. E. J. (2018). A better
+(bayesian) interval estimate for within-subject designs. <em>Journal of
+Mathematical Psychology</em>, <em>86</em>, 1–9. <a href="https://doi.org/10.1016/j.jmp.2018.07.005">https://doi.org/10.1016/j.jmp.2018.07.005</a>
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

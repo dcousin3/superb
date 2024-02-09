@@ -78,7 +78,7 @@ test_that("test 1a: 3 groupes inpependants", {
 	on.exit(options(old)) 
 	options("superb.feedback" = 'none')
 
-    dta1a <- GRD( BSFactors = "Group(3)", Population = list( mean=10, stddev = 5) )
+    dta1a <- GRD( SubjectsPerGroup = 20, BSFactors = "Group(3)", Population = list( mean=10, stddev = 5) )
     # write.table(dta1a, file = "test1a.dat", sep = "\t", col.names = FALSE)
     p <- superbPlot(dta1a, BSFactor = "Group", variables = "DV",
       statistic = "mean", errorbar = "SE", plotStyle="line")
@@ -94,7 +94,7 @@ test_that("test 1b: factorielle a grps independants; 3 x 2", {
 	on.exit(options(old)) 
 	options("superb.feedback" = 'none')
 
-    dta1b <- GRD( BSFactors = "Group(3): Sex(2)", Population = list( mean=10, stddev = 5))
+    dta1b <- GRD( SubjectsPerGroup = 20, BSFactors = "Group(3): Sex(2)", Population = list( mean=10, stddev = 5))
     # write.table(dta1b, file = "test1b.dat", sep = "\t", col.names = FALSE)
     p <- superbPlot(dta1b, BSFactor = c("Group","Sex"), variables = "DV",
       statistic = "mean", errorbar = "SE" )
@@ -193,7 +193,7 @@ test_that("test 5a: scheme a quatre facteurs; 5 x 4 (3 x 2)", {
 	on.exit(options(old)) 
 	options("superb.feedback" = 'none')
 
-    dta5a <- GRD( BSFactors = "Group(5) : Dose(4)", WSFactors = "Moment(3):Hand(2)", 
+    dta5a <- GRD( SubjectsPerGroup = 20, BSFactors = "Group(5) : Dose(4)", WSFactors = "Moment(3):Hand(2)", 
         Population = list( mean=10, stddev = 5, rho = .90),
         Effects = list("Moment" = slope(5), "Hand" = slope(10)) )
     # write.table(dta5a, file = "test5a.dat", sep = "\t", col.names = FALSE)
@@ -642,7 +642,7 @@ test_that("Many tests with TMB1964r", {
     )
 
     dta <- superb::GRD( WSFactors = "timepoints (100) : condition(2)", 
-        SubjectsPerGroup = 100,
+        SubjectsPerGroup = 40,
         RenameDV = "activation",
         Effects = list("timepoints" = extent(5), "condition" = extent(3) ),
         Population=list(mean=50,stddev=10,rho=0.75)

@@ -47,8 +47,20 @@ the scores are treated as independent will fail to detect a difference:
 t.test(dataFigure2$pre, dataFigure2$post, var.equal=TRUE)
 ```
 
-However, examining the data, in which each participant's scores are shown with 
-a line, we get this:
+However, when the proper, paired-sample t-test is used, we find that 
+the difference is quite important:
+
+```{r}
+t.test(dataFigure2$pre, dataFigure2$post, var.equal=TRUE, paired = TRUE)
+```
+
+What is going on? how can we make a plot that properly display this 
+difference?
+
+## A few words on the underlying theory (optional)
+
+Let's examine the data using a plot in which each participant's scores are 
+shown with a line. We get the following:
 
 ```{r, message=FALSE, echo=TRUE, fig.width = 4, fig.cap="**Figure 1**. Representation of the individual participants"}
 library(reshape2)
@@ -70,7 +82,8 @@ As seen, except for 5 participants, a vast majority of the participants have an
 upward trend in their results. Thus, this upward trend is probably a reality in
 this dataset.
 
-## Centering the participants to better see the trend
+
+### Centering the participants to better see the trend
 
 One solution used in @c05 is to center the participants' data on the 
 participants' mean. It consists in computing for each participant their mean 
@@ -106,7 +119,7 @@ is strongly significant (t(24) = 2.9, p = .008):
 t.test(dataFigure2$pre, dataFigure2$post, paired=TRUE)
 ```
 
-## What is the impact on confidence intervals?
+### What is the impact on confidence intervals?
 
 The above suggests that within-subject designs can be much more powerful than between-
 subject design. As long as there is a general trend visible in most participants, the
@@ -152,14 +165,40 @@ In the present dataset, the error bar are more than shorten by half! which clear
 shows the benefit of the within-subject design on precision.
 
 
-## Making it simple
+## Getting a plot
+
+
+### Making it simple
+
 
 With ``suberb``, all the decorrelation techniques are available using the adjustment
 ``decorrelation`` [@cgh21].
 
-Consider the following
+The simplest code is the following:
 
-```{r, message=FALSE, warning=FALSE, echo=TRUE, fig.width = 4, fig.cap="**Figure 3**. Means and 95% confidence intervals on raw data (left) and on decorrelated data (right)"}
+```{r, message=FALSE, warning=FALSE, echo=TRUE, fig.height = 3, fig.width = 4, fig.cap="**Figure 3a**. Means and difference and correlation-adjusted 95% confidence intervals"}
+superbPlot(dataFigure2, 
+	WSFactors    = "Moment(2)", 
+	adjustments = list(
+					purpose = "difference", 
+					decorrelation = "CA"    ## NEW! use a decorrelation technique
+	), 
+	variables   = c("pre","post"), 
+	plotStyle   = "line" )
+```
+
+This will result in a basic plot, but what matters is that the confidence intervals are adjusted so that you can compare bars even 
+if they are repeated measures. Note that the confidence interval of one point does
+not contain the other point, suggesting, as it should be, a significant differencee.
+
+
+### Refining the plots
+ 
+With the following code, we can decorate the plot a little bit, and show 
+side-by-side both the unadjusted plot (which give an erroneous result) and
+the adjusted plot.
+
+```{r, message=FALSE, warning=FALSE, echo=TRUE, fig.width = 4, fig.cap="**Figure 3b**. Means and 95% confidence intervals on raw data (left) and on decorrelated data (right)"}
 options(superb.feedback = 'none') # shut down 'warnings' and 'design' interpretation messages
 library(gridExtra)
 
@@ -187,8 +226,12 @@ plt2b <- superbPlot(dataFigure2,
 plt2  <- grid.arrange(plt2a,plt2b,ncol=2)
 ```
 
-In the above plot, I used ``decorrelation = "CA"``. When there is only two conditions, all the 
-techniques return identical error bars.
+In the above plot, I used ``decorrelation = "CA"``. Alternatively, you could
+use ``decorrelation = "UA"`` or ``decorrelation = "CM"). 
+When there is only two conditions, all the techniques return identical 
+error bars.
+
+### Illustrating the various decorrelatin techniques.
 
 As another example illustrating the differences between the techniques, I 
 generated random data for 5 measures  with an
@@ -211,7 +254,8 @@ test <- GRD(WSFactors = "Moment(5)",
 tlbl <- paste( "(red) Difference-adjusted only\n",
             "(blue) Difference adjusted and decorrelated with CM\n",
             "(green) Difference-adjusted and decorrelated with LM\n",
-            "(orange) Difference-adjusted and decorrelated with CA", sep="")
+            "(orange) Difference-adjusted and decorrelated with CA\n",
+			"(bisque) Difference-adjusted and decorrelated with UA", sep="")
 
 # to make the plots all identical except for the decorrelation method
 makeplot <- function(dataset, decorrelationmethod, color, nudge, dir) {
@@ -235,27 +279,30 @@ theme_transparent <- theme(
         )
 
 # generate the plots, nudging the error bars and using distinct colors
-pltrw <- makeplot(test, "none", "red",          -0.15, "both")
-pltCM <- makeplot(test, "CM",   "blue",         -0.05, "left")
-pltLM <- makeplot(test, "LM",   "chartreuse3",  +0.05, "both")
-pltCA <- makeplot(test, "CA",   "orange",       +0.15, "right")
+pltrw <- makeplot(test, "none", "red",           0.0, "both")
+pltCM <- makeplot(test, "CM",   "blue",         -0.2, "left")
+pltLM <- makeplot(test, "LM",   "chartreuse3",  -0.1, "left")
+pltCA <- makeplot(test, "CA",   "orange",       +0.1, "right")
+pltUA <- makeplot(test, "UA",   "bisque4",      +0.2, "right")
 
 # transform the ggplots into "grob" so that they can be manipulated
 pltrwg <- ggplotGrob(pltrw)
 pltCMg <- ggplotGrob(pltCM + theme_transparent)
 pltLMg <- ggplotGrob(pltLM + theme_transparent)
 pltCAg <- ggplotGrob(pltCA + theme_transparent)
+pltUAg <- ggplotGrob(pltUA + theme_transparent)
 
 # put the grobs onto an empty ggplot 
 ggplot() + 
     annotation_custom(grob=pltrwg) + 
     annotation_custom(grob=pltCMg) + 
     annotation_custom(grob=pltLMg) + 
-    annotation_custom(grob=pltCAg)
+    annotation_custom(grob=pltCAg) +
+    annotation_custom(grob=pltUAg)
 ```
 
 
-## Illustrating individual differences
+### Illustrating individual differences
 
 In ``superb``, it is possible to ask a certain type of plot. The ``plotStyle`` used so
 far is ``"line"`` (the default is ``"bar"``). Another basic style is ``"point"`` (no line

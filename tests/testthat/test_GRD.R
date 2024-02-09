@@ -26,7 +26,7 @@ test_that("Renaming the dependant variable and setting the group size", {
 	on.exit(options(old)) 
     options("superb.feedback" = 'none')
 
-    dta <- GRD( RenameDV = "score", SubjectsPerGroup = 1000 )
+    dta <- GRD( RenameDV = "score", SubjectsPerGroup = 200 )
     expect_output( str(hist(dta$score )), "List of 6" )
     # restores default information
     options("superb.feedback" = c('design','warnings','summary'))
@@ -38,12 +38,12 @@ test_that("Selecting a between-group experimental design...", {
 	on.exit(options(old)) 
     options("superb.feedback" = 'none')
 
-    expect_output( str(dta <- GRD( BSFactors = '3')), "data.frame")
-    expect_output( str( GRD( BSFactors = "3 : 2")), "data.frame")
-    expect_output( str( GRD( BSFactors = "(yes,no) : (CBT, Control, Exercice)")), "data.frame")
-    expect_output( str( GRD( BSFactors = "Stress(3)")), "data.frame")
-    expect_output( str( GRD( WSFactors = "Moment (2)")), "data.frame")
-    expect_output( str( GRD( BSFactors = "Group(3)", WSFactors = "2 : 3")), "data.frame")
+    expect_output( str(dta <- GRD( BSFactors = '3',SubjectsPerGroup = 20)), "data.frame")
+    expect_output( str( GRD( BSFactors = "3 : 2"),SubjectsPerGroup = 20), "data.frame")
+    expect_output( str( GRD( BSFactors = "(yes,no) : (CBT, Control, Exercice)"),SubjectsPerGroup = 20), "data.frame")
+    expect_output( str( GRD( BSFactors = "Stress(3)"),SubjectsPerGroup = 20), "data.frame")
+    expect_output( str( GRD( WSFactors = "Moment (2)"),SubjectsPerGroup = 20), "data.frame")
+    expect_output( str( GRD( BSFactors = "Group(3)", WSFactors = "2 : 3"),SubjectsPerGroup = 20), "data.frame")
     # restores default information
     options("superb.feedback" = c('design','warnings','summary'))
 })
@@ -55,10 +55,10 @@ test_that("Obtaining feedback information (not required) and a summary", {
 
     # turns on all feedback information
     options("superb.feedback" = 'all')
-    expect_output( str( GRD( BSFactors = "Group(3)")), "data.frame")
+    expect_output( str( GRD( BSFactors = "Group(3)"),SubjectsPerGroup = 20), "data.frame")
     # turns only summary information on the design (recommended)
     options("superb.feedback" = 'summary')
-    expect_output( str( GRD( BSFactors = "Group(3)")), "data.frame")
+    expect_output( str( GRD( BSFactors = "Group(3)"),SubjectsPerGroup = 20), "data.frame")
     # restores default information
     options("superb.feedback" = c('design','warnings','summary'))
 })
@@ -71,6 +71,7 @@ test_that("Defining population characteristics (ex. 1/2)", {
 
     dta <- GRD( 
       RenameDV = "IQ",
+	  SubjectsPerGroup = 20,
       Population=list(
         mean=100,  # will set GM to 100
         stddev=15  # will set STDDEV to 15
@@ -88,7 +89,7 @@ test_that("Defining population characteristics (ex. 2/2)", {
     options("superb.feedback" = 'none')
 
     library(lattice)
-    dta <- GRD(BSFactors="difficulty(2)", SubjectsPerGroup = 1000,
+    dta <- GRD(BSFactors="difficulty(2)", SubjectsPerGroup = 200,
       Population=list(mean=100,stddev=15)
     )
     expect_output( str(histogram(~ DV | difficulty, data = dta)), "List of 45")
@@ -103,7 +104,7 @@ test_that("Adding effects (ex. 1/5)", {
     options("superb.feedback" = 'none')
 
     library(lattice)
-    dta <- GRD(BSFactors="difficulty(2)", SubjectsPerGroup = 1000,
+    dta <- GRD(BSFactors="difficulty(2)", SubjectsPerGroup = 200,
       Population=list(mean=100,stddev=15),
       Effects = list("difficulty" = extent(50) )
     )
@@ -119,7 +120,7 @@ test_that("Adding effects (ex. 2/5)", {
     options("superb.feedback" = 'none')
 
     library(lattice)
-    dta <- GRD(BSFactors="difficulty(5)", SubjectsPerGroup = 1000,
+    dta <- GRD(BSFactors="difficulty(5)", SubjectsPerGroup = 200,
       Population=list(mean=0,stddev=5), 
       Effects = list("difficulty" = slope(50) )
     )
@@ -137,7 +138,7 @@ test_that("Adding effects (ex. 3/5)", {
 
     library(lattice)
     dta <- GRD(BSFactors="difficulty(3):gender(2)", 
-      Population=list(mean=100,stddev=15), SubjectsPerGroup = 1000,
+      Population=list(mean=100,stddev=15), SubjectsPerGroup = 200,
       Effects = list(
         "difficulty" = extent(10),
         "gender"=slope(10),
@@ -163,7 +164,7 @@ test_that("Adding effects (ex. 4/5)", {
     library(lattice)
     dta <- GRD(
       BSFactors = 'Reply(yes, no) : Therapy(CBT, Exercise, Control)',
-      SubjectsPerGroup = 1000,
+      SubjectsPerGroup = 200,
       Effects = list(
         "Reply*Therapy"=slope(5) 
       ) 
@@ -185,7 +186,7 @@ test_that("Adding effects (ex. 5/5)", {
     library(lattice)
     # The Rexpression effects are given arbitrary names 
     # instead of factors on which to operate
-    dta <- GRD(BSFactors="difficulty(5)", SubjectsPerGroup = 1000,
+    dta <- GRD(BSFactors="difficulty(5)", SubjectsPerGroup = 200,
       Population=list(mean=0,stddev=5),
       Effects = list(
         "code1" = Rexpression("if (difficulty ==1) {-50} else {0}"), 
@@ -209,7 +210,7 @@ test_that("Specifying underlying distributions (ex. 1/3)", {
 	on.exit(options(old)) 
     options("superb.feedback" = 'none')
 
-    dta <- GRD(SubjectsPerGroup = 1000, 
+    dta <- GRD(SubjectsPerGroup = 200, 
       Population=list(mean=100,stddev=15)
     )
     plt <- hist(dta$DV,breaks=seq(min(dta$DV,40)-5,max(dta$DV,160)+5,by=2.5))
@@ -226,7 +227,7 @@ test_that("Specifying underlying distributions (ex. 2/3)", {
 
     library(lattice)
     # heterogeneous variances across groups
-    dta <- GRD(SubjectsPerGroup = 1000, 
+    dta <- GRD(SubjectsPerGroup = 200, 
       BSFactors = "Group(2)",
       Population=list(
         mean = 100, 
@@ -247,7 +248,7 @@ test_that("Specifying underlying distributions (ex. 3/3)", {
 	on.exit(options(old)) 
     options("superb.feedback" = 'none')
 
-    dta <- GRD(SubjectsPerGroup = 1000, 
+    dta <- GRD(SubjectsPerGroup = 200, 
       Population=list(
         scores = "rweibull(1, shape=2, scale=40)"
       )
@@ -266,7 +267,7 @@ test_that("Introducing contaminants (1/2)", {
 	on.exit(options(old)) 
     options("superb.feedback" = 'none')
 
-    dta <- GRD(SubjectsPerGroup = 1000, 
+    dta <- GRD(SubjectsPerGroup = 200, 
       Population=list(
         mean=100, stddev = 15  
       ), 
@@ -286,7 +287,7 @@ test_that("Introducing contaminants (2/2)", {
 	on.exit(options(old)) 
     options("superb.feedback" = 'none')
 
-    dta <- GRD(SubjectsPerGroup = 10000, 
+    dta <- GRD(SubjectsPerGroup = 2000, 
       Population=list(
         mean=100, stddev = 15  
       ), 
@@ -308,7 +309,7 @@ test_that("Generating multivariate normal data (1/2)", {
 
     library(lattice)
     dta <- GRD( BSFactors="grp(2)",WSFactors = "Moment (2)", 
-       SubjectsPerGroup = 1000,
+       SubjectsPerGroup = 200,
        Population=list(mean=0,stddev=20,rho=-0.85), 
        Contaminant=list(mean=100,stddev=4,rho=-0.99,proportion=0.25)
     )
@@ -329,7 +330,7 @@ test_that("Generating multivariate normal data (2/2)", {
     options("superb.feedback" = 'none')
 
     dta <- GRD( BSFactors="grp(2)",WSFactors = "Moment (2)", 
-       SubjectsPerGroup = 1000,
+       SubjectsPerGroup = 200,
        Effects = list("grp" = slope(100) ),
        Population=list(mean=0,stddev=20,rho=-0.85), 
        Contaminant=list(mean=100,stddev=4,rho=-0.99,proportion=0.25)
@@ -444,8 +445,8 @@ test_that("page 9", {
       WSFactors = "Contrast(Low,Medium,High)"  
     )
     expect_equal( dim(dta), c(600,6))
-    dta <- GRD( SubjectsPerGroup = 1000 )
-    expect_equal( dim(dta), c(1000,2))
+    dta <- GRD( SubjectsPerGroup = 200 )
+    expect_equal( dim(dta), c(200,2))
     dta <- GRD( BSFactors = "3", SubjectsPerGroup = c(20,25,50) )
     expect_equal( dim(dta), c(95,3))
     # restores default information
@@ -513,7 +514,7 @@ test_that("page 12", {
 	on.exit(options(old)) 
     options("superb.feedback" = 'none')
 
-    dta <- GRD( SubjectsPerGroup = 5000,
+    dta <- GRD( SubjectsPerGroup = 500,
       RenameDV = "RT", 
       Population = list(
         scores = "rweibull(1, shape=2, scale=40)+250"
@@ -534,7 +535,7 @@ test_that("page 14", {
     dta <- GRD(
       BSFactors = "Therapy(CBT, Control, Exercice)",
       WSFactors = "Contrast(3)",
-      SubjectsPerGroup = 1000,
+      SubjectsPerGroup = 200,
       Effects = list("Therapy" = slope(2) )
     )
     library(lattice)
@@ -545,7 +546,7 @@ test_that("page 14", {
     dta <- GRD(
       BSFactors = "Therapy(CBT, Control, Exercice)",
       WSFactors = "Contrast(3)",
-      SubjectsPerGroup = 1000,
+      SubjectsPerGroup = 200,
       Effects = list("Contrast" = extent(4) )
     )
     library(lsr)
@@ -568,17 +569,17 @@ test_that("page 15", {
     dta <- GRD(
       BSFactors = "Therapy(CBT, Control, Exercice)",
       WSFactors = "Contrast(3)",
-      SubjectsPerGroup = 1000,
+      SubjectsPerGroup = 200,
       Effects = list("Therapy" = custom(0,0,2) )
     )
-    expect_equal( dim(dta), c(3000,5))
+    expect_equal( dim(dta), c(600,5))
     dta <- GRD(
       BSFactors = "Therapy(CBT, Control, Exercice)",
       WSFactors = "Contrast(3)",
-      SubjectsPerGroup = 1000,
+      SubjectsPerGroup = 200,
       Effects = list("Therapy*Contrast" = slope(10) )
     )
-    expect_equal( dim(dta), c(3000,5))
+    expect_equal( dim(dta), c(600,5))
     dta <- GRD(
       BSFactors = "Therapy(CBT, Control, Exercice)",
       WSFactors = "Contrast(3)",
@@ -625,10 +626,10 @@ test_that("# page 16", {
 
     dta <- GRD(
       WSFactors = "Difficulty(2)",
-      SubjectsPerGroup = 1000,
+      SubjectsPerGroup = 200,
       Population = list(Mean = 0, stddev = 20, rho = 0.5)
     )
-    expect_equal( dim(dta), c(1000,3))
+    expect_equal( dim(dta), c(200,3))
     plot(dta$DV.1, dta$DV.2)
     # restores default information
     options("superb.feedback" = c('design','warnings','summary'))
@@ -642,11 +643,11 @@ test_that("page 17", {
 
     dta <- GRD(
       WSFactors = "Difficulty(2)",
-      SubjectsPerGroup = 1000,
+      SubjectsPerGroup = 200,
       Population = list(Mean = c(10,2), stddev = c(1,0.2), rho = -0.85)
     )
     plot(dta$DV.1, dta$DV.2)
-    expect_equal( dim(dta), c(1000,3))
+    expect_equal( dim(dta), c(200,3))
     # restores default information
     options("superb.feedback" = c('design','warnings','summary'))
 })
@@ -662,13 +663,13 @@ test_that("page 18", {
     # xi, omega, alpha
     dta <- GRD(
       WSFactors = "Difficulty(2)",
-      SubjectsPerGroup = 1000,
+      SubjectsPerGroup = 200,
       Population = list(rho = 99,
         scores = 'sn::rmsn(1, c(0,0), as.array(cbind(c(1,0.5),c(0.5,1))), c(2,-6))'
       )
     )
     plot(dta$DV.1, dta$DV.2)
-    expect_equal( dim(dta), c(1000,3))
+    expect_equal( dim(dta), c(200,3))
     # restores default information
     options("superb.feedback" = c('design','warnings','summary'))
 })
@@ -680,23 +681,23 @@ test_that("page 19", {
     options("superb.feedback" = 'none')
 
     dta <- GRD(
-      SubjectsPerGroup = 5000,
+      SubjectsPerGroup = 500,
       Population = list(mean = 100, stddev = 15 ),
       Contaminant = list(mean = 200, stddev = 15, proportion = 0.1) 
     )
     hist(dta$DV, breaks = seq(min(dta$DV,5)-5,max(dta$DV,260)+5,by=2.5))
-    expect_equal( dim(dta), c(5000,2))
+    expect_equal( dim(dta), c(500,2))
 
     dta <- GRD(
-      SubjectsPerGroup = 5000,
+      SubjectsPerGroup = 500,
       Population = list(mean = 100, stddev = 15 ),
       Contaminant = list(scores = 'rweibull(1,shape=1.5,scale=30)+1.5*GM', proportion = 0.1) 
     )
     hist(dta$DV, breaks = seq(min(dta$DV)-5,max(dta$DV)+5,by=2.5))
-    expect_equal( dim(dta), c(5000,2))
+    expect_equal( dim(dta), c(500,2))
 
     dta <- GRD( BSFactors="grp(2)",WSFactors="M(2)",
-      SubjectsPerGroup = 1000,
+      SubjectsPerGroup = 200,
       Effects = list("grp"=slope(100)),
       Population = list(mean = 0, stddev = 15, rho=-0.85 ),
       Contaminant = list(mean =100, stddev = 4, rho = -0.99, proportion = 0.1) 
@@ -706,7 +707,7 @@ test_that("page 19", {
       ylim = c(-150,150), xlim = c(-150,150))
     plot(dta[dta$grp ==2,]$DV.1,dta[dta$grp==2,]$DV.2,
       ylim = c(-150,150), xlim = c(-150,150))
-    expect_equal( dim(dta), c(2000,4))
+    expect_equal( dim(dta), c(400,4))
 
     # restores parameters
     par(oldpar)
@@ -720,11 +721,11 @@ test_that("page 20", {
     options("superb.feedback" = 'none')
 
     dta <- GRD(
-      SubjectsPerGroup = 5000,
+      SubjectsPerGroup = 500,
       Population = list(mean = 100, stddev = 15 ),
       Contaminant = list(scores = 'NA', proportion = 0.1) 
     )
-    expect_equal( dim(dta), c(5000,2))
+    expect_equal( dim(dta), c(500,2))
     # restores default information
     options("superb.feedback" = c('design','warnings','summary'))
 })
@@ -745,7 +746,7 @@ test_that("figure 1", {
 
     oldpar <- par(mfrow=c(1,3))
     # panel 1: unaffected (p. 4)
-    dta <- GRD( SubjectsPerGroup = 1000 )
+    dta <- GRD( SubjectsPerGroup = 200 )
     hist(dta$DV )
     # panel 2: IQ example (p. 10)
     dta <- GRD( 
@@ -754,14 +755,14 @@ test_that("figure 1", {
     )
     hist(dta$IQ)
     # panel 3: weibull (p. 12)
-    dta <- GRD(SubjectsPerGroup = 5000, 
+    dta <- GRD(SubjectsPerGroup = 500, 
       RenameDV = "RT",
       Population=list(
         scores = "rweibull(1, shape=2, scale=40)+250"
       )
     )
     hist(dta$RT,breaks=seq(min(dta$DV,245)-5,max(dta$DV,410)+5,by=5))
-    expect_equal( dim(dta), c(5000,2))
+    expect_equal( dim(dta), c(500,2))
 
     # restores parameters
     par(oldpar)
@@ -824,14 +825,14 @@ test_that("figure 3:", {
     # panel 1: multivariate normal
     dta <- GRD( 
       WSFactors = 'Difficulty(1,2)',
-      SubjectsPerGroup = 1000,
+      SubjectsPerGroup = 200,
       Population=list(mean=0,stddev=20,rho=0.5)
     )
     plot(dta$DV.1, dta$DV.2)
     # panel 2: multivariate normal
     dta <- GRD( 
       WSFactors = 'Difficulty(1,2)',
-      SubjectsPerGroup = 1000,
+      SubjectsPerGroup = 200,
       Population=list(mean=c(10,2),stddev=c(1,0.2),rho=-0.85)
     )
     plot(dta$DV.1, dta$DV.2)
@@ -842,11 +843,11 @@ test_that("figure 3:", {
 
     dta <- GRD( 
       WSFactors = 'Difficulty(1, 2)',
-      SubjectsPerGroup = 1000,
+      SubjectsPerGroup = 200,
       Population=list(rho=99,scores="sn::rmsn(1, c(0,0), as.array(cbind(c(1,0.5),c(0.5,1))), c(2,-6) )")
     )
     plot(dta$DV.1, dta$DV.2)
-    expect_equal( dim(dta), c(1000,3))
+    expect_equal( dim(dta), c(200,3))
 
     # restores parameters
     par(oldpar)
@@ -861,13 +862,13 @@ test_that("figure 4:", {
 
     oldpar <- par(mfrow=c(1,4))
     # panel 1
-    dta <- GRD(SubjectsPerGroup = 5000, 
+    dta <- GRD(SubjectsPerGroup = 500, 
       Population=list( mean=100, stddev = 15 ), 
       Contaminant=list( mean=200, stddev = 15, proportion = 0.10 )
     )
     hist(dta$DV,breaks=seq(min(dta$DV,5)-5,max(dta$DV,260)+5,by=2.5))
     #panel 2
-    dta <- GRD(SubjectsPerGroup = 10000, 
+    dta <- GRD(SubjectsPerGroup = 1000, 
       Population=list( mean=100, stddev = 15 ), 
       Contaminant=list(
         scores="rweibull(1,shape=1.5, scale=30)+2*GM", proportion = 0.10
@@ -876,7 +877,7 @@ test_that("figure 4:", {
     hist(dta$DV,breaks=seq(min(dta$DV,5)-5,max(dta$DV,360)+5,by=2.5))
     # panel 3
     dta <- GRD( BSFactors="grp(2)",WSFactors = "Moment (2)", 
-       SubjectsPerGroup = 1000,
+       SubjectsPerGroup = 200,
        Effects = list("grp" = slope(100) ),
        Population=list(mean=0,stddev=20,rho=-0.85), 
        Contaminant=list(mean=100,stddev=4,rho=-0.99,proportion=0.2),
@@ -884,7 +885,7 @@ test_that("figure 4:", {
     plot(dta[dta$grp == 1,]$DV.1,dta[dta$grp==1,]$DV.2, ylim=c(-150,150), xlim=c(-150,150))
     plot(dta[dta$grp == 2,]$DV.1,dta[dta$grp==2,]$DV.2, ylim=c(-150,150), xlim=c(-150,150)) 
     #done
-    expect_equal( dim(dta), c(2000,4))
+    expect_equal( dim(dta), c(400,4))
 
     # restores parameters
     par(oldpar)

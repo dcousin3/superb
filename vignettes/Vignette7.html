@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Unequal variances, Welch test, Tryon adjustment, and superb</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">
+
+div.csl-bib-body { }
+div.csl-entry {
+clear: both;
+}
+.hanging div.csl-entry {
+margin-left:2em;
+text-indent:-2em;
+}
+div.csl-left-margin {
+min-width:2em;
+float:left;
+}
+div.csl-right-inline {
+margin-left:2em;
+padding-left:1em;
+}
+div.csl-indent {
+margin-left: 2em;
+}
+</style>
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Unequal variances, Welch test, Tryon
+adjustment, and <code>superb</code></h1>
+
+
+
+<p>When the group’s variances are heterogeneous, it may results in error
+bars of differing length. It is then possible than one of the error bar
+includes the other mean, but that the second error bar does not. What
+can we conclude in such circumstances? This vignette explores this
+questions, examining Welch test solution, and Tryon adjustment along the
+way.</p>
+<div id="a-simple-example" class="section level2">
+<h2>A simple example</h2>
+<p>Consider this example where two groups have been examined. Herein,
+the sample sizes are equal, but what follows does not depends on
+this.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>grp1 <span class="ot">&lt;-</span> <span class="fu">c</span>( <span class="dv">56</span>,  <span class="dv">54</span>,  <span class="dv">73</span>,  <span class="dv">46</span>,  <span class="dv">59</span>,  <span class="dv">62</span>,  <span class="dv">55</span>,  <span class="dv">53</span>,  <span class="dv">77</span>,  <span class="dv">60</span>,  <span class="dv">69</span>,  <span class="dv">66</span>,  <span class="dv">63</span>, </span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>           <span class="dv">62</span>,  <span class="dv">53</span>,  <span class="dv">82</span>,  <span class="dv">74</span>,  <span class="dv">70</span>,  <span class="dv">65</span>,  <span class="dv">70</span>,  <span class="dv">72</span>,  <span class="dv">65</span>,  <span class="dv">56</span>,  <span class="dv">58</span>,  <span class="dv">83</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>grp2 <span class="ot">&lt;-</span> <span class="fu">c</span>( <span class="dv">51</span>,  <span class="dv">99</span>, <span class="dv">194</span>, <span class="dv">123</span>,  <span class="dv">40</span>,  <span class="dv">83</span>,  <span class="dv">87</span>, <span class="dv">117</span>,  <span class="dv">46</span>,  <span class="dv">89</span>,  <span class="dv">61</span>,  <span class="dv">81</span>,  <span class="dv">53</span>, </span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>          <span class="dv">141</span>,  <span class="dv">52</span>,  <span class="dv">53</span>,  <span class="dv">39</span>,  <span class="dv">96</span>,  <span class="dv">14</span>,  <span class="dv">81</span>,  <span class="dv">63</span>,  <span class="dv">66</span>,  <span class="dv">80</span>, <span class="dv">113</span>,  <span class="dv">82</span>)</span></code></pre></div>
+<p>These two groups have means of 64.12 and 80.16. However, they also
+have quite differing standard deviations, 9.493 and 37.918. The second
+is over four times larger than the first, which denotes a very
+heterogeneous variance situation.</p>
+<p>Let’s reunite the <code>score</code>s of these two datasets in a
+single data frame with a <code>group</code> indicator so that we can do
+a first plot:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>dtaHetero <span class="ot">&lt;-</span> <span class="fu">data.frame</span>( <span class="fu">cbind</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>    <span class="at">id    =</span> <span class="dv">1</span><span class="sc">:</span>(<span class="fu">length</span>(grp1)<span class="sc">+</span><span class="fu">length</span>(grp2)),</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>    <span class="at">group =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>,<span class="fu">length</span>(grp1)), <span class="fu">rep</span>(<span class="dv">2</span>, <span class="fu">length</span>(grp2)) ),</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>    <span class="at">score =</span> <span class="fu">c</span>(grp1, grp2)</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>))</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="fu">head</span>(dtaHetero)</span></code></pre></div>
+<pre><code>##   id group score
+## 1  1     1    56
+## 2  2     1    54
+## 3  3     1    73
+## 4  4     1    46
+## 5  5     1    59
+## 6  6     1    62</code></pre>
+<p>(just to make the plots look nicer, I prepare some directives that
+will be added to these:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">library</span>(superb)             <span class="co"># to make the summary plot</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)            <span class="co"># for all the graphic directives</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="fu">library</span>(gridExtra)          <span class="co"># for grid.arrange</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>ornate <span class="ot">=</span> <span class="fu">list</span>(</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">&quot;Difference&quot;</span>), </span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>    <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Pre-</span><span class="sc">\n</span><span class="st">Treatment&quot;</span>,<span class="st">&quot;Post-</span><span class="sc">\n</span><span class="st">Treatment&quot;</span>)),</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">&quot;Score&quot;</span>),</span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>    <span class="fu">coord_cartesian</span>( <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">40</span>,<span class="sc">+</span><span class="dv">110</span>) ),</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>    <span class="fu">theme_light</span>(<span class="at">base_size =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>    <span class="fu">theme</span>( <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">16</span>))</span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>)</span></code></pre></div>
+<p>). We are now ready to make a first plot. The adjustment
+<code>purpose = &quot;difference&quot;</code> is necessary as we plan to compare
+the two results.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>pt <span class="ot">&lt;-</span> <span class="fu">superbPlot</span>(dtaHetero, </span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>                 <span class="at">BSFactors    =</span> <span class="st">&quot;group&quot;</span>, </span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>                 <span class="at">variables   =</span> <span class="st">&quot;score&quot;</span>, </span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>                 <span class="at">adjustments =</span> <span class="fu">list</span>(<span class="at">purpose =</span> <span class="st">&quot;difference&quot;</span>),</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>                 <span class="at">gamma       =</span> <span class="fl">0.95</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>                 <span class="at">statistic   =</span> <span class="st">&quot;mean&quot;</span>, </span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>                 <span class="at">errorbar    =</span> <span class="st">&quot;CI&quot;</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>                 <span class="at">plotStyle   =</span> <span class="st">&quot;line&quot;</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>                 <span class="at">lineParams  =</span> <span class="fu">list</span>(<span class="at">alpha =</span> <span class="dv">0</span>) <span class="co">#the line is made transparent</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>) <span class="sc">+</span> ornate</span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>pt</span></code></pre></div>
+<div class="float">
+<img src="data:image/png;base64,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" alt="Figure 1. Plot of dtaHerero showing heterogeneous error bars." />
+<div class="figcaption"><strong>Figure 1</strong>. Plot of dtaHerero
+showing heterogeneous error bars.</div>
+</div>
+<p>As seen, the two error bars deliver a different message: the left one
+suggests a huge difference between the means, the right one does not.
+How do we settle this?</p>
+</div>
+<div id="averaging-the-error-bars-sort-of" class="section level2">
+<h2>Averaging the error bars, sort of…</h2>
+<p>Error bars are depiction of an error variance. However, they are
+actually based on the standard errors which are the square root of the
+error variances.</p>
+<p>Standard errors cannot be sumed (or averaged), only error variances
+can. Thus, when averaging the two error bars, it is their squares that
+must be averaged (followed by a square root). This operation is called
+the <strong>mean in the square sense</strong>. It is denoted
+<strong>mean* </strong> hereafter.</p>
+<p>Given that the first error bar is given by <span class="math inline">\(\bar{X}_1 \pm \sqrt{2} \;t \; SE_1\)</span> and
+the second, by <span class="math inline">\(\bar{X}_2 \pm \sqrt{2} \;t \;
+SE_2\)</span>, where <span class="math inline">\(\bar{X}_i\)</span> is
+the average of the <span class="math inline">\(i^{\text{th}}\)</span>
+group and <span class="math inline">\(SE_i\)</span> is the standard
+error of the the <span class="math inline">\(i^{\text{th}}\)</span>
+group, averaging the error bar lengths can be simplified to</p>
+<p><span class="math display">\[
+\DeclareMathOperator{\mean}{Mean}
+\begin{split}
+\mean{^*}( \text{ the two confidence intervals }) &amp;= \mean{^*}
+\left( \sqrt{2} \;t \; SE_1, \sqrt{2} \; t \; SE_2 \right) \\
+&amp;=  \sqrt{\mean \left( (\sqrt{2} \;t \;SE_1)^2, (\sqrt{2} \;t
+\;SE_2)^2 \right) } \\
+&amp;=  \sqrt{\mean \left( 2 \;t^2 \;SE_1^2, 2 \;t^2 \;SE_2^2 \right) }
+\\
+&amp;= \sqrt{2} \;t\; \sqrt{\mean( SE_1^2, SE_2^2) } \\
+&amp;= \sqrt{2} \;t\; \sqrt{ \frac{SE_1^2 + SE_2^2}{2} } \\
+&amp;= t \;\sqrt{SE_1^2 + SE_2^2}
+\end{split}
+\]</span></p>
+<p>Hence, asking if the <strong>lag</strong> between the two groups is
+significant is actually asking</p>
+<p><span class="math display">\[
+\DeclareMathOperator{\mean}{Mean}
+\begin{split}
+\text{Reject $H_0$ if }&amp; {\bar{X}_1-\bar{X}_2} &gt; \mean^*( \text{
+the two confidence intervals })\\
+\text{Reject $H_0$ if }&amp; {\bar{X}_1-\bar{X}_2} &gt; t\;
+{\sqrt{SE_1^2 + SE_2^2}} \\
+\text{Reject $H_0$ if }&amp; \frac{\bar{X}_1-\bar{X}_2} {\sqrt{SE_1^2 +
+SE_2^2}} &gt; t \\
+\end{split}
+\]</span></p>
+<p>which is precisely the definition of a Welch test <span class="citation">(Welch, 1947)</span>.</p>
+<p>In other word, when appraising the general length of the error bars,
+you are actually performing a Welch test. This test is arguably the only
+mean test we need <span class="citation">(Delacre, Lakens, &amp; Leys,
+2017)</span>.</p>
+</div>
+<div id="a-real-welch-test-with-your-eyes" class="section level2">
+<h2>A real Welch test with your eyes</h2>
+<p>Actually, the above is not entirely true, as the degrees of freedom
+of the <span class="math inline">\(t\)</span> multiplier is only based
+on the number of observations in each group (<span class="math inline">\(n-1\)</span>).</p>
+<p>To really have a Welch test, it is necessary to (1) pool the degrees
+of freedom of the groups together; (2) rectify this degree of freedom
+based on the amount of heterogeneity in the data.</p>
+<p>To get the rectified degrees of freedom according to Welch, you can
+issue</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># Welch&#39;s rectified degrees of freedom</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>wdf <span class="ot">&lt;-</span> <span class="fu">WelchDegreeOfFreedom</span>(dtaHetero, <span class="st">&quot;score&quot;</span>,<span class="st">&quot;group&quot;</span>)</span></code></pre></div>
+<p>in which <code>&quot;score&quot;</code> is the column(s) containing the
+dependent variable(s) and <code>&quot;group&quot;</code> is the column(s)
+containing the group identifiers. Here, the result is 26.9965 (compared
+to <span class="math inline">\(n_1+n_2-2\)</span>, that is 48,
+indicating a fairly large reduction in degree of freedom caused by a
+fairly important heterogeneity.</p>
+<p>In <code>superb</code>, it is possible to override the default degree
+of freedom using the error bar estimator
+<code>errorbar = CIwithDF&quot;</code> and then in the <code>gamma</code>
+argument, use a vector with both the confidence level desired and the
+rectified degree of freedom, as in
+<code>gamma = c(0.95, 26.9965)</code>. Lets have a small plot of
+this:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>pw <span class="ot">&lt;-</span> <span class="fu">superbPlot</span>(dtaHetero, </span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>                 <span class="at">BSFactors   =</span> <span class="st">&quot;group&quot;</span>, </span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>                 <span class="at">variables   =</span> <span class="st">&quot;score&quot;</span>, </span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>                 <span class="at">adjustments =</span> <span class="fu">list</span>(<span class="at">purpose =</span> <span class="st">&quot;difference&quot;</span>),</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>                 <span class="at">gamma       =</span> <span class="fu">c</span>(<span class="fl">0.95</span>, wdf),         <span class="co"># new! </span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>                 <span class="at">statistic   =</span> <span class="st">&quot;mean&quot;</span>, </span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>                 <span class="at">errorbar    =</span> <span class="st">&quot;CIwithDF&quot;</span>,           <span class="co"># new!</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>                 <span class="at">plotStyle   =</span> <span class="st">&quot;halfwidthline&quot;</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>                 <span class="at">lineParams  =</span> <span class="fu">list</span>(<span class="at">alpha =</span> <span class="dv">0</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>) <span class="sc">+</span> ornate</span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>pw</span></code></pre></div>
+<div class="float">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAGACAMAAAA6QU9cAAACcFBMVEUAAAADAwMEBAQGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw8QEBASEhITExMUFBQVFRUXFxcZGRkbGxsdHR0fHx8gICAhISEiIiInJycoKCgpKSkqKiorKyssLCwtLS0vLy8wMDAxMTEzMzM0NDQ1NTU2NjY3Nzc4ODg7Ozs8PDw+Pj5BQUFKSkpNTU1PT09QUFBSUlJTU1NVVVVWVlZXV1dYWFhZWVlaWlpbW1tcXFxdXV1eXl5fX19gYGBhYWFjY2NlZWVmZmZnZ2doaGhpaWlqampra2ttbW1ubm5vb29xcXF0dHR1dXV2dnZ3d3d4eHh5eXl6enp7e3t8fHx+fn5/f3+AgICBgYGCgoKDg4OFhYWHh4eIiIiJiYmKioqLi4uNjY2Ojo6Pj4+QkJCRkZGSkpKTk5OUlJSVlZWWlpaXl5eYmJiZmZmampqbm5ucnJydnZ2enp6fn5+goKChoaGjo6OkpKSlpaWmpqanp6eoqKipqamqqqqrq6usrKytra2urq6vr6+wsLCxsbGysrKzs7O0tLS1tbW2tra3t7e4uLi5ubm6urq7u7u8vLy9vb2+vr6/v7/AwMDBwcHCwsLDw8PExMTFxcXGxsbHx8fJycnLy8vNzc3Ozs7Pz8/Q0NDR0dHS0tLT09PU1NTV1dXW1tbX19fZ2dna2trb29vc3Nzd3d3e3t7f39/g4ODh4eHi4uLj4+Pk5OTl5eXm5ubn5+fo6Ojp6enq6urr6+vs7Ozt7e3u7u7v7+/w8PDx8fHy8vLz8/P09PT19fX29vb39/f4+Pj5+fn6+vr7+/v8/Pz9/f3+/v7///8LBwl/AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAJnUlEQVR4nO3di18VZR7H8dktErZcaqsNsovtllu07dkCJcAL6lp53WQ9hu2usSaRmYmXorAg19Z7Fq5WZkur1NHyWpikKCIIBCi/f6kZ5oSnV+r36ZkL5xm+n9eLeR1Gnnnm9XaAGeDMsYRdM2u4dyDdIxCIQCACgQgE+nlAm0ZSWkA/66Ov0FGvGwhvKgKBCAQiEIhAIAKBCAQiEIhAIAKBCAQiEIhAIAKB9ICOjpx4BIEIBCIQiEAgAoEIBCIQiEAgAoEIBCIQiEAgAoEIBCIQiEAgAoEIBCIQiEAgAoEIBCIQiEAgAoEIBCIQiEAgAoEIBCIQKMJA1uU8bIVAoAgDDeYJx4lAIAKBCAQiEAgAHZ4bt5cbJxe/+sMyZZB+0QGq2GkDNU/+6swT/3eXqYP0iw6QJGygjatENlS7y9RB+kUMaO1mkb3PucvUQfpFEOjj59yle9uF4X5+gHqW5XEDKkCb7E+s+tXuMlVVv4gdQScnf/3ttM/cZeog/SID1ByzWyFbp5Ssk+QyZZB+kQG69iD9CAQiEIhAIAKBCAQiEIhAIAKBCAQiEIhAIAKBCAQiEIhAIAKBCAQiEIhAIAKBCAQiEIhAIAKBCAQiEIhAIAKBCAQiEIhAoBCfDuU1AoEIBCIQiECgqAPxuxhomIB8+SP4UAr8L+2vpapf5I8gj5MSCEUgEIFABAIRCEQgEIFABAIRCEQgEIFABAIRCEQgEIFABAIRCEQgEIFABAIRCEQgEIFABAIRCEQgEIFABAIRCEQgEIFABAIRCEQgEIFABAKFCeRRSAVoYHXx40v7Tbzpv/dXrlEC2j/zXOffdpp40/+QgI7MbOtc0GjgTf9De/GjV2OxJWLgTf/DAkrMPtVe3mDgTf+HgDxsQwWorkbk3WUm3vQ/pK9BH89q7Sh/x8Sb/ocENLCquPD5XlNv+h/CedDVBuln9Jn0gfJS2aM0SD+TgeqzSix54J8qg/QzGei3u+13Dt6uMkg/k4Fu6LbfuZCpMkg/k4H+sMx+p/ohlUH6mQy0JzvXujd7r8og/UwG+uZMTdX6dqVB+pkMZH8NUh2kn8lAlfFDHZ2dnSqD9DMZKEPh8mVEAx072eKkMkg/k4Hk/dmFcz5UGqSfyUCVN06cW5S5RmWQfiYD5X5iL3bdqTJIP5OBRjnf5nmpMdRPgO53fnGxbJzKIP1MBtp1U05e7ugPVAbpZzKQnK178e02pUH6GQ3UZ7+By40RDbTzNnuR/Z7KIP1MBhrrfJGu+Z3KIP1MBrqux160Z6gM0s9koLvq7MWKMSqD9DMZaHvmmLycrN0qg/QzGUha36h665zSIP2MBrLrURukn7lARxeLfHWPlXdKZZB+5gI9+rRI4Z8aH39CZZB+5gJlt8jFX+2XQzkqg/QzF+iXF6XxZpHe61UG6Wcu0C0tUvFnkTO/Vhmkn7lAE6Ztv3WdyJt/VBmkn7lAzQ+P/suAyG82qAzSz1ygZAmlQfoZD6Q2SD8CgQgEIhAo8kA+PDvA88sVqM7ncQNhH0EpQPobCbNh+RQzBceJQCACgQgEijqQmedBBAIRCEQgEIHSJwKBCAQiEIhAIDOB+F0MRCAQgUAEAhEIFOIPpE0ECvVn9gSCk3ncQPhA4f7ah0BwNo8bIBCIX4NABALxPAjEM2kQgUAEAhEIxB+5gggEIhCIQCAloM+n5//L15v+h1coQH1T9nSsOu7jTf+j9l1s3wJn6eNN/6MGtK3irwWLv/Pxpv+RA5p2oqP8HR9v+h/SX9n7MpUK0Cc2yw4/b/oftSOop/RQ58LNPt70P2pA0jhjQmW/jzf9jxzQVQZpR6CrF/azfQgE5/O4gQg/49Cf/wsCgSIM5M9UBAIRCEQgEIFABAIRCEQgEIFABAIRCEQgEIFABAIRCEQgEIFABAIRCEQgEIFABAIRCEQgEIFABAIRCEQgEIFABAIRCEQgEIFABALpAfnyLAEz4hEEIhCIQCACgQgEIhCIQCACgQgEIhCIQCACgQgEIhCIQCACgQgEIhCIQCACgQgEIhCIQCACgQgEIhCIQCACgQgEIhCIQCACgQgEIhCIQCACgQgEIhBIEeiFuPj5qgiRA2osi4uPr4oQOaCuBQfifr4qQuSAlh88EhcfXxUhakD7XpckkE+vimBSKkDxmN0cH18VIWpHkJ19BPn4qgjRBPLxVREiCHTFQfoRCEQgEIFABAIRCEQgEIFABAIRCEQgUOSBRlI6QJ7zfAiGPhWBQCEDmReBQKEAtcVisfELTxs5TzhARSLdq5YMxzx98zxuMzSgnurKpkWz6qWupHh5f7DzSO2koqr+9rL8qf+Tp2JTvW0ztE+xgmfOJAqODCTmt3dVNAQ7T9P0U+ef3rF1af8Xs6V5lsdthnYE2SXmiqx3fpP0ck0sdjy4eerXimx56cS0pR/0OkDeJgsVKC7y9prg53GANi+X/k9fnDVg1hFkAx0oPdG5aH+w83w2/XT7vIZ1dX3nirpPTP3O2zbDBpL6SYXLB4KdR2pLil6+dHb+YxM3SO+Mid62yRNFEIFABAIRCBQMUJlzthOrD2TbIU8V1BHUfKUz/KtdGHm7YAp2qkCBLl98dcQLJrw0YF8YNS3+R/7rW8bPbHfXNy1ekj+vx9sFU7BTBQr0o4uvC08esk9rE0WHW8av71nY4K5PFDZ1zfvI2+lusFMFCzR08dVbWfxobJ+z12Uipa3y2kZ3fcI+4l/Z5gdQUFMFCzR08bU93npp/uBePyMy9bzU/Mdd73zEyq1+AAU1VeBA7sVXfUXXh1Ma7Aujob1217t77e2CKdipAgdyL75OP1Wwdku+fWE0tNfuenevvV0wBTsVTxRBBAIRCEQgEIFA6QJ0k2Vl3LuoW45Z/fJs5vTBt7QobYC2ydl373+w13l895pLg29pURoBiZy9dYV9BN1nWZOdN9nz4A131MuxjBdGfeM+PJ6xKSer+JK8Nzbj97sl+e8Bl1ZAMucx51Pszk3ivJ3Oquz6b+aBk1ZZ19DDGW2fj3q/NevNrpW39SVXBrxj6QX07CMpQDU59pqS8hbry8sPD4uMW1M7ZnBIcmXAO5ZeQJOKUoCqLKfSFqvj8sNOkbzqqrzBIcmVAe9YWgF9O7o2BejfYwf/xVFJeWgDvZU7+F5yZcClEdCFXfc9cjEFqD17ddfBcR85KikPbaC2zJXna7O7kysD3rG0AbKsX+TGeyQFSPY+lHn7393DJuVhXrXsHHP92B0/rAy4dAFK2wgEIhCIQCACgQgEIhCIQCACgQgE+h4/s+8l7z97ogAAAABJRU5ErkJggg==" alt="Figure 2. Plot of dtaHerero with rectified degree of freedom." />
+<div class="figcaption"><strong>Figure 2</strong>. Plot of dtaHerero
+with rectified degree of freedom.</div>
+</div>
+<p>In this plot, I used a different layout, the
+<code>&quot;halfwidthline&quot;</code> which shows the mid-point of the error bar
+with a small gap. We will see the reason for that in a minute.</p>
+</div>
+<div id="averaging-in-the-square-sense-do-you-expect-me-to-do-that-visually" class="section level2">
+<h2>Averaging in the square sense, do you expect me to do that
+visually?</h2>
+<p>Averaging visually two lengths is already difficult, if it needs to
+be done in the square sense, that may be impossible… When averaging in
+the square sense, the longer lines have a stronger influence on the
+means so that ignoring this fact, we would tend to underestimate the
+mean length.</p>
+<p>The first solution is not to bother. The usual average and the
+average in the square sense returns sensibly the same length. Therefore,
+if your results are not ambiguous, there is no need to worry any
+more.</p>
+<p>The second solution is to adjust the error bar length so that they
+are amenable to the usual average. This is actually what Tryon’s
+adjustment does <span class="citation">(Tryon, 2001)</span>. When the
+variances are truly homogeneous, the correction for examining pair-wise
+comparision is an increase by a factor of <span class="math inline">\(\sqrt{2}\)</span>. When we deviate from
+homogeneity, Tryon’s adjustment tends to be a little larger than 1.41 to
+compensate for the underestimation introduced by regular averaging. This
+transformation is right on so that the usual mean of the two error bars,
+following a Tryon transformation, will precisely indicate whether the
+means are included in the mean error bar length.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>pwt <span class="ot">&lt;-</span> <span class="fu">superbPlot</span>(dtaHetero, </span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>                  <span class="at">BSFactors   =</span> <span class="st">&quot;group&quot;</span>, </span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>                  <span class="at">variables   =</span> <span class="st">&quot;score&quot;</span>, </span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>                  <span class="at">adjustments =</span> <span class="fu">list</span>(<span class="at">purpose =</span> <span class="st">&quot;tryon&quot;</span>), <span class="co">#new!</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>                  <span class="at">gamma       =</span> <span class="fu">c</span>(<span class="fl">0.95</span>, wdf),</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>                  <span class="at">statistic   =</span> <span class="st">&quot;mean&quot;</span>, </span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>                  <span class="at">errorbar    =</span> <span class="st">&quot;CIwithDF&quot;</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>                  <span class="at">plotStyle   =</span> <span class="st">&quot;halfwidthline&quot;</span>,</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>                  <span class="at">lineParams  =</span> <span class="fu">list</span>(<span class="at">alpha =</span> <span class="dv">0</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>)<span class="sc">+</span> ornate</span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>pwt</span></code></pre></div>
+<div class="float">
+<img src="data:image/png;base64,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" alt="Figure 3. Plot of dtaHerero with rectified degree of freedom and Tryon’ difference-adjusted error bars." />
+<div class="figcaption"><strong>Figure 3</strong>. Plot of dtaHerero
+with rectified degree of freedom and Tryon’ difference-adjusted error
+bars.</div>
+</div>
+</div>
+<div id="finally-are-the-groups-different-or-not" class="section level2">
+<h2>Finally, are the groups different or not?</h2>
+<p>Let’s return to the whole question that motivated this vignette.</p>
+<p>If we used the difference-adjusted error bars, then we need to
+average in the square sense the error bars. Lets do that:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># get the summary statistics with superbData</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">superbData</span>(dtaHetero, </span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>                <span class="at">BSFactors   =</span> <span class="st">&quot;group&quot;</span>, </span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>                <span class="at">variables   =</span> <span class="st">&quot;score&quot;</span>, </span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>                <span class="at">adjustments =</span> <span class="fu">list</span>(<span class="at">purpose =</span> <span class="st">&quot;difference&quot;</span>),</span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>                <span class="at">gamma       =</span> <span class="fl">0.95</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>                <span class="at">statistic   =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">errorbar =</span> <span class="st">&quot;CI&quot;</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>)</span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co"># keep only the summary statistics:</span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>t2 <span class="ot">&lt;-</span> t<span class="sc">$</span>summaryStatistics</span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co"># the length is in column &quot;upperwidth&quot;, for lines 1 and 2,</span></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co"># so lets do the mean in the square sense:</span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a>tmean2 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>( (t2<span class="sc">$</span>upperwidth[<span class="dv">1</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> t2<span class="sc">$</span>upperwidth[<span class="dv">2</span>]<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span><span class="dv">2</span> )</span></code></pre></div>
+<p>which equals 16.135. By comparison, here is the regular mean:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>tmean    <span class="ot">&lt;-</span> (t2<span class="sc">$</span>upperwidth[<span class="dv">1</span>] <span class="sc">+</span> t2<span class="sc">$</span>upperwidth[<span class="dv">2</span>] )<span class="sc">/</span><span class="dv">2</span></span></code></pre></div>
+<p>which equals 13.838. This shows that in the present case, the usual
+average of the error bars is a length too short compared to the adequate
+average (in the square sense).</p>
+<p>We’ll add a line segment of that length in the subsequent plot. Let’s
+do the same following Tryon’s adjusment and Welch rectified degrees of
+freedom:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># get the summary statistics with superbData</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>wt <span class="ot">&lt;-</span> <span class="fu">superbData</span>(dtaHetero, </span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>                <span class="at">BSFactors   =</span> <span class="st">&quot;group&quot;</span>, </span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>                <span class="at">variables   =</span> <span class="st">&quot;score&quot;</span>, </span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>                <span class="at">adjustments =</span> <span class="fu">list</span>(<span class="at">purpose =</span> <span class="st">&quot;tryon&quot;</span>),</span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>                <span class="at">gamma       =</span> <span class="fu">c</span>(<span class="fl">0.95</span>, wdf),</span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>                <span class="at">statistic   =</span> <span class="st">&quot;mean&quot;</span>, <span class="at">errorbar =</span> <span class="st">&quot;CIwithDF&quot;</span></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>)</span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>wt2 <span class="ot">&lt;-</span> wt<span class="sc">$</span>summaryStatistics</span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a>wmean <span class="ot">&lt;-</span> (wt2<span class="sc">$</span>upperwidth[<span class="dv">1</span>]<span class="sc">+</span>wt2<span class="sc">$</span>upperwidth[<span class="dv">2</span>]) <span class="sc">/</span> <span class="dv">2</span></span></code></pre></div>
+<p>As seen, both length are very similar, 16.135 for the first, and
+16.041 for the second. The small difference comes from the fact that in
+the Tryon-adjusted error bars, the degree of freedom were rectified by
+Welch’s formula rather than being unpooled.</p>
+<p>With Tryon’s adjustment, the length can be averaged, which means that
+half of each length totalizes the average length: this is where the
+<code>halfwidthline</code> error bars come handy: we see the half of
+their length. Hence, if they are aligned, their sum is exactly equal to
+the lag between the two means.</p>
+<p>Lets represent all this:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co"># showing all three plots, with reference lines in red</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="fu">grid.arrange</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>    pt <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">subtitle=</span><span class="st">&quot;Difference-adjusted 95% CI</span><span class="sc">\n</span><span class="st"> with default degree of freedom&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>        <span class="fu">geom_text</span>( <span class="at">x =</span> <span class="fl">1.15</span>, <span class="at">y =</span> <span class="fu">mean</span>(grp1)<span class="sc">+</span>(<span class="fu">mean</span>(grp2)<span class="sc">-</span><span class="fu">mean</span>(grp1))<span class="sc">/</span><span class="dv">2</span>, <span class="at">label =</span> <span class="st">&quot;power-2 mean&quot;</span>, <span class="at">angle =</span> <span class="dv">90</span>) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>        <span class="fu">geom_text</span>( <span class="at">x =</span> <span class="fl">1.55</span>, <span class="at">y =</span> <span class="fu">mean</span>(grp1)<span class="sc">+</span>(<span class="fu">mean</span>(grp2)<span class="sc">-</span><span class="fu">mean</span>(grp1))<span class="sc">/</span><span class="dv">2</span>, <span class="at">label =</span> <span class="st">&quot;regular mean&quot;</span>, <span class="at">angle =</span> <span class="dv">90</span>) <span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>        <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">mean</span>(grp1)<span class="sc">+</span>(<span class="fu">mean</span>(grp2)<span class="sc">-</span><span class="fu">mean</span>(grp1))<span class="sc">/</span><span class="dv">2</span><span class="sc">-</span>tmean2<span class="sc">/</span><span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>, <span class="at">linetype=</span><span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>        <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">mean</span>(grp1)<span class="sc">+</span>(<span class="fu">mean</span>(grp2)<span class="sc">-</span><span class="fu">mean</span>(grp1))<span class="sc">/</span><span class="dv">2</span><span class="sc">+</span>tmean2<span class="sc">/</span><span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>, <span class="at">linetype=</span><span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a>        <span class="co"># arrow for the power-2 mean</span></span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>        <span class="fu">geom_segment</span>(<span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span><span class="fu">unit</span>(<span class="fl">0.4</span>,<span class="st">&quot;cm&quot;</span>)), <span class="at">x=</span><span class="fl">1.33</span>, <span class="at">y=</span><span class="fu">mean</span>(grp1)<span class="sc">+</span>(<span class="fu">mean</span>(grp2)<span class="sc">-</span><span class="fu">mean</span>(grp1))<span class="sc">/</span><span class="dv">2</span>, </span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>                <span class="at">xend=</span><span class="fl">1.33</span>, <span class="at">yend=</span><span class="fu">mean</span>(grp1)<span class="sc">+</span>(<span class="fu">mean</span>(grp2)<span class="sc">-</span><span class="fu">mean</span>(grp1))<span class="sc">/</span><span class="dv">2</span><span class="sc">+</span>tmean2<span class="sc">/</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a>        <span class="fu">geom_segment</span>(<span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span><span class="fu">unit</span>(<span class="fl">0.4</span>,<span class="st">&quot;cm&quot;</span>)), <span class="at">x=</span><span class="fl">1.333</span>, <span class="at">y=</span><span class="fu">mean</span>(grp1)<span class="sc">+</span>(<span class="fu">mean</span>(grp2)<span class="sc">-</span><span class="fu">mean</span>(grp1))<span class="sc">/</span><span class="dv">2</span>, </span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a>                <span class="at">xend=</span><span class="fl">1.33</span>, <span class="at">yend=</span><span class="fu">mean</span>(grp1)<span class="sc">+</span>(<span class="fu">mean</span>(grp2)<span class="sc">-</span><span class="fu">mean</span>(grp1))<span class="sc">/</span><span class="dv">2</span><span class="sc">-</span>tmean2<span class="sc">/</span><span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a>        <span class="co"># arrow for the regular mean</span></span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a>        <span class="fu">geom_segment</span>(<span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span><span class="fu">unit</span>(<span class="fl">0.4</span>,<span class="st">&quot;cm&quot;</span>)), <span class="at">x=</span><span class="fl">1.66</span>, <span class="at">y=</span><span class="fu">mean</span>(grp1)<span class="sc">+</span>(<span class="fu">mean</span>(grp2)<span class="sc">-</span><span class="fu">mean</span>(grp1))<span class="sc">/</span><span class="dv">2</span>, </span>
+<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a>                <span class="at">xend=</span><span class="fl">1.66</span>, <span class="at">yend=</span><span class="fu">mean</span>(grp1)<span class="sc">+</span>(<span class="fu">mean</span>(grp2)<span class="sc">-</span><span class="fu">mean</span>(grp1))<span class="sc">/</span><span class="dv">2</span><span class="sc">+</span>tmean<span class="sc">/</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a>        <span class="fu">geom_segment</span>(<span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span><span class="fu">unit</span>(<span class="fl">0.4</span>,<span class="st">&quot;cm&quot;</span>)), <span class="at">x=</span><span class="fl">1.66</span>, <span class="at">y=</span><span class="fu">mean</span>(grp1)<span class="sc">+</span>(<span class="fu">mean</span>(grp2)<span class="sc">-</span><span class="fu">mean</span>(grp1))<span class="sc">/</span><span class="dv">2</span>, </span>
+<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a>                <span class="at">xend=</span><span class="fl">1.66</span>, <span class="at">yend=</span><span class="fu">mean</span>(grp1)<span class="sc">+</span>(<span class="fu">mean</span>(grp2)<span class="sc">-</span><span class="fu">mean</span>(grp1))<span class="sc">/</span><span class="dv">2</span><span class="sc">-</span>tmean<span class="sc">/</span><span class="dv">2</span>), </span>
+<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a>    pw  <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">subtitle=</span><span class="st">&quot;Difference-adjusted 95% CI</span><span class="sc">\n</span><span class="st">with df from Welch&quot;</span>),</span>
+<span id="cb12-19"><a href="#cb12-19" tabindex="-1"></a></span>
+<span id="cb12-20"><a href="#cb12-20" tabindex="-1"></a>    pwt <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">subtitle=</span><span class="st">&quot;Tryon-adjusted 95% CI</span><span class="sc">\n</span><span class="st">with df from Welch&quot;</span>) <span class="sc">+</span></span>
+<span id="cb12-21"><a href="#cb12-21" tabindex="-1"></a>        <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">mean</span>(grp1)<span class="sc">+</span>wt2<span class="sc">$</span>upperwidth[<span class="dv">1</span>]<span class="sc">/</span><span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>, <span class="at">linetype=</span><span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb12-22"><a href="#cb12-22" tabindex="-1"></a>        <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">mean</span>(grp2)<span class="sc">+</span>wt2<span class="sc">$</span>lowerwidth[<span class="dv">2</span>]<span class="sc">/</span><span class="dv">2</span>, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>, <span class="at">linetype=</span><span class="dv">2</span>),</span>
+<span id="cb12-23"><a href="#cb12-23" tabindex="-1"></a> <span class="at">ncol=</span><span class="dv">3</span>)</span></code></pre></div>
+<div class="float">
+<img src="data:image/png;base64,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" alt="Figure 4. All three plots with relevant markers in red." />
+<div class="figcaption"><strong>Figure 4</strong>. All three plots with
+relevant markers in red.</div>
+</div>
+<p>From the Tryon-adjusted confidence intervals, we see that the average
+length is precisely the lag between the means. In other word, the two
+groups are borderline significantly different. Still not convinced?
+Let’s do a Welch test:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">t.test</span>( grp1, grp2, </span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>        <span class="at">var.equal=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  grp1 and grp2
+## t = -2.0518, df = 26.996, p-value = 0.05001
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -3.208072e+01  7.239399e-04
+## sample estimates:
+## mean of x mean of y 
+##     64.12     80.16</code></pre>
+<p>The difference is right on the limit of significance at the .05
+level, mirroring the 95% confidence level used in the plot.</p>
+</div>
+<div id="in-summary" class="section level2">
+<h2>In summary</h2>
+<p><code>superb</code> is making error bars from separate error
+estimations. Hence, whenever the sample sizes are quite unequal, the
+variances are quite heterogeneous, or both, the inference performed by
+eyes are actually the same as performing a Welch test of means. When
+both samples sizes are equal and variances are homogeneouse, there is no
+difference between a Welch test and a <em>t</em> test.</p>
+<p>When the degree of freedom are rectified and Tryon’s ajustment is
+used, the center of both confidence intervals should be exactly aligned
+to indicate that their mean fills exactly the gap.</p>
+<p>Although the Tryon/Welch pair lets you make very precise inferences,
+visually and practically speaking, the difference between the rectified
+Welch degree of freedom adjustments and a plot with the default degree
+of freedom are undetectable (as evidence by the first plot and the
+second plot of Figure 4 just above).</p>
+<p>If you can perform average in the square sense, the difference
+adjustment is perfect. In doubt, consider applying the Tryon adjustment
+when the variances are cleary heterogeneous.</p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1 class="unnumbered">References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-dll17" class="csl-entry">
+Delacre, M., Lakens, D., &amp; Leys, C. (2017). Why psychologists should
+by default use welch’s t-test instead of student’s t-test.
+<em>International Review of Social Psychology</em>, <em>30</em>(1). <a href="https://doi.org/10.5334/irsp.82">https://doi.org/10.5334/irsp.82</a>
+</div>
+<div id="ref-t01" class="csl-entry">
+Tryon, W. W. (2001). Evaluating statistical difference, equivalence, and
+indeterminacy using inferential confidence intervals: An integrated
+alternative method of conducting null hypothesis statistical tests.
+<em>Psychological Methods</em>, <em>6</em>, 371–386. <a href="https://doi.org/10.1037/1082-989X.6.4.371">https://doi.org/10.1037/1082-989X.6.4.371</a>
+</div>
+<div id="ref-w47" class="csl-entry">
+Welch, B. L. (1947). The generalization of student’s’ problem when
+several different population variances are involved.
+<em>Biometrika</em>, <em>34</em>(1/2), 28–35. <a href="https://doi.org/10.1093/biomet/34.1-2.28">https://doi.org/10.1093/biomet/34.1-2.28</a>
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

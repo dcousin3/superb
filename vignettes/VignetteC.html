@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Plotting proportions with superb</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Plotting proportions with
+<code>superb</code></h1>
+
+
+
+<p>In this vignette, we show how to plot proportions. Proportions is one
+way to summarize observations that are composed of succes and failure.
+Success can be a positive reaction to a drug, an accurate completion of
+a task, a survival after a dangerous ilness, etc. Failure are the
+opposite of success.</p>
+<p>A proportion is the number of success onto the total number of
+trials. Similarly, if the success are coded with “1”s and failure, with
+“0”s, then the proportion can be obtained indirectly by computing the
+mean.</p>
+<div id="an-example" class="section level2">
+<h2>An example</h2>
+<p>Consider an example where three groups of participants where
+examined. The raw data may look like:</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>Group</th>
+<th>Score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>subject 1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>subject 2</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>subject n1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>subject n1+1</td>
+<td>2</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>subject n1+n2</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>subject n1+n2+1</td>
+<td>3</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>subject n1+n2+n3</td>
+<td>3</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>in which there is <span class="math inline">\(n_1\)</span>
+participant in Group 1, <span class="math inline">\(n_2\)</span> in
+Group 2, and <span class="math inline">\(n_3\)</span> in Group 3. The
+data can be compiled by reporting the number of success (let’s call them
+<span class="math inline">\(s\)</span>) and the number of
+participants.</p>
+<p>One example of results could be</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>s</th>
+<th>n</th>
+<th>proportion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Group 1</td>
+<td>10</td>
+<td>30</td>
+<td>33.3%</td>
+</tr>
+<tr class="even">
+<td>Group 2</td>
+<td>18</td>
+<td>28</td>
+<td>64.3%</td>
+</tr>
+<tr class="odd">
+<td>Group 3</td>
+<td>10</td>
+<td>26</td>
+<td>38.5%</td>
+</tr>
+</tbody>
+</table>
+<p>Although making a plot of these proportions is easy, how can you plot
+error bars around these proportions?</p>
+</div>
+<div id="the-arcsine-transformation" class="section level2">
+<h2>The arcsine transformation</h2>
+<p>First proposed by Fisher, the arcsine transform is one way to
+represent proportions. This transformation stretches the extremities of
+the domain (near 0% and near 100%) so that the sampling variability is
+constant for any observed proportion. Also, this transformation make the
+sampling distribution nearly normal so that <span class="math inline">\(z\)</span> test can be used.</p>
+<p>An improvement over the Fisher transformation was proposed by
+Anscombe (1948). It is given by</p>
+<p><span class="math display">\[
+A(s, n) = \sin^{-1}\left( \sqrt{\frac{s + 3/8}{n + 3/4}} \right)
+\]</span></p>
+<p>The variance of such transformation is also theoretically given
+by</p>
+<p><span class="math display">\[
+Var_A = \frac{1}{4(n+1/2)}
+\]</span></p>
+<p>As such, we have all the ingredients needed to make confidence
+intervals!</p>
+</div>
+<div id="defining-the-data" class="section level2">
+<h2>Defining the data</h2>
+<p>In what follows, we assume that the data are available in compiled
+form, as in the second table above. Because <code>superb</code> only
+takes raw data, we will have to convert these into a long sequence of
+zeros and ones.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># enter the compiled data into a data frame:</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>compileddata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>    <span class="at">s =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">18</span>, <span class="dv">10</span>),</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">28</span>, <span class="dv">26</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>))</span></code></pre></div>
+<p>The following converts the compiled data into a long data frame
+containing ones and zeros so that <code>superb</code> can be fed raw
+data:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>group  <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>scores <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span> (<span class="fu">dim</span>(compileddata)[<span class="dv">1</span>])) {</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>        group  <span class="ot">&lt;-</span> <span class="fu">c</span>( group, <span class="fu">rep</span>(i, compileddata<span class="sc">$</span>n[i] ) )</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>        scores <span class="ot">&lt;-</span> <span class="fu">c</span>( scores, <span class="fu">rep</span>(<span class="dv">1</span>, compileddata<span class="sc">$</span>s[i]), </span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>                    <span class="fu">rep</span>(<span class="dv">0</span>, compileddata<span class="sc">$</span>n[i] <span class="sc">-</span> compileddata<span class="sc">$</span>s[i]) )</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>    }</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>dta  <span class="ot">&lt;-</span> <span class="fu">data.frame</span>( <span class="fu">cbind</span>(<span class="at">group =</span> group, <span class="at">scores =</span> scores ) )</span></code></pre></div>
+</div>
+<div id="defining-the-transformation-in-r" class="section level2">
+<h2>Defining the transformation in R</h2>
+<p>In the following, we define the A (Anscombe) transformation, the
+standard error of the transformed scores, and the confidence
+intervals:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># the Anscombe transformation for a vector of binary data 0|1</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>A <span class="ot">&lt;-</span><span class="cf">function</span>(v) {</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">sum</span>(v)</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>    n <span class="ot">&lt;-</span> <span class="fu">length</span>(v)</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>    <span class="fu">asin</span>(<span class="fu">sqrt</span>( (x<span class="sc">+</span><span class="dv">3</span><span class="sc">/</span><span class="dv">8</span>) <span class="sc">/</span> (n<span class="sc">+</span><span class="dv">3</span><span class="sc">/</span><span class="dv">4</span>) ))</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>}   </span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>SE.A <span class="ot">&lt;-</span> <span class="cf">function</span>(v) {</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>    <span class="fl">0.5</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">length</span>(v<span class="sc">+</span><span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>))</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>}</span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>CI.A <span class="ot">&lt;-</span> <span class="cf">function</span>(v, <span class="at">gamma =</span> <span class="fl">0.95</span>){</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>    <span class="fu">SE.A</span>(v) <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="fu">qchisq</span>(gamma, <span class="at">df=</span><span class="dv">1</span>))</span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>}</span></code></pre></div>
+<p>This is all we need to make a basic plot with
+<code>suberbPlot()</code></p>
+<p>… but we need a few libraries, so let’s load them here:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">library</span>(superb)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="fu">library</span>(scales)     <span class="co"># for asn_trans() non-linear scale</span></span></code></pre></div>
+<p>Here we go:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># ornate to decorate the plot a little bit...</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>ornate <span class="ot">=</span> <span class="fu">list</span>( </span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>    <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">10</span>),</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Group&quot;</span> ),</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>    <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Group A&quot;</span>, <span class="st">&quot;Group B&quot;</span>, <span class="st">&quot;Group C&quot;</span>))</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>)</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="fu">superbPlot</span>(dta, </span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>    <span class="at">BSFactors =</span> <span class="st">&quot;group&quot;</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>    <span class="at">variables =</span> <span class="st">&quot;scores&quot;</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>    <span class="at">statistic =</span> <span class="st">&quot;A&quot;</span>, </span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>    <span class="at">error     =</span> <span class="st">&quot;CI&quot;</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>    <span class="at">adjustment =</span> <span class="fu">list</span>( <span class="at">purpose =</span> <span class="st">&quot;difference&quot;</span>),</span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>    <span class="at">plotStyle =</span> <span class="st">&quot;line&quot;</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>    <span class="at">errorbarParams =</span> <span class="fu">list</span>(<span class="at">color=</span><span class="st">&quot;blue&quot;</span>) <span class="co"># just for the pleasure!</span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>) <span class="sc">+</span> ornate <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Anscombe-transformed scores&quot;</span> )</span></code></pre></div>
+<div class="float">
+<img src="data:image/png;base64,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" alt="Figure 1. Anscombe-transformed scores as a function of group." />
+<div class="figcaption"><strong>Figure 1</strong>. Anscombe-transformed
+scores as a function of group.</div>
+</div>
+</div>
+<div id="reversing-the-transformation-to-see-proportions." class="section level2">
+<h2>Reversing the transformation to see proportions.</h2>
+<p>The above plot shows Anscombe-transform scores. This may not be very
+intuitive. It is then possible to undo the transformation so as to plot
+proportions instead. The complicated part is to undo the confidence
+limits.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># the proportion of success for a vector of binary data 0|1</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>prop <span class="ot">&lt;-</span> <span class="cf">function</span>(v){</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">sum</span>(v)</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>    n <span class="ot">&lt;-</span> <span class="fu">length</span>(v)</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>    x<span class="sc">/</span>n</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>}</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co"># the de-transformed confidence intervals from Anscombe-transformed scores</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>CI.prop <span class="ot">&lt;-</span> <span class="cf">function</span>(v, <span class="at">gamma =</span> <span class="fl">0.95</span>) {</span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>    y     <span class="ot">&lt;-</span> <span class="fu">A</span>(v)</span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>    n     <span class="ot">&lt;-</span> <span class="fu">length</span>(v)</span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a>    cilen <span class="ot">&lt;-</span> <span class="fu">CI.A</span>(v, gamma)</span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a>    ylo   <span class="ot">&lt;-</span> y <span class="sc">-</span> cilen</span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a>    yhi   <span class="ot">&lt;-</span> y <span class="sc">+</span> cilen</span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a>    <span class="co"># reverse arc-sin transformation: naive approach</span></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a>    cilenlo <span class="ot">&lt;-</span> ( <span class="fu">sin</span>(ylo)<span class="sc">^</span><span class="dv">2</span> )</span>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a>    cilenhi <span class="ot">&lt;-</span> ( <span class="fu">sin</span>(yhi)<span class="sc">^</span><span class="dv">2</span> )</span>
+<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a>    <span class="fu">c</span>(cilenlo, cilenhi)</span>
+<span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a>}</span></code></pre></div>
+<p>Nothing more is needed. We can make the plot with these new
+functions:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">superbPlot</span>(dta, </span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>    <span class="at">BSFactors =</span> <span class="st">&quot;group&quot;</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>    <span class="at">variables =</span> <span class="st">&quot;scores&quot;</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>    <span class="at">statistic =</span> <span class="st">&quot;prop&quot;</span>, </span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>    <span class="at">error     =</span> <span class="st">&quot;CI&quot;</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>    <span class="at">adjustment =</span> <span class="fu">list</span>( <span class="at">purpose =</span> <span class="st">&quot;difference&quot;</span>),</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>    <span class="at">plotStyle =</span> <span class="st">&quot;line&quot;</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>    <span class="at">errorbarParams =</span> <span class="fu">list</span>(<span class="at">color=</span><span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>) <span class="sc">+</span> ornate <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Proportions&quot;</span> ) <span class="sc">+</span> </span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">trans=</span><span class="fu">asn_trans</span>())</span></code></pre></div>
+<div class="float">
+<img src="data:image/png;base64,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" alt="Figure 2. Proportion as a function of group." />
+<div class="figcaption"><strong>Figure 2</strong>. Proportion as a
+function of group.</div>
+</div>
+<p>This new plot is actually identical to the previous one as we plotted
+the proportions using a non-linear scale (the “asn_trans()” scale for
+arcsine). However, the vertical axis is now showing graduations between
+0% and 100% as is expected of proportions.</p>
+</div>
+<div id="returning-to-the-example" class="section level2">
+<h2>Returning to the example</h2>
+<p>What can we conclude from the plot? You noted that we plotted
+difference-adjusted confidence intervals. Hence, if at least one result
+is not included in the confidence interval of another result, then the
+chances are good that they differ significantly.</p>
+<p>Running an analysis of proportions, it indicates the presence of a
+main effect of Group (<span class="math inline">\(F(2,\infty)= 3.06, p =
+.047\)</span>). How to perform an analysis of proportions (ANOPA) is
+explained in <span class="citation">(<strong>lc23?</strong>)</span>.</p>
+<p>We see from the plot that the length of the error bars are about all
+the same, suggesting homogeneous variance (because all the sample are of
+comparable size). This is always the case as Anscombe transform is a
+‘variance-stabilizing’ transformation in the sense that it makes all the
+variances identical.</p>
+</div>
+<div id="in-summary" class="section level2">
+<h2>In summary</h2>
+<p>The <code>superb</code> framework can be used to display any summary
+statistics. Here, we showed how <code>superbPlot()</code> can be used
+with proportions. For within-subject designs involving proportions, it
+is also possible to use the correlation adjustments <span class="citation">(as demonstrated in <strong>lc23?</strong>)</span>.</p>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
