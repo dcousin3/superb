@@ -97,7 +97,7 @@ If things are working, then you are ready to make your plot with
 BEGIN PROGRAM R.
     # this will install superb if needed; may take a few minutes
     if(!require(superb)) 
-        install.packages("superb", type="binary", repos = "http://cran.us.r-project.org")
+        install.packages("superb", type="binary")
 
     # set the library to be in used
     library(superb)  

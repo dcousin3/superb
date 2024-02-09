@@ -28,6 +28,7 @@
 #' 
 #' # making one random data set with three factors 2 x 3 x (3)
 #' dta <- GRD(
+#'     SubjectsPerGroup = 20,
 #'     BSFactors = c("Group(2)","Age(3)"), 
 #'     WSFactors = c("Moment(3)"),
 #'     Population = list(mean = 75, stddev = 5),
