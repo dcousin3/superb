@@ -1,6 +1,5 @@
-# superb 0.95.202402 (February 8th, 2024)
+# superb 0.95.84 (February 8th, 2024)
 
-* Changed numbering of sub-sub version according to year-month
 * Added a new plot layout, boxplot, to display box plots.
 * Adjusted testthat tests following new release of ggplot2
 * Added unitaryAlpha technique to compute average correlation

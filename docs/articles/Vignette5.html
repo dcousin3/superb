@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.202402</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.9</span>
       </span>
     </div>
 
@@ -208,12 +208,12 @@ factors have main effets on the scores.</p>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">testdata</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   id Difficulty score.day1 score.day2</span></span>
-<span><span class="co">## 1  1          1   58.68291   70.29282</span></span>
-<span><span class="co">## 2  2          1   66.18491   49.98057</span></span>
-<span><span class="co">## 3  3          1   69.31579   48.60990</span></span>
-<span><span class="co">## 4  4          1   70.52483   65.52163</span></span>
-<span><span class="co">## 5  5          1   75.64533   51.01500</span></span>
-<span><span class="co">## 6  6          1   70.16407   60.93774</span></span></code></pre>
+<span><span class="co">## 1  1          1   72.12653   50.87086</span></span>
+<span><span class="co">## 2  2          1   52.04284   53.36416</span></span>
+<span><span class="co">## 3  3          1   68.89345   72.79280</span></span>
+<span><span class="co">## 4  4          1   75.15737   62.39107</span></span>
+<span><span class="co">## 5  5          1   77.66984   59.55768</span></span>
+<span><span class="co">## 6  6          1   70.65677   65.82984</span></span></code></pre>
 <p>For simplicity, we define a function whose arguments are the dataset
 and the layout:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -254,14 +254,14 @@ coordinates flipped over:</p>
 <strong>Figure 1b</strong>. The seventh layout, the raincloud
 </p>
 </div>
-<p>This shows the latest layout, a box plot, better for showing median
-and confidence interval of the median, obtained with</p>
+<p>Finally, the following shows the latest layout, a box plot, better
+for showing median and confidence interval of the median, obtained
+with</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">mp</span><span class="op">(</span><span class="va">testdata</span>, <span class="st">"boxplot"</span>, statistic <span class="op">=</span> <span class="st">"median"</span>, pointParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"orange"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="Vignette5_files/figure-html/unnamed-chunk-7-1.png" alt="**Figure 1a**. Look of the six built-in layouts on the same random dataset" width="672"><p class="caption">
-<strong>Figure 1a</strong>. Look of the six built-in layouts on the same
-random dataset
+<img src="Vignette5_files/figure-html/unnamed-chunk-7-1.png" alt="**Figure 1c**. Box plot of the data" width="480"><p class="caption">
+<strong>Figure 1c</strong>. Box plot of the data
 </p>
 </div>
 <p>For more controls, you can manually set the colors, the fills and/or

@@ -59,12 +59,12 @@ Note that the \code{range} effect specification has been renamed
  hist(dta$DV)
 
  # Renaming the dependant variable and setting the group size:
- dta <- GRD( RenameDV = "score", SubjectsPerGroup = 1000 )
+ dta <- GRD( RenameDV = "score", SubjectsPerGroup = 200 )
  hist(dta$score )
 
  # Examples for a between-subject design and for a within-subject design: 
- dta <- GRD( BSFactors = '3')
- dta <- GRD( WSFactors = "Moment (2)")
+ dta <- GRD( BSFactors = '3', SubjectsPerGroup = 20)
+ dta <- GRD( WSFactors = "Moment (2)", SubjectsPerGroup = 20)
 
  # A complex, 3 x 2 x (2) mixed design with a variable amount of participants in the 6 groups:
  dta <- GRD(BSFactors = "difficulty(3) : gender (2)", 
@@ -75,6 +75,7 @@ Note that the \code{range} effect specification has been renamed
  # Defining population characteristics :
  dta <- GRD( 
          RenameDV = "IQ",
+		SubjectsPerGroup = 20,
          Population=list(
                       mean=100,  # will set GM to 100
                       stddev=15  # will set STDDEV to 15
@@ -91,7 +92,7 @@ Note that the \code{range} effect specification has been renamed
 
  # An example in which the moments are correlated
  dta <- GRD( BSFactors = "Difficulty(2)",WSFactors = "Moment (2)", 
-    SubjectsPerGroup = 1000,
+     SubjectsPerGroup = 250,
      Effects = list("Difficulty" = slope(3), "Moment" = slope(1) ),
      Population=list(mean=50,stddev=20,rho=0.85)
  )

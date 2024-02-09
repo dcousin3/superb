@@ -51,7 +51,7 @@ The functions has these parameters:
 \examples{
 # this creates a fictious time series at 100 time points obtained in two conditions:
 dta <- GRD( WSFactors = "timepoints (50) : condition(2)", 
-    SubjectsPerGroup = 100,
+    SubjectsPerGroup = 20,
     RenameDV = "activation",
     Effects = list("timepoints" = extent(5), "condition" = extent(3) ),
     Population=list(mean=50,stddev=10,rho=0.75)
