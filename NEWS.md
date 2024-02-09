@@ -1,4 +1,4 @@
-# superb 0.95.84 (February 8th, 2024)
+# superb 0.95.9 (February 8th, 2024)
 
 * Added a new plot layout, boxplot, to display box plots.
 * Adjusted testthat tests following new release of ggplot2
