@@ -14,7 +14,7 @@ library(foreign) # for read.spss
 library(stringr) # for str_remove_all and str_replace_all
 library(dplyr)
 
-appversion <- "App version 3.4; shipped with superb 0.95.7"
+appversion <- "App version 3.4; shipped with superb 0.95.9"
 
 ##########################################################
 ##########################################################

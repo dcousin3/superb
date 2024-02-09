@@ -321,14 +321,14 @@ automatically. You can check that the initializer is detectable with</p>
 <span><span class="va">dp13</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu">dp</span><span class="op">(</span><span class="va">grp3</span>, <span class="va">grp1</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">dp23</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu">dp</span><span class="op">(</span><span class="va">grp3</span>, <span class="va">grp2</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">dp12</span>, <span class="va">dp13</span>, <span class="va">dp23</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.243 0.391 0.150</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 0.106 0.207 0.107</span></span></code></pre>
 <p>… and their 95% confidence intervals:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cidp12</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu">CI.dp</span><span class="op">(</span><span class="va">grp2</span>, <span class="va">grp1</span>, <span class="fl">0.95</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">cidp13</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu">CI.dp</span><span class="op">(</span><span class="va">grp3</span>, <span class="va">grp1</span>, <span class="fl">0.95</span> <span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">cidp23</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu">CI.dp</span><span class="op">(</span><span class="va">grp3</span>, <span class="va">grp2</span>, <span class="fl">0.95</span> <span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">cidp12</span>,<span class="va">cidp13</span>,<span class="va">cidp23</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.119 0.367 0.266 0.516 0.026 0.274</span></span></code></pre>
+<pre><code><span><span class="co">## [1] -0.018  0.230  0.083  0.331 -0.017  0.231</span></span></code></pre>
 <p>Let’s put these numbers on the plot for easier examination using the
 graphic directives <code><a href="../reference/showSignificance.html">showSignificance()</a></code>:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
@@ -378,15 +378,15 @@ the two difference-adjusted confidence intervals of <span class="math inline">\(
 <span></span>
 <span><span class="fu">compareCIlength</span><span class="op">(</span><span class="va">grp1</span>,<span class="va">grp2</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   dp.length d1.average.length</span></span>
-<span><span class="co">## 1     0.249             0.249</span></span></code></pre>
+<span><span class="co">## 1     0.248             0.248</span></span></code></pre>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">compareCIlength</span><span class="op">(</span><span class="va">grp1</span>,<span class="va">grp3</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   dp.length d1.average.length</span></span>
-<span><span class="co">## 1      0.25             0.249</span></span></code></pre>
+<span><span class="co">## 1     0.249             0.248</span></span></code></pre>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">compareCIlength</span><span class="op">(</span><span class="va">grp2</span>,<span class="va">grp3</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   dp.length d1.average.length</span></span>
-<span><span class="co">## 1     0.248             0.249</span></span></code></pre>
+<span><span class="co">## 1     0.248             0.248</span></span></code></pre>
 <p>As seen, there is no difference until the third decimal. The small
 difference comes from the fact that the degrees of freedom are
 separated, not pooled.</p>
