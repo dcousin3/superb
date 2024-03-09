@@ -48,7 +48,8 @@ any function name if you defined a custom function. Default to "CI"}
 \item{adjustments}{List of adjustments as described below.
 Default is \code{adjustments = list(purpose = "single", popSize = Inf, decorrelation = "none", samplingDesign = "SRS")}}
 
-\item{showPlot}{Defaults to TRUE. Set to FALSE if you want the output to be the summary statistics and intervals.}
+\item{showPlot}{Defaults to TRUE. Set to FALSE if you want the output to be the summary
+statistics and intervals.}
 
 \item{plotStyle}{The type of object to plot on the graph. See full list below.
 Defaults to "bar".}
@@ -57,7 +58,8 @@ Defaults to "bar".}
 
 \item{postprocessfct}{is a transform (or vector of)}
 
-\item{clusterColumn}{used in conjunction with samplingDesign = "CRS", indicates which column contains the cluster membership}
+\item{clusterColumn}{used in conjunction with samplingDesign = "CRS", indicates which column
+contains the cluster membership}
 
 \item{...}{In addition to the parameters above, superbPlot also accept a number of
 optional arguments that will be transmitted to the plotting function, such as
@@ -69,8 +71,8 @@ a plot with the correct error bars or a table of those summary statistics.
 The plot is a ggplot2 object with can be modified with additional declarations.
 }
 \description{
-The function \code{suberbPlot()} plots standard error or confidence interval for various descriptive
-statistics under various designs, sampling schemes, population size and purposes,
+The function \code{suberbPlot()} plots standard error or confidence interval for various
+descriptive statistics under various designs, sampling schemes, population size and purposes,
 according to the \code{suberb} framework. See \insertCite{cgh21}{superb} for more.
 }
 \details{
@@ -100,6 +102,8 @@ In version 0.97.5, the layouts for plots are the following:
 }
 }
 \examples{
+######################################################################
+
 # Basic example using a built-in dataframe as data. 
 # By default, the mean is computed and the error bar are 95\% confidence intervals
 superbPlot(ToothGrowth, BSFactors = c("dose", "supp"), 
@@ -123,33 +127,67 @@ superbPlot(ToothGrowth, BSFactors = c("dose", "supp"),
 xlab("Dose") + ylab("Tooth Growth") +
 theme_bw()
 
-# This example is based on repeated measures
+######################################################################
+
+# The following examples are based on repeated measures
 library(gridExtra)
 options(superb.feedback = 'none') # shut down 'warnings' and 'design' interpretation messages
 
+# A simple example: The sleep data
+# The sleep data are paired data showing the additional time of sleep with 
+# the soporific drugn #1 (("group = 1") and with the soporific drug #2 ("group = 2"). 
+# There is 10 participants with two measurements.
+
+# sleep is available in long format so we transform it to the in wide format:
+sleep2 <- reshape(sleep, direction = "wide", idvar = "ID", timevar = "group")
+sleep2
+
+# Makes the plots first without decorrelation:
+superbPlot(sleep2, 
+  WSFactors = "Times(2)", 
+  variables = c("extra.1", "extra.2")
+)
+# As seen the error bar are very long. Lets take into consideration correlation...
+# ...  with decorrelation (technique Correlation-adjusted CA):
+superbPlot(sleep2, 
+  WSFactors = "Times(2)", 
+  variables = c("extra.1", "extra.2"), 
+  # only difference:
+  adjustments = list(purpose = "difference", decorrelation = "CA")
+)
+# The error bars shortened as the correlation is substantial (r = .795).
+
+
+######################################################################
+
+# Another example: The Orange data
 # Use the Orange example, but let's define shorter column names...
 names(Orange) <- c("Tree","age","circ")
 # ... and turn the data into a wide format using superbToWide:
-Orange.wide <- superbToWide(Orange, id = "Tree", WSFactors = c("age"), variable = "circ") 
+Orange.wide <- superbToWide(Orange, id = "Tree", WSFactors = "age", variable = "circ") 
 
 # This example contains 5 trees whose diameter (in mm) has been measured at various age (in days):
-head(Orange.wide)
+Orange.wide
 
 # Makes the plots first without decorrelation:
-p1=superbPlot( Orange.wide, WSFactors = "age(7)",
+p1 <- superbPlot( Orange.wide, WSFactors = "age(7)",
   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
   adjustments = list(purpose = "difference", decorrelation = "none")
 ) + 
   xlab("Age level") + ylab("Trunk diameter (mm)") +
   coord_cartesian( ylim = c(0,250) ) + labs(title="''Standalone'' confidence intervals")
 # ... and then with decorrelation (technique Correlation-adjusted CA):
-p2=superbPlot( Orange.wide, WSFactors = "age(7)",
+p2 <- superbPlot( Orange.wide, WSFactors = "age(7)",
   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
   adjustments = list(purpose = "difference", decorrelation = "CA")
 ) + 
   xlab("Age level") + ylab("Trunk diameter (mm)") +
   coord_cartesian( ylim = c(0,250) ) + labs(title="Decorrelated confidence intervals")
-grid.arrange(p1,p2,ncol=2)
+
+# You can present both plots side-by-side
+grid.arrange(p1, p2, ncol=2)
+
+######################################################################
 
 
 }

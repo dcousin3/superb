@@ -1,3 +1,7 @@
+# superb 0.95.10 (March 9th, 2024)
+
+* Regular maintenance.
+
 # superb 0.95.9 (February 8th, 2024)
 
 * Added a new plot layout, boxplot, to display box plots.

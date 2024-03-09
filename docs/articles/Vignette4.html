@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.10</span>
       </span>
     </div>
 
@@ -201,8 +201,10 @@ dataset with an interaction (see <a href="https://dcousin3.github.io/superb/arti
 <span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu">makeplot</span><span class="op">(</span><span class="st">"median"</span>,    <span class="st">"CI"</span>, <span class="fl">.95</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>,<span class="fl">14</span><span class="op">)</span>, <span class="st">"Median +- 95% CI of the median"</span><span class="op">)</span></span>
 <span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="fu">makeplot</span><span class="op">(</span><span class="st">"fisherskew"</span>,<span class="st">"CI"</span>, <span class="fl">.95</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>,<span class="op">+</span><span class="fl">2</span><span class="op">)</span>, <span class="st">"Fisher skew +- 95% CI"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span></span>
-<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">p1</span>,<span class="va">p2</span>,<span class="va">p3</span>,<span class="va">p4</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: package 'gridExtra' was built under R version 4.3.3</span></span></code></pre>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">p1</span>,<span class="va">p2</span>,<span class="va">p3</span>,<span class="va">p4</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="Vignette4_files/figure-html/unnamed-chunk-2-1.png" alt="**Figure 1**. Various statistics and various measures of precisions" width="576"><p class="caption">
 <strong>Figure 1</strong>. Various statistics and various measures of
@@ -223,7 +225,7 @@ To be valid, the function must return a number when given a vector of
 numbers.</p>
 <p>In doubt, you can test if the function is valid for
 <code>superbPlot</code> with (note the triple colon):</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">superb</span><span class="fu">:::</span><span class="fu">is.stat.function</span><span class="op">(</span><span class="st">"mean"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
 <p>Likewise, any error bar function can be accepted by
@@ -250,12 +252,12 @@ Confidence interval functions are of this type.</p></li>
 width.</p></li>
 </ul>
 <p>The interval function can be tested to see if it exists:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">superb</span><span class="fu">:::</span><span class="fu">is.errorbar.function</span><span class="op">(</span><span class="st">"SE.mean"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
 <p>To see if a gamma is required for a certain interval function, you
 can try</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">superb</span><span class="fu">:::</span><span class="fu">is.gamma.required</span><span class="op">(</span><span class="st">"SE.mean"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] FALSE</span></span></code></pre>
 </div>
@@ -269,7 +271,7 @@ mean. This descriptive statistic is used to estimate the population
 mean. However, it is said to be a robust statistic as it is less
 affected by suspicious data. Herein, we use the data from
 <code>dataFigure1</code>.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>    <span class="co"># create a descriptive statistics, the 20% trimmed mean</span></span>
 <span>    <span class="va">trimmedmean</span>    <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span>, trim <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span>
 <span></span>
@@ -278,13 +280,13 @@ affected by suspicious data. Herein, we use the data from
 <span>    <span class="va">grp2</span> <span class="op">&lt;-</span> <span class="va">dataFigure1</span><span class="op">$</span><span class="va">score</span><span class="op">[</span><span class="va">dataFigure1</span><span class="op">$</span><span class="va">grp</span><span class="op">==</span><span class="fl">2</span><span class="op">]</span></span>
 <span>    <span class="fu">trimmedmean</span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 106.2667</span></span></code></pre>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>    <span class="co"># or check that it is a valid statistic function</span></span>
 <span>    <span class="fu">superb</span><span class="fu">:::</span><span class="fu">is.stat.function</span><span class="op">(</span><span class="st">"trimmedmean"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
 <p>Once we have the function, we can ask for a plot of this function
 with</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>    <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, </span>
 <span>        BSFactors <span class="op">=</span> <span class="st">"grp"</span>, </span>
 <span>        statistic <span class="op">=</span> <span class="st">"trimmedmean"</span>, errorbar <span class="op">=</span> <span class="st">"none"</span>, <span class="co">#HERE the statistic name is given</span></span>
@@ -314,10 +316,11 @@ use the approach documented in Wilcox <span class="citation">(Wilcox,
 2011)</span> which requires computing the winsorized standard deviation
 <code>winsor.sd</code> as available in the <code>psych</code> library
 <span class="citation">(Revelle, 2020)</span>.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span>    <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://personality-project.org/r/psych/" class="external-link">psych</a></span><span class="op">)</span>      <span class="co"># for winsor.sd</span></span>
-<span></span>
-<span>    <span class="va">CI.trimmedmean</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">gamma</span> <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span><span class="op">{</span></span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span>    <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://personality-project.org/r/psych/" class="external-link">psych</a></span><span class="op">)</span>      <span class="co"># for winsor.sd</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: package 'psych' was built under R version 4.3.2</span></span></code></pre>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span>    <span class="va">CI.trimmedmean</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">gamma</span> <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span><span class="op">{</span></span>
 <span>        <span class="va">trim</span> <span class="op">&lt;-</span> <span class="fl">0.2</span></span>
 <span>        <span class="va">g</span>    <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">floor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">*</span> <span class="fl">0.4</span><span class="op">)</span></span>
 <span>        <span class="va">tc</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html" class="external-link">qt</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">2</span><span class="op">+</span><span class="va">gamma</span><span class="op">/</span><span class="fl">2</span>, df<span class="op">=</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">-</span><span class="va">g</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">)</span></span>
@@ -328,12 +331,12 @@ use the approach documented in Wilcox <span class="citation">(Wilcox,
 <span>    <span class="co"># we test as an example the data from group 1</span></span>
 <span>    <span class="fu">CI.trimmedmean</span><span class="op">(</span><span class="va">grp1</span><span class="op">)</span>  </span></code></pre></div>
 <pre><code><span><span class="co">## [1] 101.7281 110.8052</span></span></code></pre>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>    <span class="co"># or check that it is a valid interval function</span></span>
 <span>    <span class="fu">superb</span><span class="fu">:::</span><span class="fu">is.errorbar.function</span><span class="op">(</span><span class="st">"CI.trimmedmean"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
 <p>We have all we need to make a plot with error bars!</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>    <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, </span>
 <span>        BSFactors <span class="op">=</span> <span class="st">"grp"</span>, </span>
 <span>        statistic <span class="op">=</span> <span class="st">"trimmedmean"</span>, errorbar <span class="op">=</span> <span class="st">"CI"</span>,</span>
@@ -368,7 +371,7 @@ variability, not the predictive variability).</p>
 <p>Here, we illustrate this process with the mean. The function must be
 name “<em>interval function</em>.mean”, so we choose to call it
 <code>myBootstrapCI.mean</code>.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>    <span class="co"># we define myBootstrapPI which subsample the whole sample, here called X</span></span>
 <span>    <span class="va">myBootstrapPI.mean</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">X</span>, <span class="va">gamma</span> <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="va">res</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -383,7 +386,7 @@ name “<em>interval function</em>.mean”, so we choose to call it
 <pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
 <p>This is all we need to make the plot which we can compare with the
 parametric CI</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>    <span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure1</span>, </span>
 <span>        BSFactors <span class="op">=</span> <span class="st">"grp"</span>, </span>
 <span>        variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"score"</span><span class="op">)</span>, </span>
@@ -459,7 +462,7 @@ data),</p></li>
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
-<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
 <div id="ref-htc14" class="csl-entry">
 Harding, B., Tremblay, C., &amp; Cousineau, D. (2014). Standard errors:
 A review and evaluation of standard error estimators using monte carlo

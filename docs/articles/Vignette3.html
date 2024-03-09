@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.10</span>
       </span>
     </div>
 
@@ -210,9 +210,10 @@ difference?</p>
 <p>Let’s examine the data using a plot in which each participant’s
 scores are shown with a line. We get the following:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/reshape" class="external-link">reshape2</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># first transform the data in long format; the pre-post scores will go into column "variable"</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/reshape" class="external-link">reshape2</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: package 'reshape2' was built under R version 4.3.2</span></span></code></pre>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># first transform the data in long format; the pre-post scores will go into column "variable"</span></span>
 <span><span class="va">dl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/reshape2/man/melt.html" class="external-link">melt</a></span><span class="op">(</span><span class="va">dataFigure2</span>, id<span class="op">=</span><span class="st">"id"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># add transparency when pre is smaller or equal to post</span></span>
@@ -242,7 +243,7 @@ manipulation, all the participants will now hover around the overall
 mean (here 102.5, shown with a red dashed line).</p>
 <p>The following realizes this <em>subject-centered</em> plot for each
 participant.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># use subjectCenteringTransform function </span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dcousin3.github.io/superb/" class="external-link">superb</a></span><span class="op">)</span></span>
 <span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/subjectCenteringTransform.html">subjectCenteringTransform</a></span><span class="op">(</span><span class="va">dataFigure2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pre"</span>,<span class="st">"post"</span><span class="op">)</span><span class="op">)</span></span>
@@ -271,7 +272,7 @@ For the 20 remaining ones, the trend is upward. Thus, there is clear
 tendency for the exercices to be beneficial.</p>
 <p>Running the adequate <em>paired</em> <em>t</em> test, we find indeed
 that the difference is strongly significant (t(24) = 2.9, p = .008):</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">dataFigure2</span><span class="op">$</span><span class="va">pre</span>, <span class="va">dataFigure2</span><span class="op">$</span><span class="va">post</span>, paired<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">##  Paired t-test</span></span>
@@ -294,7 +295,7 @@ trend visible in most participants, the paired design will afford more
 statistical power. How to we know that there is a general trend? An easy
 solution is to compute the correlation across the pairs of scores.</p>
 <p>In R, you can run the following:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">dataFigure2</span><span class="op">$</span><span class="va">pre</span>, <span class="va">dataFigure2</span><span class="op">$</span><span class="va">post</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0.836611</span></span></code></pre>
 <p>and you find out that in the present dataset, correlation is actually
@@ -344,7 +345,7 @@ precision.</p>
 <p>With <code>suberb</code>, all the decorrelation techniques are
 available using the adjustment <code>decorrelation</code> <span class="citation">(Cousineau, Goulet, &amp; Harding, 2021)</span>.</p>
 <p>The simplest code is the following:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure2</span>, </span>
 <span>    WSFactors    <span class="op">=</span> <span class="st">"Moment(2)"</span>, </span>
 <span>    adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -371,7 +372,7 @@ significant differencee.</p>
 <p>With the following code, we can decorate the plot a little bit, and
 show side-by-side both the unadjusted plot (which give an erroneous
 result) and the adjusted plot.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>superb.feedback <span class="op">=</span> <span class="st">'none'</span><span class="op">)</span> <span class="co"># shut down 'warnings' and 'design' interpretation messages</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span></span>
 <span></span>
@@ -438,7 +439,7 @@ shows how to develop custom-made layouts). For illustrating individual
 differences, a style proposed is <code>pointindividualline</code> which
 — as per Figure 1— will show the individual scores along with the
 summary statistics and the error bars. For example:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dataFigure2</span>, </span>
 <span>    WSFactors    <span class="op">=</span> <span class="st">"Moment(2)"</span>, </span>
 <span>    adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span>, decorrelation <span class="op">=</span> <span class="st">"CM"</span><span class="op">)</span>, </span>
@@ -472,7 +473,7 @@ function.</p>
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
-<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
 <div id="ref-c05" class="csl-entry">
 Cousineau, D. (2005). Confidence intervals in within-subject designs: A
 simpler solution to <span>L</span>oftus and <span>M</span>asson’s
