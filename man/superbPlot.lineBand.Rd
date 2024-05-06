@@ -72,7 +72,7 @@ superbPlot(dta,
 # if you extract the data with superbData, you can 
 # run this layout directly
 #processedData <- superbData(dta, 
-#   WSFactors   = c("timepoints(100)", "condition(2)"), variables = colnames(dta)[2:201],
+#   WSFactors   = c("timepoints(50)", "condition(2)"), variables = colnames(dta)[2:101],
 #   adjustments = list(
 #        purpose       = "single",
 #        decorrelation = "CM"        ## or none for no decorrelation

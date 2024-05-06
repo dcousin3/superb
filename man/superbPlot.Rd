@@ -82,9 +82,10 @@ The possible adjustements are the following
 \item purpose: The purpose of the comparisons. Defaults to "single".
 Can be "single", "difference", or "tryon".
 \item decorrelation: Decorrelation method for repeated measure designs.
-Chooses among the methods "CM", "LM", "CA", "UA", or "none". Defaults to
+Chooses among the methods "CM", "LM", "CA", "UA", "LDr" (with r an integer) or "none". Defaults to
 "none". "CA" is correlation-adjusted \insertCite{c19}{superb};
 "UA" is based on the unitary Alpha method (derived from the Cronbach alpha);
+"LDr" is local decorrelation (useful for long time series with autoregressive correlation structures);
 see \insertCite{lc22}{superb}.
 \item samplingDesign: Sampling method to obtain the sample. implemented
 sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Sampling).

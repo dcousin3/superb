@@ -6,8 +6,8 @@ test_that("TESTS (1/1)", {
 	on.exit(options(old)) 
     options("superb.feedback" = 'none') #shut down all superb-generated messages
 
-	library(superb)
-	library(tibble)
+	suppressWarnings(library(superb))
+	suppressWarnings(library(tibble))
 
 	# Motivation data for 15 participants over three weeks in wide format:
 	tib <- matrix( c(

@@ -40,7 +40,7 @@ install.packages("superb")
 library(superb)
 ```
 
-The development version 0.95.10 can be accessed through GitHub:
+The development version 0.95.11 can be accessed through GitHub:
 
 ``` r
 devtools::install_github("dcousin3/superb")
@@ -120,12 +120,12 @@ head(testdata)
 ```
 
     ##   id Difficulty  score.1  score.2
-    ## 1  1          A 76.90882 65.60047
-    ## 2  2          A 69.36495 56.44774
-    ## 3  3          A 93.37154 91.35009
-    ## 4  4          A 61.51132 63.30588
-    ## 5  5          A 71.36379 84.69644
-    ## 6  6          A 69.48490 44.08649
+    ## 1  1          A 74.11545 74.46666
+    ## 2  2          A 64.82353 85.43456
+    ## 3  3          A 67.83249 68.63972
+    ## 4  4          A 88.74923 71.28534
+    ## 5  5          A 45.74968 55.45886
+    ## 6  6          A 89.78311 86.71024
 
 The simulated scores are illustrated using using a more elaborated
 layout, the `pointjitterviolin` which, in addition to the mean and

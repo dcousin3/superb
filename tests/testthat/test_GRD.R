@@ -88,7 +88,7 @@ test_that("Defining population characteristics (ex. 2/2)", {
 	on.exit(options(old)) 
     options("superb.feedback" = 'none')
 
-    library(lattice)
+    suppressWarnings(library(lattice))
     dta <- GRD(BSFactors="difficulty(2)", SubjectsPerGroup = 200,
       Population=list(mean=100,stddev=15)
     )
@@ -103,7 +103,7 @@ test_that("Adding effects (ex. 1/5)", {
 	on.exit(options(old)) 
     options("superb.feedback" = 'none')
 
-    library(lattice)
+    suppressWarnings(library(lattice))
     dta <- GRD(BSFactors="difficulty(2)", SubjectsPerGroup = 200,
       Population=list(mean=100,stddev=15),
       Effects = list("difficulty" = extent(50) )
@@ -501,7 +501,7 @@ test_that("page 11", {
       )
     )
     expect_equal( dim(dta), c(200,3))
-    library(lawstat)
+    suppressWarnings(library(lawstat))
     tt <- levene.test(dta$DV, dta$Group, location="mean")
     expect_output( str(tt), "List of 5" )
     # restores default information
@@ -658,7 +658,7 @@ test_that("page 18", {
 	on.exit(options(old)) 
     options("superb.feedback" = 'none')
 
-    library(fMultivar)
+    suppressWarnings(library(fMultivar))
     # the parameters of the rmsn distribution are
     # xi, omega, alpha
     dta <- GRD(
@@ -837,7 +837,7 @@ test_that("figure 3:", {
     )
     plot(dta$DV.1, dta$DV.2)
     # panel 3: multivariate skew normal 
-    library(fMultivar)
+    suppressWarnings(library(fMultivar))
     # the parameters of the rmsn distribution are
     # xi, omega, alpha
 

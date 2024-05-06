@@ -1,3 +1,8 @@
+# superb 0.95.11 (May 7th, 2024)
+
+* Added local decorrelation with option "LDr" where r is the radius (default 6).
+* Small correction to lineBand without between-subject factors
+
 # superb 0.95.10 (March 9th, 2024)
 
 * Regular maintenance.
@@ -187,7 +192,7 @@
 * Transcoded MeanPlot from Mathematica to R.
 
 
-# GRD for R (version 1.0; January 2019)
+# GRD for R 1.0 (January 2019)
 
 * Initial release of GRD 2.0 for the R platform.
 
@@ -198,12 +203,17 @@
 * Updated legend manipulation following the release of Mathematica 9.0.
 
 
-# GRD for SPSS (versions 1.0 and 2.0; July 2014 and October 2015)
+# GRD for SPSS 2.0 (October 2015)
 
 * Release of GRD 1.0 and 2.0 for SPSS.
 
 
-# MeanPlot 0.4.x and prior (2009-2015)
+# GRD for SPSS 1.0 (July 2014)
+
+* Release of GRD 1.0 and 2.0 for SPSS.
+
+
+# MeanPlot 0.4.6 (and prior; 2009-2015)
 
 * Development versions of MeanPlot on the Mathematica framework;
 * Added "popSize" and "CRS" from Cousineau & Laurencelle (2016) doi:10.1037/met0000055;

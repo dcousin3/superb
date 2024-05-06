@@ -771,7 +771,7 @@ generateCaption <- function( currentInfo ) {
                         else if (currentInfo$Step4$purpose == "tryon") {"Tryon-"} 
                         else {NA},
 
-                        if (currentInfo$Step4$decorrelation %in% c("LM","CM","CA")) {" and correlation-"} else {NA},
+                        if (substr(currentInfo$Step4$decorrelation,1,2) %in% c("LM","CM","CA","LD")) {" and correlation-"} else {NA},
                         "adjusted",
                         sep = "")
                 } else {NA},
@@ -1175,7 +1175,7 @@ theServerFct <- function(input, output, session) {
         } else {
             renderUI( radioButtons("superbDecorrelation", "Select the decorrelation method",
                 choiceNames  = c("None","Cousineau-Morey (2005, 2008)", "Correlation adjusted","Loftus and Masson (1994)"),
-                choiceValues = c("none","CM","CA","LM"), selected="none"
+                choiceValues = c("none","CM","CA","LM","LD3"), selected="none"
             ))
         }
         })

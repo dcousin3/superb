@@ -26,9 +26,9 @@ This last expression means that the degree of freedom is the total number of
 data minus 1 for each condition except the last, and minus 1 for each participant
 except the last. In formula, if the number of repeated measures is $p$,
 the number of participants is $n$, and the total sample size is $N$ (with
-$N = p \times n$, then the
-pooled degree of freedom is $(p-1)\times(n-1)$ or equivalently $N -p-n+1$.
-Another example where custom degree of freedom can be used is , when there are
+$N = p x n$, then the
+pooled degree of freedom is $(p-1) x (n-1)$ or equivalently $N -p-n+1$.
+Another example where custom degree of freedom can be used is when there are
 heterogeneous variances,
 the confidence interval of the mean should mirror a Welsh test where the
 degrees of freedom are altered based on variances. The function \code{CIwithDF.mean()}
@@ -90,9 +90,9 @@ plt3 <- superbPlot(dta,
                                  position = position_nudge(+0.05) ) 
         )
 # Convert the plots into grapphical objects all with the same scale...
-plt1b <- ggplotGrob(plt1 + ylim(-1.5,1.5) )
-plt2b <- ggplotGrob(plt2 + ylim(-1.5,1.5) + makeTransparent() )
-plt3b <- ggplotGrob(plt3 + ylim(-1.5,1.5) + makeTransparent() )
+plt1b <- ggplotGrob(plt1 + ylim(-1.65,1.65) )
+plt2b <- ggplotGrob(plt2 + ylim(-1.65,1.65) + makeTransparent() )
+plt3b <- ggplotGrob(plt3 + ylim(-1.65,1.65) + makeTransparent() )
 
 # ... and superimpose these grobs onto an empty ggplot 
 ggplot() + 
@@ -171,7 +171,7 @@ ggplot() +
 
 # As seen, the Welch's corrected df results in error bars (blue) which are 
 # just a little bit longer than the pooled df bars (red). In all cases, the
-# unadjusted (default) error bars (n-1) are longer, resulting in a more 
+# unadjusted (default) error bars (n-1) are longer (orange bars), resulting in a more 
 # conservative representation of the data.
 
 

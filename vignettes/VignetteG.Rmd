@@ -1,0 +1,212 @@
+---
+title: "(advanced) Local decorrelation for time series"
+bibliography: "../inst/REFERENCES.bib"
+csl: "../inst/apa-6th.csl"
+output: 
+  rmarkdown::html_vignette
+description: >
+  This vignette provides an overview of the local decorrelation technique 
+  from time series with vanishing amount of correlations.
+vignette: >
+  %\VignetteIndexEntry{(advanced) Local decorrelation for time series}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+
+```{r, echo = FALSE, warning=FALSE, message = FALSE, results = 'hide'}
+cat("this will be hidden; use for general initializations.\n")
+library(superb)
+options("superb.feedback" = c("warnings"))
+library(ggplot2)
+```
+
+The decorrelation of the measures in repeated-measure designs is meant to have error bars
+that are integrating the added power of using repeated-measures over independent groups.
+In design with a few measurements, the correlation between the pairs of measurements is
+indicative of the gain in statistical power. However, in time series, correlation is likely
+to vanish as measurements get further spaced in time (the ``lag`` effect).
+
+For example, consider a longitudinal study of adolescents over 10 years. The measurements that
+are 6-month apart may show some correlations, but the two most separated measurements (say the first
+at 8 years old and the second at 18 years old) are much less likely to preserve their correlations.
+
+This vignette propose a solution. It is detailed in @cppf24.
+
+## The structure of correlations
+
+When repeated measures are obtained, one may compute the correlation matrix. The
+correlation matrix is always composed of 1s along the main diagonal, as the correlation of a variable 
+with itself is always 1. What is more interesting is what happen off the main diagonal.
+
+In some situations, the correlations are fairly constant (stationary). When the variance are
+further homogeneous, this correlation structure is known as ``compound symmetry``. Compound symmetry
+is the simplest situation and also the easiest to analyze (with e.g., ANOVAs, alghough ANOVA really
+requires ``sphericity``, a slightly different correlation structure).
+
+In other situations, we might see that correlations near the main diagnonal are strong, but as we
+distance from the diagonal (either in the upper-right or lower-left directions), the correlations slowly
+vanishes, possibly reaching near-null values. This structure is known as an ``autoregressive covariance
+structure of the first order`` or AR(1). In time series, that would indicate that the correlation of a 
+measurement with the measurement just before or just after is high, but that the correlation between
+a measurement and a distant measurement is weak.
+
+## Implications for precision
+
+Vanishing correlations means that comparing distant points in time will be performed with weaker statistical
+precision and comparisons of close-by measures will benefit from much correlation (_correlation is your
+friend_ when it comes to statistical inference).
+
+In plotting curves, our objective may be to see how the points evolves, which imply that we are making multiple
+comparisons of close-by points. If so, our visual tools should be based on the correlation (presumably high)
+between these nearby points. If our objective is instead to compare far-distance points, the visual tools 
+should incorporate the correlations of these distant points (presumably weak).
+
+## How is correlation assessed then?
+
+There are a few techniques to estimate the correlation in a correlation matrix. When it is assumed 
+compound symmetric, the average of the pairwise correlations is satisfactory. When it is AR(1) however, 
+the average won't do as the correlation is varying based on the lag.
+
+We argue that a fit technique is to average the correlations using weights that are reducing with distance 
+(excluding the main diagonal whose weight is set to 0). Any kernel (for example a gaussian kernel) can be
+used to that end, as long as the width is kept smaller than the number of variables. We implemtented this
+technique in ``superb``.
+
+
+## Illustration with fMRI data
+
+@w17 examined the finite impulse response obtained from an fMRI for two sites (frontal and 
+parietal) and two event conditions (a cue-only condition and a cue+stimulus condition). The responses are
+obtained over 19 time points (labeled 0 to 18) in these four conditions, resulting in 76 measurements.
+There are 14 participants.
+
+We first fetch the data from the main author's GitHub repository:
+
+```{r}
+fmri <- read.csv(url("https://raw.githubusercontent.com/mwaskom/seaborn-data/de49440879bea4d563ccefe671fd7584cba08983/fmri.csv"))
+```
+
+As the data are in no specific order, we first sort them by subject, type of event, and region as well as
+by time points and next, we convert the data into a wide data frame of dimensions 14 lines per 77 columns:
+
+```{r}
+# sort the data...
+fmri <- fmri[order(fmri$subject, fmri$event, fmri$region, fmri$timepoint),]
+
+#... then convert to wide
+fmriWide <- superbToWide(fmri, id="subject", 
+    WSFactors = c("event","region","timepoint"), 
+    variable = "signal")
+```
+
+We are ready to make plots!
+
+### A plot without decorrelation
+
+The first plot is done without adjustments. By default, it shows the standalone 95% confidence interval.
+
+```{r, fig.height=4, fig.width=7, fig.cap = "**Figure 1**. Plot of the fMRI data with standalone confidence intervals."}
+superbPlot( fmriWide,
+  WSFactors = c("timepoint(19)","region(2)","event(2)"),
+  variables = names(fmriWide)[2:77],
+  plotStyle = "lineBand",
+  pointParams = list(size=1,color="black"),
+  lineParams = list(color="purple")
+) + scale_x_discrete(name="Time", labels = 0:18) + 
+scale_discrete_manual(aesthetic =c("fill","colour"), 
+                      labels = c("frontal","parietal"), 
+                      values = c("red","green")) +
+theme_bw() 
+```
+
+The `scale_x_discrete` is done to rename the ticks from 0 to 18 (they would start at 1 otherwise).
+The `scale_discrete_manual` changes the color of the band (I hope you are color-blind, colors is not my
+thing). The `plotStyle = "lineBand"` displays the confidence intervals as a band rather than as error bars.
+
+
+### Plots with decorrelation
+
+The decorrelation technique was first proposed by @lm94. Alternatives approaches were developped
+in @c05 with @m08 [also see @c19]. They are known in ``superbPlot()`` as ``"LM"`` and
+``"CM"`` respectively.
+
+If you add this adjustment with this command, you get the following plot:
+
+```{r, fig.height=4, fig.width=7, fig.cap = "**Figure 2**. Plot of the fMRI data with Cousineau-Morey decorrelation."}
+superbPlot( fmriWide,
+  WSFactors = c("timepoint(19)","region(2)","event(2)"),
+  variables = names(fmriWide)[2:77],
+  adjustments = list(decorrelation = "CM"), ## only new line
+  plotStyle = "lineBand",
+  pointParams = list(size=1,color="black"),
+  lineParams = list(color="purple")
+) + scale_x_discrete(name="Time", labels = 0:19) + 
+scale_discrete_manual(aesthetic =c("fill","colour"), 
+                      labels = c("frontal","parietal"), 
+                      values = c("red","green"))+
+theme_bw() 
+```
+
+As you may see, this plot and the previous one are nearly identical! This is because the average correlation
+involving close-by and far-distant points is very weak (close to zero; replace CM with CA and a message
+will return the average correlation in addition to a plot).
+
+Because fMRI points are separated by time, close-by points ought to show some correlation. This is
+where local decorrelation may be useful.
+
+We repeat the above command, but this time ask for a local average of the correlation. We need to 
+specify the radius of the kernel, which we do by adding an integer after the letters "LD". Here, 
+we show the results with a narrow kernel, weighting far more adjacent points than points 3 time points
+appart, obtained with ``"LD2"``:
+
+
+```{r, fig.height=4, fig.width=7, fig.cap = "**Figure 3**. Plot of the fMRI data with local decorrelation."}
+superbPlot( fmriWide,
+  WSFactors = c("timepoint(19)","region(2)","event(2)"),
+  variables = names(fmriWide)[2:77],
+  adjustments = list(decorrelation = "LD2"),  ## CM replaced with LD2
+  plotStyle = "lineBand",
+  pointParams = list(size=1,color="black"),
+  lineParams = list(color="purple")
+) + scale_x_discrete(name="Time", labels = 0:19) + 
+scale_discrete_manual(aesthetic =c("fill","colour"), 
+                      labels = c("frontal","parietal"), 
+                      values = c("red","green"))+
+theme_bw() 
+```
+
+As seen from the message, the correlations in nearby time points is about .80. It explains why the 
+precision of the measures shrank so much (seen with confidence intervals that are much narrower). 
+You can pick any two nearby points and run a paired t-test, the chances are high that you get
+a significant result. As an example, consider the green curve, in condition cue+stimuli (bottom
+panel), for time points 6 and 7. The confidence band suggest that these two points differ when
+you examine the locally-decorrelated confidence intervals, but not when you examine the previous
+two plots. Which is true? Let's run a t-test on paired sample.
+
+```{r}
+t.test(fmriWide$`signal_stim_parietal_ 6`, fmriWide$`signal_stim_parietal_ 7`, paired=TRUE)
+```
+
+If you look at the red curve (cue alone) on times 5 and 6, no difference is suggested, and so 
+says the t-test:
+
+```{r}
+t.test(fmriWide$`signal_stim_frontal_ 5`, fmriWide$`signal_stim_frontal_ 6`, paired=TRUE)
+```
+
+## The radius paramter
+
+You can vary the radius from 1 to 9 (it cannot exceed the number of time point minus 1, divided by 2).
+The larger the radius, the smallest will be the benefit of correlation in the assessment of precision.
+
+Note that in the above computations, I reduced the number of messages displayed by ``superb`` using
+``options("superb.feedback" = c("warnings"))``
+
+## In summary
+
+Local decorrelation is a tool adapted to time series where nearby measurements are expected to show greater
+correlations than measurements separated by large amount of time.
+
+
+# References

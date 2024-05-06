@@ -50,9 +50,10 @@
 #' * purpose: The purpose of the comparisons. Defaults to "single". 
 #'      Can be "single", "difference", or "tryon".
 #' * decorrelation: Decorrelation method for repeated measure designs. 
-#'      Chooses among the methods "CM", "LM", "CA", "UA", or "none". Defaults to 
+#'      Chooses among the methods "CM", "LM", "CA", "UA", "LDr" (with r an integer) or "none". Defaults to 
 #'      "none". "CA" is correlation-adjusted \insertCite{c19}{superb};
 #'      "UA" is based on the unitary Alpha method (derived from the Cronbach alpha);
+#'      "LDr" is local decorrelation (useful for long time series with autoregressive correlation structures);
 #'      see \insertCite{lc22}{superb}.
 #' * samplingDesign: Sampling method to obtain the sample. implemented 
 #'          sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Sampling).
@@ -229,8 +230,13 @@ superbPlot <- function(data,
             stop("superb::ERROR: popSize should be a positive number or Inf (or a list of these). Exiting...")
     if (!(adjustments$purpose %in% c("single","difference","tryon"))) 
             stop("superb::ERROR: Invalid purpose. Did you mean 'difference'? Exiting...")
-    if (!(adjustments$decorrelation %in% c("none","CM","LM","CA","UA"))) 
+    if (!(substr(adjustments$decorrelation,1,2) %in% c("no","CM","LM","CA","UA","LD"))) 
             stop("superb::ERROR: Invalid decorrelation method. Did you mean 'CM'? Exiting...")
+    if (substr(adjustments$decorrelation,1,2) == "LD") {
+            radius <- suppressWarnings(as.integer(substr(adjustments$decorrelation, 3, 100)))
+            if ((is.na(radius))|(radius>length(variables))|(radius<1))
+                stop("superb::ERROR: radius given to LD not an integer, is smaller than 1, or larger than half the number of variables. Exiting...")
+    }
     if (!(adjustments$samplingDesign %in% c("SRS","CRS"))) 
             stop("superb::ERROR: Invalid samplingDesign. Did you mean 'SRS'? Exiting...")
 
@@ -392,10 +398,7 @@ superbPlot <- function(data,
     data.untransformed.long <- suppressWarnings(lsr::wideToLong(data.untransformed, within = WSFactors, sep = weird))
     data.transformed.long   <- suppressWarnings(lsr::wideToLong(data.transformed, within = WSFactors, sep = weird))
 
-    # needed because lsr turns the within indicators into strings, not numeric, causing order problems in plots (e.g., 1, 10, 2, ...)
-    # new 15 january 2022, version 0.9.7.9 
-
-    ###CALISS! new May 11th, 2022, version 0.95.1
+    # New May 11th, 2022, version 0.95.1
     as.numeric.factor <- function(x) {strtoi(x)}
 
     data.untransformed.long[WSFactors] <- mapply(
@@ -512,6 +515,11 @@ superbPlot <- function(data,
         # the rs must be expanded for each repeated measures
         rs  <- rep(rs, wslevel)
         sqrt(1- rs)
+    } else if (substr(adjustments$decorrelation,1,2) == "LD") {
+        rs <- plyr::ddply(data, .fun = meanLocalCorrelation, .variables = BSFactors, cols = variables, w = radius)$V1
+        # the rs must be expanded for each repeated measures
+        rs  <- rep(rs, wslevel)
+        sqrt(1- rs)
     } else {1}
 
     # All done: apply the corrections to all the widths
@@ -541,7 +549,7 @@ superbPlot <- function(data,
         }
 
         # 6.2: if deccorrelate is CA: show rbar, test Winer
-        if ((adjustments$decorrelation == "CA")||(adjustments$decorrelation == "UA")) {
+        if ((adjustments$decorrelation == "CA")||(adjustments$decorrelation == "UA")||(substr(adjustments$decorrelation,1,2) == "LD")) {
             message(paste("superb::FYI: The average","","correlation per group is ", paste(unique(sprintf("%.4f",round(rs,4))), collapse=" ")) )
 
             winers <- suppressWarnings(plyr::ddply(data, .fun = "WinerCompoundSymmetryTest", .variables= BSFactors, variables)) 
@@ -614,7 +622,7 @@ superbPlot <- function(data,
 
 
 #################################################################################
-# statistics functions: colSDs; meanCorrelation; unitaryAlpha
+# Statistics functions: colSDs; meanCorrelation; unitaryAlpha
 #################################################################################
 
 meanCorrelation <- function(X, cols) {
@@ -625,9 +633,6 @@ meanCorrelation <- function(X, cols) {
 }
 
 unitaryAlpha <- function(X, cols) {
-#print(head(X))
-#print(str(X))
-#x<<- X
 	m <- as.matrix(X[,cols])
 
 	k <- dim(m)[2]
@@ -644,6 +649,46 @@ colSDs = function (x) {
     else "what the fuck??"
 }
 
+
+##################################################################   
+# Functions for local decorrelation
+##################################################################   
+
+# Is a gaussian kernel with a hole a donut?
+gk <- function(w) {
+    s1 <- exp(-(-w:+w)^2/(2*(w/3)^2))/((w/3)*sqrt(2*pi))
+    s1[w+1] <- 0
+    s1 / sum(s1)
+}
+
+# rotate vectors
+rotate <- function (mat, k = 1) {
+    if (k != round(k)) warning("'k' is not an integer")
+    k <- k%%length(mat)
+    rep(mat, times = 2)[(length(mat)-k+1):(2*length(mat)-k)]
+}
+
+# diag minor: this is the diagonal k position away from the main diagonal
+mdiag <- function(mat, k) {
+    n  <- dim(mat)[2]
+    s1 <- lapply(1:n, \(i) {rotate(mat[,i],k)})
+    s2 <- matrix(unlist(s1), nrow=n, byrow=FALSE)
+    rotate(diag(s2),-k)
+}
+#matrix of diag minors
+matdiag <- function(mat, w) {
+    n  <- dim(mat)[2]
+    s1 <- lapply(-w:+w, \(i) {mdiag(mat,i) } )
+    matrix(unlist(s1), nrow=n, byrow=FALSE)
+}
+
+meanLocalCorrelation <- function(X, cols, w) {
+    tt <- apply( 
+            matdiag(cor(X[cols], use = "pairwise.complete.obs"), w), 1, 
+            \(line) convolve(line, gk(w), type = "f")
+        )
+    mean(tt)
+}
 
 
 ##################################################################   

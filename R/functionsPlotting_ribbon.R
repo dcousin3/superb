@@ -48,7 +48,7 @@
 #' # if you extract the data with superbData, you can 
 #' # run this layout directly
 #' #processedData <- superbData(dta, 
-#' #   WSFactors   = c("timepoints(100)", "condition(2)"), variables = colnames(dta)[2:201],
+#' #   WSFactors   = c("timepoints(50)", "condition(2)"), variables = colnames(dta)[2:101],
 #' #   adjustments = list(
 #' #        purpose       = "single",
 #' #        decorrelation = "CM"        ## or none for no decorrelation
@@ -84,6 +84,7 @@ superbPlot.lineBand <- function(
         list(xfactor, groupingfactor, addfactors, list(pointParams=pointParams, lineParams=lineParams, errorbarParams=errorbandParams))
     )
     mysym <- function(x) { if(is.character(x)) sym(x) else x }
+#    if (is.null(groupingfactor)) groupingfactor = 1
 
     # depending on the scale of the x-axis.
     if (!xAsFactor) 
@@ -92,10 +93,6 @@ superbPlot.lineBand <- function(
     # let's do the plot!
     plot <- ggplot(
         summarydata, 
-#        aes_string(
-#            x = xfactor, y = "center", ymin = "center + lowerwidth", ymax = "center + upperwidth", 
-#            colour = groupingfactor
-#       Because aes_string is deprecated, we switch to the magical pair !!sym(string)...
         aes(
             x = !!mysym(xfactor), y = center, ymin = center + lowerwidth, ymax = center + upperwidth, 
             colour = !!mysym(groupingfactor)
@@ -104,21 +101,18 @@ superbPlot.lineBand <- function(
     do.call(geom_ribbon, modifyList(
         list(alpha = 0.3, linewidth = 0.75, colour = "00000000", 
             position = position_dodge(.15),
-            #mapping = aes_string(fill = groupingfactor, group = groupingfactor) ),
-            mapping = aes(fill = !!mysym(groupingfactor), group = !!mysym(groupingfactor)) ),
+            mapping = aes(fill = !!mysym(groupingfactor), group = !!mysym(ifelse(is.null(groupingfactor),1,groupingfactor)) ) ),
         errorbandParams
     )) + 
     # the points ...
     do.call(geom_point, modifyList(
         list(size = 3, position = position_dodge(width = .15), 
-            #mapping = aes_string(group = groupingfactor) ),
-            mapping = aes(group = !!mysym(groupingfactor)) ),
+            mapping = aes(group = !!mysym(ifelse(is.null(groupingfactor),1,groupingfactor)) ) ),
         pointParams
     )) +
     # ... and the lines connecting the points
     do.call(geom_line, modifyList(
         list(position = position_dodge(width = .15), 
-            #mapping = aes_string(group = ifelse(is.null(groupingfactor),1,groupingfactor) ) ),
             mapping = aes(group = !!mysym(ifelse(is.null(groupingfactor),1,groupingfactor)) ) ),
         lineParams
     )) +
@@ -128,4 +122,5 @@ superbPlot.lineBand <- function(
         facetParams
     ))
         
-    return(plot)}
+    return(plot)
+}

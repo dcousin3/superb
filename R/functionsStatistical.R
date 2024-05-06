@@ -84,7 +84,7 @@ fisherkurtosis <- function(x) {
 #' the number of participants is $n$, and the total sample size is $N$ (with
 #' $N = p x n$, then the 
 #' pooled degree of freedom is $(p-1) x (n-1)$ or equivalently $N -p-n+1$.
-#' Another example where custom degree of freedom can be used is , when there are 
+#' Another example where custom degree of freedom can be used is when there are 
 #' heterogeneous variances, 
 #' the confidence interval of the mean should mirror a Welsh test where the
 #' degrees of freedom are altered based on variances. The function `CIwithDF.mean()`
@@ -235,7 +235,7 @@ fisherkurtosis <- function(x) {
 #' 
 #' # As seen, the Welch's corrected df results in error bars (blue) which are 
 #' # just a little bit longer than the pooled df bars (red). In all cases, the
-#' # unadjusted (default) error bars (n-1) are longer, resulting in a more 
+#' # unadjusted (default) error bars (n-1) are longer (orange bars), resulting in a more 
 #' # conservative representation of the data.
 #'
 #'
