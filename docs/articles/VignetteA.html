@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.11</span>
       </span>
     </div>
 
@@ -92,6 +92,9 @@
     </li>
     <li>
       <a href="../articles/Vignette8.html">(advanced) Alternate ways to decorrelate repeated measures from transformations</a>
+    </li>
+    <li>
+      <a href="../articles/VignetteG.html">(advanced) Local decorrelation for time series</a>
     </li>
     <li>
       <a href="../articles/VignetteB.html">(advanced) Non-factorial within-subject designs in ``superb``</a>
@@ -213,12 +216,12 @@ to <code>gl</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">glucoselevels</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   id concentration        gl</span></span>
-<span><span class="co">## 1  1             A 103.98786</span></span>
-<span><span class="co">## 2  2             A  89.21033</span></span>
-<span><span class="co">## 3  3             A  85.92322</span></span>
-<span><span class="co">## 4  4             A  74.96015</span></span>
-<span><span class="co">## 5  5             A 102.64008</span></span>
-<span><span class="co">## 6  6             A 109.72493</span></span></code></pre>
+<span><span class="co">## 1  1             A  88.20372</span></span>
+<span><span class="co">## 2  2             A  97.85632</span></span>
+<span><span class="co">## 3  3             A  96.33814</span></span>
+<span><span class="co">## 4  4             A 101.98034</span></span>
+<span><span class="co">## 5  5             A  85.57927</span></span>
+<span><span class="co">## 6  6             A  96.96613</span></span></code></pre>
 <p>A simple plot could show the mean for each concentration along with
 the 95% confidence interval of the means, with e.g.,</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -243,10 +246,10 @@ individuals are often much outside the visible part of the scale.</p>
 the highest:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">glucoselevels</span><span class="op">$</span><span class="va">gl</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 45.28908</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 41.55096</span></span></code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">glucoselevels</span><span class="op">$</span><span class="va">gl</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 152.6475</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 157.3203</span></span></code></pre>
 <p>Instead of asking for an error bar representing a confidence interval
 (CI), let’s ask for error bar representing the reference intervals
 (RI).</p>

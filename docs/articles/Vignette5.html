@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.11</span>
       </span>
     </div>
 
@@ -92,6 +92,9 @@
     </li>
     <li>
       <a href="../articles/Vignette8.html">(advanced) Alternate ways to decorrelate repeated measures from transformations</a>
+    </li>
+    <li>
+      <a href="../articles/VignetteG.html">(advanced) Local decorrelation for time series</a>
     </li>
     <li>
       <a href="../articles/VignetteB.html">(advanced) Non-factorial within-subject designs in ``superb``</a>
@@ -208,12 +211,12 @@ factors have main effets on the scores.</p>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">testdata</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   id Difficulty score.day1 score.day2</span></span>
-<span><span class="co">## 1  1          1   65.98522   57.45503</span></span>
-<span><span class="co">## 2  2          1   60.30187   40.51445</span></span>
-<span><span class="co">## 3  3          1   65.44407   48.72823</span></span>
-<span><span class="co">## 4  4          1   66.96730   77.53957</span></span>
-<span><span class="co">## 5  5          1   61.20719   73.70932</span></span>
-<span><span class="co">## 6  6          1   61.55761   77.47489</span></span></code></pre>
+<span><span class="co">## 1  1          1   73.60752   59.70648</span></span>
+<span><span class="co">## 2  2          1   60.36965   71.14132</span></span>
+<span><span class="co">## 3  3          1   57.31960   69.61676</span></span>
+<span><span class="co">## 4  4          1   62.81804   61.28449</span></span>
+<span><span class="co">## 5  5          1   63.36734   61.38332</span></span>
+<span><span class="co">## 6  6          1   35.70823   34.64048</span></span></code></pre>
 <p>For simplicity, we define a function whose arguments are the dataset
 and the layout:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
