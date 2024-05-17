@@ -234,8 +234,8 @@ superbPlot <- function(data,
             stop("superb::ERROR: Invalid decorrelation method. Did you mean 'CM'? Exiting...")
     if (substr(adjustments$decorrelation,1,2) == "LD") {
             radius <- suppressWarnings(as.integer(substr(adjustments$decorrelation, 3, 100)))
-            if ((is.na(radius))|(radius>length(variables))|(radius<1))
-                stop("superb::ERROR: radius given to LD not an integer, is smaller than 1, or larger than half the number of variables. Exiting...")
+            if ((is.na(radius))||(radius<1))
+                stop("superb::ERROR: radius given to LD not an integer or is smaller than 1. Exiting...")
     }
     if (!(adjustments$samplingDesign %in% c("SRS","CRS"))) 
             stop("superb::ERROR: Invalid samplingDesign. Did you mean 'SRS'? Exiting...")
@@ -516,9 +516,9 @@ superbPlot <- function(data,
         rs  <- rep(rs, wslevel)
         sqrt(1- rs)
     } else if (substr(adjustments$decorrelation,1,2) == "LD") {
-        rs <- plyr::ddply(data, .fun = meanLocalCorrelation, .variables = BSFactors, cols = variables, w = radius)$V1
-        # the rs must be expanded for each repeated measures
-        rs  <- rep(rs, wslevel)
+        rs <- plyr::ddply(data, .fun = meanLocalCorrelation, .variables = BSFactors, cols = variables, w = radius)
+        rs <- unlist(rs[,!is.na(rs)])
+        # the rs is a vector containing one rLD for each measurement
         sqrt(1- rs)
     } else {1}
 
@@ -550,7 +550,7 @@ superbPlot <- function(data,
 
         # 6.2: if deccorrelate is CA: show rbar, test Winer
         if ((adjustments$decorrelation == "CA")||(adjustments$decorrelation == "UA")||(substr(adjustments$decorrelation,1,2) == "LD")) {
-            message(paste("superb::FYI: The average","","correlation per group is ", paste(unique(sprintf("%.4f",round(rs,4))), collapse=" ")) )
+            message(paste("superb::FYI: The average correlation per group is ", paste(unique(sprintf("%.4f",mean(round(rs,4)))), collapse=" ")) )
 
             winers <- suppressWarnings(plyr::ddply(data, .fun = "WinerCompoundSymmetryTest", .variables= BSFactors, variables)) 
             winers <- winers[,length(winers)]
@@ -654,41 +654,22 @@ colSDs = function (x) {
 # Functions for local decorrelation
 ##################################################################   
 
-# Is a gaussian kernel with a hole a donut?
-gk <- function(w) {
-    s1 <- exp(-(-w:+w)^2/(2*(w/3)^2))/((w/3)*sqrt(2*pi))
-    s1[w+1] <- 0
+# The gaussian kernel
+gA <- function(w, mu, dim) {
+    s1 <- exp(-((1:dim)-mu)^2/(2*w^2))/(w*sqrt(2*pi))
+    s1[mu] <- 0 # Is a gaussian kernel with a hole a donut?
     s1 / sum(s1)
 }
 
-# rotate vectors
-rotate <- function (mat, k = 1) {
-    if (k != round(k)) warning("'k' is not an integer")
-    k <- k%%length(mat)
-    rep(mat, times = 2)[(length(mat)-k+1):(2*length(mat)-k)]
-}
-
-# diag minor: this is the diagonal k position away from the main diagonal
-mdiag <- function(mat, k) {
-    n  <- dim(mat)[2]
-    s1 <- lapply(1:n, \(i) {rotate(mat[,i],k)})
-    s2 <- matrix(unlist(s1), nrow=n, byrow=FALSE)
-    rotate(diag(s2),-k)
-}
-#matrix of diag minors
-matdiag <- function(mat, w) {
-    n  <- dim(mat)[2]
-    s1 <- lapply(-w:+w, \(i) {mdiag(mat,i) } )
-    matrix(unlist(s1), nrow=n, byrow=FALSE)
-}
-
 meanLocalCorrelation <- function(X, cols, w) {
-    tt <- apply( 
-            matdiag(cor(X[cols], use = "pairwise.complete.obs"), w), 1, 
-            \(line) convolve(line, gk(w), type = "f")
-        )
-    mean(tt)
+    mat <- cor(X[cols], use = "pairwise.complete.obs" )
+    nrw <- dim(mat)[2]
+    sapply( 1:nrw, 
+            \(i) sum(mat[i,] * gA(w,i,nrw) )
+    )
 }
+# that simple!
+
 
 
 ##################################################################   

@@ -91,3 +91,5 @@ articles:
   - Vignette5
   - VignetteD
   - Vignette6
+news:
+  one_page: true
