@@ -326,28 +326,6 @@ points 3 time points appart, obtained with <code>"LD2"</code>:</p>
 <span>                      labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"frontal"</span>,<span class="st">"parietal"</span><span class="op">)</span>, </span>
 <span>                      values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red"</span>,<span class="st">"green"</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
-<pre><code><span><span class="co">##         V1         V2         V3         V4         V5         V6         V7 </span></span>
-<span><span class="co">## 0.53390890 0.56481016 0.61973201 0.59567288 0.53281428 0.42664491 0.32734000 </span></span>
-<span><span class="co">##         V8         V9        V10        V11        V12        V13        V14 </span></span>
-<span><span class="co">## 0.29547425 0.40167643 0.53295405 0.61164053 0.65469099 0.70657279 0.75296302 </span></span>
-<span><span class="co">##        V15        V16        V17        V18        V19        V20        V21 </span></span>
-<span><span class="co">## 0.78880029 0.78648431 0.74043500 0.66623062 0.46533202 0.39228392 0.46073744 </span></span>
-<span><span class="co">##        V22        V23        V24        V25        V26        V27        V28 </span></span>
-<span><span class="co">## 0.50705018 0.51512328 0.47514164 0.38997069 0.29710925 0.25273535 0.30610429 </span></span>
-<span><span class="co">##        V29        V30        V31        V32        V33        V34        V35 </span></span>
-<span><span class="co">## 0.43140233 0.52866068 0.59530815 0.67111925 0.72343105 0.73387591 0.71993121 </span></span>
-<span><span class="co">##        V36        V37        V38        V39        V40        V41        V42 </span></span>
-<span><span class="co">## 0.69271523 0.56135703 0.32877779 0.06994394 0.22408661 0.35185533 0.38031414 </span></span>
-<span><span class="co">##        V43        V44        V45        V46        V47        V48        V49 </span></span>
-<span><span class="co">## 0.44489639 0.51162292 0.53114206 0.51810979 0.48700023 0.45765271 0.45957915 </span></span>
-<span><span class="co">##        V50        V51        V52        V53        V54        V55        V56 </span></span>
-<span><span class="co">## 0.49051296 0.52072763 0.56423116 0.59057101 0.59151534 0.56051512 0.43712789 </span></span>
-<span><span class="co">##        V57        V58        V59        V60        V61        V62        V63 </span></span>
-<span><span class="co">## 0.25160038 0.29433611 0.37478736 0.41625087 0.44358089 0.46849983 0.48710719 </span></span>
-<span><span class="co">##        V64        V65        V66        V67        V68        V69        V70 </span></span>
-<span><span class="co">## 0.50456743 0.52924049 0.53374860 0.50658936 0.49554076 0.51196418 0.54982112 </span></span>
-<span><span class="co">##        V71        V72        V73        V74        V75        V76 </span></span>
-<span><span class="co">## 0.61360910 0.65962848 0.68566919 0.70106521 0.70738377 0.68879062</span></span></code></pre>
 <pre><code><span><span class="co">## superb::FYI: The average correlation per group is  0.5158</span></span></code></pre>
 <div class="figure">
 <img src="VignetteG_files/figure-html/unnamed-chunk-6-1.png" alt="**Figure 3**. Plot of the fMRI data with local decorrelation." width="672"><p class="caption">
@@ -356,16 +334,17 @@ decorrelation.
 </p>
 </div>
 <p>As seen from the message, the correlations in nearby time points is
-about .80. It explains why the precision of the measures shrank so much
+about .50. It explains why the precision of the measures shrank so much
 (seen with confidence intervals that are much narrower). You can pick
 any two nearby points and run a paired t-test, the chances are high that
-you get a significant result. As an example, consider the green curve,
-in condition cue+stimuli (bottom panel), for time points 6 and 7. The
-confidence band suggest that these two points differ when you examine
-the locally-decorrelated confidence intervals, but not when you examine
-the previous two plots. Which is true? Let’s run a t-test on paired
+you get a significant result.</p>
+<p>As an example, consider the green curve, in condition cue+stimuli
+(i.e., bottom panel), for time points 6 and 7. The confidence band
+suggest that these two points differ when you examine the
+locally-decorrelated confidence intervals, but not when you examine the
+previous two plots. Which is true? Let’s run a t-test on paired
 sample.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">fmriWide</span><span class="op">$</span><span class="va">`signal_stim_parietal_ 6`</span>, <span class="va">fmriWide</span><span class="op">$</span><span class="va">`signal_stim_parietal_ 7`</span>, paired<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">##  Paired t-test</span></span>
@@ -380,7 +359,7 @@ sample.</p>
 <span><span class="co">##      0.06155768</span></span></code></pre>
 <p>If you look at the red curve (cue alone) on times 5 and 6, no
 difference is suggested, and so says the t-test:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">fmriWide</span><span class="op">$</span><span class="va">`signal_stim_frontal_ 5`</span>, <span class="va">fmriWide</span><span class="op">$</span><span class="va">`signal_stim_frontal_ 6`</span>, paired<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">##  Paired t-test</span></span>
@@ -398,19 +377,23 @@ difference is suggested, and so says the t-test:</p>
 <div class="section level3">
 <h3 id="the-radius-paramter">The radius paramter<a class="anchor" aria-label="anchor" href="#the-radius-paramter"></a>
 </h3>
-<p>You can vary the radius from 1 to 9 (it cannot exceed the number of
-time point minus 1, divided by 2). The larger the radius, the smallest
-will be the benefit of correlation in the assessment of precision.</p>
+<p>You can vary the radius from 1 and above. The larger the radius, the
+smallest will be the benefit of correlation in the assessment of
+precision. In the extreme, if you use a very large radius (e.g.,
+“LD10000”), you will get the exact same average correlation as with “CA”
+as now all the correlations are weighted almost identically.</p>
 <p>Note that in the above computations, I reduced the number of messages
 displayed by <code>superb</code> using
-<code>options("superb.feedback" = c("warnings"))</code></p>
+<code>options("superb.feedback" = "warnings" )</code>.</p>
 </div>
 <div class="section level3">
 <h3 id="in-summary">In summary<a class="anchor" aria-label="anchor" href="#in-summary"></a>
 </h3>
 <p>Local decorrelation is a tool adapted to time series where nearby
 measurements are expected to show greater correlations than measurements
-separated by large amount of time.</p>
+separated by large amount of time. This is applicable among other to
+time series, longitudinal studies, fMRI studies (as the example above)
+and EEG studies (as the application described in <span class="citation">Cousineau et al. (in preparation)</span>).</p>
 </div>
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
