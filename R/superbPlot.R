@@ -52,9 +52,11 @@
 #' * decorrelation: Decorrelation method for repeated measure designs. 
 #'      Chooses among the methods "CM", "LM", "CA", "UA", "LDr" (with r an integer) or "none". Defaults to 
 #'      "none". "CA" is correlation-adjusted \insertCite{c19}{superb};
-#'      "UA" is based on the unitary Alpha method (derived from the Cronbach alpha);
-#'      "LDr" is local decorrelation (useful for long time series with autoregressive correlation structures);
-#'      see \insertCite{lc22}{superb}.
+#'      "UA" is based on the unitary Alpha method (derived from the Cronbach alpha;
+#'      see \insertCite{lc22}{superb}).
+#'      "LDr" is local decorrelation (useful for long time series with autoregressive 
+#'      correlation structures; see \insertCite{cppf24}{superb});
+#'     .
 #' * samplingDesign: Sampling method to obtain the sample. implemented 
 #'          sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Sampling).
 #'
@@ -541,6 +543,8 @@ superbPlot <- function(data,
             ps   <- c()
             for (var in variables ) {
                 out <- split(data[,var], crit )
+                # 2024.05.30: exlude empty conditions
+                out <- out[lengths(out)>1]
                 p   <- stats::bartlett.test(out)$p.value
                 ps  <- c(ps, p)
             }

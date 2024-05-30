@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.12</span>
       </span>
     </div>
 
@@ -375,7 +375,7 @@ difference is suggested, and so says the t-test:</p>
 </div>
 </div>
 <div class="section level3">
-<h3 id="the-radius-paramter">The radius paramter<a class="anchor" aria-label="anchor" href="#the-radius-paramter"></a>
+<h3 id="the-radius-parameter">The radius parameter<a class="anchor" aria-label="anchor" href="#the-radius-parameter"></a>
 </h3>
 <p>You can vary the radius from 1 and above. The larger the radius, the
 smallest will be the benefit of correlation in the assessment of
@@ -385,6 +385,21 @@ as now all the correlations are weighted almost identically.</p>
 <p>Note that in the above computations, I reduced the number of messages
 displayed by <code>superb</code> using
 <code>options("superb.feedback" = "warnings" )</code>.</p>
+</div>
+<div class="section level3">
+<h3 id="difference-adjustments">Difference adjustments<a class="anchor" aria-label="anchor" href="#difference-adjustments"></a>
+</h3>
+<p>In all three figures, we did not use the difference adjustment.
+Recall that this adjustment is needed when the objective of the error
+bars (or error bands) is to perform comparisons between pairs of
+conditions.</p>
+<p>In the present example, the reader is very likely to perform
+comparisons between curves so that the difference adjustment is very
+much needed. Simply add <code>purpose = "difference"</code> in the
+<code>adjustments</code> list of the three examples above. You will see
+that of the three plots above, only the locally-decorrelated one
+suggests significant differences between the bottom curves on some time
+points, which is indeed what format tests indicate.</p>
 </div>
 <div class="section level3">
 <h3 id="in-summary">In summary<a class="anchor" aria-label="anchor" href="#in-summary"></a>

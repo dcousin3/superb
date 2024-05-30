@@ -1,3 +1,7 @@
+# superb 0.95.12 (May 30th, 2024)
+
+* Revise FYI message for un-balanced between-group design
+
 # superb 0.95.11 (May 7th, 2024)
 
 * Added local decorrelation with option "LDr" where r is the radius.

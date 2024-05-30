@@ -197,7 +197,7 @@ says the t-test:
 t.test(fmriWide$`signal_stim_frontal_ 5`, fmriWide$`signal_stim_frontal_ 6`, paired=TRUE)
 ```
 
-## The radius paramter
+## The radius parameter
 
 You can vary the radius from 1 and above. The larger the radius, the smallest will be the benefit of correlation in the assessment of precision.
 In the extreme, if you use a very large radius (e.g., "LD10000"), you will get the exact same
@@ -205,6 +205,18 @@ average correlation as with "CA" as now all the correlations are weighted almost
 
 Note that in the above computations, I reduced the number of messages displayed by ``superb`` using
 ``options("superb.feedback" = "warnings" )``.
+
+## Difference adjustments
+
+In all three figures, we did not use the difference adjustment. Recall that this
+adjustment is needed when the objective of the error bars (or error bands) is to
+perform comparisons between pairs of conditions.
+
+In the present example, the reader is very likely to perform comparisons between curves
+so that the difference adjustment is very much needed. Simply add `purpose = "difference"`
+in the `adjustments` list of the three examples above. You will see that of the three
+plots above, only the locally-decorrelated one suggests significant differences between
+the bottom curves on some time points, which is indeed what format tests indicate.
 
 ## In summary
 
