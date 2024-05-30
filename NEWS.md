@@ -2,6 +2,7 @@
 
 * Revise FYI message for un-balanced between-group designs
 * Corrected a small bug for un-balanced within-subject designs
+* Added a check for correlations on data without variance
 
 # superb 0.95.11 (May 7th, 2024)
 

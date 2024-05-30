@@ -349,7 +349,6 @@ superbPlot <- function(data,
     runDebug("superb.1", "End of Step 1: Input validation", 
         c("measure2","design2","BSFactors2","WSFactors2","wsLevels2","wslevel2","factorOrder2","adjustments2"), 
         list(variables, design, BSFactors, WSFactors, wsLevels, wslevel, factorOrder, adjustments) )
-#print("here? 1") # remnants of old debug information
 
 
     ##############################################################################
@@ -386,7 +385,6 @@ superbPlot <- function(data,
     
     runDebug("superb.2", "End of Step 2: Data post decorrelation", 
         c("data.transformed2", "newnames2"), list(data.transformed, newnames) )
-#print("here? 2")
 
 
     ##############################################################################
@@ -430,7 +428,6 @@ superbPlot <- function(data,
 
     runDebug("superb.3", "End of Step 3: Reformat data frame into long format", 
         c("data.transformed.long2","factorOrder3"), list(data.transformed.long,factorOrder) )
-#print("here? 3")
 
 
 
@@ -465,7 +462,6 @@ superbPlot <- function(data,
 
     runDebug("superb.4", "End of Step 4: Statistics obtained", 
         c("summaryStatistics2"), list( summaryStatistics) )
-#print("here? 4")
 
 
     ##############################################################################
@@ -480,7 +476,6 @@ superbPlot <- function(data,
         Ns  <- rep(Ns, length(variables))
         sqrt(1 - Ns / adjustments$popSize )        
     } else {1}
-#print("here? 4.1")
 
     # 5.2: Adjust for purpose if "difference" or "tryon"
     padj <- if (adjustments$purpose == "difference") { 
@@ -494,7 +489,6 @@ superbPlot <- function(data,
         es  <- rep(es, length(variables))
         2 * es * sqrt(length(Ns)) / sqrt(2) # 2 because contrary to Tryon, 2001, superb does not want to avoid overlap
     } else {1}
-#print("here? 4.2")
 
     # 5.3: Adjust for cluster-randomized sampling
     sadj <- if (adjustments$samplingDesign == "CRS") {
@@ -510,7 +504,6 @@ superbPlot <- function(data,
         ICCs     <- ICCs$V1 # downcast to a vector for latter display
         lambdas
     } else {1}
-#print("here? 4.3")
 
     # 5.4: Adjust for correlation if decorrelation == "CA"
     radj <- if (adjustments$decorrelation == "CA") {
@@ -529,7 +522,6 @@ superbPlot <- function(data,
         # the rs is a vector containing one rLD for each measurement
         sqrt(1- rs)
     } else {1}
-#print("here? 4.4")
 
     # All done: apply the corrections to all the widths
     summaryStatistics$lowerwidth <- nadj*padj*sadj*radj*summaryStatistics$lowerwidth
@@ -537,7 +529,6 @@ superbPlot <- function(data,
 
     runDebug("superb.5", "End of Step 5: Getting adjustments", 
         c("nadj2","padj2","sadj2","radj2","summaryStatistics3"), list(nadj,padj,sadj,radj,summaryStatistics) )
-#print("here? 5")
 
 
     ##############################################################################
@@ -637,9 +628,19 @@ superbPlot <- function(data,
 # Statistics functions: colSDs; meanCorrelation; unitaryAlpha
 #################################################################################
 
+mycor <- function(X) {
+    # a wrapper for cor() that checks if there are constant columns...
+    rs <- suppressWarnings( cor(X, use = "pairwise.complete.obs") )
+    if (any(is.na(rs))) {
+        message("superb::FYI: Some of the measurements are constant. Use CM or use error bars with caution." )
+        rs[is.na(rs)] <- 1
+    }
+    rs
+}
+
 meanCorrelation <- function(X, cols) {
     # the mean pair-wise correlations from many columns of the dataframe X
-    rs   <- cor(X[cols], use = "pairwise.complete.obs" )
+    rs   <- mycor( X[cols] )
     rbar <- mean(rs[upper.tri(rs)])
     rbar
 }
@@ -674,7 +675,7 @@ gA <- function(w, mu, dim) {
 }
 
 meanLocalCorrelation <- function(X, cols, w) {
-    mat <- cor(X[cols], use = "pairwise.complete.obs" )
+    mat <- mycor( X[cols] )
     nrw <- dim(mat)[2]
     sapply( 1:nrw, 
             \(i) sum(mat[i,] * gA(w,i,nrw) )
