@@ -349,6 +349,7 @@ superbPlot <- function(data,
     runDebug("superb.1", "End of Step 1: Input validation", 
         c("measure2","design2","BSFactors2","WSFactors2","wsLevels2","wslevel2","factorOrder2","adjustments2"), 
         list(variables, design, BSFactors, WSFactors, wsLevels, wslevel, factorOrder, adjustments) )
+#print("here? 1") # remnants of old debug information
 
 
     ##############################################################################
@@ -385,6 +386,7 @@ superbPlot <- function(data,
     
     runDebug("superb.2", "End of Step 2: Data post decorrelation", 
         c("data.transformed2", "newnames2"), list(data.transformed, newnames) )
+#print("here? 2")
 
 
     ##############################################################################
@@ -428,6 +430,7 @@ superbPlot <- function(data,
 
     runDebug("superb.3", "End of Step 3: Reformat data frame into long format", 
         c("data.transformed.long2","factorOrder3"), list(data.transformed.long,factorOrder) )
+#print("here? 3")
 
 
 
@@ -462,6 +465,7 @@ superbPlot <- function(data,
 
     runDebug("superb.4", "End of Step 4: Statistics obtained", 
         c("summaryStatistics2"), list( summaryStatistics) )
+#print("here? 4")
 
 
     ##############################################################################
@@ -473,9 +477,10 @@ superbPlot <- function(data,
         # Ns the number of subjects per group
         Ns  <- plyr::ddply(data, .fun = dim, .variables = BSFactors )$V1
         # the Ns must be expanded for each repeated measures
-        Ns  <- rep(Ns, wslevel)
+        Ns  <- rep(Ns, length(variables))
         sqrt(1 - Ns / adjustments$popSize )        
     } else {1}
+#print("here? 4.1")
 
     # 5.2: Adjust for purpose if "difference" or "tryon"
     padj <- if (adjustments$purpose == "difference") { 
@@ -486,9 +491,10 @@ superbPlot <- function(data,
         sds <- suppressWarnings(plyr::ddply(data.transformed.long, .fun = colSDs, .variables = c(WSFactors,BSFactors) )$DV)
         es <- sqrt(sum(sds^2/Ns)) / sum(sqrt(sds^2/Ns))
         # the es must be expanded for each repeated measures
-        es  <- rep(es, wslevel)
+        es  <- rep(es, length(variables))
         2 * es * sqrt(length(Ns)) / sqrt(2) # 2 because contrary to Tryon, 2001, superb does not want to avoid overlap
     } else {1}
+#print("here? 4.2")
 
     # 5.3: Adjust for cluster-randomized sampling
     sadj <- if (adjustments$samplingDesign == "CRS") {
@@ -500,22 +506,22 @@ superbPlot <- function(data,
         ICCsKNNs <- cbind(ICCs, KNSs)
         lambdas  <- apply(ICCsKNNs, 1, CousineauLaurencelleLambda) # one lambda per group
         # the lambdas must be expanded for each repeated measures
-        lambdas  <- rep(lambdas, wslevel)
+        lambdas  <- rep(lambdas, length(variables))
         ICCs     <- ICCs$V1 # downcast to a vector for latter display
         lambdas
-
     } else {1}
+#print("here? 4.3")
 
     # 5.4: Adjust for correlation if decorrelation == "CA"
     radj <- if (adjustments$decorrelation == "CA") {
         rs <- plyr::ddply(data, .fun = meanCorrelation, .variables = BSFactors, cols = variables)$V1
         # the rs must be expanded for each repeated measures
-        rs  <- rep(rs, wslevel)
+        rs  <- rep(rs, length(variables))
         sqrt(1- rs)
     } else if (adjustments$decorrelation == "UA") {
         rs <- plyr::ddply(data, .fun = unitaryAlpha, .variables = BSFactors, cols = variables)$V1
         # the rs must be expanded for each repeated measures
-        rs  <- rep(rs, wslevel)
+        rs  <- rep(rs, length(variables))
         sqrt(1- rs)
     } else if (substr(adjustments$decorrelation,1,2) == "LD") {
         rs <- plyr::ddply(data, .fun = meanLocalCorrelation, .variables = BSFactors, cols = variables, w = radius)
@@ -523,6 +529,7 @@ superbPlot <- function(data,
         # the rs is a vector containing one rLD for each measurement
         sqrt(1- rs)
     } else {1}
+#print("here? 4.4")
 
     # All done: apply the corrections to all the widths
     summaryStatistics$lowerwidth <- nadj*padj*sadj*radj*summaryStatistics$lowerwidth
@@ -530,6 +537,7 @@ superbPlot <- function(data,
 
     runDebug("superb.5", "End of Step 5: Getting adjustments", 
         c("nadj2","padj2","sadj2","radj2","summaryStatistics3"), list(nadj,padj,sadj,radj,summaryStatistics) )
+#print("here? 5")
 
 
     ##############################################################################
