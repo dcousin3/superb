@@ -615,8 +615,10 @@ superbPlot.pointjitterviolin <- function(
 #' @param groupingfactor a string with the name of the column for which the data will be grouped on the plot;
 #' @param addfactors a string with up to two additional factors to make the rows and columns panels, in the form "fact1 ~ fact2";
 #' @param rawdata always contains "DV" for each participants and each level of the factors
-#' @param pointParams (optional) list of graphic directives that are sent to the geom_bar layer
-#' @param lineParams (optional) list of graphic directives that are sent to the geom_bar layer
+#' @param pointParams (optional) list of graphic directives that are sent to the geom_point layer
+#' @param datapointParams (optional) list of graphic directives that are sent to the geom_point layer of the individual lines
+#' @param lineParams (optional) list of graphic directives that are sent to the geom_bar layer;
+#'    the parameter colorize=TRUE with use a distinct color for decreasing segments of line
 #' @param errorbarParams (optional) list of graphic directives that are sent to the geom_superberrorbar layer
 #' @param facetParams (optional) list of graphic directives that are sent to the facet_grid layer
 #'
@@ -665,10 +667,11 @@ superbPlot.pointindividualline <- function(
     addfactors,                # the factor(s) to make multiple panels
     rawdata,                   # the raw data in long format
     # what follows are optional
-    pointParams    = list(), 
-    lineParams     = list(),  
-    errorbarParams = list(),
-    facetParams    = list() 
+    datapointParams = list(), 
+    pointParams     = list(), 
+    lineParams      = list(),  
+    errorbarParams  = list(),
+    facetParams     = list() 
 ) {
     runDebug("pointindividualline", "Entering superbPlot.pointindividualline", 
         c("xfactor2", "groupingfactor2", "addfactors2","pointParams2","lineParams2","errorbarParams2"), list(xfactor, groupingfactor, addfactors, pointParams, lineParams, errorbarParams))
@@ -677,43 +680,64 @@ superbPlot.pointindividualline <- function(
     # rename column "DV" as "center"
     rawdata$center <- rawdata$DV
 
+    # find which segments are increasing (for colorize=TRUE option)
+    rawdataB <- rawdata
+    if (exists("id", where = rawdata)) {
+        # indicate if data are increasing or decreasing
+        rawdataB          <- rawdata[order(rawdata$id),]
+        rawdataB$ypost    <- c(with(rawdataB, embed(center,2)[,1]),0)
+        rawdataB$increase <- factor(rawdataB$ypost > rawdataB$center)
+    }
+
+    # remove colorize option if present
+    temp <- FALSE
+    if (exists("colorize", where = lineParams)){
+        temp = lineParams$colorize
+        lineParams$colorize = NULL
+    }
+
+    # compute individual lines
+    if (temp) {
+        dolines <- do.call(geom_line, modifyList(
+            list(data = rawdataB,
+                linewidth=0.2, alpha = 0.25,
+                mapping = aes( y = center, group = id, color = increase ) ),
+            lineParams
+        ))
+    } else {
+        dolines <- do.call(geom_line, modifyList(
+            list(data = rawdata,
+                linewidth=0.2, alpha = 0.25,
+                mapping = aes( y = center, group = id ) ),
+            lineParams
+        ))
+    }
+
     # let's do the plot!
     plot <- ggplot(
         data = summarydata, 
-#        aes_string(
-#            x = xfactor,   
-#            colour = groupingfactor
         aes(
             x = !!mysym(xfactor),   
             colour = !!mysym(groupingfactor)
     )) + 
     # the individual lines 
-    do.call(geom_line, modifyList(
-        list(data = rawdata,
-            size=0.2, alpha = 0.25,
-            #mapping = aes_string( y = "center", group = "id" ) ),
-            mapping = aes( y = center, group = id ) ),
-        lineParams
-    )) +
+    dolines +
     # the individual points 
     do.call(geom_point, modifyList(
         list(data = rawdata, alpha = 0.25,
-            #mapping = aes_string(y = "center", group = "id") ),
             mapping = aes(y = center, group = id) ),
-        pointParams
+        datapointParams
     )) + 
-    # the points 
+    # the summary statistics 
     do.call(geom_point, modifyList(
         list(position = position_dodge(width = .5), 
             size=3,
-            #mapping = aes_string(y = "center", group = groupingfactor) ),
             mapping = aes(y = center, group = !!mysym(groupingfactor)) ),
         pointParams
     )) + 
     # the error bars; define ymin, ymax only in errorbar
     do.call(geom_superberrorbar, modifyList(
         list(position = position_dodge(.5), width = 0.1, linewidth = 0.75,
-            #mapping = aes_string(group = groupingfactor, ymin = "center + lowerwidth", ymax = "center + upperwidth") ),
             mapping = aes(group = !!mysym(groupingfactor), ymin = center + lowerwidth, ymax = center + upperwidth) ),
         errorbarParams
     )) + 

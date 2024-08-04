@@ -37,6 +37,7 @@ library(ggplot2)
 library(gridExtra)
 
 # Example using the built-in dataframe Orange. 
+data(Orange)
 superbToWide(Orange, id = "Tree", WSFactors = c("age"), variable = "circumference") 
 
 # Optional: change column names to shorten "circumference" to "DV"

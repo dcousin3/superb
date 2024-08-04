@@ -10,6 +10,7 @@ superbPlot.pointindividualline(
   groupingfactor,
   addfactors,
   rawdata,
+  datapointParams = list(),
   pointParams = list(),
   lineParams = list(),
   errorbarParams = list(),
@@ -27,9 +28,12 @@ superbPlot.pointindividualline(
 
 \item{rawdata}{always contains "DV" for each participants and each level of the factors}
 
-\item{pointParams}{(optional) list of graphic directives that are sent to the geom_bar layer}
+\item{datapointParams}{(optional) list of graphic directives that are sent to the geom_point layer of the individual lines}
 
-\item{lineParams}{(optional) list of graphic directives that are sent to the geom_bar layer}
+\item{pointParams}{(optional) list of graphic directives that are sent to the geom_point layer}
+
+\item{lineParams}{(optional) list of graphic directives that are sent to the geom_bar layer;
+the parameter colorize=TRUE with use a distinct color for decreasing segments of line}
 
 \item{errorbarParams}{(optional) list of graphic directives that are sent to the geom_superberrorbar layer}
 

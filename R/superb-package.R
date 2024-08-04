@@ -56,9 +56,9 @@
 
 .onLoad <- function(libname, pkgname) {    
     # Set the default feedback traces displayed to all:
-    #   summary:  in GRD, shows a summary of the design;
     #   design:   in superbPlot, shows information on how the within-subject variables are understood
     #   warnings: in superbPlot, returns 'FYI' messages about the data to help decide if the appropriate error bars were used
+    #   summary:  in GRD, shows a summary of the design;
     # You can use 'all' to see all the feedback informations.
     options( "superb.feedback" = c('design','warnings','summary') )
     # Set the default bootstrap number of iterations to 5000; this is a minimum, avoid reducing it.
@@ -80,7 +80,7 @@ globalVariables(c("yend","xend","label"))
 # superbPlot.bar and all the superbPlot.xxx functions
 globalVariables(c("center","lowerwidth","upperwidth","hwlowerwidth","hwupperwidth"))
 # superbPlot.pointindividualline
-globalVariables(c("id"))
+globalVariables(c("increase","id"))
 # superbPlot.boxplot
 globalVariables(c("DV"))
 

@@ -191,32 +191,30 @@ superbPlot.raincloud <- function(
     # determining the type of jitter based on the presence or not of a groupingfac
     if (is.null(groupingfactor)) {
         do_jitters = do.call(geom_jitter, modifyList(
-                        list(data = rawdata, alpha = 0.2, width = 0.2, height = 0.0,
-                             #mapping = aes_string(y = "center" ) ),
-                             mapping = aes(y = center ) ),
+                        list(data = rawdata, alpha = 0.5, size = 1.5, width = 0.2, height = 0.0,
+                            mapping = aes(y = center ) ),
                         jitterParams
                     ) )
         do_violins = do.call( geom_flat_violin, modifyList(
                         list(data     = rawdata,
-                             #mapping  = aes_string( y = "center" ), 
-                             mapping  = aes( y = center ), 
-                             scale    = "area", trim = FALSE, alpha = 0.25),
+                            mapping   = aes( y = center ), 
+                            scale     = "area", trim = FALSE, alpha = 0.25,
+                            direction = 1),
                         violinParams
                     ) )
     } else {
         do_jitters = do.call( geom_point, modifyList(
-                        list(data = rawdata, alpha = 0.5,
-                            position = position_jitterdodge(dodge.width = .15, jitter.width=0.15), size = .5,
-                            #mapping = aes_string(y = "center") ),
+                        list(data = rawdata, alpha = 0.5, size = 1.5,
+                            position = position_jitterdodge(dodge.width = .15, jitter.width=0.15), 
                             mapping = aes(y = center) ),
                         jitterParams
                     ))
         do_violins = do.call( geom_flat_violin, modifyList(
-                        list(data    = rawdata, 
-                             position= position_dodge(0.75), #"dodge",
-                             #mapping = aes_string( y = "center", fill = groupingfactor), 
-                             mapping = aes( y = center, fill = !!mysym(groupingfactor) ), 
-                             scale   = "area", trim = FALSE, alpha = 0.25),
+                        list(data     = rawdata, 
+                            position  = position_nudge(x=0.25, y = 0), #"dodge",
+                            mapping   = aes( y = center, fill = !!mysym(groupingfactor) ), 
+                            scale     = "area", trim = FALSE, alpha = 0.25,
+                            direction = 1),
                         violinParams
                     ) )
     }

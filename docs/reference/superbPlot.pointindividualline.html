@@ -126,6 +126,7 @@ possible to add custom-make templates (see vignette 6). The functions, to be
 <span>  <span class="va">groupingfactor</span>,</span>
 <span>  <span class="va">addfactors</span>,</span>
 <span>  <span class="va">rawdata</span>,</span>
+<span>  datapointParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  pointParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  lineParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -155,12 +156,17 @@ possible to add custom-make templates (see vignette 6). The functions, to be
 <dd><p>always contains "DV" for each participants and each level of the factors</p></dd>
 
 
+<dt>datapointParams</dt>
+<dd><p>(optional) list of graphic directives that are sent to the geom_point layer of the individual lines</p></dd>
+
+
 <dt>pointParams</dt>
-<dd><p>(optional) list of graphic directives that are sent to the geom_bar layer</p></dd>
+<dd><p>(optional) list of graphic directives that are sent to the geom_point layer</p></dd>
 
 
 <dt>lineParams</dt>
-<dd><p>(optional) list of graphic directives that are sent to the geom_bar layer</p></dd>
+<dd><p>(optional) list of graphic directives that are sent to the geom_bar layer;
+the parameter colorize=TRUE with use a distinct color for decreasing segments of line</p></dd>
 
 
 <dt>errorbarParams</dt>
