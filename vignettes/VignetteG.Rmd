@@ -145,7 +145,9 @@ superbPlot( fmriWide,
 scale_discrete_manual(aesthetic =c("fill","colour"), 
                       labels = c("frontal","parietal"), 
                       values = c("red","green"))+
-theme_bw() 
+theme_bw() + 
+showSignificance(c(6,7)+1, 0.3, -0.02, "n.s.?", panel=list(event=2)) 
+
 ```
 
 As you may see, this plot and the previous one are nearly identical! This is because the average correlation
@@ -173,7 +175,9 @@ superbPlot( fmriWide,
 scale_discrete_manual(aesthetic =c("fill","colour"), 
                       labels = c("frontal","parietal"), 
                       values = c("red","green"))+
-theme_bw() 
+theme_bw() + 
+showSignificance(c(6,7)+1, 0.3, -0.02, "**!", panel=list(event=2)) 
+
 ```
 
 As seen from the message, the correlations in nearby time points is about .50. It explains why the 
@@ -188,13 +192,6 @@ two plots. Which is true? Let's run a t-test on paired sample.
 
 ```{r}
 t.test(fmriWide$`signal_stim_parietal_ 6`, fmriWide$`signal_stim_parietal_ 7`, paired=TRUE)
-```
-
-If you look at the red curve (cue alone) on times 5 and 6, no difference is suggested, and so 
-says the t-test:
-
-```{r}
-t.test(fmriWide$`signal_stim_frontal_ 5`, fmriWide$`signal_stim_frontal_ 6`, paired=TRUE)
 ```
 
 ## The radius parameter

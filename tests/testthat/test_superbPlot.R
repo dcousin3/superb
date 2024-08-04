@@ -578,6 +578,86 @@ test_that("Testing pre and post processing", {
 })
 
 
+
+#########################################
+# testing Violinplots a bit more!
+#########################################
+test_that("Many tests with the extended violin format", {
+	old <- options() 
+	on.exit(options(old)) 
+    options("superb.feedback" = c('none'))
+
+    library(ggplot2)
+    dta9 <- GRD( WSFactors = "Moment(3)", SubjectsPerGroup = 500, 
+        Population = list( mean=20, stddev = 5),
+        Effects = list("Moment" = slope(3) ) )
+
+    plt1 <- superbPlot(dta9,
+            WSFactor = "T(2)",
+            variables = c("DV.1","DV.2"),
+            adjustments = list(purpose="difference", decorrelation="CM"),
+            plotStyle = "pointjitterviolin",
+            violinParams = list(alpha =0.7, color="red")
+        ) 
+    plt2 <- superbPlot(dta9,
+            WSFactor = "T(2)",
+            variables = c("DV.1","DV.2"),
+            adjustments = list(purpose="difference", decorrelation="CM"),
+            plotStyle = "pointjitterviolin",
+            jitterParams = list(width = 0.1),
+            violinParams = list(alpha =0.7, color="red", direction=1, push=0.1)
+        ) 
+    plt3 <- superbPlot(dta9,
+            WSFactor = "T(2)",
+            variables = c("DV.1","DV.2"),
+            adjustments = list(purpose="difference", decorrelation="CM"),
+            plotStyle = "pointjitterviolin",
+            jitterParams = list(width = 0.1),
+            violinParams = list(alpha =0.7, color="red", direction=-1, push=0.1)
+        ) 
+    plt4 <- superbPlot(dta9,
+            WSFactor = "T(2)",
+            variables = c("DV.1","DV.2"),
+            adjustments = list(purpose="difference", decorrelation="CM"),
+            plotStyle = "raincloud",
+            violinParams = list(alpha =0.7, color="red", direction=-1)
+        ) 
+    plt5 <- superbPlot(dta9,
+            WSFactor = "T(2)",
+            variables = c("DV.1","DV.2"),
+            adjustments = list(purpose="difference", decorrelation="CM"),
+            plotStyle = "raincloud",
+            jitterParams = list(width = 0.1),
+            violinParams = list(alpha =0.7, color="red", direction=-1, push=0.1)
+        ) 
+    plt6 <- superbPlot(dta9,
+            WSFactor = "T(2)",
+            variables = c("DV.1","DV.2"),
+            adjustments = list(purpose="difference", decorrelation="CM"),
+            plotStyle = "raincloud",
+            jitterParams = list(width = 0.1),
+            violinParams = list(alpha =0.7, color="red", direction=+1, push=0.1)
+        ) 
+
+    expect_error( print(plt1), NA )
+    expect_error( print(plt2), NA )
+    expect_error( print(plt3), NA )
+    expect_error( print(plt4), NA )
+    expect_error( print(plt5), NA )
+    expect_error( print(plt6), NA )
+    expect_equal( "ggplot" %in% class(plt1), TRUE)
+    expect_equal( "ggplot" %in% class(plt2), TRUE)
+    expect_equal( "ggplot" %in% class(plt3), TRUE)
+    expect_equal( "ggplot" %in% class(plt4), TRUE)
+    expect_equal( "ggplot" %in% class(plt5), TRUE)
+    expect_equal( "ggplot" %in% class(plt6), TRUE)
+
+    # restores default information
+    options("superb.feedback" = c('design','warnings','summary'))
+})
+
+
+
 #########################################
 # testing multiple formats!
 #########################################
@@ -658,6 +738,12 @@ test_that("Many tests with TMB1964r", {
        pointParams = list(size= 1) 
     )
 
+    expect_error( print(plt1), NA )
+    expect_error( print(plt2), NA )
+    expect_error( print(plt3), NA )
+    expect_error( print(plt4), NA )
+    expect_error( print(plt5), NA )
+    expect_error( print(plt6), NA )
     expect_equal( "ggplot" %in% class(plt1), TRUE)
     expect_equal( "ggplot" %in% class(plt2), TRUE)
     expect_equal( "ggplot" %in% class(plt3), TRUE)

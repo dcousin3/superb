@@ -39,20 +39,20 @@
 geom_flat_violin <- function(mapping = NULL, data = NULL, stat = "ydensity",
                              position = "dodge", trim = TRUE, scale = "area",
                              show.legend = NA, inherit.aes = TRUE, ...) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomFlatViolin,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list(
-      trim = trim,
-      scale = scale,
-      ...
+    layer(
+        data = data,
+        mapping = mapping,
+        stat = stat,
+        geom = GeomFlatViolin,
+        position = position,
+        show.legend = show.legend,
+        inherit.aes = inherit.aes,
+        params = list(
+            trim = trim,
+            scale = scale,
+            ...
+        )
     )
-  )
 }
 
 #### ' @rdname ggplot2-ggproto
@@ -60,59 +60,54 @@ geom_flat_violin <- function(mapping = NULL, data = NULL, stat = "ydensity",
 #' @usage NULL
 # ' @export
 GeomFlatViolin <-
-  ggproto("GeomFlatViolin", Geom,
-    setup_data = function(data, params) {
-      data$width <- data$width %||%
-        params$width %||% (resolution(data$x, FALSE) * 0.9)
+    ggproto("GeomFlatViolin", Geom,
+        setup_data = function(data, params) {
+            data$width <- data$width %||%
+                params$width %||% (resolution(data$x, FALSE) * 0.9)
 
-      # ymin, ymax, xmin, and xmax define the bounding rectangle for each group
-      # data %>%
-      #  dplyr::group_by(group) %>%
-      #  dplyr::mutate(
-      #    ymin = min(y),
-      #    ymax = max(y),
-      #    xmin = x,
-      #    xmax = x + width / 2
-      #  )
-      # Note (from D. Cousineau): did it without the pipes which were generating complaints from CRAN
-      dplyr::mutate(dplyr::group_by(data, group),
-          ymin = min(y),
-          ymax = max(y),
-          xmin = x,
-          xmax = x + width / 2
-        )
-    },
+            # new addition: D. Cousineau, 2024.08.03
+            data$push      <- abs(data$push %||% params$push %||% 0)
+            data$direction <- data$direction %||% params$direction %||% 0
 
-    draw_group = function(data, panel_scales, coord) {
-      # Find the points for the line to go all the way around
-      data <- transform(data,
-        xminv = x,
-        xmaxv = x + violinwidth * (xmax - x)
-      )
+            # ymin, ymax, xmin, and xmax define the bounding rectangle for each group
+            # Note (from D. Cousineau): did it without the pipes which were generating complaints from CRAN
+            dplyr::mutate(dplyr::group_by(data, group),
+                ymin = min(y),
+                ymax = max(y),    
+                xmin = x - width / 2,
+                xmax = x + width / 2
+            )
+        },
 
-      # Make sure it's sorted properly to draw the outline
-      newdata <- rbind(
-        plyr::arrange(transform(data, x = xminv), y),
-        plyr::arrange(transform(data, x = xmaxv), -y)
-      )
+        draw_group = function(data, panel_scales, coord) {
+            # Find the points for the line to go all the way around
+            data <- transform(data,
+                        xmaxv = abs((1+direction)/2)*(x+push) + abs((1-direction)/2)*(x - violinwidth * (x-xmin)-push),
+                        xminv = abs((1+direction)/2)*(x + violinwidth * (x - xmin)+push) + abs((1-direction)/2)*(x-push)
+            )
 
-      # Close the polygon: set first and last point the same
-      # Needed for coord_polar and such
-      newdata <- rbind(newdata, newdata[1, ])
+            # Make sure it's sorted properly to draw the outline
+            newdata <- rbind(
+                plyr::arrange(transform(data, x = xminv), y),
+                plyr::arrange(transform(data, x = xmaxv), -y)
+            )
 
-      ggplot2:::ggname("geom_flat_violin", GeomPolygon$draw_panel(newdata, panel_scales, coord))
-    },
+            # Close the polygon: set first and last point the same
+            # Needed for coord_polar and such
+            newdata <- rbind(newdata, newdata[1, ])
 
-    draw_key = draw_key_polygon,
+            ggplot2:::ggname("geom_flat_violin", GeomPolygon$draw_panel(newdata, panel_scales, coord))
+        },
 
-    default_aes = aes(
-#      weight = 1, colour = "grey20", fill = "white", size = 0.5, 
-      weight = 1, colour = "grey20", fill = "white", linewidth = 0.5,
+        draw_key = draw_key_polygon,
 
-      alpha = NA, linetype = "solid"
-    ),
+        default_aes = aes(
+                    weight = 1, colour = "grey20", fill = "white", linewidth = 0.5,
+                    alpha = NA, linetype = "solid",
+                    # new items
+                    direction = 1, push = 0),
 
-    required_aes = c("x", "y")
+        required_aes = c("x", "y")
   )
 
 
@@ -135,7 +130,8 @@ GeomFlatViolin <-
 #' @param errorbarParams (optional) list of graphic directives that are sent to the geom_superberrorbar layer
 #' @param pointParams (optional) list of graphic directives that are sent to the geom_point layer
 #' @param jitterParams (optional) list of graphic directives that are sent to the geom_jitter layer
-#' @param violinParams (optional) list of graphic directives that are sent to the geom_violin layer
+#' @param violinParams (optional) list of graphic directives that are sent to the geom_violin layer;
+#'     this modified geom_violin has additional options "direction" and "push".
 #' @param facetParams (optional) list of graphic directives that are sent to the facet_grid layer
 #' @param xAsFactor (optional) Boolean to indicate if the factor on the horizontal should continuous or discrete (default is discrete)
 #'
@@ -200,6 +196,13 @@ superbPlot.raincloud <- function(
                              mapping = aes(y = center ) ),
                         jitterParams
                     ) )
+        do_violins = do.call( geom_flat_violin, modifyList(
+                        list(data     = rawdata,
+                             #mapping  = aes_string( y = "center" ), 
+                             mapping  = aes( y = center ), 
+                             scale    = "area", trim = FALSE, alpha = 0.25),
+                        violinParams
+                    ) )
     } else {
         do_jitters = do.call( geom_point, modifyList(
                         list(data = rawdata, alpha = 0.5,
@@ -208,32 +211,28 @@ superbPlot.raincloud <- function(
                             mapping = aes(y = center) ),
                         jitterParams
                     ))
+        do_violins = do.call( geom_flat_violin, modifyList(
+                        list(data    = rawdata, 
+                             position= position_dodge(0.75), #"dodge",
+                             #mapping = aes_string( y = "center", fill = groupingfactor), 
+                             mapping = aes( y = center, fill = !!mysym(groupingfactor) ), 
+                             scale   = "area", trim = FALSE, alpha = 0.25),
+                        violinParams
+                    ) )
     }
 
     # let's do the plot!
     plot <- ggplot(
         summarydata, 
-#        aes_string(
-#            x = xfactor, y = "center", 
-#            fill = groupingfactor, 
-#            shape = groupingfactor, 
-#            colour = groupingfactor
-#       Because aes_string is deprecated, we switch to the magical pair !!sym(string)...
+        # Because aes_string is deprecated, we switch to the magical pair !!sym(string)...
         aes(
             x = !!mysym(xfactor), y = center, 
             fill = !!mysym(groupingfactor), 
             shape = !!mysym(groupingfactor), 
             colour = !!mysym(groupingfactor)
     )) +
-    # the flat_violin; do.call so that violinParams can be integrated
-    do.call( geom_flat_violin, modifyList(
-       list(data = rawdata, trim = FALSE, alpha = 0.2,
-#            position = position_nudge(x = .25, y = 0), size = 0.25,
-            position = position_nudge(x = .25, y = 0), linewidth = 0.25,
-            #mapping = aes_string(y = "center") ),
-            mapping = aes(y = center) ),
-        violinParams
-    )) +
+    # violins in the back
+    do_violins +
     # the jittered data
     do_jitters +
     # the summary data

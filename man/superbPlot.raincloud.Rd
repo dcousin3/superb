@@ -29,7 +29,8 @@ superbPlot.raincloud(
 
 \item{rawdata}{always contains "DV" for each participants and each level of the factors}
 
-\item{violinParams}{(optional) list of graphic directives that are sent to the geom_violin layer}
+\item{violinParams}{(optional) list of graphic directives that are sent to the geom_violin layer;
+this modified geom_violin has additional options "direction" and "push".}
 
 \item{jitterParams}{(optional) list of graphic directives that are sent to the geom_jitter layer}
 

@@ -483,6 +483,7 @@ superbPlot.pointjitter <- function(
 #' @param pointParams (optional) list of graphic directives that are sent to the geom_bar layer
 #' @param jitterParams (optional) list of graphic directives that are sent to the geom_bar layer
 #' @param violinParams (optional) list of graphic directives that are sent to the geom_bar layer
+#'     this modified geom_violin has additional options "direction" and "push".
 #' @param errorbarParams (optional) list of graphic directives that are sent to the geom_superberrorbar layer
 #' @param facetParams (optional) list of graphic directives that are sent to the facet_grid layer
 #'
@@ -539,7 +540,7 @@ superbPlot.pointjitterviolin <- function(
                              mapping = aes( y = center ) ),
                         jitterParams
                     ) )
-        do_violins = do.call( geom_violin, modifyList(
+        do_violins = do.call( geom_flat_violin, modifyList(
                         list(data     = rawdata,
                              #mapping  = aes_string( y = "center" ), 
                              mapping  = aes( y = center ), 
@@ -554,7 +555,7 @@ superbPlot.pointjitterviolin <- function(
                             mapping = aes(y = center, group = !!mysym(groupingfactor)  ) ),
                         jitterParams
                     ) )
-        do_violins = do.call( geom_violin, modifyList(
+        do_violins = do.call( geom_flat_violin, modifyList(
                         list(data    = rawdata, 
                              position= position_dodge(0.75), #"dodge",
                              #mapping = aes_string( y = "center", fill = groupingfactor), 

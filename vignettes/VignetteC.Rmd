@@ -228,7 +228,7 @@ significantly.
 
 Running an analysis of proportions, it indicates the presence of a
 main effect of Group ($F(2,\infty)= 3.06, p = .047$). How to perform 
-an analysis of proportions (ANOPA) is explained in @lc23.
+an analysis of proportions (ANOPA) is explained in @lc22.
 
 We see from the plot that the length of the error bars are about all the same,
 suggesting homogeneous variance (because all the sample are of comparable size).
@@ -241,7 +241,7 @@ transformation in the sense that it makes all the variances identical.
 The ``superb`` framework can be used to display any summary statistics. Here, 
 we showed how ``superbPlot()`` can be used with proportions. For within-subject
 designs involving proportions, it is also possible to use the correlation adjustments
-[as demonstrated in @lc23].
+[as demonstrated in @lc22].
 
 
 # References

@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.13</span>
       </span>
     </div>
 
@@ -292,7 +292,8 @@ plot:</p>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_discrete_manual</a></span><span class="op">(</span>aesthetic <span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fill"</span>,<span class="st">"colour"</span><span class="op">)</span>, </span>
 <span>                      labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"frontal"</span>,<span class="st">"parietal"</span><span class="op">)</span>, </span>
 <span>                      values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red"</span>,<span class="st">"green"</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span><span class="fu"><a href="../reference/showSignificance.html">showSignificance</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>,<span class="fl">7</span><span class="op">)</span><span class="op">+</span><span class="fl">1</span>, <span class="fl">0.3</span>, <span class="op">-</span><span class="fl">0.02</span>, <span class="st">"n.s.?"</span>, panel<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>event<span class="op">=</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
 <pre><code><span><span class="co">## superb::FYI: The HyunhFeldtEpsilon measure of sphericity per group are  0.052</span></span></code></pre>
 <pre><code><span><span class="co">## superb::FYI: All the groups' data are compound symmetric. Consider using CA or UA.</span></span></code></pre>
 <div class="figure">
@@ -325,7 +326,8 @@ points 3 time points appart, obtained with <code>"LD2"</code>:</p>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_discrete_manual</a></span><span class="op">(</span>aesthetic <span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fill"</span>,<span class="st">"colour"</span><span class="op">)</span>, </span>
 <span>                      labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"frontal"</span>,<span class="st">"parietal"</span><span class="op">)</span>, </span>
 <span>                      values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red"</span>,<span class="st">"green"</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span><span class="fu"><a href="../reference/showSignificance.html">showSignificance</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>,<span class="fl">7</span><span class="op">)</span><span class="op">+</span><span class="fl">1</span>, <span class="fl">0.3</span>, <span class="op">-</span><span class="fl">0.02</span>, <span class="st">"**!"</span>, panel<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>event<span class="op">=</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
 <pre><code><span><span class="co">## superb::FYI: The average correlation per group is  0.5158</span></span></code></pre>
 <div class="figure">
 <img src="VignetteG_files/figure-html/unnamed-chunk-6-1.png" alt="**Figure 3**. Plot of the fMRI data with local decorrelation." width="672"><p class="caption">
@@ -357,21 +359,6 @@ sample.</p>
 <span><span class="co">## sample estimates:</span></span>
 <span><span class="co">## mean difference </span></span>
 <span><span class="co">##      0.06155768</span></span></code></pre>
-<p>If you look at the red curve (cue alone) on times 5 and 6, no
-difference is suggested, and so says the t-test:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">fmriWide</span><span class="op">$</span><span class="va">`signal_stim_frontal_ 5`</span>, <span class="va">fmriWide</span><span class="op">$</span><span class="va">`signal_stim_frontal_ 6`</span>, paired<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## </span></span>
-<span><span class="co">##  Paired t-test</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## data:  fmriWide$`signal_stim_frontal_ 5` and fmriWide$`signal_stim_frontal_ 6`</span></span>
-<span><span class="co">## t = 0.068843, df = 13, p-value = 0.9462</span></span>
-<span><span class="co">## alternative hypothesis: true mean difference is not equal to 0</span></span>
-<span><span class="co">## 95 percent confidence interval:</span></span>
-<span><span class="co">##  -0.02800295  0.02984639</span></span>
-<span><span class="co">## sample estimates:</span></span>
-<span><span class="co">## mean difference </span></span>
-<span><span class="co">##    0.0009217191</span></span></code></pre>
 </div>
 </div>
 <div class="section level3">

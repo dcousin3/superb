@@ -1,3 +1,12 @@
+# superb 0.95.13 (August 3rd, 2024)
+
+* Modified violin plots so that half-violins can be displayed
+* The violinParams now includes 
+  - direction (+1= left-half; -1=right-half; 0=symmetrical);
+  - push (to translate half away from the medial line)
+  - with these modifications, corset plots can be made easily
+    by superimposing a violin plot with halves and individualline plot
+
 # superb 0.95.12 (May 30th, 2024)
 
 * Revise FYI message for un-balanced between-group designs
