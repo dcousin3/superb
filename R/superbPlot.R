@@ -505,7 +505,7 @@ superbPlot <- function(data,
         lambdas
     } else {1}
 
-    # 5.4: Adjust for correlation if decorrelation == "CA"
+    # 5.4: Adjust for correlation if decorrelation == "CA", "UA", ou "LDr"
     radj <- if (adjustments$decorrelation == "CA") {
         rs <- plyr::ddply(data, .fun = meanCorrelation, .variables = BSFactors, cols = variables)$V1
         # the rs must be expanded for each repeated measures
@@ -518,7 +518,8 @@ superbPlot <- function(data,
         sqrt(1- rs)
     } else if (substr(adjustments$decorrelation,1,2) == "LD") {
         rs <- plyr::ddply(data, .fun = meanLocalCorrelation, .variables = BSFactors, cols = variables, w = radius)
-        rs <- unlist(rs[,!is.na(rs)])
+#        rs <- unlist(rs[,!is.na(rs)])
+        rs <- suppressWarnings(as.numeric(unlist(rs))[!is.na(as.numeric(unlist(rs)))])
         # the rs is a vector containing one rLD for each measurement
         sqrt(1- rs)
     } else {1}

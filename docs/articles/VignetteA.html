@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.13</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.14</span>
       </span>
     </div>
 
@@ -216,12 +216,12 @@ to <code>gl</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">glucoselevels</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   id concentration        gl</span></span>
-<span><span class="co">## 1  1             A  78.40402</span></span>
-<span><span class="co">## 2  2             A  65.73121</span></span>
-<span><span class="co">## 3  3             A  86.35350</span></span>
-<span><span class="co">## 4  4             A  72.01197</span></span>
-<span><span class="co">## 5  5             A 112.48922</span></span>
-<span><span class="co">## 6  6             A  79.00269</span></span></code></pre>
+<span><span class="co">## 1  1             A  78.32983</span></span>
+<span><span class="co">## 2  2             A  85.71723</span></span>
+<span><span class="co">## 3  3             A  85.91268</span></span>
+<span><span class="co">## 4  4             A  81.88215</span></span>
+<span><span class="co">## 5  5             A  97.66505</span></span>
+<span><span class="co">## 6  6             A 116.31913</span></span></code></pre>
 <p>A simple plot could show the mean for each concentration along with
 the 95% confidence interval of the means, with e.g.,</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -246,10 +246,10 @@ individuals are often much outside the visible part of the scale.</p>
 the highest:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">glucoselevels</span><span class="op">$</span><span class="va">gl</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 44.03744</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 45.40739</span></span></code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">glucoselevels</span><span class="op">$</span><span class="va">gl</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 173.8873</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 163.8203</span></span></code></pre>
 <p>Instead of asking for an error bar representing a confidence interval
 (CI), let’s ask for error bar representing the reference intervals
 (RI).</p>

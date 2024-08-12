@@ -14,7 +14,7 @@ library(foreign) # for read.spss
 library(stringr) # for str_remove_all and str_replace_all
 library(dplyr)
 
-appversion <- "App version 3.4; shipped with superb 0.95.9"
+appversion <- "App version 3.5; shipped with superb 0.95.13"
 
 ##########################################################
 ##########################################################
@@ -25,7 +25,7 @@ appversion <- "App version 3.4; shipped with superb 0.95.9"
 is.something <- function( expr ) {
     if (is.null(expr)) return(FALSE) 
     else if (length(expr) == 0) return(FALSE)
-    else if ((class(expr) == "character")&&(expr == "")) return(FALSE)
+    else if (all(((class(expr) == "character")&(expr == "")))) return(FALSE)
     else return(TRUE)    
 }
 
@@ -73,7 +73,7 @@ paste3 <- function( ... ) {
 # https://stackoverflow.com/questions/51611865/edit-a-shiny-tag-element/67863101#67863101
 searchreplaceit <- function(branch, whattag, whatattribs, totag, toattribs, replace=TRUE) {
     if ("name" %in% names(branch)) {
-        if ((branch$name == whattag)&&(identical( branch$attribs[names(whatattribs)], whatattribs))) {
+        if ((branch$name == whattag)&(identical( branch$attribs[names(whatattribs)], whatattribs))) {
             branch$name    <- totag
             branch$attribs <- if (replace) {toattribs} else { modifyList(branch$attribs, toattribs)}
         }
@@ -329,7 +329,8 @@ thePage <- fluidPage(
                 bsCollapsePanel("Step 4: Select adjustments", 
                     radioButtons("superbPurpose", "Select the objective of the error bars",
                         choiceNames  = c("Stand-alone","for pairwise comparisons","Tryon (2001) adjustment"),
-                        choiceValues = c("single","difference","tryon"), selected="single"
+                        choiceValues = c("single","difference","tryon"), 
+                        selected="single"
                     ),
                     uiOutput("S4Decorrelation"),
                     textInput("superbPopsize", "Select the size of the population",
@@ -509,6 +510,7 @@ generateScript <- function( cI ) {
     if ((length(cI$Step5)>0)||(length(cI$Step6)>0)) {
         topline <- paste(topline, "library(ggplot2)     # for graphics ornaments", sep="\n")
     }
+
     # if unstandard extension tsv or sav:
     extline <- if(cI$Step1$ext=="tsv") {
         paste("# define a read.tsv function, as it is not in base R",
@@ -802,7 +804,7 @@ fillWSfactors <- function(session, input, output, i) {
         productwsleve = prod(wsleve1toi)
     }
 
-    if ((nchar(currentwsfact) > 0)&&(nchar(currentwsleve)>0)) {
+    if ((nchar(currentwsfact) > 0)&(nchar(currentwsleve)>0)) {
         if ((currentwsfact!=to.identifier(currentwsfact))||(currentwsleve!=to.integer(currentwsleve))) {
             updateButton(session, "S2Apply", disabled = TRUE)
         } else {
@@ -1174,7 +1176,7 @@ theServerFct <- function(input, output, session) {
             renderUI( tagList({NULL}) )
         } else {
             renderUI( radioButtons("superbDecorrelation", "Select the decorrelation method",
-                choiceNames  = c("None","Cousineau-Morey (2005, 2008)", "Correlation adjusted","Loftus and Masson (1994)"),
+                choiceNames  = c("None","Cousineau-Morey (2005, 2008)", "Correlation adjusted","Loftus and Masson (1994)","Local decorrelation (radius 3)"),
                 choiceValues = c("none","CM","CA","LM","LD3"), selected="none"
             ))
         }
@@ -1187,7 +1189,7 @@ theServerFct <- function(input, output, session) {
     observeEvent(input$S4Apply, ({
         mycat("S4: Apply clicked!", "\n")
         # some checks
-        if ((input$superbPopsize!="Inf")&&((to.numeric(input$superbPopsize)<1)||(as.character(format(to.numeric(input$superbPopsize),scientific=FALSE))!=str_trim(input$superbPopsize)))) {
+        if ((input$superbPopsize!="Inf")&((to.numeric(input$superbPopsize)<1)||(as.character(format(to.numeric(input$superbPopsize),scientific=FALSE))!=str_trim(input$superbPopsize)))) {
             output$superbMessages2 <- renderUI(
                 tagList( h4("Step 2: Inconsistent input"),
                     p("Population size must be `Inf` (infinite) or a positive integer.")
@@ -1225,7 +1227,6 @@ theServerFct <- function(input, output, session) {
     ##########################################################
     ## STEP 5: 
     ##########################################################
-
     # adding additional directives when needed
     observeEvent( {list(input$content1, input$content2, input$content3, input$content4, input$content5)}, ({
         mycat("S5: graphic attributes manipulated!", "\n")
@@ -1236,7 +1237,6 @@ theServerFct <- function(input, output, session) {
             gaShown <<- gaN+1
         }
     }), ignoreInit = TRUE ) 
-
 
     # removing additional directives when needed
     observeEvent( {list(input$delete1, input$delete2, input$delete3, input$delete4, input$delete5)}, ({
@@ -1267,7 +1267,6 @@ theServerFct <- function(input, output, session) {
         }
     }), ignoreNULL=TRUE, ignoreInit = TRUE ) 
 
-
     # When Apply is pressed
     # APPLY validates the choices, put MESSAGES, update SCRIPT, enables NEXT
     observeEvent(input$S5Apply, ({
@@ -1286,15 +1285,15 @@ theServerFct <- function(input, output, session) {
 
             # reset the whole attributes
             info$Step5 <<- list()
-            info$Step5[[input$directive1]] <<- if ((is.something(input$content1))&&(is.something(input$directive1))) 
+            info$Step5[[input$directive1]] <<- if ((is.something(input$content1))&(is.something(input$directive1))) 
                 input$content1 else NULL
-            if ((is.something(input$content2))&&(is.something(input$directive2))) 
+            if ((is.something(input$content2))&(is.something(input$directive2))) 
                 info$Step5[[input$directive2]] <<- input$content2
-            if ((is.something(input$content3))&&(is.something(input$directive3))) 
+            if ((is.something(input$content3))&(is.something(input$directive3))) 
                 info$Step5[[input$directive3]] <<- input$content3
-            if ((is.something(input$content4))&&(is.something(input$directive4))) 
+            if ((is.something(input$content4))&(is.something(input$directive4))) 
                 info$Step5[[input$directive4]] <<- input$content4
-            if ((is.something(input$content5))&&(is.something(input$directive5))) 
+            if ((is.something(input$content5))&(is.something(input$directive5))) 
                 info$Step5[[input$directive5]] <<- input$content5
 
             if (is.something(input$ornates)) 

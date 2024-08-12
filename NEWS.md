@@ -1,3 +1,8 @@
+# superb 0.95.14 (August 11th, 2024)
+
+* updated the use of & vs. && according to new R credo
+* corrected a bug related to LD adjustment in mixed designs
+
 # superb 0.95.13 (August 3rd, 2024)
 
 * Modified violin plots so that half-violins can be displayed
