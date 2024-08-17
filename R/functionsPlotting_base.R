@@ -483,7 +483,7 @@ superbPlot.pointjitter <- function(
 #' @param pointParams (optional) list of graphic directives that are sent to the geom_bar layer
 #' @param jitterParams (optional) list of graphic directives that are sent to the geom_bar layer
 #' @param violinParams (optional) list of graphic directives that are sent to the geom_bar layer
-#'     this modified geom_violin has additional options "direction" and "push".
+#'     this modified geom_violin has additional options "direction"/"antagonize" and "push".
 #' @param errorbarParams (optional) list of graphic directives that are sent to the geom_superberrorbar layer
 #' @param facetParams (optional) list of graphic directives that are sent to the facet_grid layer
 #'
@@ -512,6 +512,7 @@ superbPlot.pointjitter <- function(
 #'
 ######################################################################################
 
+
 superbPlot.pointjitterviolin <- function(
     summarydata,               # a summary result data.frame
     xfactor,                   # the factor on the horizontal axis  
@@ -532,6 +533,25 @@ superbPlot.pointjitterviolin <- function(
     # rename column "DV" as "center"
     rawdata$center <- rawdata$DV
 
+    # find ... (for antagonize = TRUE option)
+    rawdataB     <- rawdata
+    rawdataB$dir <- rep(0, dim(rawdataB)[1])
+
+    # remove antagonize option if present
+    temp <- FALSE
+    if (exists("antagonize", where = violinParams)){
+        temp = violinParams$antagonize
+        violinParams$antagonize = NULL
+    } else if (exists("direction", where = violinParams)) {
+        rawdataB$dir <- violinParams$direction
+    } 
+    # add the "dir" column with alternating violin directions
+    if (temp) {
+      # alternate the directions
+      tt = unique(rawdataB[[xfactor]])
+      rawdataB$dir <- 2*(as.numeric(rawdataB[[xfactor]]) %/% 2) -1
+    }
+
     # determining the type of jitter based on the presence or not of a groupingfac
     if (is.null(groupingfactor)) {
         do_jitters = do.call(geom_jitter, modifyList(
@@ -541,9 +561,9 @@ superbPlot.pointjitterviolin <- function(
                         jitterParams
                     ) )
         do_violins = do.call( geom_flat_violin, modifyList(
-                        list(data     = rawdata,
+                        list(data     = rawdataB,
                              #mapping  = aes_string( y = "center" ), 
-                             mapping  = aes( y = center ), 
+                             mapping  = aes( y = center, direction = dir ), 
                              scale    = "area", trim = FALSE, alpha = 0.25),
                         violinParams
                     ) )
@@ -556,10 +576,10 @@ superbPlot.pointjitterviolin <- function(
                         jitterParams
                     ) )
         do_violins = do.call( geom_flat_violin, modifyList(
-                        list(data    = rawdata, 
+                        list(data    = rawdataB, 
                              position= position_dodge(0.75), #"dodge",
                              #mapping = aes_string( y = "center", fill = groupingfactor), 
-                             mapping = aes( y = center, fill = !!mysym(groupingfactor) ), 
+                             mapping = aes( y = center, fill = !!mysym(groupingfactor), direction = dir ), 
                              scale   = "area", trim = FALSE, alpha = 0.25),
                         violinParams
                     ) )

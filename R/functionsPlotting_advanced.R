@@ -56,8 +56,8 @@ geom_flat_violin <- function(mapping = NULL, data = NULL, stat = "ydensity",
 }
 
 #### ' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
+# ' @format NULL
+# ' @usage NULL
 # ' @export
 GeomFlatViolin <-
     ggproto("GeomFlatViolin", Geom,
@@ -199,6 +199,7 @@ superbPlot.raincloud <- function(
                         list(data     = rawdata,
                             mapping   = aes( y = center ), 
                             scale     = "area", trim = FALSE, alpha = 0.25,
+                            push      = 0.25, width = 0.66,
                             direction = 1),
                         violinParams
                     ) )
@@ -214,6 +215,7 @@ superbPlot.raincloud <- function(
                             position  = position_nudge(x=0.25, y = 0), #"dodge",
                             mapping   = aes( y = center, fill = !!mysym(groupingfactor) ), 
                             scale     = "area", trim = FALSE, alpha = 0.25,
+                            push      = 0.25, width = 0.66,
                             direction = 1),
                         violinParams
                     ) )

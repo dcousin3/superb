@@ -33,7 +33,7 @@ superbPlot.pointjitterviolin(
 \item{jitterParams}{(optional) list of graphic directives that are sent to the geom_bar layer}
 
 \item{violinParams}{(optional) list of graphic directives that are sent to the geom_bar layer
-this modified geom_violin has additional options "direction" and "push".}
+this modified geom_violin has additional options "direction"/"antagonize" and "push".}
 
 \item{errorbarParams}{(optional) list of graphic directives that are sent to the geom_superberrorbar layer}
 

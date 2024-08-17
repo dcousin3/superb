@@ -1,3 +1,7 @@
+# superb 0.95.15 (August 18th, 2024)
+
+* added the "antagonize" (boolean) option to violin plots.
+
 # superb 0.95.14 (August 11th, 2024)
 
 * updated the use of & vs. && according to new R credo
