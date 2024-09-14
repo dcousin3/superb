@@ -396,9 +396,17 @@ superbPlot <- function(data,
     colnames(data.untransformed)[grep(temp, names(data.untransformed))] = newnames
     colnames(data.transformed)[grep(temp, names(data.transformed))] = newnames
 
+    if (exists("id", where = data.untransformed)) {
+        #print("Nothing to do, participants identifier exists")
+    } else {
+        #print("Adding id manually")
+        data.untransformed$id = 1:(dim(data.untransformed)[1])
+    }
+    
     # set data to long format using lsr (Navarro, 2015)
     data.untransformed.long <- suppressWarnings(lsr::wideToLong(data.untransformed, within = WSFactors, sep = weird))
     data.transformed.long   <- suppressWarnings(lsr::wideToLong(data.transformed, within = WSFactors, sep = weird))
+
 
     # New May 11th, 2022, version 0.95.1
     as.numeric.factor <- function(x) {strtoi(x)}

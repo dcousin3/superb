@@ -1,4 +1,4 @@
-citHeader("To cite superb version 0.95.8 in publications use:")
+citHeader("To cite superb version 0.95 in publications use:")
 
 bibentry(
   bibtype  = "Article",

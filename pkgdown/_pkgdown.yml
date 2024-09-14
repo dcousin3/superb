@@ -29,6 +29,7 @@ reference:
       - '`superbPlot.raincloud`'
       - '`superbPlot.halfwidthline`'
       - '`superbPlot.boxplot`'
+      - '`superbPlot.corset`'
   - title: Statistics
     desc: Some statistics that can be plotted with superb
     contents:

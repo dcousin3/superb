@@ -1,6 +1,6 @@
 ######################################################
 ######################################################
-##  Advanced plot layouts: raincloud
+##  Two advanced plot layouts: raincloud, halfwidthline
 ######################################################
 ######################################################
 
@@ -341,10 +341,6 @@ superbPlot.halfwidthline <- function(
     # let's do the plot!
     plot <- ggplot(
         summarydata, 
-#        aes_string(
-#            x = xfactor, y = "center", ymin = "center + lowerwidth", ymax = "center + upperwidth", 
-#            colour = groupingfactor
-#       Because aes_string is deprecated, we switch to the magical pair !!sym(string)...
         aes(
             x = !!mysym(xfactor), y = center, ymin = center + lowerwidth, ymax = center + upperwidth, 
             colour = !!mysym(groupingfactor)
@@ -366,9 +362,6 @@ superbPlot.halfwidthline <- function(
     # the error bars
     do.call(geom_superberrorbar, modifyList(
         list(width = 0.1, linewidth = 1.00, position = position_dodge(.15),
-#            aes_string(
-#                x = xfactor, y = "center", ymin = "center + lowerwidth", ymax = "center + upperwidth", 
-#                colour = groupingfactor ) ),
             aes(
                 x = !!mysym(xfactor), y = center, ymin = center + lowerwidth, ymax = center + upperwidth, 
                 colour = !!mysym(groupingfactor) ) ),

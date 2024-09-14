@@ -1,3 +1,8 @@
+# superb 0.95.16 (September 13th, 2024)
+
+* added a new plot layout: the corset plot "corset";
+* corrected a bug in the superbShiny() graphical interface with "corset".
+
 # superb 0.95.15 (August 18th, 2024)
 
 * added the "antagonize" (boolean) option to violin plots.

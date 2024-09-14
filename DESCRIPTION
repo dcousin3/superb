@@ -1,8 +1,8 @@
 Package: superb
 Type: Package
 Title: Summary Plots with Adjusted Error Bars
-Version: 0.95.15
-Date: 2024-08-17
+Version: 0.95.16
+Date: 2024-09-13
 Authors@R: c(
              person("Denis", "Cousineau", email = "denis.cousineau@uottawa.ca",
                     role = c("aut", "cre")),
@@ -32,6 +32,11 @@ Description:
     <doi:10.20982/tqmp.15.1.p001> for specific references.
 License: GPL-3
 Encoding: UTF-8
+RemoteType: github
+GithubRepo: superb
+GithubUsername: dcousin3
+GithubRef: master
+GithubSHA1: 081763600c819912e5147850ef59b65c6aa4520f
 VignetteBuilder: knitr
 LazyData: true
 RoxygenNote: 7.3.1
