@@ -6,6 +6,7 @@ reference:
     desc: Main functions
     contents:
       - '`superbShiny`'
+      - '`superb`'
       - '`superbPlot`'
       - '`superbData`'
       - '`superbToWide`'
@@ -66,6 +67,7 @@ reference:
     desc: Internal functions
     contents:
       - '`runDebug`'
+      - '`is.formula`'
       - '`slope`'
       - '`extent`'
       - '`custom`'

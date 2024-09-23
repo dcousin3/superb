@@ -1,4 +1,4 @@
-context("Testing suberbData")
+context("Testing suberbData()")
 
 
 test_that("TESTS (1/4)", {

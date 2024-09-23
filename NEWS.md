@@ -1,3 +1,8 @@
+# superb 0.95.17 (September 31th, 2024)
+
+* added ``superb()``, a formula-based function.
+* modified separator from '_' to '.' in `superbToWide()`
+
 # superb 0.95.16 (September 13th, 2024)
 
 * added a new plot layout: the corset plot "corset";

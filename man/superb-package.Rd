@@ -2,7 +2,6 @@
 % Please edit documentation in R/superb-package.R
 \docType{package}
 \name{superb-package}
-\alias{superb}
 \alias{superb-package}
 \title{superb: Summary Plots with Adjusted Error Bars}
 \description{

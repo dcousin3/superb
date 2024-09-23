@@ -21,7 +21,7 @@ Other techniques are available to transform long to wide, but many asked for it 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.17</span>
       </span>
     </div>
 
@@ -176,13 +176,13 @@ Other techniques are available to transform long to wide, but many asked for it 
 <span class="r-in"><span><span class="co"># Example using the built-in dataframe Orange. </span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Orange</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">superbToWide</span><span class="op">(</span><span class="va">Orange</span>, id <span class="op">=</span> <span class="st">"Tree"</span>, WSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age"</span><span class="op">)</span>, variable <span class="op">=</span> <span class="st">"circumference"</span><span class="op">)</span> </span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Tree circumference_118 circumference_484 circumference_664 circumference_1004</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Tree circumference.118 circumference.484 circumference.664 circumference.1004</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    1                30                58                87                115</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    2                33                69               111                156</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3    3                30                51                75                108</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4    4                32                62               112                167</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5    5                30                49                81                125</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   circumference_1231 circumference_1372 circumference_1582</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   circumference.1231 circumference.1372 circumference.1582</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                120                142                145</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                172                203                203</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                115                139                140</span>
@@ -196,14 +196,14 @@ Other techniques are available to transform long to wide, but many asked for it 
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Makes the plots two different way:</span></span></span>
 <span class="r-in"><span><span class="va">p1</span><span class="op">=</span><span class="fu"><a href="superbPlot.html">superbPlot</a></span><span class="op">(</span> <span class="va">Orange.wide</span>, WSFactors <span class="op">=</span> <span class="st">"age(7)"</span>,</span></span>
-<span class="r-in"><span>  variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DV_118"</span>,<span class="st">"DV_484"</span>,<span class="st">"DV_664"</span>,<span class="st">"DV_1004"</span>,<span class="st">"DV_1231"</span>,<span class="st">"DV_1372"</span>,<span class="st">"DV_1582"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DV.118"</span>,<span class="st">"DV.484"</span>,<span class="st">"DV.664"</span>,<span class="st">"DV.1004"</span>,<span class="st">"DV.1231"</span>,<span class="st">"DV.1372"</span>,<span class="st">"DV.1582"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span>, decorrelation <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span> <span class="op">+</span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"Age level"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Trunk diameter (mm)"</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">250</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"Basic confidence intervals"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">p2</span><span class="op">=</span><span class="fu"><a href="superbPlot.html">superbPlot</a></span><span class="op">(</span> <span class="va">Orange.wide</span>, WSFactors <span class="op">=</span> <span class="st">"age(7)"</span>,</span></span>
-<span class="r-in"><span>  variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DV_118"</span>,<span class="st">"DV_484"</span>,<span class="st">"DV_664"</span>,<span class="st">"DV_1004"</span>,<span class="st">"DV_1231"</span>,<span class="st">"DV_1372"</span>,<span class="st">"DV_1582"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DV.118"</span>,<span class="st">"DV.484"</span>,<span class="st">"DV.664"</span>,<span class="st">"DV.1004"</span>,<span class="st">"DV.1231"</span>,<span class="st">"DV.1372"</span>,<span class="st">"DV.1582"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span>, decorrelation <span class="op">=</span> <span class="st">"CA"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span> <span class="op">+</span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"Age level"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Trunk diameter (mm)"</span><span class="op">)</span> <span class="op">+</span></span></span>

@@ -40,7 +40,7 @@ install.packages("superb")
 library(superb)
 ```
 
-The development version 0.95.16 can be accessed through GitHub:
+The development version 0.95.17 can be accessed through GitHub:
 
 ``` r
 devtools::install_github("dcousin3/superb")
@@ -63,9 +63,7 @@ of vitamin and the form of the vitamin supplements `supp` (pills or
 juice)
 
 ``` r
-superbPlot(ToothGrowth, 
-    BSFactors = c("dose","supp"), 
-    variables = "len" )
+superb(len ~ dose + supp, ToothGrowth )
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
@@ -79,9 +77,7 @@ This second example explicitly indicates to display the `median` instead
 of the default `mean` summary statistics
 
 ``` r
-superbPlot(ToothGrowth, 
-    BSFactors = c("dose","supp"), 
-    variables = "len",
+superb(len ~ dose + supp, ToothGrowth,
     statistic = "median")
 ```
 
@@ -91,9 +87,7 @@ As a third example, we illustrate the harmonic means `hmean` along with
 99.9% confidence intervals using lines:
 
 ``` r
-superbPlot(ToothGrowth, 
-    BSFactors = c("dose","supp"), 
-    variables = "len",
+superb(len ~ dose + supp, ToothGrowth,
     statistic = "hmean", 
     errorbar = "CI", gamma = 0.999,
     plotStyle = "line")
@@ -119,31 +113,46 @@ testdata <- GRD(
 head(testdata)
 ```
 
-    ##   id Difficulty   score.1  score.2
-    ## 1  1          A  70.59342 86.56967
-    ## 2  2          A  68.57185 62.65896
-    ## 3  3          A  99.51230 88.09486
-    ## 4  4          A 107.23096 76.66584
-    ## 5  5          A  73.61036 80.45815
-    ## 6  6          A  73.61773 67.35911
+    ##   id Difficulty  score.1  score.2
+    ## 1  1          A 87.55612 74.85430
+    ## 2  2          A 78.58234 69.15361
+    ## 3  3          A 77.31146 72.92552
+    ## 4  4          A 68.73031 82.40057
+    ## 5  5          A 64.99024 70.81826
+    ## 6  6          A 83.62138 73.85446
 
-The simulated scores are illustrated using using a more elaborated
-layout, the `pointjitterviolin` which, in addition to the mean and
-confidence interval, shows the raw data using jitter dots and the
-distribution using a violin plot:
+This is here that the full benefits of `superb()` is seen: with just a
+few adjustments, you can obtained decorrelated error bars with the
+Cousineau-Morey (CM) or the Loftus & Masson (CM) techniques:
 
 ``` r
-superbPlot(testdata, 
-    BSFactors  = "Difficulty", 
-    WSFactors  = "Day(2)",
-    variables = c("score.1","score.2"),
-    plotStyle = "pointjitterviolin",
+superb( cbind(score.1, score.2) ~ Difficulty, 
+    testdata, WSFactors = "Day(2)",
+    adjustments = list(purpose = "difference", decorrelation = "CM"),
+    plotStyle = "line",
     errorbarParams = list(color = "purple"),
     pointParams = list( size = 3, color = "purple")
 )
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+
+Even better, the simulated scores can be illustrated using using a more
+elaborated layout, the `pointjitterviolin` which, in addition to the
+mean and confidence interval, shows the raw data using jitter dots and
+the distribution using a violin plot:
+
+``` r
+superb( cbind(score.1, score.2) ~ Difficulty, 
+    testdata, WSFactors = "Day(2)",
+    adjustments = list(purpose = "difference", decorrelation = "CM"),
+    plotStyle = "pointjitterviolin",
+    errorbarParams = list(color = "purple"),
+    pointParams = list( size = 3, color = "purple")
+)
+```
+
+![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 In the above example, optional arguments `errorbarParams` and
 `pointParams` are used to inject specifications in the error bars and

@@ -34,14 +34,14 @@
 #' 
 #' # Makes the plots two different way:
 #' p1=superbPlot( Orange.wide, WSFactors = "age(7)",
-#'   variables = c("DV_118","DV_484","DV_664","DV_1004","DV_1231","DV_1372","DV_1582"),
+#'   variables = c("DV.118","DV.484","DV.664","DV.1004","DV.1231","DV.1372","DV.1582"),
 #'   adjustments = list(purpose = "difference", decorrelation = "none")
 #' ) + 
 #'   xlab("Age level") + ylab("Trunk diameter (mm)") +
 #'   coord_cartesian( ylim = c(0,250) ) + labs(title="Basic confidence intervals")
 #'
 #' p2=superbPlot( Orange.wide, WSFactors = "age(7)",
-#'   variables = c("DV_118","DV_484","DV_664","DV_1004","DV_1231","DV_1372","DV_1582"),
+#'   variables = c("DV.118","DV.484","DV.664","DV.1004","DV.1231","DV.1372","DV.1582"),
 #'   adjustments = list(purpose = "difference", decorrelation = "CA")
 #' ) + 
 #'   xlab("Age level") + ylab("Trunk diameter (mm)") +
@@ -112,17 +112,17 @@ superbToWide <- function(data,
     ##################################################################################
     remainingvars <- setdiff(names(data), c(WSFactors, variable))
     if (length(WSFactors) > 1) { # concatenate the factor levels in a single column 'within'
-        collapsed.treatments <- apply(as.matrix(data[, WSFactors]), 1, paste, collapse = "_")
+        collapsed.treatments <- apply(as.matrix(data[, WSFactors]), 1, paste, collapse = ".")
         data <- data[, setdiff(names(data), WSFactors)]
         data$within <- collapsed.treatments # put the concatenated levels in a new column
         WSFactors <- "within"               # use that new column from now on
     }
     times <- unique(data[, WSFactors])
     varying <- list()
-    for (i in seq_along(variable)) varying[[i]] <- paste(variable[i], times, sep = "_")
+    for (i in seq_along(variable)) varying[[i]] <- paste(variable[i], times, sep = ".")
     res <- stats::reshape(data, idvar = remainingvars, varying = varying, 
 			direction = "wide", times = times, v.names = variable, 
-			timevar = WSFactors)
+			sep = ".", timevar = WSFactors)
     rownames(res) <- NULL
 
 	return(res)

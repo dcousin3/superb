@@ -47,14 +47,14 @@ Orange.wide <- superbToWide(Orange, id = "Tree", WSFactors = c("age"), variable 
 
 # Makes the plots two different way:
 p1=superbPlot( Orange.wide, WSFactors = "age(7)",
-  variables = c("DV_118","DV_484","DV_664","DV_1004","DV_1231","DV_1372","DV_1582"),
+  variables = c("DV.118","DV.484","DV.664","DV.1004","DV.1231","DV.1372","DV.1582"),
   adjustments = list(purpose = "difference", decorrelation = "none")
 ) + 
   xlab("Age level") + ylab("Trunk diameter (mm)") +
   coord_cartesian( ylim = c(0,250) ) + labs(title="Basic confidence intervals")
 
 p2=superbPlot( Orange.wide, WSFactors = "age(7)",
-  variables = c("DV_118","DV_484","DV_664","DV_1004","DV_1231","DV_1372","DV_1582"),
+  variables = c("DV.118","DV.484","DV.664","DV.1004","DV.1231","DV.1372","DV.1582"),
   adjustments = list(purpose = "difference", decorrelation = "CA")
 ) + 
   xlab("Age level") + ylab("Trunk diameter (mm)") +

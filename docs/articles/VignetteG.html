@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.17</span>
       </span>
     </div>
 
@@ -347,11 +347,14 @@ locally-decorrelated confidence intervals, but not when you examine the
 previous two plots. Which is true? Let’s run a t-test on paired
 sample.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">fmriWide</span><span class="op">$</span><span class="va">`signal_stim_parietal_ 6`</span>, <span class="va">fmriWide</span><span class="op">$</span><span class="va">`signal_stim_parietal_ 7`</span>, paired<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">d1</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">fmri</span>, <span class="va">event</span><span class="op">==</span><span class="st">"stim"</span> <span class="op">&amp;</span> <span class="va">region</span><span class="op">==</span><span class="st">"parietal"</span> <span class="op">&amp;</span> <span class="va">timepoint</span><span class="op">==</span><span class="fl">6</span><span class="op">)</span></span>
+<span><span class="va">d2</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">fmri</span>, <span class="va">event</span><span class="op">==</span><span class="st">"stim"</span> <span class="op">&amp;</span> <span class="va">region</span><span class="op">==</span><span class="st">"parietal"</span> <span class="op">&amp;</span> <span class="va">timepoint</span><span class="op">==</span><span class="fl">7</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">d1</span><span class="op">$</span><span class="va">signal</span>, <span class="va">d2</span><span class="op">$</span><span class="va">signal</span>, paired<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">##  Paired t-test</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## data:  fmriWide$`signal_stim_parietal_ 6` and fmriWide$`signal_stim_parietal_ 7`</span></span>
+<span><span class="co">## data:  d1$signal and d2$signal</span></span>
 <span><span class="co">## t = 3.8818, df = 13, p-value = 0.00189</span></span>
 <span><span class="co">## alternative hypothesis: true mean difference is not equal to 0</span></span>
 <span><span class="co">## 95 percent confidence interval:</span></span>
@@ -370,7 +373,7 @@ precision. In the extreme, if you use a very large radius (e.g.,
 “LD10000”), you will get the exact same average correlation as with “CA”
 as now all the correlations are weighted almost identically.</p>
 <p>Note that in the above computations, I reduced the number of messages
-displayed by <code>superb</code> using
+displayed by <code><a href="../reference/superb.html">superb()</a></code> using
 <code>options("superb.feedback" = "warnings" )</code>.</p>
 </div>
 <div class="section level3">

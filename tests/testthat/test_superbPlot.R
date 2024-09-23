@@ -1,4 +1,4 @@
-context("Testing suberbPlot")
+context("Testing suberbPlot()")
 
 
 test_that("PRELIMINARY TESTS (1/4)", {

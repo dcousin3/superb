@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.17</span>
       </span>
     </div>
 
@@ -162,7 +162,7 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"superb"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dcousin3.github.io/superb/" class="external-link">superb</a></span><span class="op">)</span></span></code></pre></div>
-<p>The development version 0.95.16 can be accessed through GitHub:</p>
+<p>The development version 0.95.17 can be accessed through GitHub:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"dcousin3/superb"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dcousin3.github.io/superb/" class="external-link">superb</a></span><span class="op">)</span></span></code></pre></div>
@@ -176,23 +176,17 @@
 <p>The following examples use the script-based commands.</p>
 <p>Here is a simple example illustrating the <code>ToothGrowth</code> dataset of rats (in which the dependent variable is <code>len</code>) as a function of the <code>dose</code> of vitamin and the form of the vitamin supplements <code>supp</code> (pills or juice)</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">ToothGrowth</span>, </span>
-<span>    BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dose"</span>,<span class="st">"supp"</span><span class="op">)</span>, </span>
-<span>    variables <span class="op">=</span> <span class="st">"len"</span> <span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/superb.html">superb</a></span><span class="op">(</span><span class="va">len</span> <span class="op">~</span> <span class="va">dose</span> <span class="op">+</span> <span class="va">supp</span>, <span class="va">ToothGrowth</span> <span class="op">)</span></span></code></pre></div>
 <p><img src="README_files/figure-gfm/unnamed-chunk-6-1.png"><!-- --></p>
 <p>In the above, the default summary statistic, the mean, is used. The error bars are, by default, the 95% confidence intervals. These two choices can be changed with the <code>statistic</code> and the <code>errorbar</code> arguments.</p>
 <p>This second example explicitly indicates to display the <code>median</code> instead of the default <code>mean</code> summary statistics</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">ToothGrowth</span>, </span>
-<span>    BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dose"</span>,<span class="st">"supp"</span><span class="op">)</span>, </span>
-<span>    variables <span class="op">=</span> <span class="st">"len"</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/superb.html">superb</a></span><span class="op">(</span><span class="va">len</span> <span class="op">~</span> <span class="va">dose</span> <span class="op">+</span> <span class="va">supp</span>, <span class="va">ToothGrowth</span>,</span>
 <span>    statistic <span class="op">=</span> <span class="st">"median"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="README_files/figure-gfm/unnamed-chunk-7-1.png"><!-- --></p>
 <p>As a third example, we illustrate the harmonic means <code>hmean</code> along with 99.9% confidence intervals using lines:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">ToothGrowth</span>, </span>
-<span>    BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dose"</span>,<span class="st">"supp"</span><span class="op">)</span>, </span>
-<span>    variables <span class="op">=</span> <span class="st">"len"</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/superb.html">superb</a></span><span class="op">(</span><span class="va">len</span> <span class="op">~</span> <span class="va">dose</span> <span class="op">+</span> <span class="va">supp</span>, <span class="va">ToothGrowth</span>,</span>
 <span>    statistic <span class="op">=</span> <span class="st">"hmean"</span>, </span>
 <span>    errorbar <span class="op">=</span> <span class="st">"CI"</span>, gamma <span class="op">=</span> <span class="fl">0.999</span>,</span>
 <span>    plotStyle <span class="op">=</span> <span class="st">"line"</span><span class="op">)</span></span></code></pre></div>
@@ -208,24 +202,33 @@
 <span>    Effects    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"Day"</span> <span class="op">=</span> <span class="fu"><a href="reference/slope.html">slope</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span><span class="op">)</span> <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">testdata</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="do">##   id Difficulty   score.1  score.2</span></span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="do">## 1  1          A  70.59342 86.56967</span></span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="do">## 2  2          A  68.57185 62.65896</span></span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="do">## 3  3          A  99.51230 88.09486</span></span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="do">## 4  4          A 107.23096 76.66584</span></span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="do">## 5  5          A  73.61036 80.45815</span></span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="do">## 6  6          A  73.61773 67.35911</span></span></code></pre></div>
-<p>The simulated scores are illustrated using using a more elaborated layout, the <code>pointjitterviolin</code> which, in addition to the mean and confidence interval, shows the raw data using jitter dots and the distribution using a violin plot:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="do">##   id Difficulty  score.1  score.2</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="do">## 1  1          A 87.55612 74.85430</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="do">## 2  2          A 78.58234 69.15361</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="do">## 3  3          A 77.31146 72.92552</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="do">## 4  4          A 68.73031 82.40057</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="do">## 5  5          A 64.99024 70.81826</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="do">## 6  6          A 83.62138 73.85446</span></span></code></pre></div>
+<p>This is here that the full benefits of <code><a href="reference/superb.html">superb()</a></code> is seen: with just a few adjustments, you can obtained decorrelated error bars with the Cousineau-Morey (CM) or the Loftus &amp; Masson (CM) techniques:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">testdata</span>, </span>
-<span>    BSFactors  <span class="op">=</span> <span class="st">"Difficulty"</span>, </span>
-<span>    WSFactors  <span class="op">=</span> <span class="st">"Day(2)"</span>,</span>
-<span>    variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"score.1"</span>,<span class="st">"score.2"</span><span class="op">)</span>,</span>
-<span>    plotStyle <span class="op">=</span> <span class="st">"pointjitterviolin"</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/superb.html">superb</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">score.1</span>, <span class="va">score.2</span><span class="op">)</span> <span class="op">~</span> <span class="va">Difficulty</span>, </span>
+<span>    <span class="va">testdata</span>, WSFactors <span class="op">=</span> <span class="st">"Day(2)"</span>,</span>
+<span>    adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span>, decorrelation <span class="op">=</span> <span class="st">"CM"</span><span class="op">)</span>,</span>
+<span>    plotStyle <span class="op">=</span> <span class="st">"line"</span>,</span>
 <span>    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span>,</span>
 <span>    pointParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> size <span class="op">=</span> <span class="fl">3</span>, color <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="README_files/figure-gfm/unnamed-chunk-10-1.png"><!-- --></p>
+<p>Even better, the simulated scores can be illustrated using using a more elaborated layout, the <code>pointjitterviolin</code> which, in addition to the mean and confidence interval, shows the raw data using jitter dots and the distribution using a violin plot:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/superb.html">superb</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">score.1</span>, <span class="va">score.2</span><span class="op">)</span> <span class="op">~</span> <span class="va">Difficulty</span>, </span>
+<span>    <span class="va">testdata</span>, WSFactors <span class="op">=</span> <span class="st">"Day(2)"</span>,</span>
+<span>    adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span>, decorrelation <span class="op">=</span> <span class="st">"CM"</span><span class="op">)</span>,</span>
+<span>    plotStyle <span class="op">=</span> <span class="st">"pointjitterviolin"</span>,</span>
+<span>    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span>,</span>
+<span>    pointParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> size <span class="op">=</span> <span class="fl">3</span>, color <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-11-1.png"><!-- --></p>
 <p>In the above example, optional arguments <code>errorbarParams</code> and <code>pointParams</code> are used to inject specifications in the error bars and the points respectively. When these arguments are used, they override the defaults from <code><a href="reference/superbPlot.html">superbPlot()</a></code>.</p>
 </div>
 <div class="section level1">

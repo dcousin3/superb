@@ -20,7 +20,7 @@ according to the suberb framework. See (Cousineau et al. 2021)
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.17</span>
       </span>
     </div>
 
@@ -212,7 +212,7 @@ contains the cluster membership</p></dd>
 <dt>...</dt>
 <dd><p>In addition to the parameters above, superbPlot also accept a number of
 optional arguments that will be transmitted to the plotting function, such as
-pointParams (a list of ggplot2 parameters to input inside geoms; see ?geom_bar2) and
+pointParams (a list of g`lot2 parameters to input inside geoms; see ?geom_bar2) and
 errorbarParams (a list of ggplot2 parameters for geom_errorbar; see ?geom_errorbar)</p></dd>
 
 </dl></div>
@@ -346,6 +346,7 @@ sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Samp
 <span class="r-in"><span><span class="co">######################################################################</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Another example: The Orange data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Orange</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Use the Orange example, but let's define shorter column names...</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">Orange</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Tree"</span>,<span class="st">"age"</span>,<span class="st">"circ"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># ... and turn the data into a wide format using superbToWide:</span></span></span>
@@ -353,7 +354,7 @@ sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Samp
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># This example contains 5 trees whose diameter (in mm) has been measured at various age (in days):</span></span></span>
 <span class="r-in"><span><span class="va">Orange.wide</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Tree circ_118 circ_484 circ_664 circ_1004 circ_1231 circ_1372 circ_1582</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Tree circ.118 circ.484 circ.664 circ.1004 circ.1231 circ.1372 circ.1582</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    1       30       58       87       115       120       142       145</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    2       33       69      111       156       172       203       203</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3    3       30       51       75       108       115       139       140</span>
@@ -362,14 +363,14 @@ sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Samp
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Makes the plots first without decorrelation:</span></span></span>
 <span class="r-in"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">superbPlot</span><span class="op">(</span> <span class="va">Orange.wide</span>, WSFactors <span class="op">=</span> <span class="st">"age(7)"</span>,</span></span>
-<span class="r-in"><span>  variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"circ_118"</span>,<span class="st">"circ_484"</span>,<span class="st">"circ_664"</span>,<span class="st">"circ_1004"</span>,<span class="st">"circ_1231"</span>,<span class="st">"circ_1372"</span>,<span class="st">"circ_1582"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"circ.118"</span>,<span class="st">"circ.484"</span>,<span class="st">"circ.664"</span>,<span class="st">"circ.1004"</span>,<span class="st">"circ.1231"</span>,<span class="st">"circ.1372"</span>,<span class="st">"circ.1582"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span>, decorrelation <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span> <span class="op">+</span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"Age level"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Trunk diameter (mm)"</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">250</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"''Standalone'' confidence intervals"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># ... and then with decorrelation (technique Correlation-adjusted CA):</span></span></span>
 <span class="r-in"><span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu">superbPlot</span><span class="op">(</span> <span class="va">Orange.wide</span>, WSFactors <span class="op">=</span> <span class="st">"age(7)"</span>,</span></span>
-<span class="r-in"><span>  variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"circ_118"</span>,<span class="st">"circ_484"</span>,<span class="st">"circ_664"</span>,<span class="st">"circ_1004"</span>,<span class="st">"circ_1231"</span>,<span class="st">"circ_1372"</span>,<span class="st">"circ_1582"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"circ.118"</span>,<span class="st">"circ.484"</span>,<span class="st">"circ.664"</span>,<span class="st">"circ.1004"</span>,<span class="st">"circ.1231"</span>,<span class="st">"circ.1372"</span>,<span class="st">"circ.1582"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span>, decorrelation <span class="op">=</span> <span class="st">"CA"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span> <span class="op">+</span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"Age level"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Trunk diameter (mm)"</span><span class="op">)</span> <span class="op">+</span></span></span>

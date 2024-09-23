@@ -37,7 +37,7 @@
 #'
 #' @param ...  In addition to the parameters above, superbPlot also accept a number of 
 #'  optional arguments that will be transmitted to the plotting function, such as
-#'  pointParams (a list of ggplot2 parameters to input inside geoms; see ?geom_bar2) and
+#'  pointParams (a list of g`lot2 parameters to input inside geoms; see ?geom_bar2) and
 #'  errorbarParams (a list of ggplot2 parameters for geom_errorbar; see ?geom_errorbar)
 #'
 #'
@@ -133,6 +133,7 @@
 #' ######################################################################
 #' 
 #' # Another example: The Orange data
+#' data(Orange)
 #' # Use the Orange example, but let's define shorter column names...
 #' names(Orange) <- c("Tree","age","circ")
 #' # ... and turn the data into a wide format using superbToWide:
@@ -143,14 +144,14 @@
 #'
 #' # Makes the plots first without decorrelation:
 #' p1 <- superbPlot( Orange.wide, WSFactors = "age(7)",
-#'   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
+#'   variables = c("circ.118","circ.484","circ.664","circ.1004","circ.1231","circ.1372","circ.1582"),
 #'   adjustments = list(purpose = "difference", decorrelation = "none")
 #' ) + 
 #'   xlab("Age level") + ylab("Trunk diameter (mm)") +
 #'   coord_cartesian( ylim = c(0,250) ) + labs(title="''Standalone'' confidence intervals")
 #' # ... and then with decorrelation (technique Correlation-adjusted CA):
 #' p2 <- superbPlot( Orange.wide, WSFactors = "age(7)",
-#'   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
+#'   variables = c("circ.118","circ.484","circ.664","circ.1004","circ.1231","circ.1372","circ.1582"),
 #'   adjustments = list(purpose = "difference", decorrelation = "CA")
 #' ) + 
 #'   xlab("Age level") + ylab("Trunk diameter (mm)") +
@@ -201,14 +202,6 @@ superbPlot <- function(data,
     # etc.
 ) {
 
-    ##############################################################################
-    # STEP 0: Load required libraries
-    ##############################################################################
-    #require(ggplot2)    # all of it
-    #require(lsr)        # only function wideToLong is used
-    #require(plyr)       # only function ddply is used
-    
-    
     ##############################################################################
     # STEP 1: Input validation
     ##############################################################################
@@ -470,7 +463,6 @@ superbPlot <- function(data,
 
     runDebug("superb.4", "End of Step 4: Statistics obtained", 
         c("summaryStatistics2"), list( summaryStatistics) )
-
 
     ##############################################################################
     # STEP 5: Get all the adjustments

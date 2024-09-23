@@ -1,4 +1,4 @@
-context("Testing suberbToWide")
+context("Testing suberbToWide()")
 
 
 test_that("TESTS (1/4)", {
@@ -10,8 +10,8 @@ test_that("TESTS (1/4)", {
 	Owide <- superbToWide(Orange, id = "Tree", WSFactors = "age", variable = "DV" )
 
     expect_output( str(Owide), "data.frame")
-    expect_equal( Owide$DV_118[1], 30)
-    expect_equal( Owide$DV_1582[5], 177)
+    expect_equal( Owide$DV.118[1], 30)
+    expect_equal( Owide$DV.1582[5], 177)
 
     # restores default information
     options("superb.feedback" = c('design','warnings','summary'))
@@ -29,8 +29,8 @@ test_that("TESTS (2/4)", {
 	tt <- superbToWide(dta, id = "id", WSFactors = "Moment", variable = "DV" )
 
     expect_output( str(tt), "data.frame")
-    expect_equal( dta$DV[1], tt$DV_1[1])
-    expect_equal( dta$DV[ss*2], tt$DV_2[ss])
+    expect_equal( dta$DV[1], tt$DV.1[1])
+    expect_equal( dta$DV[ss*2], tt$DV.2[ss])
 
     # restores default information
     options("superb.feedback" = c('design','warnings','summary'))
@@ -48,8 +48,8 @@ test_that("TESTS (3/4)", {
 	tt <- superbToWide(dta, id = "id", WSFactors = c("Moment","time","what"), variable = "DV" )
 
     expect_output( str(tt), "data.frame")
-    expect_equal( dta$DV[1], tt$DV_1_1_1[1])
-    expect_equal( dta$DV[ss*2*3*5], tt$DV_2_3_5[ss])
+    expect_equal( dta$DV[1], tt$DV.1.1.1[1])
+    expect_equal( dta$DV[ss*2*3*5], tt$DV.2.3.5[ss])
 
     # restores default information
     options("superb.feedback" = c('design','warnings','summary'))
@@ -66,8 +66,8 @@ test_that("TESTS (3/4)", {
 	tt <- superbToWide(dta, id = "id", WSFactors = c("Moment","time","what","bis"), variable = "DV" )
 
     expect_output( str(tt), "data.frame")
-    expect_equal( dta$DV[1], tt$DV_1_1_1_1[1])
-    expect_equal( dta$DV[ss*2*3*5*7], tt$DV_2_3_5_7[ss])
+    expect_equal( dta$DV[1], tt$DV.1.1.1.1[1])
+    expect_equal( dta$DV[ss*2*3*5*7], tt$DV.2.3.5.7[ss])
 
     # restores default information
     options("superb.feedback" = c('design','warnings','summary'))

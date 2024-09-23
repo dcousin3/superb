@@ -190,8 +190,11 @@ panel), for time points 6 and 7. The confidence band suggest that these two poin
 you examine the locally-decorrelated confidence intervals, but not when you examine the previous
 two plots. Which is true? Let's run a t-test on paired sample.
 
-```{r}
-t.test(fmriWide$`signal_stim_parietal_ 6`, fmriWide$`signal_stim_parietal_ 7`, paired=TRUE)
+```{r ThisChunk}
+d1 <- dplyr::filter(fmri, event=="stim" & region=="parietal" & timepoint==6)
+d2 <- dplyr::filter(fmri, event=="stim" & region=="parietal" & timepoint==7)
+
+t.test(d1$signal, d2$signal, paired=TRUE)
 ```
 
 ## The radius parameter
@@ -200,8 +203,8 @@ You can vary the radius from 1 and above. The larger the radius, the smallest wi
 In the extreme, if you use a very large radius (e.g., "LD10000"), you will get the exact same
 average correlation as with "CA" as now all the correlations are weighted almost identically.
 
-Note that in the above computations, I reduced the number of messages displayed by ``superb`` using
-``options("superb.feedback" = "warnings" )``.
+Note that in the above computations, I reduced the number of messages displayed by ``superb()`` using
+`options("superb.feedback" = "warnings" )`.
 
 ## Difference adjustments
 

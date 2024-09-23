@@ -22,4 +22,5 @@ puts in the globalenvironment the variables named "vars"
 runDebug is an internal function used by GRD and superb
 to help in debugging the functions. It assigns in the global environment
 the variables that are local to a function so that they become visible.
+Use \code{options("superb.feedback" = "all")} to turn all debug on.
 }

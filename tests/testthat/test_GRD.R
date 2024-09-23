@@ -1,4 +1,4 @@
-context("Testing GRD")
+context("Testing GRD()")
 
 #################################################
 ##                                             ##

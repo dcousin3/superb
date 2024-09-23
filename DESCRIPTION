@@ -1,8 +1,8 @@
 Package: superb
 Type: Package
 Title: Summary Plots with Adjusted Error Bars
-Version: 0.95.16
-Date: 2024-09-13
+Version: 0.95.17
+Date: 2024-09-31
 Authors@R: c(
              person("Denis", "Cousineau", email = "denis.cousineau@uottawa.ca",
                     role = c("aut", "cre")),
@@ -41,7 +41,7 @@ VignetteBuilder: knitr
 LazyData: true
 RoxygenNote: 7.3.1
 Depends:
-    R (>= 3.5.0)
+    R (>= 4.1.0)
 Imports: 
     foreign,
     plyr (>= 1.8.4),
