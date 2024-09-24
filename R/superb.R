@@ -9,7 +9,7 @@
 #'      The functions `superb()` is now the entry point
 #'      to realize summary plots.
 #'      Compared to the previously documented `superbPlot()`,
-#'      `superb()` is a based on formula and accept 
+#'      `superb()` is based on formula and accept 
 #'      long and wide format.
 #'
 #' @param formula a formula describing the design of the data frame

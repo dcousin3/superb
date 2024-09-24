@@ -60,7 +60,7 @@
 #' * samplingDesign: Sampling method to obtain the sample. implemented 
 #'          sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Sampling).
 #'
-#' In version 0.97.5, the layouts for plots are the following:
+#' In version 0.97.15, the layouts for plots are the following:
 #' * "bar" Shows the summary statistics with bars and error bars;
 #' * "line" Shows the summary statistics with lines connecting the conditions over the first factor;
 #' * "point" Shows the summary statistics with isolated points
@@ -68,6 +68,8 @@
 #' * "pointjitterviolin" Also adds violin plots to the previous layout
 #' * "pointindividualline" Connects the raw data with line along the first factor (which should be a repeated-measure factor)
 #' * "raincloud" Illustrates the distribution with a cloud (half_violin_plot) and jittered dots next to it. Looks better when coordinates are flipped ``+coord_flip()``.
+#' * "corset" Illustrates two repeated-measures with individual lines and clouds
+#' * "boxplot" Illustrates the limits, the quartiles and the median using a box
 #' @md
 #'
 #' @references
@@ -80,6 +82,9 @@
 #' # By default, the mean is computed and the error bar are 95% confidence intervals
 #' superbPlot(ToothGrowth, BSFactors = c("dose", "supp"), 
 #'   variables = "len") 
+#'
+#' # Note that function superb() does the same with formula:
+#' superb( len ~ dose + supp, ToothGrowth )
 #'
 #' # Example changing the summary statistics to the median and
 #' # the error bar to 80% confidence intervals

@@ -34,15 +34,18 @@
 #'
 #' @examples
 #' # This will make a plot with jittered points, aka dot plots
-#' superbPlot(ToothGrowth, 
-#'    BSFactors = c("dose","supp"), variables = "len",
+#' superb(
+#'    len ~ dose + supp,
+#'    ToothGrowth, 
 #'    plotStyle="pointjitter" 
 #' )
 #'
 #' # if you extract the data with superbData, you can 
 #' # run this layout directly
-#' #processedData <- superbData(ToothGrowth, 
-#' #   BSFactors = c("dose","supp"), variables = "len"
+#' #processedData <- superb(
+#' #   len ~ dose + supp,
+#' #   ToothGrowth, 
+#' #   showPlot = FALSE
 #' #)
 #' #
 #' #superbPlot.pointjitter(processedData$summaryStatistic,
@@ -160,15 +163,18 @@ superbPlot.pointjitter <- function(
 #'
 #' @examples
 #' # This will make a plot with jittered points and violins for the overall distribution
-#' superbPlot(ToothGrowth, 
-#'    BSFactors = c("dose","supp"), variables = "len",
+#' superb(
+#'    len ~ dose + supp,
+#'    ToothGrowth, 
 #'    plotStyle = "pointjitterviolin" 
 #' )
 #'
 #' # if you extract the data with superbData, you can 
 #' # run this layout directly
-#' #processedData <- superbData(ToothGrowth, 
-#' #   BSFactors = c("dose","supp"), variables = "len"
+#' #processedData <- superb(
+#' #   len ~ dose + supp, 
+#' #   ToothGrowth, 
+#' #   showPlot = FALSE
 #' #)
 #' #
 #' #superbPlot.pointjitterviolin(processedData$summaryStatistic,
@@ -311,26 +317,21 @@ superbPlot.pointjitterviolin <- function(
 #'
 #' @examples
 #' # This will make a plot with points and individual lines for each subject's scores
-#' library(lsr)
 #'
-#' # we take the Orange built-in data.frame which has a within-subject design
+#' # we take the Orange built-in data.frame but shorten the names...
 #' names(Orange) <- c("Tree","age","circ")
-#' # turn the data into a wide format
-#' Orange.wide <- longToWide(Orange, circ ~ age)
-#' # the identifier to each tree must be in a column called id
-#' Orange.wide$id = Orange.wide$Tree
+
+#' # Makes the plot:
+#'  superb( circ ~ age | Tree, 
+#'    Orange, 
+#'    adjustments = list(purpose = "difference", decorrelation = "none"),
+#'    plotStyle= "pointindividualline"
+#'  )
 #' 
-#' # Makes the plots two different way:
-#' superbPlot( Orange.wide, WSFactors = "age(7)",
-#'   variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
-#'   adjustments = list(purpose = "difference", decorrelation = "none"),
-#'   plotStyle= "pointindividualline"
-#' )
-#' 
-#' # if you extract the data with superbData, you can 
+#' # if you extract the data, you can 
 #' # run this layout directly
-#' #processedData <- superbData(Orange.wide, WSFactors = "age(7)",
-#' #  variables = c("circ_118","circ_484","circ_664","circ_1004","circ_1231","circ_1372","circ_1582"),
+#' #processedData <- superb( circ ~ age | Tree, 
+#' #  Orange,
 #' #  adjustments = list(purpose = "difference", decorrelation = "none"),
 #' #)
 #' #

@@ -36,17 +36,17 @@
 #' )
 #' 
 #' # making a two-factor plot and a three-factor plots (having panels)
-#' plt2 <- superbPlot(dta, 
-#'         BSFactor = c("Group"),
+#' plt2 <- superb(
+#'         cbind(DV.1,DV.2,DV.3) ~ Group, 
+#'         dta, 
 #'         WSFactor = c("Moment(3)"),
-#'         variables = c("DV.1","DV.2","DV.3"),
 #'         adjustments = list(purpose="difference"),
 #'         factorOrder = c("Moment","Group")
 #'     )
-#' plt3 <- superbPlot(dta, 
-#'         BSFactor = c("Group","Age"),
+#' plt3 <- superb(
+#'         cbind(DV.1,DV.2,DV.3) ~ Group + Age, 
+#'         dta,
 #'         WSFactor = c("Moment(3)"),
-#'         variables = c("DV.1","DV.2","DV.3"),
 #'         adjustments = list(purpose="difference"),
 #'         factorOrder = c("Moment","Group","Age")
 #'     )

@@ -49,23 +49,27 @@ possible to create custom-make templates (see vignette 5). The functions, to be
 }
 \examples{
 # This will make a plot with boxes for interquartile (box), median (line) and outliers (whiskers)
-superbPlot(ToothGrowth, 
-   BSFactors = c("dose","supp"), variables = "len",
+superb(
+   len ~ dose + supp,
+   ToothGrowth, 
    plotStyle = "boxplot" 
 )
 
 # This layout of course is more meaningful if the statistic displayed is the median
-superbPlot(ToothGrowth, 
-   BSFactors = c("dose","supp"), 
-   variables = "len",
+superb(
+   len ~ dose + supp,
+   ToothGrowth, 
    statistic = "median",
    plotStyle = "boxplot" 
 )
 
 # if you extracted the data with superbData, you can 
 # run this layout directly
-processedData <- superbData(ToothGrowth, 
-   BSFactors = c("dose","supp"), variables = "len", statistic = "median"
+processedData <- superb(
+   len ~ dose + supp,
+   ToothGrowth, 
+   statistic = "median",
+   showPlot  = FALSE
 )
 
 superbPlot.boxplot(processedData$summaryStatistic,
@@ -73,8 +77,9 @@ superbPlot.boxplot(processedData$summaryStatistic,
    processedData$rawData)
 
 # This will make a plot with customized boxplot parameters and black dots
-superbPlot(ToothGrowth, 
-   BSFactors = c("dose","supp"), variables = "len",
+superb(
+   len ~ dose + supp,
+   ToothGrowth, 
    statistic = "median",
    plotStyle = "boxplot",
    boxplotParams = list( outlier.shape=8, outlier.size=4 ),
@@ -82,8 +87,9 @@ superbPlot(ToothGrowth,
 )
 
 # You can customize the plot in various ways, e.g.
-plt3 <- superbPlot(ToothGrowth, 
-   BSFactors = c("dose","supp"), variables = "len",
+plt3 <- superb(
+   len ~ dose + supp,
+   ToothGrowth, 
    statistic = "median",
    plotStyle = "boxplot",
    pointParams = list(color="black")

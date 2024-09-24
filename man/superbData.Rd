@@ -89,6 +89,8 @@ res <- superbData(ToothGrowth, BSFactors = c("dose", "supp"),
   adjustments = list( purpose = "difference", popSize = 200) )
 res$summaryStatistics
 
+# Note that you can achieve the same with formulas
+superb( len ~ dose + supp, ToothGrowth, showPlot=FALSE)
 
 }
 \references{

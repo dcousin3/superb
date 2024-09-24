@@ -253,6 +253,80 @@ sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Samp
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5    2   OJ  25.95  -2.006051   2.006051</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6    2   VC  25.95  -3.624965   3.624965</span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Note that you can achieve the same with formulas</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="superb.html">superb</a></span><span class="op">(</span> <span class="va">len</span> <span class="op">~</span> <span class="va">dose</span> <span class="op">+</span> <span class="va">supp</span>, <span class="va">ToothGrowth</span>, showPlot<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $summaryStatistics</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   dose supp center lowerwidth upperwidth</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.5   OJ  13.23  -3.190283   3.190283</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.5   VC   7.98  -1.964824   1.964824</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    1   OJ  22.70  -2.797727   2.797727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    1   VC  16.77  -1.799343   1.799343</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    2   OJ  26.06  -1.899314   1.899314</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    2   VC  26.14  -3.432090   3.432090</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rawData</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    dose supp id   DV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   0.5   VC  1  4.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   0.5   VC  2 11.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   0.5   VC  3  7.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   0.5   VC  4  5.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   0.5   VC  5  6.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   0.5   VC  6 10.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   0.5   VC  7 11.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   0.5   VC  8 11.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   0.5   VC  9  5.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  0.5   VC 10  7.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11    1   VC 11 16.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12    1   VC 12 16.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13    1   VC 13 15.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14    1   VC 14 17.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15    1   VC 15 22.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16    1   VC 16 17.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17    1   VC 17 13.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18    1   VC 18 14.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19    1   VC 19 18.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20    1   VC 20 15.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21    2   VC 21 23.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22    2   VC 22 18.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23    2   VC 23 33.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24    2   VC 24 25.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25    2   VC 25 26.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26    2   VC 26 32.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27    2   VC 27 26.7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28    2   VC 28 21.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29    2   VC 29 23.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30    2   VC 30 29.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31  0.5   OJ 31 15.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32  0.5   OJ 32 21.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33  0.5   OJ 33 17.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34  0.5   OJ 34  9.7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35  0.5   OJ 35 14.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36  0.5   OJ 36 10.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37  0.5   OJ 37  8.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38  0.5   OJ 38  9.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39  0.5   OJ 39 16.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40  0.5   OJ 40  9.7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41    1   OJ 41 19.7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42    1   OJ 42 23.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43    1   OJ 43 23.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44    1   OJ 44 26.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45    1   OJ 45 20.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46    1   OJ 46 25.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47    1   OJ 47 25.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48    1   OJ 48 21.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49    1   OJ 49 14.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50    1   OJ 50 27.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51    2   OJ 51 25.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52    2   OJ 52 26.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53    2   OJ 53 22.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54    2   OJ 54 24.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55    2   OJ 55 24.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56    2   OJ 56 30.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57    2   OJ 57 26.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58    2   OJ 58 27.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59    2   OJ 59 29.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60    2   OJ 60 23.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

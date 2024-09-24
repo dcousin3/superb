@@ -48,6 +48,10 @@
 #'   coord_cartesian( ylim = c(0,250) ) + labs(title="Decorrelated confidence intervals")
 #' grid.arrange(p1,p2,ncol=2)
 #'
+#' # Note that with superb(), there is no need to reformat
+#' # into a wide format anymore:
+#' superb( DV ~ age | Tree, Orange )
+#'
 #'
 #' @export superbToWide
 #' @importFrom utils capture.output

@@ -26,7 +26,7 @@ intervals can be obtained with a succession of simple corrections. I call these
 
 The main function is
 
-   \code{superbPlot(df,  ...)}  
+   \code{superb(formula, dataframe,  ...)}  
 
 where \code{df} is a dataframe.
 

@@ -15,7 +15,7 @@ the remaining columns will be left unchanged}
 \value{
 a data.frame of the same form as dta with the variables transformed.
 
-This function is useful when passed to the argument \code{preprocessfct} of \code{superbPlot()}
+This function is useful when passed to the argument \code{preprocessfct} of \code{superb()}
 where it performs a modification of the data matrix.
 }
 \description{

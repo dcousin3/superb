@@ -64,7 +64,9 @@
 #'   statistic = "median", errorbar = "CI", gamma = .80,
 #'   adjustments = list( purpose = "difference", popSize = 200) )
 #' res$summaryStatistics
-#'
+#' 
+#' # Note that you can achieve the same with formulas
+#' superb( len ~ dose + supp, ToothGrowth, showPlot=FALSE)
 #'
 #' @export superbData
 #

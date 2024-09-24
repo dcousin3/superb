@@ -158,20 +158,20 @@ and the gender (mainly male and female).</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># general plot ignoring covariates sex and languages with only defaults</span></span></span>
 <span class="r-in"><span><span class="co"># We illustrate correlation- and difference-adjusted 95% confidence intervals of the mean</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">TMB1964r</span>,</span></span>
+<span class="r-in"><span><span class="fu"><a href="superb.html">superb</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu">crange</span><span class="op">(</span><span class="va">T1</span>, <span class="va">T7</span><span class="op">)</span> <span class="op">~</span> <span class="va">Condition</span>,</span></span>
+<span class="r-in"><span>    <span class="va">TMB1964r</span>,</span></span>
 <span class="r-in"><span>    WSFactors <span class="op">=</span> <span class="st">"T(7)"</span>,      <span class="co"># the within-subject factor (spanning 7 columns)</span></span></span>
-<span class="r-in"><span>    BSFactors <span class="op">=</span> <span class="st">"Condition"</span>, <span class="co"># the between-subject factor (4 levels)</span></span></span>
-<span class="r-in"><span>    variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"T1"</span>,<span class="st">"T2"</span>,<span class="st">"T3"</span>,<span class="st">"T4"</span>,<span class="st">"T5"</span>,<span class="st">"T6"</span>,<span class="st">"T7"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose<span class="op">=</span><span class="st">"difference"</span>, decorrelation<span class="op">=</span><span class="st">"CM"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    plotStyle <span class="op">=</span> <span class="st">"line"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="TMB1964r-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># We add directives for the error bars (thick), for the points (larger) and for the lines (thick)</span></span></span>
-<span class="r-in"><span><span class="va">plt</span> <span class="op">&lt;-</span> <span class="fu"><a href="superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">TMB1964r</span>,</span></span>
+<span class="r-in"><span><span class="va">plt</span> <span class="op">&lt;-</span> <span class="fu"><a href="superb.html">superb</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu">crange</span><span class="op">(</span><span class="va">T1</span>, <span class="va">T7</span><span class="op">)</span> <span class="op">~</span> <span class="va">Condition</span>,</span></span>
+<span class="r-in"><span>    <span class="va">TMB1964r</span>,</span></span>
 <span class="r-in"><span>    WSFactors <span class="op">=</span> <span class="st">"T(7)"</span>,</span></span>
-<span class="r-in"><span>    BSFactors <span class="op">=</span> <span class="st">"Condition"</span>,</span></span>
-<span class="r-in"><span>    variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"T1"</span>,<span class="st">"T2"</span>,<span class="st">"T3"</span>,<span class="st">"T4"</span>,<span class="st">"T5"</span>,<span class="st">"T6"</span>,<span class="st">"T7"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose<span class="op">=</span><span class="st">"difference"</span>, decorrelation<span class="op">=</span><span class="st">"CM"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    plotStyle <span class="op">=</span> <span class="st">"line"</span>, </span></span>
 <span class="r-in"><span>    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.5</span>, linewidth<span class="op">=</span><span class="fl">1.25</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span><span class="fl">.5</span><span class="op">)</span> <span class="op">)</span>,</span></span>
@@ -199,10 +199,10 @@ and the gender (mainly male and female).</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Exploring three factors simultaneously: T, Condition and Sex (last two between-group)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">TMB1964r</span>,</span></span>
-<span class="r-in"><span>    WSFactors <span class="op">=</span> <span class="st">"T(7)"</span>,</span></span>
-<span class="r-in"><span>    BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Condition"</span>,<span class="st">"Sex"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"T1"</span>,<span class="st">"T2"</span>,<span class="st">"T3"</span>,<span class="st">"T4"</span>,<span class="st">"T5"</span>,<span class="st">"T6"</span>,<span class="st">"T7"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span><span class="fu"><a href="superb.html">superb</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu">crange</span><span class="op">(</span><span class="va">T1</span>, <span class="va">T7</span><span class="op">)</span> <span class="op">~</span> <span class="va">Condition</span> <span class="op">+</span> <span class="va">Sex</span>,</span></span>
+<span class="r-in"><span>    <span class="va">TMB1964r</span>,</span></span>
+<span class="r-in"><span>    WSFactors <span class="op">=</span> <span class="st">"T(7)"</span>,      <span class="co"># the within-subject factor (spanning 7 columns)</span></span></span>
 <span class="r-in"><span>    adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose<span class="op">=</span><span class="st">"difference"</span>, decorrelation<span class="op">=</span><span class="st">"CM"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    plotStyle <span class="op">=</span> <span class="st">"line"</span>, </span></span>
 <span class="r-in"><span>    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>linewidth<span class="op">=</span><span class="fl">0.15</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span><span class="fl">.5</span><span class="op">)</span> <span class="op">)</span>,</span></span>
@@ -231,14 +231,14 @@ and the gender (mainly male and female).</p>
 <span class="r-in"><span><span class="co"># advanced plots are available, such as pointjitter </span></span></span>
 <span class="r-in"><span><span class="co"># and pointjitterviolin : a plot that superimposes the distribution as a violin plot</span></span></span>
 <span class="r-in"><span><span class="co"># </span></span></span>
-<span class="r-in"><span><span class="co"># superbPlot(mee3,</span></span></span>
-<span class="r-in"><span><span class="co">#    WSFactors = "T(7)",</span></span></span>
-<span class="r-in"><span><span class="co">#    BSFactors = c("Condition","Language"),</span></span></span>
-<span class="r-in"><span><span class="co">#    variables = c("T1","T2","T3","T4","T5","T6","T7"),</span></span></span>
-<span class="r-in"><span><span class="co">#    adjustments = list(purpose="difference", decorrelation="CM"), </span></span></span>
-<span class="r-in"><span><span class="co">#    plotStyle = "pointjitterviolin",</span></span></span>
-<span class="r-in"><span><span class="co">#    jitterParams = list(alpha = 0.4), #near transparent jitter points</span></span></span>
-<span class="r-in"><span><span class="co">#    violinParams = list(alpha = 0.2)</span></span></span>
+<span class="r-in"><span><span class="co"># superb(</span></span></span>
+<span class="r-in"><span><span class="co">#   crange(T1, T7) ~ Condition + Language,</span></span></span>
+<span class="r-in"><span><span class="co">#   mee3,</span></span></span>
+<span class="r-in"><span><span class="co">#   WSFactors = "T(7)",</span></span></span>
+<span class="r-in"><span><span class="co">#   adjustments = list(purpose="difference", decorrelation="CM"), </span></span></span>
+<span class="r-in"><span><span class="co">#   plotStyle = "pointjitterviolin",</span></span></span>
+<span class="r-in"><span><span class="co">#   jitterParams = list(alpha = 0.4), #near transparent jitter points</span></span></span>
+<span class="r-in"><span><span class="co">#   violinParams = list(alpha = 0.2)</span></span></span>
 <span class="r-in"><span><span class="co">#) + </span></span></span>
 <span class="r-in"><span><span class="co">#scale_fill_manual( name = "Amount of context", </span></span></span>
 <span class="r-in"><span><span class="co">#    labels = c("Context 0", "Context 2", "Context 4", "Context 8"), </span></span></span>

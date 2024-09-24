@@ -347,7 +347,7 @@ superb(
 xlab("Group") + ylab("Score") + 
 labs(subtitle="Correlation- and Difference-adjusted\n95% confidence intervals") +
 coord_cartesian( ylim = c(70,150) ) +
-theme_gray(base_size=10) + 
+theme_bw(base_size=10) + 
 scale_x_discrete(labels=c("1" = "Collaborative games", "2" = "Unstructured activity"))
 ```
 
@@ -372,10 +372,10 @@ superb(
 xlab("Group") + ylab("Score") + 
 labs(subtitle="Correlation- and Difference-adjusted\n95% confidence intervals") +
 coord_cartesian( ylim = c(70,150) ) +
-theme_gray(base_size=10) + 
+theme_bw(base_size=10) + 
 scale_x_discrete(labels=c("1" = "Collaborative games", "2" = "Unstructured activity")) +
-scale_color_manual('Direction\n of change', values=c("gray","red"), labels=c('decreasing', 'increasing')) +
-theme(legend.position=c(0.1,0.75), panel.border = element_blank(), legend.background =  element_blank() ) 
+scale_color_manual('Direction\n of change', values=c("blue","red"), labels=c('decreasing', 'increasing')) +
+theme(legend.position=c(0.5,0.8), panel.border = element_blank(), legend.background =  element_blank() ) 
 ```
 
 

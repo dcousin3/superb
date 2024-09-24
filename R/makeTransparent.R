@@ -12,11 +12,10 @@
 #' @examples
 #' 
 #' # make a basic plot
-#' superbPlot(ToothGrowth, BSFactors = c("dose", "supp"), 
-#'   variables = "len") 
+#' superb(len ~ dose + supp, ToothGrowth ) 
 #' # make a basic plot with transparent elements
-#' superbPlot(ToothGrowth, BSFactors = c("dose", "supp"), 
-#'   variables = "len") + makeTransparent()
+#' superb(len ~ dose + supp, ToothGrowth,  
+#'   ) + makeTransparent()
 #'
 #' @return does not return anything; set the elements to transparent.
 #'

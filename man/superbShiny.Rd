@@ -20,7 +20,7 @@ the shinyapps.io installation accessible at
 \href{https://dcousin3.shinyapps.io/superbshiny/}{dcousin3.shinyapps.io/superbshiny}
 Limitations: it is not possible to use custom-made statistics with the
 graphical user interface, nor is it possible to request an adjustment for cluster-
-randomized sampling. These options are available with \code{superbPlot()}.
+randomized sampling. These options are available with \code{superb()}.
 }
 \examples{
 # Launch the user interface: 

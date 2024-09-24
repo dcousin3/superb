@@ -194,16 +194,18 @@ this modified geom_violin has additional options "direction" and "push".</p></dd
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># This will make a plot with raincloud; they are better seen rotated: +coord_flip()</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">ToothGrowth</span>, </span></span>
-<span class="r-in"><span>   BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dose"</span>,<span class="st">"supp"</span><span class="op">)</span>, variables <span class="op">=</span> <span class="st">"len"</span>,</span></span>
+<span class="r-in"><span><span class="fu"><a href="superb.html">superb</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>   <span class="va">len</span> <span class="op">~</span> <span class="va">dose</span> <span class="op">+</span> <span class="va">supp</span>,</span></span>
+<span class="r-in"><span>   <span class="va">ToothGrowth</span>, </span></span>
 <span class="r-in"><span>   plotStyle<span class="op">=</span><span class="st">"raincloud"</span> </span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="superbPlot.raincloud-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># if you extract the data with superbData, you can </span></span></span>
 <span class="r-in"><span><span class="co"># run this layout directly</span></span></span>
-<span class="r-in"><span><span class="co">#processedData &lt;- superbData(ToothGrowth, </span></span></span>
-<span class="r-in"><span><span class="co">#   BSFactors = c("dose","supp"), variables = "len"</span></span></span>
+<span class="r-in"><span><span class="co">#processedData &lt;- superb(ToothGrowth, </span></span></span>
+<span class="r-in"><span><span class="co">#   len ~ dose + supp,</span></span></span>
+<span class="r-in"><span><span class="co">#   showPlot = FALSE</span></span></span>
 <span class="r-in"><span><span class="co">#)</span></span></span>
 <span class="r-in"><span><span class="co">#</span></span></span>
 <span class="r-in"><span><span class="co">#superbPlot.raincloud(processedData$summaryStatistic,</span></span></span>

@@ -60,28 +60,37 @@ possible to create custom-make templates (see vignette 5). The functions, to be
 dta <- GRD(SubjectsPerGroup = 50, WSFactors = "moment(2)", Effects = list("moment"=slope(3)))
 
 # This will make a basic corset plot 
-superbPlot(dta, 
-   WSFactors = "moment(2)", variables = c("DV.1","DV.2"),
+superb(
+   cbind(DV.1, DV.2) ~ .,
+   dta, 
+   WSFactors = "moment(2)", 
    plotStyle = "corset" 
 )
 
 # This will color the increasing and decreasing individuals
-superbPlot(dta, 
-   WSFactors = "moment(2)", variables = c("DV.1","DV.2"),
+superb(
+   cbind(DV.1, DV.2) ~ ., 
+   dta, 
+   WSFactors = "moment(2)", 
    plotStyle = "corset",
    lineParams = list(colorize=TRUE) 
 )
 
 # This layout has similarities with the "pointindividualline" layout
-superbPlot(dta, 
-   WSFactors = "moment(2)", variables = c("DV.1","DV.2"),
+superb(
+   cbind(DV.1, DV.2) ~ ., 
+   dta, 
+   WSFactors = "moment(2)", 
    plotStyle = "pointindividualline" 
 )
 
 # if you extract the data with superbData, you can 
 # run this layout directly
-processedData <- superbData(dta, 
-   WSFactors = "moment(2)", variables = c("DV.1","DV.2")
+processedData <- superb(
+   cbind(DV.1, DV.2) ~ ., 
+   dta, 
+   WSFactors = "moment(2)", 
+   showPlot  = FALSE
 )
 
 superbPlot.corset(processedData$summaryStatistic, 

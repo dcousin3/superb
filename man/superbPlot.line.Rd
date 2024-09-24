@@ -49,15 +49,18 @@ possible to add custom-make templates (see vignette 6). The functions, to be
 }
 \examples{
 # This will make a plot with lines
-superbPlot(ToothGrowth, 
-   BSFactors = c("dose","supp"), variables = "len",
+superb(
+   len ~ dose + supp, 
+   ToothGrowth, 
    plotStyle="line" 
 )
 
 # if you extract the data with superbData, you can 
 # run this layout directly
-#processedData <- superbData(ToothGrowth, 
-#   BSFactors = c("dose","supp"), variables = "len"
+#processedData <- superb(
+#   len ~ dose + supp,
+#   ToothGrowth, 
+#   showPlot = FALSE
 #)
 #
 #superbPlot.line(processedData$summaryStatistic,

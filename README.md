@@ -102,37 +102,48 @@ repeated-measures on `Day`s. Only the factor `Day` is modeled as
 impacting the scores (the reduce by 3 points on the second day):
 
 ``` r
+set.seed(663) # for reproducibility
 testdata <- GRD(
     RenameDV   = "score", 
-    SubjectsPerGroup = 100, 
+    SubjectsPerGroup = 50, 
     BSFactors  = "Difficulty(A,B,C)", 
     WSFactors  = "Day(2)",
-    Population = list(mean = 75,stddev = 12,rho = 0.5),
-    Effects    = list("Day" = slope(-3) )
+    Population = list(mean = 75,stddev = 10,rho = 0.8),
+    Effects    = list("Day" = slope(-5), "Difficulty" = slope(3) )
 )
 head(testdata)
 ```
 
-    ##   id Difficulty   score.1  score.2
-    ## 1  1          A  62.61043 65.72053
-    ## 2  2          A  82.92086 89.66052
-    ## 3  3          A  84.45113 79.62733
-    ## 4  4          A  73.78928 80.96277
-    ## 5  5          A 101.74252 84.38105
-    ## 6  6          A  73.34663 78.55869
+    ##   id Difficulty  score.1  score.2
+    ## 1  1          A 73.70823 77.00196
+    ## 2  2          A 64.89070 64.99225
+    ## 3  3          A 83.20397 76.68515
+    ## 4  4          A 76.38544 68.51848
+    ## 5  5          A 76.91880 57.43303
+    ## 6  6          A 53.74682 53.53010
 
 This is here that the full benefits of `superb()` is seen: with just a
 few adjustments, you can obtained decorrelated error bars with the
-Cousineau-Morey (CM) or the Loftus & Masson (CM) techniques:
+Correlation-adjusted (CA), the Cousineau-Morey (CM) or the Loftus &
+Masson (CM) techniques:
 
 ``` r
-superb( cbind(score.1, score.2) ~ Difficulty, 
+library(gridExtra)          # for grid.arrange
+```
+
+    ## Warning: package 'gridExtra' was built under R version 4.3.3
+
+``` r
+plt1 <- superb( cbind(score.1, score.2) ~ Difficulty, 
     testdata, WSFactors = "Day(2)",
-    adjustments = list(purpose = "difference", decorrelation = "CM"),
-    plotStyle = "line",
-    errorbarParams = list(color = "purple"),
-    pointParams = list( size = 3, color = "purple")
-)
+    plotStyle = "line"
+) + ylim(65,85) + labs(title = "No adjustments")
+plt2 <- superb( cbind(score.1, score.2) ~ Difficulty, 
+    testdata, WSFactors = "Day(2)",
+    adjustments = list(purpose = "difference", decorrelation = "CA"),
+    plotStyle = "line"
+)+ ylim(65,85) + labs(title = "correlated and difference-adjusted")
+grid.arrange(plt1,plt2, ncol=2)
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->

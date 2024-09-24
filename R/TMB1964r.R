@@ -33,19 +33,19 @@
 #'
 #' # general plot ignoring covariates sex and languages with only defaults
 #' # We illustrate correlation- and difference-adjusted 95% confidence intervals of the mean
-#' superbPlot(TMB1964r,
+#' superb(
+#'     crange(T1, T7) ~ Condition,
+#'     TMB1964r,
 #'     WSFactors = "T(7)",      # the within-subject factor (spanning 7 columns)
-#'     BSFactors = "Condition", # the between-subject factor (4 levels)
-#'     variables = c("T1","T2","T3","T4","T5","T6","T7"),
 #'     adjustments = list(purpose="difference", decorrelation="CM"),
 #'     plotStyle = "line"
 #' )
 #' 
 #' # We add directives for the error bars (thick), for the points (larger) and for the lines (thick)
-#' plt <- superbPlot(TMB1964r,
+#' plt <- superb(
+#'     crange(T1, T7) ~ Condition,
+#'     TMB1964r,
 #'     WSFactors = "T(7)",
-#'     BSFactors = "Condition",
-#'     variables = c("T1","T2","T3","T4","T5","T6","T7"),
 #'     adjustments = list(purpose="difference", decorrelation="CM"),
 #'     plotStyle = "line", 
 #'     errorbarParams = list(width = 0.5, linewidth=1.25, position = position_dodge(.5) ),
@@ -71,10 +71,10 @@
 #' 
 #'
 #' # Exploring three factors simultaneously: T, Condition and Sex (last two between-group)
-#' superbPlot(TMB1964r,
-#'     WSFactors = "T(7)",
-#'     BSFactors = c("Condition","Sex"),
-#'     variables = c("T1","T2","T3","T4","T5","T6","T7"),
+#' superb(
+#'     crange(T1, T7) ~ Condition + Sex,
+#'     TMB1964r,
+#'     WSFactors = "T(7)",      # the within-subject factor (spanning 7 columns)
 #'     adjustments = list(purpose="difference", decorrelation="CM"),
 #'     plotStyle = "line", 
 #'     errorbarParams = list(linewidth=0.15, position = position_dodge(.5) ),
@@ -102,14 +102,14 @@
 #' # advanced plots are available, such as pointjitter 
 #' # and pointjitterviolin : a plot that superimposes the distribution as a violin plot
 #' # 
-#' # superbPlot(mee3,
-#' #    WSFactors = "T(7)",
-#' #    BSFactors = c("Condition","Language"),
-#' #    variables = c("T1","T2","T3","T4","T5","T6","T7"),
-#' #    adjustments = list(purpose="difference", decorrelation="CM"), 
-#' #    plotStyle = "pointjitterviolin",
-#' #    jitterParams = list(alpha = 0.4), #near transparent jitter points
-#' #    violinParams = list(alpha = 0.2)
+#' # superb(
+#' #   crange(T1, T7) ~ Condition + Language,
+#' #   mee3,
+#' #   WSFactors = "T(7)",
+#' #   adjustments = list(purpose="difference", decorrelation="CM"), 
+#' #   plotStyle = "pointjitterviolin",
+#' #   jitterParams = list(alpha = 0.4), #near transparent jitter points
+#' #   violinParams = list(alpha = 0.2)
 #' #) + 
 #' #scale_fill_manual( name = "Amount of context", 
 #' #    labels = c("Context 0", "Context 2", "Context 4", "Context 8"), 

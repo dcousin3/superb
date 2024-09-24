@@ -197,9 +197,10 @@ for an example of use.</p>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># First, a regular plot</span></span></span>
-<span class="r-in"><span><span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, </span></span>
+<span class="r-in"><span><span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="superb.html">superb</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>           <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">DV.1</span>,<span class="va">DV.2</span>,<span class="va">DV.3</span><span class="op">)</span> <span class="op">~</span> <span class="va">.</span>, </span></span>
+<span class="r-in"><span>           <span class="va">dta</span>, </span></span>
 <span class="r-in"><span>           WSFactors      <span class="op">=</span> <span class="st">"Moment(3)"</span>, </span></span>
-<span class="r-in"><span>           variables      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DV.1"</span>,<span class="st">"DV.2"</span>,<span class="st">"DV.3"</span><span class="op">)</span>, </span></span>
 <span class="r-in"><span>           plotStyle      <span class="op">=</span> <span class="st">"line"</span>,</span></span>
 <span class="r-in"><span>           adjustments    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span> <span class="op">(</span>purpose<span class="op">=</span><span class="st">"difference"</span>,decorrelation<span class="op">=</span><span class="st">"CM"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>           errorbar       <span class="op">=</span> <span class="st">"CI"</span>,</span></span>
@@ -208,9 +209,10 @@ for an example of use.</p>
 <span class="r-in"><span>                                 position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html" class="external-link">position_nudge</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.0</span><span class="op">)</span> <span class="op">)</span></span></span>
 <span class="r-in"><span>        <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Second, a plot where the df are set to the default</span></span></span>
-<span class="r-in"><span><span class="va">plt2</span> <span class="op">&lt;-</span> <span class="fu"><a href="superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, </span></span>
+<span class="r-in"><span><span class="va">plt2</span> <span class="op">&lt;-</span> <span class="fu"><a href="superb.html">superb</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>           <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">DV.1</span>,<span class="va">DV.2</span>,<span class="va">DV.3</span><span class="op">)</span> <span class="op">~</span> <span class="va">.</span>,</span></span>
+<span class="r-in"><span>           <span class="va">dta</span>, </span></span>
 <span class="r-in"><span>           WSFactors      <span class="op">=</span> <span class="st">"Moment(3)"</span>, </span></span>
-<span class="r-in"><span>           variables      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DV.1"</span>,<span class="st">"DV.2"</span>,<span class="st">"DV.3"</span><span class="op">)</span>, </span></span>
 <span class="r-in"><span>           plotStyle      <span class="op">=</span> <span class="st">"line"</span>,</span></span>
 <span class="r-in"><span>           adjustments    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span> <span class="op">(</span>purpose<span class="op">=</span><span class="st">"difference"</span>,decorrelation<span class="op">=</span><span class="st">"CM"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>           errorbar       <span class="op">=</span> <span class="st">"CIwithDF"</span>,    <span class="co"># NEW: change the CI computation </span></span></span>
@@ -219,9 +221,10 @@ for an example of use.</p>
 <span class="r-in"><span>                                   position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html" class="external-link">position_nudge</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.05</span><span class="op">)</span> <span class="op">)</span></span></span>
 <span class="r-in"><span>        <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Third, a plot where the pooled df are explicitely set </span></span></span>
-<span class="r-in"><span><span class="va">plt3</span> <span class="op">&lt;-</span> <span class="fu"><a href="superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, </span></span>
+<span class="r-in"><span><span class="va">plt3</span> <span class="op">&lt;-</span> <span class="fu"><a href="superb.html">superb</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>           <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">DV.1</span>,<span class="va">DV.2</span>,<span class="va">DV.3</span><span class="op">)</span> <span class="op">~</span> <span class="va">.</span>,</span></span>
+<span class="r-in"><span>           <span class="va">dta</span>, </span></span>
 <span class="r-in"><span>           WSFactors      <span class="op">=</span> <span class="st">"Moment(3)"</span>, </span></span>
-<span class="r-in"><span>           variables      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DV.1"</span>,<span class="st">"DV.2"</span>,<span class="st">"DV.3"</span><span class="op">)</span>, </span></span>
 <span class="r-in"><span>           plotStyle      <span class="op">=</span> <span class="st">"line"</span>,</span></span>
 <span class="r-in"><span>           adjustments    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span> <span class="op">(</span>purpose<span class="op">=</span><span class="st">"difference"</span>,decorrelation<span class="op">=</span><span class="st">"CM"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>           errorbar       <span class="op">=</span> <span class="st">"CIwithDF"</span>,         <span class="co"># NEW: again, change the CI computation</span></span></span>
@@ -268,9 +271,9 @@ for an example of use.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 12.78233</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># A regular plot</span></span></span>
-<span class="r-in"><span><span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, </span></span>
-<span class="r-in"><span>           BSFactors      <span class="op">=</span> <span class="st">"Group"</span>, </span></span>
-<span class="r-in"><span>           variables      <span class="op">=</span> <span class="st">"DV"</span>, </span></span>
+<span class="r-in"><span><span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="superb.html">superb</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>           <span class="va">DV</span> <span class="op">~</span> <span class="va">Group</span>,</span></span>
+<span class="r-in"><span>           <span class="va">dta</span>, </span></span>
 <span class="r-in"><span>           plotStyle      <span class="op">=</span> <span class="st">"line"</span>,</span></span>
 <span class="r-in"><span>           adjustments    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span> <span class="op">(</span>purpose<span class="op">=</span><span class="st">"difference"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>           errorbar       <span class="op">=</span> <span class="st">"CI"</span>,</span></span>
@@ -279,9 +282,9 @@ for an example of use.</p>
 <span class="r-in"><span>                                 position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html" class="external-link">position_nudge</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.0</span><span class="op">)</span> <span class="op">)</span></span></span>
 <span class="r-in"><span>        <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Second, a plot where the df are set to the pooled df</span></span></span>
-<span class="r-in"><span><span class="va">plt2</span> <span class="op">&lt;-</span> <span class="fu"><a href="superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, </span></span>
-<span class="r-in"><span>           BSFactors      <span class="op">=</span> <span class="st">"Group"</span>, </span></span>
-<span class="r-in"><span>           variables      <span class="op">=</span> <span class="st">"DV"</span>, </span></span>
+<span class="r-in"><span><span class="va">plt2</span> <span class="op">&lt;-</span> <span class="fu"><a href="superb.html">superb</a></span><span class="op">(</span> </span></span>
+<span class="r-in"><span>           <span class="va">DV</span> <span class="op">~</span> <span class="va">Group</span>,</span></span>
+<span class="r-in"><span>           <span class="va">dta</span>, </span></span>
 <span class="r-in"><span>           plotStyle      <span class="op">=</span> <span class="st">"line"</span>,</span></span>
 <span class="r-in"><span>           adjustments    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span> <span class="op">(</span>purpose<span class="op">=</span><span class="st">"difference"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>           errorbar       <span class="op">=</span> <span class="st">"CIwithDF"</span>,         <span class="co"># NEW: change the CI computation </span></span></span>
@@ -290,9 +293,9 @@ for an example of use.</p>
 <span class="r-in"><span>                                   position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html" class="external-link">position_nudge</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.05</span><span class="op">)</span> <span class="op">)</span></span></span>
 <span class="r-in"><span>        <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Third, a plot where the pooled df are explicitely set </span></span></span>
-<span class="r-in"><span><span class="va">plt3</span> <span class="op">&lt;-</span> <span class="fu"><a href="superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, </span></span>
-<span class="r-in"><span>           BSFactors      <span class="op">=</span> <span class="st">"Group"</span>, </span></span>
-<span class="r-in"><span>           variables      <span class="op">=</span> <span class="st">"DV"</span>, </span></span>
+<span class="r-in"><span><span class="va">plt3</span> <span class="op">&lt;-</span> <span class="fu"><a href="superb.html">superb</a></span><span class="op">(</span> </span></span>
+<span class="r-in"><span>           <span class="va">DV</span> <span class="op">~</span> <span class="va">Group</span>,</span></span>
+<span class="r-in"><span>           <span class="va">dta</span>, </span></span>
 <span class="r-in"><span>           plotStyle      <span class="op">=</span> <span class="st">"line"</span>,</span></span>
 <span class="r-in"><span>           adjustments    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span> <span class="op">(</span>purpose<span class="op">=</span><span class="st">"difference"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>           errorbar       <span class="op">=</span> <span class="st">"CIwithDF"</span>,       <span class="co"># NEW: again, change the CI computation</span></span></span>

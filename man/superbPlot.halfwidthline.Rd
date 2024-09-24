@@ -52,15 +52,18 @@ The functions, to be "superbPlot-compatible", must have these parameters:
 }
 \examples{
 # This will make a plot with lines
-superbPlot(ToothGrowth, 
-   BSFactor = c("dose","supp"), variables = "len",
+superb(
+   len ~ dose + supp, 
+   ToothGrowth, 
    plotStyle="halfwidthline" 
 )
 
 # if you extract the data with superbData, you can 
 # run this layout directly
-#processedData <- superbData(ToothGrowth, 
-#   BSFactor = c("dose","supp"), variables = "len"
+#processedData <- superb(
+#   len ~ dose + supp, 
+#   ToothGrowth, 
+#   showPlot = FALSE
 #)
 #
 #superbPlot.halfwidthline(processedData$summaryStatistic,

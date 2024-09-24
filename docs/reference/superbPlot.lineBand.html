@@ -198,9 +198,10 @@ and when the results are fairly smooth.</p>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># This will make a plot with error band</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, </span></span>
+<span class="r-in"><span><span class="fu"><a href="superb.html">superb</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>   <span class="fu">crange</span><span class="op">(</span><span class="va">activation.1.1</span>, <span class="va">activation.50.2</span><span class="op">)</span> <span class="op">~</span> <span class="va">.</span>, </span></span>
+<span class="r-in"><span>   <span class="va">dta</span>, </span></span>
 <span class="r-in"><span>   WSFactors   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"timepoints(50)"</span>, <span class="st">"condition(2)"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>   variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">dta</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">101</span><span class="op">]</span>,   <span class="co">## all the names of the dataframe except "id"</span></span></span>
 <span class="r-in"><span>   adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>        purpose       <span class="op">=</span> <span class="st">"single"</span>,</span></span>
 <span class="r-in"><span>        decorrelation <span class="op">=</span> <span class="st">"CM"</span>        <span class="co">## or none for no decorrelation</span></span></span>
@@ -212,7 +213,9 @@ and when the results are fairly smooth.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># if you extract the data with superbData, you can </span></span></span>
 <span class="r-in"><span><span class="co"># run this layout directly</span></span></span>
-<span class="r-in"><span><span class="co">#processedData &lt;- superbData(dta, </span></span></span>
+<span class="r-in"><span><span class="co">#processedData &lt;- superb(</span></span></span>
+<span class="r-in"><span><span class="co">#   crange(activation.1.1, activation.50.2) ~ ., </span></span></span>
+<span class="r-in"><span><span class="co">#   dta, </span></span></span>
 <span class="r-in"><span><span class="co">#   WSFactors   = c("timepoints(50)", "condition(2)"), variables = colnames(dta)[2:101],</span></span></span>
 <span class="r-in"><span><span class="co">#   adjustments = list(</span></span></span>
 <span class="r-in"><span><span class="co">#        purpose       = "single",</span></span></span>

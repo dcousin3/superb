@@ -94,7 +94,7 @@ ggplot(dta, aes(ymin=center-width, ymax=center+width, x = grp ) ) +
   geom_superberrorbar(tipformat = "triple", width= 0.1, tipgap = 0.04, direction = "left",
            colour = "black", vcolour = "orange")
 
-# This new geom is integrated inside superbPlot() so that you can vary the 
+# This new geom is integrated inside superb() so that you can vary the 
 # error bar shapes. Let's see examples:
 
 # using GRD to generate random data with a moderate effect
@@ -112,25 +112,28 @@ ornate = list(
         coord_cartesian( ylim = c(85,110) )
 )
 
-plt1 <- superbPlot(test, 
+plt1 <- superb(
+            crange(DV.1, DV.5) ~ ., 
+            test, 
             WSFactors = "Moment(5)",  
-            variables = c("DV.1","DV.2","DV.3","DV.4","DV.5"), 
             adjustments=list(purpose = "difference", decorrelation = "CA"), 
             errorbarParams = list(direction = "left", color="purple", 
                                   width = 0.2, position = position_nudge(-0.05) ),
             gamma     = 0.95,
             plotStyle = "line" ) + ornate
-plt2 <- superbPlot(test, 
+plt2 <- superb( 
+            crange(DV.1, DV.5) ~ ., 
+            test, 
             WSFactors = "Moment(5)",  
-            variables = c("DV.1","DV.2","DV.3","DV.4","DV.5"), 
             adjustments=list(purpose = "difference", decorrelation = "CA"), 
             errorbarParams = list(direction = "right", tipgap = 0.25, tipformat = "double", 
                                   width = 0.2, position = position_nudge(+0.05) ),
             gamma     = 0.99,
             plotStyle = "line" ) + ornate 
-plt3 <- superbPlot(test, 
+plt3 <- superb( 
+            crange(DV.1, DV.5) ~ ., 
+            test, 
             WSFactors = "Moment(5)",  
-            variables = c("DV.1","DV.2","DV.3","DV.4","DV.5"), 
             adjustments=list(purpose = "difference", decorrelation = "CA"), 
             errorbarParams = list(direction = "both", tipformat = "single", pointing="up", 
                                   width = 0.2, position = position_nudge(0) ),

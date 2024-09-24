@@ -42,9 +42,10 @@
 #' )
 #' 
 #' # This will make a plot with error band
-#' superbPlot(dta, 
+#' superb(
+#'    crange(activation.1.1, activation.50.2) ~ ., 
+#'    dta, 
 #'    WSFactors   = c("timepoints(50)", "condition(2)"),
-#'    variables = colnames(dta)[2:101],   ## all the names of the dataframe except "id"
 #'    adjustments = list(
 #'         purpose       = "single",
 #'         decorrelation = "CM"        ## or none for no decorrelation
@@ -55,7 +56,9 @@
 #'
 #' # if you extract the data with superbData, you can 
 #' # run this layout directly
-#' #processedData <- superbData(dta, 
+#' #processedData <- superb(
+#' #   crange(activation.1.1, activation.50.2) ~ ., 
+#' #   dta, 
 #' #   WSFactors   = c("timepoints(50)", "condition(2)"), variables = colnames(dta)[2:101],
 #' #   adjustments = list(
 #' #        purpose       = "single",

@@ -57,9 +57,10 @@ dta <- GRD( WSFactors = "Moment (3)", SubjectsPerGroup = 10)
 library(ggplot2)
 
 # First, a regular plot
-plt1 <- superbPlot(dta, 
+plt1 <- superb(
+           cbind(DV.1,DV.2,DV.3) ~ ., 
+           dta, 
            WSFactors      = "Moment(3)", 
-           variables      = c("DV.1","DV.2","DV.3"), 
            plotStyle      = "line",
            adjustments    = list (purpose="difference",decorrelation="CM"),
            errorbar       = "CI",
@@ -68,9 +69,10 @@ plt1 <- superbPlot(dta,
                                  position = position_nudge(-0.0) )
         )
 # Second, a plot where the df are set to the default
-plt2 <- superbPlot(dta, 
+plt2 <- superb(
+           cbind(DV.1,DV.2,DV.3) ~ .,
+           dta, 
            WSFactors      = "Moment(3)", 
-           variables      = c("DV.1","DV.2","DV.3"), 
            plotStyle      = "line",
            adjustments    = list (purpose="difference",decorrelation="CM"),
            errorbar       = "CIwithDF",    # NEW: change the CI computation 
@@ -79,9 +81,10 @@ plt2 <- superbPlot(dta,
                                    position = position_nudge(-0.05) )
         )
 # Third, a plot where the pooled df are explicitely set 
-plt3 <- superbPlot(dta, 
+plt3 <- superb(
+           cbind(DV.1,DV.2,DV.3) ~ .,
+           dta, 
            WSFactors      = "Moment(3)", 
-           variables      = c("DV.1","DV.2","DV.3"), 
            plotStyle      = "line",
            adjustments    = list (purpose="difference",decorrelation="CM"),
            errorbar       = "CIwithDF",         # NEW: again, change the CI computation
@@ -126,9 +129,9 @@ wdf <- WelchDegreeOfFreedom(dta, "DV", "Group" )
 wdf # should be between n-1 and N-n-p+1.
 
 # A regular plot
-plt1 <- superbPlot(dta, 
-           BSFactors      = "Group", 
-           variables      = "DV", 
+plt1 <- superb(
+           DV ~ Group,
+           dta, 
            plotStyle      = "line",
            adjustments    = list (purpose="difference"),
            errorbar       = "CI",
@@ -137,9 +140,9 @@ plt1 <- superbPlot(dta,
                                  position = position_nudge(-0.0) )
         )
 # Second, a plot where the df are set to the pooled df
-plt2 <- superbPlot(dta, 
-           BSFactors      = "Group", 
-           variables      = "DV", 
+plt2 <- superb( 
+           DV ~ Group,
+           dta, 
            plotStyle      = "line",
            adjustments    = list (purpose="difference"),
            errorbar       = "CIwithDF",         # NEW: change the CI computation 
@@ -148,9 +151,9 @@ plt2 <- superbPlot(dta,
                                    position = position_nudge(-0.05) )
         )
 # Third, a plot where the pooled df are explicitely set 
-plt3 <- superbPlot(dta, 
-           BSFactors      = "Group", 
-           variables      = "DV", 
+plt3 <- superb( 
+           DV ~ Group,
+           dta, 
            plotStyle      = "line",
            adjustments    = list (purpose="difference"),
            errorbar       = "CIwithDF",       # NEW: again, change the CI computation

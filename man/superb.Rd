@@ -74,7 +74,7 @@ according to the \code{suberb} framework. See \insertCite{cgh21}{superb} for mor
 The functions \code{superb()} is now the entry point
 to realize summary plots.
 Compared to the previously documented \code{superbPlot()},
-\code{superb()} is a based on formula and accept
+\code{superb()} is based on formula and accept
 long and wide format.
 }
 \details{

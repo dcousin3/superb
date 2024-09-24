@@ -13,7 +13,7 @@
 #'   \href{https://dcousin3.shinyapps.io/superbshiny/}{dcousin3.shinyapps.io/superbshiny}
 #'   Limitations: it is not possible to use custom-made statistics with the 
 #'   graphical user interface, nor is it possible to request an adjustment for cluster-
-#'   randomized sampling. These options are available with ``superbPlot()``.
+#'   randomized sampling. These options are available with ``superb()``.
 #'
 #' @return A plot that can be cut-and-paste.
 #'

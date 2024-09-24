@@ -186,16 +186,17 @@ possible to create custom-make templates (see vignette 5). The functions, to be
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># This will make a plot with boxes for interquartile (box), median (line) and outliers (whiskers)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">ToothGrowth</span>, </span></span>
-<span class="r-in"><span>   BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dose"</span>,<span class="st">"supp"</span><span class="op">)</span>, variables <span class="op">=</span> <span class="st">"len"</span>,</span></span>
+<span class="r-in"><span><span class="fu"><a href="superb.html">superb</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>   <span class="va">len</span> <span class="op">~</span> <span class="va">dose</span> <span class="op">+</span> <span class="va">supp</span>,</span></span>
+<span class="r-in"><span>   <span class="va">ToothGrowth</span>, </span></span>
 <span class="r-in"><span>   plotStyle <span class="op">=</span> <span class="st">"boxplot"</span> </span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="superbPlot.boxplot-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># This layout of course is more meaningful if the statistic displayed is the median</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">ToothGrowth</span>, </span></span>
-<span class="r-in"><span>   BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dose"</span>,<span class="st">"supp"</span><span class="op">)</span>, </span></span>
-<span class="r-in"><span>   variables <span class="op">=</span> <span class="st">"len"</span>,</span></span>
+<span class="r-in"><span><span class="fu"><a href="superb.html">superb</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>   <span class="va">len</span> <span class="op">~</span> <span class="va">dose</span> <span class="op">+</span> <span class="va">supp</span>,</span></span>
+<span class="r-in"><span>   <span class="va">ToothGrowth</span>, </span></span>
 <span class="r-in"><span>   statistic <span class="op">=</span> <span class="st">"median"</span>,</span></span>
 <span class="r-in"><span>   plotStyle <span class="op">=</span> <span class="st">"boxplot"</span> </span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
@@ -203,8 +204,11 @@ possible to create custom-make templates (see vignette 5). The functions, to be
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># if you extracted the data with superbData, you can </span></span></span>
 <span class="r-in"><span><span class="co"># run this layout directly</span></span></span>
-<span class="r-in"><span><span class="va">processedData</span> <span class="op">&lt;-</span> <span class="fu"><a href="superbData.html">superbData</a></span><span class="op">(</span><span class="va">ToothGrowth</span>, </span></span>
-<span class="r-in"><span>   BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dose"</span>,<span class="st">"supp"</span><span class="op">)</span>, variables <span class="op">=</span> <span class="st">"len"</span>, statistic <span class="op">=</span> <span class="st">"median"</span></span></span>
+<span class="r-in"><span><span class="va">processedData</span> <span class="op">&lt;-</span> <span class="fu"><a href="superb.html">superb</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>   <span class="va">len</span> <span class="op">~</span> <span class="va">dose</span> <span class="op">+</span> <span class="va">supp</span>,</span></span>
+<span class="r-in"><span>   <span class="va">ToothGrowth</span>, </span></span>
+<span class="r-in"><span>   statistic <span class="op">=</span> <span class="st">"median"</span>,</span></span>
+<span class="r-in"><span>   showPlot  <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">superbPlot.boxplot</span><span class="op">(</span><span class="va">processedData</span><span class="op">$</span><span class="va">summaryStatistic</span>,</span></span>
@@ -213,8 +217,9 @@ possible to create custom-make templates (see vignette 5). The functions, to be
 <span class="r-plt img"><img src="superbPlot.boxplot-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># This will make a plot with customized boxplot parameters and black dots</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">ToothGrowth</span>, </span></span>
-<span class="r-in"><span>   BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dose"</span>,<span class="st">"supp"</span><span class="op">)</span>, variables <span class="op">=</span> <span class="st">"len"</span>,</span></span>
+<span class="r-in"><span><span class="fu"><a href="superb.html">superb</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>   <span class="va">len</span> <span class="op">~</span> <span class="va">dose</span> <span class="op">+</span> <span class="va">supp</span>,</span></span>
+<span class="r-in"><span>   <span class="va">ToothGrowth</span>, </span></span>
 <span class="r-in"><span>   statistic <span class="op">=</span> <span class="st">"median"</span>,</span></span>
 <span class="r-in"><span>   plotStyle <span class="op">=</span> <span class="st">"boxplot"</span>,</span></span>
 <span class="r-in"><span>   boxplotParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> outlier.shape<span class="op">=</span><span class="fl">8</span>, outlier.size<span class="op">=</span><span class="fl">4</span> <span class="op">)</span>,</span></span>
@@ -223,8 +228,9 @@ possible to create custom-make templates (see vignette 5). The functions, to be
 <span class="r-plt img"><img src="superbPlot.boxplot-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># You can customize the plot in various ways, e.g.</span></span></span>
-<span class="r-in"><span><span class="va">plt3</span> <span class="op">&lt;-</span> <span class="fu"><a href="superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">ToothGrowth</span>, </span></span>
-<span class="r-in"><span>   BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dose"</span>,<span class="st">"supp"</span><span class="op">)</span>, variables <span class="op">=</span> <span class="st">"len"</span>,</span></span>
+<span class="r-in"><span><span class="va">plt3</span> <span class="op">&lt;-</span> <span class="fu"><a href="superb.html">superb</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>   <span class="va">len</span> <span class="op">~</span> <span class="va">dose</span> <span class="op">+</span> <span class="va">supp</span>,</span></span>
+<span class="r-in"><span>   <span class="va">ToothGrowth</span>, </span></span>
 <span class="r-in"><span>   statistic <span class="op">=</span> <span class="st">"median"</span>,</span></span>
 <span class="r-in"><span>   plotStyle <span class="op">=</span> <span class="st">"boxplot"</span>,</span></span>
 <span class="r-in"><span>   pointParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"black"</span><span class="op">)</span></span></span>

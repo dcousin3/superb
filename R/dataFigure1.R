@@ -29,15 +29,19 @@
 #' options(superb.feedback = 'none') # shut down 'warnings' and 'design' interpretation messages
 #' 
 #' ## realize the plot with unadjusted (left) and ajusted (right) 95% confidence intervals
-#' plt1a <- superbPlot(dataFigure1, BSFactors = "grp", 
+#' plt1a <- superb(
+#'     score ~ grp,
+#'     dataFigure1, 
 #'     adjustments=list(purpose = "single"), 
-#'     variables = c("score"), plotStyle="bar" ) + 
+#'     plotStyle="bar" ) + 
 #'   xlab("Group") + ylab("Score") + labs(title="95% CI\n") +
 #'   coord_cartesian( ylim = c(85,115) ) +
 #'   geom_hline(yintercept = 100, colour = "black", linewidth = 0.5, linetype=2)
-#' plt1b <- superbPlot(dataFigure1, BSFactors = "grp", 
+#' plt1b <- superb(
+#'     score ~ grp, 
+#'     dataFigure1, 
 #'     adjustments=list(purpose = "difference"), 
-#'     variables = c("score"), plotStyle="bar" ) + 
+#'     plotStyle="bar" ) + 
 #'   xlab("Group") + ylab("Score") + labs(title="Difference-adjusted 95% CI\n") +
 #'   coord_cartesian( ylim = c(85,115) ) + 
 #'   geom_hline(yintercept = 100, colour = "black", linewidth = 0.5, linetype=2)

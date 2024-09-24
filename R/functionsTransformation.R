@@ -16,7 +16,7 @@
 #'
 #' @return a data.frame of the same form as dta with the variables transformed.
 #'
-#' This function is useful when passed to the argument `preprocessfct` of `superbPlot()`
+#' This function is useful when passed to the argument `preprocessfct` of `superb()`
 #' where it performs a modification of the data matrix.
 #'
 #' @references
@@ -53,7 +53,7 @@ twoStepTransform <- function(dta, variables) {
 #'
 #' @return a data.frame of the same form as dta with the variables transformed.
 #'
-#' This function is useful when passed to the argument `preprocessfct` of `superbPlot()`
+#' This function is useful when passed to the argument `preprocessfct` of `superb()`
 #' where it performs a modification of the data matrix.
 #'
 #' @references
@@ -88,7 +88,7 @@ subjectCenteringTransform <- function(dta, variables) {
 #'
 #' @return a data.frame of the same form as dta with the variables transformed.
 #'
-#' This function is useful when passed to the argument `preprocessfct` of `superbPlot()`
+#' This function is useful when passed to the argument `preprocessfct` of `superb()`
 #' where it performs a modification of the data matrix.
 #'
 #' @references
@@ -126,7 +126,7 @@ biasCorrectionTransform <- function(dta, variables) {
 #'
 #' @return a data.frame of the same form as dta with the variables transformed.
 #'
-#' This function is useful when passed to the argument `preprocessfct` of `superbPlot()`
+#' This function is useful when passed to the argument `preprocessfct` of `superb()`
 #' where it performs a modification of the data matrix.
 #'
 #' @references
