@@ -113,13 +113,13 @@ testdata <- GRD(
 head(testdata)
 ```
 
-    ##   id Difficulty  score.1  score.2
-    ## 1  1          A 87.55612 74.85430
-    ## 2  2          A 78.58234 69.15361
-    ## 3  3          A 77.31146 72.92552
-    ## 4  4          A 68.73031 82.40057
-    ## 5  5          A 64.99024 70.81826
-    ## 6  6          A 83.62138 73.85446
+    ##   id Difficulty   score.1  score.2
+    ## 1  1          A  62.61043 65.72053
+    ## 2  2          A  82.92086 89.66052
+    ## 3  3          A  84.45113 79.62733
+    ## 4  4          A  73.78928 80.96277
+    ## 5  5          A 101.74252 84.38105
+    ## 6  6          A  73.34663 78.55869
 
 This is here that the full benefits of `superb()` is seen: with just a
 few adjustments, you can obtained decorrelated error bars with the

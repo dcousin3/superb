@@ -177,9 +177,10 @@ and the file name with</p>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/foreign/man/read.spss.html" class="external-link">read.spss</a></span><span class="op">(</span><span class="va">file</span>, to.data.frame <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Finally, ask for a plot with</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span> <span class="va">data</span>, </span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span> </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">time1</span>, <span class="va">time2</span><span class="op">)</span> <span class="op">~</span> <span class="va">.</span>,</span>
+<span>    <span class="va">data</span>, </span>
 <span>    WSFactors      <span class="op">=</span> <span class="st">"Temps(2)"</span>,</span>
-<span>    variables      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"time1"</span>,<span class="st">"time2"</span><span class="op">)</span>,</span>
 <span>    plotStyle      <span class="op">=</span> <span class="st">"line"</span>,</span>
 <span>    adjustments    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"single"</span>, </span>
 <span>                          decorrelation <span class="op">=</span> <span class="st">"CA"</span><span class="op">)</span>,</span>

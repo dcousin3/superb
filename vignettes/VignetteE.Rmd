@@ -48,9 +48,9 @@ plot, e.g.,
 ```{r, eval=TRUE}
 library(superb)
 library(ggplot2)
-t <- superbPlot(ToothGrowth, 
-    BSFactors = c("dose","supp"), 
-    variables = "len" )
+t <- superb(
+    len ~ dose + supp,
+    ToothGrowth )
 ```
 
 then add to `t` the labels with 
@@ -101,9 +101,11 @@ At any time, you can consult what is the summary statistics data frame produced
 by replacing `superbPlot()` with `superbData()`
 
 ```{r, eval=TRUE}
-d <- superbData(ToothGrowth, 
-    BSFactors = c("dose","supp"), 
-    variables = "len" )
+d <- superb(
+    len ~ dose + supp,
+    ToothGrowth,
+    showPlot = FALSE
+)
 d$summaryStatistics
 ```
 

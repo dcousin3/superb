@@ -66,13 +66,13 @@ shown with a line. We get the following:
 library(reshape2)
 
 # first transform the data in long format; the pre-post scores will go into column "variable"
-dl <- melt(dataFigure2, id="id")
+dataFigure2long <- melt(dataFigure2, id="id")
 
 # add transparency when pre is smaller or equal to post
-dl$trans = ifelse(dataFigure2$pre <= dataFigure2$post,0.9,1.0)
+dataFigure2long$trans = ifelse(dataFigure2$pre <= dataFigure2$post,0.9,1.0)
 
 # make a plot, with transparent lines when the score increased
-ggplot(data=dl, aes(x=variable, y=value, group=id, alpha = trans)) + 
+ggplot(data=dataFigure2long, aes(x=variable, y=value, group=id, alpha = trans)) + 
     geom_line( ) +
     coord_cartesian( ylim = c(70,150) ) +
     geom_abline(intercept = 102.5, slope = 0, colour = "red", linetype=2)
@@ -177,15 +177,33 @@ With ``suberb``, all the decorrelation techniques are available using the adjust
 The simplest code is the following:
 
 ```{r, message=FALSE, warning=FALSE, echo=TRUE, fig.height = 3, fig.width = 4, fig.cap="**Figure 3a**. Means and difference and correlation-adjusted 95% confidence intervals"}
-superbPlot(dataFigure2, 
+superb(
+    cbind(pre, post)~ ., # no between-group factor
+    dataFigure2, 
 	WSFactors    = "Moment(2)", 
 	adjustments = list(
 					purpose = "difference", 
 					decorrelation = "CA"    ## NEW! use a decorrelation technique
 	), 
-	variables   = c("pre","post"), 
 	plotStyle   = "line" )
 ```
+
+Alternatively, if the data are available in long form, you
+can specify that the measurements are nested within
+a subject identifier, here the ``id`` columm, with
+
+```
+superb(
+    value ~ variable | id, # id identifies the within-subject measurements
+    dataFigure2long, 
+    adjustments = list(
+	                purpose = "difference", 
+                    decorrelation = "CA"    ## NEW! use a decorrelation technique
+    ), 
+    plotStyle   = "line" )
+```
+
+
 
 This will result in a basic plot, but what matters is that the confidence intervals are adjusted so that you can compare bars even 
 if they are repeated measures. Note that the confidence interval of one point does
@@ -203,20 +221,22 @@ options(superb.feedback = 'none') # shut down 'warnings' and 'design' interpreta
 library(gridExtra)
 
 ## realize the plot with unadjusted (left) and ajusted (right) 95\% confidence intervals
-plt2a <- superbPlot(dataFigure2, 
+plt2a <- superb(
+        cbind(pre, post) ~ .,
+        dataFigure2, 
         WSFactors    = "Moment(2)", 
         adjustments = list(purpose = "difference"), 
-        variables   = c("pre","post"), 
         plotStyle   = "line" ) + 
     xlab("Group") + ylab("Score") + 
     labs(title="Difference-adjusted\n95% confidence intervals") +
     coord_cartesian( ylim = c(85,115) ) +
     theme_gray(base_size=10) + 
     scale_x_discrete(labels=c("1" = "Collaborative games", "2" = "Unstructured activity"))
-plt2b <- superbPlot(dataFigure2, 
+plt2b <- superb(
+        cbind(pre, post) ~ .,
+        dataFigure2, 
         WSFactors    = "Moment(2)", 
         adjustments = list(purpose = "difference", decorrelation = "CA"),  #only difference
-        variables   = c("pre","post"), 
         plotStyle   = "line" ) + 
     xlab("Group") + ylab("Score") + 
     labs(title="Correlation and difference-adjusted\n95% confidence intervals") +
@@ -259,9 +279,10 @@ tlbl <- paste( "(red) Difference-adjusted only\n",
 
 # to make the plots all identical except for the decorrelation method
 makeplot <- function(dataset, decorrelationmethod, color, nudge, dir) {
-    superbPlot(dataset, 
+    superb(
+            cbind(DV.1,DV.2,DV.3,DV.4,DV.5) ~ .,
+            dataset, 
             WSFactors = "Moment(5)",  
-            variables   = c("DV.1","DV.2","DV.3","DV.4","DV.5"), 
             adjustments=list(purpose = "difference", decorrelation = decorrelationmethod), 
             errorbarParams = list(color=color, width= 0.1, position = position_nudge(nudge), direction = dir ),
             plotStyle="line" ) + 
@@ -317,10 +338,11 @@ which --- as per Figure 1--- will show the individual scores along with the summ
 statistics and the error bars. For example:
 
 ```{r, message=FALSE, warning=FALSE, echo=TRUE, fig.width = 4, fig.cap="**Figure 5**. Means and 95% confidence intervals along with individual scores depicted as lines"}
-superbPlot(dataFigure2, 
+superb(
+    cbind(pre, post) ~ ., 
+    dataFigure2, 
     WSFactors    = "Moment(2)", 
     adjustments = list(purpose = "difference", decorrelation = "CM"), 
-    variables   = c("pre","post"), 
     plotStyle   = "pointindividualline" ) + 
 xlab("Group") + ylab("Score") + 
 labs(subtitle="Correlation- and Difference-adjusted\n95% confidence intervals") +
@@ -328,6 +350,36 @@ coord_cartesian( ylim = c(70,150) ) +
 theme_gray(base_size=10) + 
 scale_x_discrete(labels=c("1" = "Collaborative games", "2" = "Unstructured activity"))
 ```
+
+When the repeated-measure design involves only two 
+measurements, a nice plot is a corset plot, which is 
+a mixture of violin plot and individuallines plot.
+You can add the option `colorize=TRUE` to discriminate 
+the participants whose score decreased from those whose
+score remained flat or increased.
+It is obtained with 
+
+```{r, message=FALSE, warning=FALSE, echo=TRUE, fig.width = 4, fig.cap="**Figure 5**. Means and 95% confidence intervals along with individual scores depicted as lines"}
+superb(
+    cbind(pre, post) ~ ., 
+    dataFigure2, 
+    WSFactors    = "Moment(2)", 
+    adjustments = list(purpose = "difference", decorrelation = "CM"), 
+    plotStyle   = "corset",
+    lineParams = list(colorize=TRUE), 
+    violinParams = list(fill="green", alpha = .2)
+) + 
+xlab("Group") + ylab("Score") + 
+labs(subtitle="Correlation- and Difference-adjusted\n95% confidence intervals") +
+coord_cartesian( ylim = c(70,150) ) +
+theme_gray(base_size=10) + 
+scale_x_discrete(labels=c("1" = "Collaborative games", "2" = "Unstructured activity")) +
+scale_color_manual('Direction\n of change', values=c("gray","red"), labels=c('decreasing', 'increasing')) +
+theme(legend.position=c(0.1,0.75), panel.border = element_blank(), legend.background =  element_blank() ) 
+```
+
+
+
 
 ## In conclusion
 

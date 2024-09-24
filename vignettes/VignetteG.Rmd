@@ -85,19 +85,8 @@ We first fetch the data from the main author's GitHub repository:
 
 ```{r}
 fmri <- read.csv(url("https://raw.githubusercontent.com/mwaskom/seaborn-data/de49440879bea4d563ccefe671fd7584cba08983/fmri.csv"))
-```
-
-As the data are in no specific order, we first sort them by subject, type of event, and region as well as
-by time points and next, we convert the data into a wide data frame of dimensions 14 lines per 77 columns:
-
-```{r}
 # sort the data...
 fmri <- fmri[order(fmri$subject, fmri$event, fmri$region, fmri$timepoint),]
-
-#... then convert to wide
-fmriWide <- superbToWide(fmri, id="subject", 
-    WSFactors = c("event","region","timepoint"), 
-    variable = "signal")
 ```
 
 We are ready to make plots!
@@ -105,19 +94,21 @@ We are ready to make plots!
 ### A plot without decorrelation
 
 The first plot is done without adjustments. By default, it shows the standalone 95% confidence interval.
+The formula uses the long data format but specifies that the
+observations are nested with subject numbers:
 
 ```{r, fig.height=4, fig.width=7, fig.cap = "**Figure 1**. Plot of the fMRI data with standalone confidence intervals."}
-superbPlot( fmriWide,
-  WSFactors = c("timepoint(19)","region(2)","event(2)"),
-  variables = names(fmriWide)[2:77],
-  plotStyle = "lineBand",
-  pointParams = list(size=1,color="black"),
-  lineParams = list(color="purple")
+superb( 
+    signal ~ timepoint + region + event | subject,
+    fmri,
+    plotStyle = "lineBand",
+    pointParams = list(size=1,color="black"),
+    lineParams = list(color="purple")
 ) + scale_x_discrete(name="Time", labels = 0:18) + 
 scale_discrete_manual(aesthetic =c("fill","colour"), 
                       labels = c("frontal","parietal"), 
                       values = c("red","green")) +
-theme_bw() 
+theme_bw() + ylim(-0.15, +0.35) 
 ```
 
 The `scale_x_discrete` is done to rename the ticks from 0 to 18 (they would start at 1 otherwise).
@@ -134,20 +125,19 @@ in @c05 with @m08 [also see @c19]. They are known in ``superbPlot()`` as ``"LM"`
 If you add this adjustment with this command, you get the following plot:
 
 ```{r, fig.height=4, fig.width=7, fig.cap = "**Figure 2**. Plot of the fMRI data with Cousineau-Morey decorrelation."}
-superbPlot( fmriWide,
-  WSFactors = c("timepoint(19)","region(2)","event(2)"),
-  variables = names(fmriWide)[2:77],
-  adjustments = list(decorrelation = "CM"), ## only new line
-  plotStyle = "lineBand",
-  pointParams = list(size=1,color="black"),
-  lineParams = list(color="purple")
+superb( 
+    signal ~ timepoint + region + event | subject,
+    fmri,
+    adjustments = list(decorrelation = "CM"), ## only new line
+    plotStyle = "lineBand",
+    pointParams = list(size=1,color="black"),
+    lineParams = list(color="purple")
 ) + scale_x_discrete(name="Time", labels = 0:19) + 
 scale_discrete_manual(aesthetic =c("fill","colour"), 
                       labels = c("frontal","parietal"), 
                       values = c("red","green"))+
-theme_bw() + 
+theme_bw() + ylim(-0.15, +0.35) + 
 showSignificance(c(6,7)+1, 0.3, -0.02, "n.s.?", panel=list(event=2)) 
-
 ```
 
 As you may see, this plot and the previous one are nearly identical! This is because the average correlation
@@ -164,20 +154,19 @@ appart, obtained with ``"LD2"``:
 
 
 ```{r, fig.height=4, fig.width=7, fig.cap = "**Figure 3**. Plot of the fMRI data with local decorrelation."}
-superbPlot( fmriWide,
-  WSFactors = c("timepoint(19)","region(2)","event(2)"),
-  variables = names(fmriWide)[2:77],
-  adjustments = list(decorrelation = "LD2"),  ## CM replaced with LD2
-  plotStyle = "lineBand",
-  pointParams = list(size=1,color="black"),
-  lineParams = list(color="purple")
+superb( 
+    signal ~ timepoint + region + event | subject,
+    fmri,
+    adjustments = list(decorrelation = "LD2"),  ## CM replaced with LD2
+    plotStyle = "lineBand",
+    pointParams = list(size=1,color="black"),
+    lineParams = list(color="purple")
 ) + scale_x_discrete(name="Time", labels = 0:19) + 
 scale_discrete_manual(aesthetic =c("fill","colour"), 
                       labels = c("frontal","parietal"), 
                       values = c("red","green"))+
-theme_bw() + 
+theme_bw() + ylim(-0.15, +0.35) + 
 showSignificance(c(6,7)+1, 0.3, -0.02, "**!", panel=list(event=2)) 
-
 ```
 
 As seen from the message, the correlations in nearby time points is about .50. It explains why the 

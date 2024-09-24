@@ -5,6 +5,7 @@
 \alias{is.one.sided}
 \alias{has.nested.terms}
 \alias{has.cbind.terms}
+\alias{has.crange.terms}
 \alias{in.formula}
 \alias{sub.formulas}
 \title{logical functions for formulas}
@@ -41,8 +42,8 @@ returns TRUE if frm is a formula, contains a \code{|} or a
 \description{
 The functions \code{is.formula()},
 \code{is.one.sided()}, \code{has.nested.terms()},
-\code{has.cbind.terms()}, \code{in.formula()}
-and \code{sub.formulas()}
+\code{has.cbind.terms()}, \code{has.crange.terms()},
+\code{in.formula()} and \code{sub.formulas()}
 performs checks or extract sub-formulas from a given formula.
 }
 \details{

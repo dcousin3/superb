@@ -1,14 +1,14 @@
 ###################################################################################
 #' @title logical functions for formulas
 #'
-#' @aliases is.formula is.one.sided has.nested.terms has.cbind.terms in.formula sub.formulas
+#' @aliases is.formula is.one.sided has.nested.terms has.cbind.terms has.crange.terms in.formula sub.formulas
 #'
 #' @md
 #'
 #' @description The functions `is.formula()`,
 #'      `is.one.sided()`, `has.nested.terms()`, 
-#'      `has.cbind.terms()`, `in.formula()` 
-#'      and `sub.formulas()`
+#'      `has.cbind.terms()`, `has.crange.terms()`, 
+#'      `in.formula()` and `sub.formulas()`
 #'      performs checks or extract sub-formulas from a given formula.
 #'
 #' @usage is.formula(frm)
@@ -85,10 +85,15 @@ has.crange.terms <- function( frm ) {
 
 # performs a depth-first search in the language structure.
 in.formula <- function( frm, whatsym) {
+    # in case a string was in there, convert it to symbol first
+    if ((length(frm)==1)) 
+        if (is.character(frm)) 
+            frm <- as.symbol(frm)
+
     if ((is.symbol(frm))&&(frm == whatsym)) 
         return(TRUE)
 
-    if (!is.symbol(frm)) {
+    if (!is.symbol(frm)) { # branches
         for (i in (1:length(frm)) ) {
             if (in.formula( frm[[i]], whatsym) )
                 return(TRUE)

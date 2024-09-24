@@ -254,8 +254,9 @@ to.</p>
 <h2 id="informing-superb-of-a-non-full-factorial-within-subject-design">Informing <code>superb</code> of a non-full factorial within-subject
 design<a class="anchor" aria-label="anchor" href="#informing-superb-of-a-non-full-factorial-within-subject-design"></a>
 </h2>
-<p>In <code><a href="../reference/superbPlot.html">superbPlot()</a></code> or <code><a href="../reference/superbData.html">superbData()</a></code>, we
-indicate non full factorial design with:</p>
+<p>In <code><a href="../reference/superb.html">superb()</a></code>, <code><a href="../reference/superbPlot.html">superbPlot()</a></code> or
+<code><a href="../reference/superbData.html">superbData()</a></code>, we indicate non full factorial design
+with:</p>
 <pre><code>WSFactors = c("Nletters","Nuppercase"),
 variables = c("var1","var2","var3","var4","var5","var6",
                 "var7","var8","var9","var10"),
@@ -280,15 +281,13 @@ factorial design, we will delete some columns aftewards.</p>
 response times by 25 ms for each additional letter) and of the number of
 uppercase letters (decreasing response times by 25 ms for each
 additional uppercase letter).</p>
-<p>The full data can be plotted withou any difficulty with
+<p>The full data can be plotted without any difficulty with
 <code><a href="../reference/superbPlot.html">superbPlot()</a></code>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">Fulldta</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
+<span>    <span class="fu">crange</span><span class="op">(</span><span class="va">DV.1.1</span>, <span class="va">DV.4.4</span><span class="op">)</span> <span class="op">~</span> <span class="va">.</span>,</span>
+<span>    <span class="va">Fulldta</span>,</span>
 <span>    WSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Nletters(4)"</span>,<span class="st">"Nuppercase(4)"</span><span class="op">)</span>,</span>
-<span>    variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DV.1.1"</span>,<span class="st">"DV.2.1"</span>,<span class="st">"DV.3.1"</span>,<span class="st">"DV.4.1"</span>,</span>
-<span>                  <span class="st">"DV.1.2"</span>,<span class="st">"DV.2.2"</span>,<span class="st">"DV.3.2"</span>,<span class="st">"DV.4.2"</span>,</span>
-<span>                  <span class="st">"DV.1.3"</span>,<span class="st">"DV.2.3"</span>,<span class="st">"DV.3.3"</span>,<span class="st">"DV.4.3"</span>,</span>
-<span>                  <span class="st">"DV.1.4"</span>,<span class="st">"DV.2.4"</span>,<span class="st">"DV.3.4"</span>,<span class="st">"DV.4.4"</span><span class="op">)</span>,</span>
 <span>    plotStyle<span class="op">=</span><span class="st">"line"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
@@ -309,10 +308,10 @@ conditions:</p>
 <span><span class="va">dta</span><span class="op">$</span><span class="va">DV.3.4</span> <span class="op">=</span> <span class="cn">NULL</span></span></code></pre></div>
 <p>after which the plot can be performed:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
+<span>    <span class="fu">crange</span><span class="op">(</span><span class="va">DV.1.1</span>, <span class="va">DV.4.4</span><span class="op">)</span> <span class="op">~</span> <span class="va">.</span>,</span>
+<span>    <span class="va">dta</span>,</span>
 <span>    WSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Nletters(4)"</span>,<span class="st">"Nuppercase(4)"</span><span class="op">)</span>,</span>
-<span>    variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DV.1.1"</span>,<span class="st">"DV.2.1"</span>,<span class="st">"DV.3.1"</span>,<span class="st">"DV.4.1"</span>,<span class="st">"DV.2.2"</span>,<span class="st">"DV.3.2"</span>,</span>
-<span>                  <span class="st">"DV.4.2"</span>,<span class="st">"DV.3.3"</span>,<span class="st">"DV.4.3"</span>,<span class="st">"DV.4.4"</span><span class="op">)</span>,</span>
 <span>    WSDesign  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span>,  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">1</span><span class="op">)</span>,  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>,  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">2</span><span class="op">)</span>,</span>
 <span>                     <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">3</span><span class="op">)</span>,  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    plotStyle<span class="op">=</span><span class="st">"line"</span></span>

@@ -48,9 +48,8 @@ The first panel on the left is based on stand-alone confidence intervals and
 is obtained with :
 
 ```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="**Figure 1a**. Left panel of Figure 1."}
-plt1a <- superbPlot(dataFigure1, 
-            BSFactors   = "grp", 
-            variables   = "score", 
+plt1a <- superb( score ~ grp,
+            dataFigure1, 
             plotStyle   = "line" ) 
 plt1a
 ```
@@ -67,7 +66,7 @@ ornateBS <- list(
     ylab("Attitude towards class activities"),
     scale_x_discrete(labels = c("Collaborative\ngames", "Unstructured\nactivities")), #new!
     coord_cartesian( ylim = c(70,130) ),
-    geom_hline(yintercept = 100, colour = "black", size = 0.5, linetype=2),
+    geom_hline(yintercept = 100, colour = "black", linewidth = 0.5, linetype=2),
     theme_light(base_size = 10) +
     theme( plot.subtitle = element_text(size=12))
 )
@@ -84,9 +83,8 @@ The second plot is obtained in a simar fashion with just one additional argument
 difference-adjusted confidence intervals:
 
 ```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="**Figure 1c**. Making and decorating central panel of Figure 1."}
-plt1b <- superbPlot(dataFigure1, 
-            BSFactors    = "grp", 
-            variables    = "score", 
+plt1b <- superb( score ~ grp,
+            dataFigure1, 
             adjustments  = list(purpose = "difference"), #new!
             plotStyle    = "line" )
 plt1b <- plt1b + ornateBS + labs(subtitle="Difference-adjusted\n95% CI") 
@@ -96,9 +94,9 @@ plt1b
 Finally, the *raincloud* plot is obtained by changing the ``plotStyle`` argument:
 
 ```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="**Figure 1d**. Making and decorating right panel of Figure 1."}
-plt1c <- superbPlot(dataFigure1, 
-            BSFactors    = "grp", 
-            variables    = "score", 
+plt1c <- superb(
+            score ~ grp,
+            dataFigure1, 
             adjustments  = list(purpose = "difference"),
             plotStyle    = "raincloud",                         # new layout!
             violinParams = list(fill = "green", alpha = 0.2) ) # changed color to the violin
@@ -174,9 +172,10 @@ head(dataFigure2)
 This makes the left panel:
 
 ```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="**Figure 2a**. Making left panel of Figure 2."}
-plt2a <- superbPlot(dataFigure2, 
+plt2a <- superb(
+            cbind(pre,post) ~ . ,
+            dataFigure2, 
             WSFactors    = "Moment(2)", 
-            variables    = c("pre","post"), 
             adjustments  = list(purpose = "single"),
             plotStyle    = "line" ) 
 plt2a <- plt2a + ornateWS + labs(subtitle="Stand-alone\n95% CI")
@@ -187,9 +186,10 @@ plt2a
 decorelation technique:
  
 ```{r, message=TRUE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="**Figure 2b**. Making central panel of Figure 2."}
-plt2b <- superbPlot(dataFigure2, 
+plt2b <- superb(
+            cbind(pre, post) ~ . ,
+            dataFigure2, 
             WSFactors    = "Moment(2)", 
-            variables    = c("pre","post"), 
             adjustments  = list(purpose = "difference", decorrelation = "CA"), #new
             plotStyle    = "line" ) 
 plt2b <- plt2b + ornateWS + labs(subtitle="Correlation and difference-\nadjusted 95% CI") 
@@ -204,9 +204,10 @@ per participants, joining their results with a line. As seen below, for most par
 the trend is upward, suggesting a strongly reliable effect of the moment:
 
 ```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="**Figure 2c**. Making third panel of Figure 2."}
-plt2c <- superbPlot(dataFigure2, 
+plt2c <- superb(
+            cbind(pre, post) ~ ., 
+            dataFigure2, 
             WSFactors    = "Moment(2)", 
-            variables    = c("pre","post"), 
             adjustments  = list(purpose = "difference", decorrelation = "CA"),
             plotStyle    = "pointindividualline" )   #new
 plt2c <- plt2c + ornateWS + labs(subtitle="Correlation and difference-\nadjusted 95% CI")
@@ -234,9 +235,10 @@ We then compute the differences and make the plot:
 
 ```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="**Figure 2d**. Making right panel of Figure 2."}
 dataFigure2$diff <- dataFigure2$post - dataFigure2$pre
-plt2d <- superbPlot(dataFigure2, 
+plt2d <- superb(
+            diff ~ .,
+            dataFigure2, 
             WSFactor     = "Moment(1)", 
-            variables    = c("diff"), 
             adjustments  = list(purpose = "single", decorrelation = "none"),
             plotStyle    = "raincloud",
             violinParams = list(fill = "green") )  #new
@@ -296,9 +298,9 @@ ornateCRS <- list(
 Then, we get an unadjusted plot as usual:
 
 ```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="**Figure 3a**. The left panel of Figure 3."}
-plt3a <- superbPlot(dataFigure3, 
-    BSFactors     = "grp", 
-    variables     = "VD", 
+plt3a <- superb(
+    VD ~ grp,
+    dataFigure3, 
     adjustments   = list(purpose = "single", samplingDesign = "SRS"),
     plotStyle     = "line" )
 plt3a <- plt3a + ornateCRS + labs(subtitle="Stand-alone\n95% CI") 
@@ -312,9 +314,9 @@ option is set to ``"CRS"`` and an additional information, ``clusterColumn``
 is indicated to identify the column containing the cluster membership information:
 
 ```{r, message=TRUE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="**Figure 3b**. The central panel of Figure 3."}
-plt3b <- superbPlot(dataFigure3, 
-    BSFactors     = "grp", 
-    variables     = "VD", 
+plt3b <- superb(
+    VD ~ grp,
+    dataFigure3, 
     adjustments   = list(purpose = "difference", samplingDesign = "CRS"), #new
     plotStyle     = "line", 
     clusterColumn = "cluster" )                                           #new
@@ -326,12 +328,12 @@ An inspection of the distribution does not make the cluster structure evident an
 plot is maybe little informative in the context of cluster randomized sampling...
 
 ```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=8, fig.height=4, fig.cap="**Figure 3c**. The right panel of Figure 3."}
-plt3c <- superbPlot(dataFigure3, 
-    BSFactors    = "grp", 
-    variables   = "VD", 
-    adjustments = list(purpose = "difference", samplingDesign = "CRS"),
-    plotStyle   = "raincloud", 
-    violinParams = list(fill = "green", alpha = 0.2),
+plt3c <- superb(
+    VD ~ grp,
+    dataFigure3, 
+    adjustments   = list(purpose = "difference", samplingDesign = "CRS"),
+    plotStyle     = "raincloud", 
+    violinParams  = list(fill = "green", alpha = 0.2),
     clusterColumn = "cluster" )
 plt3c <- plt3c + ornateCRS + labs(subtitle="Cluster and difference-\nadjusted 95% CI")
 ```
@@ -394,9 +396,9 @@ ornateBS <- list(
 Lets do Figure 4 (see below for each plot in a single figure).
 
 ```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="**Figure 4a**. The left panel of Figure 4."}
-plt4a <- superbPlot(dataFigure4, 
-    BSFactors = "group", 
-    variables = "score", 
+plt4a <- superb(
+    score ~ group,
+    dataFigure4, 
     adjustments=list(purpose = "single", popSize = Inf),
     plotStyle="line" ) 
 plt4a <- plt4a + ornateBS + labs(subtitle="Stand-alone\n95% CI") 
@@ -406,9 +408,9 @@ The option ``popSize = Inf`` is the default; it indicates that the population is
 of infinite size. A finite size can be given, as
 
 ```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="**Figure 4b**. The central panel of Figure 3b."}
-plt4b <- superbPlot(dataFigure4, 
-    BSFactors = "group",
-    variables = "score", 
+plt4b <- superb(
+    score ~ group, 
+    dataFigure4, 
     adjustments=list(purpose = "single", popSize = 50 ), # new!
     plotStyle="line" ) 
 plt4b <- plt4b + ornateBS + labs(subtitle="Population size-\nadjusted 95% CI") 
@@ -417,9 +419,9 @@ plt4b <- plt4b + ornateBS + labs(subtitle="Population size-\nadjusted 95% CI")
 We illustrate the plot along some distribution information with a violin plot:
 
 ```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="**Figure 4c**. The right panel of Figure 3b."}
-plt4c <- superbPlot(dataFigure4, 
-    BSFactors = "group",
-    variables = "score", 
+plt4c <- superb(
+    score ~ group,
+    dataFigure4, 
     adjustments=list(purpose = "single", popSize = 50 ), # new!
     plotStyle="pointjitterviolin",
     violinParams = list(fill = "green", alpha = 0.2)  ) 

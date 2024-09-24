@@ -47,6 +47,7 @@ Imports:
     plyr (>= 1.8.4),
     ggplot2 (>= 3.1.0),
     MASS,
+    rrapply,
     lsr (>= 0.5),
     methods,
     Rdpack (>= 0.7),

@@ -252,9 +252,10 @@ Figure 1); <code>purpose = "difference"</code> returns error bars valid
 for pair-wise comparisons. The minimum specification for the data frame
 above would therefore be</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, </span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">`Week 1`</span>, <span class="va">`Week 2`</span>, <span class="va">`Week 3`</span><span class="op">)</span> <span class="op">~</span> <span class="va">.</span>,</span>
+<span>    <span class="va">dta</span>, </span>
 <span>    WSFactors <span class="op">=</span> <span class="st">"Moment(3)"</span>,</span>
-<span>    variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Week 1"</span>, <span class="st">"Week 2"</span>, <span class="st">"Week 3"</span><span class="op">)</span>,</span>
 <span>    adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>,</span>
 <span>    plotStyle<span class="op">=</span><span class="st">"line"</span></span>
 <span>    <span class="op">)</span></span></code></pre></div>
@@ -264,13 +265,16 @@ above would therefore be</p>
 95% confidence interval per week for a program to stop smoking.
 </p>
 </div>
-<p>The first argument is the data.frame, in wide format (here
-<code>dta</code>). The second argument describe the experimental design.
-Here, there is a single within-subject factor (<code>WSFactors</code>),
-called <code>Moment</code>. In within-subject factors, it is necessary
-to indicate how many level the factor has (here 3). The third argument
-indicates the columns in the data.frame containing the measurements.
-Three columns are involved. The name must match the column names in the
+<p>The first argument is the formula describing on the left-hand side
+the measurements, and on the right-hand side, the betwee- subject
+conditions. The second argument is a data.frame, here in wide format.
+The data frame is <code>dta</code>. Because we have multiple dependent
+variables (collected with <code><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind()</a></code>, the third argument
+describe the within-subject experimental factor(s). Here, there is a
+single within-subject factor (<code>WSFactors</code>), called
+<code>Moment</code>. In within-subject factors, it is necessary to
+indicate how many level the factor has (here 3).</p>
+<p>The column named in the formula must match the column names in the
 data.frame. If unsure, check with</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dta</span><span class="op">)</span></span></code></pre></div>
@@ -281,6 +285,11 @@ data.frame. If unsure, check with</p>
 <span><span class="co">## 4     57     64     81</span></span>
 <span><span class="co">## 5     58     67     86</span></span>
 <span><span class="co">## 6     61     70     98</span></span></code></pre>
+<p>Note that the measurements could be named using <code>crange()</code>
+instead of <code><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind()</a></code>. The specification <code>crange()</code>
+is used to refer to a range of variables from the first given to the
+last given. Here, the formula could have been given as
+<code>crange(`Week 1`, `Week 3`) ~ .</code></p>
 <p>The argument in which the adjustments will be listed is called
 <code>adjustments</code> which is a list with —for the moment— an
 adjustment for the purpose of the plot:
@@ -292,9 +301,10 @@ These two expressions, <em>single</em> and <em>difference</em>, are from
 additional graphing directives can be added. Figure 2 was actually
 obtained with these commands:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, </span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">`Week 1`</span>, <span class="va">`Week 2`</span>, <span class="va">`Week 3`</span><span class="op">)</span> <span class="op">~</span> <span class="va">.</span>,</span>
+<span>    <span class="va">dta</span>, </span>
 <span>    WSFactors <span class="op">=</span> <span class="st">"Moment(3)"</span>,</span>
-<span>    variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Week 1"</span>, <span class="st">"Week 2"</span>, <span class="st">"Week 3"</span><span class="op">)</span>,</span>
 <span>    statistic <span class="op">=</span> <span class="st">"mean"</span>, errorbar <span class="op">=</span> <span class="st">"CI"</span>,</span>
 <span>    adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>,</span>
 <span>    plotStyle<span class="op">=</span><span class="st">"line"</span></span>
@@ -344,9 +354,10 @@ preference which one you use.</p>
 <p>Figure 2 above will become Figure 3 if you add a decorrelation
 adjustment:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, </span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">`Week 1`</span>, <span class="va">`Week 2`</span>, <span class="va">`Week 3`</span><span class="op">)</span> <span class="op">~</span> <span class="va">.</span>,</span>
+<span>    <span class="va">dta</span>, </span>
 <span>    WSFactors <span class="op">=</span> <span class="st">"Moment(3)"</span>,</span>
-<span>    variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Week 1"</span>, <span class="st">"Week 2"</span>, <span class="st">"Week 3"</span><span class="op">)</span>,</span>
 <span>    statistic <span class="op">=</span> <span class="st">"mean"</span>, errorbar <span class="op">=</span> <span class="st">"CI"</span>,</span>
 <span>    adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span>, decorrelation <span class="op">=</span> <span class="st">"CM"</span><span class="op">)</span>, <span class="co">#new!</span></span>
 <span>    plotStyle<span class="op">=</span><span class="st">"line"</span>,</span>
@@ -393,9 +404,10 @@ additional adjustments, such as</p>
 <code class="sourceCode R"><span><span class="co"># add (ficticious) cluster membership for each participant in the column "cluster"</span></span>
 <span><span class="va">dta</span><span class="op">$</span><span class="va">cluster</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dta</span>, </span>
+<span><span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">`Week 1`</span>, <span class="va">`Week 2`</span>, <span class="va">`Week 3`</span><span class="op">)</span> <span class="op">~</span> <span class="va">.</span>,</span>
+<span>    <span class="va">dta</span>, </span>
 <span>    WSFactors <span class="op">=</span> <span class="st">"Moment(3)"</span>,</span>
-<span>    variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Week 1"</span>, <span class="st">"Week 2"</span>, <span class="st">"Week 3"</span><span class="op">)</span>,</span>
 <span>    adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span>, decorrelation <span class="op">=</span> <span class="st">"CM"</span>,</span>
 <span>                       samplingDesign <span class="op">=</span> <span class="st">"CRS"</span>, popSize <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>,        <span class="co">#new!</span></span>
 <span>    plotStyle <span class="op">=</span> <span class="st">"line"</span>,</span>

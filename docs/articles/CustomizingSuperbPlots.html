@@ -220,9 +220,10 @@ want to appear on the x-axis:</p>
 <span><span class="va">mylabels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Verbal"</span>, <span class="st">"Numerical"</span>, <span class="st">"Spatial"</span>, <span class="st">"Creativity"</span>, <span class="st">"Intrapersonal"</span>, <span class="st">"Interpersonal"</span><span class="op">)</span></span></code></pre></div>
 <p>We are ready to make the plot with the desired adjustments:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pltA</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dtaA</span>,        <span class="co"># plot for the first data set...</span></span>
-<span>    WSFactors <span class="op">=</span> <span class="st">"Domain(6)"</span>,    <span class="co"># ...a within-subject design with 6 levels</span></span>
-<span>    variables <span class="op">=</span> <span class="va">mylabels</span>,       <span class="co"># ...whose variables are contained in the above list</span></span>
+<code class="sourceCode R"><span><span class="va">pltA</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
+<span>    <span class="fu">crange</span><span class="op">(</span><span class="va">Verbal</span>, <span class="va">Interpersonal</span><span class="op">)</span> <span class="op">~</span> <span class="va">.</span>, <span class="co"># no between-subject factors</span></span>
+<span>    <span class="va">dtaA</span>,                       <span class="co"># plot for the first data set...</span></span>
+<span>    WSFactors   <span class="op">=</span> <span class="st">"Domain(6)"</span>,  <span class="co"># ...a within-subject design with 6 levels</span></span>
 <span>    adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>        purpose <span class="op">=</span> <span class="st">"difference"</span>, <span class="co"># we want to compare means</span></span>
 <span>        decorrelation <span class="op">=</span> <span class="st">"CM"</span>    <span class="co"># and error bars are correlated-adjusted</span></span>
@@ -332,9 +333,10 @@ set to <code>dtaB</code> and in the last graphic directives, using
 options tailored specifically to this second data set (smaller y-axis
 range, different label, etc.):</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pltB</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">dtaB</span>,        <span class="co"># plot for the second data set...</span></span>
+<code class="sourceCode R"><span><span class="va">pltB</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
+<span>    <span class="fu">crange</span><span class="op">(</span><span class="va">Verbal</span>, <span class="va">Interpersonal</span><span class="op">)</span> <span class="op">~</span> <span class="va">.</span>, <span class="co"># no between-subject factors</span></span>
+<span>    <span class="va">dtaB</span>,                       <span class="co"># the second data set...</span></span>
 <span>    WSFactors <span class="op">=</span> <span class="st">"Domain(6)"</span>,    <span class="co"># ...a within-subject design with 6 levels</span></span>
-<span>    variables <span class="op">=</span> <span class="va">mylabels</span>,       <span class="co"># ...whose variables are contained in the above list</span></span>
 <span>    adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>        purpose <span class="op">=</span> <span class="st">"difference"</span>, <span class="co"># we want to compare means</span></span>
 <span>        decorrelation <span class="op">=</span> <span class="st">"CM"</span>    <span class="co"># and error bars are correlated-adjusted</span></span>
@@ -344,12 +346,9 @@ range, different label, etc.):</p>
 <span>    pointParams    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span>,</span>
 <span>    jitterParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span><span class="fl">0.1</span>, shape<span class="op">=</span><span class="fl">21</span>,size<span class="op">=</span><span class="fl">0.05</span>,alpha<span class="op">=</span><span class="fl">1</span><span class="op">)</span>, <span class="co"># less dispersed jitter dots,</span></span>
 <span>    violinParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>trim<span class="op">=</span><span class="cn">TRUE</span>, alpha<span class="op">=</span><span class="fl">1</span>,adjust<span class="op">=</span><span class="fl">3</span><span class="op">)</span>,            <span class="co"># not semi-transparent, smoother</span></span>
-<span>    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span>, size<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span>                 <span class="co"># wider bars, thicker lines.</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning in (function (mapping = NULL, data = NULL, stat = "identity", position</span></span>
-<span><span class="co">## = "identity", : Ignoring unknown parameters: `size`</span></span></code></pre>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">finalpltB</span> <span class="op">&lt;-</span> <span class="va">pltB</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">Domain</span><span class="op">)</span>, colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">Domain</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span>, linewidth<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span>                 <span class="co"># wider bars, thicker lines.</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">finalpltB</span> <span class="op">&lt;-</span> <span class="va">pltB</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">Domain</span><span class="op">)</span>, colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">Domain</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="va">commonstyle</span> <span class="op">+</span>                           <span class="co"># the following three lines are the differences:</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">5</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span>      <span class="co"># the limits, 1 to 5, are different </span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"B"</span><span class="op">)</span> <span class="op">+</span>                       <span class="co"># the plot is differently-labeled</span></span>
@@ -365,7 +364,7 @@ Figure 2, bottom row
 <h3 id="combining-and-saving-both-plots">Combining and saving both plots<a class="anchor" aria-label="anchor" href="#combining-and-saving-both-plots"></a>
 </h3>
 <p>Finally, we assemble the two plots together</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">finalplt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">finalpltA</span>, <span class="va">finalpltB</span>, ncol<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="CustomizingSuperbPlots_files/figure-html/unnamed-chunk-9-1.png" alt="Figure 2, final version" width="643.2"><p class="caption">
@@ -373,7 +372,7 @@ Figure 2, final version
 </p>
 </div>
 <p>It can be saved with high-resolution if desired with</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span> <span class="st">"Figure2.png"</span>,</span>
 <span>    plot<span class="op">=</span><span class="va">finalplt</span>,</span>
 <span>    device <span class="op">=</span> <span class="st">"png"</span>,</span>
@@ -398,11 +397,11 @@ follow the instructions to obtain the dataframe
 <code>cleandata</code>.</p>
 <p>Because response times (RTs) were recorded in second, we convert them
 to milisecond:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cleandata</span><span class="op">$</span><span class="va">absentrt</span> <span class="op">=</span> <span class="va">cleandata</span><span class="op">$</span><span class="va">absentrt</span><span class="op">*</span><span class="fl">1000</span></span>
 <span><span class="va">cleandata</span><span class="op">$</span><span class="va">presentrt</span> <span class="op">=</span> <span class="va">cleandata</span><span class="op">$</span><span class="va">presentrt</span><span class="op">*</span><span class="fl">1000</span></span></code></pre></div>
 <p>As a check, here is the first six lines of that data frame:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cleandata</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   subject absentrt presentrt absentacc presentacc</span></span>
 <span><span class="co">## 1     201 906.9648  880.5836  0.984375  0.9843750</span></span>
@@ -412,7 +411,7 @@ to milisecond:</p>
 <span><span class="co">## 5     205 927.9098  859.6929  0.875000  0.9375000</span></span>
 <span><span class="co">## 6     206 962.0722  848.8763  0.859375  0.9140625</span></span></code></pre>
 <p>Please select the colors desired for the bars:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mycolors</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"black"</span>,<span class="st">"lightgray"</span><span class="op">)</span></span></code></pre></div>
 <p>In addition to the above libraries, we also need the
 <code>scales</code> library so that we can modify the vertical axis of
@@ -420,10 +419,10 @@ the plot. Indeed, bar charts by default start at zero, but for the
 present data (response times and mean accuracies), a scales which does
 not start from zero is more appropriate. We then create a shift
 transformation function with a non-zero start <span class="math inline">\(d\)</span>:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org" class="external-link">scales</a></span><span class="op">)</span>     <span class="co"># for a translated scale using trans_new()</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning: package 'scales' was built under R version 4.3.2</span></span></code></pre>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">shift_trans</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">d</span> <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/new_transform.html" class="external-link">trans_new</a></span><span class="op">(</span><span class="st">"shift"</span>, transform <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">-</span> <span class="va">d</span>, inverse <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="va">y</span> <span class="op">+</span> <span class="va">d</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
@@ -432,7 +431,7 @@ function of the presence or absence of the colored distractor. Because
 (a) we want to compare the bars, we use difference-adjusted confidence
 intervals; (b) the data were collected in a within-subject design, we
 use a correlation-adjusted confidence intervals.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># defaults are means with 95% confidence intervals, so not specified</span></span>
 <span><span class="va">pltA</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span> <span class="va">cleandata</span>,</span>
 <span>    WSFactors <span class="op">=</span> <span class="st">"target(2)"</span>,</span>
@@ -443,7 +442,7 @@ use a correlation-adjusted confidence intervals.</p>
 <span>    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"gray35"</span>, width <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## superb::FYI: The HyunhFeldtEpsilon measure of sphericity per group are  1.000</span></span></code></pre>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pltA</span></span></code></pre></div>
 <div class="figure">
 <img src="CustomizingSuperbPlots_files/figure-html/unnamed-chunk-16-1.png" alt="Figure 1, preliminary version" width="288"><p class="caption">
@@ -453,7 +452,7 @@ Figure 1, preliminary version
 <p>As this is the default, the vertical axis starts at zero. Let’s add
 the <code>shift_trans</code> scale, limit the range to 720-900, and show
 breaks on every 20 units:</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># attached the shifted scale to it</span></span>
 <span><span class="va">pltA</span> <span class="op">&lt;-</span> <span class="va">pltA</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span></span>
 <span>    trans <span class="op">=</span> <span class="fu">shift_trans</span><span class="op">(</span><span class="fl">720</span><span class="op">)</span>,      <span class="co"># use translated bars</span></span>
@@ -469,7 +468,7 @@ Figure 2, version with adequate vertical scale
 <p>We can do better: changing the default fonts, remove the legend, etc.
 We store these graphic directives in a list because the same are used
 for the accuracy plot:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ornaments</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span> legend.position <span class="op">=</span> <span class="st">"none"</span> <span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.5</span>, fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">target</span><span class="op">)</span>, colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">target</span><span class="op">)</span> <span class="op">)</span>,</span>
@@ -484,7 +483,7 @@ Figure 3, version with theme and details adjusted
 </p>
 </div>
 <p>Finally, we put an indication regarding the significant result:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pltA</span> <span class="op">&lt;-</span> <span class="va">pltA</span> <span class="op">+</span> <span class="fu"><a href="../reference/showSignificance.html">showSignificance</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, <span class="fl">870</span>, <span class="op">-</span><span class="fl">8</span>, </span>
 <span>    <span class="st">"Singleton presence\nbenefit, p &lt; .001"</span>,</span>
 <span>    segmentParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
@@ -498,7 +497,7 @@ Figure 4, final version for RTs
 </div>
 <p>No need to go over all the details for the mean accuracy plot. We do
 all the steps in a single command:</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pltB</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span> <span class="va">cleandata</span>,</span>
 <span>    WSFactors <span class="op">=</span> <span class="st">"target(2)"</span>,</span>
 <span>    variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"absentacc"</span>, <span class="st">"presentacc"</span><span class="op">)</span>,</span>
@@ -519,7 +518,7 @@ all the steps in a single command:</p>
 <span>    segmentParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## superb::FYI: The HyunhFeldtEpsilon measure of sphericity per group are  1.000</span></span></code></pre>
 <pre><code><span><span class="co">## superb::FYI: All the groups' data are compound symmetric. Consider using CA or UA.</span></span></code></pre>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># this is it! Check the result   </span></span>
 <span><span class="va">pltB</span></span></code></pre></div>
 <div class="figure">
@@ -528,14 +527,14 @@ Figure 5, final version for mean accuracies
 </p>
 </div>
 <p>Put the two plots side-by-side and save your work!</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">finalplt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">pltA</span>, <span class="va">pltB</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="CustomizingSuperbPlots_files/figure-html/unnamed-chunk-21-1.png" alt="Figure 6, final version" width="576"><p class="caption">
 Figure 6, final version
 </p>
 </div>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#ggsave( "Figure2b.png",</span></span>
 <span><span class="co">#    plot=finalplt,</span></span>
 <span><span class="co">#    device = "png",</span></span>
@@ -545,7 +544,7 @@ Figure 6, final version
 <span><span class="co">#    height = 15</span></span>
 <span><span class="co">#)</span></span></code></pre></div>
 <p>Regarding the information provided by <code>superb</code>:</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## superb::FYI: The HyunhFeldtEpsilon measure of sphericity per group are  1.000</span></span>
 <span><span class="co">## superb::FYI: All the groups' data are compound symmetric. Consider using CA.</span></span></code></pre></div>
 <p>note that with only two repeated measures, sphericity is always met

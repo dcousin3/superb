@@ -59,9 +59,10 @@ dta <- GRD(
 
 # a quick function to call superbPlot
 makeplot <- function(statfct, errorbarfct, gam, rg, subttl) {
-    superbPlot(dta, 
+    superb(
+        crange(DV.1.1,DV.3.2) ~ ., 
+        dta, 
         WSFactors  = c("Moment(3)","Dose(2)"), 
-        variables = c("DV.1.1","DV.2.1","DV.3.1","DV.1.2","DV.2.2","DV.3.2"), 
         statistic = statfct, 
         errorbar  = errorbarfct, 
         gamma     = gam, 
@@ -151,17 +152,17 @@ Herein, we use the data from ``dataFigure1``.
 Once we have the function, we can ask for a plot of this function with
 
 ```{r, message=FALSE, echo=TRUE, fig.height=4, fig.width=3, fig.cap="**Figure 2**. ``superbPlot`` with a custom-made descriptive statistic function "}
-    superbPlot(dataFigure1, 
-        BSFactors = "grp", 
-        statistic = "trimmedmean", errorbar = "none", #HERE the statistic name is given
-        plotStyle="line",
-        adjustments = list(purpose = "difference"),
-        variable = "score",
-        errorbarParams = list(width=0) # so that the null-width error bar is invisible
-    )+ ylab("20% trimmed mean") +
-    theme_gray(base_size=10) +
-    labs(title="20% trimmed mean with \nno error bars") +
-    coord_cartesian( ylim = c(85,115) ) 
+superb(
+    score ~ grp,
+    dataFigure1, 
+    statistic = "trimmedmean", errorbar = "none", #HERE the statistic name is given
+    plotStyle="line",
+    adjustments = list(purpose = "difference"),
+    errorbarParams = list(width=0) # so that the null-width error bar is invisible
+)+ ylab("20% trimmed mean") +
+theme_gray(base_size=10) +
+labs(title="20% trimmed mean with \nno error bars") +
+coord_cartesian( ylim = c(85,115) ) 
 ```
 
 
@@ -174,36 +175,36 @@ approach documented in Wilcox [@w11] which requires computing the winsorized
 standard deviation ``winsor.sd`` as available in the ``psych`` library [@r20].
 
 ```{r, message=FALSE}
-    library(psych)      # for winsor.sd
+library(psych)      # for winsor.sd
 
-    CI.trimmedmean <- function(x, gamma = 0.95){
-        trim <- 0.2
-        g    <- floor(length(x) * 0.4)
-        tc   <- qt(1/2+gamma/2, df=(length(x)-g-1) )
-        lo   <- tc * winsor.sd(x, trim =0.2) / ((1-2*trim)*sqrt(length(x)))
-        c(trimmedmean(x) -lo, trimmedmean(x)+lo)
-    }
+CI.trimmedmean <- function(x, gamma = 0.95){
+    trim <- 0.2
+    g    <- floor(length(x) * 0.4)
+    tc   <- qt(1/2+gamma/2, df=(length(x)-g-1) )
+    lo   <- tc * winsor.sd(x, trim =0.2) / ((1-2*trim)*sqrt(length(x)))
+    c(trimmedmean(x) -lo, trimmedmean(x)+lo)
+}
 
-    # we test as an example the data from group 1
-    CI.trimmedmean(grp1)  
+# we test as an example the data from group 1
+CI.trimmedmean(grp1)  
 
-    # or check that it is a valid interval function
-    superb:::is.errorbar.function("CI.trimmedmean")
+# or check that it is a valid interval function
+superb:::is.errorbar.function("CI.trimmedmean")
 ```
 
 We have all we need to make a plot with error bars!
 
 ```{r, message=FALSE, echo=TRUE, fig.height=4, fig.width=3, fig.cap="**Figure 3**. `superbPlot` with a custom-made descriptive sttistic function "}
-    superbPlot(dataFigure1, 
-        BSFactors = "grp", 
-        statistic = "trimmedmean", errorbar = "CI",
-        plotStyle="line",
-        adjustments = list(purpose = "difference"),
-        variable = "score"
-    )+ ylab("20% trimmed mean") +
-    theme_gray(base_size=10) +
-    labs(title="20% trimmed mean with \n95% confidence interval of 20% trimmed mean") +
-    coord_cartesian( ylim = c(85,115) ) 
+superb(
+    score ~ grp, 
+    dataFigure1, 
+    statistic = "trimmedmean", errorbar = "CI",
+    plotStyle="line",
+    adjustments = list(purpose = "difference"),
+)+ ylab("20% trimmed mean") +
+theme_gray(base_size=10) +
+labs(title="20% trimmed mean with \n95% confidence interval of 20% trimmed mean") +
+coord_cartesian( ylim = c(85,115) ) 
 ```
 
 The advantage of this measure of central tendancy is that it is a robust estimator. 
@@ -225,50 +226,50 @@ Here, we illustrate this process with the mean. The function must be name
 "*interval function*.mean", so we choose to call it ``myBootstrapCI.mean``.
 
 ```{r}
-    # we define myBootstrapPI which subsample the whole sample, here called X
-    myBootstrapPI.mean <- function(X, gamma = 0.95) {
-      res = c()
-      for (i in 1:10000) {
-        res[i] <- mean(sample(X, length(X), replace = T))
-      }
-      quantile(res, c(1/2 - gamma/2, 1/2 + gamma/2))
-    }
+# we define myBootstrapPI which subsample the whole sample, here called X
+myBootstrapPI.mean <- function(X, gamma = 0.95) {
+  res = c()
+  for (i in 1:10000) {
+    res[i] <- mean(sample(X, length(X), replace = T))
+  }
+  quantile(res, c(1/2 - gamma/2, 1/2 + gamma/2))
+}
 
-    # we check that it is a valid interval function
-    superb:::is.errorbar.function("myBootstrapPI.mean")
+# we check that it is a valid interval function
+superb:::is.errorbar.function("myBootstrapPI.mean")
 ```
 
 This is all we need to make the plot which we can compare with the parametric CI
 
 ```{r, message=FALSE, echo=TRUE,  fig.height=4, fig.width=6, fig.cap="**Figure 4**. `superbPlot` with a custom-made interval function."}
-    plt1 <- superbPlot(dataFigure1, 
-        BSFactors = "grp", 
-        variable = c("score"), 
-        plotStyle="line",
-        statistic = "mean", errorbar = "CI",
-        adjustments = list(purpose = "difference")
-    ) + 
-    xlab("Group") + ylab("Score") + 
-    labs(title="means and difference-adjusted\n95% confidence intervals") +
-    coord_cartesian( ylim = c(85,115) ) +
-    theme_gray(base_size=10) +
-    scale_x_discrete(labels=c("1" = "Collaborative games", "2" = "Unstructured activity"))
+plt1 <- superb(
+    score ~ grp, 
+    dataFigure1, 
+    plotStyle="line",
+    statistic = "mean", errorbar = "CI",
+    adjustments = list(purpose = "difference")
+) + 
+xlab("Group") + ylab("Score") + 
+labs(title="means and difference-adjusted\n95% confidence intervals") +
+coord_cartesian( ylim = c(85,115) ) +
+theme_gray(base_size=10) +
+scale_x_discrete(labels=c("1" = "Collaborative games", "2" = "Unstructured activity"))
 
-    plt2 <- superbPlot(dataFigure1, 
-        BSFactors = "grp", 
-        variable = c("score"), 
-        plotStyle="line",
-        statistic = "mean", errorbar = "myBootstrapPI",
-        adjustments = list(purpose = "difference")
-    ) + 
-    xlab("Group") + ylab("Score") + 
-    labs(title="means and difference-adjusted\n95% bootstrap confidence intervals") +
-    coord_cartesian( ylim = c(85,115) ) +
-    theme_gray(base_size=10) +
-    scale_x_discrete(labels=c("1" = "Collaborative games", "2" = "Unstructured activity"))
+plt2 <- superb(
+    score ~ grp, 
+    dataFigure1, 
+    plotStyle="line",
+    statistic = "mean", errorbar = "myBootstrapPI",
+    adjustments = list(purpose = "difference")
+) + 
+xlab("Group") + ylab("Score") + 
+labs(title="means and difference-adjusted\n95% bootstrap confidence intervals") +
+coord_cartesian( ylim = c(85,115) ) +
+theme_gray(base_size=10) +
+scale_x_discrete(labels=c("1" = "Collaborative games", "2" = "Unstructured activity"))
 
-    library(gridExtra)
-    plt <- grid.arrange(plt1, plt2, ncol=2)
+library(gridExtra)
+plt <- grid.arrange(plt1, plt2, ncol=2)
 ```
 
 As seen, there is not much difference between the two. This was expected:  when the 

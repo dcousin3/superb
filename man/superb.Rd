@@ -19,7 +19,7 @@ superb(
   plotStyle = "bar",
   preprocessfct = NULL,
   postprocessfct = NULL,
-  clusterColumn = "",
+  clusterColumn = NULL,
   ...
 )
 }
@@ -120,21 +120,21 @@ The layouts for plots are the following:
 
 # Basic example using a built-in dataframe as data. 
 # By default, the mean is computed and the error bar are 95\% confidence intervals
-superb(len ~ dose * supp, ToothGrowth) 
+superb(len ~ dose + supp, ToothGrowth) 
 
 # Example changing the summary statistics to the median and
 # the error bar to 80\% confidence intervals
-superb(len ~ dose * supp, ToothGrowth,
+superb(len ~ dose + supp, ToothGrowth,
        statistic = "median", errorbar = "CI", gamma = .80) 
 
 # Example introducing adjustments for pairwise comparisons 
 # and assuming that the whole population is limited to 200 persons
-superb(len ~ dose * supp, ToothGrowth,  
+superb(len ~ dose + supp, ToothGrowth,  
   adjustments = list( purpose = "difference", popSize = 200) )
 
 # This example adds ggplot directives to the plot produced
 library(ggplot2)
-superb(len ~ dose * supp, ToothGrowth) + 
+superb(len ~ dose + supp, ToothGrowth) + 
 xlab("Dose") + ylab("Tooth Growth") +
 theme_bw()
 

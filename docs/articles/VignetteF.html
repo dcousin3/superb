@@ -269,10 +269,9 @@ error bars</p>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dcousin3.github.io/superb/" class="external-link">superb</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span></span>
+<span><span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
+<span>    <span class="va">obsfreq</span> <span class="op">~</span> <span class="va">vocation</span> <span class="op">+</span> <span class="va">gender</span>, </span>
 <span>    <span class="va">dta</span>,</span>
-<span>    BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"vocation"</span>,<span class="st">"gender"</span><span class="op">)</span>,</span>
-<span>    variables <span class="op">=</span> <span class="st">"obsfreq"</span>,                      <span class="co"># name of the column with the counts</span></span>
 <span>    statistic <span class="op">=</span> <span class="st">"identity"</span>,                     <span class="co"># the raw data as is</span></span>
 <span>    errorbar  <span class="op">=</span> <span class="st">"none"</span>,                         <span class="co"># no error bars</span></span>
 <span>    <span class="co"># the following is for the look of the plot</span></span>
@@ -327,10 +326,9 @@ in place.</p>
 <h3 id="make-a-count-plot-with-confidence-intervals">Make a count plot with confidence intervals<a class="anchor" aria-label="anchor" href="#make-a-count-plot-with-confidence-intervals"></a>
 </h3>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">plt2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">plt2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
+<span>    <span class="va">obsfreq</span> <span class="op">~</span> <span class="va">vocation</span> <span class="op">+</span> <span class="va">gender</span>, </span>
 <span>    <span class="va">dta</span>,</span>
-<span>    BSFactors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"vocation"</span>,<span class="st">"gender"</span><span class="op">)</span>,</span>
-<span>    variables <span class="op">=</span> <span class="st">"obsfreq"</span>,</span>
 <span>    statistic <span class="op">=</span> <span class="st">"count"</span>,                                 <span class="co"># the function defined above</span></span>
 <span>    errorbar  <span class="op">=</span> <span class="st">"CI"</span>,                                    <span class="co"># its CI define above</span></span>
 <span>    <span class="co"># the following is for the look of the plot</span></span>

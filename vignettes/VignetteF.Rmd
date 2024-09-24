@@ -98,10 +98,9 @@ To have a quick-and-dirty plot, just display the raw counts with no error bars
 library(superb)
 library(ggplot2)
 
-plt1 <- superbPlot(
+plt1 <- superb(
+    obsfreq ~ vocation + gender, 
     dta,
-    BSFactors = c("vocation","gender"),
-    variables = "obsfreq",                      # name of the column with the counts
     statistic = "identity",                     # the raw data as is
     errorbar  = "none",                         # no error bars
     # the following is for the look of the plot
@@ -157,10 +156,9 @@ This is it! All the statistical functions needed to make the plot are in place.
 
 
 ```{r, eval=TRUE, fig.width = 6, eval=TRUE, fig.cap="**Figure 2: A complete plot**"}
-plt2 <- superbPlot(
+plt2 <- superb(
+    obsfreq ~ vocation + gender, 
     dta,
-    BSFactors = c("vocation","gender"),
-    variables = "obsfreq",
     statistic = "count",                                 # the function defined above
     errorbar  = "CI",                                    # its CI define above
     # the following is for the look of the plot

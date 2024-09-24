@@ -88,13 +88,14 @@ Assuming a dataset dta with replicated measures stored in say columns called ``S
 ``Score.3``, the command
 
 ```{r}
-pCM <- superbPlot(dta, WSFactors = "moment(3)",     
-  variables = c("Score.1","Score.2","Score.3"), 
-  adjustments=list(decorrelation="none"),
-  preprocessfct = "subjectCenteringTransform",
-  postprocessfct = "biasCorrectionTransform",
-  plotStyle = "pointjitter",
-  errorbarParams = list(color="red", width= 0.1, position = position_nudge(-0.05) )
+pCM <- superb(
+    crange(Score.1,Score.3) ~ .,
+    dta, WSFactors = "moment(3)",     
+    adjustments=list(decorrelation="none"),
+    preprocessfct = "subjectCenteringTransform",
+    postprocessfct = "biasCorrectionTransform",
+    plotStyle = "pointjitter",
+    errorbarParams = list(color="red", width= 0.1, position = position_nudge(-0.05) )
 )
 ```
 
@@ -102,13 +103,14 @@ will reproduce the ``CM`` error bars because it decorrelates the data as per
 this method. With one additional transformation, 
 
 ```{r}
-pLM <- superbPlot(dta, WSFactors = "moment(3)", 
-  variables = c("Score.1","Score.2","Score.3"), 
-  adjustments=list(decorrelation="none"),
-  preprocessfct = "subjectCenteringTransform",
-  postprocessfct = c("biasCorrectionTransform","poolSDTransform"),
-  plotStyle = "line",
-  errorbarParams = list(color="orange", width= 0.1, position = position_nudge(-0.0) )
+pLM <- superb(
+    crange(Score.1,Score.3) ~ .,    
+    dta, WSFactors = "moment(3)", 
+    adjustments=list(decorrelation="none"),
+    preprocessfct = "subjectCenteringTransform",
+    postprocessfct = c("biasCorrectionTransform","poolSDTransform"),
+    plotStyle = "line",
+    errorbarParams = list(color="orange", width= 0.1, position = position_nudge(-0.0) )
 )
 ```
 
@@ -116,13 +118,14 @@ the ``LM`` method is reproduced. Finally, if the ``biasCorrectionTransform`` is 
 
 
 ```{r}
-pNKM <- superbPlot(dta, WSFactors = "moment(3)", 
-  variables = c("Score.1","Score.2","Score.3"), 
-  adjustments=list(decorrelation="none"),
-  preprocessfct = "subjectCenteringTransform",
-  postprocessfct = c("poolSDTransform"),
-  plotStyle = "line",
-  errorbarParams = list(color="blue", width= 0.1, position = position_nudge(+0.05) )
+pNKM <- superb(
+    crange(Score.1,Score.3) ~ .,
+    dta, WSFactors = "moment(3)", 
+    adjustments=list(decorrelation="none"),
+    preprocessfct = "subjectCenteringTransform",
+    postprocessfct = c("poolSDTransform"),
+    plotStyle = "line",
+    errorbarParams = list(color="blue", width= 0.1, position = position_nudge(+0.05) )
 )
 ```
 

@@ -344,6 +344,7 @@ superbPlot <- function(data,
         list(variables, design, BSFactors, WSFactors, wsLevels, wslevel, factorOrder, adjustments) )
 
 
+
     ##############################################################################
     # STEP 2: Decorrelate repeated-measure variables if needed; apply transforms
     ##############################################################################
@@ -590,6 +591,7 @@ superbPlot <- function(data,
         }
     }
     
+    
     ##############################################################################
     # ALL DONE! Output the plot(s) or the summary data
     ##############################################################################
@@ -618,6 +620,7 @@ superbPlot <- function(data,
         # returns a list with summary statistsics as is and rawdata
         return( list(summaryStatistics = summaryStatistics, rawData = data.untransformed.long))
     }
+
 
     ##############################################################################
     # FINISHED! End of function superbPlot

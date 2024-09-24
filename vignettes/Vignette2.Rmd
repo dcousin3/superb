@@ -36,15 +36,15 @@ Consider the results obtained. The measurement instrument tends to return scores
 near 100.
 
 ```{r, message=FALSE, echo=FALSE, fig.height=4, fig.width=3, fig.cap="**Figure 1**. Mean scores along with 95% confidence interval for two groups of students on the quality of learning behavior."}
-superbPlot(dataFigure1, 
-        BSFactors = "grp", 
-        variables = "score", 
-        plotStyle="line" ) + 
-    xlab("Group") + ylab("Score") + 
-    labs(title="(stand-alone)\n95% confidence intervals") +
-    coord_cartesian( ylim = c(85,115) ) +
-    theme_gray(base_size=10) +
-    scale_x_discrete(labels=c("1" = "Collaborative\ngames", "2" = "Unstructured\nactivity"))
+superb(
+    score ~ grp, 
+    dataFigure1, 
+    plotStyle="line" ) + 
+xlab("Group") + ylab("Score") + 
+labs(title="(stand-alone)\n95% confidence intervals") +
+coord_cartesian( ylim = c(85,115) ) +
+theme_gray(base_size=10) +
+scale_x_discrete(labels=c("1" = "Collaborative\ngames", "2" = "Unstructured\nactivity"))
 ```
 
 As seen, there seems to be a better score for students playing collaborative games. 
@@ -105,16 +105,16 @@ by adding an adjustment to the list of adjustments with ``adjustments = list(pur
 "difference")``, as seen below.
 
 ```{r, message=FALSE, echo=TRUE, fig.height=4, fig.width=3, fig.cap="**Figure 2**. Mean scores along with difference-adjusted 95% confidence interval for two groups of students on the quality of learning behavior."}
-superbPlot(dataFigure1, 
-        BSFactors = "grp", 
-        adjustments=list(purpose = "difference"),  # the only new thing here
-        variables = "score", 
-        plotStyle="line" ) + 
-    xlab("Group") + ylab("Score") + 
-    labs(title="Difference-adjusted\n95% confidence intervals") +
-    coord_cartesian( ylim = c(85,115) ) + 
-    theme_gray(base_size=10) +
-    scale_x_discrete(labels=c("1" = "Collaborative\ngames", "2" = "Unstructured\nactivity"))
+superb(
+    score ~ grp, 
+    dataFigure1, 
+    adjustments=list(purpose = "difference"),  # the only new thing here
+    plotStyle="line" ) + 
+xlab("Group") + ylab("Score") + 
+labs(title="Difference-adjusted\n95% confidence intervals") +
+coord_cartesian( ylim = c(85,115) ) + 
+theme_gray(base_size=10) +
+scale_x_discrete(labels=c("1" = "Collaborative\ngames", "2" = "Unstructured\nactivity"))
 ```
 
 This is where the usefulness of ``superb`` is apparent: it only required an 
@@ -127,26 +127,26 @@ Just for comparison purposes, let's show both plots side-by-side.
 
 ```{r, message=FALSE, echo=TRUE, fig.height=4, fig.cap="**Figure 3**. Two representation of the data with unadjusted (left) and adjusted (right) 95% confidence intervals"}
 library(gridExtra)
-plt1 <- superbPlot(dataFigure1, 
-        BSFactors = "grp", 
-        variables = "score", 
-        plotStyle="line" ) + 
-    xlab("Group") + ylab("Score") + 
-    labs(title="(stand-alone)\n95% confidence intervals") +
-    coord_cartesian( ylim = c(85,115) ) +
-    theme_gray(base_size=10) +
-    scale_x_discrete(labels=c("1" = "Collaborative\ngames", "2" = "Unstructured\nactivity")) 
+plt1 <- superb(
+    score ~ grp, 
+    dataFigure1, 
+    plotStyle="line" ) + 
+xlab("Group") + ylab("Score") + 
+labs(title="(stand-alone)\n95% confidence intervals") +
+coord_cartesian( ylim = c(85,115) ) +
+theme_gray(base_size=10) +
+scale_x_discrete(labels=c("1" = "Collaborative\ngames", "2" = "Unstructured\nactivity")) 
 
-plt2 <- superbPlot(dataFigure1, 
-        BSFactors = "grp", 
-        adjustments=list(purpose = "difference"), 
-        variables = "score", 
-        plotStyle="line" ) + 
-    xlab("Group") + ylab("Score") + 
-    labs(title="Difference-adjusted\n95% confidence intervals") +
-    coord_cartesian( ylim = c(85,115) ) + 
-    theme_gray(base_size=10) +
-    scale_x_discrete(labels=c("1" = "Collaborative\ngames", "2" = "Unstructured\nactivity")) 
+plt2 <- superb(
+    score ~ grp, 
+    dataFigure1, 
+    adjustments=list(purpose = "difference"), 
+    plotStyle="line" ) + 
+xlab("Group") + ylab("Score") + 
+labs(title="Difference-adjusted\n95% confidence intervals") +
+coord_cartesian( ylim = c(85,115) ) + 
+theme_gray(base_size=10) +
+scale_x_discrete(labels=c("1" = "Collaborative\ngames", "2" = "Unstructured\nactivity")) 
 
 plt <- grid.arrange(plt1, plt2, ncol=2)
 ```
@@ -156,29 +156,29 @@ A second way to compare the two plots is to superimpose them, as in Figure 4:
 ```{r, message=FALSE, echo=TRUE, fig.height=4, fig.width=6, fig.cap="**Figure 4**. Two representations of the results with adjusted and unadjusted error bars on the same plot"}
 # generate the two plots, nudging the error bars, using distinct colors, and 
 # having the second plot's background transparent (with ``makeTransparent()`` )
-plt1 <- superbPlot(dataFigure1, 
-        BSFactors = "grp", 
-        variables = "score", 
-        errorbarParams = list(color="blue",position = position_nudge(-0.05) ),
-        plotStyle="line" ) + 
-    xlab("Group") + ylab("Score") + 
-    labs(title="(red) Difference-adjusted 95% confidence intervals\n(blue) (stand-alone) 95% confidence intervals") +
-    coord_cartesian( ylim = c(85,115) ) +
-    theme_gray(base_size=10) +
-    scale_x_discrete(labels=c("1" = "Collaborative\ngames", "2" = "Unstructured\nactivity")) 
+plt1 <- superb(
+    score ~ grp,
+    dataFigure1, 
+    errorbarParams = list(color="blue",position = position_nudge(-0.05) ),
+    plotStyle="line" ) + 
+xlab("Group") + ylab("Score") + 
+labs(title="(red) Difference-adjusted 95% confidence intervals\n(blue) (stand-alone) 95% confidence intervals") +
+coord_cartesian( ylim = c(85,115) ) +
+theme_gray(base_size=10) +
+scale_x_discrete(labels=c("1" = "Collaborative\ngames", "2" = "Unstructured\nactivity")) 
 
 
-plt2 <- superbPlot(dataFigure1, 
-        BSFactors = "grp", 
-        adjustments=list(purpose = "difference"), 
-        variables = "score", 
-        errorbarParams = list(color="red",position = position_nudge(0.05) ),
-        plotStyle="line" ) + 
-    xlab("Group") + ylab("Score") + 
-    labs(title="(red) Difference-adjusted 95% confidence intervals\n(blue) (stand-alone) 95% confidence intervals") +
-    coord_cartesian( ylim = c(85,115) ) + 
-    theme_gray(base_size=10) +
-    scale_x_discrete(labels=c("1" = "Collaborative\ngames", "2" = "Unstructured\nactivity"))
+plt2 <- superb(
+    score ~ grp,
+    dataFigure1, 
+    adjustments=list(purpose = "difference"), 
+    errorbarParams = list(color="red",position = position_nudge(0.05) ),
+    plotStyle="line" ) + 
+xlab("Group") + ylab("Score") + 
+labs(title="(red) Difference-adjusted 95% confidence intervals\n(blue) (stand-alone) 95% confidence intervals") +
+coord_cartesian( ylim = c(85,115) ) + 
+theme_gray(base_size=10) +
+scale_x_discrete(labels=c("1" = "Collaborative\ngames", "2" = "Unstructured\nactivity"))
 
 # transform the ggplots into "grob" so that they can be manipulated
 plt1g <- ggplotGrob(plt1)

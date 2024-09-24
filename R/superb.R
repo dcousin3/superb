@@ -88,21 +88,21 @@
 #'
 #' # Basic example using a built-in dataframe as data. 
 #' # By default, the mean is computed and the error bar are 95% confidence intervals
-#' superb(len ~ dose * supp, ToothGrowth) 
+#' superb(len ~ dose + supp, ToothGrowth) 
 #'
 #' # Example changing the summary statistics to the median and
 #' # the error bar to 80% confidence intervals
-#' superb(len ~ dose * supp, ToothGrowth,
+#' superb(len ~ dose + supp, ToothGrowth,
 #'        statistic = "median", errorbar = "CI", gamma = .80) 
 #'
 #' # Example introducing adjustments for pairwise comparisons 
 #' # and assuming that the whole population is limited to 200 persons
-#' superb(len ~ dose * supp, ToothGrowth,  
+#' superb(len ~ dose + supp, ToothGrowth,  
 #'   adjustments = list( purpose = "difference", popSize = 200) )
 #'
 #' # This example adds ggplot directives to the plot produced
 #' library(ggplot2)
-#' superb(len ~ dose * supp, ToothGrowth) + 
+#' superb(len ~ dose + supp, ToothGrowth) + 
 #' xlab("Dose") + ylab("Tooth Growth") +
 #' theme_bw()
 #'
@@ -182,7 +182,7 @@ superb <- function(
     plotStyle     = "bar",           # type of plot (so far, bar, line, point, pointjitter and pointjitterviolin
     preprocessfct = NULL,            # run preprocessing on the matrix
     postprocessfct= NULL,            # run post-processing on the matrix
-    clusterColumn = "",              # if samplineScheme = CRS
+    clusterColumn = NULL,            # if samplineScheme = CRS
     ...
     # the following are optional list of graphic directives...
     # errorbarParams,                # merged into ggplot/geom_errorbar
@@ -236,7 +236,7 @@ superb <- function(
         stop("superb::error(16): If the format is long (as suggested by |), you must not specify argument `WSFactors`. Exiting...")
 
     # 1.6: Keep only the columns named
-    data <- data[, names(data) %in% ALLvars]
+    data <- data[, names(data) %in% c(ALLvars,clusterColumn),  drop=FALSE]
 
 	# 1.7: get dependent variable -or- cbind dependent variables
 	if (has.cbind.terms(formula)) {
@@ -271,6 +271,7 @@ superb <- function(
         }
     } else {
         BSfacts <- ALLvars[!(ALLvars %in% DVvars)]
+        if (length(BSfacts) == 0) BSfacts = NULL #it could be character(0)...
         WSfacts <- WSfacts2 <- NULL
     }
 
@@ -286,9 +287,9 @@ superb <- function(
         DVvars <- names(data)[!(names(data)==IDvar)&!(names(data)==if(is.null(BSfacts)) "" else BSfacts)]
         # print("File has been widened...")
     } else {
-        # nothing to do
+        # print("nothing to do...")
     }
-    
+   
 
     ##############################################################################
     # STEP 3: Harmonize the data format to wide if needed
@@ -297,6 +298,7 @@ superb <- function(
     #cat(paste("   variables = ", paste(DVvars, collapse=','), "\n", sep=''))
     #cat(paste("   BSFactors = ", paste(BSfacts, collapse=','), "\n", sep=''))
     #cat(paste("   WSFactors = ", paste(WSfacts2, collapse=','), "\n", sep=''))
+    #print(if (length(WSfacts2)==0 ) WSFactors else WSfacts2)
     #cat(">>>Transfering to superbPlot() now...\n")
 
     # we trigger the plot generation here
@@ -326,7 +328,7 @@ superb <- function(
 
 getAfterNested <- function(frm) {
 	# There are two possible cases?
-	#   frm1 <- b ~ BSFactors * WSConditions | Id 
+	#   frm1 <- b ~ BSFactors + WSConditions | Id 
 	#   frm2 <- b ~ WSConditions | Id 
 	f <- sub.formulas(frm, "|")[[1]]
 	if (length(f[[3]]) == 1) {

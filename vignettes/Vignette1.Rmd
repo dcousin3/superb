@@ -94,18 +94,20 @@ dta           <- as.data.frame(dta)
 The mean scores per week is illustrated below:
 
 ```{r, message=FALSE, echo=FALSE, fig.height=3, fig.width=4, fig.cap="**Figure 1**. Mean scores along with 95% confidence interval per week for a program to stop smoking."}
-superbPlot(dta, WSFactors = "Moment(3)",
-        variables = c("Week 1", "Week 2", "Week 3"),
-        statistic = "mean", errorbar = "CI",
-        adjustments = list(purpose = "single", decorrelation = "none"),
-        plotStyle="line",
-        errorbarParams = list(width = .2)
-    ) + 
-    coord_cartesian( ylim = c(50,100) ) +
-    ylab("Mean +- 95% CI") +
-    labs(title="(stand-alone)\n95% confidence interval")+
-    theme_gray(base_size=10) +
-    scale_x_discrete(labels=c("1" = "Week 1", "2" = "Week 2", "3"="Week 3"))
+superb(
+    cbind(`Week 1`, `Week 2`, `Week 3`) ~ ., 
+    dta, 
+    WSFactors = "Moment(3)",
+    statistic = "mean", errorbar = "CI",
+    adjustments = list(purpose = "single", decorrelation = "none"),
+    plotStyle="line",
+    errorbarParams = list(width = .2)
+) + 
+coord_cartesian( ylim = c(50,100) ) +
+ylab("Mean +- 95% CI") +
+labs(title="(stand-alone)\n95% confidence interval")+
+theme_gray(base_size=10) +
+scale_x_discrete(labels=c("1" = "Week 1", "2" = "Week 2", "3"="Week 3"))
 ``` 
 
 Note that missing data are not handled by ``superb``. The cells with NA must be 
@@ -133,18 +135,20 @@ bars (as in Figure 1); ``purpose = "difference"`` returns error bars valid for p
 comparisons. The minimum specification for the data frame above would therefore be
 
 ```{r, message=FALSE, echo=TRUE, results='hide', fig.show='hide'}
-superbPlot(dta, 
+superb(
+    cbind(`Week 1`, `Week 2`, `Week 3`) ~ .,
+    dta, 
     WSFactors = "Moment(3)",
-    variables = c("Week 1", "Week 2", "Week 3"),
     adjustments = list(purpose = "difference"),
     plotStyle="line"
     )
 ```
 
 ```{r, message=FALSE, echo=FALSE, fig.height=3, fig.width=4, fig.cap="**Figure 2**. Mean scores along with difference-adjusted 95% confidence interval per week for a program to stop smoking."}
-superbPlot(dta, 
+superb(
+    cbind(`Week 1`, `Week 2`, `Week 3`) ~ .,
+    dta, 
     WSFactors = "Moment(3)",
-    variables = c("Week 1", "Week 2", "Week 3"),
     statistic = "mean", errorbar = "CI",
     adjustments = list(purpose = "difference"),
     plotStyle="line",
@@ -157,17 +161,29 @@ theme_gray(base_size=10) +
 scale_x_discrete(labels=c("1" = "Week 1", "2" = "Week 2", "3"="Week 3"))
 ``` 
 
-The first argument is the data.frame, in wide format (here ``dta``). The second argument
-describe the experimental design. Here, there is a single within-subject factor (``WSFactors``), 
+The first argument is the formula describing on the left-hand
+side the measurements, and on the right-hand side, the betwee-
+subject conditions. The second argument is a
+data.frame, here in wide format. The data frame is ``dta``. 
+Because we have multiple dependent variables (collected
+with ``cbind()``, the third argument
+describe the within-subject experimental factor(s). 
+Here, there is a single within-subject factor (``WSFactors``), 
  called ``Moment``. In within-subject factors, it is necessary to indicate how many
 level the factor has (here 3).
-The third argument indicates the columns in the data.frame
-containing the measurements. Three columns are involved. The name must match the column
+
+The column named in the formula must match the column
 names in the data.frame. If unsure, check with
 
 ```{r}
 head(dta)
 ```
+
+Note that the measurements could be named using `crange()` 
+instead of `cbind()`. The specification `crange()` is used
+to refer to a range of variables from the first given to
+the last given. Here, the formula could have been given as
+``crange(`Week 1`, `Week 3`) ~ .``
 
 The argument in which the adjustments will be listed is called ``adjustments`` which is
 a list with ---for the moment--- an adjustment for the purpose of the plot: ``purpose =
@@ -178,9 +194,10 @@ Note that the plot obtained is a ``ggplot`` object to which additional graphing
 directives can be added. Figure 2 was actually obtained with these commands:
 
 ```{r, message=FALSE, echo=TRUE, fig.height=3, fig.width=4, results='hide', fig.show='hide'}
-superbPlot(dta, 
+superb(
+    cbind(`Week 1`, `Week 2`, `Week 3`) ~ .,
+    dta, 
     WSFactors = "Moment(3)",
-    variables = c("Week 1", "Week 2", "Week 3"),
     statistic = "mean", errorbar = "CI",
     adjustments = list(purpose = "difference"),
     plotStyle="line"
@@ -222,9 +239,10 @@ personal preference which one you use.
 Figure 2 above will become Figure 3 if you add a decorrelation adjustment:
 
 ```{r, message=TRUE, echo=TRUE, fig.height=3, fig.width=4}
-superbPlot(dta, 
+superb(
+    cbind(`Week 1`, `Week 2`, `Week 3`) ~ .,
+    dta, 
     WSFactors = "Moment(3)",
-    variables = c("Week 1", "Week 2", "Week 3"),
     statistic = "mean", errorbar = "CI",
     adjustments = list(purpose = "difference", decorrelation = "CM"), #new!
     plotStyle="line",
@@ -272,9 +290,10 @@ options(superb.feedback = 'none')
 # add (ficticious) cluster membership for each participant in the column "cluster"
 dta$cluster <- sort(rep(1:5, 3))
 
-superbPlot(dta, 
+superb(
+    cbind(`Week 1`, `Week 2`, `Week 3`) ~ .,
+    dta, 
     WSFactors = "Moment(3)",
-    variables = c("Week 1", "Week 2", "Week 3"),
     adjustments = list(purpose = "difference", decorrelation = "CM",
                        samplingDesign = "CRS", popSize = 100),        #new!
     plotStyle = "line",

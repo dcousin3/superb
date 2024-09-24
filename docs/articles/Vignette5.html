@@ -211,20 +211,20 @@ factors have main effets on the scores.</p>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">testdata</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   id Difficulty score.day1 score.day2</span></span>
-<span><span class="co">## 1  1          1   61.13913   70.10779</span></span>
-<span><span class="co">## 2  2          1   45.09694   43.93983</span></span>
-<span><span class="co">## 3  3          1   77.34465   79.25722</span></span>
-<span><span class="co">## 4  4          1   70.78310   48.26529</span></span>
-<span><span class="co">## 5  5          1   63.18460   66.91910</span></span>
-<span><span class="co">## 6  6          1   60.19746   67.71835</span></span></code></pre>
+<span><span class="co">## 1  1          1   77.63474   62.01703</span></span>
+<span><span class="co">## 2  2          1   57.79556   51.65344</span></span>
+<span><span class="co">## 3  3          1   61.94434   54.75831</span></span>
+<span><span class="co">## 4  4          1   80.87351   58.71374</span></span>
+<span><span class="co">## 5  5          1   58.34790   74.11824</span></span>
+<span><span class="co">## 6  6          1   59.67147   54.14429</span></span></code></pre>
 <p>For simplicity, we define a function whose arguments are the dataset
 and the layout:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mp</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">style</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">data</span>,</span>
+<span>    <span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">score.day1</span>, <span class="va">score.day2</span><span class="op">)</span> <span class="op">~</span> <span class="va">Difficulty</span>,</span>
+<span>        <span class="va">data</span>,</span>
 <span>        WSFactors <span class="op">=</span> <span class="st">"Day(2)"</span>,</span>
-<span>        BSFactors <span class="op">=</span> <span class="st">"Difficulty"</span>,</span>
-<span>        variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"score.day1"</span>, <span class="st">"score.day2"</span><span class="op">)</span>,</span>
 <span>        adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose<span class="op">=</span><span class="st">"difference"</span>, decorrelation<span class="op">=</span><span class="st">"CA"</span><span class="op">)</span>,</span>
 <span>        plotStyle <span class="op">=</span> <span class="va">style</span>,</span>
 <span>        <span class="va">...</span></span>
@@ -419,11 +419,11 @@ remaining factors.</p>
 the demo dataset <code>TMB1964r</code> whose result was shown above in
 Figure 3:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">TMB1964r</span>,</span>
-<span>     WSFactors <span class="op">=</span> <span class="st">"T(7)"</span>,      </span>
-<span>     BSFactors <span class="op">=</span> <span class="st">"Condition"</span>,</span>
-<span>     variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"T1"</span>,<span class="st">"T2"</span>,<span class="st">"T3"</span>,<span class="st">"T4"</span>,<span class="st">"T5"</span>,<span class="st">"T6"</span>,<span class="st">"T7"</span><span class="op">)</span>,</span>
-<span>     plotStyle <span class="op">=</span> <span class="st">"simple"</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
+<span>    <span class="fu">crange</span><span class="op">(</span><span class="va">T1</span>,<span class="va">T7</span><span class="op">)</span> <span class="op">~</span> <span class="va">Condition</span>,</span>
+<span>    <span class="va">TMB1964r</span>,</span>
+<span>    WSFactors <span class="op">=</span> <span class="st">"T(7)"</span>,      </span>
+<span>    plotStyle <span class="op">=</span> <span class="st">"simple"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -436,28 +436,29 @@ graphic directives inside the layers, e.g., inside
 <p>A convenient method is with <code>do.call</code> and
 <code>modifyList</code>, for example:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span>    <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span> <span class="va">geom_point</span>, <span class="fu"><a href="https://rdrr.io/r/utils/modifyList.html" class="external-link">modifyList</a></span><span class="op">(</span></span>
-<span>       <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> size<span class="op">=</span> <span class="fl">3</span> <span class="co">##etc., the default directives##</span></span>
-<span>       <span class="op">)</span>, <span class="va">myownParams</span></span>
-<span>    <span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span> <span class="va">geom_point</span>, <span class="fu"><a href="https://rdrr.io/r/utils/modifyList.html" class="external-link">modifyList</a></span><span class="op">(</span></span>
+<span>   <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> size<span class="op">=</span> <span class="fl">3</span> <span class="co">##etc., the default directives##</span></span>
+<span>   <span class="op">)</span>, <span class="va">myownParams</span></span>
+<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>A full example it therefore</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">superbPlot.simpleWithOptions</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span></span>
 <span>    <span class="va">summarydata</span>, <span class="va">xfactor</span>, <span class="va">groupingfactor</span>, <span class="va">addfactors</span>, <span class="va">rawdata</span>,</span>
-<span>    <span class="va">myownParams</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>  <span class="co">## will be used to add the optional arguments to the function</span></span>
+<span>    <span class="va">myownpointParams</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,  <span class="co">## will be used to add the optional arguments to the function</span></span>
+<span>    <span class="va">myownebParams</span>    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>  <span class="co">## will be used to add the optional arguments to the function</span></span>
 <span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span></span>
 <span>        data <span class="op">=</span> <span class="va">summarydata</span>, </span>
 <span>        mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span> x <span class="op">=</span> <span class="op">!</span><span class="op">!</span><span class="fu"><a href="https://rlang.r-lib.org/reference/sym.html" class="external-link">sym</a></span><span class="op">(</span><span class="va">xfactor</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">center</span>, group<span class="op">=</span><span class="va">Condition</span><span class="op">)</span></span>
 <span>    <span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span> <span class="va">geom_point</span>, <span class="fu"><a href="https://rdrr.io/r/utils/modifyList.html" class="external-link">modifyList</a></span><span class="op">(</span></span>
-<span>       <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> color <span class="op">=</span><span class="st">"black"</span> <span class="op">)</span>,</span>
-<span>        <span class="va">myownParams</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> color <span class="op">=</span><span class="st">"black"</span> <span class="op">)</span>,</span>
+<span>        <span class="va">myownpointParams</span></span>
 <span>    <span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span> <span class="va">geom_errorbar</span>, <span class="fu"><a href="https://rdrr.io/r/utils/modifyList.html" class="external-link">modifyList</a></span><span class="op">(</span></span>
 <span>        <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">center</span> <span class="op">+</span> <span class="va">lowerwidth</span>, </span>
 <span>                            ymax <span class="op">=</span> <span class="va">center</span> <span class="op">+</span> <span class="va">upperwidth</span><span class="op">)</span>  <span class="op">)</span>,</span>
-<span>        <span class="va">myownParams</span> </span>
+<span>        <span class="va">myownebParams</span> </span>
 <span>    <span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">facet_grid</a></span><span class="op">(</span> <span class="va">addfactors</span> <span class="op">)</span></span>
 <span>        </span>
@@ -466,13 +467,14 @@ graphic directives inside the layers, e.g., inside
 <span><span class="fu">superb</span><span class="fu">:::</span><span class="fu">is.superbPlot.function</span><span class="op">(</span><span class="st">"superbPlot.simpleWithOptions"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">TMB1964r</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
+<span>    <span class="fu">crange</span><span class="op">(</span><span class="va">T1</span>,<span class="va">T7</span><span class="op">)</span> <span class="op">~</span> <span class="va">Condition</span>,</span>
+<span>    <span class="va">TMB1964r</span>,</span>
 <span>    WSFactors <span class="op">=</span> <span class="st">"T(7)"</span>,      </span>
-<span>    BSFactors <span class="op">=</span> <span class="st">"Condition"</span>,</span>
-<span>    variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"T1"</span>,<span class="st">"T2"</span>,<span class="st">"T3"</span>,<span class="st">"T4"</span>,<span class="st">"T5"</span>,<span class="st">"T6"</span>,<span class="st">"T7"</span><span class="op">)</span>,</span>
 <span>    plotStyle <span class="op">=</span> <span class="st">"simpleWithOptions"</span>, </span>
 <span>    <span class="co">## here goes the optional arguments</span></span>
-<span>    myownParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">1</span>, color<span class="op">=</span><span class="st">"purple"</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">)</span> </span>
+<span>    myownpointParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">1</span>, color<span class="op">=</span><span class="st">"purple"</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">)</span>, </span>
+<span>    myownebParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>linewidth<span class="op">=</span><span class="fl">1</span>, color<span class="op">=</span><span class="st">"purple"</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">)</span> </span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>In that example, the same parameters are sent to
 <code>geom_point</code> and to <code>geom_errorbar</code>. It is left as
@@ -506,11 +508,11 @@ transfer any variables you want into the global environment.</p>
 <span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">plot</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>superb.feedback <span class="op">=</span> <span class="st">'inempty'</span><span class="op">)</span>  <span class="co">## turn on feedback when reaching 'inempty'</span></span>
-<span><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">TMB1964r</span>,</span>
-<span>     WSFactors <span class="op">=</span> <span class="st">"T(7)"</span>,      </span>
-<span>     BSFactors <span class="op">=</span> <span class="st">"Condition"</span>,</span>
-<span>     variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"T1"</span>,<span class="st">"T2"</span>,<span class="st">"T3"</span>,<span class="st">"T4"</span>,<span class="st">"T5"</span>,<span class="st">"T6"</span>,<span class="st">"T7"</span><span class="op">)</span>,</span>
-<span>     plotStyle <span class="op">=</span> <span class="st">"empty"</span> </span>
+<span><span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
+<span>    <span class="fu">crange</span><span class="op">(</span><span class="va">T1</span>,<span class="va">T7</span><span class="op">)</span> <span class="op">~</span> <span class="va">Condition</span>,</span>
+<span>    <span class="va">TMB1964r</span>,</span>
+<span>    WSFactors <span class="op">=</span> <span class="st">"T(7)"</span>,      </span>
+<span>    plotStyle <span class="op">=</span> <span class="st">"empty"</span> </span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## ==&gt; Dumping the two dataframes &lt;==</span></span>
 <span><span class="co">##     variables dumped in: summary, raw</span></span></code></pre>
@@ -569,11 +571,11 @@ function:</p>
 <p>It is all we need! This layout can be inserted in a
 <code>superbPlot</code> call:</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span><span class="va">TMB1964r</span>,</span>
-<span>     WSFactors <span class="op">=</span> <span class="st">"T(7)"</span>,      </span>
-<span>     BSFactors <span class="op">=</span> <span class="st">"Condition"</span>, </span>
-<span>     variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"T1"</span>,<span class="st">"T2"</span>,<span class="st">"T3"</span>,<span class="st">"T4"</span>,<span class="st">"T5"</span>,<span class="st">"T6"</span>,<span class="st">"T7"</span><span class="op">)</span>,</span>
-<span>     plotStyle <span class="op">=</span> <span class="st">"smiley"</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
+<span>    <span class="fu">crange</span><span class="op">(</span><span class="va">T1</span>,<span class="va">T7</span><span class="op">)</span> <span class="op">~</span> <span class="va">Condition</span>,</span>
+<span>    <span class="va">TMB1964r</span>,</span>
+<span>    WSFactors <span class="op">=</span> <span class="st">"T(7)"</span>,      </span>
+<span>    plotStyle <span class="op">=</span> <span class="st">"smiley"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="Vignette5_files/figure-html/unnamed-chunk-23-1.png" alt="**Figure 5**. smile!" width="384"><p class="caption">
