@@ -65,6 +65,7 @@
 #'
 #' The formulas can be for long format data using | notation, e.g., 
 #' * `superb( extra ~ group | ID, sleep )`
+#'
 #' or for wide format, using cbind() or crange() notation, e.g., 
 #' * `superb( cbind(DV.1.1, DV.2.1,DV.1.2, DV.2.2,DV.1.3, DV.2.3) ~ . , dta, WSFactors = c("a(2)","b(3)"))`
 #' * `superb( crange(DV.1.1, DV.2.3) ~ . , dta, WSFactors = c("a(2)","b(3)"))`
@@ -79,6 +80,8 @@
 #' * "raincloud" Illustrates the distribution with a cloud (half_violin_plot) and jittered dots next to it. Looks better when coordinates are flipped ``+coord_flip()``
 #' * "lineband" illustrates the confidence intervals as a band;
 #' * "corset" illustrates within-subject designs with individual lines and clouds.
+#'
+#' Personalized layouts can also be created (see Vignette5).
 #'
 #' @references
 #' \insertAllCited{}

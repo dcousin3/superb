@@ -25,6 +25,7 @@
 #' @param tipformat (NEW) "single", "double" or "triple" to add additional 
 #'        marker lines to the tips (default is "single")
 #' @param tipgap (NEW) The spacing between the markers when "double" or "triple" is used (default 0.1)
+#' @param pointing (NEW) The "up", "down" or "both" up and down direction of the error bar
 #' @param ... all additional parameters are sent to the underlying geom_path
 #' @param na.rm (as usual) see geom_errorbar
 #' @param orientation (as usual) see geom_errorbar
@@ -135,6 +136,7 @@ geom_superberrorbar <- function(
     direction   = "both",    # new: "left", "right", "both"
     tipformat   = "single",  # new: "single", "double", "triple"
     tipgap      = 0.1,       # new: spacing between the double tips 
+    pointing    = "both",
     ...,
     na.rm       = FALSE,
     orientation = NA,
@@ -155,6 +157,7 @@ geom_superberrorbar <- function(
             direction   = direction,
             tipformat   = tipformat,
             tipgap      = tipgap,
+            pointing    = pointing,
             ...
         )
     )
@@ -218,8 +221,10 @@ GeomsuperbErrorbar <- ggproto("GeomsuperbErrorbar", Geom,
     },
 
     draw_panel = function(data, panel_params, coord, width = NULL, flipped_aes = FALSE) {
+
         data <- flip_data(data, flipped_aes)
         # enter the top line, the median lines (in two halves), the bottom line
+        # i.e.: il faut 10 segments pour faire une barre.
         ifelse ( ((data$ymin <= data$y) & (data$y <= data$ymax) ), {
             # if the error bar passes through the center, split it in two (for "pointing")
             x    <- as.vector(rbind(data$xmin, data$xmax, NA, data$x,    data$x,    data$x,    data$x,    NA, data$xmin, data$xmax))
@@ -237,13 +242,12 @@ GeomsuperbErrorbar <- ggproto("GeomsuperbErrorbar", Geom,
             collist = c(collist, rep(data$colour[i],3),rep(data$vcolour[i],4),rep(data$colour[i],3))
         }
 
-        nblock = 10 #10 segment for each error bars: the top line, NA, the median line in two halfes, NA, the bottom line
-        # according to "pointing", force half of the bar to be invisible
-        thealphas = c( 
-            rep(ifelse(unique(data$pointing) != "down", data$alpha, 0), nblock/2 ),
-            rep(ifelse(unique(data$pointing) != "up",   data$alpha, 0), nblock/2 )
-        )
-        thealphas = rep( thealphas, nblock)
+        nblock = 10 #10 segments for each error bars: the top line, NA, the median line in two halfes, NA, the bottom line
+
+        thealphas    <- as.vector(sapply(data$pointing, \(i){
+                                c( rep(ifelse(i != "down", data$alpha, 0), 5 ),
+                                   rep(ifelse(i != "up",   data$alpha, 0), 5 ) )
+                            }))
 
         data <- vctrs::new_data_frame(list(
           x         = x,

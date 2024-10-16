@@ -97,7 +97,10 @@ sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Samp
 The formulas can be for long format data using | notation, e.g.,
 \itemize{
 \item \code{superb( extra ~ group | ID, sleep )}
+}
+
 or for wide format, using cbind() or crange() notation, e.g.,
+\itemize{
 \item \code{superb( cbind(DV.1.1, DV.2.1,DV.1.2, DV.2.2,DV.1.3, DV.2.3) ~ . , dta, WSFactors = c("a(2)","b(3)"))}
 \item \code{superb( crange(DV.1.1, DV.2.3) ~ . , dta, WSFactors = c("a(2)","b(3)"))}
 }
@@ -114,6 +117,8 @@ The layouts for plots are the following:
 \item "lineband" illustrates the confidence intervals as a band;
 \item "corset" illustrates within-subject designs with individual lines and clouds.
 }
+
+Personalized layouts can also be created (see Vignette5).
 }
 \examples{
 ######################################################################

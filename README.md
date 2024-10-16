@@ -11,25 +11,24 @@ Status](https://www.r-pkg.org/badges/version/superb)](https://cran.r-project.org
 
 The library `superb` offers two main functionalities. First, it can be
 used to obtain plots with adjusted error bars. The main function is
-`superbPlot()` but you can also use `superbShiny()` for a graphical user
+`superb()` but you can also use `superbShiny()` for a graphical user
 interface requiring no programming nor scripting. See the nice tutorial
 by Walker (2021).
 
-The purpose of `superbPlot()` is to provide a plot with summary
-statistics and correct error bars. With simple adjustments, the error
-bar are adjusted to the design (within or between), to the purpose
-(single or pair-wise differences), to the sampling method (simple
-randomized samples or cluster randomized samples) and to the population
-size (infinite or of a specific size). The `superbData()` function does
-not generate the plot but returns the summary statistics and the
-interval boundaries. These can afterwards be sent to other plotting
-environment.
+The purpose of `superb()` is to provide a plot with summary statistics
+and correct error bars. With simple adjustments, the error bar are
+adjusted to the design (within or between), to the purpose (single or
+pair-wise differences), to the sampling method (simple randomized
+samples or cluster randomized samples) and to the population size
+(infinite or of a specific size). The `superbData()` function does not
+generate the plot but returns the summary statistics and the interval
+boundaries. These can afterwards be sent to other plotting environment.
 
 The second functionality is to generate random datasets. The function
 `GRD()` is used to easily generate random data from any design (within
 or between) using any population distribution with any parameters, and
 with various effect sizes. `GRD()` is useful to test statistical
-procedures and plotting procedures such as `superbPlot()`.
+procedures and plotting procedures such as `superb()`.
 
 # Installation
 
@@ -40,7 +39,7 @@ install.packages("superb")
 library(superb)
 ```
 
-The development version 0.95.17 can be accessed through GitHub:
+The development version 0.95.18 can be accessed through GitHub:
 
 ``` r
 devtools::install_github("dcousin3/superb")
@@ -168,7 +167,7 @@ superb( cbind(score.1, score.2) ~ Difficulty,
 In the above example, optional arguments `errorbarParams` and
 `pointParams` are used to inject specifications in the error bars and
 the points respectively. When these arguments are used, they override
-the defaults from `superbPlot()`.
+the defaults from `superb()`.
 
 # For more
 

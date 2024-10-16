@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.17</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.18</span>
       </span>
     </div>
 
@@ -151,9 +151,9 @@
 <p><img src="logo.png" align="right" alt="" width="120"></p>
 <!-- badges: start -->
 
-<p>The library <code>superb</code> offers two main functionalities. First, it can be used to obtain plots with adjusted error bars. The main function is <code><a href="reference/superbPlot.html">superbPlot()</a></code> but you can also use <code><a href="reference/superbShiny.html">superbShiny()</a></code> for a graphical user interface requiring no programming nor scripting. See the nice tutorial by Walker (2021).</p>
-<p>The purpose of <code><a href="reference/superbPlot.html">superbPlot()</a></code> is to provide a plot with summary statistics and correct error bars. With simple adjustments, the error bar are adjusted to the design (within or between), to the purpose (single or pair-wise differences), to the sampling method (simple randomized samples or cluster randomized samples) and to the population size (infinite or of a specific size). The <code><a href="reference/superbData.html">superbData()</a></code> function does not generate the plot but returns the summary statistics and the interval boundaries. These can afterwards be sent to other plotting environment.</p>
-<p>The second functionality is to generate random datasets. The function <code><a href="reference/GRD.html">GRD()</a></code> is used to easily generate random data from any design (within or between) using any population distribution with any parameters, and with various effect sizes. <code><a href="reference/GRD.html">GRD()</a></code> is useful to test statistical procedures and plotting procedures such as <code><a href="reference/superbPlot.html">superbPlot()</a></code>.</p>
+<p>The library <code>superb</code> offers two main functionalities. First, it can be used to obtain plots with adjusted error bars. The main function is <code><a href="reference/superb.html">superb()</a></code> but you can also use <code><a href="reference/superbShiny.html">superbShiny()</a></code> for a graphical user interface requiring no programming nor scripting. See the nice tutorial by Walker (2021).</p>
+<p>The purpose of <code><a href="reference/superb.html">superb()</a></code> is to provide a plot with summary statistics and correct error bars. With simple adjustments, the error bar are adjusted to the design (within or between), to the purpose (single or pair-wise differences), to the sampling method (simple randomized samples or cluster randomized samples) and to the population size (infinite or of a specific size). The <code><a href="reference/superbData.html">superbData()</a></code> function does not generate the plot but returns the summary statistics and the interval boundaries. These can afterwards be sent to other plotting environment.</p>
+<p>The second functionality is to generate random datasets. The function <code><a href="reference/GRD.html">GRD()</a></code> is used to easily generate random data from any design (within or between) using any population distribution with any parameters, and with various effect sizes. <code><a href="reference/GRD.html">GRD()</a></code> is useful to test statistical procedures and plotting procedures such as <code><a href="reference/superb.html">superb()</a></code>.</p>
 </div>
 <div class="section level1">
 <h1 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -162,7 +162,7 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"superb"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dcousin3.github.io/superb/" class="external-link">superb</a></span><span class="op">)</span></span></code></pre></div>
-<p>The development version 0.95.17 can be accessed through GitHub:</p>
+<p>The development version 0.95.18 can be accessed through GitHub:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"dcousin3/superb"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dcousin3.github.io/superb/" class="external-link">superb</a></span><span class="op">)</span></span></code></pre></div>
@@ -236,7 +236,7 @@
 <span>    pointParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> size <span class="op">=</span> <span class="fl">3</span>, color <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="README_files/figure-gfm/unnamed-chunk-11-1.png"><!-- --></p>
-<p>In the above example, optional arguments <code>errorbarParams</code> and <code>pointParams</code> are used to inject specifications in the error bars and the points respectively. When these arguments are used, they override the defaults from <code><a href="reference/superbPlot.html">superbPlot()</a></code>.</p>
+<p>In the above example, optional arguments <code>errorbarParams</code> and <code>pointParams</code> are used to inject specifications in the error bars and the points respectively. When these arguments are used, they override the defaults from <code><a href="reference/superb.html">superb()</a></code>.</p>
 </div>
 <div class="section level1">
 <h1 id="for-more">For more<a class="anchor" aria-label="anchor" href="#for-more"></a>

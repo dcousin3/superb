@@ -54,17 +54,29 @@ that, it is necessary to check the data format. Herein we illustrate the means w
 
 ## Data format
 
-The format of the data in ``superb`` follows the general convention "1 subject = 
+The data from which to make a plot must be contained within a ``data.frame`` with named columns.
+(I can also be in a tibble or related format as long as they convert to ``data.frame()``)
+The format of the data can be of two forms, **long format** and **wide format**.
+
+In the **wide format**, the general convention is "1 subject = 
 1 line", that is, all the information regarding a given participant must stand 
-on a single line. This format is called in R the **wide format**; in SPSS, SAS
-and other statistics software, this is the standard data organization. Further, the data
-must be contained within a ``data.frame`` with named columns. It is easy to go 
-from **wide format** to **long format**, with, e.g.,
-Navarro's ``wideToLong`` excellent function [@n15].
+on a single line. In SPSS, SAS
+and other statistics software, this is the standard data organization.  You can
+convert from **wide format** to **long format**, with ``superbToWide()``
+or Navarro's ``wideToLong``'s excellent function [@n15]. When there are multiple
+measures in your data, they can be used using the ``cbind()`` or ``crange()``
+notations: With ``cbind()``, you must name all the variables whereas with 
+``crange()`` you name a range of column with the first and last only column
+name of the range.
+
+In the **long format**, each line contains a single measure. if there are
+repated measures, they are on consecutive lines, but can be assigned to a 
+participant because there is an ID column. Then the formula must include a
+``|`` to indicate that the data are nested with participants' ID.
 
 As an illustration, we use the following ficticious data set showing the 
 performance of 15 participants on their motivation scores on Week 1, Week 2 
-and Week 3 for a program to stop smoking.
+and Week 3 for a program to stop smoking (**long format**).
 
 ```{r}
 #Motivation data for 15 participants over three weeks in wide format:
@@ -86,7 +98,7 @@ dta <- matrix( c(
     90, 96,  89
 ), ncol=3, byrow=T)
 
-# put column names then convert to data.frame:
+# put column names and convert to data.frame:
 colnames(dta) <- c("Week 1", "Week 2", "Week 3")
 dta           <- as.data.frame(dta)
 ```
@@ -110,8 +122,14 @@ theme_gray(base_size=10) +
 scale_x_discrete(labels=c("1" = "Week 1", "2" = "Week 2", "3"="Week 3"))
 ``` 
 
-Note that missing data are not handled by ``superb``. The cells with NA must be 
-removed or imputed prior to perform the plot.
+Instead of ``cbind(`Week 1`, `Week 2`, `Week 3`)``, we could have used 
+``crange(`Week 1`, `Week 3`)`` to refer to all the columns from `Week 1` to ``Week3`.
+
+Note that, by default, missing data are not handled by ``superb``. Ideally,
+the cells with NA must be removed or imputed prior to perform the plot. Alternatively, 
+you can look into the summary statistic ``meanNArm()``. We made it on purpose to be
+difficult to make you plot with missing data because you should have handled these
+prior to making your summary plot.
 
 
 ## Step 1: Decide of the purpose of the plot
@@ -190,7 +208,7 @@ a list with ---for the moment--- an adjustment for the purpose of the plot: ``pu
  "difference"``. The standalone CI is the default (it can be obtained explicitly with 
 ``purpose= "single"``). These two expressions, *single* and *difference*, are from @b12. 
 
-Note that the plot obtained is a ``ggplot`` object to which additional graphing
+Note that the plot obtained is a ``ggplot`` object to which additional graphic
 directives can be added. Figure 2 was actually obtained with these commands:
 
 ```{r, message=FALSE, echo=TRUE, fig.height=3, fig.width=4, results='hide', fig.show='hide'}
@@ -210,7 +228,7 @@ scale_x_discrete(labels=c("1" = "Week 1", "2" = "Week 2", "3"="Week 3"))
 ``` 
 
 The graphic directives are applied to the whole plot.
-The reader is referred to the package ``ggplot2`` for more on these graphing directives.
+The reader is referred to the package ``ggplot2`` for more on these graphic directives.
 
 
 ## Step 2: Decide how to handle the within-subject measures

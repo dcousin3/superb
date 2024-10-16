@@ -107,8 +107,8 @@ superbToWide <- function(data,
 	data = data[ c(id, BSFactors, WSFactors, variable) ]
 
     # 1.5: We're clear to go! Turn this on with: options(superb.feedback = "superb.tw")
-    runDebug("superb.tw", "End of Step 1: Input validation", 
-        c("BSFactors2","WSFactors2","variable2","data2"), 
+    runDebug("superb.tw", "End of Step 0: superbToWide", 
+        c("BSFactors0","WSFactors0","variable0","data0"), 
         list( BSFactors, WSFactors, variable, data ) )
 
     ##################################################################################
