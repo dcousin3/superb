@@ -25,8 +25,8 @@
 #' @param tipformat (NEW) "single", "double" or "triple" to add additional 
 #'        marker lines to the tips (default is "single")
 #' @param tipgap (NEW) The spacing between the markers when "double" or "triple" is used (default 0.1)
-#' @param pointing (NEW) The "up", "down" or "both" up and down direction of the error bar
 #' @param ... all additional parameters are sent to the underlying geom_path
+#'           Includes ``pointing`` (NEW) either "up", "down" or "both" up and down;
 #' @param na.rm (as usual) see geom_errorbar
 #' @param orientation (as usual) see geom_errorbar
 #' @param show.legend (as usual) see geom_errorbar
@@ -136,7 +136,8 @@ geom_superberrorbar <- function(
     direction   = "both",    # new: "left", "right", "both"
     tipformat   = "single",  # new: "single", "double", "triple"
     tipgap      = 0.1,       # new: spacing between the double tips 
-    pointing    = "both",
+# Ok, now I understand: all the additional aes() must go within ...
+#    pointing    = "both",
     ...,
     na.rm       = FALSE,
     orientation = NA,
@@ -157,7 +158,7 @@ geom_superberrorbar <- function(
             direction   = direction,
             tipformat   = tipformat,
             tipgap      = tipgap,
-            pointing    = pointing,
+#            pointing    = pointing,
             ...
         )
     )
@@ -182,6 +183,11 @@ GeomsuperbErrorbar <- ggproto("GeomsuperbErrorbar", Geom,
     extra_params = c("na.rm", "orientation", "direction", "tipformat", "tipgap", "pointing"),
 
     setup_data = function(data, params) {
+#print(data)
+#print(dim(data))
+#print(params)
+#print(dim(params))
+
         # Based on direction, change xmin or xmax with a multiplier
         lefmul <- 1; rigmul <- 1;
         if (params$direction == "left")  {rigmul <- 0}
@@ -221,6 +227,8 @@ GeomsuperbErrorbar <- ggproto("GeomsuperbErrorbar", Geom,
     },
 
     draw_panel = function(data, panel_params, coord, width = NULL, flipped_aes = FALSE) {
+#print(data)
+#print(dim(data))
 
         data <- flip_data(data, flipped_aes)
         # enter the top line, the median lines (in two halves), the bottom line
@@ -238,7 +246,6 @@ GeomsuperbErrorbar <- ggproto("GeomsuperbErrorbar", Geom,
         data$vcolour     <- data$vcolour %||% data$colour %||% params$colour 
         collist = c()
         for (i in 1:length(data$colour)) {
-#            collist = c(collist, rep(data$colour[i],3),rep(data$vcolour[i],2),rep(data$colour[i],3))
             collist = c(collist, rep(data$colour[i],3),rep(data$vcolour[i],4),rep(data$colour[i],3))
         }
 

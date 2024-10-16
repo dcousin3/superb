@@ -12,7 +12,6 @@ geom_superberrorbar(
   direction = "both",
   tipformat = "single",
   tipgap = 0.1,
-  pointing = "both",
   ...,
   na.rm = FALSE,
   orientation = NA,
@@ -36,9 +35,8 @@ marker lines to the tips (default is "single")}
 
 \item{tipgap}{(NEW) The spacing between the markers when "double" or "triple" is used (default 0.1)}
 
-\item{pointing}{(NEW) The "up", "down" or "both" up and down direction of the error bar}
-
-\item{...}{all additional parameters are sent to the underlying geom_path}
+\item{...}{all additional parameters are sent to the underlying geom_path
+Includes \code{pointing} (NEW) either "up", "down" or "both" up and down;}
 
 \item{na.rm}{(as usual) see geom_errorbar}
 

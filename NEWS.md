@@ -1,6 +1,6 @@
 # superb 0.95.18 (October 15th, 2024)
 
-* Corrected a bug with geom_superberrorbar()
+* Corrected a bug with ``geom_superberrorbar()``
 
 # superb 0.95.17 (September 31th, 2024)
 
@@ -10,7 +10,7 @@
 # superb 0.95.16 (September 13th, 2024)
 
 * added a new plot layout: the corset plot "corset";
-* corrected a bug in the superbShiny() graphical interface with "corset".
+* corrected a bug in the ``superbShiny()`` graphical interface with "corset".
 
 # superb 0.95.15 (August 18th, 2024)
 
