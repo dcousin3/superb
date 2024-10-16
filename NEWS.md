@@ -1,3 +1,7 @@
+# superb 0.95.18 (October 15th, 2024)
+
+* Corrected a bug with geom_superberrorbar()
+
 # superb 0.95.17 (September 31th, 2024)
 
 * added ``superb()``, a formula-based function.
