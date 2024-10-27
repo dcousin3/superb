@@ -87,8 +87,8 @@ superbPlot.lineBand <- function(
     rawdata,
     pointParams         = list(),
     lineParams          = list(),
-    facetParams         = list(),
     errorbandParams     = list(),
+    facetParams         = list(),
     xAsFactor = TRUE
 ) {
     runDebug("lineBand", "Entering superbPlot.lineBand", c("xfactor2", "groupingfactor2", "addfactors2", "params"), 
@@ -99,7 +99,7 @@ superbPlot.lineBand <- function(
 
     # depending on the scale of the x-axis.
     if (!xAsFactor) 
-        summarydata[[xfactor]] = as.numeric(summarydata[[xfactor]])
+        summarydata[[xfactor]] = unfactor(summarydata[[xfactor]])
 
     # let's do the plot!
     plot <- ggplot(

@@ -28,6 +28,8 @@ The following three functions can be used with missing data.
 They return the mean, the standard error of the mean and the confidence
 interval of the mean.Note that we hesitated to provide these functions: you
 should deal with missing data prior to making your plot.
+Removing NAs from the mean in a univariate setting is equivalent to performing
+mean imputation. See @enwiki:1243866876 for more.
 Also note that for repeated-measure design, only CA adjustment is available.
 }
 \examples{

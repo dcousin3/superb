@@ -20,7 +20,7 @@ The functions has these parameters:"><meta property="og:image" content="http://d
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.18</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.19</span>
       </span>
     </div>
 
@@ -54,6 +54,9 @@ The functions has these parameters:"><meta property="og:image" content="http://d
     </li>
     <li>
       <a href="../articles/VignetteA.html">Plotting Reference Intervals with ``superb``</a>
+    </li>
+    <li>
+      <a href="../articles/VignetteH.html">Plotting radar plots for illustrating profiles</a>
     </li>
     <li>
       <a href="../articles/TheMakingOf.html">The making-of the figures in the article</a>
@@ -128,8 +131,8 @@ and when the results are fairly smooth.</p>
 <span>  <span class="va">rawdata</span>,</span>
 <span>  pointParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  lineParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  facetParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  errorbandParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  facetParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  xAsFactor <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -164,12 +167,12 @@ and when the results are fairly smooth.</p>
 <dd><p>(optional) list of graphic directives that are sent to the geom_jitter layer</p></dd>
 
 
-<dt>facetParams</dt>
-<dd><p>(optional) list of graphic directives that are sent to the facet_grid layer</p></dd>
-
-
 <dt>errorbandParams</dt>
 <dd><p>(optional) list of graphic directives that are sent to the geom_ribbon layer</p></dd>
+
+
+<dt>facetParams</dt>
+<dd><p>(optional) list of graphic directives that are sent to the facet_grid layer</p></dd>
 
 
 <dt>xAsFactor</dt>

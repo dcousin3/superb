@@ -862,7 +862,7 @@ test_that("Testing corset plot", {
         lineParams   = list(colorize=TRUE),
         violinParams = list(fill = "green", alpha = 0.2 ) 
     ) + theme_bw() + 
-    theme(axis.line.y = element_line(color="black"), legend.position=c(0.1,0.75), panel.border = element_blank() ) +
+    theme(axis.line.y = element_line(color="black"), legend.position.inside=c(0.1,0.75), panel.border = element_blank() ) +
     scale_color_manual('Direction\n of change', values=c("red","gray50"), labels=c('decreasing', 'increasing'))
     expect_equal( "ggplot" %in% class(plt), TRUE)
 

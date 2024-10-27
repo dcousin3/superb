@@ -73,7 +73,8 @@ superbPlot.bar <- function(
 
     # depending on the scale of the x-axis.
     if (!xAsFactor) 
-        summarydata[[xfactor]] = as.numeric(summarydata[[xfactor]])
+        summarydata[[xfactor]] <- unfactor(summarydata[[xfactor]])
+        #summarydata[[xfactor]] = as.numeric(summarydata[[xfactor]])
 
     # let's do the plot!
     plot <- ggplot(
@@ -182,7 +183,7 @@ superbPlot.line <- function(
 
     # depending on the scale of the x-axis.
     if (!xAsFactor) 
-        summarydata[[xfactor]] = as.numeric(summarydata[[xfactor]])
+        summarydata[[xfactor]] = unfactor(summarydata[[xfactor]])
 
     # let's do the plot!
     plot <- ggplot(
@@ -194,21 +195,18 @@ superbPlot.line <- function(
     # the points ...
     do.call(geom_point, modifyList(
         list(size = 3, position = position_dodge(width = .15), 
-            #mapping = aes_string(group = groupingfactor) ),
             mapping = aes(group = !!mysym(groupingfactor) ) ),
         pointParams
     )) +
     # ... and the lines connecting the points
     do.call(geom_line, modifyList(
         list(position = position_dodge(width = .15), 
-            #mapping = aes_string(group = ifelse(is.null(groupingfactor),1,groupingfactor) ) ),
             mapping = aes(group = !!mysym(ifelse(is.null(groupingfactor),1,groupingfactor)) ) ),
         lineParams
     )) +
     # the error bars
     do.call(geom_superberrorbar, modifyList(
         list(width = 0.1, linewidth = 0.75, position = position_dodge(.15),
-            #mapping = aes_string(group = groupingfactor) ),
             mapping = aes(group = !!mysym(groupingfactor)) ),
         errorbarParams
     )) + 
@@ -288,7 +286,7 @@ superbPlot.point <- function(
 
     # depending on the scale of the x-axis.
     if (!xAsFactor) 
-        summarydata[[xfactor]] = as.numeric(summarydata[[xfactor]])
+        summarydata[[xfactor]] = unfactor(summarydata[[xfactor]])
 
     # let's do the plot!
     plot <- ggplot(

@@ -12,8 +12,8 @@ superbPlot.lineBand(
   rawdata,
   pointParams = list(),
   lineParams = list(),
-  facetParams = list(),
   errorbandParams = list(),
+  facetParams = list(),
   xAsFactor = TRUE
 )
 }
@@ -32,9 +32,9 @@ superbPlot.lineBand(
 
 \item{lineParams}{(optional) list of graphic directives that are sent to the geom_jitter layer}
 
-\item{facetParams}{(optional) list of graphic directives that are sent to the facet_grid layer}
-
 \item{errorbandParams}{(optional) list of graphic directives that are sent to the geom_ribbon layer}
+
+\item{facetParams}{(optional) list of graphic directives that are sent to the facet_grid layer}
 
 \item{xAsFactor}{(optional) Boolean to indicate if the factor on the horizontal should continuous or discrete (default is discrete)}
 }

@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.18</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.19</span>
       </span>
     </div>
 
@@ -77,6 +77,9 @@
     </li>
     <li>
       <a href="../articles/VignetteA.html">Plotting Reference Intervals with ``superb``</a>
+    </li>
+    <li>
+      <a href="../articles/VignetteH.html">Plotting radar plots for illustrating profiles</a>
     </li>
     <li>
       <a href="../articles/TheMakingOf.html">The making-of the figures in the article</a>
@@ -327,14 +330,14 @@ automatically. You can check that the initializer is detectable with</p>
 <span><span class="va">dp13</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu">dp</span><span class="op">(</span><span class="va">grp3</span>, <span class="va">grp1</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">dp23</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu">dp</span><span class="op">(</span><span class="va">grp3</span>, <span class="va">grp2</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">dp12</span>, <span class="va">dp13</span>, <span class="va">dp23</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.059 0.254 0.197</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 0.111 0.292 0.174</span></span></code></pre>
 <p>… and their 95% confidence intervals:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cidp12</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu">CI.dp</span><span class="op">(</span><span class="va">grp2</span>, <span class="va">grp1</span>, <span class="fl">0.95</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">cidp13</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu">CI.dp</span><span class="op">(</span><span class="va">grp3</span>, <span class="va">grp1</span>, <span class="fl">0.95</span> <span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">cidp23</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu">CI.dp</span><span class="op">(</span><span class="va">grp3</span>, <span class="va">grp2</span>, <span class="fl">0.95</span> <span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">cidp12</span>,<span class="va">cidp13</span>,<span class="va">cidp23</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] -0.065  0.183  0.129  0.378  0.073  0.321</span></span></code></pre>
+<pre><code><span><span class="co">## [1] -0.013  0.235  0.167  0.416  0.049  0.298</span></span></code></pre>
 <p>Let’s put these numbers on the plot for easier examination using the
 graphic directives <code><a href="../reference/showSignificance.html">showSignificance()</a></code>:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
@@ -394,7 +397,7 @@ the two difference-adjusted confidence intervals of <span class="math inline">\(
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">compareCIlength</span><span class="op">(</span><span class="va">grp2</span>,<span class="va">grp3</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   dp.length d1.average.length</span></span>
-<span><span class="co">## 1     0.249             0.248</span></span></code></pre>
+<span><span class="co">## 1     0.248             0.248</span></span></code></pre>
 <p>As seen, there is no difference until the third decimal. The small
 difference comes from the fact that the degrees of freedom are
 separated, not pooled.</p>

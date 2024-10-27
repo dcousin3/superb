@@ -30,7 +30,15 @@ enumerated in a vector of strings.}
 \item{WSFactors}{a string indicating the within-subject factor(s) in
 the same format as the between-subject factors}
 
-\item{Effects}{a list detailing the effects to apply to the data}
+\item{Effects}{a list detailing the effects to apply to the data. The effects
+can be given with a list of \code{"factorname" = effect_specification}
+or \code{"factorname1*factorname2" = effect_specification} pairs,
+in which effect_specification can either be \code{slope()}, \code{extent()},
+\code{custom()} and \code{Rexpression()}. For slope and extent, provide a range,
+for custom, indicate the deviation from the grand mean for each cell,
+finally, for Rexpression, give between quote any R commands which
+returns the deviation from the grand mean, using the factors.
+See the last example below.}
 
 \item{Population}{a list providing the population characteristics
 (default is a normal distribution with a mean of 0 and standard deviation of 1)}
@@ -105,6 +113,21 @@ Note that the \code{range} effect specification has been renamed
  superb(cbind(DV.1,DV.2) ~ Difficulty, dta, WSFactors = "Moment(2)", 
      plotStyle="line",
      adjustments = list (purpose="difference", decorrelation = "CM") )
+ 
+ # This example creates a dataset in a 3 x 2 design. It has various effects,
+ # one effect of difficulty, with an overall effect of 10 more (+3.33 per level),
+ # one effect of gender, whose slope is 10 points (+10 points for each additional gender),
+ # and finally one interacting effect, which is 0 for the last three cells of the design:
+ GRD(
+     BSFactors  = c("difficulty(3)","gender(2)"), 
+     Population = list(mean=100,stddev=15), SubjectsPerGroup = 200,
+     Effects    = list(
+         "difficulty" = extent(10),
+         "gender"=slope(10),
+         "difficulty*gender"=custom(-300,+200,-100,0,0,0) 
+     ) 
+ )
+ 
  
 }
 \references{

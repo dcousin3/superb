@@ -1,3 +1,9 @@
+# superb 0.95.19 (October 30th, 2024)
+
+* Remove deprecated arguments in ggplot2 >=3.5.0
+* Added circular layouts for radar plots with error bars
+* Cleaned a bit the documentation
+
 # superb 0.95.18 (October 15th, 2024)
 
 * Corrected a bug with ``geom_superberrorbar()``

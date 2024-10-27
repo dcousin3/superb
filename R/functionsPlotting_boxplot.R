@@ -115,7 +115,7 @@ superbPlot.boxplot <- function(
 
     # depending on the scale of the x-axis.
     if (!xAsFactor) 
-        summarydata[[xfactor]] = as.numeric(summarydata[[xfactor]])
+        summarydata[[xfactor]] = unfactor(summarydata[[xfactor]])
 
 # the x-axis var must be a factor
 	rawdata[[xfactor]]     <- as.factor(rawdata[[xfactor]])

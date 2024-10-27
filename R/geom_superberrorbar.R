@@ -75,14 +75,14 @@
 #' test <- GRD(SubjectsPerGroup  = 20,
 #'			   WSFactors = "Moment(5)", 
 #'             Effects = list("Moment" = extent(10) ),
-#'             Population = list(mean = 100, stddev = 25, rho = 0.8) ) 
+#'             Population = list(mean = 100, stddev = 15, rho = 0.8) ) 
 #' 
 #' ornate = list(
 #'         labs(title =paste("(left)            95% confidence intervals",
 #'                         "\n(right)          99% confidence intervals",
 #'                         "\n(center, up) 99.9% confidence intervals")),
 #'         xlab("Moment"), ylab("Score"),
-#'         coord_cartesian( ylim = c(85,110) )
+#'         coord_cartesian( ylim = c(85,125) )
 #' )
 #' 
 #' plt1 <- superb(

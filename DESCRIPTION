@@ -1,8 +1,8 @@
 Package: superb
 Type: Package
 Title: Summary Plots with Adjusted Error Bars
-Version: 0.95.18
-Date: 2024-10-15
+Version: 0.95.19
+Date: 2024-10-30
 Authors@R: c(
              person("Denis", "Cousineau", email = "denis.cousineau@uottawa.ca",
                     role = c("aut", "cre")),
@@ -45,7 +45,7 @@ Depends:
 Imports: 
     foreign,
     plyr (>= 1.8.4),
-    ggplot2 (>= 3.1.0),
+    ggplot2 (>= 3.5.0),
     MASS,
     rrapply,
     lsr (>= 0.5),
@@ -70,6 +70,7 @@ Suggests:
     png,
     reshape2,
     rmarkdown,
+    RColorBrewer,
     sadists,
     scales,
     testthat,

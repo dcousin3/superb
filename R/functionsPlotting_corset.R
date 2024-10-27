@@ -106,7 +106,7 @@ superbPlot.corset <- function(
 
     # depending on the scale of the x-axis.
     if (!xAsFactor) 
-        summarydata[[xfactor]] = as.numeric(summarydata[[xfactor]])
+        summarydata[[xfactor]] = unfactor(summarydata[[xfactor]])
 
     # rename column "DV" as "center"
     rawdata$center <- rawdata$DV

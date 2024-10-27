@@ -185,7 +185,7 @@ superbPlot.raincloud <- function(
 
     # depending on the scale of the x-axis.
     if (!xAsFactor) 
-        summarydata[[xfactor]] = as.numeric(summarydata[[xfactor]])
+        summarydata[[xfactor]] = unfactor(summarydata[[xfactor]])
 
     # rename column "DV" as "center"
     rawdata$center <- rawdata$DV
@@ -341,7 +341,7 @@ superbPlot.halfwidthline <- function(
 
     # depending on the scale of the x-axis.
     if (!xAsFactor) 
-        summarydata[[xfactor]] = as.numeric(summarydata[[xfactor]])
+        summarydata[[xfactor]] = unfactor(summarydata[[xfactor]])
 
     # let's do the plot!
     plot <- ggplot(

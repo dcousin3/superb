@@ -1,10 +1,9 @@
 ##################################################################
 ##################################################################
-##  Three moderately-advanced plot layout: 
-##       pointjitter, pointjitterviolin, pointindividualline 
+##  Three moderately-advanced plot layout: pointjitter,
+##       pointlinejitter, pointjitterviolin, pointindividualline 
 ##################################################################
 ##################################################################
-
 
 
 ######################################################################################
@@ -80,8 +79,8 @@ superbPlot.pointjitter <- function(
 					
     # depending on the scale of the x-axis.
     if (!xAsFactor) {
-        summarydata[[xfactor]] = as.numeric(summarydata[[xfactor]])
-        rawdata[[xfactor]] = as.numeric(rawdata[[xfactor]])
+        summarydata[[xfactor]] = unfactor(summarydata[[xfactor]])
+        rawdata[[xfactor]] = unfactor(rawdata[[xfactor]])
     }
 
     # determining the type of jitter based on the presence or not of a groupingfac
@@ -95,7 +94,6 @@ superbPlot.pointjitter <- function(
         do_jitters = do.call(geom_point, modifyList(
                         list(data = rawdata , alpha = 0.2,
                             position = position_jitterdodge(jitter.width=0.1 , dodge.width=0.5 ),
-                            #mapping = aes_string(y = "center", color = groupingfactor  ) ),
                             mapping = aes(y = center, color = !!mysym(groupingfactor)  ) ),
                         jitterParams
                     ) )
@@ -104,7 +102,6 @@ superbPlot.pointjitter <- function(
     # let's do the plot!
     plot <- ggplot(
         summarydata, 
-        #aes_string( x = xfactor, color = groupingfactor )
         aes( x = !!mysym(xfactor), color = !!mysym(groupingfactor) )
     ) + 
     # the jitters 
@@ -113,14 +110,150 @@ superbPlot.pointjitter <- function(
     do.call(geom_point, modifyList(
         list(position = position_dodge(width = .5), 
             size=3,
-            #mapping = aes_string(group = groupingfactor, y = "center" ) ),
             mapping = aes(group = !!mysym(groupingfactor), y = center ) ),
         pointParams
     )) + 
     # the error bars; define ymin, ymax only in errorbar
     do.call(geom_superberrorbar, modifyList(
         list(position = position_dodge(.5), width = 0.1, linewidth = 0.75,
-            #mapping = aes_string(group = groupingfactor, ymin = "center + lowerwidth", ymax = "center + upperwidth") ),
+            mapping = aes(group = !!mysym(groupingfactor), ymin = center + lowerwidth, ymax = center + upperwidth) ),
+        errorbarParams
+    )) + 
+    # the panels (rows or both rows and columns, NULL if no facet)
+    do.call( facet_grid, modifyList(
+        list( rows = addfactors ),
+        facetParams
+    ))
+
+    return(plot)
+}
+
+
+
+######################################################################################
+#' @name superbPlot.pointlinejitter
+#'
+#' @title superbPlot point-and-jitter lines layout
+#'
+#' @md
+#'
+#' @description superbPlot comes with a few built-in templates for making the final plots.
+#' All produces ggplot objects that can be further customized. Additionally, it is
+#' possible to add custom-make templates (see vignette 6). The functions, to be
+#' "superbPlot-compatible", must have these parameters:
+#' 
+#' @param summarydata a data.frame with columns "center", "lowerwidth" and "upperwidth" for each level of the factors;
+#' @param xfactor a string with the name of the column where the factor going on the horizontal axis is given;
+#' @param groupingfactor a string with the name of the column for which the data will be grouped on the plot;
+#' @param addfactors a string with up to two additional factors to make the rows and columns panels, in the form "fact1 ~ fact2";
+#' @param rawdata always contains "DV" for each participants and each level of the factors
+#' @param pointParams (optional) list of graphic directives that are sent to the geom_bar layer
+#' @param lineParams (optional) list of graphic directives that are sent to the geom_bar layer
+#' @param jitterParams (optional) list of graphic directives that are sent to the geom_bar layer
+#' @param errorbarParams (optional) list of graphic directives that are sent to the geom_superberrorbar layer
+#' @param facetParams (optional) list of graphic directives that are sent to the facet_grid layer
+#' @param xAsFactor (optional) Boolean to indicate if the factor on the horizontal should continuous or discrete (default is discrete)
+#'
+#' @return a ggplot object
+#'
+#' @examples
+#' # This will make a plot with jittered points, aka dot plots
+#' superb(
+#'    len ~ dose + supp,
+#'    ToothGrowth, 
+#'    plotStyle="pointlinejitter" 
+#' )
+#'
+#' # if you extract the data with superbData, you can 
+#' # run this layout directly
+#' #processedData <- superb(
+#' #   len ~ dose + supp,
+#' #   ToothGrowth, 
+#' #   showPlot = FALSE
+#' #)
+#' #
+#' #superbPlot.pointlinejitter(processedData$summaryStatistic,
+#' #   "dose",
+#' #   "supp",
+#' #   ".~.",
+#' #   processedData$rawData)
+#'
+#' @export superbPlot.pointlinejitter
+#'
+######################################################################################
+
+superbPlot.pointlinejitter <- function(
+    summarydata,               # a summary result data.frame
+    xfactor,                   # the factor on the horizontal axis  
+    groupingfactor,            # the factor for multiple lines/bars within the plot
+    addfactors,                # the factor(s) to make multiple panels
+    rawdata,                   # the raw data in long format
+    # what follows are optional
+    pointParams    = list(), 
+    lineParams     = list(), 
+    jitterParams   = list(),  
+    errorbarParams = list(),
+    facetParams    = list(),   
+    xAsFactor      = TRUE      # should the horizontal axis be continuous?
+) {
+    runDebug("pointlinejitter", "Entering superbPlot.pointlinejitter", 
+        c("xfactor2", "groupingfactor2", "addfactors2","pointParams2","jitterParams2","errorbarParams2"), list(xfactor, groupingfactor, addfactors, pointParams, jitterParams, errorbarParams))
+    mysym <- function(x) { if(is.character(x)) sym(x) else x }
+
+    # rename column "DV" to "center"
+    rawdata$center <- rawdata$DV
+					
+    # depending on the scale of the x-axis.
+    if (!xAsFactor) {
+        summarydata[[xfactor]] = unfactor(summarydata[[xfactor]])
+        rawdata[[xfactor]] = unfactor(rawdata[[xfactor]])
+    }
+
+    # determining the type of jitter based on the presence or not of a groupingfac
+    if (is.null(groupingfactor)) {
+        do_jitters = do.call(geom_jitter, modifyList(
+                        list(data = rawdata, alpha = 0.2, width = 0.2, height = 0.0,
+                             mapping = aes(y = center ) ),
+                        jitterParams
+                    ) )
+        do_lines = do.call(geom_line, modifyList(
+                        list( 
+                            mapping = aes(y = center, group = !!mysym(ifelse(is.null(groupingfactor),1,groupingfactor)) ) ),
+                        lineParams
+                    ) )
+    } else {
+        do_jitters = do.call(geom_point, modifyList(
+                        list(data = rawdata , alpha = 0.2,
+                            position = position_jitterdodge(jitter.width=0.1 , dodge.width=0.5 ),
+                            mapping = aes(y = center, color = !!mysym(groupingfactor)  ) ),
+                        jitterParams
+                    ) )
+        do_lines = do.call(geom_line, modifyList(
+                        list(position = position_jitterdodge(jitter.width=0.1 , dodge.width=0.5 ), 
+                            mapping = aes(y = center, group = !!mysym(ifelse(is.null(groupingfactor),1,groupingfactor)) ) ),
+                        lineParams
+                    ) )
+    }
+
+    # let's do the plot!
+    plot <- ggplot(
+        summarydata, 
+        aes( x = !!mysym(xfactor), color = !!mysym(groupingfactor) )
+    ) + 
+    # the lines connecting the points
+    do_lines +
+    # the jitters 
+    do_jitters +
+    # and the points 
+    do.call(geom_point, modifyList(
+        list(position = position_dodge(width = .5), 
+            size=3,
+            mapping = aes(group = !!mysym(groupingfactor), y = center ) ),
+        pointParams
+    )) + 
+    # the error bars; define ymin, ymax only in errorbar
+    do.call(geom_superberrorbar, modifyList(
+        list(position = position_dodge(.5), width = 0.1, linewidth = 0.75,
             mapping = aes(group = !!mysym(groupingfactor), ymin = center + lowerwidth, ymax = center + upperwidth) ),
         errorbarParams
     )) + 

@@ -693,6 +693,15 @@ meanLocalCorrelation <- function(X, cols, w) {
 # that simple!
 
 
+unfactor <- function( col ) {
+    unfactored <- suppressWarnings(as.numeric(as.character( col )))
+    if (all(is.na( unfactored ))) {
+        col <- as.numeric( col )
+    } else {
+        col <- unfactored
+    }
+    col
+}
 
 ##################################################################   
 # End of suberbPlot.
