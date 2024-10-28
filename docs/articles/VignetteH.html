@@ -190,9 +190,6 @@ format.</p>
 <span>        plotStyle   <span class="op">=</span> <span class="st">"pointlinejitter"</span>,</span>
 <span>        adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">100</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Score"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## superb::ADVICE: Some of the groups' variances are heterogeneous. Consider using purpose="tryon".</span></span></code></pre>
-<pre><code><span><span class="co">## Warning: Removed 9 rows containing missing values or values outside the scale range</span></span>
-<span><span class="co">## (`geom_point()`).</span></span></code></pre>
 <div class="figure">
 <img src="VignetteH_files/figure-html/unnamed-chunk-2-1.png" alt="**Figure 1**. Plot of the 5 indicator variables." width="672"><p class="caption">
 <strong>Figure 1</strong>. Plot of the 5 indicator variables.
@@ -202,13 +199,11 @@ format.</p>
 distinct profiles. These profiles have different mean score on each
 indicator variables. As such, the plot can be done again, this time with
 different colors for each cluster of participants. We get.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span> <span class="va">DV</span> <span class="op">~</span> <span class="va">Indicator</span> <span class="op">+</span> <span class="va">Profile</span>, data <span class="op">=</span> <span class="va">dta</span>,</span>
 <span>        plotStyle   <span class="op">=</span> <span class="st">"pointlinejitter"</span>,</span>
 <span>        adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span> </span>
 <span>    <span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">100</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Score"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: Removed 9 rows containing missing values or values outside the scale range</span></span>
-<span><span class="co">## (`geom_point()`).</span></span></code></pre>
 <div class="figure">
 <img src="VignetteH_files/figure-html/unnamed-chunk-3-1.png" alt="**Figure 2**. Plot of the 5 indicator variables and the three profiles." width="672"><p class="caption">
 <strong>Figure 2</strong>. Plot of the 5 indicator variables and the
@@ -224,14 +219,10 @@ captured by the profile in which the participants belong.</p>
 <p>To change the plot into a polar plot, simply change the layout.
 Changing from <code>"pointlinejitter"</code> to
 <code>"circularpointlinejitter"</code> does the trick:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span> <span class="va">DV</span> <span class="op">~</span> <span class="va">Indicator</span> <span class="op">+</span> <span class="va">Profile</span>, data <span class="op">=</span> <span class="va">dta</span>,</span>
 <span>        plotStyle <span class="op">=</span> <span class="st">"circularpointlinejitter"</span>         <span class="co">## only change!</span></span>
 <span>    <span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">100</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Score"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Scale for <span style="color: #00BB00;">y</span> is already present.</span></span>
-<span><span class="co">## Adding another scale for <span style="color: #00BB00;">y</span>, which will replace the existing scale.</span></span></code></pre>
-<pre><code><span><span class="co">## Warning: Removed 9 rows containing missing values or values outside the scale range</span></span>
-<span><span class="co">## (`geom_point()`).</span></span></code></pre>
 <div class="figure">
 <img src="VignetteH_files/figure-html/unnamed-chunk-4-1.png" alt="**Figure 3**. Plot of the 5 indicator variables and the three profiles in polar coordinate." width="672"><p class="caption">
 <strong>Figure 3</strong>. Plot of the 5 indicator variables and the
@@ -240,17 +231,11 @@ three profiles in polar coordinate.
 </div>
 <p>We can undo the polar coordinate by forcing a cartesian coordinate
 system with:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span> <span class="va">DV</span> <span class="op">~</span> <span class="va">Indicator</span> <span class="op">+</span> <span class="va">Profile</span>, data <span class="op">=</span> <span class="va">dta</span>,</span>
 <span>        plotStyle <span class="op">=</span> <span class="st">"circularpointlinejitter"</span></span>
 <span>    <span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">100</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Score"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span><span class="op">)</span>                                  <span class="co">## only change!</span></span></code></pre></div>
-<pre><code><span><span class="co">## Scale for <span style="color: #00BB00;">y</span> is already present.</span></span>
-<span><span class="co">## Adding another scale for <span style="color: #00BB00;">y</span>, which will replace the existing scale.</span></span>
-<span><span class="co">## Coordinate system already present. Adding new coordinate system, which will</span></span>
-<span><span class="co">## replace the existing one.</span></span></code></pre>
-<pre><code><span><span class="co">## Warning: Removed 9 rows containing missing values or values outside the scale range</span></span>
-<span><span class="co">## (`geom_point()`).</span></span></code></pre>
 <div class="figure">
 <img src="VignetteH_files/figure-html/unnamed-chunk-5-1.png" alt="**Figure 4**. Plot of the 5 indicator variables and the three profiles back in cartesian coordinate." width="672"><p class="caption">
 <strong>Figure 4</strong>. Plot of the 5 indicator variables and the
@@ -285,11 +270,9 @@ injecting <code>linewidth</code> and <code>alpha</code> in the
 <code><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line()</a></code> using <code>lineParams</code>. Finally, we also
 change the color palette. We can also remove the border around the plot,
 font size, etc.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">RColorBrewer</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: package 'RColorBrewer' was built under R version 4.3.1</span></span></code></pre>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span> <span class="va">DV</span> <span class="op">~</span> <span class="va">Indicator</span> <span class="op">+</span> <span class="va">Profile</span>, data <span class="op">=</span> <span class="va">dta</span>,</span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">RColorBrewer</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span> <span class="va">DV</span> <span class="op">~</span> <span class="va">Indicator</span> <span class="op">+</span> <span class="va">Profile</span>, data <span class="op">=</span> <span class="va">dta</span>,</span>
 <span>        plotStyle      <span class="op">=</span> <span class="st">"circularpointlinejitter"</span>,        </span>
 <span>        lineParams     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>linewidth<span class="op">=</span><span class="fl">1.2</span>, alpha <span class="op">=</span> <span class="fl">0.3</span> <span class="op">)</span>,</span>
 <span>        errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width<span class="op">=</span><span class="fl">0.3</span>,linewidth<span class="op">=</span><span class="fl">1.2</span> <span class="op">)</span>,</span>
@@ -297,10 +280,6 @@ font size, etc.</p>
 <span>    <span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">100</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Score"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>panel.border <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>, text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">16</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_color_brewer</a></span><span class="op">(</span>palette<span class="op">=</span><span class="st">"Dark2"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Scale for <span style="color: #00BB00;">y</span> is already present.</span></span>
-<span><span class="co">## Adding another scale for <span style="color: #00BB00;">y</span>, which will replace the existing scale.</span></span></code></pre>
-<pre><code><span><span class="co">## Warning: Removed 9 rows containing missing values or values outside the scale range</span></span>
-<span><span class="co">## (`geom_point()`).</span></span></code></pre>
 <div class="figure">
 <img src="VignetteH_files/figure-html/unnamed-chunk-6-1.png" alt="**Figure 5**. Plot with some customization" width="672"><p class="caption">
 <strong>Figure 5</strong>. Plot with some customization
@@ -318,7 +297,7 @@ comparisons between curves so that the difference adjustment is needed.
 Simply add <code>purpose = "difference"</code> in the
 <code>adjustments</code> list. You will see that the error bars are now
 a bit longer to allow between-variable comparisons.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span> <span class="va">DV</span> <span class="op">~</span> <span class="va">Indicator</span> <span class="op">+</span> <span class="va">Profile</span>, data <span class="op">=</span> <span class="va">dta</span>,</span>
 <span>        adjustments    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>, <span class="co">## new addition</span></span>
 <span>        plotStyle      <span class="op">=</span> <span class="st">"circularpointlinejitter"</span>,        </span>
@@ -328,10 +307,6 @@ a bit longer to allow between-variable comparisons.</p>
 <span>    <span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">100</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Score"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>panel.border <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>, text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">16</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_color_brewer</a></span><span class="op">(</span>palette<span class="op">=</span><span class="st">"Dark2"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Scale for <span style="color: #00BB00;">y</span> is already present.</span></span>
-<span><span class="co">## Adding another scale for <span style="color: #00BB00;">y</span>, which will replace the existing scale.</span></span></code></pre>
-<pre><code><span><span class="co">## Warning: Removed 9 rows containing missing values or values outside the scale range</span></span>
-<span><span class="co">## (`geom_point()`).</span></span></code></pre>
 <div class="figure">
 <img src="VignetteH_files/figure-html/unnamed-chunk-7-1.png" alt="**Figure 6**. Plot with some difference adjustment" width="672"><p class="caption">
 <strong>Figure 6</strong>. Plot with some difference adjustment
@@ -340,7 +315,7 @@ a bit longer to allow between-variable comparisons.</p>
 <p>If for any reason, you need to change
 <code><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous()</a></code>, you need to preserve a few arguments
 manually, they are</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span></span>
 <span>            oob <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/oob.html" class="external-link">oob_keep</a></span>, </span>
 <span>            limits <span class="op">=</span>   <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.00001</span><span class="op">+</span><span class="va">NUMBER_OF_CATEGORIES</span> <span class="op">)</span>, </span>
@@ -350,7 +325,7 @@ manually, they are</p>
 example.</p>
 <p>You can also rotate the plot or make it turn in the opposite
 direction with the <code>radarParams</code> list, e.g.,</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span> <span class="va">DV</span> <span class="op">~</span> <span class="va">Indicator</span> <span class="op">+</span> <span class="va">Profile</span>, data <span class="op">=</span> <span class="va">dta</span>,</span>
 <span>        adjustments    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>, <span class="co">## new addition</span></span>
 <span>        plotStyle      <span class="op">=</span> <span class="st">"circularpointlinejitter"</span>,        </span>
@@ -361,10 +336,6 @@ direction with the <code>radarParams</code> list, e.g.,</p>
 <span>    <span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">100</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Score"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>panel.border <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>, text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">16</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_color_brewer</a></span><span class="op">(</span>palette<span class="op">=</span><span class="st">"Dark2"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Scale for <span style="color: #00BB00;">y</span> is already present.</span></span>
-<span><span class="co">## Adding another scale for <span style="color: #00BB00;">y</span>, which will replace the existing scale.</span></span></code></pre>
-<pre><code><span><span class="co">## Warning: Removed 9 rows containing missing values or values outside the scale range</span></span>
-<span><span class="co">## (`geom_point()`).</span></span></code></pre>
 <div class="figure">
 <img src="VignetteH_files/figure-html/unnamed-chunk-9-1.png" alt="**Figure 7**. Plot turning counterclockwise" width="672"><p class="caption">
 <strong>Figure 7</strong>. Plot turning counterclockwise
@@ -380,7 +351,7 @@ direction with the <code>radarParams</code> list, e.g.,</p>
 <p>Here, we generated data for three profiles and 5 indicators. The
 effect are from an interaction between the two factors, adding or
 removing points on average on the grand mean which is 50. s</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span></span>
 <span>    SubjectsPerGroup <span class="op">=</span> <span class="fl">20</span>,</span>
 <span>    BSFactors        <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Profile(ProfileA,ProfileB,ProfileC)"</span>,<span class="st">"Indicator(Visual,Spatial,Verbal,Tactile,Semantic)"</span><span class="op">)</span>,</span>
@@ -390,21 +361,16 @@ removing points on average on the grand mean which is 50. s</p>
 <div class="section level3">
 <h3 id="in-summary">In summary<a class="anchor" aria-label="anchor" href="#in-summary"></a>
 </h3>
-<p>Local decorrelation is a tool adapted to time series where nearby
-measurements are expected to show greater correlations than measurements
-separated by large amount of time. This is applicable among other to
-time series, longitudinal studies, fMRI studies (as the example above)
-and EEG studies (as the application described in <span class="citation">Cousineau (2024)</span>).</p>
+<p>Radar plots are compact ways to represent means for a few groups when
+the order of the categories on the x-axis are arbitrary.
+<code>superb</code> and its layouts <code>"circular*"</code> automatize
+the steps to create a circular dataset and show it on a radial
+coordinate system.</p>
 </div>
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
-<div id="ref-cppf24" class="csl-entry">
-Cousineau, A. A. P.-P., Denis AND Proulx. (2024). Local decorrelation
-for error bars in time series. <em>The Quantitative Methods for
-Psychology</em>, <em>20</em>(2), 173–185. <a href="https://doi.org/10.20982/tqmp.20.2.p173" class="external-link">https://doi.org/10.20982/tqmp.20.2.p173</a>
-</div>
 <div id="ref-dtccp" class="csl-entry">
 Delem, M., Turkben, S., Cousineau, D., Cavalli, E., &amp; Plancher, G.
 (2024). Uncovering spatial and verbal cognitive profiles in aphantasia

@@ -11,10 +11,12 @@
 #'      decide whether the error bar tips are unidirectional, pointing to 
 #'      the "left" or to the "right" or if they go in "both" directions.
 #'      Second, it is possible to "double" or "triple" the horizontal marks
-#'      at the extremities of the error bar, with a "tipgap" of your liking.
-#'      Third, an additiona characteristic is vcolour to set a different colour
-#'      for the vertical part of the error bar. The colour can also be "NA" to
-#'      have it invisible. Lastly, the error bar can be pointing "up" and "down"
+#'      at the extremities of the error bar, with a `tipgap` of your liking.
+#'      Third, an additiona characteristic is `vcolour` to set a different colour
+#'      for the vertical part of the error bar or the pair
+#'      `vcolour` and `wcolour` for the top half and bottom half of the vertical
+#'      error bar. The colour(s) can also be "NA" to
+#'      have it invisible. Lastly, the error bar can be `pointing` "up" and "down"
 #'      or go in "both" (the default)
 #'
 #' @param mapping (as usual) see geom_errorbar
@@ -171,6 +173,7 @@ GeomsuperbErrorbar <- ggproto("GeomsuperbErrorbar", Geom,
     default_aes = aes( # the parameters
         colour    = "black", 
         vcolour   = NULL, 
+        wcolour   = NULL, 
         linewidth = 0.5, 
         linetype  = 1, 
         width     = 0.5,
@@ -243,10 +246,11 @@ GeomsuperbErrorbar <- ggproto("GeomsuperbErrorbar", Geom,
             y    <- as.vector(rbind(data$ymax, data$ymax, NA, NA,        data$ymax, data$ymin, NA,        NA, data$ymin, data$ymin))
         } )
         # make the color list with 3 x for the upper tip, 4 x for the vertical, and 3 x for the lower tip
-        data$vcolour     <- data$vcolour %||% data$colour %||% params$colour 
+        data$vcolour     <- data$vcolour %||% data$colour %||% params$colour
+        data$wcolour     <- data$wcolour %||% data$vcolour %||% data$colour %||% params$colour
         collist = c()
         for (i in 1:length(data$colour)) {
-            collist = c(collist, rep(data$colour[i],3),rep(data$vcolour[i],4),rep(data$colour[i],3))
+            collist = c(collist, rep(data$colour[i],3),rep(data$vcolour[i],2),rep(data$wcolour[i],2),rep(data$colour[i],3))
         }
 
         nblock = 10 #10 segments for each error bars: the top line, NA, the median line in two halfes, NA, the bottom line

@@ -219,10 +219,10 @@ dta <- GRD(
 
 ## In summary
 
-Local decorrelation is a tool adapted to time series where nearby measurements are 
-expected to show greater correlations than measurements separated by large amount 
-of time. This is applicable among other to time series, longitudinal studies, 
-fMRI studies (as the example above) and EEG studies (as the application described in @cppf24).
+Radar plots are compact ways to represent means for a few groups when the order of 
+the categories on the x-axis are arbitrary. `superb` and its layouts `"circular*"`
+automatize the steps to create a circular dataset and show it on a radial 
+coordinate system.
 
 
 # References

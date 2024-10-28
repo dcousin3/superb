@@ -137,7 +137,7 @@ plt2 <- superb( cbind(score.1, score.2) ~ Difficulty,
     testdata, WSFactors = "Day(2)",
     adjustments = list(purpose = "difference", decorrelation = "CA"),
     plotStyle = "line"
-)+ ylim(65,85) + labs(title = "correlated and difference-adjusted")
+)+ ylim(65,85) + labs(title = "correlation- and difference-adjusted")
 grid.arrange(plt1,plt2, ncol=2)
 ```
 

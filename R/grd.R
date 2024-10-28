@@ -97,8 +97,9 @@
 #'  # one effect of gender, whose slope is 10 points (+10 points for each additional gender),
 #'  # and finally one interacting effect, which is 0 for the last three cells of the design:
 #'  GRD(
+#'      SubjectsPerGroup = 10,
 #'      BSFactors  = c("difficulty(3)","gender(2)"), 
-#'      Population = list(mean=100,stddev=15), SubjectsPerGroup = 200,
+#'      Population = list(mean=100,stddev=15), 
 #'      Effects    = list(
 #'          "difficulty" = extent(10),
 #'          "gender"=slope(10),

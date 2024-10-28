@@ -47,7 +47,7 @@ a ggplot object
 }
 \description{
 The raincloud layout display jittered dots as well as a "cloud" (half of a violin) above them.
-See Allen, Poggiali, Whitaker, Marshall, & Kievit (2018)
+See @allen2019.
 The functions has these parameters:
 }
 \examples{

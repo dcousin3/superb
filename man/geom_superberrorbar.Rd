@@ -56,10 +56,12 @@ expands this geom in four different ways. First, it is possible to
 decide whether the error bar tips are unidirectional, pointing to
 the "left" or to the "right" or if they go in "both" directions.
 Second, it is possible to "double" or "triple" the horizontal marks
-at the extremities of the error bar, with a "tipgap" of your liking.
-Third, an additiona characteristic is vcolour to set a different colour
-for the vertical part of the error bar. The colour can also be "NA" to
-have it invisible. Lastly, the error bar can be pointing "up" and "down"
+at the extremities of the error bar, with a \code{tipgap} of your liking.
+Third, an additiona characteristic is \code{vcolour} to set a different colour
+for the vertical part of the error bar or the pair
+\code{vcolour} and \code{wcolour} for the top half and bottom half of the vertical
+error bar. The colour(s) can also be "NA" to
+have it invisible. Lastly, the error bar can be \code{pointing} "up" and "down"
 or go in "both" (the default)
 }
 \examples{
