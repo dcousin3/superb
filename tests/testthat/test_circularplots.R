@@ -6,6 +6,7 @@ test_that("Simplest tests", {
 	on.exit(options(old)) 
     options("superb.feedback" = 'none')
 
+    set.seed(663)
     dta1 <- GRD(SubjectsPerGroup = 20,
         BSFactors = "groupe(5)",
         Population = list(mean=75,stddev=15))
@@ -31,6 +32,7 @@ test_that("Tests with 2 factors", {
 	on.exit(options(old)) 
     options("superb.feedback" = 'none')
 
+    set.seed(663)
     dta2a <- GRD(SubjectsPerGroup = 20,
         BSFactors = c("groupe(5)","genre(3)"),
         Population = list(mean=75,stddev=15),
@@ -70,6 +72,7 @@ test_that("Tests with 2 factors (bis)", {
 	on.exit(options(old)) 
     options("superb.feedback" = 'none')
 
+    set.seed(663)
     dta2a <- GRD(SubjectsPerGroup = 20,
         BSFactors = c("groupe(5)","genre(3)"),
         Population = list(mean=75,stddev=15),
@@ -121,7 +124,7 @@ test_that("Tests with 2 factors (ter)", {
 	on.exit(options(old)) 
     options("superb.feedback" = 'none')
 
-
+    set.seed(663)
     dta1 <- GRD(SubjectsPerGroup = 20,
         BSFactors = "groupe(5)",
         Population = list(mean=75,stddev=15))
@@ -195,7 +198,7 @@ test_that("Tests with 3 factors", {
 	on.exit(options(old)) 
     options("superb.feedback" = 'none')
 
-
+    set.seed(663)
     dta3 <- GRD(SubjectsPerGroup = 20,
         BSFactors = c("groupe(a1,x23,t234,b4e3,llka)","genre(H,F,Q)"),
         WSFactors = c("moment(2)"),
@@ -243,6 +246,7 @@ test_that("Tests with 4 factors", {
 	on.exit(options(old)) 
     options("superb.feedback" = 'none')
 
+    set.seed(663)
     dta4 <- GRD(SubjectsPerGroup = 20,
         BSFactors = c("groupe(a1,x23,t234,b4e3,llka)","genre(H,F,Q)"),
         WSFactors = c("moment(2)","winter(6)"),
@@ -292,6 +296,7 @@ test_that("Tests of radarParams", {
 	on.exit(options(old)) 
     options("superb.feedback" = 'none')
 
+    set.seed(663)
     dta2a <- GRD(SubjectsPerGroup = 20,
         BSFactors = c("groupe(5)","genre(3)"),
         Population = list(mean=75,stddev=15),
@@ -344,6 +349,7 @@ test_that("Tests of radarParams", {
 	on.exit(options(old)) 
     options("superb.feedback" = 'none')
 
+    set.seed(663)
     dta2a <- GRD(SubjectsPerGroup = 20,
         BSFactors = c("groupe(5)","genre(3)"),
         Population = list(mean=75,stddev=15),

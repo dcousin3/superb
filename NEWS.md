@@ -3,6 +3,8 @@
 * Remove deprecated arguments in ggplot2 >=3.5.0
 * Added circular layouts for radar plots with error bars
 * Cleaned a bit the documentation
+* Upgraded a bit the ReadMe page
+* Caught a bug in GRD when more than 10 levels where used on an effect
 
 # superb 0.95.18 (October 15th, 2024)
 

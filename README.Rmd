@@ -104,20 +104,20 @@ superb(len ~ dose + supp, ToothGrowth,
 The second function, `GRD()`, can be used to generate random data
 from designs with various within- and between-subject factors.
 This example generates scores for 300 simulated participants in 
-a 3 x 2 design with repeated-measures on `Day`s. Only
-the factor `Day` is modeled as impacting the scores (the reduce by 3 points on the 
+a 3 x 6 design with 6 daily repeated-measures on `Day`s. Only
+the factor `Day` is modeled as impacting the scores (increasing by 3 points on the 
 second day):
 
 ```{r}
 set.seed(663) # for reproducibility
 testdata <- GRD(
     RenameDV   = "score", 
-    SubjectsPerGroup = 50, 
+    SubjectsPerGroup = 10, 
     BSFactors  = "Difficulty(A,B,C)", 
-    WSFactors  = "Day(2)",
+    WSFactors  = "Day(6)",
     Population = list(mean = 75,stddev = 10,rho = 0.8),
-    Effects    = list("Day" = slope(-5), "Difficulty" = slope(3) )
-)
+    Effects    = list( "Difficulty" =  custom(-5,-5,+10), "Day" = slope(3) )
+) 
 head(testdata)
 ```
 
@@ -128,42 +128,80 @@ the Loftus & Masson (CM) techniques:
 
 ```{r}
 library(gridExtra)          # for grid.arrange
+library(RColorBrewer)       # for nicer color palette
 
-plt1 <- superb( cbind(score.1, score.2) ~ Difficulty, 
-    testdata, WSFactors = "Day(2)",
+plt1 <- superb( crange(score.1, score.6) ~ Difficulty, 
+    testdata, WSFactors = "Day(6)",
     plotStyle = "line"
-) + ylim(65,85) + labs(title = "No adjustments")
-plt2 <- superb( cbind(score.1, score.2) ~ Difficulty, 
-    testdata, WSFactors = "Day(2)",
+) + ylim(50,100) + labs(title = "No adjustments") +
+theme_bw() + ylab("Score") +
+scale_color_brewer(palette="Dark2")
+    
+plt2 <- superb( crange(score.1, score.6) ~ Difficulty, 
+    testdata, WSFactors = "Day(6)",
     adjustments = list(purpose = "difference", decorrelation = "CA"),
     plotStyle = "line"
-)+ ylim(65,85) + labs(title = "correlation- and difference-adjusted")
+)+ ylim(50,100) + labs(title = "correlation- and difference-adjusted") +
+theme_bw() + ylab("Score") +
+scale_color_brewer(palette="Dark2")
+
 grid.arrange(plt1,plt2, ncol=2)
 ```
 
 Even better, the simulated scores can be illustrated using using 
-a more elaborated layout, the ``pointjitterviolin`` which, 
+a more elaborated layout, the ``pointjitter`` which, 
 in addition to the mean and confidence interval, shows the raw 
-data using jitter dots and the distribution using a violin plot:
+data using jitter dots:
 
 ```{r}
-superb( cbind(score.1, score.2) ~ Difficulty, 
-    testdata, WSFactors = "Day(2)",
+superb( crange(score.1, score.6) ~ Difficulty, 
+    testdata, WSFactors = "Day(6)",
     adjustments = list(purpose = "difference", decorrelation = "CM"),
-    plotStyle = "pointjitterviolin",
+    plotStyle = "pointjitter",
     errorbarParams = list(color = "purple"),
     pointParams = list( size = 3, color = "purple")
-)
+) +
+theme_bw() + ylab("Score") +
+scale_color_brewer(palette="Dark2")
 ```
 
 In the above example, optional arguments ``errorbarParams`` and ``pointParams``
 are used to inject specifications in the error bars and the points respectively.
 When these arguments are used, they override the defaults from ``superb()``.
 
+Lastly, we could aim for a radar (a.k.a. circular) with
+
+```{r}
+superb( crange(score.1, score.6) ~ Difficulty, testdata, 
+    WSFactors = "Day(6)",
+    adjustments = list(purpose = "difference", decorrelation = "CM"),
+    plotStyle = "circularpointlinejitter",
+    factorOrder = c("Day", "Difficulty"),
+    pointParams = list( size = 3 ),
+    jitterParams = list(alpha=0.25),
+    errorbarParams= list(width=0.33, color = "black")
+) +
+theme_bw() + ylab("") +
+theme(panel.border = element_blank(), text = element_text(size = 16) ) +
+scale_color_brewer(palette="Dark2") +
+theme(axis.line.y = element_blank(), 
+axis.text.y=element_blank(), axis.ticks.y=element_blank())
+```
+
+Every time, you get error bars for free! no need to compute them on the side, no 
+need to worry about the adjustments (whether you want stand-alone error
+bars or adjusted for purpose or correlation, it is all just one option).
+Also, keep in mind that it is easy to change the default (mean +- 95%
+confidence intervals) to any other summary statistics --e.g., median-- and 
+any other measure of error --e.g., standard error, standard deviation,
+inter-quartile range, name it--; you can find some responses in the vignettes
+or on stackExchange or just open an issue on the github repository.
 
 # For more
 
-As seen, the library `superb` makes it easy to illustrate summary statistics 
+_superb_ is for __summary plot with error bar__, as simple as that.
+
+The library `superb` makes it easy to illustrate summary statistics 
 along with the error bars. Some layouts can be used to visualize additional
 characteristics of the raw data. Finally, the resulting appearance can be customized 
 in various ways.

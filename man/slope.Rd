@@ -28,11 +28,11 @@ isolation in any meaningful way...
 }
 \description{
 There is four ways that effects can be defined
-in GRD. "factor = slope(s)" will vary the means by an amount of s for 
-each step of the factor; "factor = extent(s)" will vary the means
+in GRD. `"factor" = slope(s)` will vary the means by an amount of s for 
+each step of the factor; `"factor" = extent(s)` will vary the means
 uniformly so that there is a difference of s between the first and
-the last factor level; "factor = custom(a,b,c..)" will alter each
+the last factor level; `"factor" = custom(a,b,c..)` will alter each
 means by an amount of a for the first, b for the second, etc. Finally
-"factor = Rexpression("R code")" will apply R code to all levels of 
-the factors. R code result alters the base mean.
+`"factor" = Rexpression("R code")` will apply R code to all levels of 
+the factors, altering the base mean.
 }

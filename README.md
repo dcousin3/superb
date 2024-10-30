@@ -96,30 +96,30 @@ superb(len ~ dose + supp, ToothGrowth,
 
 The second function, `GRD()`, can be used to generate random data from
 designs with various within- and between-subject factors. This example
-generates scores for 300 simulated participants in a 3 x 2 design with
-repeated-measures on `Day`s. Only the factor `Day` is modeled as
-impacting the scores (the reduce by 3 points on the second day):
+generates scores for 300 simulated participants in a 3 x 6 design with 6
+daily repeated-measures on `Day`s. Only the factor `Day` is modeled as
+impacting the scores (increasing by 3 points on the second day):
 
 ``` r
 set.seed(663) # for reproducibility
 testdata <- GRD(
     RenameDV   = "score", 
-    SubjectsPerGroup = 50, 
+    SubjectsPerGroup = 10, 
     BSFactors  = "Difficulty(A,B,C)", 
-    WSFactors  = "Day(2)",
+    WSFactors  = "Day(6)",
     Population = list(mean = 75,stddev = 10,rho = 0.8),
-    Effects    = list("Day" = slope(-5), "Difficulty" = slope(3) )
-)
+    Effects    = list( "Difficulty" =  custom(-5,-5,+10), "Day" = slope(3) )
+) 
 head(testdata)
 ```
 
-    ##   id Difficulty  score.1  score.2
-    ## 1  1          A 73.70823 77.00196
-    ## 2  2          A 64.89070 64.99225
-    ## 3  3          A 83.20397 76.68515
-    ## 4  4          A 76.38544 68.51848
-    ## 5  5          A 76.91880 57.43303
-    ## 6  6          A 53.74682 53.53010
+    ##   id Difficulty  score.1  score.2  score.3  score.4  score.5  score.6
+    ## 1  1          A 61.72393 61.48460 70.48406 68.92430 69.85908 68.15339
+    ## 2  2          A 54.16784 65.82688 66.51785 65.59598 82.74906 82.53300
+    ## 3  3          A 69.85369 60.04088 73.99657 72.95358 69.89209 74.30423
+    ## 4  4          A 69.05319 64.99568 75.00310 78.35253 81.48167 76.08335
+    ## 5  5          A 79.29388 81.56254 78.17444 86.36108 92.45310 93.73091
+    ## 6  6          A 56.56657 59.23395 66.10074 63.77299 67.07331 72.64133
 
 This is here that the full benefits of `superb()` is seen: with just a
 few adjustments, you can obtained decorrelated error bars with the
@@ -133,33 +133,46 @@ library(gridExtra)          # for grid.arrange
     ## Warning: package 'gridExtra' was built under R version 4.3.3
 
 ``` r
-plt1 <- superb( cbind(score.1, score.2) ~ Difficulty, 
-    testdata, WSFactors = "Day(2)",
+library(RColorBrewer)       # for nicer color palette
+```
+
+    ## Warning: package 'RColorBrewer' was built under R version 4.3.1
+
+``` r
+plt1 <- superb( crange(score.1, score.6) ~ Difficulty, 
+    testdata, WSFactors = "Day(6)",
     plotStyle = "line"
-) + ylim(65,85) + labs(title = "No adjustments")
-plt2 <- superb( cbind(score.1, score.2) ~ Difficulty, 
-    testdata, WSFactors = "Day(2)",
+) + ylim(50,100) + labs(title = "No adjustments") +
+theme_bw() + ylab("Score") +
+scale_color_brewer(palette="Dark2")
+    
+plt2 <- superb( crange(score.1, score.6) ~ Difficulty, 
+    testdata, WSFactors = "Day(6)",
     adjustments = list(purpose = "difference", decorrelation = "CA"),
     plotStyle = "line"
-)+ ylim(65,85) + labs(title = "correlation- and difference-adjusted")
+)+ ylim(50,100) + labs(title = "correlation- and difference-adjusted") +
+theme_bw() + ylab("Score") +
+scale_color_brewer(palette="Dark2")
+
 grid.arrange(plt1,plt2, ncol=2)
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 Even better, the simulated scores can be illustrated using using a more
-elaborated layout, the `pointjitterviolin` which, in addition to the
-mean and confidence interval, shows the raw data using jitter dots and
-the distribution using a violin plot:
+elaborated layout, the `pointjitter` which, in addition to the mean and
+confidence interval, shows the raw data using jitter dots:
 
 ``` r
-superb( cbind(score.1, score.2) ~ Difficulty, 
-    testdata, WSFactors = "Day(2)",
+superb( crange(score.1, score.6) ~ Difficulty, 
+    testdata, WSFactors = "Day(6)",
     adjustments = list(purpose = "difference", decorrelation = "CM"),
-    plotStyle = "pointjitterviolin",
+    plotStyle = "pointjitter",
     errorbarParams = list(color = "purple"),
     pointParams = list( size = 3, color = "purple")
-)
+) +
+theme_bw() + ylab("Score") +
+scale_color_brewer(palette="Dark2")
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
@@ -169,12 +182,45 @@ In the above example, optional arguments `errorbarParams` and
 the points respectively. When these arguments are used, they override
 the defaults from `superb()`.
 
+Lastly, we could aim for a radar (a.k.a. circular) with
+
+``` r
+superb( crange(score.1, score.6) ~ Difficulty, testdata, 
+    WSFactors = "Day(6)",
+    adjustments = list(purpose = "difference", decorrelation = "CM"),
+    plotStyle = "circularpointlinejitter",
+    factorOrder = c("Day", "Difficulty"),
+    pointParams = list( size = 3 ),
+    jitterParams = list(alpha=0.25),
+    errorbarParams= list(width=0.33, color = "black")
+) +
+theme_bw() + ylab("") +
+theme(panel.border = element_blank(), text = element_text(size = 16) ) +
+scale_color_brewer(palette="Dark2") +
+theme(axis.line.y = element_blank(), 
+axis.text.y=element_blank(), axis.ticks.y=element_blank())
+```
+
+![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+
+Every time, you get error bars for free! no need to compute them on the
+side, no need to worry about the adjustments (whether you want
+stand-alone error bars or adjusted for purpose or correlation, it is all
+just one option). Also, keep in mind that it is easy to change the
+default (mean +- 95% confidence intervals) to any other summary
+statistics –e.g., median– and any other measure of error –e.g., standard
+error, standard deviation, inter-quartile range, name it–; you can find
+some responses in the vignettes or on stackExchange or just open an
+issue on the github repository.
+
 # For more
 
-As seen, the library `superb` makes it easy to illustrate summary
-statistics along with the error bars. Some layouts can be used to
-visualize additional characteristics of the raw data. Finally, the
-resulting appearance can be customized in various ways.
+*superb* is for **summary plot with error bar**, as simple as that.
+
+The library `superb` makes it easy to illustrate summary statistics
+along with the error bars. Some layouts can be used to visualize
+additional characteristics of the raw data. Finally, the resulting
+appearance can be customized in various ways.
 
 The complete documentation is available on this
 [site](https://dcousin3.github.io/superb/).

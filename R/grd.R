@@ -152,7 +152,7 @@ GRD <- function(
     if (!(all(WSFactors==""))) {
         unpacked <- grdUnpacker(WSFactors, ':', 'WS')
         if (any(names(unpacked) %in% names(BSList))) 
-            stop('Unique names across BSFactors and WSFactors list must be provided')
+            stop('GRD::error(1): Unique names across BSFactors and WSFactors list must be provided')
         WSList <- unpacked
     }
     nreplic <- prod(unlist(lapply(WSList,length)))
@@ -161,7 +161,7 @@ GRD <- function(
 
     # validating groups sizes
     if ((length(SubjectsPerGroup)!= 1)&&(length(SubjectsPerGroup)!=ngroups)) 
-        stop('There is ',ngroups, " groups to be created but only ",length(SubjectsPerGroup), " have been defined")
+        stop('GRD::error(2): There is ',ngroups, " groups to be created but only ",length(SubjectsPerGroup), " have been defined")
 
     # setting matrix size, Columns and Rows
     BSnames  <- names(BSList)
@@ -238,7 +238,7 @@ GRD <- function(
     multivariate  = FALSE
     cmultivariate = FALSE
     if ((nreplic == 1)&&((RHO != 0)||(CRHO != 0))) {
-        stop("Warning: the rho parameter is non-zero but there is no within-subject factors. Exiting...")
+        stop("GRD::error(3): Warning: the rho parameter is non-zero but there is no within-subject factors. Exiting...")
     }
     if ((nreplic >0)&&(RHO != 0)) { # turn multivariate mode on
         NREPLICATION = nreplic
@@ -246,12 +246,12 @@ GRD <- function(
         if(length(GM)==1) { 
             GM = rep(GM, nreplic)
         } else if (length(GM) != nreplic) {
-            stop(paste("The mean is a vector of inadequate length for",nreplic,"replications"))
+            stop(paste("GRD::error(4): The mean is a vector of inadequate length for",nreplic,"replications"))
         } 
         if(length(STDDEV)==1) {
             SIGMA = diag(nreplic) * STDDEV*STDDEV + (1-diag(nreplic))* STDDEV*STDDEV * RHO
         } else if (length(STDDEV)!=nreplic) {
-            stop(paste("The standard deviation is a vector of inadequate length for",nreplic,"replications"))
+            stop(paste("GRD::error(5): The standard deviation is a vector of inadequate length for",nreplic,"replications"))
         } else {
             SIGMA = diag(nreplic) * STDDEV*STDDEV + (1-diag(nreplic))* outer(STDDEV,STDDEV) * RHO        
         }
@@ -264,12 +264,12 @@ GRD <- function(
         if(length(CGM)==1) { 
             CGM = rep(CGM, nreplic)
         } else if (length(CGM) != nreplic) {
-            stop(paste("The mean is a vector of inadequate length for",nreplic,"replications"))
+            stop(paste("GRD::error(6): The mean is a vector of inadequate length for",nreplic,"replications"))
         } 
         if(length(CSTDDEV)==1) {
             CSIGMA = diag(nreplic) * CSTDDEV*CSTDDEV + (1-diag(nreplic))* CSTDDEV*CSTDDEV * CRHO
         } else if (length(CSTDDEV)!=nreplic) {
-            stop(paste("The standard deviation is a vector of inadequate length for",nreplic,"replications"))
+            stop(paste("GRD::error(7): The standard deviation is a vector of inadequate length for",nreplic,"replications"))
         } else {
             CSIGMA = diag(nreplic) * CSTDDEV*CSTDDEV + (1-diag(nreplic))* outer(CSTDDEV,CSTDDEV) * CRHO
         }
@@ -327,13 +327,13 @@ GRD <- function(
         deltaDV  <- apply(data, 1, temp1)    
     }
     data$DV <- data$DV + deltaDV
-    
+  
     # runs all effects created in STEP 4
     if (neffects > 0) {
         for (effect in 1 : neffects) {
             f <- paste("F", effect, sep="")
             temp2 <- function(args) { do.call(what=f,args=as.list(args),quote=FALSE)}
-            deltaDV  <- apply(data, 1, temp2)    
+            deltaDV  <- apply(data, 1, temp2)
             data$DV <- data$DV + deltaDV
         }
     } 
@@ -382,13 +382,13 @@ GRD <- function(
 #' @aliases slope extent custom Rexpression
 #'
 #' @description There is four ways that effects can be defined
-#' in GRD. "factor = slope(s)" will vary the means by an amount of s for 
-#' each step of the factor; "factor = extent(s)" will vary the means
+#' in GRD. `"factor" = slope(s)` will vary the means by an amount of s for 
+#' each step of the factor; `"factor" = extent(s)` will vary the means
 #' uniformly so that there is a difference of s between the first and
-#' the last factor level; "factor = custom(a,b,c..)" will alter each
+#' the last factor level; `"factor" = custom(a,b,c..)` will alter each
 #' means by an amount of a for the first, b for the second, etc. Finally
-#' "factor = Rexpression("R code")" will apply R code to all levels of 
-#' the factors. R code result alters the base mean.
+#' `"factor" = Rexpression("R code")` will apply R code to all levels of 
+#' the factors, altering the base mean.
 #'
 #' @usage slope(s)
 #' @usage extent(s)
@@ -415,7 +415,7 @@ GRD <- function(
 # These provide nicer inputs to grd
 slope       <- function(s)   { c(-97, s)   }
 extent      <- function(s)   { c(-98, s)   }
-custom      <- function(...) { c(-99,...)  }
+custom      <- function(...) { c(-99, ...) }
 Rexpression <- function(str)   { c("-96", paste(c(str),collapse="") ) }
 
 
@@ -438,9 +438,10 @@ grdMakeEffect <- function (fnumber, name, details, WBSList, data, allfactors ) {
         temp <- function(onename){
             length(WBSList[which(names(WBSList)==onename)][[1]])
         }
+
         faclevels <- unlist(lapply(fullnames,temp))
         pfaclevel <- prod(faclevels)
-      
+
         # get the effects for each level
         if (details[1] == -97) { # slope effect 
             eff = (0:(pfaclevel-1))*details[2]-details[2]*(pfaclevel-1)/2
@@ -449,18 +450,18 @@ grdMakeEffect <- function (fnumber, name, details, WBSList, data, allfactors ) {
             eff = (0:(pfaclevel-1))*details[2]/(pfaclevel-1)-details[2]/2
         }
         if (details[1] == -99) { # custom effect 
-            if (pfaclevel != length(details)-1 ) stop("The number of custom number does not match ",pfaclevel)
+            if (pfaclevel != length(details)-1 ) stop("GRD::error(8): The number of custom number does not match ",pfaclevel)
               eff = details[2:length(details)]
         }
 
         # get all the observed combination of levels
         comb=apply(expand.grid(WBSList[fullnames]),1,paste,collapse="")
-        swit=paste("paste(",paste("paste(c(",fullnames,"),collapse='')",sep="",collapse=","),",sep=''), ")
+        swit=paste("paste(",paste("paste(trimws(c(",fullnames,")),collapse='')",sep="",collapse=","),",sep=''), ")
         subs=paste("'",comb,"'=",eff, sep="",collapse=",")
         fctstr= paste("F",fnumber," <- function(", allfactors, ") { ",
                  "switch( ",swit,subs,") }", sep = "" )
     }
-    
+
     runDebug("GRD.Effect", paste("GRD.Effect: Processing effect declaration ", fnumber), 
         c("eff","pfaclevel","fctstr"),
         list(eff,pfaclevel,fctstr))
@@ -530,7 +531,7 @@ grdUnpacker = function(string, sep_across, defaultfactorname) {
                 lvls <- ''
             }
             if (varname %in% names(out)) 
-                stop('Unique names must be provided')
+                stop('GRD::error(9): Unique names must be provided')
             out[[varname]] <- lvls
         }
         # if a list of levels is specified
@@ -548,7 +549,7 @@ grdUnpacker = function(string, sep_across, defaultfactorname) {
                 lvls <- 1:lvls
             }
             if (varname %in% names(out)) 
-                stop('Unique names must be provided')
+                stop('GRD::error(10): Unique names must be provided')
             out[[varname]] <- lvls
         }
     }

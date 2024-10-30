@@ -123,15 +123,15 @@ superbPlot.circularpoint <- function(
     tmp    <- lapply(subdta, add_rowmax, xfactor)
     csd    <- do.call(rbind, tmp) # circular summarydata
 
-    morecompact <- position_jitterdodge(jitter.width=0.1 , dodge.width=0.25 )
+    morecompact <- position_dodge(0.25)
     plot1 <- superbPlot.point(csd,
             xfactor,
             groupingfactor,
             addfactors,
             rawdata,
             # reduces the dogding
-            modifyList( list( position = morecompact), pointParams ),
-            modifyList( list( position = morecompact), errorbarParams ),
+            modifyList( if(!is.null(addfactors)) {list( position = morecompact)}, pointParams ),
+            modifyList( if(!is.null(addfactors)) {list( position = morecompact)}, errorbarParams ),
             facetParams,
             xAsFactor
         ) + ylim(0,NA) + 
@@ -370,7 +370,8 @@ superbPlot.circularpointjitter <- function(
     tmp    <- lapply(subdta, add_rowmax, xfactor)
     csd    <- do.call(rbind, tmp) # circular summarydata
 
-    morecompact <- position_jitterdodge(jitter.width=0.1 , dodge.width=0.25 )
+#    morecompact <- position_jitterdodge(jitter.width=0.1 , dodge.width=0.25 )
+    morecompact <- position_dodge(0.25)
     plot1 <- superbPlot.pointjitter(csd,
             xfactor,
             groupingfactor,
@@ -493,7 +494,8 @@ superbPlot.circularpointlinejitter <- function(
     tmp    <- lapply(subdta, add_rowmax, xfactor)
     csd    <- do.call(rbind, tmp) # circular summarydata
 
-    morecompact <- position_jitterdodge(jitter.width=0.1 , dodge.width=0.25 )
+#    morecompact <- position_jitterdodge(jitter.width=0.1 , dodge.width=0.25 )
+    morecompact <- position_dodge(0.25)
     plot1 <- superbPlot.pointlinejitter(csd,
             xfactor,
             groupingfactor,
@@ -613,7 +615,9 @@ superbPlot.circularlineBand <- function(
     tmp    <- lapply(subdta, add_rowmax, xfactor)
     csd    <- do.call(rbind, tmp) # circular summarydata
 
-    morecompact <- position_jitterdodge(jitter.width=0.1 , dodge.width=0.25 )
+#    morecompact <- position_jitterdodge(jitter.width=0.1 , dodge.width=0.25 )
+    morecompact <- position_dodge(0.25)
+
     plot1 <- superbPlot.lineBand(csd,
             xfactor,
             groupingfactor,
