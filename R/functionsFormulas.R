@@ -55,6 +55,7 @@
 #' @export has.crange.terms
 #' @export in.formula
 #' @export sub.formulas
+#' @importFrom rrapply rrapply
 #
 ###################################################################################
 
@@ -107,7 +108,8 @@ in.formula <- function( frm, whatsym) {
 ## Lists all the locations of head of a subformula in formula
 sub.formulas <- function( frm, head ) {
     if (!in.formula( frm, head)) stop("error! head not in frm")
-    res <- rrapply::rrapply( frm,
+#    res <- rrapply::rrapply( frm,
+    res <- rrapply( frm,
             condition = function(x) x == head,
             f = function(x, .xpos) .xpos,
             how = "flatten"

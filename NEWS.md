@@ -1,10 +1,11 @@
-# superb 0.95.19 (October 30th, 2024)
+# superb 0.95.19 (November 6th, 2024)
 
 * Remove deprecated arguments in ggplot2 >=3.5.0
 * Added circular layouts for radar plots with error bars
 * Cleaned a bit the documentation
 * Upgraded a bit the ReadMe page
-* Caught a bug in GRD when more than 10 levels where used on an effect
+* Caught a bug in GRD when more than 9 levels where used on an effect
+* Cleaned a bit the geom_superberrorbar and added two distinct colors
 
 # superb 0.95.18 (October 15th, 2024)
 

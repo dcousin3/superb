@@ -55,6 +55,7 @@
 #'
 #' @export superbToWide
 #' @importFrom utils capture.output
+#' @importFrom stats reshape
 #
 ######################################################################################
 
@@ -65,11 +66,13 @@ superbToWide <- function(data,
     WSFactors     = NULL,            # vector of the names of the within-subject factors
 	variable      = NULL  	         # dependent variable name; if NULL, must be the only unnamed variable
 ) {
+
     ##############################################################################
     # STEP 1: Input validation
     ##############################################################################
     # 1.0: is the data actually data!
 	data <- as.data.frame(data) # coerce to data.frame if tibble or compatible
+
     if(!(is.data.frame(data)))
         stop("superb::ERROR: data is not a data.frame or similar data structure. Exiting...")
 	if (is.null(data))
@@ -124,7 +127,7 @@ superbToWide <- function(data,
     times <- unique(data[, WSFactors])
     varying <- list()
     for (i in seq_along(variable)) varying[[i]] <- paste(variable[i], times, sep = ".")
-    res <- stats::reshape(data, idvar = remainingvars, varying = varying, 
+    res <- reshape(data, idvar = remainingvars, varying = varying, 
 			direction = "wide", times = times, v.names = variable, 
 			sep = ".", timevar = WSFactors)
     rownames(res) <- NULL

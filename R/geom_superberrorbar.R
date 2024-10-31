@@ -8,11 +8,11 @@
 #' @description ``geom_superberrorbar()`` is a geom for ggplots; it is based on 
 #'      the original geom_errorbar (and is totally compatible with it) but
 #'      expands this geom in four different ways. First, it is possible to
-#'      decide whether the error bar tips are unidirectional, pointing to 
-#'      the "left" or to the "right" or if they go in "both" directions.
-#'      Second, it is possible to "double" or "triple" the horizontal marks
+#'      decide the error bar tips `direction` which can be unidirectional, pointing to 
+#'      the "left" or to the "right" or go in "both" directions.
+#'      Second, it is possible set `tipformat` to "double" or "triple" the horizontal marks
 #'      at the extremities of the error bar, with a `tipgap` of your liking.
-#'      Third, an additiona characteristic is `vcolour` to set a different colour
+#'      Third, an additional characteristic is `vcolour` to set a different colour
 #'      for the vertical part of the error bar or the pair
 #'      `vcolour` and `wcolour` for the top half and bottom half of the vertical
 #'      error bar. The colour(s) can also be "NA" to
@@ -23,12 +23,14 @@
 #' @param data  (as usual) see geom_errorbar
 #' @param stat (as usual) see geom_errorbar
 #' @param position (as usual) see geom_errorbar
-#' @param direction (NEW) "left", "right" or "both" (Default is "both")
-#' @param tipformat (NEW) "single", "double" or "triple" to add additional 
+#' @param ... all additional parameters are sent to the underlying geom_path. Includes
+#'    * ``pointing`` (NEW) either "up", "down" or "both" up and down;
+#'    * ``direction`` (NEW) "left", "right" or "both" (Default is "both")
+#'    * ``tipformat`` (NEW) "single", "double" or "triple" to add additional 
 #'        marker lines to the tips (default is "single")
-#' @param tipgap (NEW) The spacing between the markers when "double" or "triple" is used (default 0.1)
-#' @param ... all additional parameters are sent to the underlying geom_path
-#'           Includes ``pointing`` (NEW) either "up", "down" or "both" up and down;
+#'    * ``tipgap`` (NEW) The spacing between the markers when "double" or "triple" is used (default 0.1)
+#'    * ``vcolour`` (NEW) for the vertical part of the error bar
+#'    * ``wcolour`` (NEW) if specified, for the second half of the vertical part of the error bar.
 #' @param na.rm (as usual) see geom_errorbar
 #' @param orientation (as usual) see geom_errorbar
 #' @param show.legend (as usual) see geom_errorbar
@@ -126,6 +128,34 @@
 #'     annotation_custom(grob=plt2) + 
 #'     annotation_custom(grob=plt3)
 #'
+#'
+#' # all of them as aesthetics
+#' set.seed(1)
+#' library(dplyr)
+#' dat <- data.frame(Trial = c(rep("Pre",9),rep("Post",9)), 
+#'                      Time = rep.int(seq(0,120,15),2), 
+#'                      var = c(rnorm(9,15,2),rnorm(9,22,2)),
+#'                      var_sd = c(rnorm(18,3,1)))
+#' dat <- mutate(dat, point = ifelse(Trial == "Pre","down","up"))
+#' dat <- mutate(dat, direc = ifelse(Trial == "Pre","left","right"))
+#' dat <- mutate(dat, vcolo = ifelse(Trial == "Pre","red","blue"))
+#' dat <- mutate(dat, tipfo = ifelse(Trial == "Pre","double","triple"))
+#' dat <- mutate(dat, vcolo = ifelse(Trial == "Pre","red","blue"))
+#'    
+#' ggplot(data = dat, 
+#'        aes(x = Time, y = var, group = Trial)) +
+#'    geom_line(aes(linetype = Trial)) +  
+#'    geom_point(aes(shape= Trial, fill = Trial), size=2) +
+#'    geom_superberrorbar(aes(ymin=var-var_sd, 
+#'                            ymax=var+var_sd,
+#'                            direction = direc, # ok
+#'                            pointing = point,  # ok
+#'                            wcolour = vcolo,   # ok
+#'                            vcolour = "green", # ok
+#'                            tipformat = tipfo  # ok
+#'        ), 
+#'        width = 4)
+#'
 #' @export geom_superberrorbar
 ######################################################################################
 
@@ -135,11 +165,13 @@ geom_superberrorbar <- function(
     data        = NULL,
     stat        = "identity", 
     position    = "identity",
-    direction   = "both",    # new: "left", "right", "both"
-    tipformat   = "single",  # new: "single", "double", "triple"
-    tipgap      = 0.1,       # new: spacing between the double tips 
-# Ok, now I understand: all the additional aes() must go within ...
-#    pointing    = "both",
+# Ok, all the additional aes() go within ...
+#   pointing    = "both",    # new: "up", "down", "both"
+#   direction   = "both",    # new: "left", "right", "both"
+#   tipformat   = "single",  # new: "single", "double", "triple"
+#   tipgap      = 0.1,       # new: spacing between the double tips
+#   vcolour     = "black",   
+#   wcolour     = "black",   
     ...,
     na.rm       = FALSE,
     orientation = NA,
@@ -154,13 +186,9 @@ geom_superberrorbar <- function(
         position    = position,
         show.legend = show.legend,
         inherit.aes = inherit.aes,
-        params      = list(
+        params      = list( 
             na.rm       = na.rm,
             orientation = orientation,
-            direction   = direction,
-            tipformat   = tipformat,
-            tipgap      = tipgap,
-#            pointing    = pointing,
             ...
         )
     )
@@ -172,24 +200,28 @@ geom_superberrorbar <- function(
 GeomsuperbErrorbar <- ggproto("GeomsuperbErrorbar", Geom,
     default_aes = aes( # the parameters
         colour    = "black", 
-        vcolour   = NULL, 
-        wcolour   = NULL, 
         linewidth = 0.5, 
         linetype  = 1, 
         width     = 0.5,
         alpha     = NA,
-        pointing  = "both"
+        # novel arguments
+        direction = "both",
+        pointing  = "both",
+        tipformat = "single",
+        tipgap    = 0.1,
+        vcolour   = NULL, 
+        wcolour   = NULL 
     ),
     draw_key     = draw_key_path,
     required_aes = c("x|y", "ymin|xmin", "ymax|xmax"),
-    setup_params = function(data, params) {GeomLinerange$setup_params(data, params) },
-    extra_params = c("na.rm", "orientation", "direction", "tipformat", "tipgap", "pointing"),
+    setup_params = function(data, params) {
+        # there must be a better way to do this caliss
+        plist <- GeomLinerange$setup_params(data, params) 
+        c(plist, direction="both", pointing="both", tipformat="single", tipgap=0.1,vcolour=NULL, wcolour=NULL)
+    },
+    extra_params = c("na.rm", "orientation"),
 
     setup_data = function(data, params) {
-#print(data)
-#print(dim(data))
-#print(params)
-#print(dim(params))
 
         # Based on direction, change xmin or xmax with a multiplier
         lefmul <- 1; rigmul <- 1;
@@ -199,29 +231,37 @@ GeomsuperbErrorbar <- ggproto("GeomsuperbErrorbar", Geom,
         data$flipped_aes <- params$flipped_aes
         data             <- flip_data(data, params$flipped_aes)
         data$width       <- data$width %||% params$width %||% (resolution(data$x, FALSE) * 0.9)
+        data$direction <- data$direction %||% params$direction
+        data$pointing  <- data$pointing  %||% params$pointing
+        data$tipformat <- data$tipformat %||% params$tipformat
+        data$tipgap    <- data$tipgap    %||% params$tipgap
+        data$vcolour   <- data$vcolour   %||% params$vcolour
+        data$wcolour   <- data$wcolour   %||% params$wcolour
 
         data3 <- data2   <- data # a quick copy
         # generates the main data frame
         data <- transform(data,
-            xmin = x - lefmul*width/2,         xmax = x + rigmul*width/2, width = NULL
+            xmin  = x - ifelse((direction=="both")|(direction=="left"),1,0)*width/2,
+            xmax  = x + ifelse((direction=="both")|(direction=="right"),1,0)*width/2
         )
 
         # if "double", double the data with shorter lines...
-        if ((params$tipformat == "double")|(params$tipformat == "triple")) {
-            data2 <- transform(data2,
-                ymin = ymin + params$tipgap,   ymax = ymax - params$tipgap,
-                xmin = x - lefmul*width/2,     xmax = x + rigmul*width/2, width = NULL
-            )
-            data <- rbind(data, data2)
-        }
+        data2 <- transform(data2, 
+            ymin  = ifelse((tipformat == "double")|(tipformat == "triple"), ymin + tipgap, NA ),
+            ymax  = ifelse((tipformat == "double")|(tipformat == "triple"), ymax - tipgap, NA ),
+            xmin  = ifelse((tipformat == "double")|(tipformat == "triple"), x - ifelse((direction=="both")|(direction=="left"),1,0)*width/2, NA ),
+            xmax  = ifelse((tipformat == "double")|(tipformat == "triple"), x + ifelse((direction=="both")|(direction=="right"),1,0)*width/2, NA )
+        )
+        data <- rbind(data, data2[!is.na(data2$ymin),])
+
         # if "triple", do it one more time...
-        if (params$tipformat == "triple") {
-            data3 <- transform(data3,
-                ymin = ymin + 2*params$tipgap, ymax = ymax - 2*params$tipgap,
-                xmin = x - lefmul*width/2,     xmax = x + rigmul*width/2, width = NULL
-            )
-            data <- rbind(data, data3)
-        }
+        data3 <- transform(data3, 
+            ymin  = ifelse((tipformat == "triple"), ymin + 2*tipgap, NA ),
+            ymax  = ifelse((tipformat == "triple"), ymax - 2*tipgap, NA ),
+            xmin  = ifelse((tipformat == "triple"), x - ifelse((direction=="both")|(direction=="left"),1,0)*width/2, NA ),
+            xmax  = ifelse((tipformat == "triple"), x + ifelse((direction=="both")|(direction=="right"),1,0)*width/2, NA )
+        )
+        data <- rbind(data, data3[!is.na(data3$ymin),])
 
         # if the aesthetic y is not given, add it to the data frame (used for the center)
         if (is.null(data$y) ) {data$y = (data$ymin+data$ymax)/2}
@@ -230,8 +270,6 @@ GeomsuperbErrorbar <- ggproto("GeomsuperbErrorbar", Geom,
     },
 
     draw_panel = function(data, panel_params, coord, width = NULL, flipped_aes = FALSE) {
-#print(data)
-#print(dim(data))
 
         data <- flip_data(data, flipped_aes)
         # enter the top line, the median lines (in two halves), the bottom line

@@ -406,7 +406,6 @@ superbPlot <- function(data,
     data.untransformed.long <- suppressWarnings(lsr::wideToLong(data.untransformed, within = WSFactors, sep = weird))
     data.transformed.long   <- suppressWarnings(lsr::wideToLong(data.transformed, within = WSFactors, sep = weird))
 
-
     # New May 11th, 2022, version 0.95.1
     as.numeric.factor <- function(x) {strtoi(x)}
 

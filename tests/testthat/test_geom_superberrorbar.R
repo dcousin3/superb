@@ -44,7 +44,7 @@ test_that("Advanced example", {
     ### https://stackoverflow.com/q/29475701/5181513
     ### https://stackoverflow.com/questions/29475701
     library(superb)
-    library("ggplot2")
+    library(ggplot2)
     library(dplyr)
 
     set.seed(1)

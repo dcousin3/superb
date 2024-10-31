@@ -2,7 +2,7 @@ Package: superb
 Type: Package
 Title: Summary Plots with Adjusted Error Bars
 Version: 0.95.19
-Date: 2024-10-30
+Date: 2024-11-06
 Authors@R: c(
              person("Denis", "Cousineau", email = "denis.cousineau@uottawa.ca",
                     role = c("aut", "cre")),
@@ -43,19 +43,19 @@ RoxygenNote: 7.3.1
 Depends:
     R (>= 4.1.0)
 Imports: 
-    foreign,
+    methods,
+    utils,
+    stats,
+    MASS,
+    lsr (>= 0.5),
     plyr (>= 1.8.4),
     ggplot2 (>= 3.5.0),
-    MASS,
-    rrapply,
-    lsr (>= 0.5),
-    methods,
-    Rdpack (>= 0.7),
-    stats,
+    stringr,
+    foreign,
     shiny,
     shinyBS,
-    stringr,
-    utils
+    rrapply,
+    Rdpack (>= 0.7)
 Suggests: 
     dplyr,
     psych,
