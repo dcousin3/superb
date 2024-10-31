@@ -1,4 +1,4 @@
-# superb 0.95.19 (November 6th, 2024)
+# superb 0.95.19 (October 31st, 2024; codename Spooky)
 
 * Remove deprecated arguments in ggplot2 >=3.5.0
 * Added circular layouts for radar plots with error bars

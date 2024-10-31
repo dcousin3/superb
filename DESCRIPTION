@@ -2,7 +2,7 @@ Package: superb
 Type: Package
 Title: Summary Plots with Adjusted Error Bars
 Version: 0.95.19
-Date: 2024-11-06
+Date: 2024-10-31
 Authors@R: c(
              person("Denis", "Cousineau", email = "denis.cousineau@uottawa.ca",
                     role = c("aut", "cre")),
