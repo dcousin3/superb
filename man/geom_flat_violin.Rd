@@ -17,13 +17,13 @@ geom_flat_violin(
 )
 }
 \arguments{
-\item{mapping}{(as usual) see geom_violin}
+\item{mapping}{(as usual) see \code{geom_violin()}}
 
-\item{data}{(as usual) see geom_violin}
+\item{data}{(as usual) see \code{geom_violin()}}
 
-\item{stat}{(as usual) see geom_violin}
+\item{stat}{(as usual) see \code{geom_violin()}}
 
-\item{position}{(as usual) see geom_violin}
+\item{position}{(as usual) see \code{geom_violin()}}
 
 \item{trim}{If \code{TRUE} (default), trim the tails of the violins
 to the range of the data. If \code{FALSE}, don't trim the tails.}
@@ -33,16 +33,16 @@ to the range of the data. If \code{FALSE}, don't trim the tails.}
 proportionally to the number of observations. If "width", all
 violins have the same maximum width.}
 
-\item{show.legend}{(as usual) see geom_violin}
+\item{show.legend}{(as usual) see \code{geom_violin()}}
 
-\item{inherit.aes}{(as usual) see geom_violin}
+\item{inherit.aes}{(as usual) see \code{geom_violin()}}
 
-\item{...}{all additional parameters are sent to the underlying geom_path. Includes
+\item{...}{all additional parameters are sent to the underlying \code{geom_path()}. It includes
 \itemize{
 \item \code{direction} (NEW) either -1,0, or +1;
 \item \code{push} (NEW) a positive number.
-\item \code{na.rm} (as usual) see geom_violin
-\item \code{orientation} (as usual) see geom_violin
+\item \code{na.rm} (as usual) see \code{geom_violin()}
+\item \code{orientation} (as usual) see \code{geom_violin()}
 }}
 }
 \value{
@@ -51,11 +51,11 @@ a layer containing violins in a ggplot object
 \description{
 \code{geom_flat_violin()} is a geom for ggplots; it is based on
 the original script to create  raincloud plots.
-It relies largely on code previously written by David Robinsonna
+It relies largely on code previously written by David Robinson
 (https://gist.github.com/dgrtwo/eb7750e74997891d7c20)
 and the package ggplot2 by Hadley Wickham.
 
-Code from @allen2019.
+Code from \insertCite{allen2019;textual}{superb}
 
 It is expanded in tow different ways. First, it is possible to
 decide the direction of the violin using the \code{direction} argument

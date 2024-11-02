@@ -13,36 +13,36 @@
 #'
 #' @description ``geom_flat_violin()`` is a geom for ggplots; it is based on 
 #'      the original script to create  raincloud plots.
-#' It relies largely on code previously written by David Robinsonna
+#' It relies largely on code previously written by David Robinson
 #' (https://gist.github.com/dgrtwo/eb7750e74997891d7c20)
 #' and the package ggplot2 by Hadley Wickham.
 #'
-#' Code from @allen2019.
+#' Code from \insertCite{allen2019;textual}{superb}
 #'
-#'  It is expanded in tow different ways. First, it is possible to
-#'  decide the direction of the violin using the `direction` argument    
-#'  (values are 0 = symmetrical; 1 = extending to the right; -1 = extending
-#'  to the left); the last two cases are "half"-violin. The second
-#'  argument is `push` which pushed the violin away from the median line (default = 0).
+#' It is expanded in tow different ways. First, it is possible to
+#' decide the direction of the violin using the `direction` argument    
+#' (values are 0 = symmetrical; 1 = extending to the right; -1 = extending
+#' to the left); the last two cases are "half"-violin. The second
+#' argument is `push` which pushed the violin away from the median line (default = 0).
 #'      
 #'
-#' @param mapping (as usual) see geom_violin
-#' @param data  (as usual) see geom_violin
-#' @param stat (as usual) see geom_violin
-#' @param position (as usual) see geom_violin
+#' @param mapping (as usual) see `geom_violin()`
+#' @param data  (as usual) see `geom_violin()`
+#' @param stat (as usual) see `geom_violin()`
+#' @param position (as usual) see `geom_violin()`
 #' @param trim If `TRUE` (default), trim the tails of the violins
 #'    to the range of the data. If `FALSE`, don't trim the tails.
 #' @param scale if "area" (default), all violins have the same area 
 #'    (before trimming the tails). If "count", areas are scaled 
 #'    proportionally to the number of observations. If "width", all
 #'    violins have the same maximum width.
-#' @param ... all additional parameters are sent to the underlying geom_path. Includes
+#' @param ... all additional parameters are sent to the underlying `geom_path()`. It includes
 #'    * ``direction`` (NEW) either -1,0, or +1;
 #'    * ``push`` (NEW) a positive number.
-#'    * ``na.rm`` (as usual) see geom_violin
-#'    * ``orientation`` (as usual) see geom_violin
-#' @param show.legend (as usual) see geom_violin
-#' @param inherit.aes (as usual) see geom_violin
+#'    * ``na.rm`` (as usual) see `geom_violin()`
+#'    * ``orientation`` (as usual) see `geom_violin()`
+#' @param show.legend (as usual) see `geom_violin()`
+#' @param inherit.aes (as usual) see `geom_violin()`
 #'
 #' @return a layer containing violins in a ggplot object
 #'
@@ -58,7 +58,6 @@
 #'     Population = list(mean=75, stddev=15),
 #'     Effects = list("Vacations" = custom(-20,+20,+10))
 #' )
-
 #'
 #' # The most basic plot = a regular error bar
 #' superb( tiredeness ~ Vacations, dta)

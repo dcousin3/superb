@@ -15,9 +15,9 @@ reference:
     desc: Functions to add further decorations to the plots
     contents:
       - '`showSignificance`'
+      - '`makeTransparent`'
       - '`geom_superberrorbar`'
       - '`geom_flat_violin`'
-      - '`makeTransparent`'
   - title: Plots
     desc: Built-in templates for plots
     contents:

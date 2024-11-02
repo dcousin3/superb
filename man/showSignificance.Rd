@@ -19,26 +19,26 @@ showSignificance(
 \arguments{
 \item{x}{(a vector of 2 when horizontal) indicates the limits of the annotation;}
 
-\item{y}{(a vector of 2 when vertical) the location of the annotation in the y direction}
+\item{y}{(a vector of 2 when vertical) the location of the annotation in the \code{y} direction}
 
-\item{width}{height of the annotation; for negative width, the legs extends towards the bottom;}
+\item{width}{height of the annotation; for negative \code{width}, the legs extends towards the bottom;}
 
-\item{text}{(optional) string text to be display on the opposite side of width;}
+\item{text}{(optional) string text to be display on the opposite side of \code{width};}
 
 \item{panel}{(optional) a list to identify in which panel to put the annotation;}
 
-\item{segmentParams}{(optional) a list of directives that will be sent to the geom_segment items;}
+\item{segmentParams}{(optional) a list of directives that will be sent to the \code{geom_segment()} items;}
 
-\item{textParams}{(optional) a list of directives that will be sent to the geom_text item.}
+\item{textParams}{(optional) a list of directives that will be sent to the \code{geom_text()} item.}
 }
 \value{
 adds an annotation in a ggplot
 }
 \description{
-showSignificance is used to add an annotation to
-a ggplot in the form of a bracket with a text. The bracket
-extends from x range (left, right) with a heigth of width. It is also possible
-to have the bracket and the text vertical when y is a range (bottom, top).
+\code{showSignificance()} is used to add an annotation to
+a ggplot in the form of a square bracket with a text. The bracket
+extends from \code{x} range (left, right) with a heigth of \code{width}. It is also possible
+to have the bracket and the text vertical when \code{y} is a range (bottom, top).
 }
 \examples{
 # loading required libraries

@@ -3,7 +3,7 @@
 #'
 #' @md
 #'
-#' @description The function ``GRD()`` generates a data frame containing 
+#' @description The function `GRD()` generates a data frame containing 
 #' random data suitable for analyses.
 #' The data can be from within-subject or between-group designs.
 #' Within-subject designs are in wide format. The function was originally
@@ -136,7 +136,7 @@ GRD <- function(
     #####################################################
     # STEP 1: Determining experimental design
     #####################################################
-  
+
     # initialize variables
     BSList <- list()
     WSList <- list()
