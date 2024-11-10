@@ -112,13 +112,20 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.95.19" id="superb-09519-october-31st-2024-codename-spooky">superb 0.95.19 (October 31st, 2024; codename Spooky)<a class="anchor" aria-label="anchor" href="#superb-09519-october-31st-2024-codename-spooky"></a></h2>
-<ul><li>Remove deprecated arguments in ggplot2 &gt;=3.5.0</li>
+<h2 class="page-header" data-toc-text="1.0.0" id="superb-100-march-2025">superb 1.0.0 (March 2025)<a class="anchor" aria-label="anchor" href="#superb-100-march-2025"></a></h2>
+<ul><li>Codename: 100% confident</li>
+<li>Celebrating the fourth anniversary of <code>superb</code>!</li>
+<li>Corrected minor typos in documentations</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.95.19" id="superb-09519-october-31st-2024">superb 0.95.19 (October 31st, 2024)<a class="anchor" aria-label="anchor" href="#superb-09519-october-31st-2024"></a></h2>
+<ul><li>Codename: Spooky</li>
+<li>Remove deprecated arguments in ggplot2 &gt;=3.5.0</li>
 <li>Added circular layouts for radar plots with error bars</li>
 <li>Cleaned a bit the documentation</li>
 <li>Upgraded a bit the ReadMe page</li>
 <li>Caught a bug in GRD when more than 9 levels where used on an effect</li>
-<li>Cleaned a bit the geom_superberrorbar and added two distinct colors</li>
+<li>Cleaned a bit the geom_superberrorbar and added the possibility to have two distinct colors in the vertical part of the error bar.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.95.18" id="superb-09518-october-15th-2024">superb 0.95.18 (October 15th, 2024)<a class="anchor" aria-label="anchor" href="#superb-09518-october-15th-2024"></a></h2>
@@ -127,28 +134,28 @@
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.95.17" id="superb-09517-september-31th-2024">superb 0.95.17 (September 31th, 2024)<a class="anchor" aria-label="anchor" href="#superb-09517-september-31th-2024"></a></h2>
-<ul><li>added <code><a href="../reference/superb.html">superb()</a></code>, a formula-based function.</li>
-<li>modified separator from ’_’ to ‘.’ in <code><a href="../reference/superbToWide.html">superbToWide()</a></code>
+<ul><li>Added <code><a href="../reference/superb.html">superb()</a></code>, a formula-based function.</li>
+<li>Modified separator from ’_’ to ‘.’ in <code><a href="../reference/superbToWide.html">superbToWide()</a></code>
 </li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.95.16" id="superb-09516-september-13th-2024">superb 0.95.16 (September 13th, 2024)<a class="anchor" aria-label="anchor" href="#superb-09516-september-13th-2024"></a></h2>
-<ul><li>added a new plot layout: the corset plot “corset”;</li>
-<li>corrected a bug in the <code><a href="../reference/superbShiny.html">superbShiny()</a></code> graphical interface with “corset”.</li>
+<ul><li>Added a new plot layout: the corset plot “corset”;</li>
+<li>Corrected a bug in the <code><a href="../reference/superbShiny.html">superbShiny()</a></code> graphical interface with “corset”.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.95.15" id="superb-09515-august-18th-2024">superb 0.95.15 (August 18th, 2024)<small>2024-08-17</small><a class="anchor" aria-label="anchor" href="#superb-09515-august-18th-2024"></a></h2>
-<ul><li>added the “antagonize” (boolean) option to violin plots.</li>
+<ul><li>Added the “antagonize” (boolean) option to violin plots.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.95.14" id="superb-09514-august-11th-2024">superb 0.95.14 (August 11th, 2024)<a class="anchor" aria-label="anchor" href="#superb-09514-august-11th-2024"></a></h2>
-<ul><li>updated the use of &amp; vs. &amp;&amp; according to new R credo</li>
-<li>corrected a bug related to LD adjustment in mixed designs</li>
+<ul><li>Updated the use of &amp; vs. &amp;&amp; according to new R credo</li>
+<li>Corrected a bug related to LD adjustment in mixed designs</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.95.13" id="superb-09513-august-3rd-2024">superb 0.95.13 (August 3rd, 2024)<a class="anchor" aria-label="anchor" href="#superb-09513-august-3rd-2024"></a></h2>
 <ul><li>Modified violin plots so that half-violins can be displayed</li>
-<li>The violinParams now includes
+<li>The <code>violinParams</code> now includes
 <ul><li>direction (+1= left-half; -1=right-half; 0=symmetrical);</li>
 <li>push (to translate half away from the medial line)</li>
 <li>with these modifications, corset plots can be made easily by superimposing a violin plot with halves and individualline plot</li>
@@ -163,7 +170,7 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.95.11" id="superb-09511-may-7th-2024">superb 0.95.11 (May 7th, 2024)<a class="anchor" aria-label="anchor" href="#superb-09511-may-7th-2024"></a></h2>
 <ul><li>Added local decorrelation with option “LDr” where r is the radius.</li>
-<li>Small correction to lineBand without between-subject factors</li>
+<li>Small correction to <code>lineBand</code> without between-subject factors</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.95.10" id="superb-09510-march-9th-2024">superb 0.95.10 (March 9th, 2024)<a class="anchor" aria-label="anchor" href="#superb-09510-march-9th-2024"></a></h2>
@@ -171,7 +178,7 @@
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.95.9" id="superb-0959-february-8th-2024">superb 0.95.9 (February 8th, 2024)<small>2024-02-09</small><a class="anchor" aria-label="anchor" href="#superb-0959-february-8th-2024"></a></h2>
-<ul><li>Added a new plot layout, boxplot, to display box plots.</li>
+<ul><li>Added a new plot layout, <code>boxplot</code>, to display box plots.</li>
 <li>Adjusted testthat tests following new release of ggplot2</li>
 <li>Added unitaryAlpha technique to compute average correlation</li>
 <li>Simplified documentation for within-subject designs.</li>
@@ -190,7 +197,7 @@
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.95.8" id="superb-0958-june-13th-2023">superb 0.95.8 (June 13th, 2023)<a class="anchor" aria-label="anchor" href="#superb-0958-june-13th-2023"></a></h2>
-<ul><li>Added superbToWide to ease the conversion to wide format</li>
+<ul><li>Added <code><a href="../reference/superbToWide.html">superbToWide()</a></code> to ease the conversion to wide format</li>
 <li>A few tiny corrections to the documentation</li>
 <li>Updated references</li>
 <li>Note that updates are spaced more and more as the library is now very stable</li>
@@ -200,7 +207,7 @@
 <ul><li>Added pairwise deletion for the computation of the mean correlation in case of missing data with CA</li>
 <li>Removed ggplot2 depleted functions “aes_string” in favor of “aes”</li>
 <li>Removed ggplot2 depleted attribute “size” in favor of “linewidth”</li>
-<li>Added the lineBand plot in the Shiny interface</li>
+<li>Added the <code>lineBand</code> plot in the Shiny interface</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.95.6" id="superb-0956-december-24th-2022">superb 0.95.6 (December 24th, 2022)<a class="anchor" aria-label="anchor" href="#superb-0956-december-24th-2022"></a></h2>
@@ -218,11 +225,11 @@
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.95.3" id="superb-0953-july-9th-2022">superb 0.95.3 (July 9th, 2022)<a class="anchor" aria-label="anchor" href="#superb-0953-july-9th-2022"></a></h2>
-<ul><li>updated documentation.</li>
+<ul><li>Updated documentation.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.95.2" id="superb-0952-july-9th-2022">superb 0.95.2 (July 9th, 2022)<a class="anchor" aria-label="anchor" href="#superb-0952-july-9th-2022"></a></h2>
-<ul><li>added an option “pointing” to error bars so that they can be pointing; “up”, “down” or go in “both” directions (default).</li>
+<ul><li>Added an option “pointing” to error bars so that they can be pointing; “up”, “down” or go in “both” directions (default).</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.95.1" id="superb-0951-may-12th-2022">superb 0.95.1 (May 12th, 2022)<a class="anchor" aria-label="anchor" href="#superb-0951-may-12th-2022"></a></h2>
@@ -241,7 +248,7 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.9.7.8" id="superb-0978-december-10th-2021">superb 0.9.7.8 (December 10th, 2021)<small>2021-12-05</small><a class="anchor" aria-label="anchor" href="#superb-0978-december-10th-2021"></a></h2>
 <ul><li>Corrected a few typos;</li>
-<li>The population size in superbShiny() was limited to 99,999. Corrected.</li>
+<li>The population size in <code><a href="../reference/superbShiny.html">superbShiny()</a></code> was limited to 99,999. Corrected.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.9.7.7" id="superb-0977-november-19th-2021">superb 0.9.7.7 (November 19th, 2021)<small>2021-10-20</small><a class="anchor" aria-label="anchor" href="#superb-0977-november-19th-2021"></a></h2>
@@ -251,18 +258,19 @@
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.9.7.6" id="superb-0976-november-4th-2021">superb 0.9.7.6 (November 4th, 2021)<small>2021-10-04</small><a class="anchor" aria-label="anchor" href="#superb-0976-november-4th-2021"></a></h2>
-<ul><li>corrected one bug regarding variables with similar names;</li>
-<li>integrated tibble data format into superb;</li>
-<li>some output were missing in VignetteC and a backtick missing in VignetteA.</li>
+<ul><li>Corrected one bug regarding variables with similar names;</li>
+<li>Integrated tibble data format into superb;</li>
+<li>Some output were missing in VignetteC and a backtick missing in VignetteA.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.9.7.5" id="superb-0975-june-23rd-2021">superb 0.9.7.5 (June 23rd, 2021)<small>2021-06-23</small><a class="anchor" aria-label="anchor" href="#superb-0975-june-23rd-2021"></a></h2>
-<ul><li>official release on CRAN of <code>superb</code> with the graphical user interface <code><a href="../reference/superbShiny.html">superbShiny()</a></code>;</li>
-<li>small changes to vignette TheMakingOf.</li>
+<ul><li>Codename: “two-tail 95% confident”</li>
+<li>Official release on CRAN of <code>superb</code> with the graphical user interface <code><a href="../reference/superbShiny.html">superbShiny()</a></code>;</li>
+<li>Small changes to vignette TheMakingOf.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.9.7.4" id="superb-0974-june-18th-2021">superb 0.9.7.4 (June 18th, 2021)<a class="anchor" aria-label="anchor" href="#superb-0974-june-18th-2021"></a></h2>
-<ul><li>beta release of <code><a href="../reference/superbShiny.html">superbShiny()</a></code>, a graphical user interface to facilitate the use of superbPlot.</li>
+<ul><li>Beta release of <code><a href="../reference/superbShiny.html">superbShiny()</a></code>, a graphical user interface to facilitate the use of superbPlot.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.9.7.0" id="superb-0970-may-28th-2021">superb 0.9.7.0 (May 28th, 2021)<a class="anchor" aria-label="anchor" href="#superb-0970-may-28th-2021"></a></h2>
@@ -280,7 +288,8 @@
 <li>Added automatic handling of initializers (see Vignette/Article 9 for an example);</li>
 <li>Added a vignette dedicated to how to illustrate Cohen’s d;</li>
 <li>Added a <code><a href="../reference/geom_superberrorbar.html">geom_superberrorbar()</a></code> with additional options for the tip markers;</li>
-<li>… all this on its way to the next release version 0.9.7.5, codename: “two-tail 95% confident”. Stay tune as the best is still to come (and it is shiny!)</li>
+<li>… all this on its way to the next release version 0.9.7.5.</li>
+<li>Stay tune as the best is still to come (and it is shiny!)</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.9.5.0" id="superb-0950-april-13th-2021">superb 0.9.5.0 (April 13th, 2021)<small>2021-04-21</small><a class="anchor" aria-label="anchor" href="#superb-0950-april-13th-2021"></a></h2>

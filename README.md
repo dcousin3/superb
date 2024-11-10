@@ -68,12 +68,14 @@ superb(len ~ dose + supp, ToothGrowth )
 ![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 In the above, the default summary statistic, the mean, is used. The
-error bars are, by default, the 95% confidence intervals. These two
-choices can be changed with the `statistic` and the `errorbar`
+error bars are, by default, the 95% confidence intervals (of the mean).
+These two choices can be changed with the `statistic` and the `errorbar`
 arguments.
 
 This second example explicitly indicates to display the `median` instead
-of the default `mean` summary statistics
+of the default `mean` summary statistics along with the default 95%
+confidence interval of the median here (the correct function is
+automatically selected):
 
 ``` r
 superb(len ~ dose + supp, ToothGrowth,
@@ -83,7 +85,7 @@ superb(len ~ dose + supp, ToothGrowth,
 ![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 As a third example, we illustrate the harmonic means `hmean` along with
-99.9% confidence intervals using lines:
+99.9% confidence intervals of the harmonic mean displayed using lines:
 
 ``` r
 superb(len ~ dose + supp, ToothGrowth,
@@ -182,7 +184,7 @@ In the above example, optional arguments `errorbarParams` and
 the points respectively. When these arguments are used, they override
 the defaults from `superb()`.
 
-Lastly, we could aim for a radar (a.k.a. circular) with
+Lastly, we could aim for a radar (a.k.a. circular) plot with
 
 ``` r
 superb( crange(score.1, score.6) ~ Difficulty, testdata, 
@@ -227,7 +229,9 @@ The complete documentation is available on this
 
 A general introduction to the `superb` framework underlying this library
 is published at *Advances in Methods and Practices in Psychological
-Sciences* (Cousineau, Goulet, & Harding, 2021).
+Sciences* (Cousineau, Goulet, & Harding, 2021). Also, most of the
+formulas for confidence intervals when statistics other than the mean
+are displayed can be found in Harding, Tremblay, & Cousineau (2015).
 
 # References
 
@@ -246,6 +250,32 @@ here</a></b>.
 
 <div id="refs" class="references csl-bib-body hanging-indent"
 entry-spacing="0" line-spacing="2">
+
+<div id="ref-cgh21" class="csl-entry">
+
+Cousineau, D., Goulet, M.-A., & Harding, B. (2021). Summary plots with
+adjusted error bars: The superb framework with an implementation in R.
+*Advances in Methods and Practices in Psychological Science*, *4*, 1–18.
+<https://doi.org/10.1177/25152459211035109>
+
+</div>
+
+<div id="ref-htc14" class="csl-entry">
+
+Harding, B., Tremblay, C., & Cousineau, D. (2014). Standard errors: A
+review and evaluation of standard error estimators using monte carlo
+simulations. *The Quantitative Methods for Psychology*, *10*(2),
+107–123.
+
+</div>
+
+<div id="ref-htc15" class="csl-entry">
+
+Harding, B., Tremblay, C., & Cousineau, D. (2015). The standard error of
+the pearson skew. *The Quantitative Methods for Psychology*, *11*(1),
+32–36.
+
+</div>
 
 <div id="ref-w21" class="csl-entry">
 

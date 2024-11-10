@@ -3,9 +3,9 @@
 #'
 #' @md
 #'
-#' @description The function ``suberb()`` plots standard error or confidence interval for various  
+#' @description The function ``superb()`` plots standard error or confidence interval for various  
 #'      descriptive statistics under various designs, sampling schemes, population size and purposes,
-#'      according to the ``suberb`` framework. See \insertCite{cgh21}{superb} for more.
+#'      according to the ``superb`` framework. See \insertCite{cgh21}{superb} for more.
 #'      The functions `superb()` is now the entry point
 #'      to realize summary plots.
 #'      Compared to the previously documented `superbPlot()`,
@@ -71,16 +71,24 @@
 #' * `superb( crange(DV.1.1, DV.2.3) ~ . , dta, WSFactors = c("a(2)","b(3)"))`
 #'
 #' The layouts for plots are the following:
-#' * "bar" Shows the summary statistics with bars and error bars;
-#' * "line" Shows the summary statistics with lines connecting the conditions over the first factor;
-#' * "point" Shows the summary statistics with isolated points
-#' * "pointjitter" Shows the summary statistics along with jittered points depicting the raw data;
-#' * "pointjitterviolin" Also adds violin plots to the previous layout
-#' * "pointindividualline" Connects the raw data with line along the first factor (which should be a repeated-measure factor)
-#' * "raincloud" Illustrates the distribution with a cloud (half_violin_plot) and jittered dots next to it. Looks better when coordinates are flipped ``+coord_flip()``
-#' * "lineband" illustrates the confidence intervals as a band;
-#' * "corset" illustrates within-subject designs with individual lines and clouds.
-#'
+#' * These are basic plots:
+#'     * "bar" Shows the summary statistics with bars and error bars;
+#'     * "line" Shows the summary statistics with lines connecting the conditions over the first factor;
+#'     * "point" Shows the summary statistics with isolated points
+#'     * "lineband" illustrates the confidence intervals as a band;
+#' * These plots add distributional information in addition
+#'     * "pointjitter" Shows the summary statistics along with jittered points depicting the raw data;
+#'     * "pointjitterviolin" Also adds violin plots to the previous layout
+#'     * "pointindividualline" Connects the raw data with line along the first factor (which should be a repeated-measure factor)
+#'     * "raincloud" Illustrates the distribution with a cloud (half_violin_plot) and jittered dots next to it. Looks better when coordinates are flipped ``+coord_flip()``
+#'     * "corset" illustrates within-subject designs with individual lines and clouds.
+#' * Circular plots (aka radar plots) results from the following layouts:
+#'     * "circularpoint" Shows the summary statistics with isolated points
+#'     * "circularline" Shows the summary statistics with lines;
+#'     * "circularlineband" Also adds error bands instead of error bars;
+#'     * "circularpointjitter" Shows summary statistics and error bars but also jittered dots;
+#'     * "circularpointlinejitter" Same as previous layout, but connect the points with lines.
+#' New layouts are added from times to time.
 #' Personalized layouts can also be created (see Vignette5).
 #'
 #' @references
@@ -188,7 +196,7 @@ superb <- function(
     clusterColumn = NULL,            # if samplineScheme = CRS
     ...
     # the following are optional list of graphic directives...
-    # errorbarParams,                # merged into ggplot/geom_errorbar
+    # errorbarParams,                # merged into ggplot/geom_superberrorbar
     # pointParams,                   # merged into ggplot/geom_point
     # lineParams,                    # merged into ggplot/geom_line
     # barParams,                     # merged into ggplot/geom_bar
@@ -295,7 +303,7 @@ superb <- function(
    
 
     ##############################################################################
-    # STEP 3: Harmonize the data format to wide if needed
+    # STEP 4: All done! transfer to superbPlot()
     ##############################################################################
 
     #cat(paste("   variables = ", paste(DVvars, collapse=','), "\n", sep=''))

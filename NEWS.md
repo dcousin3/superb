@@ -1,11 +1,19 @@
-# superb 0.95.19 (October 31st, 2024; codename Spooky)
+# superb 1.0.0 (March 2025)
 
+* Codename: 100% confident
+* Celebrating the fourth anniversary of `superb`! 
+* Corrected minor typos in documentations
+
+# superb 0.95.19 (October 31st, 2024)
+
+* Codename: Spooky
 * Remove deprecated arguments in ggplot2 >=3.5.0
 * Added circular layouts for radar plots with error bars
 * Cleaned a bit the documentation
 * Upgraded a bit the ReadMe page
 * Caught a bug in GRD when more than 9 levels where used on an effect
-* Cleaned a bit the geom_superberrorbar and added two distinct colors
+* Cleaned a bit the geom_superberrorbar and added the possibility to 
+  have two distinct colors in the vertical part of the error bar.
 
 # superb 0.95.18 (October 15th, 2024)
 
@@ -13,27 +21,27 @@
 
 # superb 0.95.17 (September 31th, 2024)
 
-* added ``superb()``, a formula-based function.
-* modified separator from '_' to '.' in `superbToWide()`
+* Added ``superb()``, a formula-based function.
+* Modified separator from '_' to '.' in `superbToWide()`
 
 # superb 0.95.16 (September 13th, 2024)
 
-* added a new plot layout: the corset plot "corset";
-* corrected a bug in the ``superbShiny()`` graphical interface with "corset".
+* Added a new plot layout: the corset plot "corset";
+* Corrected a bug in the ``superbShiny()`` graphical interface with "corset".
 
 # superb 0.95.15 (August 18th, 2024)
 
-* added the "antagonize" (boolean) option to violin plots.
+* Added the "antagonize" (boolean) option to violin plots.
 
 # superb 0.95.14 (August 11th, 2024)
 
-* updated the use of & vs. && according to new R credo
-* corrected a bug related to LD adjustment in mixed designs
+* Updated the use of & vs. && according to new R credo
+* Corrected a bug related to LD adjustment in mixed designs
 
 # superb 0.95.13 (August 3rd, 2024)
 
 * Modified violin plots so that half-violins can be displayed
-* The violinParams now includes 
+* The `violinParams` now includes 
   - direction (+1= left-half; -1=right-half; 0=symmetrical);
   - push (to translate half away from the medial line)
   - with these modifications, corset plots can be made easily
@@ -48,7 +56,7 @@
 # superb 0.95.11 (May 7th, 2024)
 
 * Added local decorrelation with option "LDr" where r is the radius.
-* Small correction to lineBand without between-subject factors
+* Small correction to `lineBand` without between-subject factors
 
 # superb 0.95.10 (March 9th, 2024)
 
@@ -56,7 +64,7 @@
 
 # superb 0.95.9 (February 8th, 2024)
 
-* Added a new plot layout, boxplot, to display box plots.
+* Added a new plot layout, `boxplot`, to display box plots.
 * Adjusted testthat tests following new release of ggplot2
 * Added unitaryAlpha technique to compute average correlation
 * Simplified documentation for within-subject designs.
@@ -75,7 +83,7 @@
 
 # superb 0.95.8 (June 13th, 2023)
 
-* Added superbToWide to ease the conversion to wide format
+* Added `superbToWide()` to ease the conversion to wide format
 * A few tiny corrections to the documentation
 * Updated references
 * Note that updates are spaced more and more as the library is now very stable
@@ -85,7 +93,7 @@
 * Added pairwise deletion for the computation of the mean correlation in case of missing data with CA
 * Removed ggplot2 depleted functions "aes_string" in favor of "aes"
 * Removed ggplot2 depleted attribute "size" in favor of "linewidth"
-* Added the lineBand plot in the Shiny interface
+* Added the `lineBand` plot in the Shiny interface
 
 # superb 0.95.6 (December 24th, 2022)
 
@@ -105,11 +113,11 @@
 
 # superb 0.95.3 (July 9th, 2022)
 
-* updated documentation.
+* Updated documentation.
 
 # superb 0.95.2 (July 9th, 2022)
 
-* added an option "pointing" to error bars so that they can be pointing;
+* Added an option "pointing" to error bars so that they can be pointing;
   "up", "down" or go in "both" directions (default).
 
 # superb 0.95.1 (May 12th, 2022)
@@ -129,7 +137,7 @@
 # superb 0.9.7.8 (December 10th, 2021)
 
 * Corrected a few typos;
-* The population size in superbShiny() was limited to 99,999. Corrected.
+* The population size in `superbShiny()` was limited to 99,999. Corrected.
 
 # superb 0.9.7.7 (November 19th, 2021)
 
@@ -139,19 +147,20 @@
 
 # superb 0.9.7.6 (November 4th, 2021)
 
-* corrected one bug regarding variables with similar names;
-* integrated tibble data format into superb;
-* some output were missing in VignetteC and a backtick missing in VignetteA.
+* Corrected one bug regarding variables with similar names;
+* Integrated tibble data format into superb;
+* Some output were missing in VignetteC and a backtick missing in VignetteA.
 
 # superb 0.9.7.5 (June 23rd, 2021)
 
-* official release on CRAN of ``superb`` with the graphical user interface
+* Codename: "two-tail 95% confident"
+* Official release on CRAN of ``superb`` with the graphical user interface
 ``superbShiny()``;
-* small changes to vignette TheMakingOf.
+* Small changes to vignette TheMakingOf.
 
 # superb 0.9.7.4 (June 18th, 2021)
 
-* beta release of ``superbShiny()``, a graphical user interface to facilitate the
+* Beta release of ``superbShiny()``, a graphical user interface to facilitate the
   use of superbPlot.
 
 # superb 0.9.7.0 (May 28th, 2021)
@@ -172,8 +181,8 @@
 * Added automatic handling of initializers (see Vignette/Article 9 for an example);
 * Added a vignette dedicated to how to illustrate Cohen's d;
 * Added a ``geom_superberrorbar()`` with additional options for the tip markers;
-* ... all this on its way to the next release version 0.9.7.5, codename: 
-   "two-tail 95% confident". Stay tune as the best is still to come (and it is shiny!)
+* ... all this on its way to the next release version 0.9.7.5. 
+* Stay tune as the best is still to come (and it is shiny!)
 
 # superb 0.9.5.0 (April 13th, 2021)
 

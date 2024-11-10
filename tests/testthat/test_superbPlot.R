@@ -14,7 +14,8 @@ test_that("PRELIMINARY TESTS (1/4)", {
 
     plt <- superbPlot(ToothGrowth, BSFactor = c("dose","supp"), variables = "len",
       statistic = "mean", plotStyle="bar" )
-
+    print(plt)
+    
     expect_equal( "ggplot" %in% class(plt), TRUE)
     # restores default information
     options("superb.feedback" = c('design','warnings','summary'))
@@ -34,6 +35,7 @@ test_that("PRELIMINARY TESTS (2/4)", {
     g1 <- g0 + xlab("Dose") + ylab("Tooth Growth") + labs(title="adsf") +
     theme_light(base_size=20) + annotation_custom(grid.text("allo",x=.5,y=.5,gp=gpar(fontsize=20, col="grey")))
     g2 <- g1 + theme(axis.text.x = element_text(size=30, colour="red") ) + coord_cartesian(ylim=c(5,45))
+    print(g2)
 
     expect_equal( "ggplot" %in% class(g2), TRUE)
     # restores default information
@@ -60,6 +62,7 @@ test_that("PRELIMINARY TESTS (4/4)", {
 
     p <- superbPlot(ToothGrowth, BSFactor = c("dose","supp"), variables = "len",
       statistic = "mean", plotStyle="line" )
+    print(p)
 
     expect_equal( "ggplot" %in% class(p), TRUE)
     # restores default information

@@ -71,9 +71,10 @@ a plot with the correct error bars or a table of those summary statistics.
 The plot is a ggplot2 object with can be modified with additional declarations.
 }
 \description{
-The function \code{suberbPlot()} plots standard error or confidence interval for various
+The function \code{superbPlot()} plots standard error or confidence interval for various
 descriptive statistics under various designs, sampling schemes, population size and purposes,
 according to the \code{suberb} framework. See \insertCite{cgh21}{superb} for more.
+Note that this function has been superseded by \code{superb()}.
 }
 \details{
 The possible adjustements are the following
@@ -93,7 +94,7 @@ correlation structures; see \insertCite{cppf24}{superb});
 sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Sampling).
 }
 
-In version 0.97.15, the layouts for plots are the following:
+As of version 0.97.15, the layouts for plots are the following:
 \itemize{
 \item "bar" Shows the summary statistics with bars and error bars;
 \item "line" Shows the summary statistics with lines connecting the conditions over the first factor;
@@ -105,6 +106,8 @@ In version 0.97.15, the layouts for plots are the following:
 \item "corset" Illustrates two repeated-measures with individual lines and clouds
 \item "boxplot" Illustrates the limits, the quartiles and the median using a box
 }
+
+but refer to \code{superb()} for a documentation that will be kept up do date.
 }
 \examples{
 ######################################################################

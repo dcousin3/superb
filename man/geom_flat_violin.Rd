@@ -2,7 +2,7 @@
 % Please edit documentation in R/geom_flat_violin.R
 \name{geom_flat_violin}
 \alias{geom_flat_violin}
-\title{geom_flat_violin for expanded error bar displays}
+\title{geom_flat_violin for expanded density displays}
 \usage{
 geom_flat_violin(
   mapping = NULL,

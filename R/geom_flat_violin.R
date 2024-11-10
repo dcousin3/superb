@@ -7,7 +7,7 @@
 ######################################################################################
 #' @name geom_flat_violin
 #'
-#' @title geom_flat_violin for expanded error bar displays 
+#' @title geom_flat_violin for expanded density displays 
 #'
 #' @md
 #'

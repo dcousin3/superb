@@ -32,11 +32,6 @@ Description:
     <doi:10.20982/tqmp.15.1.p001> for specific references.
 License: GPL-3
 Encoding: UTF-8
-RemoteType: github
-GithubRepo: superb
-GithubUsername: dcousin3
-GithubRef: master
-GithubSHA1: 081763600c819912e5147850ef59b65c6aa4520f
 VignetteBuilder: knitr
 LazyData: true
 RoxygenNote: 7.3.1

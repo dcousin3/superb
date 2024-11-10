@@ -288,7 +288,7 @@ intervals!</p>
 <h3 id="defining-the-data">Defining the data<a class="anchor" aria-label="anchor" href="#defining-the-data"></a>
 </h3>
 <p>In what follows, we assume that the data are available in compiled
-form, as in the second table above. Because <code>superb</code> only
+form, as in the second table above. Because <code><a href="../reference/superb.html">superb()</a></code> only
 takes raw data, we will have to convert these into a long sequence of
 zeros and ones.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -298,7 +298,7 @@ zeros and ones.</p>
 <span>    n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">28</span>, <span class="fl">26</span><span class="op">)</span></span>
 <span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>The following converts the compiled data into a long data frame
-containing ones and zeros so that <code>superb</code> can be fed raw
+containing ones and zeros so that <code><a href="../reference/superb.html">superb()</a></code> can be fed raw
 data:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">group</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -330,7 +330,7 @@ intervals:</p>
 <span>    <span class="fu">SE.A</span><span class="op">(</span><span class="va">v</span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html" class="external-link">qchisq</a></span><span class="op">(</span><span class="va">gamma</span>, df<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>This is all we need to make a basic plot with
-<code>suberbPlot()</code></p>
+<code><a href="../reference/superb.html">superb()</a></code></p>
 <p>… but we need a few libraries, so let’s load them here:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dcousin3.github.io/superb/" class="external-link">superb</a></span><span class="op">)</span></span>
@@ -407,9 +407,9 @@ functions:</p>
 </p>
 </div>
 <p>This new plot is actually identical to the previous one as we plotted
-the proportions using a non-linear scale (the “asn_trans()” scale for
-arcsine). However, the vertical axis is now showing graduations between
-0% and 100% as is expected of proportions.</p>
+the proportions using a non-linear scale (the <code><a href="https://scales.r-lib.org/reference/transform_asn.html" class="external-link">asn_trans()</a></code>
+scale for arcsine). However, the vertical axis is now showing
+graduations between 0% and 100% as is expected of proportions.</p>
 </div>
 <div class="section level3">
 <h3 id="returning-to-the-example">Returning to the example<a class="anchor" aria-label="anchor" href="#returning-to-the-example"></a>
@@ -433,9 +433,9 @@ variances identical.</p>
 <h3 id="in-summary">In summary<a class="anchor" aria-label="anchor" href="#in-summary"></a>
 </h3>
 <p>The <code>superb</code> framework can be used to display any summary
-statistics. Here, we showed how <code><a href="../reference/superbPlot.html">superbPlot()</a></code> can be used
-with proportions. For within-subject designs involving proportions, it
-is also possible to use the correlation adjustments <span class="citation">(as demonstrated in Laurencelle &amp; Cousineau,
+statistics. Here, we showed how <code><a href="../reference/superb.html">superb()</a></code> can be used with
+proportions. For within-subject designs involving proportions, it is
+also possible to use the correlation adjustments <span class="citation">(as demonstrated in Laurencelle &amp; Cousineau,
 2023)</span>.</p>
 </div>
 <div class="section level2">

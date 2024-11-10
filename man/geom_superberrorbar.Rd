@@ -162,7 +162,6 @@ dat <- data.frame(Trial = c(rep("Pre",9),rep("Post",9)),
                      var_sd = c(rnorm(18,3,1)))
 dat <- mutate(dat, point = ifelse(Trial == "Pre","down","up"))
 dat <- mutate(dat, direc = ifelse(Trial == "Pre","left","right"))
-dat <- mutate(dat, vcolo = ifelse(Trial == "Pre","red","blue"))
 dat <- mutate(dat, tipfo = ifelse(Trial == "Pre","double","triple"))
 dat <- mutate(dat, vcolo = ifelse(Trial == "Pre","red","blue"))
    
@@ -172,11 +171,11 @@ ggplot(data = dat,
    geom_point(aes(shape= Trial, fill = Trial), size=2) +
    geom_superberrorbar(aes(ymin=var-var_sd, 
                            ymax=var+var_sd,
-                           direction = direc, # ok
-                           pointing = point,  # ok
-                           wcolour = vcolo,   # ok
-                           vcolour = "green", # ok
-                           tipformat = tipfo  # ok
+                           direction = direc,
+                           pointing = point, 
+                           wcolour = vcolo,  
+                           vcolour = "green",
+                           tipformat = tipfo
        ), 
        width = 4)
 

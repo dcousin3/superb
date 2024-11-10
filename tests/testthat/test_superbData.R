@@ -11,6 +11,7 @@ test_that("TESTS (1/4)", {
         statistic = "mean" )
     expect_output( str(res), "List of 2")
     expect_equal( res$summaryStatistics[1,3], 13.23)
+    
     # restores default information
     options("superb.feedback" = c('design','warnings','summary'))
 })
@@ -28,6 +29,7 @@ test_that("TESTS (2/4)", {
     ) 
     expect_output( str(res), "List of 2")
     expect_equal( res$summaryStatistics[1,3], 13.23)
+
     # restores default information
     options("superb.feedback" = c('design','warnings','summary'))
 })
@@ -43,6 +45,7 @@ test_that("TESTS (3/4)", {
         statistic = "median" )
     expect_output( str(res), "List of 2")
     expect_equal( res$summaryStatistics[1,3], 12.25)
+
     # restores default information
     options("superb.feedback" = c('design','warnings','summary'))
 })
@@ -58,6 +61,7 @@ test_that("TESTS (4/4)", {
         statistic = "sd" )
     expect_output( str(res), "List of 2")
     expect_equal( round(res$summaryStatistics[1,3],5), 4.45971)
+
     # restores default information
     options("superb.feedback" = c('design','warnings','summary'))
 })
@@ -78,6 +82,7 @@ test_that("test 1a: 3 groupes inpependants", {
     res <- superbData(dta1a, BSFactor = "Group", variables = "DV",
       statistic = "mean", errorbar = "SE")
     expect_output( str(res), "List of 2")
+    
     # restores default information
     options("superb.feedback" = c('design','warnings','summary'))
 })
@@ -92,6 +97,7 @@ test_that("test 1b: factorielle a grps independants; 3 x 2", {
     res <- superbData(dta1b, BSFactor = c("Group","Sex"), variables = "DV",
       statistic = "mean", errorbar = "SE" )
     expect_output( str(res), "List of 2")
+
     # restores default information
     options("superb.feedback" = c('design','warnings','summary'))
 })
@@ -109,6 +115,7 @@ test_that("test 2a: 1 facteur a 3 mesures repetees; (3)", {
       variables = c("DV.1","DV.2","DV.3") 
     ))
     expect_output( str(res), "List of 2")
+
     # restores default information
     options("superb.feedback" = c('design','warnings','summary'))
 })
@@ -126,6 +133,7 @@ test_that("test 2b: 2 facteurs a mesures repetees; (3 x 2)", {
       adjustments = list(purpose="difference", decorrelation="CM")
     )
     expect_output( str(res), "List of 2")
+
     # restores default information
     options("superb.feedback" = c('design','warnings','summary'))
 })
@@ -146,6 +154,7 @@ test_that("test 3: scheme mixte; 3 x (3)", {
         adjustments = list(purpose="single", decorrelation="CM")
     ))
     expect_output( str(res), "List of 2")
+
     # restores default information
     options("superb.feedback" = c('design','warnings','summary'))
 })
@@ -166,6 +175,7 @@ test_that("test 4a: scheme a trois facteurs, 2 etant between  3 x 3 x (3)", {
         adjustments = list(purpose="difference", decorrelation="none"),
         factorOrder = c("Dose","Group","Moment"))
     expect_output( str(res), "List of 2")
+
     # restores default information
     options("superb.feedback" = c('design','warnings','summary'))
 })
@@ -187,6 +197,7 @@ test_that("test 5a: scheme a quatre facteurs; 5 x 4 (3 x 2)", {
         adjustments = list(purpose="difference", decorrelation="CM")
     )
     expect_output( str(res), "List of 2")
+
     # restores default information
     options("superb.feedback" = c('design','warnings','summary'))
 })

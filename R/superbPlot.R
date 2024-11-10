@@ -3,9 +3,10 @@
 #'
 #' @md
 #'
-#' @description The function ``suberbPlot()`` plots standard error or confidence interval for various  
+#' @description The function ``superbPlot()`` plots standard error or confidence interval for various  
 #'      descriptive statistics under various designs, sampling schemes, population size and purposes,
 #'      according to the ``suberb`` framework. See \insertCite{cgh21}{superb} for more.
+#'      Note that this function has been superseded by ``superb()``.
 #'
 #' @param data Dataframe in wide format
 #'
@@ -60,7 +61,7 @@
 #' * samplingDesign: Sampling method to obtain the sample. implemented 
 #'          sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Sampling).
 #'
-#' In version 0.97.15, the layouts for plots are the following:
+#' As of version 0.97.15, the layouts for plots are the following:
 #' * "bar" Shows the summary statistics with bars and error bars;
 #' * "line" Shows the summary statistics with lines connecting the conditions over the first factor;
 #' * "point" Shows the summary statistics with isolated points
@@ -70,6 +71,9 @@
 #' * "raincloud" Illustrates the distribution with a cloud (half_violin_plot) and jittered dots next to it. Looks better when coordinates are flipped ``+coord_flip()``.
 #' * "corset" Illustrates two repeated-measures with individual lines and clouds
 #' * "boxplot" Illustrates the limits, the quartiles and the median using a box
+#'
+#' but refer to `superb()` for a documentation that will be kept up do date.
+#'
 #' @md
 #'
 #' @references
@@ -200,7 +204,7 @@ superbPlot <- function(data,
     clusterColumn = "",              # if samplineScheme = CRS
     ...
     # the following are optional list of graphic directives...
-    # errorbarParams,                # merged into ggplot/geom_errorbar
+    # errorbarParams,                # merged into ggplot/geom_superberrorbar
     # pointParams,                   # merged into ggplot/geom_point
     # lineParams,                    # merged into ggplot/geom_line
     # barParams,                     # merged into ggplot/geom_bar
@@ -210,7 +214,7 @@ superbPlot <- function(data,
     ##############################################################################
     # STEP 1: Input validation
     ##############################################################################
-    # 1.0: is the data actually data!
+    # 1.0: are the data actually data!
 	data <- as.data.frame(data) # coerce to data.frame if tibble or compatible
     if(!(is.data.frame(data)))
             stop("superb::ERROR: data is not a data.frame or similar data structure. Exiting...")
@@ -349,7 +353,6 @@ superbPlot <- function(data,
         list(variables, design, BSFactors, WSFactors, wsLevels, wslevel, factorOrder, adjustments) )
 
 
-
     ##############################################################################
     # STEP 2: Decorrelate repeated-measure variables if needed; apply transforms
     ##############################################################################
@@ -414,7 +417,6 @@ superbPlot <- function(data,
     data.transformed.long[WSFactors] <- mapply(
         as.numeric.factor, data.transformed.long[WSFactors])
 
-
     # if there was no within-subject factor, a dummy had been added
     if (WSFactors[1]  == wsMissing) {
         # removing all traces of the dummy
@@ -434,7 +436,6 @@ superbPlot <- function(data,
 
     runDebug("superb.3", "End of Step 3: Reformat data frame into long format", 
         c("data.transformed.long2","factorOrder3"), list(data.transformed.long,factorOrder) )
-
 
 
     ##############################################################################
@@ -523,7 +524,6 @@ superbPlot <- function(data,
         sqrt(1- rs)
     } else if (substr(adjustments$decorrelation,1,2) == "LD") {
         rs <- plyr::ddply(data, .fun = meanLocalCorrelation, .variables = BSFactors, cols = variables, w = radius)
-#        rs <- unlist(rs[,!is.na(rs)])
         rs <- suppressWarnings(as.numeric(unlist(rs))[!is.na(as.numeric(unlist(rs)))])
         # the rs is a vector containing one rLD for each measurement
         sqrt(1- rs)
@@ -538,7 +538,7 @@ superbPlot <- function(data,
 
 
     ##############################################################################
-    # STEP 6: Issue feedback information
+    # STEP 6: Display feedback information
     ##############################################################################
 
     if (('warnings' %in% getOption("superb.feedback") ) | ('all' %in% getOption("superb.feedback")) )  {
@@ -703,5 +703,5 @@ unfactor <- function( col ) {
 }
 
 ##################################################################   
-# End of suberbPlot.
+# End of superbPlot.
 ##################################################################   

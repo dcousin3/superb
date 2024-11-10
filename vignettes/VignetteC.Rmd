@@ -91,7 +91,7 @@ As such, we have all the ingredients needed to make confidence intervals!
 ## Defining the data
 
 In what follows, we assume that the data are available in compiled form, 
-as in the second table above. Because ``superb`` only takes raw
+as in the second table above. Because ``superb()`` only takes raw
 data, we will have to convert these into a long sequence of zeros and ones.
 
 ```{r}
@@ -103,7 +103,7 @@ compileddata <- data.frame(cbind(
 ```
 
 The following converts the compiled data into a long data frame
-containing ones and zeros so that ``superb`` can be fed raw data:
+containing ones and zeros so that ``superb()`` can be fed raw data:
 
 ```{r}
 group  <- c()
@@ -137,7 +137,7 @@ CI.A <- function(v, gamma = 0.95){
 }
 ```
 
-This is all we need to make a basic plot with ``suberbPlot()``
+This is all we need to make a basic plot with ``superb()``
 
 ... but we need a few libraries, so let's load them here:
 
@@ -213,7 +213,7 @@ superb(
 ```
 
 This new plot is actually identical to the previous one as we plotted the 
-proportions using a non-linear scale (the "asn_trans()" scale for arcsine).
+proportions using a non-linear scale (the ``asn_trans()`` scale for arcsine).
 However, the vertical axis is now showing graduations between 0% and 100%
 as is expected of proportions.
 
@@ -239,7 +239,7 @@ transformation in the sense that it makes all the variances identical.
 ## In summary
 
 The ``superb`` framework can be used to display any summary statistics. Here, 
-we showed how ``superbPlot()`` can be used with proportions. For within-subject
+we showed how ``superb()`` can be used with proportions. For within-subject
 designs involving proportions, it is also possible to use the correlation adjustments
 [as demonstrated in @lc22].
 
