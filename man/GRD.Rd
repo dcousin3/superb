@@ -13,7 +13,8 @@ GRD(
   Population = list(mean = 0, stddev = 1, rho = 0, scores =
     "rnorm(1, mean = GM, sd = STDDEV)"),
   Contaminant = list(mean = 0, stddev = 1, rho = 0, scores =
-    "rnorm(1, mean = CGM, sd = CSTDDEV)", proportion = 0)
+    "rnorm(1, mean = CGM, sd = CSTDDEV)", proportion = 0),
+  Instrument = list(precision = 10^(-8))
 )
 }
 \arguments{
@@ -45,6 +46,9 @@ See the last example below.}
 
 \item{Contaminant}{a list providing the contaminant characteristics
 and the proportion of contaminant (default 0)}
+
+\item{Instrument}{a list providing some characteristics
+of the measurement instrument (at this time, its precision only)}
 }
 \value{
 a data.frame with the simulated scores.
@@ -126,6 +130,18 @@ Note that the \code{range} effect specification has been renamed
          "difficulty" = extent(10),
          "gender"=slope(10),
          "difficulty*gender"=custom(-300,+200,-100,0,0,0) 
+     ) 
+ )
+ 
+ 
+ # This last example creates a single group dataset,
+ # The instrument is assumed to return readings to 
+ # plus or minus 0.1 only
+ GRD(
+     SubjectsPerGroup = 10,
+     Population = list(mean=100,stddev=15), 
+     Instrument    = list(
+         precision = 0.1
      ) 
  )
  

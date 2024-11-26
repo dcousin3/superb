@@ -31,6 +31,8 @@
 #'      (default is a normal distribution with a mean of 0 and standard deviation of 1)
 #' @param Contaminant a list providing the contaminant characteristics 
 #'      and the proportion of contaminant (default 0)
+#' @param Instrument a list providing some characteristics 
+#'      of the measurement instrument (at this time, its precision only)
 #'
 #'
 #' @return a data.frame with the simulated scores.
@@ -108,6 +110,18 @@
 #'  )
 #'  
 #'  
+#'  # This last example creates a single group dataset,
+#'  # The instrument is assumed to return readings to 
+#'  # plus or minus 0.1 only
+#'  GRD(
+#'      SubjectsPerGroup = 10,
+#'      Population = list(mean=100,stddev=15), 
+#'      Instrument    = list(
+#'          precision = 0.1
+#'      ) 
+#'  )
+#'  
+#'  
 #' @references
 #' \insertAllCited{} 
 #' 
@@ -125,7 +139,8 @@ GRD <- function(
     WSFactors = "",
     Effects = list(),
     Population  = list(mean = 0, stddev = 1, rho = 0, scores="rnorm(1, mean = GM, sd = STDDEV)"),
-    Contaminant = list(mean = 0, stddev = 1, rho = 0, scores="rnorm(1, mean = CGM, sd = CSTDDEV)", proportion = 0)
+    Contaminant = list(mean = 0, stddev = 1, rho = 0, scores="rnorm(1, mean = CGM, sd = CSTDDEV)", proportion = 0),
+    Instrument  = list(precision = 10^(-8) )
 ){
     #####################################################
     # STEP 0: Load required library
@@ -152,7 +167,7 @@ GRD <- function(
     if (!(all(WSFactors==""))) {
         unpacked <- grdUnpacker(WSFactors, ':', 'WS')
         if (any(names(unpacked) %in% names(BSList))) 
-            stop('GRD::error(1): Unique names across BSFactors and WSFactors list must be provided')
+            stop('GRD::error(1): Unique names across BSFactors and WSFactors list must be provided. Exiting...')
         WSList <- unpacked
     }
     nreplic <- prod(unlist(lapply(WSList,length)))
@@ -161,12 +176,16 @@ GRD <- function(
 
     # validating groups sizes
     if ((length(SubjectsPerGroup)!= 1)&&(length(SubjectsPerGroup)!=ngroups)) 
-        stop('GRD::error(2): There is ',ngroups, " groups to be created but only ",length(SubjectsPerGroup), " have been defined")
+        stop('GRD::error(2): There is ',ngroups, " groups to be created but only ",length(SubjectsPerGroup), " have been defined. Exiting...")
 
     # setting matrix size, Columns and Rows
     BSnames  <- names(BSList)
     WSnames  <- names(WSList)
-    facnames <- c(BSnames, WSnames); cols <- 2+ length(facnames) # variable "id" et "DV" ajout?e
+    facnames <- c(BSnames, WSnames)
+    if (RenameDV %in% facnames) 
+        stop('GRD::error(8): The RenameDV name is already in the within or between subject factor names. Exiting...')
+
+    cols <- 2+ length(facnames) # variables "id" et "DV" ajoutées
     subj <- if(length(SubjectsPerGroup)==1) {
         SubjectsPerGroup * ngroups
     } else {
@@ -246,12 +265,12 @@ GRD <- function(
         if(length(GM)==1) { 
             GM = rep(GM, nreplic)
         } else if (length(GM) != nreplic) {
-            stop(paste("GRD::error(4): The mean is a vector of inadequate length for",nreplic,"replications"))
+            stop(paste("GRD::error(4): The mean is a vector of inadequate length for",nreplic,"replications. Exiting..."))
         } 
         if(length(STDDEV)==1) {
             SIGMA = diag(nreplic) * STDDEV*STDDEV + (1-diag(nreplic))* STDDEV*STDDEV * RHO
         } else if (length(STDDEV)!=nreplic) {
-            stop(paste("GRD::error(5): The standard deviation is a vector of inadequate length for",nreplic,"replications"))
+            stop(paste("GRD::error(5): The standard deviation is a vector of inadequate length for",nreplic,"replications. Exiting..."))
         } else {
             SIGMA = diag(nreplic) * STDDEV*STDDEV + (1-diag(nreplic))* outer(STDDEV,STDDEV) * RHO        
         }
@@ -264,12 +283,12 @@ GRD <- function(
         if(length(CGM)==1) { 
             CGM = rep(CGM, nreplic)
         } else if (length(CGM) != nreplic) {
-            stop(paste("GRD::error(6): The mean is a vector of inadequate length for",nreplic,"replications"))
+            stop(paste("GRD::error(6): The mean is a vector of inadequate length for",nreplic,"replications. Exiting..."))
         } 
         if(length(CSTDDEV)==1) {
             CSIGMA = diag(nreplic) * CSTDDEV*CSTDDEV + (1-diag(nreplic))* CSTDDEV*CSTDDEV * CRHO
         } else if (length(CSTDDEV)!=nreplic) {
-            stop(paste("GRD::error(7): The standard deviation is a vector of inadequate length for",nreplic,"replications"))
+            stop(paste("GRD::error(7): The standard deviation is a vector of inadequate length for",nreplic,"replications. Exiting..."))
         } else {
             CSIGMA = diag(nreplic) * CSTDDEV*CSTDDEV + (1-diag(nreplic))* outer(CSTDDEV,CSTDDEV) * CRHO
         }
@@ -357,7 +376,15 @@ GRD <- function(
 
   
     #####################################################
-    # STEP 6: Let's clean the place
+    # STEP 6: Apply the instrument's characteristics, if any
+    #####################################################
+    # Round the numbers
+    if ( is.numeric(Instrument$precision) ) {
+        data$DV <- grdROUND(data$DV, Instrument$precision)
+    }
+
+    #####################################################
+    # STEP 7: Let's clean the place
     #####################################################
     # Rename DV with its name
     colnames(data)[colnames(data) == "DV"] <- gsub("[[:space:]]", "", RenameDV)
@@ -369,7 +396,7 @@ GRD <- function(
   
   
     #####################################################
-    # STEP 7: All done
+    # STEP 8: All done
     #####################################################
     return(data)
 }
@@ -420,8 +447,15 @@ Rexpression <- function(str)   { c("-96", paste(c(str),collapse="") ) }
 
 
 ##################################################################   
-# Subsidiary private functions: grdMakeEffect; grdL2W; grdDepacker; grdUnpacker;
+# Subsidiary functions: grdROUND, grdMakeEffect; grdL2W; 
+#                       grdDepacker; grdUnpacker;
 ##################################################################   
+
+grdROUND <- function(x, k) {
+    p <- 10^(floor(log10(k)))
+#    print(p)
+    x - x %% p
+}
 
 grdMakeEffect <- function (fnumber, name, details, WBSList, data, allfactors ) {
 

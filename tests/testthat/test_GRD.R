@@ -28,6 +28,9 @@ test_that("Renaming the dependant variable and setting the group size", {
 
     dta <- GRD( RenameDV = "score", SubjectsPerGroup = 200 )
     expect_output( str(hist(dta$score )), "List of 6" )
+    
+    expect_error(GRD(WSFactor = "test(2)", RenameDV = "test"))
+    
     # restores default information
     options("superb.feedback" = c('design','warnings','summary'))
 })

@@ -207,7 +207,7 @@ Data) function included in `superb` (quite useful to test plot functions!).
 Here, we generated data for three profiles and 5 indicators. The effect are from an
 interaction between the two factors, adding or removing points on average on the grand
 mean which is 50.
-s
+
 ```{r, eval = FALSE, results = 'hide'}
 dta <- GRD(
     SubjectsPerGroup = 20,

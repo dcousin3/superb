@@ -9,26 +9,27 @@
 Status](https://www.r-pkg.org/badges/version/superb)](https://cran.r-project.org/package=superb)
 <!-- badges: end -->
 
-The library `superb` offers two main functionalities. First, it can be
-used to obtain plots with adjusted error bars. The main function is
-`superb()` but you can also use `superbShiny()` for a graphical user
-interface requiring no programming nor scripting. See the nice tutorial
-by Walker (2021).
+The library `superb` offers two main functionalities. The first and
+foremost functionnality is to obtain plots with adjusted error bars. The
+main function is `superb()` but you can also use `superbShiny()` for a
+graphical user interface requiring no programming nor scripting. See the
+nice tutorial by Walker (2021).
 
-The purpose of `superb()` is to provide a plot with summary statistics
-and correct error bars. With simple adjustments, the error bar are
-adjusted to the design (within or between), to the purpose (single or
-pair-wise differences), to the sampling method (simple randomized
-samples or cluster randomized samples) and to the population size
-(infinite or of a specific size). The `superbData()` function does not
-generate the plot but returns the summary statistics and the interval
-boundaries. These can afterwards be sent to other plotting environment.
+The purpose of the funciton `superb()` is to provide a plot with summary
+statistics and correct error bars. With simple adjustments, the error
+bar are adjusted to the design (within or between), to the purpose
+(single or pair-wise differences), to the sampling method (simple
+randomized samples or cluster randomized samples) and to the population
+size (infinite or of a specific size). The `superbData()` function does
+not generate the plot but returns the summary statistics and the
+interval boundaries. These can afterwards be sent to other plotting
+environments.
 
-The second functionality is to generate random datasets. The function
-`GRD()` is used to easily generate random data from any design (within
-or between) using any population distribution with any parameters, and
-with various effect sizes. `GRD()` is useful to test statistical
-procedures and plotting procedures such as `superb()`.
+The second, subsidiary, functionality is to generate random datasets.
+The function `GRD()` is used to easily generate random data from any
+design (within or between) using any population distribution with any
+parameters, and with various effect sizes. `GRD()` is quite handy to
+test statistical procedures and plotting procedures such as `superb()`.
 
 # Installation
 
@@ -39,7 +40,7 @@ install.packages("superb")
 library(superb)
 ```
 
-The development version 0.95.19 can be accessed through GitHub:
+The development version 0.95.20 can be accessed through GitHub:
 
 ``` r
 devtools::install_github("dcousin3/superb")
@@ -98,7 +99,7 @@ superb(len ~ dose + supp, ToothGrowth,
 
 The second function, `GRD()`, can be used to generate random data from
 designs with various within- and between-subject factors. This example
-generates scores for 300 simulated participants in a 3 x 6 design with 6
+generates scores for 30 simulated participants in a 3 x 6 design with 6
 daily repeated-measures on `Day`s. Only the factor `Day` is modeled as
 impacting the scores (increasing by 3 points on the second day):
 
@@ -161,9 +162,9 @@ grid.arrange(plt1,plt2, ncol=2)
 
 ![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
-Even better, the simulated scores can be illustrated using using a more
-elaborated layout, the `pointjitter` which, in addition to the mean and
-confidence interval, shows the raw data using jitter dots:
+Even better, the simulated scores can be illustrated using more
+elaborate layouts such as the `pointjitter` layout which, in addition to
+the mean and confidence interval, shows the raw data using jitter dots:
 
 ``` r
 superb( crange(score.1, score.6) ~ Difficulty, 

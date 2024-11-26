@@ -22,7 +22,7 @@ presented in Calderini and Harding (2019)
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.19</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.20</span>
       </span>
     </div>
 
@@ -136,7 +136,8 @@ presented in Calderini and Harding (2019)
 <span>  Population <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fl">0</span>, stddev <span class="op">=</span> <span class="fl">1</span>, rho <span class="op">=</span> <span class="fl">0</span>, scores <span class="op">=</span></span>
 <span>    <span class="st">"rnorm(1, mean = GM, sd = STDDEV)"</span><span class="op">)</span>,</span>
 <span>  Contaminant <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fl">0</span>, stddev <span class="op">=</span> <span class="fl">1</span>, rho <span class="op">=</span> <span class="fl">0</span>, scores <span class="op">=</span></span>
-<span>    <span class="st">"rnorm(1, mean = CGM, sd = CSTDDEV)"</span>, proportion <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span>    <span class="st">"rnorm(1, mean = CGM, sd = CSTDDEV)"</span>, proportion <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>  Instrument <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>precision <span class="op">=</span> <span class="fl">10</span><span class="op">^</span><span class="op">(</span><span class="op">-</span><span class="fl">8</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -183,6 +184,11 @@ See the last example below.</p></dd>
 <dt>Contaminant</dt>
 <dd><p>a list providing the contaminant characteristics
 and the proportion of contaminant (default 0)</p></dd>
+
+
+<dt>Instrument</dt>
+<dd><p>a list providing some characteristics
+of the measurement instrument (at this time, its precision only)</p></dd>
 
 </dl></div>
     <div id="value">
@@ -348,6 +354,29 @@ and the proportion of contaminant (default 0)</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 58 58          3      2   96.701243</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 59 59          3      2  107.563433</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 60 60          3      2  137.394063</span>
+<span class="r-in"><span> </span></span>
+<span class="r-in"><span> </span></span>
+<span class="r-in"><span> <span class="co"># This last example creates a single group dataset,</span></span></span>
+<span class="r-in"><span> <span class="co"># The instrument is assumed to return readings to </span></span></span>
+<span class="r-in"><span> <span class="co"># plus or minus 0.1 only</span></span></span>
+<span class="r-in"><span> <span class="fu">GRD</span><span class="op">(</span></span></span>
+<span class="r-in"><span>     SubjectsPerGroup <span class="op">=</span> <span class="fl">10</span>,</span></span>
+<span class="r-in"><span>     Population <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean<span class="op">=</span><span class="fl">100</span>,stddev<span class="op">=</span><span class="fl">15</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>     Instrument    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>         precision <span class="op">=</span> <span class="fl">0.1</span></span></span>
+<span class="r-in"><span>     <span class="op">)</span> </span></span>
+<span class="r-in"><span> <span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    id    DV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1 102.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   2 126.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   3  80.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   4 120.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   5 117.7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   6  81.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   7  76.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   8  73.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   9 115.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 10 102.5</span>
 <span class="r-in"><span> </span></span>
 <span class="r-in"><span> </span></span>
 </code></pre></div>
