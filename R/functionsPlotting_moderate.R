@@ -441,8 +441,11 @@ superbPlot.pointjitterviolin <- function(
 #' @param rawdata always contains "DV" for each participants and each level of the factors
 #' @param pointParams (optional) list of graphic directives that are sent to the geom_point layer
 #' @param datapointParams (optional) list of graphic directives that are sent to the geom_point layer of the individual lines
-#' @param lineParams (optional) list of graphic directives that are sent to the geom_bar layer;
-#'    the parameter colorize=TRUE with use a distinct color for decreasing segments of line
+#' @param lineParams (optional) list of graphic directives that are sent to the geom_line layer;
+#'    the parameter `colorize` can be used to obtain distinct colors for decreasing 
+#'    segments of line (`colorize = "bySlope"`), to obtain distinct colors for each
+#'    participants (`colorize = "byId"`), or to have them all gray (default with `colorize
+#'    = "none"`).
 #' @param errorbarParams (optional) list of graphic directives that are sent to the geom_superberrorbar layer
 #' @param facetParams (optional) list of graphic directives that are sent to the facet_grid layer
 #'
@@ -499,13 +502,14 @@ superbPlot.pointindividualline <- function(
     # rename column "DV" as "center"
     rawdata$center <- rawdata$DV
 
-    # find which segments are increasing (for colorize=TRUE option)
+    # find which segments are increasing (for colorize option)
+    # colorize = bySlope, byId, none.
     rawdataB <- rawdata
     if (exists("id", where = rawdata)) {
         # indicate if data are increasing or decreasing
         rawdataB          <- rawdata[order(rawdata$id),]
         rawdataB$ypost    <- c(with(rawdataB, embed(center,2)[,1]),0)
-        rawdataB$increase <- factor(rawdataB$ypost > rawdataB$center)
+        rawdataB$slope    <- factor(rawdataB$ypost > rawdataB$center)
     } else {
         #print("there is no id column")
     }
@@ -513,7 +517,19 @@ superbPlot.pointindividualline <- function(
     # remove colorize option if present
     temp <- FALSE
     if (exists("colorize", where = lineParams)){
-        temp <- lineParams$colorize
+        temp <- TRUE
+        if (lineParams$colorize == "byId") {
+            temp <- TRUE
+            rawdataB$colored = factor(rawdataB$id)
+        } else if (lineParams$colorize == "bySlope") {
+            temp <- TRUE
+            rawdataB$colored = rawdataB$slope
+        } else if (lineParams$colorize == "none") { 
+            temp <- FALSE
+            rawdataB$colored = 1
+        } else { # warning unknown option
+            warning("superb::individualline: Unknown option for colorize")
+        }
         lineParams$colorize <- NULL
     }
 
@@ -522,14 +538,14 @@ superbPlot.pointindividualline <- function(
         dolines <- do.call(geom_line, modifyList(
             list(data = rawdataB,
                 linewidth=0.2, alpha = 0.25,
-                mapping = aes( y = center, group = id, color = increase ) ),
+                mapping = aes( y = center, group = factor(id), color = colored ) ),
             lineParams
         ))
     } else {
         dolines <- do.call(geom_line, modifyList(
             list(data = rawdata,
                 linewidth=0.2, alpha = 0.25,
-                mapping = aes( y = center, group = id ) ),
+                mapping = aes( y = center, group = factor(id) ) ),
             lineParams
         ))
     }

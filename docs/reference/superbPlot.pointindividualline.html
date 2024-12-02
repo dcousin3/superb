@@ -20,7 +20,7 @@ possible to add custom-make templates (see vignette 6). The functions, to be
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.20</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.21</span>
       </span>
     </div>
 
@@ -168,8 +168,10 @@ possible to add custom-make templates (see vignette 6). The functions, to be
 
 
 <dt>lineParams</dt>
-<dd><p>(optional) list of graphic directives that are sent to the geom_bar layer;
-the parameter colorize=TRUE with use a distinct color for decreasing segments of line</p></dd>
+<dd><p>(optional) list of graphic directives that are sent to the geom_line layer;
+the parameter <code>colorize</code> can be used to obtain distinct colors for decreasing
+segments of line (<code>colorize = "bySlope"</code>), to obtain distinct colors for each
+participants (<code>colorize = "byId"</code>), or to have them all gray (default with <code>colorize = "none"</code>).</p></dd>
 
 
 <dt>errorbarParams</dt>

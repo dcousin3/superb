@@ -4,6 +4,11 @@
 * Celebrating the fourth anniversary of `superb`! 
 * Corrected minor typos in documentations
 
+# superb 0.95.21 (December 1st, 2024)
+
+* Upgraded option `colorize` in "lineindividualplot" layout
+* Added a check in `GRD` to validate that effects bears on legitimate factors
+
 # superb 0.95.20 (November 26th, 2024)
 
 * Added one validation to `GRD()` to exclude DV same as IV.

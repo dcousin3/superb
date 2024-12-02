@@ -80,7 +80,7 @@ globalVariables(c("yend","xend","label"))
 # superbPlot.bar and all the superbPlot.xxx functions
 globalVariables(c("center","lowerwidth","upperwidth","hwlowerwidth","hwupperwidth"))
 # superbPlot.pointindividualline
-globalVariables(c("increase","id"))
+globalVariables(c("increase","id","colored")) # increase no longer exists
 # superbPlot.boxplot
 globalVariables(c("DV"))
 

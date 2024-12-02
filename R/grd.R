@@ -185,6 +185,17 @@ GRD <- function(
     if (RenameDV %in% facnames) 
         stop('GRD::error(8): The RenameDV name is already in the within or between subject factor names. Exiting...')
 
+    # check that effect names are in facnames
+    if (length(Effects) > 0 ) { 
+        for (i in 1:length(Effects)) {
+            if (Effects[[i]][1] < -90) {  #slope, extent, custom
+                if (!(all(grdDepacker(names(Effects[i])) %in% facnames))) {
+                    stop('GRD::error(9): One of the effect name not in the list of factor names. Exiting...')
+                }
+            }
+        }
+    }
+
     cols <- 2+ length(facnames) # variables "id" et "DV" ajoutées
     subj <- if(length(SubjectsPerGroup)==1) {
         SubjectsPerGroup * ngroups

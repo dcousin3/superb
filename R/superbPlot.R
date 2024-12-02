@@ -3,10 +3,10 @@
 #'
 #' @md
 #'
-#' @description The function ``superbPlot()`` plots standard error or confidence interval for various  
+#' @description The function `superbPlot()` plots standard error or confidence interval for various  
 #'      descriptive statistics under various designs, sampling schemes, population size and purposes,
 #'      according to the ``suberb`` framework. See \insertCite{cgh21}{superb} for more.
-#'      Note that this function has been superseded by ``superb()``.
+#'      Note that this function has been superseded by `superb()`.
 #'
 #' @param data Dataframe in wide format
 #'
@@ -18,13 +18,13 @@
 #' @param statistic The summary statistic function to use as a string
 #' @param errorbar The function that computes the error bar. Should be "CI" or "SE" or 
 #'      any function name if you defined a custom function. Default to "CI"
-#' @param gamma The coverage factor; necessary when ``errorbar == "CI"``. Default is 0.95.
+#' @param gamma The coverage factor; necessary when `errorbar == "CI"`. Default is 0.95.
 #' @param factorOrder Order of factors as shown in the graph (in that order: x axis,
 #'       groups, horizontal panels, vertical panels)
 #'
 #' @param adjustments List of adjustments as described below.
-#'      Default is ``adjustments = list(purpose = "single", popSize = Inf, decorrelation = "none",
-#'              samplingDesign = "SRS")``
+#'      Default is `adjustments = list(purpose = "single", popSize = Inf, decorrelation = "none",
+#'              samplingDesign = "SRS")`
 #' @param clusterColumn used in conjunction with samplingDesign = "CRS", indicates which column 
 #'    contains the cluster membership
 #'

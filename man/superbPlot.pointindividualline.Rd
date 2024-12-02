@@ -32,8 +32,10 @@ superbPlot.pointindividualline(
 
 \item{pointParams}{(optional) list of graphic directives that are sent to the geom_point layer}
 
-\item{lineParams}{(optional) list of graphic directives that are sent to the geom_bar layer;
-the parameter colorize=TRUE with use a distinct color for decreasing segments of line}
+\item{lineParams}{(optional) list of graphic directives that are sent to the geom_line layer;
+the parameter \code{colorize} can be used to obtain distinct colors for decreasing
+segments of line (\code{colorize = "bySlope"}), to obtain distinct colors for each
+participants (\code{colorize = "byId"}), or to have them all gray (default with \code{colorize = "none"}).}
 
 \item{errorbarParams}{(optional) list of graphic directives that are sent to the geom_superberrorbar layer}
 

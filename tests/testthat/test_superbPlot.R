@@ -883,7 +883,7 @@ test_that("Testing local decorrelation plot", {
     X <- GRD(SubjectsPerGroup = 50, WSFactors = "time(10)", Effects = list("time"=extent(3)))
     go <- function(m) {
         superbPlot(X, 
-            WSFactor = "time(10)",
+            WSFactors = "time(10)",
             variables = names(X)[-1],
             adjustments = list(decorrelation = m),
             plotStyle = "lineBand"
@@ -897,4 +897,73 @@ test_that("Testing local decorrelation plot", {
 })
 
 
+test_that("Testing individual lines", {
+	old <- options() 
+	on.exit(options(old)) 
+    options("superb.feedback" = c('none'))
+
+    library(ggplot2)
+    set.seed(43)
+    dta <- GRD( WSFactors = "condition(3)", 
+        SubjectsPerGroup = 40,
+        RenameDV = "activation",
+        Effects = list("condition" = extent(3) ),
+        Population=list(mean=50,stddev=10,rho=0.75)
+    )
+    
+    p1 <- superb(cbind(activation.1, activation.2, activation.3) ~ ., 
+        dta, 
+        WSFactors = "condition(3)",
+        adjustments = list(decorrelation = "CA"),
+        plotStyle = "pointindividualline"
+    ) + ylim(20,80)
+    print(p1)
+    expect_equal( "ggplot" %in% class(p1), TRUE)
+
+    p2 <- superb(cbind(activation.1, activation.2, activation.3) ~ ., 
+        dta, 
+        WSFactors = "condition(3)",
+        adjustments = list(decorrelation = "CA"),
+        plotStyle = "pointindividualline",
+        lineParams = list(colorize="none")
+    ) + ylim(20,80)
+    print(p2)
+    expect_equal( "ggplot" %in% class(p2), TRUE)
+
+    p3 <- superb(cbind(activation.1, activation.2, activation.3) ~ ., 
+        dta, 
+        WSFactors = "condition(3)",
+        adjustments = list(decorrelation = "CA"),
+        plotStyle = "pointindividualline",
+        lineParams = list(colorize="none", color="red")
+    ) + ylim(20,80)
+    print(p3)
+    expect_equal( "ggplot" %in% class(p3), TRUE)
+
+    p4 <- superb(cbind(activation.1, activation.2, activation.3) ~ ., 
+        dta, 
+        WSFactors = "condition(3)",
+        adjustments = list(decorrelation = "CA"),
+        plotStyle = "pointindividualline",
+        lineParams = list(colorize="byId")
+    ) + ylim(20,80)
+    print(p4)
+    expect_equal( "ggplot" %in% class(p4), TRUE)
+
+    p5 <- superb(cbind(activation.1, activation.2, activation.3) ~ ., 
+        dta, 
+        WSFactors = "condition(3)",
+        adjustments = list(decorrelation = "CA"),
+        plotStyle = "pointindividualline",
+        lineParams = list(colorize="bySlope")
+    ) + ylim(20,80)
+    print(p5)
+    expect_equal( "ggplot" %in% class(p5), TRUE)
+
+
+
+    # restores default information
+    options("superb.feedback" = c('design','warnings','summary'))
+
+})
 
