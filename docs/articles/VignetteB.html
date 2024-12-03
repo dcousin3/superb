@@ -329,11 +329,13 @@ conditions:</p>
 where for each within-subject variable in the dataset, the levels of the
 corresponding factors (in the order they were given in
 <code>WSFactors</code>) are listed.</p>
-<p>(note that the WSDesign levels superseeds the total number of levels,
+<p>Note that the WSDesign levels superseeds the total number of levels,
 <em>4</em>, given in the <code>WSFactors</code>. Hence,
 <code>Nletters</code> could be given as <code>Nletters(99)</code> or as
-<code>Nletters(1)</code>, that has no longer any impact on the
-plot.)</p>
+<code>Nletters(1)</code>, that has no longer any impact on the plot.</p>
+<p>Also note that if the data are given in a long format, you can omit
+WSDesign. The long format contains enough information for
+<code><a href="../reference/superb.html">superb()</a></code> to correctly guess the conditions.</p>
 </div>
 <div class="section level2">
 <h2 id="in-summary">In summary<a class="anchor" aria-label="anchor" href="#in-summary"></a>

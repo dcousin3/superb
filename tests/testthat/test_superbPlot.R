@@ -862,7 +862,7 @@ test_that("Testing corset plot", {
 
     plt <- superbPlot(dta, WSFactors = "moment(2)", variables = c("DV.1","DV.2"),
         plotStyle    = "corset", 
-        lineParams   = list(colorize=TRUE),
+        lineParams   = list(colorize="bySlope"),
         violinParams = list(fill = "green", alpha = 0.2 ) 
     ) + theme_bw() + 
     theme(axis.line.y = element_line(color="black"), legend.position.inside=c(0.1,0.75), panel.border = element_blank() ) +

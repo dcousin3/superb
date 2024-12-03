@@ -10,8 +10,10 @@ test_that("TESTS (1/4)", {
 	Owide <- superbToWide(Orange, id = "Tree", WSFactors = "age", variable = "DV" )
 
     expect_output( str(Owide), "data.frame")
-    expect_equal( Owide$DV.118[1], 30)
-    expect_equal( Owide$DV.1582[5], 177)
+    expect_equal( Owide$DV.118[Owide$Tree[1]], 
+        dplyr::filter(Orange, Tree == Owide$Tree[1]& age == 118)$DV)
+    expect_equal( Owide$DV.1582[Owide$Tree[5]], 
+            dplyr::filter(Orange, Tree == Owide$Tree[5]& age == 1582)$DV)
 
     # restores default information
     options("superb.feedback" = c('design','warnings','summary'))

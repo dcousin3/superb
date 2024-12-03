@@ -24,7 +24,8 @@
 #' @param groupingfactor a string with the name of the column for which the data will be grouped on the plot;
 #' @param addfactors a string with up to two additional factors to make the rows and columns panels, in the form "fact1 ~ fact2";
 #' @param rawdata always contains "DV" for each participants and each level of the factors;
-#' @param lineParams (optional) list of graphic directives that are sent to the geom_line layer;
+#' @param lineParams (optional) list of graphic directives that are sent to the geom_line layer 
+#'    including the option colorize "bySlope", "byId" or "none";
 #' @param pointParams (optional) list of graphic directives that are sent to the geom_bar layer;
 #' @param errorbarParams (optional) list of graphic directives that are sent to the geom_superberrorbar layer;
 #' @param jitterParams (optional) list of graphic directives that are sent to the geom_jitter layer;
@@ -55,7 +56,7 @@
 #'    dta, 
 #'    WSFactors = "moment(2)", 
 #'    plotStyle = "corset",
-#'    lineParams = list(colorize=TRUE) 
+#'    lineParams = list(colorize="bySlope") 
 #' )
 #'
 #' # This layout has similarities with the "pointindividualline" layout
@@ -78,7 +79,7 @@
 #' superbPlot.corset(processedData$summaryStatistic, 
 #'    "moment", NULL, ".~.", 
 #'    processedData$rawData, 
-#'    lineParams = list(colorize=TRUE) )
+#'    lineParams = list(colorize="bySlope") )
 #'
 #' 
 #' @export superbPlot.corset
@@ -117,13 +118,25 @@ superbPlot.corset <- function(
         # indicate if data are increasing or decreasing
         rawdataB          <- rawdata[order(rawdata$id),]
         rawdataB$ypost    <- c(with(rawdataB, embed(center,2)[,1]),0)
-        rawdataB$increase <- factor(rawdataB$ypost > rawdataB$center)
+        rawdataB$slope    <- factor(rawdataB$ypost > rawdataB$center)
     }
 
     # remove colorize option if present
     temp <- FALSE
     if (exists("colorize", where = lineParams)){
-        temp <- lineParams$colorize
+        temp <- TRUE
+        if (lineParams$colorize == "byId") {
+            temp <- TRUE
+            rawdataB$colored = factor(rawdataB$id)
+        } else if (lineParams$colorize == "bySlope") {
+            temp <- TRUE
+            rawdataB$colored = rawdataB$slope
+        } else if (lineParams$colorize == "none") { 
+            temp <- FALSE
+            rawdataB$colored = 1
+        } else { # warning unknown option
+            warning("superb::individualline: Unknown option for colorize")
+        }
         lineParams$colorize <- NULL
     }
 
@@ -136,7 +149,7 @@ superbPlot.corset <- function(
         dolines <- do.call(geom_line, modifyList(
             list(data = rawdataB,
                 linewidth=0.2, alpha = 0.25,
-                mapping = aes( y = center, group = id, color = increase ) ),
+                mapping = aes( y = center, group = id, color = colored ) ),
             lineParams
         ))
     } else {

@@ -3,9 +3,10 @@
 #'
 #' @md
 #'
-#' @description The function ``superb()`` plots standard error or confidence interval for various  
-#'      descriptive statistics under various designs, sampling schemes, population size and purposes,
-#'      according to the ``superb`` framework. See \insertCite{cgh21}{superb} for more.
+#' @description The function ``superb()`` plots standard error or confidence interval for   
+#'      various descriptive statistics under various designs, sampling schemes, 
+#'      population size and purposes, according to the ``superb`` framework. 
+#'      See \insertCite{cgh21}{superb} for more.
 #'      The functions `superb()` is now the entry point
 #'      to realize summary plots.
 #'      Compared to the previously documented `superbPlot()`,
@@ -37,7 +38,8 @@
 #' @param plotStyle The type of object to plot on the graph. See full list below.
 #'      Defaults to "bar".
 #'
-#' @param preprocessfct  is a transform (or vector of) to be performed first on data matrix of each group
+#' @param preprocessfct  is a transform (or vector of) to be performed first on data 
+#'      matrix of each group
 #' @param postprocessfct is a transform (or vector of)
 #'
 #' @param ...  In addition to the parameters above, superbPlot also accept a number of 
@@ -54,14 +56,17 @@
 #' * purpose: The purpose of the comparisons. Defaults to "single". 
 #'      Can be "single", "difference", or "tryon".
 #' * decorrelation: Decorrelation method for repeated measure designs. 
-#'      Chooses among the methods "CM", "LM", "CA", "UA", "LDr" (with r an integer) or "none". Defaults to 
-#'      "none". "CA" is correlation-adjusted \insertCite{c19}{superb};
+#'      Chooses among the methods "CM", "LM", "CA", "UA", "LDr" (with r an integer) or "none".  
+#'      Defaults to "none". "CA" is correlation-adjusted \insertCite{c19}{superb};
+#'      "CM" is Cousineau-Morey \insertCite{b12}{superb}; "LM" is Loftus and Masson
+#'      \insertCite{lm94}{superb};
 #'      "UA" is based on the unitary Alpha method (derived from the Cronbach alpha;
 #'      see \insertCite{lc22}{superb}).
 #'      "LDr" is local decorrelation (useful for long time series with autoregressive 
 #'      correlation structures; see \insertCite{cppf24}{superb}).
 #' * samplingDesign: Sampling method to obtain the sample. implemented 
-#'          sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Sampling).
+#'          sampling is "SRS" (Simple Randomize Sampling) and "CRS" 
+#'          (Cluster-Randomized Sampling).
 #'
 #' The formulas can be for long format data using | notation, e.g., 
 #' * `superb( extra ~ group | ID, sleep )`
@@ -73,14 +78,19 @@
 #' The layouts for plots are the following:
 #' * These are basic plots:
 #'     * "bar" Shows the summary statistics with bars and error bars;
-#'     * "line" Shows the summary statistics with lines connecting the conditions over the first factor;
+#'     * "line" Shows the summary statistics with lines connecting the conditions 
+#'           over the first factor;
 #'     * "point" Shows the summary statistics with isolated points
 #'     * "lineband" illustrates the confidence intervals as a band;
 #' * These plots add distributional information in addition
-#'     * "pointjitter" Shows the summary statistics along with jittered points depicting the raw data;
+#'     * "pointjitter" Shows the summary statistics along with jittered points depicting 
+#'           the raw data;
 #'     * "pointjitterviolin" Also adds violin plots to the previous layout
-#'     * "pointindividualline" Connects the raw data with line along the first factor (which should be a repeated-measure factor)
-#'     * "raincloud" Illustrates the distribution with a cloud (half_violin_plot) and jittered dots next to it. Looks better when coordinates are flipped ``+coord_flip()``
+#'     * "pointindividualline" Connects the raw data with line along the first factor 
+#'           (which should be a repeated-measure factor)
+#'     * "raincloud" Illustrates the distribution with a cloud (half_violin_plot) and 
+#'            jittered dots next to it. Looks better when coordinates are 
+#'            flipped ``+coord_flip()``
 #'     * "corset" illustrates within-subject designs with individual lines and clouds.
 #' * Circular plots (aka radar plots) results from the following layouts:
 #'     * "circularpoint" Shows the summary statistics with isolated points
@@ -178,7 +188,7 @@ superb <- function(
     formula, 
     data, 
     WSFactors     = NULL,            # vector of the names of the within-subject factors
-    WSDesign      = "fullfactorial", # or ws levels of each variable if not a full factorial ws design
+    WSDesign      = NULL,            # or ws levels of each variable if not a full factorial ws design
     factorOrder   = NULL,            # order of the factors for plots
     statistic     = "mean",          # descriptive statistics
     errorbar      = "CI",            # content of the error bars
@@ -271,26 +281,51 @@ superb <- function(
         nsubjects = dim(unique(data[IDvar]))[1]
         BSfacts <- NULL
         WSfacts <- WSfacts2 <- NULL
+        prodWSfacts <- 1
+
         for (fact in ALLfacts) {
-            if (dim(unique(data[c(IDvar, fact)]))[1] == nsubjects) {
+            if (dim(unique(data[c(IDvar, fact)]))[1] == nsubjects ) {
                 BSfacts = c(BSfacts, fact)
             } else {
-                WSfacts <- c(WSfacts, fact)
                 nlevels <- dim(unique(data[fact]))[1]
+                WSfacts <- c(WSfacts, fact)
+                prodWSfacts <- prodWSfacts * nlevels
                 WSfacts2 <- c(WSfacts2, paste(fact,"(",nlevels,")",sep=""))
             }
+        }
+
+        # c) if WSDesign was not specified, check if it is a full-factorial design
+        if (is.null(WSDesign)) {
+            temp <- unique(data[c(WSfacts)])
+            prodCondits <- dim( temp )[1]
+            if (prodCondits == prodWSfacts) { 
+                wsdesign <- "fullfactorial"
+            } else {
+                if ('design' %in% getOption("superb.feedback") )
+                    message("superb::FYI: The design is not full factorial. It is infered from the data...")
+                temp <- temp[do.call(order, temp[c(WSfacts)]),]
+#print(temp)
+                wsdesign <- mapply( c , data.frame(t(temp)), SIMPLIFY=FALSE )
+            }
+        } else {
+            wsdesign <- WSDesign
         }
     } else {
         BSfacts <- ALLvars[!(ALLvars %in% DVvars)]
         if (length(BSfacts) == 0) BSfacts = NULL #it could be character(0)...
         WSfacts <- WSfacts2 <- NULL
+        if (is.null(WSDesign)) {
+            wsdesign <- "fullfactorial"
+        } else {
+            wsdesign = WSDesign
+        }
     }
+
 
     ##############################################################################
     # STEP 3: Harmonize the data format to wide if needed
     ##############################################################################
 
-    #old.data <- data
     if (has.nested.terms(formula)) {
         # Widen the data file
         data <- superbToWide( data, IDvar, BSfacts, WSfacts, DVvars)
@@ -300,7 +335,7 @@ superb <- function(
     } else {
         # print("nothing to do...")
     }
-   
+
 
     ##############################################################################
     # STEP 4: All done! transfer to superbPlot()
@@ -317,7 +352,7 @@ superb <- function(
         variables   = DVvars,
         BSFactors   = BSfacts,
         WSFactors   = if (length(WSfacts2)==0 ) WSFactors else WSfacts2, 
-        WSDesign    = WSDesign,
+        WSDesign    = wsdesign,
         statistic   = statistic, 
         errorbar    = errorbar, 
         gamma       = gamma,

@@ -168,7 +168,8 @@ possible to create custom-make templates (see vignette 5). The functions, to be
 
 
 <dt>lineParams</dt>
-<dd><p>(optional) list of graphic directives that are sent to the geom_line layer;</p></dd>
+<dd><p>(optional) list of graphic directives that are sent to the geom_line layer
+including the option colorize "bySlope", "byId" or "none";</p></dd>
 
 
 <dt>pointParams</dt>
@@ -229,7 +230,7 @@ possible to create custom-make templates (see vignette 5). The functions, to be
 <span class="r-in"><span>   <span class="va">dta</span>, </span></span>
 <span class="r-in"><span>   WSFactors <span class="op">=</span> <span class="st">"moment(2)"</span>, </span></span>
 <span class="r-in"><span>   plotStyle <span class="op">=</span> <span class="st">"corset"</span>,</span></span>
-<span class="r-in"><span>   lineParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>colorize<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> </span></span>
+<span class="r-in"><span>   lineParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>colorize<span class="op">=</span><span class="st">"bySlope"</span><span class="op">)</span> </span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="superbPlot.corset-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
@@ -254,7 +255,7 @@ possible to create custom-make templates (see vignette 5). The functions, to be
 <span class="r-in"><span><span class="fu">superbPlot.corset</span><span class="op">(</span><span class="va">processedData</span><span class="op">$</span><span class="va">summaryStatistic</span>, </span></span>
 <span class="r-in"><span>   <span class="st">"moment"</span>, <span class="cn">NULL</span>, <span class="st">".~."</span>, </span></span>
 <span class="r-in"><span>   <span class="va">processedData</span><span class="op">$</span><span class="va">rawData</span>, </span></span>
-<span class="r-in"><span>   lineParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>colorize<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">)</span></span></span>
+<span class="r-in"><span>   lineParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>colorize<span class="op">=</span><span class="st">"bySlope"</span><span class="op">)</span> <span class="op">)</span></span></span>
 <span class="r-plt img"><img src="superbPlot.corset-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>

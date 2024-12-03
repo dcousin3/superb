@@ -23,6 +23,7 @@ test_that("ALL THE TESTS in one swoop", {
     expect_equal( "ggplot" %in% class(plt), TRUE)
 
     # basic test with Orange as repeated measure
+	names(Orange) <- c("Tree","age","circumference")
     plt     <- superb( circumference ~ age | Tree, Orange)
     print(plt)
     expect_equal( "ggplot" %in% class(plt), TRUE)

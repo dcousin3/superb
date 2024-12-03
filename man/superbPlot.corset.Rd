@@ -30,7 +30,8 @@ superbPlot.corset(
 
 \item{rawdata}{always contains "DV" for each participants and each level of the factors;}
 
-\item{lineParams}{(optional) list of graphic directives that are sent to the geom_line layer;}
+\item{lineParams}{(optional) list of graphic directives that are sent to the geom_line layer
+including the option colorize "bySlope", "byId" or "none";}
 
 \item{pointParams}{(optional) list of graphic directives that are sent to the geom_bar layer;}
 
@@ -73,7 +74,7 @@ superb(
    dta, 
    WSFactors = "moment(2)", 
    plotStyle = "corset",
-   lineParams = list(colorize=TRUE) 
+   lineParams = list(colorize="bySlope") 
 )
 
 # This layout has similarities with the "pointindividualline" layout
@@ -96,7 +97,7 @@ processedData <- superb(
 superbPlot.corset(processedData$summaryStatistic, 
    "moment", NULL, ".~.", 
    processedData$rawData, 
-   lineParams = list(colorize=TRUE) )
+   lineParams = list(colorize="bySlope") )
 
 
 }

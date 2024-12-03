@@ -152,9 +152,12 @@ Really, the only new manipulation is the use of ``WSDesign`` where for each
 within-subject variable in the dataset, the levels of the corresponding factors
 (in the order they were given in ``WSFactors``) are listed.
 
-(note that the WSDesign levels superseeds the total number of levels, *4*, given
+Note that the WSDesign levels superseeds the total number of levels, *4*, given
 in the ``WSFactors``. Hence, ``Nletters`` could be given as ``Nletters(99)`` or 
-as ``Nletters(1)``, that has no longer any impact on the plot.)
+as ``Nletters(1)``, that has no longer any impact on the plot.
+
+Also note that if the data are given in a long format, you can omit WSDesign. The long
+format contains enough information for `superb()` to correctly guess the conditions.
 
 ## In summary
 

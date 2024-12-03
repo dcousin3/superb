@@ -247,18 +247,18 @@ superbPlot <- function(data,
     # 1.4a: innapropriate choice for between-subject specifications
     bsLevels <- dim(unique(data[BSFactors]))[1]
     if (!(length(adjustments$popSize) %in% c(1,bsLevels))) 
-            stop("superb::ERROR: popSize is a list whose length does not match the number of groups. Exiting...")
+        stop("superb::ERROR: popSize is a list whose length does not match the number of groups. Exiting...")
     
     # 1.4b: invalid within-subject factors
     if (any(unlist(gregexpr("\\w\\((\\d+)\\)", WSFactors))== -1))
-            stop("superb::ERROR: One of the repeated-measure factor not properly formed 'name(nlevel)'. Exiting...")
+        stop("superb::ERROR: One of the repeated-measure factor not properly formed 'name(nlevel)'. Exiting...")
     wsMissing <- "DummyWithinSubjectFactor"
     wsLevels <- c(1)
     if (is.null(WSFactors)) {
         WSFactors <- wsMissing
     } else {
         for (i in 1:length(WSFactors)) {
-            wsLevels[i] <- as.integer(unlist(strsplit(WSFactors[i], '[()]'))[2]) 
+            wsLevels[i]  <- as.integer(unlist(strsplit(WSFactors[i], '[()]'))[2]) 
             WSFactors[i] <-            unlist(strsplit(WSFactors[i], '[()]'))[1]
         }
     }
@@ -269,8 +269,8 @@ superbPlot <- function(data,
         factorOrder <- c(WSFactors, BSFactors)
         if (('design' %in% getOption("superb.feedback") ) & (length(factorOrder[factorOrder != wsMissing])) > 1)  
                 message(paste("superb::FYI: The variables will be plotted in that order: ",
-                          paste(factorOrder[factorOrder != wsMissing],collapse=", "),
-                          " (use factorOrder to change).", sep=""))
+                              paste(factorOrder[factorOrder != wsMissing],collapse=", "),
+                              " (use factorOrder to change).", sep=""))
     }
 
     # 1.4d: checking WSFactors based on WSDesign
@@ -307,10 +307,29 @@ superbPlot <- function(data,
     # 1.7: align levels and corresponding variables
     weird        <-"+!+" # to make sure that these characters are not in the column names
     if (all(WSDesign == "fullfactorial")) {
+        # the within-subject factors are converted to numbers...
+#print(wsLevels)
+#print(WSFactors)
         combinaisons <- expand.grid(lapply(wsLevels,seq))
+#print(str(combinaisons))
+        names(combinaisons) <- WSFactors
+        combinaisons <- combinaisons[do.call(order, combinaisons[WSFactors]),,drop=FALSE]
+#print(str(combinaisons))
     } else {
-        combinaisons <- data.frame(matrix(as.integer(unlist(WSDesign)),nrow=length(WSDesign), byrow = TRUE))
+#       combinaisons <- data.frame(matrix(as.integer(unlist(WSDesign)),nrow=length(WSDesign), byrow = TRUE))
+        numbers_only <- function(x) suppressWarnings(!is.na(as.numeric(as.character(x))))
+        combinaisons <- data.frame(t(data.frame(WSDesign)))
+        for (i in names(combinaisons)) {
+            if (all(numbers_only(combinaisons[[i]])))
+                combinaisons[[i]] <- as.numeric(combinaisons[[i]])
+            else
+                combinaisons[[i]] <- as.numeric(factor(combinaisons[[i]]))      
+        }
+        names(combinaisons) <- WSFactors
     }
+#print(head(combinaisons))
+#print(data.frame(combinaisons))
+
     newnames     <- paste("DV", apply(combinaisons,1,paste,collapse=weird) ,sep=weird)
     design       <- cbind(combinaisons, variables, newnames)
     colnames(design)[1:length(WSFactors)] <- WSFactors

@@ -85,8 +85,6 @@ We first fetch the data from the main author's GitHub repository:
 
 ```{r}
 fmri <- read.csv(url("https://raw.githubusercontent.com/mwaskom/seaborn-data/de49440879bea4d563ccefe671fd7584cba08983/fmri.csv"))
-# sort the data...
-fmri <- fmri[order(fmri$subject, fmri$event, fmri$region, fmri$timepoint),]
 ```
 
 We are ready to make plots!

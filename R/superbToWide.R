@@ -6,7 +6,8 @@
 #' @description The function ``suberbToWide()`` is an extension to Navarro's WideToLong function
 #'      with ample checks to make sure all is legit, so that the data 
 #'      is suitably organized for ``suberb``. See \insertCite{cgh21}{superb} for more.
-#'      Other techniques are available to transform long to wide, but many asked for it within `superb`.
+#'      Other techniques are available to transform long to wide, but many asked for 
+#'      it within `superb`.
 #'
 #' @param data      Dataframe in long format
 #' @param id        A column with unique identifiers per subject
@@ -14,7 +15,8 @@
 #' @param WSFactors The name(s) of the within-subject factor(s) as string(s)
 #' @param variable  The dependent variable as string
 #'
-#' @return A wide-format data frame ready for superbPlot() or superbData(). All other variables will be erased.
+#' @return A wide-format data frame ready for superbPlot() or superbData(). All other 
+#'      variables will be erased.
 #'
 #' @references
 #' \insertAllCited{}
@@ -79,20 +81,18 @@ superbToWide <- function(data,
 		stop("superb::ERROR: No data, so do nothing. Exiting...")
 
     # 1.2: checking empty within-subject factors or id columns
-    if (is.null(WSFactors) || length(WSFactors)==0 ) {
+    if (is.null(WSFactors) || length(WSFactors)==0 ) 
 		stop("superb::ERROR: No within-subject factor so nothing to do. Exiting...")
-	}
-    if (is.null(id) || length(id)==0 ) {
+    if (is.null(id) || length(id)==0 ) 
 		stop("superb::ERROR: No identifier column provided. Exiting...")
-	}
 	
 	# 1.2: checking invalid factors
     if (!(all(id %in% names(data)))) 
-            stop("superb::ERROR: The id column is not found in data. Exiting...")
+        stop("superb::ERROR: The id column is not found in data. Exiting...")
     if (!(all(BSFactors %in% names(data)))) 
-            stop("superb::ERROR: One of the BSFactors column is not found in data. Exiting...")
+        stop("superb::ERROR: One of the BSFactors column is not found in data. Exiting...")
     if (!(all(WSFactors %in% names(data)))) 
-            stop("superb::ERROR: One of the WSFactors column is not found in data. Exiting...")
+        stop("superb::ERROR: One of the WSFactors column is not found in data. Exiting...")
 
 	# 1.3: checking invalid dependent variable 
     complement <- function(x, U) {U[is.na(pmatch(U,x))]}
@@ -107,12 +107,18 @@ superbToWide <- function(data,
 		stop("superb::ERROR: The dependent variable column is not a column in data. Exiting...")
 
 	# 1.4: preserving only the relevant variables...
-	data = data[ c(id, BSFactors, WSFactors, variable) ]
+	data <- data[ c(id, BSFactors, WSFactors, variable) ]
 
-    # 1.5: We're clear to go! Turn this on with: options(superb.feedback = "superb.tw")
+    # 1.5: Sorting on the id and the within-subject variables
+    data <- data[do.call(order, data[c(id,WSFactors)]),]
+#print(WSFactors)
+#print(head(data))
+
+    # 1.6: We're clear to go! Turn this on with: options(superb.feedback = "superb.tw")
     runDebug("superb.tw", "End of Step 0: superbToWide", 
         c("BSFactors0","WSFactors0","variable0","data0"), 
         list( BSFactors, WSFactors, variable, data ) )
+
 
     ##################################################################################
     # STEP 2: We're all good. Lets do the reshaping (following Navarro's lsr approach)

@@ -1,13 +1,16 @@
 # superb 1.0.0 (March 2025)
 
-* Codename: 100% confident
+* Codename: 100% confident;
 * Celebrating the fourth anniversary of `superb`! 
-* Corrected minor typos in documentations
+* Corrected minor typos in documentations.
 
-# superb 0.95.21 (December 1st, 2024)
+# superb 0.95.21 (December 4th, 2024)
 
-* Upgraded option `colorize` in "lineindividualplot" layout
-* Added a check in `GRD` to validate that effects bears on legitimate factors
+* Made `superb()` determine automatically the `WSDesign` in case the 
+    design is not full factorial and the data are long;
+* Corrected a bug for mixed designs with long format;
+* Upgraded option `colorize` in "lineindividualplot" layout;
+* Added a check in `GRD()` to validate that effects bears on legitimate factors.
 
 # superb 0.95.20 (November 26th, 2024)
 

@@ -8,7 +8,7 @@ superb(
   formula,
   data,
   WSFactors = NULL,
-  WSDesign = "fullfactorial",
+  WSDesign = NULL,
   factorOrder = NULL,
   statistic = "mean",
   errorbar = "CI",
@@ -51,7 +51,8 @@ statistics and intervals.}
 \item{plotStyle}{The type of object to plot on the graph. See full list below.
 Defaults to "bar".}
 
-\item{preprocessfct}{is a transform (or vector of) to be performed first on data matrix of each group}
+\item{preprocessfct}{is a transform (or vector of) to be performed first on data
+matrix of each group}
 
 \item{postprocessfct}{is a transform (or vector of)}
 
@@ -68,9 +69,10 @@ a plot with the correct error bars or a table of those summary statistics.
 The plot is a ggplot2 object with can be modified with additional declarations.
 }
 \description{
-The function \code{superb()} plots standard error or confidence interval for various
-descriptive statistics under various designs, sampling schemes, population size and purposes,
-according to the \code{superb} framework. See \insertCite{cgh21}{superb} for more.
+The function \code{superb()} plots standard error or confidence interval for
+various descriptive statistics under various designs, sampling schemes,
+population size and purposes, according to the \code{superb} framework.
+See \insertCite{cgh21}{superb} for more.
 The functions \code{superb()} is now the entry point
 to realize summary plots.
 Compared to the previously documented \code{superbPlot()},
@@ -84,14 +86,17 @@ The possible adjustements are the following
 \item purpose: The purpose of the comparisons. Defaults to "single".
 Can be "single", "difference", or "tryon".
 \item decorrelation: Decorrelation method for repeated measure designs.
-Chooses among the methods "CM", "LM", "CA", "UA", "LDr" (with r an integer) or "none". Defaults to
-"none". "CA" is correlation-adjusted \insertCite{c19}{superb};
+Chooses among the methods "CM", "LM", "CA", "UA", "LDr" (with r an integer) or "none".
+Defaults to "none". "CA" is correlation-adjusted \insertCite{c19}{superb};
+"CM" is Cousineau-Morey \insertCite{b12}{superb}; "LM" is Loftus and Masson
+\insertCite{lm94}{superb};
 "UA" is based on the unitary Alpha method (derived from the Cronbach alpha;
 see \insertCite{lc22}{superb}).
 "LDr" is local decorrelation (useful for long time series with autoregressive
 correlation structures; see \insertCite{cppf24}{superb}).
 \item samplingDesign: Sampling method to obtain the sample. implemented
-sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Sampling).
+sampling is "SRS" (Simple Randomize Sampling) and "CRS"
+(Cluster-Randomized Sampling).
 }
 
 The formulas can be for long format data using | notation, e.g.,
@@ -110,16 +115,21 @@ The layouts for plots are the following:
 \item These are basic plots:
 \itemize{
 \item "bar" Shows the summary statistics with bars and error bars;
-\item "line" Shows the summary statistics with lines connecting the conditions over the first factor;
+\item "line" Shows the summary statistics with lines connecting the conditions
+over the first factor;
 \item "point" Shows the summary statistics with isolated points
 \item "lineband" illustrates the confidence intervals as a band;
 }
 \item These plots add distributional information in addition
 \itemize{
-\item "pointjitter" Shows the summary statistics along with jittered points depicting the raw data;
+\item "pointjitter" Shows the summary statistics along with jittered points depicting
+the raw data;
 \item "pointjitterviolin" Also adds violin plots to the previous layout
-\item "pointindividualline" Connects the raw data with line along the first factor (which should be a repeated-measure factor)
-\item "raincloud" Illustrates the distribution with a cloud (half_violin_plot) and jittered dots next to it. Looks better when coordinates are flipped \code{+coord_flip()}
+\item "pointindividualline" Connects the raw data with line along the first factor
+(which should be a repeated-measure factor)
+\item "raincloud" Illustrates the distribution with a cloud (half_violin_plot) and
+jittered dots next to it. Looks better when coordinates are
+flipped \code{+coord_flip()}
 \item "corset" illustrates within-subject designs with individual lines and clouds.
 }
 \item Circular plots (aka radar plots) results from the following layouts:

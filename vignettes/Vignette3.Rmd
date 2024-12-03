@@ -366,7 +366,7 @@ superb(
     WSFactors    = "Moment(2)", 
     adjustments = list(purpose = "difference", decorrelation = "CM"), 
     plotStyle   = "corset",
-    lineParams = list(colorize=TRUE), 
+    lineParams = list(colorize="bySlope"), 
     violinParams = list(fill="green", alpha = .2)
 ) + 
 xlab("Group") + ylab("Score") + 
