@@ -308,13 +308,9 @@ superbPlot <- function(data,
     weird        <-"+!+" # to make sure that these characters are not in the column names
     if (all(WSDesign == "fullfactorial")) {
         # the within-subject factors are converted to numbers...
-#print(wsLevels)
-#print(WSFactors)
         combinaisons <- expand.grid(lapply(wsLevels,seq))
-#print(str(combinaisons))
         names(combinaisons) <- WSFactors
         combinaisons <- combinaisons[do.call(order, combinaisons[WSFactors]),,drop=FALSE]
-#print(str(combinaisons))
     } else {
 #       combinaisons <- data.frame(matrix(as.integer(unlist(WSDesign)),nrow=length(WSDesign), byrow = TRUE))
         numbers_only <- function(x) suppressWarnings(!is.na(as.numeric(as.character(x))))
@@ -327,8 +323,6 @@ superbPlot <- function(data,
         }
         names(combinaisons) <- WSFactors
     }
-#print(head(combinaisons))
-#print(data.frame(combinaisons))
 
     newnames     <- paste("DV", apply(combinaisons,1,paste,collapse=weird) ,sep=weird)
     design       <- cbind(combinaisons, variables, newnames)

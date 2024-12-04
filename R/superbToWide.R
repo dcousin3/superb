@@ -62,7 +62,7 @@
 ######################################################################################
 
 
-superbToWide <- function(data, 
+superbToWide <- function(data,       # long format
 	id			  = NULL,			 # column name with unique identifier per subject
     BSFactors     = NULL,            # vector of the between-subject factor columns
     WSFactors     = NULL,            # vector of the names of the within-subject factors
@@ -85,7 +85,7 @@ superbToWide <- function(data,
 		stop("superb::ERROR: No within-subject factor so nothing to do. Exiting...")
     if (is.null(id) || length(id)==0 ) 
 		stop("superb::ERROR: No identifier column provided. Exiting...")
-	
+
 	# 1.2: checking invalid factors
     if (!(all(id %in% names(data)))) 
         stop("superb::ERROR: The id column is not found in data. Exiting...")
@@ -111,8 +111,6 @@ superbToWide <- function(data,
 
     # 1.5: Sorting on the id and the within-subject variables
     data <- data[do.call(order, data[c(id,WSFactors)]),]
-#print(WSFactors)
-#print(head(data))
 
     # 1.6: We're clear to go! Turn this on with: options(superb.feedback = "superb.tw")
     runDebug("superb.tw", "End of Step 0: superbToWide", 
@@ -131,6 +129,7 @@ superbToWide <- function(data,
         WSFactors <- "within"               # use that new column from now on
     }
     times <- unique(data[, WSFactors])
+    times <- times[order(times)] # sort them
     varying <- list()
     for (i in seq_along(variable)) varying[[i]] <- paste(variable[i], times, sep = ".")
     res <- reshape(data, idvar = remainingvars, varying = varying, 
