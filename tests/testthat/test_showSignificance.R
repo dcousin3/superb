@@ -1,4 +1,4 @@
-context("Testing showSignificance")
+context("Testing showSignificance()")
 
 
 test_that("Simplest example", {

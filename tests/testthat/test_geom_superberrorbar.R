@@ -1,4 +1,4 @@
-context("Testing geom_superberrorbar")
+context("Testing geom_superberrorbar()")
 
 
 test_that("Simplest example", {

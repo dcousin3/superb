@@ -135,7 +135,7 @@ scale_discrete_manual(aesthetic =c("fill","colour"),
                       labels = c("frontal","parietal"), 
                       values = c("red","green"))+
 theme_bw() + ylim(-0.15, +0.35) + 
-showSignificance(c(6,7)+1, 0.3, -0.02, "n.s.?", panel=list(event=2)) 
+showSignificance(c(6,7)+1, 0.305, -0.02, "n.s.?", panel=list(event=2)) 
 ```
 
 As you may see, this plot and the previous one are nearly identical! This is because the average correlation
@@ -164,11 +164,11 @@ scale_discrete_manual(aesthetic =c("fill","colour"),
                       labels = c("frontal","parietal"), 
                       values = c("red","green"))+
 theme_bw() + ylim(-0.15, +0.35) + 
-showSignificance(c(6,7)+1, 0.3, -0.02, "**!", panel=list(event=2)) 
+showSignificance(c(6,7)+1, 0.305, -0.02, "**!", panel=list(event=2)) 
 ```
 
-As seen from the message, the correlations in nearby time points is about .50. It explains why the 
-precision of the measures shrank so much (seen with confidence intervals that are much narrower). 
+As seen from the message, the correlations in nearby time points is about .40. It explains why the 
+precision of the measures improved notably (seen with confidence intervals that are much narrower). 
 You can pick any two nearby points and run a paired t-test, the chances are high that you get
 a significant result. 
 
@@ -178,9 +178,13 @@ you examine the locally-decorrelated confidence intervals, but not when you exam
 two plots. Which is true? Let's run a t-test on paired sample.
 
 ```{r ThisChunk}
+# First, extract the two sets of data, ordered by subject identifier:
 d1 <- dplyr::filter(fmri, event=="stim" & region=="parietal" & timepoint==6)
+d1 <- d1[order(d1$subject),]
 d2 <- dplyr::filter(fmri, event=="stim" & region=="parietal" & timepoint==7)
+d2 <- d2[order(d2$subject),]
 
+# Second, run a paired t-test
 t.test(d1$signal, d2$signal, paired=TRUE)
 ```
 

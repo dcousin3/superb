@@ -1,4 +1,4 @@
-context("Testing compatibility of suberbPlot with other structures")
+context("Testing compatibility of suberbPlot() with other structures")
 
 
 test_that("TESTS (1/1)", {
