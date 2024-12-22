@@ -30,8 +30,9 @@
 #'
 #' @param showPlot Defaults to TRUE. Set to FALSE if you want the output to be the summary 
 #'     statistics and intervals.
-#' @param plotStyle The type of object to plot on the graph. See full list below.
-#'      Defaults to "bar".
+#' @param plotStyle `r lifecycle::badge("deprecated")`
+#' @param plotLayout The layers to plot on the graph. See full list below.
+#'      Defaults to "line".
 #'
 #' @param preprocessfct  is a transform (or vector of) to be performed first on data matrix of each group
 #' @param postprocessfct is a transform (or vector of)
@@ -198,7 +199,8 @@ superbPlot <- function(data,
         samplingDesign = "SRS"       # is "SRS" or "CRS" (in which case use clusterColumn)
     ),
     showPlot      = TRUE,            # show a plot or else summary statistics
-    plotStyle     = "bar",           # type of plot (so far, bar, line, point, pointjitter and pointjitterviolin
+    plotStyle     = NULL,            # type of plot (so far, bar, line, point, pointjitter and pointjitterviolin
+    plotLayout    = "line",          # type of plot (so far, bar, line, point, pointjitter and pointjitterviolin
     preprocessfct = NULL,            # run preprocessing on the matrix
     postprocessfct= NULL,            # run post-processing on the matrix
     clusterColumn = "",              # if samplineScheme = CRS
@@ -344,7 +346,11 @@ superbPlot <- function(data,
             stop("superb::ERROR: The function ", statistic, " is not a known descriptive statistic function. Exiting...")
     if ( !(is.errorbar.function(widthfct)) )
             stop("superb::ERROR: The function ", widthfct, " is not a known function for error bars. Exiting...")
-    pltfct <- paste("superbPlot", plotStyle, sep = ".")
+    if (!is.null(plotStyle)) {
+        message("superb::DEPRECATED: The argument `plotStyle` is deprecated; use the argument `plotLayout`. Continuing...")
+        plotLayout <- plotStyle
+    }
+    pltfct <- paste("superbPlot", plotLayout, sep = ".")
     if ( !(is.superbPlot.function(pltfct)) )
             stop("superb::ERROR: The function ", pltfct, " is not a known function for making plots with superbPlot. Exiting...")
 
@@ -563,10 +569,12 @@ superbPlot <- function(data,
                 out <- split(data[,var], crit )
                 # 2024.05.30: exlude empty conditions
                 out <- out[lengths(out)>1]
-                p   <- stats::bartlett.test(out)$p.value
-                ps  <- c(ps, p)
+                if (length(out) > 1) {
+                    p   <- stats::bartlett.test(out)$p.value
+                    ps  <- c(ps, p)
+                }
             }
-            if (any(p < .01)) 
+            if (any(ps < .01)) 
                 message("superb::ADVICE: Some of the groups' variances are heterogeneous. Consider using purpose=\"tryon\"." )
         }
 
