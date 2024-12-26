@@ -35,8 +35,9 @@
 #'
 #' @param showPlot Defaults to TRUE. Set to FALSE if you want the output to be the summary 
 #'     statistics and intervals.
-#' @param plotStyle The type of object to plot on the graph. See full list below.
-#'      Defaults to "bar".
+#' @param plotStyle `r lifecycle::badge("deprecated")`
+#' @param plotLayout The type of object to plot on the graph. See full list below.
+#'      Defaults to "line".
 #'
 #' @param preprocessfct  is a transform (or vector of) to be performed first on data 
 #'      matrix of each group
@@ -200,7 +201,8 @@ superb <- function(
         samplingDesign = "SRS"       # is "SRS" or "CRS" (in which case use clusterColumn)
     ),
     showPlot      = TRUE,            # show a plot or else summary statistics
-    plotStyle     = "bar",           # type of plot (so far, bar, line, point, pointjitter and pointjitterviolin
+    plotStyle     = NULL,            # deprecated; use plotLayout
+    plotLayout    = "line",          # type of plot ("bar", "line", "point", "pointjitter", etc. many exists)
     preprocessfct = NULL,            # run preprocessing on the matrix
     postprocessfct= NULL,            # run post-processing on the matrix
     clusterColumn = NULL,            # if samplineScheme = CRS
@@ -359,6 +361,7 @@ superb <- function(
         adjustments = adjustments,
         factorOrder = factorOrder,
         plotStyle   = plotStyle,
+        plotLayout  = plotLayout,
         showPlot    = showPlot,
         preprocessfct  = preprocessfct, 
         postprocessfct = postprocessfct,

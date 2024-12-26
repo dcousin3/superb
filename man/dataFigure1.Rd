@@ -32,7 +32,7 @@ plt1a <- superb(
     score ~ grp,
     dataFigure1, 
     adjustments=list(purpose = "single"), 
-    plotStyle="bar" ) + 
+    plotLayout="bar" ) + 
   xlab("Group") + ylab("Score") + labs(title="95\% CI\n") +
   coord_cartesian( ylim = c(85,115) ) +
   geom_hline(yintercept = 100, colour = "black", linewidth = 0.5, linetype=2)
@@ -40,7 +40,7 @@ plt1b <- superb(
     score ~ grp, 
     dataFigure1, 
     adjustments=list(purpose = "difference"), 
-    plotStyle="bar" ) + 
+    plotLayout="bar" ) + 
   xlab("Group") + ylab("Score") + labs(title="Difference-adjusted 95\% CI\n") +
   coord_cartesian( ylim = c(85,115) ) + 
   geom_hline(yintercept = 100, colour = "black", linewidth = 0.5, linetype=2)

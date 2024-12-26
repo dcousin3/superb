@@ -125,7 +125,7 @@ fisherkurtosis <- function(x) {
 #'            cbind(DV.1,DV.2,DV.3) ~ ., 
 #'            dta, 
 #'            WSFactors      = "Moment(3)", 
-#'            plotStyle      = "line",
+#'            plotLayout     = "line",
 #'            adjustments    = list (purpose="difference",decorrelation="CM"),
 #'            errorbar       = "CI",
 #'            gamma          = 0.95, 
@@ -137,7 +137,7 @@ fisherkurtosis <- function(x) {
 #'            cbind(DV.1,DV.2,DV.3) ~ .,
 #'            dta, 
 #'            WSFactors      = "Moment(3)", 
-#'            plotStyle      = "line",
+#'            plotLayout     = "line",
 #'            adjustments    = list (purpose="difference",decorrelation="CM"),
 #'            errorbar       = "CIwithDF",    # NEW: change the CI computation 
 #'            gamma          = c(0.95, 10-1), # NEW: specify explicitely the unpooled df
@@ -149,7 +149,7 @@ fisherkurtosis <- function(x) {
 #'            cbind(DV.1,DV.2,DV.3) ~ .,
 #'            dta, 
 #'            WSFactors      = "Moment(3)", 
-#'            plotStyle      = "line",
+#'            plotLayout     = "line",
 #'            adjustments    = list (purpose="difference",decorrelation="CM"),
 #'            errorbar       = "CIwithDF",         # NEW: again, change the CI computation
 #'            gamma          = c(0.95, 30-3-10+1), # NEW: this time, specify the pooled df
@@ -196,7 +196,7 @@ fisherkurtosis <- function(x) {
 #' plt1 <- superb(
 #'            DV ~ Group,
 #'            dta, 
-#'            plotStyle      = "line",
+#'            plotLayout     = "line",
 #'            adjustments    = list (purpose="difference"),
 #'            errorbar       = "CI",
 #'            gamma          = 0.95, 
@@ -207,7 +207,7 @@ fisherkurtosis <- function(x) {
 #' plt2 <- superb( 
 #'            DV ~ Group,
 #'            dta, 
-#'            plotStyle      = "line",
+#'            plotLayout     = "line",
 #'            adjustments    = list (purpose="difference"),
 #'            errorbar       = "CIwithDF",         # NEW: change the CI computation 
 #'            gamma          = c(0.95, 30-10-3+1), # NEW: specify explicitely the unpooled df
@@ -218,7 +218,7 @@ fisherkurtosis <- function(x) {
 #' plt3 <- superb( 
 #'            DV ~ Group,
 #'            dta, 
-#'            plotStyle      = "line",
+#'            plotLayout     = "line",
 #'            adjustments    = list (purpose="difference"),
 #'            errorbar       = "CIwithDF",       # NEW: again, change the CI computation
 #'            gamma          = c(0.95, wdf),     # NEW: this time, specify the pooled df

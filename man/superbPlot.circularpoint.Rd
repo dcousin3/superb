@@ -52,7 +52,7 @@ It has these parameters:
 superb(
    len ~ dose + supp, 
    ToothGrowth, 
-   plotStyle="circularpoint" 
+   plotLayout="circularpoint" 
 )
 
 # if you extract the data with superbData, you can 

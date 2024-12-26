@@ -65,7 +65,7 @@ add_rowmax <- function(df, xcol){
 #' superb(
 #'    len ~ dose + supp, 
 #'    ToothGrowth, 
-#'    plotStyle="circularpoint" 
+#'    plotLayout="circularpoint" 
 #' )
 #'
 #' # if you extract the data with superbData, you can 
@@ -195,7 +195,7 @@ superbPlot.circularpoint <- function(
 #' superb(
 #'    len ~ dose + supp, 
 #'    ToothGrowth, 
-#'    plotStyle="circularline" 
+#'    plotLayout="circularline" 
 #' )
 #'
 #' # if you extract the data with superbData, you can 
@@ -310,7 +310,7 @@ superbPlot.circularline <- function(
 #' # This will make a plot with points
 #' superbPlot(ToothGrowth, 
 #'    BSFactors = c("dose","supp"), variables = "len",
-#'    plotStyle = "circularpointjitter" 
+#'    plotLayout = "circularpointjitter" 
 #' )
 #'
 #' # if you extract the data with superbData, you can 
@@ -433,7 +433,7 @@ superbPlot.circularpointjitter <- function(
 #' # This will make a plot with points
 #' superbPlot(ToothGrowth, 
 #'    BSFactors = c("dose","supp"), variables = "len",
-#'    plotStyle = "circularpointlinejitter" 
+#'    plotLayout = "circularpointlinejitter" 
 #' )
 #'
 #' # if you extract the data with superbData, you can 
@@ -558,7 +558,7 @@ superbPlot.circularpointlinejitter <- function(
 #' # This will make a plot with points
 #' superbPlot(ToothGrowth, 
 #'    BSFactors = c("dose","supp"), variables = "len",
-#'    plotStyle = "circularlineBand" 
+#'    plotLayout = "circularlineBand" 
 #' )
 #'
 #' # if you extract the data with superbData, you can 

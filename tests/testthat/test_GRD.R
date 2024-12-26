@@ -552,7 +552,7 @@ test_that("page 14", {
       SubjectsPerGroup = 200,
       Effects = list("Contrast" = extent(4) )
     )
-    library(lsr)
+    suppressWarnings(library(lsr))
     dta2 <- wideToLong(dta, within = c("Contrast"), sep = ".")
     plt <- histogram( ~DV | Contrast, data = dta2, 
       breaks = seq(min(dta$DV,-6)-1,max(dta$DV,6)+1, by=1), layout = c(3,1), aspect = 1,

@@ -52,7 +52,7 @@ possible to create custom-make templates (see vignette 5). The functions, to be
 superb(
    len ~ dose + supp,
    ToothGrowth, 
-   plotStyle = "boxplot" 
+   plotLayout = "boxplot" 
 )
 
 # This layout of course is more meaningful if the statistic displayed is the median
@@ -60,7 +60,7 @@ superb(
    len ~ dose + supp,
    ToothGrowth, 
    statistic = "median",
-   plotStyle = "boxplot" 
+   plotLayout = "boxplot" 
 )
 
 # if you extracted the data with superbData, you can 
@@ -81,7 +81,7 @@ superb(
    len ~ dose + supp,
    ToothGrowth, 
    statistic = "median",
-   plotStyle = "boxplot",
+   plotLayout = "boxplot",
    boxplotParams = list( outlier.shape=8, outlier.size=4 ),
    pointParams = list(color="black") 
 )
@@ -91,7 +91,7 @@ plt3 <- superb(
    len ~ dose + supp,
    ToothGrowth, 
    statistic = "median",
-   plotStyle = "boxplot",
+   plotLayout = "boxplot",
    pointParams = list(color="black")
 )
 

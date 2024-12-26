@@ -399,6 +399,7 @@ test_that("test 6f: adding ggplot arguments to the error bars, to the points", {
       # see geom_errorbar for the possible arguments
       errorbarParams = list(width = .8, linewidth = 3, colour = "gray"),
       # see geom_point or geom_bar for possible arguments
+      plotLayout = "bar",
       barParams = list(linetype = 3, colour = "black", linewidth = .5)  
     )
 

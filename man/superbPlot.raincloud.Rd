@@ -55,7 +55,7 @@ The functions has these parameters:
 superb(
    len ~ dose + supp,
    ToothGrowth, 
-   plotStyle="raincloud" 
+   plotLayout="raincloud" 
 )
 
 # if you extract the data with superbData, you can 

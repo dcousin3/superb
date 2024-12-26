@@ -59,7 +59,7 @@ names(Orange) <- c("Tree","age","circ")
  superb( circ ~ age | Tree, 
    Orange, 
    adjustments = list(purpose = "difference", decorrelation = "none"),
-   plotStyle= "pointindividualline"
+   plotLayout= "pointindividualline"
  )
 
 # if you extract the data, you can 

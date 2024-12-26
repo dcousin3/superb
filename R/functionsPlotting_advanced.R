@@ -37,7 +37,7 @@
 #' superb(
 #'    len ~ dose + supp,
 #'    ToothGrowth, 
-#'    plotStyle="raincloud" 
+#'    plotLayout="raincloud" 
 #' )
 #'
 #' # if you extract the data with superbData, you can 
@@ -191,7 +191,7 @@ superbPlot.raincloud <- function(
 #' superb(
 #'    len ~ dose + supp, 
 #'    ToothGrowth, 
-#'    plotStyle="halfwidthline" 
+#'    plotLayout="halfwidthline" 
 #' )
 #'
 #' # if you extract the data with superbData, you can 

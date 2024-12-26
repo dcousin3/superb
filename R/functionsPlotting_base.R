@@ -34,7 +34,7 @@
 #' superb(
 #'    len ~ dose + supp, 
 #'    ToothGrowth, 
-#'    plotStyle="bar" 
+#'    plotLayout="bar" 
 #' )
 #'
 #' # if you extract the data with superbData, you can 
@@ -141,7 +141,7 @@ superbPlot.bar <- function(
 #' superb(
 #'    len ~ dose + supp, 
 #'    ToothGrowth, 
-#'    plotStyle="line" 
+#'    plotLayout="line" 
 #' )
 #'
 #' # if you extract the data with superbData, you can 
@@ -249,7 +249,7 @@ superbPlot.line <- function(
 #' # This will make a plot with points
 #' superbPlot(ToothGrowth, 
 #'    BSFactors = c("dose","supp"), variables = "len",
-#'    plotStyle = "point" 
+#'    plotLayout = "point" 
 #' )
 #'
 #' # if you extract the data with superbData, you can 

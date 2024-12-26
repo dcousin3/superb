@@ -52,7 +52,7 @@ possible to add custom-make templates (see vignette 6). The functions, to be
 superb(
    len ~ dose + supp,
    ToothGrowth, 
-   plotStyle="pointjitter" 
+   plotLayout="pointjitter" 
 )
 
 # if you extract the data with superbData, you can 

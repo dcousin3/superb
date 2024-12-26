@@ -344,7 +344,7 @@ thePage <- fluidPage(
                     selectInput("superbPlotorder", "Select the order in which factors are plotted", 
                         multiple = TRUE, choices=c(""), selected="" ),
                     selectInput("superbLayout", "Select the plots' layout",
-                        choices=c("bar","point","line",
+                        choices=c("line","bar","point",
                                   "pointjitter","pointlinejitter",
                                   "pointjitterviolin","pointindividualline",
                                   "raincloud","halfwidthline","boxplot","lineBand","corset",
@@ -602,9 +602,9 @@ generateScript <- function( cI ) {
         sep = "\n"
     )
 
-    # Step 5==script[3] ter: for plotStyle and factorOrder
-    plotlayout <- if (is.something(cI$Step2$plotStyle))
-        paste(indent1, "plotStyle = \"", cI$Step2$plotStyle, "\"", sep="")
+    # Step 5==script[3] ter: for plotLayout and factorOrder
+    plotlayout <- if (is.something(cI$Step2$plotLayout))
+        paste(indent1, "plotLayout = \"", cI$Step2$plotLayout, "\"", sep="")
     else NA
     factorord <-  if (is.something(cI$Step2$factorOrder))
         paste(indent1, "factorOrder = c(\"", paste(cI$Step2$factorOrder,collapse="\", \""), "\")", sep="")
@@ -864,7 +864,7 @@ theServerFct <- function(input, output, session) {
     info$Step2$statistic     <- "mean"          # changed on Step 3 
     info$Step2$errorbar      <- "CI"            # changed on Step 3 
     info$Step2$gamma         <- 0.95            # changed on Step 3 
-    info$Step2$plotStyle     <- NULL            # changed on Step 5
+    info$Step2$plotLayout    <- NULL            # changed on Step 5
     info$Step2$factorOrder   <- NULL            # changed on Step 5
     # ... the adjustments that are in Step4 (they will be sub-listed)...
     info$Step4$purpose       <- "single"        # changed on Step 4
@@ -1286,7 +1286,7 @@ theServerFct <- function(input, output, session) {
         } else {
             # collect information grabed on Step 5
             info$Step2$factorOrder   <<- input$superbPlotorder
-            info$Step2$plotStyle     <<- input$superbLayout
+            info$Step2$plotLayout    <<- input$superbLayout
 
             # reset the whole attributes
             info$Step5 <<- list()

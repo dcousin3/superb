@@ -17,7 +17,8 @@ superbPlot(
   adjustments = list(purpose = "single", popSize = Inf, decorrelation = "none",
     samplingDesign = "SRS"),
   showPlot = TRUE,
-  plotStyle = "bar",
+  plotStyle = NULL,
+  plotLayout = "line",
   preprocessfct = NULL,
   postprocessfct = NULL,
   clusterColumn = "",
@@ -51,8 +52,10 @@ Default is \code{adjustments = list(purpose = "single", popSize = Inf, decorrela
 \item{showPlot}{Defaults to TRUE. Set to FALSE if you want the output to be the summary
 statistics and intervals.}
 
-\item{plotStyle}{The type of object to plot on the graph. See full list below.
-Defaults to "bar".}
+\item{plotStyle}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
+
+\item{plotLayout}{The layers to plot on the graph. See full list below.
+Defaults to "line".}
 
 \item{preprocessfct}{is a transform (or vector of) to be performed first on data matrix of each group}
 

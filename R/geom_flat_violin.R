@@ -64,11 +64,11 @@
 #'
 #' # an example with default violins
 #' superb( tiredeness ~ Vacations, dta, 
-#'     plotStyle = "pointjitterviolin" )
+#'     plotLayout = "pointjitterviolin" )
 #'
 #' # the same with some ornementations:  
 #' superb( tiredeness ~ Vacations, dta, 
-#'     plotStyle = "pointjitterviolin",
+#'     plotLayout = "pointjitterviolin",
 #'     violinParams = list(direction = 1, push = 0.2, fill="green", alpha = 0.3)
 #' ) + theme_bw() + coord_flip() + ylab("Tiredeness")
 #'

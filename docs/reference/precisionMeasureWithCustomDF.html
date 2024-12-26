@@ -32,7 +32,7 @@ The df must be combined to the argument `gamma` after the confidence level."><me
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.21</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.22</span>
       </span>
     </div>
 
@@ -204,7 +204,7 @@ for an example of use.</p>
 <span class="r-in"><span>           <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">DV.1</span>,<span class="va">DV.2</span>,<span class="va">DV.3</span><span class="op">)</span> <span class="op">~</span> <span class="va">.</span>, </span></span>
 <span class="r-in"><span>           <span class="va">dta</span>, </span></span>
 <span class="r-in"><span>           WSFactors      <span class="op">=</span> <span class="st">"Moment(3)"</span>, </span></span>
-<span class="r-in"><span>           plotStyle      <span class="op">=</span> <span class="st">"line"</span>,</span></span>
+<span class="r-in"><span>           plotLayout     <span class="op">=</span> <span class="st">"line"</span>,</span></span>
 <span class="r-in"><span>           adjustments    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span> <span class="op">(</span>purpose<span class="op">=</span><span class="st">"difference"</span>,decorrelation<span class="op">=</span><span class="st">"CM"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>           errorbar       <span class="op">=</span> <span class="st">"CI"</span>,</span></span>
 <span class="r-in"><span>           gamma          <span class="op">=</span> <span class="fl">0.95</span>, </span></span>
@@ -216,7 +216,7 @@ for an example of use.</p>
 <span class="r-in"><span>           <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">DV.1</span>,<span class="va">DV.2</span>,<span class="va">DV.3</span><span class="op">)</span> <span class="op">~</span> <span class="va">.</span>,</span></span>
 <span class="r-in"><span>           <span class="va">dta</span>, </span></span>
 <span class="r-in"><span>           WSFactors      <span class="op">=</span> <span class="st">"Moment(3)"</span>, </span></span>
-<span class="r-in"><span>           plotStyle      <span class="op">=</span> <span class="st">"line"</span>,</span></span>
+<span class="r-in"><span>           plotLayout     <span class="op">=</span> <span class="st">"line"</span>,</span></span>
 <span class="r-in"><span>           adjustments    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span> <span class="op">(</span>purpose<span class="op">=</span><span class="st">"difference"</span>,decorrelation<span class="op">=</span><span class="st">"CM"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>           errorbar       <span class="op">=</span> <span class="st">"CIwithDF"</span>,    <span class="co"># NEW: change the CI computation </span></span></span>
 <span class="r-in"><span>           gamma          <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.95</span>, <span class="fl">10</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>, <span class="co"># NEW: specify explicitely the unpooled df</span></span></span>
@@ -228,7 +228,7 @@ for an example of use.</p>
 <span class="r-in"><span>           <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">DV.1</span>,<span class="va">DV.2</span>,<span class="va">DV.3</span><span class="op">)</span> <span class="op">~</span> <span class="va">.</span>,</span></span>
 <span class="r-in"><span>           <span class="va">dta</span>, </span></span>
 <span class="r-in"><span>           WSFactors      <span class="op">=</span> <span class="st">"Moment(3)"</span>, </span></span>
-<span class="r-in"><span>           plotStyle      <span class="op">=</span> <span class="st">"line"</span>,</span></span>
+<span class="r-in"><span>           plotLayout     <span class="op">=</span> <span class="st">"line"</span>,</span></span>
 <span class="r-in"><span>           adjustments    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span> <span class="op">(</span>purpose<span class="op">=</span><span class="st">"difference"</span>,decorrelation<span class="op">=</span><span class="st">"CM"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>           errorbar       <span class="op">=</span> <span class="st">"CIwithDF"</span>,         <span class="co"># NEW: again, change the CI computation</span></span></span>
 <span class="r-in"><span>           gamma          <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.95</span>, <span class="fl">30</span><span class="op">-</span><span class="fl">3</span><span class="op">-</span><span class="fl">10</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span>, <span class="co"># NEW: this time, specify the pooled df</span></span></span>
@@ -277,7 +277,7 @@ for an example of use.</p>
 <span class="r-in"><span><span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="superb.html">superb</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>           <span class="va">DV</span> <span class="op">~</span> <span class="va">Group</span>,</span></span>
 <span class="r-in"><span>           <span class="va">dta</span>, </span></span>
-<span class="r-in"><span>           plotStyle      <span class="op">=</span> <span class="st">"line"</span>,</span></span>
+<span class="r-in"><span>           plotLayout     <span class="op">=</span> <span class="st">"line"</span>,</span></span>
 <span class="r-in"><span>           adjustments    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span> <span class="op">(</span>purpose<span class="op">=</span><span class="st">"difference"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>           errorbar       <span class="op">=</span> <span class="st">"CI"</span>,</span></span>
 <span class="r-in"><span>           gamma          <span class="op">=</span> <span class="fl">0.95</span>, </span></span>
@@ -288,7 +288,7 @@ for an example of use.</p>
 <span class="r-in"><span><span class="va">plt2</span> <span class="op">&lt;-</span> <span class="fu"><a href="superb.html">superb</a></span><span class="op">(</span> </span></span>
 <span class="r-in"><span>           <span class="va">DV</span> <span class="op">~</span> <span class="va">Group</span>,</span></span>
 <span class="r-in"><span>           <span class="va">dta</span>, </span></span>
-<span class="r-in"><span>           plotStyle      <span class="op">=</span> <span class="st">"line"</span>,</span></span>
+<span class="r-in"><span>           plotLayout     <span class="op">=</span> <span class="st">"line"</span>,</span></span>
 <span class="r-in"><span>           adjustments    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span> <span class="op">(</span>purpose<span class="op">=</span><span class="st">"difference"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>           errorbar       <span class="op">=</span> <span class="st">"CIwithDF"</span>,         <span class="co"># NEW: change the CI computation </span></span></span>
 <span class="r-in"><span>           gamma          <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.95</span>, <span class="fl">30</span><span class="op">-</span><span class="fl">10</span><span class="op">-</span><span class="fl">3</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span>, <span class="co"># NEW: specify explicitely the unpooled df</span></span></span>
@@ -299,7 +299,7 @@ for an example of use.</p>
 <span class="r-in"><span><span class="va">plt3</span> <span class="op">&lt;-</span> <span class="fu"><a href="superb.html">superb</a></span><span class="op">(</span> </span></span>
 <span class="r-in"><span>           <span class="va">DV</span> <span class="op">~</span> <span class="va">Group</span>,</span></span>
 <span class="r-in"><span>           <span class="va">dta</span>, </span></span>
-<span class="r-in"><span>           plotStyle      <span class="op">=</span> <span class="st">"line"</span>,</span></span>
+<span class="r-in"><span>           plotLayout     <span class="op">=</span> <span class="st">"line"</span>,</span></span>
 <span class="r-in"><span>           adjustments    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span> <span class="op">(</span>purpose<span class="op">=</span><span class="st">"difference"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>           errorbar       <span class="op">=</span> <span class="st">"CIwithDF"</span>,       <span class="co"># NEW: again, change the CI computation</span></span></span>
 <span class="r-in"><span>           gamma          <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.95</span>, <span class="va">wdf</span><span class="op">)</span>,     <span class="co"># NEW: this time, specify the pooled df</span></span></span>

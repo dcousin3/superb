@@ -2,7 +2,14 @@
 
 * Codename: 100% confident;
 * Celebrating the fourth anniversary of `superb`! 
-* Corrected minor typos in documentations.
+* Corrected minor typos in documentations;
+* Deprecated `plotStyle` in favor of `plotLayer`;
+* Made "line" the default `plotLayer` instead of "bar"
+* Corrected a minor bug when performing Bartlett test
+
+# superb 0.95.22 (December 26th, 2024)
+
+* Regular maintenance...
 
 # superb 0.95.21 (December 4th, 2024)
 
@@ -240,38 +247,38 @@
 # superb 0.9.4.2 (March 2021)
 
 * Initial release of the R version on CRAN;
-* Added optional argument facetParams to the plotting functions;
+* Added optional argument `facetParams` to the plotting functions;
 * Made the plot function customizable;
 * Wrote vignettes.
 
 # superb 0.9.4.0 (September 2020)
 
-* Beta release of superb on GitHub;
-* Renamed to superb (SUmmary Plot with ERror Bars);
-* packaged together GRD and MeanPlot;
+* Beta release of the package `superb` on GitHub;
+* `MeanPlot` renamed to `superb` (SUmmary Plot with ERror Bars);
 * Added pre and post-processing operators;
-* Transcoded MeanPlot from Mathematica to R.
+* Packaged together `GRD` and `MeanPlot`;
+* Transcoded `MeanPlot` from Mathematica to R.
 
-# GRD for R 1.0 (January 2019)
+# superb 0.0.5.0  (January 2019)
 
 * Initial release of `GRD()` 2.0 for the R platform.
 
-# MeanPlot 0.5.0 (March 2017)
+# superb 0.0.4.0  (March 2017)
 
-* Last stable version maintained on Mathematica; Cousineau (2017) doi:10.5709/acp-0214-z;
+* Last stable version maintained on Mathematica; Cousineau (2017) doi: 10.5709/acp-0214-z;
 * Updated legend manipulation following the release of Mathematica 9.0.
 
-# GRD for SPSS 2.0 (October 2015)
+# superb 0.0.3.0  (October 2015)
 
-* Release of GRD 1.0 and 2.0 for SPSS.
+* Release of GRD 2.0 for SPSS.
 
-# GRD for SPSS 1.0 (July 2014)
+# superb 0.0.2.0  (July 2014)
 
-* Release of GRD 1.0 and 2.0 for SPSS.
+* Release of GRD 1.0 for SPSS.
 
-# MeanPlot 0.4.6 (and prior; 2009-2015)
+# superb 0.0.1.0  (and prior; 2009-2015)
 
-* Development versions of MeanPlot on the Mathematica framework;
-* Added "popSize" and "CRS" from Cousineau & Laurencelle (2016) doi:10.1037/met0000055;
+* Development versions of `MeanPlot` on the Mathematica framework;
+* Added "popSize" and "CRS" from Cousineau & Laurencelle (2016) doi: 10.1037/met0000055;
 * Grouped the various adjustments into an "adjustments" list;
-* Added LM decorrelation method.
+* Added "LM" decorrelation method.

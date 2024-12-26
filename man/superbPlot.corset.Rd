@@ -65,7 +65,7 @@ superb(
    cbind(DV.1, DV.2) ~ .,
    dta, 
    WSFactors = "moment(2)", 
-   plotStyle = "corset" 
+   plotLayout = "corset" 
 )
 
 # This will color the increasing and decreasing individuals
@@ -73,7 +73,7 @@ superb(
    cbind(DV.1, DV.2) ~ ., 
    dta, 
    WSFactors = "moment(2)", 
-   plotStyle = "corset",
+   plotLayout = "corset",
    lineParams = list(colorize="bySlope") 
 )
 
@@ -82,7 +82,7 @@ superb(
    cbind(DV.1, DV.2) ~ ., 
    dta, 
    WSFactors = "moment(2)", 
-   plotStyle = "pointindividualline" 
+   plotLayout = "pointindividualline" 
 )
 
 # if you extract the data with superbData, you can 

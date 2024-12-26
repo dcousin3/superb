@@ -48,7 +48,7 @@ possible to add custom-make templates (see vignette 6). The functions, to be
 # This will make a plot with points
 superbPlot(ToothGrowth, 
    BSFactors = c("dose","supp"), variables = "len",
-   plotStyle = "point" 
+   plotLayout = "point" 
 )
 
 # if you extract the data with superbData, you can 

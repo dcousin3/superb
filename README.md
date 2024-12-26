@@ -15,17 +15,17 @@ main function is `superb()` but you can also use `superbShiny()` for a
 graphical user interface requiring no programming nor scripting. See the
 nice tutorial by Walker (2021).
 
-The purpose of the funciton `superb()` is to provide a plot with summary
+The purpose of the function `superb()` is to provide a plot with summary
 statistics and correct error bars. With simple adjustments, the error
 bar are adjusted to the design (within or between), to the purpose
 (single or pair-wise differences), to the sampling method (simple
 randomized samples or cluster randomized samples) and to the population
-size (infinite or of a specific size). The `superbData()` function does
-not generate the plot but returns the summary statistics and the
-interval boundaries. These can afterwards be sent to other plotting
-environments.
+size (infinite or of a specific size). The `superb(..., showPlot=FALSE)`
+argument does not generate the plot but returns the summary statistics
+and the interval boundaries. These can afterwards be sent to other
+plotting environments.
 
-The second, subsidiary, functionality is to generate random datasets.
+The second, subsidiary, functionality is to *Generate Random Datasets*.
 The function `GRD()` is used to easily generate random data from any
 design (within or between) using any population distribution with any
 parameters, and with various effect sizes. `GRD()` is quite handy to
@@ -40,7 +40,7 @@ install.packages("superb")
 library(superb)
 ```
 
-The development version 0.95.21 can be accessed through GitHub:
+The development version 0.95.22 can be accessed through GitHub:
 
 ``` r
 devtools::install_github("dcousin3/superb")
@@ -86,13 +86,13 @@ superb(len ~ dose + supp, ToothGrowth,
 ![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 As a third example, we illustrate the harmonic means `hmean` along with
-99.9% confidence intervals of the harmonic mean displayed using lines:
+99.9% confidence intervals of the harmonic mean displayed using bars:
 
 ``` r
 superb(len ~ dose + supp, ToothGrowth,
     statistic = "hmean", 
     errorbar = "CI", gamma = 0.999,
-    plotStyle = "line")
+    plotLayout = "bar")
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
@@ -144,7 +144,7 @@ library(RColorBrewer)       # for nicer color palette
 ``` r
 plt1 <- superb( crange(score.1, score.6) ~ Difficulty, 
     testdata, WSFactors = "Day(6)",
-    plotStyle = "line"
+    plotLayout = "line"
 ) + ylim(50,100) + labs(title = "No adjustments") +
 theme_bw() + ylab("Score") +
 scale_color_brewer(palette="Dark2")
@@ -152,7 +152,7 @@ scale_color_brewer(palette="Dark2")
 plt2 <- superb( crange(score.1, score.6) ~ Difficulty, 
     testdata, WSFactors = "Day(6)",
     adjustments = list(purpose = "difference", decorrelation = "CA"),
-    plotStyle = "line"
+    plotLayout = "line"
 )+ ylim(50,100) + labs(title = "correlation- and difference-adjusted") +
 theme_bw() + ylab("Score") +
 scale_color_brewer(palette="Dark2")
@@ -170,7 +170,7 @@ the mean and confidence interval, shows the raw data using jitter dots:
 superb( crange(score.1, score.6) ~ Difficulty, 
     testdata, WSFactors = "Day(6)",
     adjustments = list(purpose = "difference", decorrelation = "CM"),
-    plotStyle = "pointjitter",
+    plotLayout = "pointjitter",
     errorbarParams = list(color = "purple"),
     pointParams = list( size = 3, color = "purple")
 ) +
@@ -191,7 +191,7 @@ Lastly, we could aim for a radar (a.k.a. circular) plot with
 superb( crange(score.1, score.6) ~ Difficulty, testdata, 
     WSFactors = "Day(6)",
     adjustments = list(purpose = "difference", decorrelation = "CM"),
-    plotStyle = "circularpointlinejitter",
+    plotLayout = "circularpointlinejitter",
     factorOrder = c("Day", "Difficulty"),
     pointParams = list( size = 3 ),
     jitterParams = list(alpha=0.25),
@@ -218,12 +218,12 @@ issue on the github repository.
 
 # For more
 
-*superb* is for **summary plot with error bar**, as simple as that.
+*superb* is for **summary plot with error bars**, as simple as that.
 
 The library `superb` makes it easy to illustrate summary statistics
-along with the error bars. Some layouts can be used to visualize
-additional characteristics of the raw data. Finally, the resulting
-appearance can be customized in various ways.
+along with error bars. Some layouts can be used to visualize additional
+characteristics of the raw data. Finally, the resulting appearance can
+be customized in various ways.
 
 The complete documentation is available on this
 [site](https://dcousin3.github.io/superb/).
@@ -235,19 +235,6 @@ formulas for confidence intervals when statistics other than the mean
 are displayed can be found in Harding, Tremblay, & Cousineau (2015).
 
 # References
-
-<p>
-Cousineau D, Goulet M, Harding B (2021). “Summary plots with adjusted
-error bars: The superb framework with an implementation in R.”
-<em>Advances in Methods and Practices in Psychological Science</em>,
-<b>2021</b>, 1–46. doi: <https://doi.org/10.1177/25152459211035109>
-</p>
-<p>
-Walker, J. A. L. (2021). “Summary plots with adjusted error bars
-(superb).” <em>Youtube video</em>,
-<b><a href="https://www.youtube.com/watch?v=rw_6ll5nVus">accessible
-here</a></b>.
-</p>
 
 <div id="refs" class="references csl-bib-body hanging-indent"
 entry-spacing="0" line-spacing="2">
@@ -281,7 +268,8 @@ the pearson skew. *The Quantitative Methods for Psychology*, *11*(1),
 <div id="ref-w21" class="csl-entry">
 
 Walker, J. A. L. (2021). *Summary plots with adjusted error bars
-(superb)*. Retrieved from <https://www.youtube.com/watch?v=rw_6ll5nVus>
+(superb) \[youtube video\]*. Retrieved from
+<https://www.youtube.com/watch?v=rw_6ll5nVus>
 
 </div>
 

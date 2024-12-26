@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.21</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.22</span>
       </span>
     </div>
 
@@ -250,6 +250,7 @@ numbers:</p>
 <span>                      labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"frontal"</span>,<span class="st">"parietal"</span><span class="op">)</span>, </span>
 <span>                      values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red"</span>,<span class="st">"green"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.15</span>, <span class="op">+</span><span class="fl">0.35</span><span class="op">)</span> </span></code></pre></div>
+<pre><code><span><span class="co">## superb::DEPRECATED: The argument `plotStyle` is deprecated; use the argument `plotLayout`. Continuing...</span></span></code></pre>
 <div class="figure">
 <img src="VignetteG_files/figure-html/unnamed-chunk-3-1.png" alt="**Figure 1**. Plot of the fMRI data with standalone confidence intervals." width="672"><p class="caption">
 <strong>Figure 1</strong>. Plot of the fMRI data with standalone
@@ -273,7 +274,7 @@ Cousineau, 2019)</span>. They are known in <code><a href="../reference/superbPlo
 <code>"LM"</code> and <code>"CM"</code> respectively.</p>
 <p>If you add this adjustment with this command, you get the following
 plot:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span> </span>
 <span>    <span class="va">signal</span> <span class="op">~</span> <span class="va">timepoint</span> <span class="op">+</span> <span class="va">region</span> <span class="op">+</span> <span class="va">event</span> <span class="op">|</span> <span class="va">subject</span>,</span>
 <span>    <span class="va">fmri</span>,</span>
@@ -287,6 +288,7 @@ plot:</p>
 <span>                      values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red"</span>,<span class="st">"green"</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.15</span>, <span class="op">+</span><span class="fl">0.35</span><span class="op">)</span> <span class="op">+</span> </span>
 <span><span class="fu"><a href="../reference/showSignificance.html">showSignificance</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>,<span class="fl">7</span><span class="op">)</span><span class="op">+</span><span class="fl">1</span>, <span class="fl">0.305</span>, <span class="op">-</span><span class="fl">0.02</span>, <span class="st">"n.s.?"</span>, panel<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>event<span class="op">=</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<pre><code><span><span class="co">## superb::DEPRECATED: The argument `plotStyle` is deprecated; use the argument `plotLayout`. Continuing...</span></span></code></pre>
 <pre><code><span><span class="co">## superb::FYI: The HyunhFeldtEpsilon measure of sphericity per group are  0.052</span></span></code></pre>
 <pre><code><span><span class="co">## superb::FYI: All the groups' data are compound symmetric. Consider using CA or UA.</span></span></code></pre>
 <div class="figure">
@@ -307,7 +309,7 @@ the correlation. We need to specify the radius of the kernel, which we
 do by adding an integer after the letters “LD”. Here, we show the
 results with a narrow kernel, weighting far more adjacent points than
 points 3 time points appart, obtained with <code>"LD2"</code>:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span> </span>
 <span>    <span class="va">signal</span> <span class="op">~</span> <span class="va">timepoint</span> <span class="op">+</span> <span class="va">region</span> <span class="op">+</span> <span class="va">event</span> <span class="op">|</span> <span class="va">subject</span>,</span>
 <span>    <span class="va">fmri</span>,</span>
@@ -321,6 +323,7 @@ points 3 time points appart, obtained with <code>"LD2"</code>:</p>
 <span>                      values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red"</span>,<span class="st">"green"</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.15</span>, <span class="op">+</span><span class="fl">0.35</span><span class="op">)</span> <span class="op">+</span> </span>
 <span><span class="fu"><a href="../reference/showSignificance.html">showSignificance</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>,<span class="fl">7</span><span class="op">)</span><span class="op">+</span><span class="fl">1</span>, <span class="fl">0.305</span>, <span class="op">-</span><span class="fl">0.02</span>, <span class="st">"**!"</span>, panel<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>event<span class="op">=</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<pre><code><span><span class="co">## superb::DEPRECATED: The argument `plotStyle` is deprecated; use the argument `plotLayout`. Continuing...</span></span></code></pre>
 <pre><code><span><span class="co">## superb::FYI: The average correlation per group is  0.3653</span></span></code></pre>
 <div class="figure">
 <img src="VignetteG_files/figure-html/unnamed-chunk-5-1.png" alt="**Figure 3**. Plot of the fMRI data with local decorrelation." width="672"><p class="caption">
@@ -329,17 +332,17 @@ decorrelation.
 </p>
 </div>
 <p>As seen from the message, the correlations in nearby time points is
-about .50. It explains why the precision of the measures shrank so much
-(seen with confidence intervals that are much narrower). You can pick
-any two nearby points and run a paired t-test, the chances are high that
-you get a significant result.</p>
+about .40. It explains why the precision of the measures improved
+notably (seen with confidence intervals that are much narrower). You can
+pick any two nearby points and run a paired t-test, the chances are high
+that you get a significant result.</p>
 <p>As an example, consider the green curve, in condition cue+stimuli
 (i.e., bottom panel), for time points 6 and 7. The confidence band
 suggest that these two points differ when you examine the
 locally-decorrelated confidence intervals, but not when you examine the
 previous two plots. Which is true? Let’s run a t-test on paired
 sample.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># First, extract the two sets of data, ordered by subject identifier:</span></span>
 <span><span class="va">d1</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">fmri</span>, <span class="va">event</span><span class="op">==</span><span class="st">"stim"</span> <span class="op">&amp;</span> <span class="va">region</span><span class="op">==</span><span class="st">"parietal"</span> <span class="op">&amp;</span> <span class="va">timepoint</span><span class="op">==</span><span class="fl">6</span><span class="op">)</span></span>
 <span><span class="va">d1</span> <span class="op">&lt;-</span> <span class="va">d1</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">d1</span><span class="op">$</span><span class="va">subject</span><span class="op">)</span>,<span class="op">]</span></span>

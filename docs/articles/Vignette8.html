@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.21</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.22</span>
       </span>
     </div>
 
@@ -254,9 +254,10 @@ called <code>Score.1</code>, <code>Score.2</code> and
 <span>    plotStyle <span class="op">=</span> <span class="st">"pointjitter"</span>,</span>
 <span>    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"red"</span>, width<span class="op">=</span> <span class="fl">0.1</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html" class="external-link">position_nudge</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.05</span><span class="op">)</span> <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## superb::DEPRECATED: The argument `plotStyle` is deprecated; use the argument `plotLayout`. Continuing...</span></span></code></pre>
 <p>will reproduce the <code>CM</code> error bars because it decorrelates
 the data as per this method. With one additional transformation,</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pLM</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
 <span>    <span class="fu">crange</span><span class="op">(</span><span class="va">Score.1</span>,<span class="va">Score.3</span><span class="op">)</span> <span class="op">~</span> <span class="va">.</span>,    </span>
 <span>    <span class="va">dta</span>, WSFactors <span class="op">=</span> <span class="st">"moment(3)"</span>, </span>
@@ -266,10 +267,11 @@ the data as per this method. With one additional transformation,</p>
 <span>    plotStyle <span class="op">=</span> <span class="st">"line"</span>,</span>
 <span>    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"orange"</span>, width<span class="op">=</span> <span class="fl">0.1</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html" class="external-link">position_nudge</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.0</span><span class="op">)</span> <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## superb::DEPRECATED: The argument `plotStyle` is deprecated; use the argument `plotLayout`. Continuing...</span></span></code></pre>
 <p>the <code>LM</code> method is reproduced. Finally, if the
 <code>biasCorrectionTransform</code> is omitted, we get the NKM error
 bars with:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pNKM</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
 <span>    <span class="fu">crange</span><span class="op">(</span><span class="va">Score.1</span>,<span class="va">Score.3</span><span class="op">)</span> <span class="op">~</span> <span class="va">.</span>,</span>
 <span>    <span class="va">dta</span>, WSFactors <span class="op">=</span> <span class="st">"moment(3)"</span>, </span>
@@ -279,9 +281,10 @@ bars with:</p>
 <span>    plotStyle <span class="op">=</span> <span class="st">"line"</span>,</span>
 <span>    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"blue"</span>, width<span class="op">=</span> <span class="fl">0.1</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html" class="external-link">position_nudge</a></span><span class="op">(</span><span class="op">+</span><span class="fl">0.05</span><span class="op">)</span> <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## superb::DEPRECATED: The argument `plotStyle` is deprecated; use the argument `plotLayout`. Continuing...</span></span></code></pre>
 <p>In what follow, I justapose the three plots to see the
 differences:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tlbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span> <span class="st">"(red)    Subject centering &amp; Bias correction == CM\n"</span>,</span>
 <span>               <span class="st">"(orange) Subject centering, Bias correction &amp; Pooling SDs == LM\n"</span>,</span>
 <span>               <span class="st">"(blue)   Subject centering &amp; Pooling SDs == NKM"</span>, sep<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>

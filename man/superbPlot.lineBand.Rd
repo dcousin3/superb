@@ -66,7 +66,7 @@ superb(
         purpose       = "single",
         decorrelation = "CM"        ## or none for no decorrelation
    ),
-   plotStyle="lineBand",            # note the uppercase B 
+   plotLayout  = "lineBand",        # note the uppercase B 
    pointParams = list(size= 1)      # making points smaller has better look
 )
 

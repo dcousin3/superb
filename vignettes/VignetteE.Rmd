@@ -121,7 +121,7 @@ rats, and dead by now!)
 ```{r, eval=TRUE}
 # taken from library(babynames)
 # head(unique(babynames[order(-babynames$prop),]$name),60)
-names=c(
+firstnames=c(
  "John",        "William",     "Mary",        "Robert",      "James",      
  "Linda",       "Michael",     "Charles",     "George",      "David",     
  "Jennifer",    "Shirley",     "Richard",     "Barbara",     "Jason",      
@@ -135,16 +135,20 @@ names=c(
  "Michelle",    "Karen",       "Kimberly",    "Joan",        "Brittany",   
  "Judith",      "Larry",       "Cynthia",     "Andrew",      "Steven")
 # append the names as the last columns of ToothGrowth
-ToothGrowth$names <- names
+ToothGrowth$firstnames <- firstnames
 
 head(ToothGrowth)
 ```
 
 
 ```{r, fig.width = 4, eval=TRUE, fig.cap="**Figure 5: Individual cases' labels**"}
-t + geom_text(aes(x=factor(dose), y=len, label=names),
-      data=ToothGrowth, # new: I add the original data frame
-      color="black", position=position_dodge(0.9), vjust=-1.) 
+t + geom_text(aes(x=factor(dose), y=len, label=firstnames),
+      data = ToothGrowth, # new: I add the original data frame
+      color = "black", 
+      position = position_dodge(0.9), 
+      vjust = -1.,
+      inherit.aes = FALSE
+    ) 
 ```
 
 # In summary

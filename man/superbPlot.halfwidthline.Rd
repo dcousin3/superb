@@ -55,7 +55,7 @@ The functions, to be "superbPlot-compatible", must have these parameters:
 superb(
    len ~ dose + supp, 
    ToothGrowth, 
-   plotStyle="halfwidthline" 
+   plotLayout="halfwidthline" 
 )
 
 # if you extract the data with superbData, you can 

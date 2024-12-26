@@ -86,12 +86,12 @@
 #'  )
 #'  # the mean plot on the raw data...
 #'  superb(cbind(DV.1,DV.2) ~ Difficulty, dta, WSFactors = "Moment(2)", 
-#'      plotStyle="line",
+#'      plotLayout="line",
 #'      adjustments = list (purpose="difference") )
 #'  # ... and the mean plot on the decorrelated data; 
 #'  # because of high correlation, the error bars are markedly different
 #'  superb(cbind(DV.1,DV.2) ~ Difficulty, dta, WSFactors = "Moment(2)", 
-#'      plotStyle="line",
+#'      plotLayout="line",
 #'      adjustments = list (purpose="difference", decorrelation = "CM") )
 #'  
 #'  # This example creates a dataset in a 3 x 2 design. It has various effects,

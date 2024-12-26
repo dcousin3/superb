@@ -38,7 +38,7 @@
 #'     TMB1964r,
 #'     WSFactors = "T(7)",      # the within-subject factor (spanning 7 columns)
 #'     adjustments = list(purpose="difference", decorrelation="CM"),
-#'     plotStyle = "line"
+#'     plotLayout = "line"
 #' )
 #' 
 #' # We add directives for the error bars (thick), for the points (larger) and for the lines (thick)
@@ -47,7 +47,7 @@
 #'     TMB1964r,
 #'     WSFactors = "T(7)",
 #'     adjustments = list(purpose="difference", decorrelation="CM"),
-#'     plotStyle = "line", 
+#'     plotLayout = "line", 
 #'     errorbarParams = list(width = 0.5, linewidth=1.25, position = position_dodge(.5) ),
 #'     pointParams = list(size=2.5, position = position_dodge(.5)),
 #'     lineParams = list(linewidth=1.25)
@@ -76,7 +76,7 @@
 #'     TMB1964r,
 #'     WSFactors = "T(7)",      # the within-subject factor (spanning 7 columns)
 #'     adjustments = list(purpose="difference", decorrelation="CM"),
-#'     plotStyle = "line", 
+#'     plotLayout = "line", 
 #'     errorbarParams = list(linewidth=0.15, position = position_dodge(.5) ),
 #'     pointParams = list(size=2.5, position = position_dodge(.5)),
 #'     lineParams = list(linewidth=0.25)
@@ -107,7 +107,7 @@
 #' #   mee3,
 #' #   WSFactors = "T(7)",
 #' #   adjustments = list(purpose="difference", decorrelation="CM"), 
-#' #   plotStyle = "pointjitterviolin",
+#' #   plotLayout = "pointjitterviolin",
 #' #   jitterParams = list(alpha = 0.4), #near transparent jitter points
 #' #   violinParams = list(alpha = 0.2)
 #' #) + 

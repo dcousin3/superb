@@ -32,7 +32,7 @@ plt4a = superb(
     score ~ group,
     dataFigure4, 
     adjustments=list(purpose = "single", popSize = Inf), 
-    plotStyle="bar" ) + 
+    plotLayout="bar" ) + 
   xlab("Group") + ylab("Score") + labs(title="Difference-adjusted 95\% CI\n") +
   coord_cartesian( ylim = c(85,115) ) +
   geom_hline(yintercept = 100, colour = "black", linewidth = 0.5, linetype=2)
@@ -40,7 +40,7 @@ plt4b = superb(
     score ~ group,
     dataFigure4, 
     adjustments=list(purpose = "single", popSize = 50 ), 
-    plotStyle="bar" ) + 
+    plotLayout="bar" ) + 
   xlab("Group") + ylab("Score") + labs(title="Population size and difference-\nadjusted 95\% CI") +
   coord_cartesian( ylim = c(85,115) ) + 
   geom_hline(yintercept = 100, colour = "black", linewidth = 0.5, linetype=2)

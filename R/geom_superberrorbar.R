@@ -97,7 +97,7 @@
 #'             errorbarParams = list(direction = "left", color="purple", 
 #'                                   width = 0.2, position = position_nudge(-0.05) ),
 #'             gamma     = 0.95,
-#'             plotStyle = "line" ) + ornate
+#'             plotLayout = "line" ) + ornate
 #' plt2 <- superb( 
 #'             crange(DV.1, DV.5) ~ ., 
 #'             test, 
@@ -106,7 +106,7 @@
 #'             errorbarParams = list(direction = "right", tipgap = 0.25, tipformat = "double", 
 #'                                   width = 0.2, position = position_nudge(+0.05) ),
 #'             gamma     = 0.99,
-#'             plotStyle = "line" ) + ornate 
+#'             plotLayout = "line" ) + ornate 
 #' plt3 <- superb( 
 #'             crange(DV.1, DV.5) ~ ., 
 #'             test, 
@@ -115,7 +115,7 @@
 #'             errorbarParams = list(direction = "both", tipformat = "single", pointing="up", 
 #'                                   width = 0.2, position = position_nudge(0) ),
 #'             gamma     = 0.999,
-#'             plotStyle = "line" ) + ornate 
+#'             plotLayout = "line" ) + ornate 
 #' 
 #' # transform the ggplots into "grob" so that they can be manipulated
 #' plt1 <- ggplotGrob(plt1)

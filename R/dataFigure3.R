@@ -33,7 +33,7 @@
 #'     VD ~ grp, 
 #'     dataFigure3, 
 #'     adjustments=list(purpose = "difference", samplingDesign = "SRS"), 
-#'     plotStyle="bar" ) + 
+#'     plotLayout="bar" ) + 
 #'   xlab("Group") + ylab("Score") + labs(title="Difference-adjusted 95% CI\n") +
 #'   coord_cartesian( ylim = c(85,115) ) +
 #'   geom_hline(yintercept = 100, colour = "black", linewidth = 0.5, linetype=2)
@@ -41,7 +41,7 @@
 #'     VD ~ grp, 
 #'     dataFigure3, 
 #'     adjustments=list(purpose = "difference", samplingDesign = "CRS"), 
-#'     plotStyle="bar", clusterColumn = "cluster" ) + 
+#'     plotLayout="bar", clusterColumn = "cluster" ) + 
 #'   xlab("Group") + ylab("Score") + labs(title="Cluster and difference-adjusted\n95% CI") +
 #'   coord_cartesian( ylim = c(85,115) ) + 
 #'   geom_hline(yintercept = 100, colour = "black", linewidth = 0.5, linetype=2)

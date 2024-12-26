@@ -57,7 +57,7 @@ It has these parameters:
 # This will make a plot with points
 superbPlot(ToothGrowth, 
    BSFactors = c("dose","supp"), variables = "len",
-   plotStyle = "circularpointlinejitter" 
+   plotLayout = "circularpointlinejitter" 
 )
 
 # if you extract the data with superbData, you can 

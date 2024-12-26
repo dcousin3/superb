@@ -61,7 +61,7 @@ plt1 <- superb(
            cbind(DV.1,DV.2,DV.3) ~ ., 
            dta, 
            WSFactors      = "Moment(3)", 
-           plotStyle      = "line",
+           plotLayout     = "line",
            adjustments    = list (purpose="difference",decorrelation="CM"),
            errorbar       = "CI",
            gamma          = 0.95, 
@@ -73,7 +73,7 @@ plt2 <- superb(
            cbind(DV.1,DV.2,DV.3) ~ .,
            dta, 
            WSFactors      = "Moment(3)", 
-           plotStyle      = "line",
+           plotLayout     = "line",
            adjustments    = list (purpose="difference",decorrelation="CM"),
            errorbar       = "CIwithDF",    # NEW: change the CI computation 
            gamma          = c(0.95, 10-1), # NEW: specify explicitely the unpooled df
@@ -85,7 +85,7 @@ plt3 <- superb(
            cbind(DV.1,DV.2,DV.3) ~ .,
            dta, 
            WSFactors      = "Moment(3)", 
-           plotStyle      = "line",
+           plotLayout     = "line",
            adjustments    = list (purpose="difference",decorrelation="CM"),
            errorbar       = "CIwithDF",         # NEW: again, change the CI computation
            gamma          = c(0.95, 30-3-10+1), # NEW: this time, specify the pooled df
@@ -132,7 +132,7 @@ wdf # should be between n-1 and N-n-p+1.
 plt1 <- superb(
            DV ~ Group,
            dta, 
-           plotStyle      = "line",
+           plotLayout     = "line",
            adjustments    = list (purpose="difference"),
            errorbar       = "CI",
            gamma          = 0.95, 
@@ -143,7 +143,7 @@ plt1 <- superb(
 plt2 <- superb( 
            DV ~ Group,
            dta, 
-           plotStyle      = "line",
+           plotLayout     = "line",
            adjustments    = list (purpose="difference"),
            errorbar       = "CIwithDF",         # NEW: change the CI computation 
            gamma          = c(0.95, 30-10-3+1), # NEW: specify explicitely the unpooled df
@@ -154,7 +154,7 @@ plt2 <- superb(
 plt3 <- superb( 
            DV ~ Group,
            dta, 
-           plotStyle      = "line",
+           plotLayout     = "line",
            adjustments    = list (purpose="difference"),
            errorbar       = "CIwithDF",       # NEW: again, change the CI computation
            gamma          = c(0.95, wdf),     # NEW: this time, specify the pooled df

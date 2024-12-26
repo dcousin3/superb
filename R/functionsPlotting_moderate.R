@@ -36,7 +36,7 @@
 #' superb(
 #'    len ~ dose + supp,
 #'    ToothGrowth, 
-#'    plotStyle="pointjitter" 
+#'    plotLayout="pointjitter" 
 #' )
 #'
 #' # if you extract the data with superbData, you can 
@@ -161,7 +161,7 @@ superbPlot.pointjitter <- function(
 #' superb(
 #'    len ~ dose + supp,
 #'    ToothGrowth, 
-#'    plotStyle="pointlinejitter" 
+#'    plotLayout="pointlinejitter" 
 #' )
 #'
 #' # if you extract the data with superbData, you can 
@@ -299,7 +299,7 @@ superbPlot.pointlinejitter <- function(
 #' superb(
 #'    len ~ dose + supp,
 #'    ToothGrowth, 
-#'    plotStyle = "pointjitterviolin" 
+#'    plotLayout = "pointjitterviolin" 
 #' )
 #'
 #' # if you extract the data with superbData, you can 
@@ -461,7 +461,7 @@ superbPlot.pointjitterviolin <- function(
 #'  superb( circ ~ age | Tree, 
 #'    Orange, 
 #'    adjustments = list(purpose = "difference", decorrelation = "none"),
-#'    plotStyle= "pointindividualline"
+#'    plotLayout= "pointindividualline"
 #'  )
 #' 
 #' # if you extract the data, you can 
