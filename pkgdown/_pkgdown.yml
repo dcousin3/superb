@@ -7,10 +7,10 @@ reference:
     contents:
       - '`superbShiny`'
       - '`superb`'
+      - '`GRD`'
       - '`superbPlot`'
       - '`superbData`'
       - '`superbToWide`'
-      - '`GRD`'
   - title: Decorating plots
     desc: Functions to add further decorations to the plots
     contents:

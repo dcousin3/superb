@@ -82,19 +82,20 @@ a Syntax window (menu File: New: Syntax), you can send R instructions enclosed w
 To know if your SPSS installation has R installed, you could for example type these
 instructions:
 
-```{r}`r ''`
+```{verbatim, echo=TRUE, eval=FALSE}
 BEGIN PROGRAM R.
     # a quick test
     cat("R is up and running: ", R.version.string, "\n")
 END PROGRAM.
 ```
 
+
 then select them all and press Ctrl-R to execute. It R is accepted within SPSS, you
 should see an ouptut indicating the version of R installed. It has to be R above 4.0.
 
 If things are working, then you are ready to make your plot with
 
-```{r}`r ''`
+```{verbatim, echo=TRUE, eval=FALSE}
 BEGIN PROGRAM R.
     # this will install superb if needed; may take a few minutes
     if(!require(superb)) 
@@ -115,7 +116,6 @@ BEGIN PROGRAM R.
                   errorbarParams = list(color = "purple"),
                   pointParams    = list( size = 2, color = "purple")
     )
-
 END PROGRAM.
 ```
 

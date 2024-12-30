@@ -7,6 +7,20 @@ context("Testing GRD()")
 #################################################
 
 
+test_that("subsidiary function", {
+
+    old <- options()
+    on.exit(options(old))
+    options("superb.feedback" = "none")
+    
+    expect_equal( length(reversed.expand.grid()), 0)
+    expect_equal( dim(reversed.expand.grid(a=1:2, b=1:3) ), c(6,2) )
+    expect_equal( dim(reversed.expand.grid( list(a=1:2, b=1:3) ) ), c(6,2) )
+
+    # restores default information
+    options("superb.feedback" = c('design','warnings','summary'))    
+})
+
 test_that("This is the minimum specification", {
 	old <- options() 
 	on.exit(options(old)) 
@@ -16,6 +30,7 @@ test_that("This is the minimum specification", {
     head(dta)
     tail(dta)
     expect_output( str(hist(dta$DV)), "List of 6" )
+
     # restores default information
     options("superb.feedback" = c('design','warnings','summary'))
 })

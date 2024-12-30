@@ -41,6 +41,7 @@ test_that("ALL THE TESTS in one swoop", {
     expect_equal( "ggplot" %in% class(plt), TRUE)
 
     ## WS(2): running multiple tests with GRD here...
+    set.seed(42)
     dta <- GRD( WSFactors = c("a(2)"))
     plt <- superb( cbind(DV.1, DV.2) ~ . , dta, WSFactors = c("a(2)"))
     print(plt)
@@ -50,18 +51,36 @@ test_that("ALL THE TESTS in one swoop", {
     print(plt)
     expect_equal( "ggplot" %in% class(plt), TRUE)
 
+    #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    # 2024.12.30: Did some digging here
+    #             WSFactors are understood the other way around...
+    #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
     ## WS(2x3): running multiple tests with GRD here...
     dta <- GRD( WSFactors = c("a(2)","b(3)"))
-    plt <- superb( cbind(DV.1.1, DV.2.1,DV.1.2, DV.2.2,DV.1.3, DV.2.3) ~ . , dta, WSFactors = c("a(2)","b(3)"))
-    print(plt)
-    expect_equal( "ggplot" %in% class(plt), TRUE)
-    plt <- superb( crange(DV.1.1, DV.2.3) ~ . , dta, WSFactors = c("a(2)","b(3)"))
-    print(plt)
-    expect_equal( "ggplot" %in% class(plt), TRUE)
+    # produit "a" slow (1.1, 1.2, 1.3, 2.1, ...)
+    
+    plt1 <- superb( cbind(DV.1.1, DV.1.2,DV.1.3, DV.2.1,DV.2.2, DV.2.3) ~ . , dta, WSFactors = c("a(2)","b(3)"))
+    print(plt1); expect_equal( "ggplot" %in% class(plt1), TRUE)
+    # attend "a" slow...
+    
+    plt2 <- superb( crange(DV.1.1, DV.2.3) ~ . , dta, WSFactors = c("a(2)","b(3)"))
+    print(plt2); expect_equal( "ggplot" %in% class(plt2), TRUE)
+    # attend "a" slow...
+
+    # convert to long
     lng <- lsr::wideToLong(dta, within=c("a","b"), sep=".")
-    plt <- superb( DV ~ a + b | id, lng )
-    print(plt)
-    expect_equal( "ggplot" %in% class(plt), TRUE)
+
+    plt3 <- superb( DV ~ a + b | id, lng )
+    print(plt3); expect_equal( "ggplot" %in% class(plt3), TRUE)
+    # produit et attend "a" slow
+
+    # check back-conversion...
+    wde1 <- superbToWide(lng, "id", NULL, c("a","b"), "DV")
+    wde2 <- reshape2::dcast( lng, "id ~ a + b", value.var = "DV" )
+    expect_equal(all(dta==wde1), TRUE)
+    expect_equal(all(dta==wde2), TRUE)
+    # produisent "a" slow
 
     ## WS(2x3x4): running multiple tests with GRD here...
     dta <- GRD( WSFactors = c("a(2)","b(3)","c(4)"))

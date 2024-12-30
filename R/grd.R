@@ -238,7 +238,8 @@ GRD <- function(
 
     # set repeated measure identifiers
     if(length(WSList)>0) {
-        design <- expand.grid(WSList)
+        # print(WSList)
+        design <- reversed.expand.grid(WSList)
         for (i in 1:length(WSList)) {
             data[,1+length(BSList)+i] = unlist(lapply(design[,i],rep,times=subj))
         }
@@ -603,7 +604,7 @@ grdUnpacker = function(string, sep_across, defaultfactorname) {
 
 
 ##################################################################   
-# small private functions: grdShowDesign;
+# small private functions: grdShowDesign; reversed.expand.grid
 ##################################################################   
 
 grdShowDesign <- function(BSList,WSList,ngroups,nreplic,subj,SubjectsPerGroup) {
@@ -630,7 +631,45 @@ grdShowDesign <- function(BSList,WSList,ngroups,nreplic,subj,SubjectsPerGroup) {
     cat("\n",paste(rep('-',60),collapse=""),"\n")
 }
 
-    
+
+# expand.grid running through first factor slowliest
+# it is the opposite of expand.grid.
+reversed.expand.grid <- function (...) {
+    # 1. input validation
+    nargs <- length(list(...))
+    if ((!nargs) | (nargs == 0L) ) {
+        #print("zero argument ou rien du tout")
+        return(as.data.frame(list()))
+    } else if (nargs == 1L && is.list(list(...)[[1]])) {
+        #print("un argument")
+        inputs <- list(...)[[1]]
+    } else if (is.list(list(...))) {
+        #print("plusieurs arguments")
+        inputs <- list(...)
+    } else
+        stop("GRD::error: Something wicked in reversed.expand.grid. Exiting...")
+
+    # 2. preparation
+    n.levels <- vapply(inputs, length, integer(1))
+    n.rows   <- prod(n.levels)
+    n.each   <- n.rows / cumprod(n.levels)
+    n.times  <- n.rows / n.each / n.levels
+    # 3. generation
+    df <- mapply(FUN = \(x, y, z) {rep(rep(x, each = y), z) }, 
+                x = inputs, 
+                y = n.each, 
+                z = n.times, 
+                SIMPLIFY = FALSE)
+    return(data.frame(df))
+}
+
+# Quick tests are in test_that:
+# reversed.expand.grid()
+# reversed.expand.grid(a=1:2, b=1:3)
+# reversed.expand.grid( list(a=1:2, b=1:3) )
+
+
+  
 ##################################################################   
-# End of grd.
+# End of GRD.
 ##################################################################   

@@ -119,7 +119,7 @@ superb(
     crange(DV.1.1, DV.4.4) ~ .,
     Fulldta,
     WSFactors = c("Nletters(4)","Nuppercase(4)"),
-    plotStyle="line"
+    plotLayout="line"
 )
 ```
 
@@ -142,8 +142,8 @@ superb(
     crange(DV.1.1, DV.4.4) ~ .,
     dta,
     WSFactors = c("Nletters(4)","Nuppercase(4)"),
-    WSDesign  = list(c(1,1), c(2,1), c(3,1),  c(4,1),  c(2,2),  c(3,2),
-                     c(4,2), c(3,3), c(4,3),  c(4,4)),
+    WSDesign  = list(c(1,1), c(2,1), c(2,2),  c(3,1),  c(3,2),  c(3,3),
+                     c(4,1), c(4,2), c(4,3),  c(4,4)),
     plotStyle="line"
 )
 ```
@@ -156,7 +156,8 @@ Note that the WSDesign levels superseeds the total number of levels, *4*, given
 in the ``WSFactors``. Hence, ``Nletters`` could be given as ``Nletters(99)`` or 
 as ``Nletters(1)``, that has no longer any impact on the plot.
 
-Also note that if the data are given in a long format, you can omit WSDesign. The long
+Also note that if the data are given in a long format, you can omit 
+the argument `WSDesign`. The long
 format contains enough information for `superb()` to correctly guess the conditions.
 
 ## In summary

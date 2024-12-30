@@ -234,7 +234,7 @@ superb <- function(
 
     # 1.0: Are the data actually data?
     if(!(is.data.frame(data)))
-            stop("superb::ERROR(10): Argument `data` is not a data.frame or similar data structure. Exiting...")
+            stop("superb::error(10): Argument `data` is not a data.frame or similar data structure. Exiting...")
 
     # 1.1: Is the formula actually a formula?
     if (!is.formula(formula)) 
@@ -306,7 +306,6 @@ superb <- function(
                 if ('design' %in% getOption("superb.feedback") )
                     message("superb::FYI: The design is not full factorial. It is infered from the data...")
                 temp <- temp[do.call(order, temp[c(WSfacts)]),]
-#print(temp)
                 wsdesign <- mapply( c , data.frame(t(temp)), SIMPLIFY=FALSE )
             }
         } else {

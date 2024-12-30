@@ -32,10 +32,10 @@ to supplement ``superb`` with your own layouts.
 ## The built-in plot layouts
 
 
-When calling ``superbPlot()``, you use the ``plotStyle = "layout"`` option
+When calling ``superbPlot()``, you use the ``plotLayout = "layout"`` option
 to indicate which layout you wish to use. Internally, ``superbPlot()``
 is calling a function whose name is ``superbPlot."layout"()``. For example,
-with ``plotStyle = "line"``, the plot is actually performed by the 
+with ``plotLayout = "line"``, the plot is actually performed by the 
 function ``superbPlot.line()``.
 
 
@@ -99,7 +99,7 @@ mp <- function(data, style, ...) {
         data,
         WSFactors = "Day(2)",
         adjustments = list(purpose="difference", decorrelation="CA"),
-        plotStyle = style,
+        plotLayout = style,
         ...
     )+labs(title = paste("Layout is ''",style,"''",sep=""))
 }
@@ -181,7 +181,7 @@ function name begins with ``superbPlot.``; (ii) the
 function accept very specific arguments with very precise names.
 
 Here is the header for a function corresponding to a
-plot style called, say, *foo* (``plotStyle = "foo"``):
+plot style called, say, *foo* (``plotLayout = "foo"``):
 
 ```{r}
 superbPlot.foo <- function(
@@ -259,7 +259,7 @@ superb(
     crange(T1,T7) ~ Condition,
     TMB1964r,
     WSFactors = "T(7)",
-    plotStyle = "simple"
+    plotLayout = "simple"
 )
 ```
 
@@ -311,7 +311,7 @@ superb(
     crange(T1,T7) ~ Condition,
     TMB1964r,
     WSFactors = "T(7)",      
-    plotStyle = "simple"
+    plotLayout = "simple"
 )
 ```
 
@@ -364,7 +364,7 @@ superb(
     crange(T1,T7) ~ Condition,
     TMB1964r,
     WSFactors = "T(7)",      
-    plotStyle = "simpleWithOptions", 
+    plotLayout = "simpleWithOptions", 
     ## here goes the optional arguments
     myownpointParams = list(size=1, color="purple", position = position_dodge(width = 0.3) ), 
     myownebParams = list(linewidth=1, color="purple", position = position_dodge(width = 0.3) ) 
@@ -410,7 +410,7 @@ superb(
     crange(T1,T7) ~ Condition,
     TMB1964r,
     WSFactors = "T(7)",      
-    plotStyle = "empty" 
+    plotLayout = "empty" 
 )
 ```
 
@@ -486,7 +486,7 @@ superb(
     crange(T1,T7) ~ Condition,
     TMB1964r,
     WSFactors = "T(7)",      
-    plotStyle = "smiley"
+    plotLayout = "smiley"
 )
 ```
 

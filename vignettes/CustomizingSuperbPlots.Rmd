@@ -326,6 +326,7 @@ pltA <- superbPlot( cleandata,
     adjustments = list(
         purpose = "difference", 
         decorrelation = "CM"),
+    plotLayout  = "bar",
     errorbarParams = list(colour = "gray35", width = 0.05)
 )
 pltA
@@ -380,6 +381,7 @@ pltB <- superbPlot( cleandata,
     adjustments = list(
         purpose = "difference", 
         decorrelation = "CM"),
+    plotLayout  = "bar",
     errorbarParams = list(colour = "gray35", width = 0.05)
 ) + 
 scale_y_continuous(

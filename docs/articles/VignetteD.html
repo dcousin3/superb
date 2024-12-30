@@ -200,30 +200,35 @@ send R instructions enclosed within <code>BEGIN PROGRAM R.</code> and
 <code>END PROGRAM</code>.</p>
 <p>To know if your SPSS installation has R installed, you could for
 example type these instructions:</p>
-<p><code>{r} BEGIN PROGRAM R.     # a quick test     cat("R is up and running: ", R.version.string, "\n") END PROGRAM.</code></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>BEGIN PROGRAM R.</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>    # a quick test</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>    cat("R is up and running: ", R.version.string, "\n")</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>END PROGRAM.</span></code></pre></div>
 <p>then select them all and press Ctrl-R to execute. It R is accepted
 within SPSS, you should see an ouptut indicating the version of R
 installed. It has to be R above 4.0.</p>
 <p>If things are working, then you are ready to make your plot with</p>
-<p>```{r} BEGIN PROGRAM R. # this will install superb if needed; may
-take a few minutes if(!require(superb)) install.packages(“superb”,
-type=“binary”)</p>
-<pre><code><span><span class="co"># set the library to be in used</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dcousin3.github.io/superb/" class="external-link">superb</a></span><span class="op">)</span>  </span>
-<span></span>
-<span><span class="co"># transfer the data from SPSS into R</span></span>
-<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">spssdata.GetDataFromSPSS</span><span class="op">(</span><span class="op">)</span> </span>
-<span></span>
-<span><span class="co"># all good! make a plot using superbPlot()</span></span>
-<span><span class="fu"><a href="../reference/superbPlot.html">superbPlot</a></span><span class="op">(</span>   <span class="va">data</span>, </span>
-<span>              WSFactors      <span class="op">=</span> <span class="st">"Temps(2)"</span>,</span>
-<span>              variables      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"time1"</span>,<span class="st">"time2"</span><span class="op">)</span>,</span>
-<span>              plotStyle      <span class="op">=</span> <span class="st">"line"</span>,</span>
-<span>              adjustments    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"single"</span>, decorrelation <span class="op">=</span> <span class="st">"CA"</span><span class="op">)</span>,</span>
-<span>              errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span>,</span>
-<span>              pointParams    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> size <span class="op">=</span> <span class="fl">2</span>, color <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre>
-<p>END PROGRAM. ```</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>BEGIN PROGRAM R.</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>    # this will install superb if needed; may take a few minutes</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>    if(!require(superb)) </span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>        install.packages("superb", type="binary")</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>    # set the library to be in used</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>    library(superb)  </span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>    # transfer the data from SPSS into R</span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>    data &lt;- spssdata.GetDataFromSPSS() </span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>    # all good! make a plot using superbPlot()</span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>    superbPlot(   data, </span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>                  WSFactors      = "Temps(2)",</span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>                  variables      = c("time1","time2"),</span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>                  plotStyle      = "line",</span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>                  adjustments    = list(purpose = "single", decorrelation = "CA"),</span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a>                  errorbarParams = list(color = "purple"),</span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a>                  pointParams    = list( size = 2, color = "purple")</span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a>    )</span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a>END PROGRAM.</span></code></pre></div>
 <p>Here are screen captures showing the syntax window:</p>
 <div class="figure">
 <img src="VignetteD_files/figure-html/fig2-1.png" alt="**Figure 2: Syntax to generate a plot**" width="768"><p class="caption">

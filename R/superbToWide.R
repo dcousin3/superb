@@ -57,7 +57,8 @@
 #'
 #' @export superbToWide
 #' @importFrom utils capture.output
-#' @importFrom stats reshape
+#  ####@importFrom stats reshape # not anymore, bugging with missings
+#' @importFrom reshape2 dcast
 #
 ######################################################################################
 
@@ -119,9 +120,15 @@ superbToWide <- function(data,       # long format
 
 
     ##################################################################################
-    # STEP 2: We're all good. Lets do the reshaping (following Navarro's lsr approach)
+    # STEP 2: We're all good. Lets do the reshaping
     ##################################################################################
-    remainingvars <- setdiff(names(data), c(WSFactors, variable))
+
+    frm <- paste(paste(c(id, BSFactors), collapse="+"), 
+                  paste(WSFactors, collapse="+"), 
+                  sep="~")
+    res <- reshape2::dcast( data, frm, value.var = variable )
+
+    # building the column names is the more complicated part...
     if (length(WSFactors) > 1) { # concatenate the factor levels in a single column 'within'
         collapsed.treatments <- apply(as.matrix(data[, WSFactors]), 1, paste, collapse = ".")
         data <- data[, setdiff(names(data), WSFactors)]
@@ -132,11 +139,8 @@ superbToWide <- function(data,       # long format
     times <- times[order(times)] # sort them
     varying <- list()
     for (i in seq_along(variable)) varying[[i]] <- paste(variable[i], times, sep = ".")
-    res <- reshape(data, idvar = remainingvars, varying = varying, 
-			direction = "wide", times = times, v.names = variable, 
-			sep = ".", timevar = WSFactors)
-    rownames(res) <- NULL
+    names(res) <- c(id, BSFactors, unlist(varying) )
 
-	return(res)
+    return(res)
 }
 

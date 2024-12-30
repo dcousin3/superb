@@ -307,14 +307,13 @@ superbPlot <- function(data,
             stop("superb::ERROR: showPlot must be TRUE or FALSE. Exiting...")
 
     # 1.7: align levels and corresponding variables
-    weird        <-"+!+" # to make sure that these characters are not in the column names
+    weird        <-"+!+" # should make sure that these characters are not in the column names
     if (all(WSDesign == "fullfactorial")) {
         # the within-subject factors are converted to numbers...
-        combinaisons <- expand.grid(lapply(wsLevels,seq))
+        combinaisons <- expand.grid(lapply(wsLevels, seq))
         names(combinaisons) <- WSFactors
         combinaisons <- combinaisons[do.call(order, combinaisons[WSFactors]),,drop=FALSE]
     } else {
-#       combinaisons <- data.frame(matrix(as.integer(unlist(WSDesign)),nrow=length(WSDesign), byrow = TRUE))
         numbers_only <- function(x) suppressWarnings(!is.na(as.numeric(as.character(x))))
         combinaisons <- data.frame(t(data.frame(WSDesign)))
         for (i in names(combinaisons)) {

@@ -7,9 +7,13 @@
 * Made "line" the default `plotLayer` instead of "bar"
 * Corrected a minor bug when performing Bartlett test
 
-# superb 0.95.22 (December 26th, 2024)
+# superb 0.95.22 (December 30th, 2024)
 
-* Regular maintenance...
+* Minor bug to superbToWide: if a missing subject was the
+  first of a group, that was converting to long poorly with reshape.
+* Modified GRD to generate within-subject factors with the first 
+  factor cycling more rapidly. This is consistent with dcast and
+  other long-to-wide functions;
 
 # superb 0.95.21 (December 4th, 2024)
 

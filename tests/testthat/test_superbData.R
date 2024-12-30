@@ -186,7 +186,9 @@ test_that("test 5a: scheme a quatre facteurs; 5 x 4 (3 x 2)", {
 	on.exit(options(old)) 
     options("superb.feedback" = "none") # to supress design confirmation; unneeded in tests
 
-    dta5a <- GRD( BSFactors = "Group(5) : Dose(4)", WSFactors = "Moment(3):Hand(2)", 
+    set.seed(43)
+    dta5a <- GRD( SubjectsPerGroup = 4, 
+        BSFactors = "Group(5) : Dose(4)", WSFactors = "Moment(3):Hand(2)", 
         Population = list( mean=10, stddev = 5, rho = .90),
         Effects = list("Moment" = slope(5), "Hand" = slope(10)) )
     res <- superbData(dta5a,
