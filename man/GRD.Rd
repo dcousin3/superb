@@ -97,7 +97,7 @@ Note that the \code{range} effect specification has been renamed
 
  # This example adds an effect along the "Difficulty" factor with a slope of 15
  dta <- GRD(BSFactors="Difficulty(5)", SubjectsPerGroup = 100,
-     Population=list(mean=50,stddev=5), 
+     Population=list(mean=50,stddev=15), 
      Effects = list("Difficulty" = slope(15) )  )
  # show the mean performance as a function of difficulty:
  superb(DV ~ Difficulty, dta )

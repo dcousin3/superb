@@ -41,6 +41,7 @@
 #'         dta, 
 #'         WSFactor = c("Moment(3)"),
 #'         adjustments = list(purpose="difference"),
+#'         plotLayout  = "bar",
 #'         factorOrder = c("Moment","Group")
 #'     )
 #' plt3 <- superb(
@@ -48,6 +49,7 @@
 #'         dta,
 #'         WSFactor = c("Moment(3)"),
 #'         adjustments = list(purpose="difference"),
+#'         plotLayout  = "bar",
 #'         factorOrder = c("Moment","Group","Age")
 #'     )
 #' 

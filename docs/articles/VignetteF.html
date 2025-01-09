@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.22</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.23</span>
       </span>
     </div>
 
@@ -278,12 +278,9 @@ error bars</p>
 <span>    statistic <span class="op">=</span> <span class="st">"identity"</span>,                     <span class="co"># the raw data as is</span></span>
 <span>    errorbar  <span class="op">=</span> <span class="st">"none"</span>,                         <span class="co"># no error bars</span></span>
 <span>    <span class="co"># the following is for the look of the plot</span></span>
-<span>    plotStyle      <span class="op">=</span> <span class="st">"line"</span>,                    <span class="co"># style of the plot</span></span>
 <span>    lineParams     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> size <span class="op">=</span> <span class="fl">1.0</span><span class="op">)</span>          <span class="co"># thicker lines as well</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## superb::DEPRECATED: The argument `plotStyle` is deprecated; use the argument `plotLayout`. Continuing...</span></span></code></pre>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">plt1</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span><span class="va">plt1</span></span></code></pre></div>
 <div class="figure">
 <img src="VignetteF_files/figure-html/unnamed-chunk-4-1.png" alt="**Figure 1: A quick-and-dirty plot**" width="576"><p class="caption">
 <strong>Figure 1: A quick-and-dirty plot</strong>
@@ -296,12 +293,12 @@ error bars</p>
 <p>First, we need the summary function that computes the frequency. This
 is actually the datum stored in the data frame, so there is nothing to
 compute.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">count</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></code></pre></div>
 <p>Second, we need an initalizer that will fetch the total sample size
 <span class="math inline">\(N\)</span> and dump it in the global
 environment for later use:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">init.count</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">totalcount</span> <span class="op">&lt;&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">DV</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
@@ -309,7 +306,7 @@ environment for later use:</p>
 <span class="citation">Clopper &amp; Pearson (1934)</span> approach
 using the <span class="citation">Leemis &amp; Trivedi (1996)</span>
 analytic expression:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">CI.count</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span>, <span class="va">gamma</span><span class="op">=</span><span class="fl">0.95</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">N</span> <span class="op">&lt;-</span> <span class="va">totalcount</span>    </span>
 <span></span>
@@ -330,27 +327,24 @@ in place.</p>
 <div class="section level3">
 <h3 id="make-a-count-plot-with-confidence-intervals">Make a count plot with confidence intervals<a class="anchor" aria-label="anchor" href="#make-a-count-plot-with-confidence-intervals"></a>
 </h3>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plt2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
 <span>    <span class="va">obsfreq</span> <span class="op">~</span> <span class="va">vocation</span> <span class="op">+</span> <span class="va">gender</span>, </span>
 <span>    <span class="va">dta</span>,</span>
 <span>    statistic <span class="op">=</span> <span class="st">"count"</span>,                                 <span class="co"># the function defined above</span></span>
 <span>    errorbar  <span class="op">=</span> <span class="st">"CI"</span>,                                    <span class="co"># its CI define above</span></span>
 <span>    <span class="co"># the following is for the look of the plot</span></span>
-<span>    plotStyle      <span class="op">=</span> <span class="st">"line"</span>,                             <span class="co"># style of the plot</span></span>
 <span>    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> width <span class="op">=</span><span class="fl">0.5</span>, linewidth <span class="op">=</span><span class="fl">0.75</span> <span class="op">)</span>,<span class="co"># have thicker error bars</span></span>
 <span>    lineParams     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> size <span class="op">=</span> <span class="fl">1.0</span><span class="op">)</span>                   <span class="co"># thicker lines as well</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## superb::DEPRECATED: The argument `plotStyle` is deprecated; use the argument `plotLayout`. Continuing...</span></span></code></pre>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">plt2</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span><span class="va">plt2</span></span></code></pre></div>
 <div class="figure">
 <img src="VignetteF_files/figure-html/unnamed-chunk-8-1.png" alt="**Figure 2: A complete plot**" width="576"><p class="caption">
 <strong>Figure 2: A complete plot</strong>
 </p>
 </div>
 <p>The plot is drab so let’s add some ornaments to it:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ornate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"Educational vocation"</span><span class="op">)</span>,                      <span class="co"># label on the x-axis</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Observed frequency"</span><span class="op">)</span>,                        <span class="co"># label on the y-axis</span></span>

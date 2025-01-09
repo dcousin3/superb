@@ -105,7 +105,7 @@ plt3 + geom_jitter(data = processedData$rawData, mapping=aes(x=dose, y=DV),
  
 # ... by overlaying dots of the raw data, aligned along the center of the box
 plt3 + geom_dotplot(data = processedData$rawData, mapping=aes(x=dose, y=DV), dotsize=0.5,
-   binaxis='y', stackdir='center', position=position_dodge(0.8))  
+   binaxis='y', stackdir='center', position=position_dodge(0.7))  
  
 
 }

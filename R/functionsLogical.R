@@ -7,15 +7,25 @@
 
 has.init.function <- function(fctname) {
     # does the function has a "init.fctname" initializer?
-    iname <- paste("init", fctname, sep=".")
+    
+    parts <- strsplit(fctname, "::")[[1]]
+    if (length(parts) > 1 ) {
+        enviro = asNamespace(parts[1]) 
+        iname <- paste("init", parts[2], sep=".")
+    } else {
+        enviro = parent.frame()
+        iname <- paste("init", parts[1], sep=".")
+    }
+    #print(iname)
+    #print(enviro)
 
-    if (exists(iname)) {
-        existsFunction(iname)
-    } else {FALSE}
+    if (exists(iname, envir = enviro)) {
+        existsFunction(iname, where = enviro)
+    } else { FALSE }
 }
 
 is.stat.function <- function(fctname) {
-    if (has.init.function(fctname)) # we launch the initialization
+    if (has.init.function(fctname) ) # we launch the initialization
         do.call(paste("init", fctname, sep="."), list(data.frame(DV = c(1,2,3) )))
 
     # does the function provided by the user exists and compute from a list of data? 
@@ -55,6 +65,17 @@ is.width.function <- function(fctname) {
     if (length(res) == 1) TRUE else FALSE
 }
 
+# do.call which accepts the :: notation in function name
+# https://stackoverflow.com/a/79331590/5181513
+do_call <- function(fun_string, l) {
+    pkg_fun <- str2lang(fun_string)
+    if (length(pkg_fun) == 1) {
+        return(do.call(get(pkg_fun, envir = parent.frame()), l))
+    } else {
+        return(do.call(get(pkg_fun[[3]], envir = asNamespace(pkg_fun[[2]])), l) )
+    }
+}
+
 is.gamma.required <- function(fctname) {
     if (has.init.function(fctname)) 
         do.call(paste("init", fctname, sep="."), list(data.frame(DV = c(1,2,3) )))
@@ -62,7 +83,7 @@ is.gamma.required <- function(fctname) {
     # is the function provided by the user requires a coverage factor
     # gamma (e.g., CI) or not (e.g., SE)?
     res <- tryCatch(
-        {suppressWarnings( do.call(fctname, list( c(1,2,3), gamma = 0.95) ) ); TRUE},
+        {suppressWarnings( do_call(fctname, list( c(1,2,3), gamma = 0.95) ) ); TRUE},
         error = function(cond) {return(FALSE)}
     )
     res

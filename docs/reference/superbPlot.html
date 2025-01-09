@@ -21,7 +21,7 @@ Note that this function has been superseded by superb()."><meta property="og:ima
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.22</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.23</span>
       </span>
     </div>
 
@@ -175,7 +175,7 @@ groups, horizontal panels, vertical panels)</p></dd>
 
 
 <dt>statistic</dt>
-<dd><p>The summary statistic function to use as a string</p></dd>
+<dd><p>The summary statistic function to use as a string.</p></dd>
 
 
 <dt>errorbar</dt>
@@ -261,6 +261,10 @@ sampling is "SRS" (Simple Randomize Sampling) and "CRS" (Cluster-Randomized Samp
 <li><p>"corset" Illustrates two repeated-measures with individual lines and clouds</p></li>
 <li><p>"boxplot" Illustrates the limits, the quartiles and the median using a box</p></li>
 </ul><p>but refer to <code><a href="superb.html">superb()</a></code> for a documentation that will be kept up do date.</p>
+<p>EXPERIMENTAL: if both the statistic
+function and its related errorbar function are in a different namespace, you may use the
+notation "namespace::funcname" in the <code>statistic</code> argument. The same namespace will be used
+for the errorbar function.</p>
     </div>
     <div id="references">
     <h2>References</h2>

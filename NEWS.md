@@ -7,12 +7,19 @@
 * Made "line" the default `plotLayer` instead of "bar"
 * Corrected a minor bug when performing Bartlett test
 
+# superb 0.95.23 (January 8th, 2025)
+
+* Codename: living dangerously
+* EXPERIMENTAL: Made allowance to accept namespace::function to the 
+  statistics functions. Useful if the function may be masked 
+  by other packages declaring functions with the same name.
+
 # superb 0.95.22 (December 30th, 2024)
 
-* Minor bug to superbToWide: if a missing subject was the
-  first of a group, that was converting to long poorly with reshape.
-* Modified GRD to generate within-subject factors with the first 
-  factor cycling more rapidly. This is consistent with dcast and
+* Minor bug to `superbToWide()`: if a missing subject was the
+  first of a group, that was converting to long poorly with `reshape()`.
+* Modified `GRD()` to generate within-subject factors with the first 
+  factor cycling more rapidly. This is consistent with `dcast()` and
   other long-to-wide functions;
 
 # superb 0.95.21 (December 4th, 2024)

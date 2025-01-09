@@ -50,7 +50,9 @@ library(superb)
 library(ggplot2)
 t <- superb(
     len ~ dose + supp,
-    ToothGrowth )
+    ToothGrowth,
+    plotLayout  = "bar"
+)
 ```
 
 then add to `t` the labels with 

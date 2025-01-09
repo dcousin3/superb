@@ -15,7 +15,7 @@
 #' @param WSDesign the within-subject design if not a full factorial design (default "fullfactorial")
 #' @param variables The dependent variable(s) as strings
 #'
-#' @param statistic The summary statistic function to use as a string
+#' @param statistic The summary statistic function to use as a string. 
 #' @param errorbar The function that computes the error bar. Should be "CI" or "SE" or 
 #'      any function name if you defined a custom function. Default to "CI"
 #' @param gamma The coverage factor; necessary when `errorbar == "CI"`. Default is 0.95.
@@ -74,6 +74,11 @@
 #' * "boxplot" Illustrates the limits, the quartiles and the median using a box
 #'
 #' but refer to `superb()` for a documentation that will be kept up do date.
+#'
+#' EXPERIMENTAL: if both the statistic
+#'          function and its related errorbar function are in a different namespace, you may use the 
+#'          notation "namespace::funcname" in the `statistic` argument. The same namespace will be used
+#'          for the errorbar function.
 #'
 #' @md
 #'
@@ -336,31 +341,88 @@ superbPlot <- function(data,
         message(temp) 
     }
 
-    # 1.8: invalid functions 
-    widthfct <- paste(errorbar, statistic, sep = ".")
-    if (errorbar == "none") { # create a fake function
-        eval(parse(text=paste(widthfct, "<-function(X) 0",sep="")), envir = globalenv())
+    # 1.8: testing valid statistic functions 
+    ###############################################################
+    ##### EXPERIMENTAL: segment function from namespace if provided
+    ###############################################################
+    package1  <- package2 <- NULL
+    statfunc <- strsplit(statistic, "::")[[1]]
+    if (length(statfunc) == 2) {
+        package1  <- statfunc[1]  # before ::
+        statfunc <- statfunc[2]
+        message("superb::EXPERIMENTAL: statistic given with namespace ", package1, "::", statfunc)
     }
-    if ( !(is.stat.function(statistic)) )
+    widthfunc <- strsplit(errorbar, "::")[[1]]
+    if (length(widthfunc) == 2) {
+        package2  <- widthfunc[1] # before ::
+        errorbar  <- widthfunc[2]
+        message("superb::EXPERIMENTAL: errorbar given with namespace ",package2, "::", errorbar)
+    }
+    # if both have a namespace, they must match
+    if ( (!is.null(package1)) & (!is.null(package2)) ) {
+        if (package1 != package2 ) message("superb::WARNING: The namespace given to `errorbar` does not match the namespace given to `statistic`. Ignoring...")
+    }
+
+    # drop in globalenv() the summary statistic function
+    enviro = "globalenv()"
+    if (length(package1) > 0) { enviro = paste("asNamespace('",package1,"')", sep="") } 
+
+    f1 <- paste("superbSTATISTIC <- function(...) {do.call('",statfunc,"', list(...), envir = ",enviro,")}", sep="")
+    #print(f1)
+    eval(parse(text=f1), envir = globalenv() )
+
+    if (has.init.function(statistic)) {
+        f2 <- paste("init.superbSTATISTIC <- function(...) {do.call('init.",statfunc,"', list(...), envir = ",enviro,")}", sep="")
+    #    print(f2)
+        eval(parse(text=f2), envir = globalenv() )
+    }
+
+    widthfct <- paste(errorbar, statfunc, sep = ".")
+    if (errorbar == "none") { # create a fake function
+        #old instruction to delete
+        eval(parse(text=paste(widthfct, "<-function(X) 0", sep="")), envir = globalenv())
+        # new instruction
+        f3 <- paste("superbERRORBAR  <- function(x) {0}", sep="")
+    } else {
+        if (is.gamma.required(paste( c(package1,widthfct), collapse="::"))) {
+            f3 <- paste("superbERRORBAR  <- function(..., gamma = 0.95) {do.call('",widthfct,"', list(..., gamma = gamma), envir = ",enviro,")}",sep="")    
+        } else {
+            f3 <- paste("superbERRORBAR  <- function(...) {do.call('",widthfct,"', list(...), envir = ",enviro,")}",sep="")
+        }
+    }
+    #print(f3)
+    eval(parse(text=f3), envir = globalenv() )
+    ###############################################################
+    ##### END EXPERIMENTAL
+    ###############################################################
+
+
+
+
+#    if ( !(is.stat.function(statistic)) )
+    if ( !(is.stat.function("superbSTATISTIC")) )
             stop("superb::ERROR: The function ", statistic, " is not a known descriptive statistic function. Exiting...")
-    if ( !(is.errorbar.function(widthfct)) )
+#    if ( !(is.errorbar.function(widthfct)) )
+    if ( !(is.errorbar.function("superbERRORBAR")) )
             stop("superb::ERROR: The function ", widthfct, " is not a known function for error bars. Exiting...")
+
+    # 1.9: testing valid plot function
     if (!is.null(plotStyle)) {
-        message("superb::DEPRECATED: The argument `plotStyle` is deprecated; use the argument `plotLayout`. Continuing...")
+        message("superb::DEPRECATED: The argument `plotStyle` is deprecated; favor the argument `plotLayout`. Continuing...")
         plotLayout <- plotStyle
     }
     pltfct <- paste("superbPlot", plotLayout, sep = ".")
     if ( !(is.superbPlot.function(pltfct)) )
             stop("superb::ERROR: The function ", pltfct, " is not a known function for making plots with superbPlot. Exiting...")
 
-    # 1.9: if cluster randomized sampling, check that column cluster is set
+    # 1.10: if cluster randomized sampling, check that column cluster is set
     if (adjustments$samplingDesign == "CRS") {
         # make sure that column cluster is defined.
         if(!(clusterColumn %in% names(data))) 
             stop("superb::ERROR: With samplingDesign = \"CRS\", you must specify a valid column with ClusterColumn. Exiting...")
     }
 
-    # 1.10: is there missing data in the scores?
+    # 1.11: is there missing data in the scores?
     if (any(is.na(data[,variables])) ) {
         message("superb::WARNING: There are misssing data in your dependent variable(s).\n\tsuperb may show empty summaries... consult help(measuresWithMissingData)")
     }
@@ -445,11 +507,11 @@ superbPlot <- function(data,
     }
 
     # if the function has an initializer, run it on the long-format data
-    if (has.init.function(statistic)) {
-        iname = paste("init",statistic, sep=".")
+    if (has.init.function("superbSTATISTIC")) {
+        iname = paste("init",statfunc, sep=".")
         if (!("none" %in% getOption("superb.feedback")))
             message("superb::FYI: Running initializer ", iname)
-        do.call(iname, list(data.untransformed.long) )
+        do.call("init.superbSTATISTIC", list(data.untransformed.long) )
     }
 
     runDebug("superb.3", "End of Step 3: Reformat data frame into long format", 
@@ -462,14 +524,14 @@ superbPlot <- function(data,
 
     aggregatefct <- function(subsetOfData) { 
         params1 <- list( subsetOfData$DV  )
-        if (is.gamma.required(widthfct)) {
+        if (is.gamma.required("superbERRORBAR")) {
             paramsV <- list( subsetOfData$DV, gamma = gamma )
         } else {
             paramsV <- list( subsetOfData$DV  )
         }
-        center <- do.call(statistic, params1)
-        limits <- do.call(widthfct, paramsV)
-        if (is.interval.function(widthfct)) {
+        center <- do.call("superbSTATISTIC", params1)
+        limits <- do.call("superbERRORBAR", paramsV)
+        if (is.interval.function("superbERRORBAR")) {
             lowerwidth <- ( min(limits) - center)
             upperwidth <- ( max(limits) - center ) 
         } else {

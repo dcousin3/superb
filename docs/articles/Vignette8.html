@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.22</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.23</span>
       </span>
     </div>
 
@@ -254,7 +254,7 @@ called <code>Score.1</code>, <code>Score.2</code> and
 <span>    plotStyle <span class="op">=</span> <span class="st">"pointjitter"</span>,</span>
 <span>    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"red"</span>, width<span class="op">=</span> <span class="fl">0.1</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html" class="external-link">position_nudge</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.05</span><span class="op">)</span> <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## superb::DEPRECATED: The argument `plotStyle` is deprecated; use the argument `plotLayout`. Continuing...</span></span></code></pre>
+<pre><code><span><span class="co">## superb::DEPRECATED: The argument `plotStyle` is deprecated; favor the argument `plotLayout`. Continuing...</span></span></code></pre>
 <p>will reproduce the <code>CM</code> error bars because it decorrelates
 the data as per this method. With one additional transformation,</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
@@ -267,7 +267,7 @@ the data as per this method. With one additional transformation,</p>
 <span>    plotStyle <span class="op">=</span> <span class="st">"line"</span>,</span>
 <span>    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"orange"</span>, width<span class="op">=</span> <span class="fl">0.1</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html" class="external-link">position_nudge</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.0</span><span class="op">)</span> <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## superb::DEPRECATED: The argument `plotStyle` is deprecated; use the argument `plotLayout`. Continuing...</span></span></code></pre>
+<pre><code><span><span class="co">## superb::DEPRECATED: The argument `plotStyle` is deprecated; favor the argument `plotLayout`. Continuing...</span></span></code></pre>
 <p>the <code>LM</code> method is reproduced. Finally, if the
 <code>biasCorrectionTransform</code> is omitted, we get the NKM error
 bars with:</p>
@@ -281,7 +281,7 @@ bars with:</p>
 <span>    plotStyle <span class="op">=</span> <span class="st">"line"</span>,</span>
 <span>    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"blue"</span>, width<span class="op">=</span> <span class="fl">0.1</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html" class="external-link">position_nudge</a></span><span class="op">(</span><span class="op">+</span><span class="fl">0.05</span><span class="op">)</span> <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## superb::DEPRECATED: The argument `plotStyle` is deprecated; use the argument `plotLayout`. Continuing...</span></span></code></pre>
+<pre><code><span><span class="co">## superb::DEPRECATED: The argument `plotStyle` is deprecated; favor the argument `plotLayout`. Continuing...</span></span></code></pre>
 <p>In what follow, I justapose the three plots to see the
 differences:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">

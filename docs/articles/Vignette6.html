@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.22</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.95.23</span>
       </span>
     </div>
 
@@ -175,13 +175,13 @@ undergrads <span class="citation">(Cousineau, 2020)</span>.</p>
 <span><span class="co">##  ------------------------------------------------------------</span></span></code></pre>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dta</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##   id          DV</span></span>
-<span><span class="co">## 1  1  0.29212914</span></span>
-<span><span class="co">## 2  2 -0.01387183</span></span>
-<span><span class="co">## 3  3 -0.45902316</span></span>
-<span><span class="co">## 4  4  0.35522963</span></span>
-<span><span class="co">## 5  5 -1.04998279</span></span>
-<span><span class="co">## 6  6  0.77456204</span></span></code></pre>
+<pre><code><span><span class="co">##   id         DV</span></span>
+<span><span class="co">## 1  1  0.1516464</span></span>
+<span><span class="co">## 2  2  0.7232716</span></span>
+<span><span class="co">## 3  3 -0.0121415</span></span>
+<span><span class="co">## 4  4 -0.8824584</span></span>
+<span><span class="co">## 5  5  1.2188051</span></span>
+<span><span class="co">## 6  6  0.7734818</span></span></code></pre>
 <p>By default, one hundred scores are generated from a normal
 distribution with mean 0 and standard deviation of 1. In other words, it
 generate 100 z scores. The dependent variable, the last column in the
@@ -304,14 +304,14 @@ Unequal group sizes can be specified with:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dta</span></span></code></pre></div>
 <pre><code><span><span class="co">##   id Therapy         DV</span></span>
-<span><span class="co">## 1  1       1 -1.0666088</span></span>
-<span><span class="co">## 2  2       1  0.6264702</span></span>
-<span><span class="co">## 3  3       2 -0.3361338</span></span>
-<span><span class="co">## 4  4       2 -0.1649534</span></span>
-<span><span class="co">## 5  5       2  1.2288767</span></span>
-<span><span class="co">## 6  6       2  0.3263057</span></span>
-<span><span class="co">## 7  7       2 -0.8518269</span></span>
-<span><span class="co">## 8  8       3  0.6980975</span></span></code></pre>
+<span><span class="co">## 1  1       1  0.5088346</span></span>
+<span><span class="co">## 2  2       1 -0.7032362</span></span>
+<span><span class="co">## 3  3       2 -0.9398953</span></span>
+<span><span class="co">## 4  4       2  1.1028271</span></span>
+<span><span class="co">## 5  5       2  0.5163314</span></span>
+<span><span class="co">## 6  6       2 -0.4056293</span></span>
+<span><span class="co">## 7  7       2 -0.1337542</span></span>
+<span><span class="co">## 8  8       3 -1.6838288</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="choosing-the-population-distribution">Choosing the population distribution<a class="anchor" aria-label="anchor" href="#choosing-the-population-distribution"></a>
@@ -393,7 +393,7 @@ standard deviation proportional to the group number, as in:</p>
 <span>    <span class="va">DV</span> <span class="op">~</span> <span class="va">Group</span>,</span>
 <span>    <span class="va">dta</span>,</span>
 <span>    plotStyle <span class="op">=</span> <span class="st">"pointjitterviolin"</span> <span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## superb::DEPRECATED: The argument `plotStyle` is deprecated; use the argument `plotLayout`. Continuing...</span></span></code></pre>
+<pre><code><span><span class="co">## superb::DEPRECATED: The argument `plotStyle` is deprecated; favor the argument `plotLayout`. Continuing...</span></span></code></pre>
 <p><img src="Vignette6_files/figure-html/unnamed-chunk-11-1.png" width="288"></p>
 <p>Any valid R instruction could be placed in the <code>scores</code>
 arguments, such as

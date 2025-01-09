@@ -39,7 +39,7 @@ groups, horizontal panels, vertical panels)}
 
 \item{variables}{The dependent variable(s) as strings}
 
-\item{statistic}{The summary statistic function to use as a string}
+\item{statistic}{The summary statistic function to use as a string.}
 
 \item{errorbar}{The function that computes the error bar. Should be "CI" or "SE" or
 any function name if you defined a custom function. Default to "CI"}
@@ -111,6 +111,11 @@ As of version 0.97.15, the layouts for plots are the following:
 }
 
 but refer to \code{superb()} for a documentation that will be kept up do date.
+
+EXPERIMENTAL: if both the statistic
+function and its related errorbar function are in a different namespace, you may use the
+notation "namespace::funcname" in the \code{statistic} argument. The same namespace will be used
+for the errorbar function.
 }
 \examples{
 ######################################################################
