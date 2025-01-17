@@ -84,7 +84,7 @@ pt <- superb(
             gamma       = 0.95,
             statistic   = "mean", 
             errorbar    = "CI",
-            plotStyle   = "line",
+            plotLayout  = "line",
             lineParams  = list(alpha = 0) #the line is made transparent
 ) + ornate
 pt
@@ -175,7 +175,7 @@ pw <- superb(
             gamma       = c(0.95, wdf),         # new! 
             statistic   = "mean", 
             errorbar    = "CIwithDF",           # new!
-            plotStyle   = "halfwidthline",
+            plotLayout  = "halfwidthline",
             lineParams  = list(alpha = 0)
 ) + ornate
 pw
@@ -214,7 +214,7 @@ pwt <- superb(
             gamma       = c(0.95, wdf),
             statistic   = "mean", 
             errorbar    = "CIwithDF",
-            plotStyle   = "halfwidthline",
+            plotLayout  = "halfwidthline",
             lineParams  = list(alpha = 0)
 )+ ornate
 pwt

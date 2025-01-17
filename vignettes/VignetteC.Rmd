@@ -163,7 +163,7 @@ superb(
     statistic = "A", 
     error     = "CI",
     adjustment = list( purpose = "difference"),
-    plotStyle = "line",
+    plotLayout = "line",
     errorbarParams = list(color="blue") # just for the pleasure!
 ) + ornate + labs(y = "Anscombe-transformed scores" )
 ```
@@ -206,7 +206,7 @@ superb(
     statistic = "prop", 
     error     = "CI",
     adjustment = list( purpose = "difference"),
-    plotStyle = "line",
+    plotLayout = "line",
     errorbarParams = list(color="blue")
 ) + ornate + labs(y = "Proportions" ) + 
     scale_y_continuous(trans=asn_trans())

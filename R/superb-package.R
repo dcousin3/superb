@@ -56,11 +56,12 @@
 
 .onLoad <- function(libname, pkgname) {    
     # Set the default feedback traces displayed to all:
-    #   design:   in superbPlot, shows information on how the within-subject variables are understood
-    #   warnings: in superbPlot, returns 'FYI' messages about the data to help decide if the appropriate error bars were used
-    #   summary:  in GRD, shows a summary of the design;
+    #   design:       in superbPlot, shows information on how the within-subject variables are understood
+    #   warnings:     in superbPlot, returns 'FYI' messages about the data to help decide if the appropriate error bars were used
+    #   summary:      in GRD, shows a summary of the design;
+    #   experimental: in superbPlot, shows a message if experimental features are used
     # You can use 'all' to see all the feedback informations.
-    options( "superb.feedback" = c('design','warnings','summary') )
+    options( "superb.feedback" = c('design','warnings','summary','experimental') )
     # Set the default bootstrap number of iterations to 5000; this is a minimum, avoid reducing it.
     options( "superb.bootstrapIter" = 5000)
     # Set the default display of information in superbShiny()

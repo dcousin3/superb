@@ -65,7 +65,7 @@ indicators), and given in long format.
 
 ```{r, warning=FALSE, message=FALSE, fig.height=4, fig.width=7, fig.cap = "**Figure 1**. Plot of the 5 indicator variables."}
 superb( DV ~ Indicator, data = dta,
-        plotStyle   = "pointlinejitter",
+        plotLayout   = "pointlinejitter",
         adjustments = list(purpose = "difference")
     ) + theme_bw() + ylim(0,100) + ylab("Score")
 ```
@@ -76,7 +76,7 @@ this time with different colors for each cluster of participants. We get.
 
 ```{r, warning=FALSE, message=FALSE, fig.height=4, fig.width=7, fig.cap = "**Figure 2**. Plot of the 5 indicator variables and the three profiles."}
 superb( DV ~ Indicator + Profile, data = dta,
-        plotStyle   = "pointlinejitter",
+        plotLayout   = "pointlinejitter",
         adjustments = list(purpose = "difference") 
     ) + theme_bw() + ylim(0,100) + ylab("Score")
 ```
@@ -92,7 +92,7 @@ Changing from `"pointlinejitter"` to `"circularpointlinejitter"` does the trick:
 
 ```{r, warning=FALSE, message=FALSE, fig.height=4, fig.width=7, fig.cap = "**Figure 3**. Plot of the 5 indicator variables and the three profiles in polar coordinate."}
 superb( DV ~ Indicator + Profile, data = dta,
-        plotStyle = "circularpointlinejitter"         ## only change!
+        plotLayout = "circularpointlinejitter"         ## only change!
     ) + theme_bw() + ylim(0,100) + ylab("Score")
 ```
 
@@ -100,7 +100,7 @@ We can undo the polar coordinate by forcing a cartesian coordinate system with:
 
 ```{r, warning=FALSE, message=FALSE, fig.height=4, fig.width=7, fig.cap = "**Figure 4**. Plot of the 5 indicator variables and the three profiles back in cartesian coordinate."}
 superb( DV ~ Indicator + Profile, data = dta,
-        plotStyle = "circularpointlinejitter"
+        plotLayout = "circularpointlinejitter"
     ) + theme_bw() + ylim(0,100) + ylab("Score") + 
     coord_cartesian()                                  ## only change!
 ```
@@ -134,7 +134,7 @@ remove the border around the plot, font size, etc.
 ```{r, warning=FALSE, message=FALSE, fig.height=4, fig.width=7, fig.cap = "**Figure 5**. Plot with some customization"}
 library(RColorBrewer)
 superb( DV ~ Indicator + Profile, data = dta,
-        plotStyle      = "circularpointlinejitter",        
+        plotLayout      = "circularpointlinejitter",        
         lineParams     = list(linewidth=1.2, alpha = 0.3 ),
         errorbarParams = list(width=0.3,linewidth=1.2 ),
         jitterParams   = list(size=1,alpha=0.33 ),
@@ -159,7 +159,7 @@ to allow between-variable comparisons.
 ```{r, warning=FALSE, message=FALSE, fig.height=4, fig.width=7, fig.cap = "**Figure 6**. Plot with some difference adjustment"}
 superb( DV ~ Indicator + Profile, data = dta,
         adjustments    = list(purpose = "difference"), ## new addition
-        plotStyle      = "circularpointlinejitter",        
+        plotLayout     = "circularpointlinejitter",        
         lineParams     = list(linewidth=1.2, alpha = 0.3 ),
         errorbarParams = list(width=0.2,linewidth=1.2 ),
         jitterParams   = list(size=1,alpha=0.33 ),
@@ -187,7 +187,7 @@ You can also rotate the plot or make it turn in the opposite direction with the
 ```{r, warning=FALSE, message=FALSE, fig.height=4, fig.width=7, fig.cap = "**Figure 7**. Plot turning counterclockwise"}
 superb( DV ~ Indicator + Profile, data = dta,
         adjustments    = list(purpose = "difference"), ## new addition
-        plotStyle      = "circularpointlinejitter",        
+        plotLayout     = "circularpointlinejitter",        
         lineParams     = list(linewidth=1.2, alpha = 0.3 ),
         errorbarParams = list(width=0.2,linewidth=1.2 ),
         jitterParams   = list(size=1,alpha=0.33 ),

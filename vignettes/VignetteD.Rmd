@@ -64,7 +64,7 @@ superb(
     cbind(time1, time2) ~ .,
     data, 
     WSFactors      = "Temps(2)",
-    plotStyle      = "line",
+    plotLayout     = "line",
     adjustments    = list(purpose = "single", 
                           decorrelation = "CA"),
     errorbarParams = list(color = "purple"),
@@ -111,7 +111,7 @@ BEGIN PROGRAM R.
     superbPlot(   data, 
                   WSFactors      = "Temps(2)",
                   variables      = c("time1","time2"),
-                  plotStyle      = "line",
+                  plotLayout     = "line",
                   adjustments    = list(purpose = "single", decorrelation = "CA"),
                   errorbarParams = list(color = "purple"),
                   pointParams    = list( size = 2, color = "purple")

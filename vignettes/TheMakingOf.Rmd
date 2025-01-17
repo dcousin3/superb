@@ -50,7 +50,7 @@ is obtained with :
 ```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="**Figure 1a**. Left panel of Figure 1."}
 plt1a <- superb( score ~ grp,
             dataFigure1, 
-            plotStyle   = "line" ) 
+            plotLayout   = "line" ) 
 plt1a
 ```
 
@@ -86,19 +86,19 @@ difference-adjusted confidence intervals:
 plt1b <- superb( score ~ grp,
             dataFigure1, 
             adjustments  = list(purpose = "difference"), #new!
-            plotStyle    = "line" )
+            plotLayout   = "line" )
 plt1b <- plt1b + ornateBS + labs(subtitle="Difference-adjusted\n95% CI") 
 plt1b
 ```
 
-Finally, the *raincloud* plot is obtained by changing the ``plotStyle`` argument:
+Finally, the *raincloud* plot is obtained by changing the ``plotLayout`` argument:
 
 ```{r, message=FALSE, echo=TRUE, eval=TRUE, fig.width=3, fig.height=4, fig.cap="**Figure 1d**. Making and decorating right panel of Figure 1."}
 plt1c <- superb(
             score ~ grp,
             dataFigure1, 
             adjustments  = list(purpose = "difference"),
-            plotStyle    = "raincloud",                         # new layout!
+            plotLayout   = "raincloud",                         # new layout!
             violinParams = list(fill = "green", alpha = 0.2) ) # changed color to the violin
 plt1c <- plt1c + ornateBS + labs(subtitle="Difference-adjusted\n95% CI") 
 plt1c
@@ -177,7 +177,7 @@ plt2a <- superb(
             dataFigure2, 
             WSFactors    = "Moment(2)", 
             adjustments  = list(purpose = "single"),
-            plotStyle    = "line" ) 
+            plotLayout   = "line" ) 
 plt2a <- plt2a + ornateWS + labs(subtitle="Stand-alone\n95% CI")
 plt2a
 ```
@@ -191,7 +191,7 @@ plt2b <- superb(
             dataFigure2, 
             WSFactors    = "Moment(2)", 
             adjustments  = list(purpose = "difference", decorrelation = "CA"), #new
-            plotStyle    = "line" ) 
+            plotLayout   = "line" ) 
 plt2b <- plt2b + ornateWS + labs(subtitle="Correlation and difference-\nadjusted 95% CI") 
 plt2b
 ```
@@ -209,7 +209,7 @@ plt2c <- superb(
             dataFigure2, 
             WSFactors    = "Moment(2)", 
             adjustments  = list(purpose = "difference", decorrelation = "CA"),
-            plotStyle    = "pointindividualline" )   #new
+            plotLayout   = "pointindividualline" )   #new
 plt2c <- plt2c + ornateWS + labs(subtitle="Correlation and difference-\nadjusted 95% CI")
 plt2c 
 ```
@@ -240,7 +240,7 @@ plt2d <- superb(
             dataFigure2, 
             WSFactor     = "Moment(1)", 
             adjustments  = list(purpose = "single", decorrelation = "none"),
-            plotStyle    = "raincloud",
+            plotLayout   = "raincloud",
             violinParams = list(fill = "green") )  #new
 plt2d <- plt2d + ornateWS2 + labs(subtitle="95% CI \nof the difference")
 plt2d
@@ -302,7 +302,7 @@ plt3a <- superb(
     VD ~ grp,
     dataFigure3, 
     adjustments   = list(purpose = "single", samplingDesign = "SRS"),
-    plotStyle     = "line" )
+    plotLayout    = "line" )
 plt3a <- plt3a + ornateCRS + labs(subtitle="Stand-alone\n95% CI") 
 plt3a
 ```
@@ -318,7 +318,7 @@ plt3b <- superb(
     VD ~ grp,
     dataFigure3, 
     adjustments   = list(purpose = "difference", samplingDesign = "CRS"), #new
-    plotStyle     = "line", 
+    plotLayout    = "line", 
     clusterColumn = "cluster" )                                           #new
 plt3b <- plt3b + ornateCRS + labs(subtitle="Cluster and difference-\nadjusted 95% CI")
 plt3b
@@ -332,7 +332,7 @@ plt3c <- superb(
     VD ~ grp,
     dataFigure3, 
     adjustments   = list(purpose = "difference", samplingDesign = "CRS"),
-    plotStyle     = "raincloud", 
+    plotLayout    = "raincloud", 
     violinParams  = list(fill = "green", alpha = 0.2),
     clusterColumn = "cluster" )
 plt3c <- plt3c + ornateCRS + labs(subtitle="Cluster and difference-\nadjusted 95% CI")
@@ -399,8 +399,8 @@ Lets do Figure 4 (see below for each plot in a single figure).
 plt4a <- superb(
     score ~ group,
     dataFigure4, 
-    adjustments=list(purpose = "single", popSize = Inf),
-    plotStyle="line" ) 
+    adjustments = list(purpose = "single", popSize = Inf),
+    plotLayout  = "line" ) 
 plt4a <- plt4a + ornateBS + labs(subtitle="Stand-alone\n95% CI") 
 ```
 
@@ -411,8 +411,8 @@ of infinite size. A finite size can be given, as
 plt4b <- superb(
     score ~ group, 
     dataFigure4, 
-    adjustments=list(purpose = "single", popSize = 50 ), # new!
-    plotStyle="line" ) 
+    adjustments = list(purpose = "single", popSize = 50 ), # new!
+    plotLayout  = "line" ) 
 plt4b <- plt4b + ornateBS + labs(subtitle="Population size-\nadjusted 95% CI") 
 ```
 
@@ -422,8 +422,8 @@ We illustrate the plot along some distribution information with a violin plot:
 plt4c <- superb(
     score ~ group,
     dataFigure4, 
-    adjustments=list(purpose = "single", popSize = 50 ), # new!
-    plotStyle="pointjitterviolin",
+    adjustments = list(purpose = "single", popSize = 50 ), # new!
+    plotLayout  = "pointjitterviolin",
     violinParams = list(fill = "green", alpha = 0.2)  ) 
 plt4c <- plt4c + ornateBS + labs(subtitle="Population size-\nadjusted 95% CI") 
 ```

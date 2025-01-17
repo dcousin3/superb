@@ -39,7 +39,7 @@ near 100.
 superb(
     score ~ grp, 
     dataFigure1, 
-    plotStyle="line" ) + 
+    plotLayout = "line" ) + 
 xlab("Group") + ylab("Score") + 
 labs(title="(stand-alone)\n95% confidence intervals") +
 coord_cartesian( ylim = c(85,115) ) +
@@ -108,8 +108,8 @@ by adding an adjustment to the list of adjustments with ``adjustments = list(pur
 superb(
     score ~ grp, 
     dataFigure1, 
-    adjustments=list(purpose = "difference"),  # the only new thing here
-    plotStyle="line" ) + 
+    adjustments= list(purpose = "difference"),  # the only new thing here
+    plotLayout = "line" ) + 
 xlab("Group") + ylab("Score") + 
 labs(title="Difference-adjusted\n95% confidence intervals") +
 coord_cartesian( ylim = c(85,115) ) + 
@@ -130,7 +130,7 @@ library(gridExtra)
 plt1 <- superb(
     score ~ grp, 
     dataFigure1, 
-    plotStyle="line" ) + 
+    plotLayout = "line" ) + 
 xlab("Group") + ylab("Score") + 
 labs(title="(stand-alone)\n95% confidence intervals") +
 coord_cartesian( ylim = c(85,115) ) +
@@ -140,8 +140,8 @@ scale_x_discrete(labels=c("1" = "Collaborative\ngames", "2" = "Unstructured\nact
 plt2 <- superb(
     score ~ grp, 
     dataFigure1, 
-    adjustments=list(purpose = "difference"), 
-    plotStyle="line" ) + 
+    adjustments= list(purpose = "difference"), 
+    plotLayout = "line" ) + 
 xlab("Group") + ylab("Score") + 
 labs(title="Difference-adjusted\n95% confidence intervals") +
 coord_cartesian( ylim = c(85,115) ) + 
@@ -160,7 +160,7 @@ plt1 <- superb(
     score ~ grp,
     dataFigure1, 
     errorbarParams = list(color="blue",position = position_nudge(-0.05) ),
-    plotStyle="line" ) + 
+    plotLayout = "line" ) + 
 xlab("Group") + ylab("Score") + 
 labs(title="(red) Difference-adjusted 95% confidence intervals\n(blue) (stand-alone) 95% confidence intervals") +
 coord_cartesian( ylim = c(85,115) ) +
@@ -173,7 +173,7 @@ plt2 <- superb(
     dataFigure1, 
     adjustments=list(purpose = "difference"), 
     errorbarParams = list(color="red",position = position_nudge(0.05) ),
-    plotStyle="line" ) + 
+    plotLayout = "line" ) + 
 xlab("Group") + ylab("Score") + 
 labs(title="(red) Difference-adjusted 95% confidence intervals\n(blue) (stand-alone) 95% confidence intervals") +
 coord_cartesian( ylim = c(85,115) ) + 

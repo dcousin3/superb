@@ -63,10 +63,10 @@ makeplot <- function(statfct, errorbarfct, gam, rg, subttl) {
         crange(DV.1.1,DV.3.2) ~ ., 
         dta, 
         WSFactors  = c("Moment(3)","Dose(2)"), 
-        statistic = statfct, 
-        errorbar  = errorbarfct, 
-        gamma     = gam, 
-        plotStyle = "line",
+        statistic  = statfct, 
+        errorbar   = errorbarfct, 
+        gamma      = gam, 
+        plotLayout = "line",
         adjustments = list(purpose="difference", decorrelation="CM")
     ) + ylab(subttl) + coord_cartesian( ylim = rg )
 } 
@@ -156,7 +156,7 @@ superb(
     score ~ grp,
     dataFigure1, 
     statistic = "trimmedmean", errorbar = "none", #HERE the statistic name is given
-    plotStyle="line",
+    plotLayout = "line",
     adjustments = list(purpose = "difference"),
     errorbarParams = list(width=0) # so that the null-width error bar is invisible
 )+ ylab("20% trimmed mean") +
@@ -199,7 +199,7 @@ superb(
     score ~ grp, 
     dataFigure1, 
     statistic = "trimmedmean", errorbar = "CI",
-    plotStyle="line",
+    plotLayout = "line",
     adjustments = list(purpose = "difference"),
 )+ ylab("20% trimmed mean") +
 theme_gray(base_size=10) +
@@ -245,7 +245,7 @@ This is all we need to make the plot which we can compare with the parametric CI
 plt1 <- superb(
     score ~ grp, 
     dataFigure1, 
-    plotStyle="line",
+    plotLayout = "line",
     statistic = "mean", errorbar = "CI",
     adjustments = list(purpose = "difference")
 ) + 
@@ -258,7 +258,7 @@ scale_x_discrete(labels=c("1" = "Collaborative games", "2" = "Unstructured activ
 plt2 <- superb(
     score ~ grp, 
     dataFigure1, 
-    plotStyle="line",
+    plotLayout = "line",
     statistic = "mean", errorbar = "myBootstrapPI",
     adjustments = list(purpose = "difference")
 ) + 

@@ -144,7 +144,7 @@ superb(
     WSFactors = c("Nletters(4)","Nuppercase(4)"),
     WSDesign  = list(c(1,1), c(2,1), c(2,2),  c(3,1),  c(3,2),  c(3,3),
                      c(4,1), c(4,2), c(4,3),  c(4,4)),
-    plotStyle="line"
+    plotLayout="line"
 )
 ```
 

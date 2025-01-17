@@ -94,7 +94,7 @@ pCM <- superb(
     adjustments=list(decorrelation="none"),
     preprocessfct = "subjectCenteringTransform",
     postprocessfct = "biasCorrectionTransform",
-    plotStyle = "pointjitter",
+    plotLayout = "pointjitter",
     errorbarParams = list(color="red", width= 0.1, position = position_nudge(-0.05) )
 )
 ```
@@ -109,7 +109,7 @@ pLM <- superb(
     adjustments=list(decorrelation="none"),
     preprocessfct = "subjectCenteringTransform",
     postprocessfct = c("biasCorrectionTransform","poolSDTransform"),
-    plotStyle = "line",
+    plotLayout = "line",
     errorbarParams = list(color="orange", width= 0.1, position = position_nudge(-0.0) )
 )
 ```
@@ -124,7 +124,7 @@ pNKM <- superb(
     adjustments=list(decorrelation="none"),
     preprocessfct = "subjectCenteringTransform",
     postprocessfct = c("poolSDTransform"),
-    plotStyle = "line",
+    plotLayout = "line",
     errorbarParams = list(color="blue", width= 0.1, position = position_nudge(+0.05) )
 )
 ```

@@ -96,7 +96,7 @@ pltA <- superb(
         purpose = "difference", # we want to compare means
         decorrelation = "CM"    # and error bars are correlated-adjusted
     ),
-    plotStyle="raincloud",
+    plotLayout  = "raincloud",
 
     # the following (optional) arguments are adjusting some of the visuals
     pointParams    = list(size = 0.75),
@@ -200,9 +200,9 @@ pltB <- superb(
         purpose = "difference", # we want to compare means
         decorrelation = "CM"    # and error bars are correlated-adjusted
     ),
-    plotStyle="raincloud",
+    plotLayout   = "raincloud",
     # the following (optional) arguments are adjusting some of the visuals
-    pointParams    = list(size = 0.75),
+    pointParams  = list(size = 0.75),
     jitterParams = list(width =0.1, shape=21,size=0.05,alpha=1), # less dispersed jitter dots,
     violinParams = list(trim=TRUE, alpha=1,adjust=3),            # not semi-transparent, smoother
     errorbarParams = list(width = 0.1, linewidth=0.5)                 # wider bars, thicker lines.

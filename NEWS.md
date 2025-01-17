@@ -3,16 +3,17 @@
 * Codename: 100% confident;
 * Celebrating the fourth anniversary of `superb`! 
 * Corrected minor typos in documentations;
-* Deprecated `plotStyle` in favor of `plotLayer`;
+* Deprecated `plotStyle` in favor of `plotLayout`;
 * Made "line" the default `plotLayer` instead of "bar"
 * Corrected a minor bug when performing Bartlett test
 
-# superb 0.95.23 (January 8th, 2025)
+# superb 0.95.23 (January 17th, 2025)
 
 * Codename: living dangerously
 * EXPERIMENTAL: Made allowance to accept namespace::function to the 
   statistics functions. Useful if the function may be masked 
   by other packages declaring functions with the same name.
+* Updated options so that EXPERIMENTAL messages can be inhibited.
 
 # superb 0.95.22 (December 30th, 2024)
 
@@ -251,7 +252,7 @@
 # superb 0.9.4.3 (March 2021)
 
 * Added `superbData()` as a shortcut to `superbPlot(... showPlot = FALSE)`;
-* Changed debug information for `suberbPlot()` and `superbData()`;
+* Changed debug information for `superbPlot()` and `superbData()`;
 * Created a logo and improved web pages;
 * Revised documentation.
 

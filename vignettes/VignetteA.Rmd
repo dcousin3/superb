@@ -596,7 +596,7 @@ superb(
     statistic = "mean", 
     errorbar  = "CI",
     gamma     = 0.95,
-    plotStyle = "line")
+    plotLayout = "line")
 ```
 
 As seen, glucose level means are affected by the concentration (that 
@@ -648,7 +648,7 @@ superb(
     statistic = "mean", # mean is what RI is attached to
     errorbar  = "RI",   # RI calls the function above
     gamma     = 0.95,   # select the coverage desired
-    plotStyle = "line" )
+    plotLayout = "line" )
 ```
 
 You can see that the vertical range is much wider now than in Figure 1.
@@ -703,7 +703,7 @@ superb(
     glucoselevels, 
     statistic = "mean", errorbar = "cihiRI",
     gamma     = c(0.95, 0.90),
-    plotStyle = "line" ) 
+    plotLayout = "line" ) 
 ```
 
 Well, that is weird because now, we only see an error bar way up 
@@ -752,7 +752,7 @@ plt1 <- superb(
     gamma     = 0.95,
     errorbarParams = list(width = 0.0, linewidth = 1.5,
                           position = position_nudge( 0.0) ),
-    plotStyle = "line" ) + ornate
+    plotLayout = "line" ) + ornate
 plt2 <- superb(
     gl ~ concentration,
     glucoselevels, 
@@ -762,7 +762,7 @@ plt2 <- superb(
     errorbarParams = list(width = 0.2, linewidth = 0.2, color = "red",
                           direction = "left",
                           position = position_nudge(-0.15) ),
-    plotStyle = "line" ) + ornate + makeTransparent()
+    plotLayout = "line" ) + ornate + makeTransparent()
 plt3 <- superb(
     gl ~ concentration,
     glucoselevels, 
@@ -772,7 +772,7 @@ plt3 <- superb(
     errorbarParams = list(width = 0.2, linewidth = 0.2, color = "purple",
                           direction = "left",
                           position = position_nudge(-0.15) ),
-    plotStyle = "line" ) + ornate + makeTransparent()
+    plotLayout = "line" ) + ornate + makeTransparent()
 ```
 
 Things to note: (1) only the second and third uses the transparent
@@ -824,7 +824,7 @@ plt1 <- superb(
     gamma     = 0.95,
     errorbarParams = list(width = 0.0, linewidth = 1.5,
                           position = position_nudge( 0.0) ),
-    plotStyle = "pointjitter" ) + ornate
+    plotLayout = "pointjitter" ) + ornate
 
 # transform the new plot into a visual object
 plt1 <- ggplotGrob(plt1)
@@ -852,7 +852,7 @@ plt1 <- superb(
     gamma     = 0.95,
     errorbarParams = list(width = 0.0, linewidth = 1.5,
                           position = position_nudge( 0.0) ),
-    plotStyle = "pointjitterviolin" ) + ornate
+    plotLayout = "pointjitterviolin" ) + ornate
 
 # transform the three plots into visual objects
 plt1 <- ggplotGrob(plt1)
@@ -882,7 +882,7 @@ plt4 <- superb(
     errorbarParams = list(width = 0.2, linewidth = 1.5, color = "blue",
                           position = position_nudge( 0.00) ),
     gamma     = 0.95,
-    plotStyle = "line" ) + ornate + makeTransparent()
+    plotLayout = "line" ) + ornate + makeTransparent()
 ```
 
 This plot also has transparent theme as it will superimposed on the

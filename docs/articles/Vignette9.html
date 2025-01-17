@@ -276,13 +276,12 @@ function:</p>
 <span>    <span class="va">dta</span>, </span>
 <span>    statistic   <span class="op">=</span> <span class="st">"d1"</span>,  errorbar  <span class="op">=</span> <span class="st">"CI"</span>, </span>
 <span>    gamma       <span class="op">=</span> <span class="fl">0.95</span>, </span>
-<span>    plotStyle   <span class="op">=</span> <span class="st">"line"</span>,</span>
+<span>    plotLayout  <span class="op">=</span> <span class="st">"line"</span>,</span>
 <span>    adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose<span class="op">=</span><span class="st">"difference"</span><span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_light</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">+</span> </span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.3</span>,<span class="op">+</span><span class="fl">0.45</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"d_1 with difference-adjusted 95% confidence intervals of d_1"</span>,</span>
 <span>     y     <span class="op">=</span> <span class="st">"d_1 relative to grand mean"</span><span class="op">)</span> </span></code></pre></div>
-<pre><code><span><span class="co">## superb::DEPRECATED: The argument `plotStyle` is deprecated; favor the argument `plotLayout`. Continuing...</span></span></code></pre>
 <pre><code><span><span class="co">## superb::FYI: Running initializer init.d1</span></span></code></pre>
 <div class="figure">
 <img src="Vignette9_files/figure-html/unnamed-chunk-5-1.png" alt="**Figure 1**. d_1 scores along with 95% confidence interval." width="384"><p class="caption">
@@ -299,7 +298,7 @@ difference-adjusted confidence intervals are adequate to compare two
 zero.</p>
 <p>Note that in the above, the initializer was detected and run
 automatically. You can check that the initializer is detectable with</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">superb</span><span class="fu">:::</span><span class="fu">has.init.function</span><span class="op">(</span><span class="st">"d1"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
 </div>
@@ -308,7 +307,7 @@ automatically. You can check that the initializer is detectable with</p>
 </h3>
 <p>To check the above, we could implement the formulas for the Cohen’s
 <span class="math inline">\(d_p\)</span> <span class="citation">(Cousineau &amp; Goulet-Pelletier, 2020)</span>:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dp</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span><span class="op">)</span> <span class="op">{</span></span>
 <span>        <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">X</span> <span class="op">-</span> <span class="va">Y</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">var</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">var</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span><span class="op">-</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="op">}</span> </span>
@@ -321,32 +320,32 @@ automatically. You can check that the initializer is detectable with</p>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">dlow</span>, <span class="va">dhig</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">n</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Let’s extract the group’s data for intermediate computations:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">grp1</span> <span class="op">&lt;-</span> <span class="va">dta</span><span class="op">$</span><span class="va">score</span><span class="op">[</span><span class="va">dta</span><span class="op">$</span><span class="va">Dose</span><span class="op">==</span><span class="fl">1</span><span class="op">]</span></span>
 <span><span class="va">grp2</span> <span class="op">&lt;-</span> <span class="va">dta</span><span class="op">$</span><span class="va">score</span><span class="op">[</span><span class="va">dta</span><span class="op">$</span><span class="va">Dose</span><span class="op">==</span><span class="fl">2</span><span class="op">]</span></span>
 <span><span class="va">grp3</span> <span class="op">&lt;-</span> <span class="va">dta</span><span class="op">$</span><span class="va">score</span><span class="op">[</span><span class="va">dta</span><span class="op">$</span><span class="va">Dose</span><span class="op">==</span><span class="fl">3</span><span class="op">]</span></span></code></pre></div>
 <p>so that we can easily compute all three pairwise statistics:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dp12</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu">dp</span><span class="op">(</span><span class="va">grp2</span>, <span class="va">grp1</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">dp13</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu">dp</span><span class="op">(</span><span class="va">grp3</span>, <span class="va">grp1</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">dp23</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu">dp</span><span class="op">(</span><span class="va">grp3</span>, <span class="va">grp2</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">dp12</span>, <span class="va">dp13</span>, <span class="va">dp23</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.117 0.161 0.050</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 0.147 0.152 0.007</span></span></code></pre>
 <p>… and their 95% confidence intervals:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cidp12</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu">CI.dp</span><span class="op">(</span><span class="va">grp2</span>, <span class="va">grp1</span>, <span class="fl">0.95</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">cidp13</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu">CI.dp</span><span class="op">(</span><span class="va">grp3</span>, <span class="va">grp1</span>, <span class="fl">0.95</span> <span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">cidp23</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu">CI.dp</span><span class="op">(</span><span class="va">grp3</span>, <span class="va">grp2</span>, <span class="fl">0.95</span> <span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">cidp12</span>,<span class="va">cidp13</span>,<span class="va">cidp23</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] -0.007  0.241  0.036  0.285 -0.074  0.174</span></span></code></pre>
+<pre><code><span><span class="co">## [1]  0.023  0.271  0.028  0.276 -0.117  0.131</span></span></code></pre>
 <p>Let’s put these numbers on the plot for easier examination using the
 graphic directives <code><a href="../reference/showSignificance.html">showSignificance()</a></code>:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
 <span>    <span class="va">score</span> <span class="op">~</span> <span class="va">Dose</span>,</span>
 <span>    <span class="va">dta</span>, </span>
-<span>    statistic <span class="op">=</span> <span class="st">"d1"</span>,  errorbar  <span class="op">=</span> <span class="st">"CI"</span>, gamma     <span class="op">=</span> <span class="fl">0.95</span>, </span>
-<span>    plotStyle <span class="op">=</span> <span class="st">"line"</span>,</span>
+<span>    statistic  <span class="op">=</span> <span class="st">"d1"</span>,  errorbar  <span class="op">=</span> <span class="st">"CI"</span>, gamma     <span class="op">=</span> <span class="fl">0.95</span>, </span>
+<span>    plotLayout <span class="op">=</span> <span class="st">"line"</span>,</span>
 <span>    adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose<span class="op">=</span><span class="st">"difference"</span><span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_light</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">+</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.3</span>,<span class="op">+</span><span class="fl">0.45</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span></span>
@@ -374,7 +373,7 @@ at least 5% (for 95% confidence intervals).</p>
 length of the Cohen’s <span class="math inline">\(d_p\)</span> interval;
 (b) average (in the square sense, see <a href="https://dcousin3.github.io/superb/articles/Vignette7.html" class="external-link">here</a>)
 the two difference-adjusted confidence intervals of <span class="math inline">\(d_1\)</span>:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">compareCIlength</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">g1</span>, <span class="va">g2</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="co"># compute the Cohen's dp confidence interval length</span></span>
 <span>    <span class="va">cilength.dp</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu">CI.dp</span><span class="op">(</span><span class="va">g1</span>, <span class="va">g2</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">-</span><span class="fu">CI.dp</span><span class="op">(</span><span class="va">g1</span>, <span class="va">g2</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">3</span><span class="op">)</span></span>
@@ -391,11 +390,11 @@ the two difference-adjusted confidence intervals of <span class="math inline">\(
 <span><span class="fu">compareCIlength</span><span class="op">(</span><span class="va">grp1</span>,<span class="va">grp2</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   dp.length d1.average.length</span></span>
 <span><span class="co">## 1     0.248             0.248</span></span></code></pre>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">compareCIlength</span><span class="op">(</span><span class="va">grp1</span>,<span class="va">grp3</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   dp.length d1.average.length</span></span>
 <span><span class="co">## 1     0.248             0.248</span></span></code></pre>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">compareCIlength</span><span class="op">(</span><span class="va">grp2</span>,<span class="va">grp3</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   dp.length d1.average.length</span></span>
 <span><span class="co">## 1     0.248             0.248</span></span></code></pre>

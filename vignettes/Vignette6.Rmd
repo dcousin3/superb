@@ -154,7 +154,7 @@ dta <- GRD(
 superb(
     DV ~ Group,
     dta,
-    plotStyle = "pointjitterviolin" )
+    plotLayout = "pointjitterviolin" )
 ```
 
 Any valid R instruction could be placed in the ``scores`` arguments, such
@@ -194,7 +194,7 @@ superb(
     crange(DV.1, DV.3) ~ Therapy,
     dta,
     WSFactors = "Contrast(3)",
-    plotStyle = "line" )
+    plotLayout= "line" )
 ```
 
 Effects can also be any R code manipulating the factors, using ``Rexpression``.
@@ -214,7 +214,7 @@ superb(
     crange(DV.1, DV.3) ~ Therapy,    
     dta,
     WSFactors = "Contrast(3)",
-    plotStyle = "line" )
+    plotLayout= "line" )
 ```
 
 Repeated measures can also be generated from a multivariate normal 

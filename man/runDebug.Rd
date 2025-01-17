@@ -23,4 +23,15 @@ runDebug is an internal function used by GRD and superb
 to help in debugging the functions. It assigns in the global environment
 the variables that are local to a function so that they become visible.
 Use \code{options("superb.feedback" = "all")} to turn all debug on.
+
+The default values to the option "superb.feedback" is c("design","warnings","summary","experimental")
+where the four entries allow:
+\itemize{
+\item design:       (in superbPlot) showing information on how the within-subject variables are understood;
+\item warnings:     (in superbPlot) returning 'FYI' messages about the data to help decide if
+the appropriate error bars were used
+\item summary:      (in GRD) showing a recapitulation of the design;
+\item experimental: (in superbPlot) showing a message if experimental features are used. This last
+feedback information is currently not inhibited but will be in future versions.
+}
 }

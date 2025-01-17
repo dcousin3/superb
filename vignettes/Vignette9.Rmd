@@ -148,7 +148,7 @@ superb(
     dta, 
     statistic   = "d1",  errorbar  = "CI", 
     gamma       = 0.95, 
-    plotStyle   = "line",
+    plotLayout  = "line",
     adjustments = list(purpose="difference")
 ) + theme_light(base_size = 10) + 
 coord_cartesian( ylim = c(-0.3,+0.45) ) +
@@ -222,8 +222,8 @@ the graphic directives ``showSignificance()``:
 superb(
     score ~ Dose,
     dta, 
-    statistic = "d1",  errorbar  = "CI", gamma     = 0.95, 
-    plotStyle = "line",
+    statistic  = "d1",  errorbar  = "CI", gamma     = 0.95, 
+    plotLayout = "line",
     adjustments = list(purpose="difference")
 ) + theme_light(base_size = 10) +
 coord_cartesian( ylim = c(-0.3,+0.45) ) +

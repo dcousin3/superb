@@ -20,7 +20,7 @@
 #' \insertAllCited{}
 #'
 #' @examples
-#' # creates a small data frames with 4 subject's scores for 5 measures:
+#' # creates a small data frame with 4 subject's scores for 5 measures:
 #' dta <- data.frame(cbind(
 #'         DV.1 = c(3., 6., 2., 2., 5.),
 #'         DV.2 = c(4., 5., 4., 4., 3.),

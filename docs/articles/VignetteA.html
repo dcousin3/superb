@@ -219,12 +219,12 @@ to <code>gl</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">glucoselevels</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   id concentration        gl</span></span>
-<span><span class="co">## 1  1             A  60.89538</span></span>
-<span><span class="co">## 2  2             A  91.70120</span></span>
-<span><span class="co">## 3  3             A  85.14510</span></span>
-<span><span class="co">## 4  4             A 141.20828</span></span>
-<span><span class="co">## 5  5             A 103.00833</span></span>
-<span><span class="co">## 6  6             A 106.55022</span></span></code></pre>
+<span><span class="co">## 1  1             A  97.39988</span></span>
+<span><span class="co">## 2  2             A  74.70796</span></span>
+<span><span class="co">## 3  3             A  69.83909</span></span>
+<span><span class="co">## 4  4             A 117.83849</span></span>
+<span><span class="co">## 5  5             A  98.43772</span></span>
+<span><span class="co">## 6  6             A  56.28082</span></span></code></pre>
 <p>A simple plot could show the mean for each concentration along with
 the 95% confidence interval of the means, with e.g.,</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -234,7 +234,7 @@ the 95% confidence interval of the means, with e.g.,</p>
 <span>    statistic <span class="op">=</span> <span class="st">"mean"</span>, </span>
 <span>    errorbar  <span class="op">=</span> <span class="st">"CI"</span>,</span>
 <span>    gamma     <span class="op">=</span> <span class="fl">0.95</span>,</span>
-<span>    plotStyle <span class="op">=</span> <span class="st">"line"</span><span class="op">)</span></span></code></pre></div>
+<span>    plotLayout <span class="op">=</span> <span class="st">"line"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="VignetteA_files/figure-html/unnamed-chunk-7-1.png" alt="**Figure 1**. Mean glucose level as a function of concentration." width="384"><p class="caption">
 <strong>Figure 1</strong>. Mean glucose level as a function of
@@ -249,10 +249,10 @@ individuals are often much outside the visible part of the scale.</p>
 the highest:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">glucoselevels</span><span class="op">$</span><span class="va">gl</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 45.39083</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 35.90774</span></span></code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">glucoselevels</span><span class="op">$</span><span class="va">gl</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 150.3888</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 157.6481</span></span></code></pre>
 <p>Instead of asking for an error bar representing a confidence interval
 (CI), let’s ask for error bar representing the reference intervals
 (RI).</p>
@@ -282,7 +282,7 @@ that won’t change the position of the interval.</p>
 <span>    statistic <span class="op">=</span> <span class="st">"mean"</span>, <span class="co"># mean is what RI is attached to</span></span>
 <span>    errorbar  <span class="op">=</span> <span class="st">"RI"</span>,   <span class="co"># RI calls the function above</span></span>
 <span>    gamma     <span class="op">=</span> <span class="fl">0.95</span>,   <span class="co"># select the coverage desired</span></span>
-<span>    plotStyle <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span></span></code></pre></div>
+<span>    plotLayout <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="VignetteA_files/figure-html/unnamed-chunk-10-1.png" alt="**Figure 2**. Mean glucose level and 95% reference intervals as a function of concentration." width="384"><p class="caption">
 <strong>Figure 2</strong>. Mean glucose level and 95% reference
@@ -334,7 +334,7 @@ see the uncertainty in the top tips of all the RI:</p>
 <span>    <span class="va">glucoselevels</span>, </span>
 <span>    statistic <span class="op">=</span> <span class="st">"mean"</span>, errorbar <span class="op">=</span> <span class="st">"cihiRI"</span>,</span>
 <span>    gamma     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.95</span>, <span class="fl">0.90</span><span class="op">)</span>,</span>
-<span>    plotStyle <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> </span></code></pre></div>
+<span>    plotLayout <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> </span></code></pre></div>
 <div class="figure">
 <img src="VignetteA_files/figure-html/unnamed-chunk-12-1.png" alt="**Figure 3**. Mean glucose level and 90% confidence intervals of the upper RI tips." width="384"><p class="caption">
 <strong>Figure 3</strong>. Mean glucose level and 90% confidence
@@ -379,7 +379,7 @@ are all grouped in a list:</p>
 <span>    gamma     <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.0</span>, linewidth <span class="op">=</span> <span class="fl">1.5</span>,</span>
 <span>                          position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html" class="external-link">position_nudge</a></span><span class="op">(</span> <span class="fl">0.0</span><span class="op">)</span> <span class="op">)</span>,</span>
-<span>    plotStyle <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> <span class="op">+</span> <span class="va">ornate</span></span>
+<span>    plotLayout <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> <span class="op">+</span> <span class="va">ornate</span></span>
 <span><span class="va">plt2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
 <span>    <span class="va">gl</span> <span class="op">~</span> <span class="va">concentration</span>,</span>
 <span>    <span class="va">glucoselevels</span>, </span>
@@ -389,7 +389,7 @@ are all grouped in a list:</p>
 <span>    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.2</span>, linewidth <span class="op">=</span> <span class="fl">0.2</span>, color <span class="op">=</span> <span class="st">"red"</span>,</span>
 <span>                          direction <span class="op">=</span> <span class="st">"left"</span>,</span>
 <span>                          position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html" class="external-link">position_nudge</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.15</span><span class="op">)</span> <span class="op">)</span>,</span>
-<span>    plotStyle <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> <span class="op">+</span> <span class="va">ornate</span> <span class="op">+</span> <span class="fu"><a href="../reference/makeTransparent.html">makeTransparent</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>    plotLayout <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> <span class="op">+</span> <span class="va">ornate</span> <span class="op">+</span> <span class="fu"><a href="../reference/makeTransparent.html">makeTransparent</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">plt3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
 <span>    <span class="va">gl</span> <span class="op">~</span> <span class="va">concentration</span>,</span>
 <span>    <span class="va">glucoselevels</span>, </span>
@@ -399,7 +399,7 @@ are all grouped in a list:</p>
 <span>    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.2</span>, linewidth <span class="op">=</span> <span class="fl">0.2</span>, color <span class="op">=</span> <span class="st">"purple"</span>,</span>
 <span>                          direction <span class="op">=</span> <span class="st">"left"</span>,</span>
 <span>                          position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html" class="external-link">position_nudge</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.15</span><span class="op">)</span> <span class="op">)</span>,</span>
-<span>    plotStyle <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> <span class="op">+</span> <span class="va">ornate</span> <span class="op">+</span> <span class="fu"><a href="../reference/makeTransparent.html">makeTransparent</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>    plotLayout <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> <span class="op">+</span> <span class="va">ornate</span> <span class="op">+</span> <span class="fu"><a href="../reference/makeTransparent.html">makeTransparent</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Things to note: (1) only the second and third uses the transparent
 directives; (2) the confidence levels (<code>gamma</code>) have two
 numbers in plots 2 and 3: the first for the RI, the second for the CI of
@@ -450,7 +450,7 @@ the layout, then superimpose the plots again, as in</p>
 <span>    gamma     <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.0</span>, linewidth <span class="op">=</span> <span class="fl">1.5</span>,</span>
 <span>                          position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html" class="external-link">position_nudge</a></span><span class="op">(</span> <span class="fl">0.0</span><span class="op">)</span> <span class="op">)</span>,</span>
-<span>    plotStyle <span class="op">=</span> <span class="st">"pointjitter"</span> <span class="op">)</span> <span class="op">+</span> <span class="va">ornate</span></span>
+<span>    plotLayout <span class="op">=</span> <span class="st">"pointjitter"</span> <span class="op">)</span> <span class="op">+</span> <span class="va">ornate</span></span>
 <span></span>
 <span><span class="co"># transform the new plot into a visual object</span></span>
 <span><span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplotGrob.html" class="external-link">ggplotGrob</a></span><span class="op">(</span><span class="va">plt1</span><span class="op">)</span></span>
@@ -480,7 +480,7 @@ that most of them are indeed within the reference intervals.</p>
 <span>    gamma     <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.0</span>, linewidth <span class="op">=</span> <span class="fl">1.5</span>,</span>
 <span>                          position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html" class="external-link">position_nudge</a></span><span class="op">(</span> <span class="fl">0.0</span><span class="op">)</span> <span class="op">)</span>,</span>
-<span>    plotStyle <span class="op">=</span> <span class="st">"pointjitterviolin"</span> <span class="op">)</span> <span class="op">+</span> <span class="va">ornate</span></span>
+<span>    plotLayout <span class="op">=</span> <span class="st">"pointjitterviolin"</span> <span class="op">)</span> <span class="op">+</span> <span class="va">ornate</span></span>
 <span></span>
 <span><span class="co"># transform the three plots into visual objects</span></span>
 <span><span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplotGrob.html" class="external-link">ggplotGrob</a></span><span class="op">(</span><span class="va">plt1</span><span class="op">)</span></span>
@@ -515,7 +515,7 @@ interval of the means with</p>
 <span>    errorbarParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.2</span>, linewidth <span class="op">=</span> <span class="fl">1.5</span>, color <span class="op">=</span> <span class="st">"blue"</span>,</span>
 <span>                          position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html" class="external-link">position_nudge</a></span><span class="op">(</span> <span class="fl">0.00</span><span class="op">)</span> <span class="op">)</span>,</span>
 <span>    gamma     <span class="op">=</span> <span class="fl">0.95</span>,</span>
-<span>    plotStyle <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> <span class="op">+</span> <span class="va">ornate</span> <span class="op">+</span> <span class="fu"><a href="../reference/makeTransparent.html">makeTransparent</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>    plotLayout <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> <span class="op">+</span> <span class="va">ornate</span> <span class="op">+</span> <span class="fu"><a href="../reference/makeTransparent.html">makeTransparent</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>This plot also has transparent theme as it will superimposed on the
 previous three plots:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">

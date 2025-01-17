@@ -1,12 +1,21 @@
 ######################################################################################
 #' @title runDebug 
 #'
+#' @md
+#'
 #' @description runDebug is an internal function used by GRD and superb
 #'      to help in debugging the functions. It assigns in the global environment
 #'      the variables that are local to a function so that they become visible.
 #'      Use `options("superb.feedback" = "all")` to turn all debug on.
 #'
-#' @md
+#' The default values to the option "superb.feedback" is c("design","warnings","summary","experimental")
+#'   where the four entries allow:
+#' *  design:       (in superbPlot) showing information on how the within-subject variables are understood;
+#' *  warnings:     (in superbPlot) returning 'FYI' messages about the data to help decide if 
+#'                     the appropriate error bars were used
+#' *  summary:      (in GRD) showing a recapitulation of the design;
+#' *  experimental: (in superbPlot) showing a message if experimental features are used. This last
+#'       feedback information is currently not inhibited but will be in future versions.
 #'
 #' @param where indicates where in the program runDebug was called
 #' @param title string text to be displayed when this function is triggered

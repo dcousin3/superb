@@ -360,7 +360,7 @@ available using the adjustment <code>decorrelation</code> <span class="citation"
 <span>                    purpose <span class="op">=</span> <span class="st">"difference"</span>, </span>
 <span>                    decorrelation <span class="op">=</span> <span class="st">"CA"</span>    <span class="co">## NEW! use a decorrelation technique</span></span>
 <span>    <span class="op">)</span>, </span>
-<span>    plotStyle   <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span></span></code></pre></div>
+<span>    plotLayout  <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="Vignette3_files/figure-html/unnamed-chunk-9-1.png" alt="**Figure 3a**. Means and difference and correlation-adjusted 95% confidence intervals" width="384"><p class="caption">
 <strong>Figure 3a</strong>. Means and difference and
@@ -377,7 +377,7 @@ here the <code>id</code> columm, with</p>
 <span>                    purpose <span class="op">=</span> <span class="st">"difference"</span>, </span>
 <span>                    decorrelation <span class="op">=</span> <span class="st">"CA"</span>    <span class="co">## NEW! use a decorrelation technique</span></span>
 <span>    <span class="op">)</span>, </span>
-<span>    plotStyle   <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span></span></code></pre>
+<span>    plotLayout  <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span></span></code></pre>
 <p>This will result in a basic plot, but what matters is that the
 confidence intervals are adjusted so that you can compare bars even if
 they are repeated measures. Note that the confidence interval of one
@@ -400,7 +400,7 @@ result) and the adjusted plot.</p>
 <span>        <span class="va">dataFigure2</span>, </span>
 <span>        WSFactors    <span class="op">=</span> <span class="st">"Moment(2)"</span>, </span>
 <span>        adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>, </span>
-<span>        plotStyle   <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> <span class="op">+</span> </span>
+<span>        plotLayout  <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"Group"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Score"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"Difference-adjusted\n95% confidence intervals"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">85</span>,<span class="fl">115</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span></span>
@@ -411,7 +411,7 @@ result) and the adjusted plot.</p>
 <span>        <span class="va">dataFigure2</span>, </span>
 <span>        WSFactors    <span class="op">=</span> <span class="st">"Moment(2)"</span>, </span>
 <span>        adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span>, decorrelation <span class="op">=</span> <span class="st">"CA"</span><span class="op">)</span>,  <span class="co">#only difference</span></span>
-<span>        plotStyle   <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> <span class="op">+</span> </span>
+<span>        plotLayout  <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"Group"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Score"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"Correlation and difference-adjusted\n95% confidence intervals"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">85</span>,<span class="fl">115</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span> </span>
@@ -450,7 +450,7 @@ plot along with un-decorrelated error bars
 <h4 id="illustrating-individual-differences">Illustrating individual differences<a class="anchor" aria-label="anchor" href="#illustrating-individual-differences"></a>
 </h4>
 <p>In <code>superb</code>, it is possible to ask a certain type of plot.
-The <code>plotStyle</code> used so far is <code>"line"</code> (the
+The <code>plotLayout</code> used so far is <code>"line"</code> (the
 default is <code>"bar"</code>). Another basic style is
 <code>"point"</code> (no line connecting the means).</p>
 <p>Other types of plot exists that are apt at showing the summary
@@ -463,9 +463,9 @@ summary statistics and the error bars. For example:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">pre</span>, <span class="va">post</span><span class="op">)</span> <span class="op">~</span> <span class="va">.</span>, </span>
 <span>    <span class="va">dataFigure2</span>, </span>
-<span>    WSFactors    <span class="op">=</span> <span class="st">"Moment(2)"</span>, </span>
+<span>    WSFactors   <span class="op">=</span> <span class="st">"Moment(2)"</span>, </span>
 <span>    adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span>, decorrelation <span class="op">=</span> <span class="st">"CM"</span><span class="op">)</span>, </span>
-<span>    plotStyle   <span class="op">=</span> <span class="st">"pointindividualline"</span> <span class="op">)</span> <span class="op">+</span> </span>
+<span>    plotLayout  <span class="op">=</span> <span class="st">"pointindividualline"</span> <span class="op">)</span> <span class="op">+</span> </span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"Group"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Score"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"Correlation- and Difference-adjusted\n95% confidence intervals"</span><span class="op">)</span> <span class="op">+</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span> ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">70</span>,<span class="fl">150</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span></span>
@@ -486,9 +486,9 @@ score remained flat or increased. It is obtained with</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">pre</span>, <span class="va">post</span><span class="op">)</span> <span class="op">~</span> <span class="va">.</span>, </span>
 <span>    <span class="va">dataFigure2</span>, </span>
-<span>    WSFactors    <span class="op">=</span> <span class="st">"Moment(2)"</span>, </span>
+<span>    WSFactors   <span class="op">=</span> <span class="st">"Moment(2)"</span>, </span>
 <span>    adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span>, decorrelation <span class="op">=</span> <span class="st">"CM"</span><span class="op">)</span>, </span>
-<span>    plotStyle   <span class="op">=</span> <span class="st">"corset"</span>,</span>
+<span>    plotLayout  <span class="op">=</span> <span class="st">"corset"</span>,</span>
 <span>    lineParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>colorize<span class="op">=</span><span class="st">"bySlope"</span><span class="op">)</span>, </span>
 <span>    violinParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>fill<span class="op">=</span><span class="st">"green"</span>, alpha <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op">+</span> </span>

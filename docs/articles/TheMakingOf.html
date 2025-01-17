@@ -189,7 +189,7 @@ intervals and is obtained with :</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plt1a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span> <span class="va">score</span> <span class="op">~</span> <span class="va">grp</span>,</span>
 <span>            <span class="va">dataFigure1</span>, </span>
-<span>            plotStyle   <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> </span>
+<span>            plotLayout   <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> </span>
 <span><span class="va">plt1a</span></span></code></pre></div>
 <div class="figure">
 <img src="TheMakingOf_files/figure-html/unnamed-chunk-3-1.png" alt="**Figure 1a**. Left panel of Figure 1." width="288"><p class="caption">
@@ -229,7 +229,7 @@ intervals:</p>
 <code class="sourceCode R"><span><span class="va">plt1b</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span> <span class="va">score</span> <span class="op">~</span> <span class="va">grp</span>,</span>
 <span>            <span class="va">dataFigure1</span>, </span>
 <span>            adjustments  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>, <span class="co">#new!</span></span>
-<span>            plotStyle    <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span></span>
+<span>            plotLayout   <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span></span>
 <span><span class="va">plt1b</span> <span class="op">&lt;-</span> <span class="va">plt1b</span> <span class="op">+</span> <span class="va">ornateBS</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"Difference-adjusted\n95% CI"</span><span class="op">)</span> </span>
 <span><span class="va">plt1b</span></span></code></pre></div>
 <div class="figure">
@@ -239,13 +239,13 @@ Figure 1.
 </p>
 </div>
 <p>Finally, the <em>raincloud</em> plot is obtained by changing the
-<code>plotStyle</code> argument:</p>
+<code>plotLayout</code> argument:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plt1c</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
 <span>            <span class="va">score</span> <span class="op">~</span> <span class="va">grp</span>,</span>
 <span>            <span class="va">dataFigure1</span>, </span>
 <span>            adjustments  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span>,</span>
-<span>            plotStyle    <span class="op">=</span> <span class="st">"raincloud"</span>,                         <span class="co"># new layout!</span></span>
+<span>            plotLayout   <span class="op">=</span> <span class="st">"raincloud"</span>,                         <span class="co"># new layout!</span></span>
 <span>            violinParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"green"</span>, alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">)</span> <span class="co"># changed color to the violin</span></span>
 <span><span class="va">plt1c</span> <span class="op">&lt;-</span> <span class="va">plt1c</span> <span class="op">+</span> <span class="va">ornateBS</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"Difference-adjusted\n95% CI"</span><span class="op">)</span> </span>
 <span><span class="va">plt1c</span></span></code></pre></div>
@@ -341,7 +341,7 @@ a wide format, e.g.,</p>
 <span>            <span class="va">dataFigure2</span>, </span>
 <span>            WSFactors    <span class="op">=</span> <span class="st">"Moment(2)"</span>, </span>
 <span>            adjustments  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"single"</span><span class="op">)</span>,</span>
-<span>            plotStyle    <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> </span>
+<span>            plotLayout   <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> </span>
 <span><span class="va">plt2a</span> <span class="op">&lt;-</span> <span class="va">plt2a</span> <span class="op">+</span> <span class="va">ornateWS</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"Stand-alone\n95% CI"</span><span class="op">)</span></span>
 <span><span class="va">plt2a</span></span></code></pre></div>
 <div class="figure">
@@ -357,10 +357,9 @@ a wide format, e.g.,</p>
 <span>            <span class="va">dataFigure2</span>, </span>
 <span>            WSFactors    <span class="op">=</span> <span class="st">"Moment(2)"</span>, </span>
 <span>            adjustments  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span>, decorrelation <span class="op">=</span> <span class="st">"CA"</span><span class="op">)</span>, <span class="co">#new</span></span>
-<span>            plotStyle    <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> </span></code></pre></div>
-<pre><code><span><span class="co">## superb::DEPRECATED: The argument `plotStyle` is deprecated; favor the argument `plotLayout`. Continuing...</span></span></code></pre>
+<span>            plotLayout   <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> </span></code></pre></div>
 <pre><code><span><span class="co">## superb::FYI: The average correlation per group is  0.8366</span></span></code></pre>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plt2b</span> <span class="op">&lt;-</span> <span class="va">plt2b</span> <span class="op">+</span> <span class="va">ornateWS</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"Correlation and difference-\nadjusted 95% CI"</span><span class="op">)</span> </span>
 <span><span class="va">plt2b</span></span></code></pre></div>
 <div class="figure">
@@ -374,13 +373,13 @@ a wide format, e.g.,</p>
 data participants per participants, joining their results with a line.
 As seen below, for most participants, the trend is upward, suggesting a
 strongly reliable effect of the moment:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plt2c</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
 <span>            <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">pre</span>, <span class="va">post</span><span class="op">)</span> <span class="op">~</span> <span class="va">.</span>, </span>
 <span>            <span class="va">dataFigure2</span>, </span>
 <span>            WSFactors    <span class="op">=</span> <span class="st">"Moment(2)"</span>, </span>
 <span>            adjustments  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span>, decorrelation <span class="op">=</span> <span class="st">"CA"</span><span class="op">)</span>,</span>
-<span>            plotStyle    <span class="op">=</span> <span class="st">"pointindividualline"</span> <span class="op">)</span>   <span class="co">#new</span></span>
+<span>            plotLayout   <span class="op">=</span> <span class="st">"pointindividualline"</span> <span class="op">)</span>   <span class="co">#new</span></span>
 <span><span class="va">plt2c</span> <span class="op">&lt;-</span> <span class="va">plt2c</span> <span class="op">+</span> <span class="va">ornateWS</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"Correlation and difference-\nadjusted 95% CI"</span><span class="op">)</span></span>
 <span><span class="va">plt2c</span> </span></code></pre></div>
 <div class="figure">
@@ -391,7 +390,7 @@ strongly reliable effect of the moment:</p>
 <p>Just for the exercice, we also compute the plot of the difference
 between the scores. To that end, we need different labels on the x-axis
 and a different range:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ornateWS2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"Difference"</span><span class="op">)</span>,                                      </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">scale_x_discrete</a></span><span class="op">(</span>labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Post minus Pre\ntreatment"</span><span class="op">)</span><span class="op">)</span>, </span>
@@ -402,14 +401,14 @@ and a different range:</p>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span> plot.subtitle <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">12</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>We then compute the differences and make the plot:</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dataFigure2</span><span class="op">$</span><span class="va">diff</span> <span class="op">&lt;-</span> <span class="va">dataFigure2</span><span class="op">$</span><span class="va">post</span> <span class="op">-</span> <span class="va">dataFigure2</span><span class="op">$</span><span class="va">pre</span></span>
 <span><span class="va">plt2d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
 <span>            <span class="va">diff</span> <span class="op">~</span> <span class="va">.</span>,</span>
 <span>            <span class="va">dataFigure2</span>, </span>
 <span>            WSFactor     <span class="op">=</span> <span class="st">"Moment(1)"</span>, </span>
 <span>            adjustments  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"single"</span>, decorrelation <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span>,</span>
-<span>            plotStyle    <span class="op">=</span> <span class="st">"raincloud"</span>,</span>
+<span>            plotLayout   <span class="op">=</span> <span class="st">"raincloud"</span>,</span>
 <span>            violinParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"green"</span><span class="op">)</span> <span class="op">)</span>  <span class="co">#new</span></span>
 <span><span class="va">plt2d</span> <span class="op">&lt;-</span> <span class="va">plt2d</span> <span class="op">+</span> <span class="va">ornateWS2</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"95% CI \nof the difference"</span><span class="op">)</span></span>
 <span><span class="va">plt2d</span></span></code></pre></div>
@@ -424,7 +423,7 @@ a single column; difference-adjustment is inadequate here as the
 difference is to be compared to a fix value (namely 0, for zero
 improvement)</p>
 <p>Assembling all four panels, we get:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">plt2a</span>, <span class="va">plt2b</span>, <span class="va">plt2c</span>, <span class="va">plt2d</span>,  ncol<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="TheMakingOf_files/figure-html/unnamed-chunk-18-1.png" alt="**Figure 2**. The complete Figure 2." width="864"><p class="caption">
@@ -432,14 +431,14 @@ improvement)</p>
 </p>
 </div>
 <p>… which can be exported to a file as usual:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/grDevices/png.html" class="external-link">png</a></span><span class="op">(</span>filename <span class="op">=</span> <span class="st">"Figure2.png"</span>, width <span class="op">=</span> <span class="fl">850</span>, height <span class="op">=</span> <span class="fl">320</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">plt2a</span>, <span class="va">plt2b</span>, <span class="va">plt2c</span>, <span class="va">plt2d</span>,  ncol<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Which error bars are depicting the significance of the result most
 aptly? The adjusted ones seen in the central panel, as confirmed by a
 t-test on paired data:</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">dataFigure2</span><span class="op">$</span><span class="va">pre</span>, <span class="va">dataFigure2</span><span class="op">$</span><span class="va">post</span>, paired<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">##  Paired t-test</span></span>
@@ -462,7 +461,7 @@ between the two moments.</p>
 <p>The novel element in Figure 3 is the fact that the participants have
 been recruited by clusters of participants.</p>
 <p>We first adapt the ornaments for this example:</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ornateCRS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"Group"</span><span class="op">)</span>, </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Quality of policies"</span><span class="op">)</span>,</span>
@@ -473,12 +472,12 @@ been recruited by clusters of participants.</p>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span> plot.subtitle <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">12</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Then, we get an unadjusted plot as usual:</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plt3a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
 <span>    <span class="va">VD</span> <span class="op">~</span> <span class="va">grp</span>,</span>
 <span>    <span class="va">dataFigure3</span>, </span>
 <span>    adjustments   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"single"</span>, samplingDesign <span class="op">=</span> <span class="st">"SRS"</span><span class="op">)</span>,</span>
-<span>    plotStyle     <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span></span>
+<span>    plotLayout    <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span></span>
 <span><span class="va">plt3a</span> <span class="op">&lt;-</span> <span class="va">plt3a</span> <span class="op">+</span> <span class="va">ornateCRS</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"Stand-alone\n95% CI"</span><span class="op">)</span> </span>
 <span><span class="va">plt3a</span></span></code></pre></div>
 <div class="figure">
@@ -492,16 +491,15 @@ and can be omitted.</p>
 <code>samplingDesign</code> option is set to <code>"CRS"</code> and an
 additional information, <code>clusterColumn</code> is indicated to
 identify the column containing the cluster membership information:</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plt3b</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
 <span>    <span class="va">VD</span> <span class="op">~</span> <span class="va">grp</span>,</span>
 <span>    <span class="va">dataFigure3</span>, </span>
 <span>    adjustments   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span>, samplingDesign <span class="op">=</span> <span class="st">"CRS"</span><span class="op">)</span>, <span class="co">#new</span></span>
-<span>    plotStyle     <span class="op">=</span> <span class="st">"line"</span>, </span>
+<span>    plotLayout    <span class="op">=</span> <span class="st">"line"</span>, </span>
 <span>    clusterColumn <span class="op">=</span> <span class="st">"cluster"</span> <span class="op">)</span>                                           <span class="co">#new</span></span></code></pre></div>
-<pre><code><span><span class="co">## superb::DEPRECATED: The argument `plotStyle` is deprecated; favor the argument `plotLayout`. Continuing...</span></span></code></pre>
 <pre><code><span><span class="co">## superb::FYI: The ICC1 per group are  0.491 0.204</span></span></code></pre>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plt3b</span> <span class="op">&lt;-</span> <span class="va">plt3b</span> <span class="op">+</span> <span class="va">ornateCRS</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"Cluster and difference-\nadjusted 95% CI"</span><span class="op">)</span></span>
 <span><span class="va">plt3b</span></span></code></pre></div>
 <div class="figure">
@@ -512,17 +510,17 @@ identify the column containing the cluster membership information:</p>
 <p>An inspection of the distribution does not make the cluster structure
 evident and therefore a raincloud plot is maybe little informative in
 the context of cluster randomized sampling…</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plt3c</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
 <span>    <span class="va">VD</span> <span class="op">~</span> <span class="va">grp</span>,</span>
 <span>    <span class="va">dataFigure3</span>, </span>
 <span>    adjustments   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"difference"</span>, samplingDesign <span class="op">=</span> <span class="st">"CRS"</span><span class="op">)</span>,</span>
-<span>    plotStyle     <span class="op">=</span> <span class="st">"raincloud"</span>, </span>
+<span>    plotLayout    <span class="op">=</span> <span class="st">"raincloud"</span>, </span>
 <span>    violinParams  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"green"</span>, alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span>,</span>
 <span>    clusterColumn <span class="op">=</span> <span class="st">"cluster"</span> <span class="op">)</span></span>
 <span><span class="va">plt3c</span> <span class="op">&lt;-</span> <span class="va">plt3c</span> <span class="op">+</span> <span class="va">ornateCRS</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"Cluster and difference-\nadjusted 95% CI"</span><span class="op">)</span></span></code></pre></div>
 <p>Here is the complete Figure 3:</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">plt3a</span>, <span class="va">plt3b</span>, <span class="va">plt3c</span>, ncol<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="TheMakingOf_files/figure-html/unnamed-chunk-25-1.png" alt="**Figure 3**. The complete Figure 3." width="768"><p class="caption">
@@ -530,7 +528,7 @@ the context of cluster randomized sampling…</p>
 </p>
 </div>
 <p>This figure is saved as before with</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/grDevices/png.html" class="external-link">png</a></span><span class="op">(</span>filename <span class="op">=</span> <span class="st">"Figure3.png"</span>, width <span class="op">=</span> <span class="fl">640</span>, height <span class="op">=</span> <span class="fl">320</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">plt3a</span>, <span class="va">plt3b</span>, <span class="va">plt3c</span>, ncol<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -538,7 +536,7 @@ the context of cluster randomized sampling…</p>
 correction factor called <span class="math inline">\(\lambda\)</span>.
 An easy way is the following <span class="citation">(see Cousineau &amp;
 Laurencelle, 2016 for more)</span></p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">res</span>    <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span> <span class="va">dataFigure3</span><span class="op">$</span><span class="va">VD</span><span class="op">[</span><span class="va">dataFigure3</span><span class="op">$</span><span class="va">grp</span><span class="op">==</span><span class="fl">1</span><span class="op">]</span>, </span>
 <span>                  <span class="va">dataFigure3</span><span class="op">$</span><span class="va">VD</span><span class="op">[</span><span class="va">dataFigure3</span><span class="op">$</span><span class="va">grp</span><span class="op">==</span><span class="fl">2</span><span class="op">]</span>, </span>
 <span>                <span class="op">)</span></span>
@@ -561,7 +559,7 @@ proper error bars.</p>
 </h2>
 <p>Figure 4 is an illustration of the impact of sampling among a finite
 population.</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ornateBS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span>, </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Metabolic score"</span><span class="op">)</span>,</span>
@@ -572,35 +570,35 @@ population.</p>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span> plot.subtitle <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">12</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Lets do Figure 4 (see below for each plot in a single figure).</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plt4a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
 <span>    <span class="va">score</span> <span class="op">~</span> <span class="va">group</span>,</span>
 <span>    <span class="va">dataFigure4</span>, </span>
-<span>    adjustments<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"single"</span>, popSize <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span>,</span>
-<span>    plotStyle<span class="op">=</span><span class="st">"line"</span> <span class="op">)</span> </span>
+<span>    adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"single"</span>, popSize <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span>,</span>
+<span>    plotLayout  <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> </span>
 <span><span class="va">plt4a</span> <span class="op">&lt;-</span> <span class="va">plt4a</span> <span class="op">+</span> <span class="va">ornateBS</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"Stand-alone\n95% CI"</span><span class="op">)</span> </span></code></pre></div>
 <p>The option <code>popSize = Inf</code> is the default; it indicates
 that the population is presumed of infinite size. A finite size can be
 given, as</p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plt4b</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
 <span>    <span class="va">score</span> <span class="op">~</span> <span class="va">group</span>, </span>
 <span>    <span class="va">dataFigure4</span>, </span>
-<span>    adjustments<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"single"</span>, popSize <span class="op">=</span> <span class="fl">50</span> <span class="op">)</span>, <span class="co"># new!</span></span>
-<span>    plotStyle<span class="op">=</span><span class="st">"line"</span> <span class="op">)</span> </span>
+<span>    adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"single"</span>, popSize <span class="op">=</span> <span class="fl">50</span> <span class="op">)</span>, <span class="co"># new!</span></span>
+<span>    plotLayout  <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> </span>
 <span><span class="va">plt4b</span> <span class="op">&lt;-</span> <span class="va">plt4b</span> <span class="op">+</span> <span class="va">ornateBS</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"Population size-\nadjusted 95% CI"</span><span class="op">)</span> </span></code></pre></div>
 <p>We illustrate the plot along some distribution information with a
 violin plot:</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plt4c</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
 <span>    <span class="va">score</span> <span class="op">~</span> <span class="va">group</span>,</span>
 <span>    <span class="va">dataFigure4</span>, </span>
-<span>    adjustments<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"single"</span>, popSize <span class="op">=</span> <span class="fl">50</span> <span class="op">)</span>, <span class="co"># new!</span></span>
-<span>    plotStyle<span class="op">=</span><span class="st">"pointjitterviolin"</span>,</span>
+<span>    adjustments <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>purpose <span class="op">=</span> <span class="st">"single"</span>, popSize <span class="op">=</span> <span class="fl">50</span> <span class="op">)</span>, <span class="co"># new!</span></span>
+<span>    plotLayout  <span class="op">=</span> <span class="st">"pointjitterviolin"</span>,</span>
 <span>    violinParams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"green"</span>, alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span>  <span class="op">)</span> </span>
 <span><span class="va">plt4c</span> <span class="op">&lt;-</span> <span class="va">plt4c</span> <span class="op">+</span> <span class="va">ornateBS</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"Population size-\nadjusted 95% CI"</span><span class="op">)</span> </span></code></pre></div>
 <p>Which are reunited as usual:</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plt4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">plt4a</span>, <span class="va">plt4b</span>, <span class="va">plt4c</span>, ncol<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="TheMakingOf_files/figure-html/unnamed-chunk-32-1.png" alt="**Figure 4**. The complete Figure 4." width="864"><p class="caption">
@@ -608,7 +606,7 @@ violin plot:</p>
 </p>
 </div>
 <p>…and saved with:</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/grDevices/png.html" class="external-link">png</a></span><span class="op">(</span>filename <span class="op">=</span> <span class="st">"Figure4.png"</span>, width <span class="op">=</span> <span class="fl">640</span>, height <span class="op">=</span> <span class="fl">320</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">plt4a</span>, <span class="va">plt4b</span>, <span class="va">plt4c</span>, ncol<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -616,7 +614,7 @@ violin plot:</p>
 proportion of the population examined <span class="citation">(see
 Thompson, 2012)</span>, confirms the presence of a significant
 difference:</p>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">dataFigure4</span><span class="op">$</span><span class="va">score</span>, mu<span class="op">=</span><span class="fl">100</span><span class="op">)</span></span>
 <span><span class="va">tcorrected</span> <span class="op">&lt;-</span> <span class="va">res</span><span class="op">$</span><span class="va">statistic</span> <span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">dataFigure4</span><span class="op">)</span> <span class="op">/</span> <span class="fl">50</span><span class="op">)</span></span>
 <span><span class="va">pcorrected</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/stats/TDist.html" class="external-link">pt</a></span><span class="op">(</span><span class="va">tcorrected</span>, <span class="fl">24</span><span class="op">)</span></span>

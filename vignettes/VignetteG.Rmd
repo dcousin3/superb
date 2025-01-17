@@ -99,7 +99,7 @@ observations are nested with subject numbers:
 superb( 
     signal ~ timepoint + region + event | subject,
     fmri,
-    plotStyle = "lineBand",
+    plotLayout = "lineBand",
     pointParams = list(size=1,color="black"),
     lineParams = list(color="purple")
 ) + scale_x_discrete(name="Time", labels = 0:18) + 
@@ -111,7 +111,7 @@ theme_bw() + ylim(-0.15, +0.35)
 
 The `scale_x_discrete` is done to rename the ticks from 0 to 18 (they would start at 1 otherwise).
 The `scale_discrete_manual` changes the color of the band (I hope you are color-blind, colors is not my
-thing). The `plotStyle = "lineBand"` displays the confidence intervals as a band rather than as error bars.
+thing). The `plotLayout = "lineBand"` displays the confidence intervals as a band rather than as error bars.
 
 
 ### Plots with decorrelation
@@ -127,7 +127,7 @@ superb(
     signal ~ timepoint + region + event | subject,
     fmri,
     adjustments = list(decorrelation = "CM"), ## only new line
-    plotStyle = "lineBand",
+    plotLayout = "lineBand",
     pointParams = list(size=1,color="black"),
     lineParams = list(color="purple")
 ) + scale_x_discrete(name="Time", labels = 0:19) + 
@@ -156,7 +156,7 @@ superb(
     signal ~ timepoint + region + event | subject,
     fmri,
     adjustments = list(decorrelation = "LD2"),  ## CM replaced with LD2
-    plotStyle = "lineBand",
+    plotLayout = "lineBand",
     pointParams = list(size=1,color="black"),
     lineParams = list(color="purple")
 ) + scale_x_discrete(name="Time", labels = 0:19) + 

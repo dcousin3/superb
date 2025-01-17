@@ -185,7 +185,7 @@ superb(
 					purpose = "difference", 
 					decorrelation = "CA"    ## NEW! use a decorrelation technique
 	), 
-	plotStyle   = "line" )
+	plotLayout  = "line" )
 ```
 
 Alternatively, if the data are available in long form, you
@@ -200,7 +200,7 @@ superb(
 	                purpose = "difference", 
                     decorrelation = "CA"    ## NEW! use a decorrelation technique
     ), 
-    plotStyle   = "line" )
+    plotLayout  = "line" )
 ```
 
 
@@ -226,7 +226,7 @@ plt2a <- superb(
         dataFigure2, 
         WSFactors    = "Moment(2)", 
         adjustments = list(purpose = "difference"), 
-        plotStyle   = "line" ) + 
+        plotLayout  = "line" ) + 
     xlab("Group") + ylab("Score") + 
     labs(title="Difference-adjusted\n95% confidence intervals") +
     coord_cartesian( ylim = c(85,115) ) +
@@ -237,7 +237,7 @@ plt2b <- superb(
         dataFigure2, 
         WSFactors    = "Moment(2)", 
         adjustments = list(purpose = "difference", decorrelation = "CA"),  #only difference
-        plotStyle   = "line" ) + 
+        plotLayout  = "line" ) + 
     xlab("Group") + ylab("Score") + 
     labs(title="Correlation and difference-adjusted\n95% confidence intervals") +
     coord_cartesian( ylim = c(85,115) ) + 
@@ -282,10 +282,10 @@ makeplot <- function(dataset, decorrelationmethod, color, nudge, dir) {
     superb(
             cbind(DV.1,DV.2,DV.3,DV.4,DV.5) ~ .,
             dataset, 
-            WSFactors = "Moment(5)",  
-            adjustments=list(purpose = "difference", decorrelation = decorrelationmethod), 
+            WSFactors   = "Moment(5)",  
+            adjustments = list(purpose = "difference", decorrelation = decorrelationmethod), 
             errorbarParams = list(color=color, width= 0.1, position = position_nudge(nudge), direction = dir ),
-            plotStyle="line" ) + 
+            plotLayout = "line" ) + 
         xlab("Moment") + ylab("Score") + 
         labs(subtitle=tlbl) +
         coord_cartesian( ylim = c(85,115) ) +
@@ -325,7 +325,7 @@ ggplot() +
 
 ### Illustrating individual differences
 
-In ``superb``, it is possible to ask a certain type of plot. The ``plotStyle`` used so
+In ``superb``, it is possible to ask a certain type of plot. The ``plotLayout`` used so
 far is ``"line"`` (the default is ``"bar"``). Another basic style is ``"point"`` (no line
 connecting the means). 
 
@@ -341,9 +341,9 @@ statistics and the error bars. For example:
 superb(
     cbind(pre, post) ~ ., 
     dataFigure2, 
-    WSFactors    = "Moment(2)", 
+    WSFactors   = "Moment(2)", 
     adjustments = list(purpose = "difference", decorrelation = "CM"), 
-    plotStyle   = "pointindividualline" ) + 
+    plotLayout  = "pointindividualline" ) + 
 xlab("Group") + ylab("Score") + 
 labs(subtitle="Correlation- and Difference-adjusted\n95% confidence intervals") +
 coord_cartesian( ylim = c(70,150) ) +
@@ -363,9 +363,9 @@ It is obtained with
 superb(
     cbind(pre, post) ~ ., 
     dataFigure2, 
-    WSFactors    = "Moment(2)", 
+    WSFactors   = "Moment(2)", 
     adjustments = list(purpose = "difference", decorrelation = "CM"), 
-    plotStyle   = "corset",
+    plotLayout  = "corset",
     lineParams = list(colorize="bySlope"), 
     violinParams = list(fill="green", alpha = .2)
 ) + 

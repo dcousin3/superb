@@ -350,13 +350,15 @@ superbPlot <- function(data,
     if (length(statfunc) == 2) {
         package1  <- statfunc[1]  # before ::
         statfunc <- statfunc[2]
-        message("superb::EXPERIMENTAL: statistic given with namespace ", package1, "::", statfunc)
+        if ('experimental' %in% getOption("superb.feedback")) 
+            message("superb::EXPERIMENTAL: statistic given with namespace ", package1, "::", statfunc)
     }
     widthfunc <- strsplit(errorbar, "::")[[1]]
     if (length(widthfunc) == 2) {
         package2  <- widthfunc[1] # before ::
         errorbar  <- widthfunc[2]
-        message("superb::EXPERIMENTAL: errorbar given with namespace ",package2, "::", errorbar)
+        if ('experimental' %in% getOption("superb.feedback")) 
+            message("superb::EXPERIMENTAL: errorbar given with namespace ",package2, "::", errorbar)
     }
     # if both have a namespace, they must match
     if ( (!is.null(package1)) & (!is.null(package2)) ) {
