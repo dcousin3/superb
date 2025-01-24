@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -27,7 +27,7 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -53,7 +53,7 @@
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
@@ -124,7 +124,7 @@
 <li>
   <a href="https://github.com/dcousin3/superb/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -135,7 +135,7 @@
 </div>
 <!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
@@ -145,7 +145,7 @@
 </h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/dcousin3/superb/blob/HEAD/../vignettes/VignetteF.Rmd" class="external-link"><code>../vignettes/VignetteF.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/dcousin3/superb/blob/HEAD/vignettes/VignetteF.Rmd" class="external-link"><code>vignettes/VignetteF.Rmd</code></a></small>
       <div class="hidden name"><code>VignetteF.Rmd</code></div>
 
     </div>
@@ -180,56 +180,78 @@ given in an analytic form in <span class="citation">Leemis &amp; Trivedi
 around the estimate; they are also exact or conservative, in which case
 the length of the interval tends to be too long when the frequencies are
 small <span class="citation">(Chen, 1990)</span>.</p>
-<p>Given the total sample size <span class="math inline">\(N\)</span> in
-all the cells, each observed frequency <span class="math inline">\(n\)</span> in a given cell is used to get lower
-and upper confidence bounds around the proportion <span class="math inline">\(\hat{p}=n/N\)</span> with the formula: <span class="math display">\[
+<p>Given the total sample size
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
+in all the cells, each observed frequency
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+in a given cell is used to get lower and upper confidence bounds around
+the proportion
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>p</mi><mo accent="true">̂</mo></mover><mo>=</mo><mi>n</mi><mi>/</mi><mi>N</mi></mrow><annotation encoding="application/x-tex">\hat{p}=n/N</annotation></semantics></math>
+with the formula:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover><mi>π</mi><mo accent="true">̂</mo></mover><mrow><mspace width="0.167em"></mspace><mtext mathvariant="normal">low</mtext></mrow></msub><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>+</mo><mfrac><mrow><mi>N</mi><mo>−</mo><mi>n</mi><mo>+</mo><mn>1</mn></mrow><mrow><mi>n</mi><msub><mi>F</mi><mrow><mn>1</mn><mo>−</mo><mi>α</mi><mi>/</mi><mn>2</mn></mrow></msub><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mi>n</mi><mo>,</mo><mn>2</mn><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo>−</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo>&lt;</mo><mover><mi>π</mi><mo accent="true">̂</mo></mover><mo>&lt;</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>+</mo><mfrac><mrow><mi>N</mi><mo>−</mo><mi>n</mi></mrow><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>F</mi><mrow><mi>α</mi><mi>/</mi><mn>2</mn></mrow></msub><mo stretchy="false" form="prefix">(</mo><mn>2</mn><mrow><mo stretchy="true" form="prefix">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mn>2</mn><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo>−</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo>=</mo><msub><mover><mi>π</mi><mo accent="true">̂</mo></mover><mrow><mspace width="0.167em"></mspace><mtext mathvariant="normal">high</mtext></mrow></msub></mrow><annotation encoding="application/x-tex">
     \hat{\pi}_{\,\text{low}}=\left(
         1+\frac{N-n+1}{n F_{1-\alpha/2}(2n,2(N-n+1)}
     \right)^{-1}
     &lt; \hat{\pi} &lt;
-    \left(
+    \left( 
         1+\frac{N-n}{(n+1) F_{\alpha/2}(2(n+1),2(N-x)}
     \right)^{-1}
-    =\hat{\pi}_{\,\text{high}}
-\]</span> in which <span class="math inline">\(F_{q}\)</span> denotes
-the <span class="math inline">\(100\;q\)</span>% quantile of an <span class="math inline">\(F\)</span> distribution and <span class="math inline">\(1-\alpha\)</span> the desired coverage of the
-interval, often 95%. The interval <span class="math display">\[
-    \{n_{\,\text{low}}, n_{\,\text{high}} \} = N \, \times\, \{
-\hat{\pi}_{\,\text{low}}, \hat{\pi}_{\,\text{high}} \}
-\]</span> is then used as a <span class="math inline">\(100
-(1-\alpha)\)</span>% confidence interval of the observed frequency <span class="math inline">\(n\)</span> which can be used to compare one
-frequency to an expected or theoretical frequency. Such an unadjusted
-confidence interval is termed a <em>stand-alone confidence interval</em>
-<span class="citation">(Cousineau, Goulet, &amp; Harding,
-2021)</span>.</p>
+    =\hat{\pi}_{\,\text{high}} 
+</annotation></semantics></math> in which
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>F</mi><mi>q</mi></msub><annotation encoding="application/x-tex">F_{q}</annotation></semantics></math>
+denotes the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>100</mn><mspace width="0.278em"></mspace><mi>q</mi></mrow><annotation encoding="application/x-tex">100\;q</annotation></semantics></math>%
+quantile of an
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>
+distribution and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>α</mi></mrow><annotation encoding="application/x-tex">1-\alpha</annotation></semantics></math>
+the desired coverage of the interval, often 95%. The interval
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><msub><mi>n</mi><mrow><mspace width="0.167em"></mspace><mtext mathvariant="normal">low</mtext></mrow></msub><mo>,</mo><msub><mi>n</mi><mrow><mspace width="0.167em"></mspace><mtext mathvariant="normal">high</mtext></mrow></msub><mo stretchy="false" form="postfix">}</mo><mo>=</mo><mi>N</mi><mspace width="0.167em"></mspace><mo>×</mo><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">{</mo><msub><mover><mi>π</mi><mo accent="true">̂</mo></mover><mrow><mspace width="0.167em"></mspace><mtext mathvariant="normal">low</mtext></mrow></msub><mo>,</mo><msub><mover><mi>π</mi><mo accent="true">̂</mo></mover><mrow><mspace width="0.167em"></mspace><mtext mathvariant="normal">high</mtext></mrow></msub><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">
+    \{n_{\,\text{low}}, n_{\,\text{high}} \} = N \, \times\, \{ \hat{\pi}_{\,\text{low}}, \hat{\pi}_{\,\text{high}} \} 
+</annotation></semantics></math> is then used as a
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>100</mn><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">100 (1-\alpha)</annotation></semantics></math>%
+confidence interval of the observed frequency
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+which can be used to compare one frequency to an expected or theoretical
+frequency. Such an unadjusted confidence interval is termed a
+<em>stand-alone confidence interval</em> <span class="citation">(Cousineau, Goulet, &amp; Harding, 2021)</span>.</p>
 <p>As more commonly, we wish to compare an observed frequency to another
 observed frequency, a <em>difference-adjusted</em> confidence interval
 is sought. To obtain a difference-adjusted confidence interval, it is
-required to multiply the interval width by 2, <span class="math display">\[
-    n_{\,\text{low}}^* =  2(n-n_{\,\text{low}})+n
-\]</span> <span class="math display">\[
+required to multiply the interval width by 2,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>n</mi><mrow><mspace width="0.167em"></mspace><mtext mathvariant="normal">low</mtext></mrow><mo>*</mo></msubsup><mo>=</mo><mn>2</mn><mrow><mo stretchy="true" form="prefix">(</mo><mi>n</mi><mo>−</mo><msub><mi>n</mi><mrow><mspace width="0.167em"></mspace><mtext mathvariant="normal">low</mtext></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">
+    n_{\,\text{low}}^* =  2(n-n_{\,\text{low}})+n 
+</annotation></semantics></math><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>n</mi><mrow><mspace width="0.167em"></mspace><mtext mathvariant="normal">high</mtext></mrow><mo>*</mo></msubsup><mo>=</mo><mn>2</mn><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>n</mi><mrow><mspace width="0.167em"></mspace><mtext mathvariant="normal">high</mtext></mrow></msub><mo>−</mo><mi>n</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">
     n_{\,\text{high}}^* =  2(n_{\,\text{high}}-n)+n
-\]</span> where the asterisk denotes difference-adjusted confidence
-interval limits. Thus, the interval<br><span class="math display">\[
-    \{ n^*_{\,\text{low}}, n^*_{\,\text{high}} \}
-\]</span> is the <em>difference-adjusted</em> <span class="math inline">\(100 (1-\alpha)\)</span>% confidence interval <span class="citation">(Baguley, 2012)</span>. The difference-adjusted
-confidence intervals allow comparing the frequencies pairwise rather
-than to a theoretical frequency.</p>
+</annotation></semantics></math> where the asterisk denotes
+difference-adjusted confidence interval limits. Thus, the interval<br><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><msubsup><mi>n</mi><mrow><mspace width="0.167em"></mspace><mtext mathvariant="normal">low</mtext></mrow><mo>*</mo></msubsup><mo>,</mo><msubsup><mi>n</mi><mrow><mspace width="0.167em"></mspace><mtext mathvariant="normal">high</mtext></mrow><mo>*</mo></msubsup><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">
+    \{ n^*_{\,\text{low}}, n^*_{\,\text{high}} \} 
+</annotation></semantics></math> is the <em>difference-adjusted</em>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>100</mn><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">100 (1-\alpha)</annotation></semantics></math>%
+confidence interval <span class="citation">(Baguley, 2012)</span>. The
+difference-adjusted confidence intervals allow comparing the frequencies
+pairwise rather than to a theoretical frequency.</p>
 </div>
 <div class="section level3">
 <h3 id="why-multiply-the-stand-alone-ci-length-by-2">Why multiply the stand-alone CI length by 2?<a class="anchor" aria-label="anchor" href="#why-multiply-the-stand-alone-ci-length-by-2"></a>
 </h3>
 <p>The reason for the multiplication by 2 is two-fold. First, to obtain
 a difference-adjusted confidence interval (CI), it is necessary to
-multiply the CI width by <span class="math inline">\(\sqrt{2}\)</span>
+multiply the CI width by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mn>2</mn></msqrt><annotation encoding="application/x-tex">\sqrt{2}</annotation></semantics></math>
 (under the assumption of homogeneous variance). Second, as the total
-must necessarily be equal to <span class="math inline">\(N\)</span>, the
-observed frequencies are correlated and this correlation equals <span class="math inline">\(-1 / (C-1)\)</span> where <span class="math inline">\(C\)</span> is the number of class. As this CI is
-meant for pair-wise comparisons, <span class="math inline">\(C\)</span>
+must necessarily be equal to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>,
+the observed frequencies are correlated and this correlation equals
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1</mn><mi>/</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>C</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">-1 / (C-1)</annotation></semantics></math>
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>
+is the number of class. As this CI is meant for pair-wise comparisons,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>
 is replaced by 2 in this formula, resulting in a second,
-correlation-based, correction of <span class="math inline">\(\sqrt{1-r}
-= \sqrt{1 - (-1/(2-1))} = \sqrt{2}\)</span>. As usual, both corrections
-to the CI width are multiplicative.</p>
+correlation-based, correction of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mrow><mn>1</mn><mo>−</mo><mi>r</mi></mrow></msqrt><mo>=</mo><msqrt><mrow><mn>1</mn><mo>−</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>−</mi><mn>1</mn><mi>/</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>2</mn><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mrow></msqrt><mo>=</mo><msqrt><mn>2</mn></msqrt></mrow><annotation encoding="application/x-tex">\sqrt{1-r} = \sqrt{1 - (-1/(2-1))} = \sqrt{2}</annotation></semantics></math>.
+As usual, both corrections to the CI width are multiplicative.</p>
 </div>
 <div class="section level3">
 <h3 id="one-illustration">One illustration<a class="anchor" aria-label="anchor" href="#one-illustration"></a>
@@ -269,7 +291,7 @@ import the file!</p>
 <p>To have a quick-and-dirty plot, just display the raw counts with no
 error bars</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dcousin3.github.io/superb/" class="external-link">superb</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://dcousin3.github.io/superb">superb</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
@@ -296,8 +318,8 @@ compute.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">count</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></code></pre></div>
 <p>Second, we need an initalizer that will fetch the total sample size
-<span class="math inline">\(N\)</span> and dump it in the global
-environment for later use:</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
+and dump it in the global environment for later use:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">init.count</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">totalcount</span> <span class="op">&lt;&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">DV</span><span class="op">)</span></span>
@@ -387,10 +409,10 @@ university aspiration that triggered that interaction.</p>
 <table class="table">
 <thead><tr class="header">
 <th></th>
-<th><span class="math inline">\(G\)</span></th>
+<th><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>G</mi><annotation encoding="application/x-tex">G</annotation></semantics></math></th>
 <th>df</th>
-<th><span class="math inline">\(G_{corrected}\)</span></th>
-<th><span class="math inline">\(p\)</span></th>
+<th><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>G</mi><mrow><mi>c</mi><mi>o</mi><mi>r</mi><mi>r</mi><mi>e</mi><mi>c</mi><mi>t</mi><mi>e</mi><mi>d</mi></mrow></msub><annotation encoding="application/x-tex">G_{corrected}</annotation></semantics></math></th>
+<th><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math></th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -415,7 +437,9 @@ university aspiration that triggered that interaction.</p>
 <td>0.1589</td>
 </tr>
 <tr class="even">
-<td>A <span class="math inline">\(\times\)</span> B</td>
+<td>A
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>×</mi><annotation encoding="application/x-tex">\times</annotation></semantics></math>
+B</td>
 <td>49.8867</td>
 <td>4</td>
 <td>49.5554</td>
@@ -434,10 +458,10 @@ university aspiration that triggered that interaction.</p>
 </colgroup>
 <thead><tr class="header">
 <th>Simple effect</th>
-<th><span class="math inline">\(G\)</span></th>
+<th><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>G</mi><annotation encoding="application/x-tex">G</annotation></semantics></math></th>
 <th>df</th>
-<th><span class="math inline">\(G_{corrected}\)</span></th>
-<th><span class="math inline">\(p\)</span></th>
+<th><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>G</mi><mrow><mi>c</mi><mi>o</mi><mi>r</mi><mi>r</mi><mi>e</mi><mi>c</mi><mi>t</mi><mi>e</mi><mi>d</mi></mrow></msub><annotation encoding="application/x-tex">G_{corrected}</annotation></semantics></math></th>
+<th><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math></th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -531,9 +555,7 @@ Association</em>, <em>66</em>, 534–544. <a href="https://doi.org/10.1080/01621
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
+      </div>
 
 </div>
 
@@ -546,16 +568,16 @@ Association</em>, <em>66</em>, 534–544. <a href="https://doi.org/10.1080/01621
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer>
 </div>
 
-  
 
 
-  
+
+
 
   </body>
 </html>

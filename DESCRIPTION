@@ -19,7 +19,7 @@ Author: Denis Cousineau [aut, cre],
     Jesika Walker [art, pre]
 Maintainer: Denis Cousineau <denis.cousineau@uottawa.ca>
 BugReports: https://github.com/dcousin3/superb/issues/
-URL: https://dcousin3.github.io/superb/
+URL: http://dcousin3.github.io/superb https://cran.r-project.org/web/packages/superb/index.html
 Description: 
     Computes standard error and confidence interval of various descriptive statistics under 
     various designs and sampling schemes. The main function, superb(), return a plot. It can 
@@ -35,7 +35,7 @@ License: GPL-3
 Encoding: UTF-8
 VignetteBuilder: knitr
 LazyData: true
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Depends:
     R (>= 4.1.0)
 Imports: 
@@ -54,13 +54,13 @@ Imports:
     rrapply,
     Rdpack (>= 0.7)
 Suggests: 
-    dplyr,
     psych,
     rlang,
+    dplyr,
+    gridExtra,
     emojifont,
     fMultivar,
     grid,
-    gridExtra,
     knitr, 
     lattice,
     lawstat,

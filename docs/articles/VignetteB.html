@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -27,7 +27,7 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -53,7 +53,7 @@
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
@@ -124,7 +124,7 @@
 <li>
   <a href="https://github.com/dcousin3/superb/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -135,7 +135,7 @@
 </div>
 <!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
@@ -145,7 +145,7 @@ in <code>superb</code>
 </h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/dcousin3/superb/blob/HEAD/../vignettes/VignetteB.Rmd" class="external-link"><code>../vignettes/VignetteB.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/dcousin3/superb/blob/HEAD/vignettes/VignetteB.Rmd" class="external-link"><code>vignettes/VignetteB.Rmd</code></a></small>
       <div class="hidden name"><code>VignetteB.Rmd</code></div>
 
     </div>
@@ -155,10 +155,12 @@ in <code>superb</code>
 <p>In this vignette, we show how to display a dataset with a non-full
 factorial within-subject design. A non-factorial design is when all the
 levels of a first factor are not fully crossed with all the levels of a
-second factor. For example, if you have a design <span class="math inline">\(A(4) \times B(4)\)</span>, you would expect in
-total 16 levels in a full-factorial design. If there are fewer than 16
-levels, it would mean that some combinations were not measured. This
-could be because these conditions are uninteresting or impossible.</p>
+second factor. For example, if you have a design
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>4</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>×</mo><mi>B</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>4</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">A(4) \times B(4)</annotation></semantics></math>,
+you would expect in total 16 levels in a full-factorial design. If there
+are fewer than 16 levels, it would mean that some combinations were not
+measured. This could be because these conditions are uninteresting or
+impossible.</p>
 <p>In a between group design, non full-factorial designs are not
 problematic: the columns contains the level of the factors. If some
 levels are missing, it just results in a shorter data file. All the
@@ -248,10 +250,10 @@ are</p>
 </tr>
 </tbody>
 </table>
-<p>There are 10 conditions (instead of the <span class="math inline">\(4
-\times 4\)</span> if the design had been full factorial). The table
-provide for each variables the levels of the two factors they correspond
-to.</p>
+<p>There are 10 conditions (instead of the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>×</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">4 \times 4</annotation></semantics></math>
+if the design had been full factorial). The table provide for each
+variables the levels of the two factors they correspond to.</p>
 </div>
 <div class="section level2">
 <h2 id="informing-superb-of-a-non-full-factorial-within-subject-design">Informing <code>superb</code> of a non-full factorial within-subject
@@ -351,9 +353,7 @@ full-factorial design.</p>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
+      </div>
 
 </div>
 
@@ -366,16 +366,16 @@ full-factorial design.</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer>
 </div>
 
-  
 
 
-  
+
+
 
   </body>
 </html>

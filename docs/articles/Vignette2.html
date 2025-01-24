@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -27,7 +27,7 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -53,7 +53,7 @@
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
@@ -124,7 +124,7 @@
 <li>
   <a href="https://github.com/dcousin3/superb/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -135,7 +135,7 @@
 </div>
 <!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
@@ -144,7 +144,7 @@
 intervals?</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/dcousin3/superb/blob/HEAD/../vignettes/Vignette2.Rmd" class="external-link"><code>../vignettes/Vignette2.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/dcousin3/superb/blob/HEAD/vignettes/Vignette2.Rmd" class="external-link"><code>vignettes/Vignette2.Rmd</code></a></small>
       <div class="hidden name"><code>Vignette2.Rmd</code></div>
 
     </div>
@@ -203,8 +203,8 @@ lower end of the <em>Collaborative games</em> interval is above the
 They can be used to examine, say, the first group to the value 100. As
 this value is outside the interval, we are correct in concluding that
 the first group’s mean is significantly different from 100 (with level
-<span class="math inline">\(\alpha\)</span> of .05) from 100, as
-confirmed by a single-group <em>t</em> test:</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
+of .05) from 100, as confirmed by a single-group <em>t</em> test:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">dataFigure1</span><span class="op">$</span><span class="va">score</span><span class="op">[</span><span class="va">dataFigure1</span><span class="op">$</span><span class="va">grp</span><span class="op">==</span><span class="fl">1</span><span class="op">]</span>, mu<span class="op">=</span><span class="fl">100</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span>
@@ -253,8 +253,11 @@ isolation.</p>
 <p>Assuming that the variances are roughly homogeneous between group (an
 assumption made by the <em>t</em> test, but see below), there is a
 simple adjustment that can be brought to the error bars: just increase
-their length by <span class="math inline">\(\sqrt{2}\)</span>. As <span class="math inline">\(\sqrt{2} \approx 1.41\)</span> it means increasing
-their length by 41%.</p>
+their length by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mn>2</mn></msqrt><annotation encoding="application/x-tex">\sqrt{2}</annotation></semantics></math>.
+As
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mn>2</mn></msqrt><mo>≈</mo><mn>1.41</mn></mrow><annotation encoding="application/x-tex">\sqrt{2} \approx 1.41</annotation></semantics></math>
+it means increasing their length by 41%.</p>
 <p>With <code>superbPlot</code>, this so-called <em>difference
 adjustment</em> <span class="citation">(Baguley, 2012)</span> is
 obtained easily by adding an adjustment to the list of adjustments with
@@ -288,10 +291,8 @@ difference-adjusted confidence intervals <span class="citation">(Cousineau, Goul
 </h3>
 <p>Just for comparison purposes, let’s show both plots side-by-side.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: package 'gridExtra' was built under R version 4.3.3</span></span></code></pre>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span></span>
+<span><span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
 <span>    <span class="va">score</span> <span class="op">~</span> <span class="va">grp</span>, </span>
 <span>    <span class="va">dataFigure1</span>, </span>
 <span>    plotLayout <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> <span class="op">+</span> </span>
@@ -321,7 +322,7 @@ unadjusted (left) and adjusted (right) 95% confidence intervals
 </div>
 <p>A second way to compare the two plots is to superimpose them, as in
 Figure 4:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># generate the two plots, nudging the error bars, using distinct colors, and </span></span>
 <span><span class="co"># having the second plot's background transparent (with ``makeTransparent()`` )</span></span>
 <span><span class="va">plt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
@@ -373,13 +374,16 @@ more variability, and variability always reduces precision.</p>
 bars:</p>
 <ul>
 <li><p><code>"difference"</code>: This method is the simplest. It
-increases the error bars by a factor of <span class="math inline">\(\sqrt{2}\)</span> on the premise that the
-variances are homogeneous</p></li>
+increases the error bars by a factor of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mn>2</mn></msqrt><annotation encoding="application/x-tex">\sqrt{2}</annotation></semantics></math>
+on the premise that the variances are homogeneous</p></li>
 <li><p><code>"tryon"</code>: This method, proposed in <span class="citation">Tryon (2001)</span>, is used when the variances are
-inhomogeneous. It replaces the <span class="math inline">\(\sqrt{2}\)</span> correction factor by a factor
-<span class="math inline">\(2 \times E\)</span> based on the
-heterogeneity of the variances. In the case where the error bars are
-roughly homogeneous, there is no visible difference with
+inhomogeneous. It replaces the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mn>2</mn></msqrt><annotation encoding="application/x-tex">\sqrt{2}</annotation></semantics></math>
+correction factor by a factor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>×</mo><mi>E</mi></mrow><annotation encoding="application/x-tex">2 \times E</annotation></semantics></math>
+based on the heterogeneity of the variances. In the case where the error
+bars are roughly homogeneous, there is no visible difference with
 <code>"difference"</code>. See[Vignette 7] (<a href="https://dcousin3.github.io/superb/articles/Vignette7.html" class="external-link uri">https://dcousin3.github.io/superb/articles/Vignette7.html</a>)
 for more</p></li>
 </ul>
@@ -432,9 +436,7 @@ alternative method of conducting null hypothesis statistical tests.
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
+      </div>
 
 </div>
 
@@ -447,16 +449,16 @@ alternative method of conducting null hypothesis statistical tests.
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer>
 </div>
 
-  
 
 
-  
+
+
 
   </body>
 </html>

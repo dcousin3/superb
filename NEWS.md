@@ -9,11 +9,12 @@
 
 # superb 0.95.23 (January 17th, 2025)
 
-* Codename: living dangerously
+* Codename: living dangerously;
 * EXPERIMENTAL: Made allowance to accept namespace::function to the 
   statistics functions. Useful if the function may be masked 
-  by other packages declaring functions with the same name.
-* Updated options so that EXPERIMENTAL messages can be inhibited.
+  by other packages declaring functions with the same name;
+* Updated options so that EXPERIMENTAL messages can be inhibited;
+* Added `range(low, high)` to the Instrument specification.
 
 # superb 0.95.22 (December 30th, 2024)
 

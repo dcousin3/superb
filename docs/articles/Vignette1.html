@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -27,7 +27,7 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -53,7 +53,7 @@
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
@@ -124,7 +124,7 @@
 <li>
   <a href="https://github.com/dcousin3/superb/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -135,7 +135,7 @@
 </div>
 <!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
@@ -143,7 +143,7 @@
       <h1 data-toc-skip>Three steps to make your plot</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/dcousin3/superb/blob/HEAD/../vignettes/Vignette1.Rmd" class="external-link"><code>../vignettes/Vignette1.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/dcousin3/superb/blob/HEAD/vignettes/Vignette1.Rmd" class="external-link"><code>vignettes/Vignette1.Rmd</code></a></small>
       <div class="hidden name"><code>Vignette1.Rmd</code></div>
 
     </div>
@@ -236,7 +236,7 @@ format</strong>).</p>
 <span><span class="va">dta</span>           <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">dta</span><span class="op">)</span></span></code></pre></div>
 <p>The mean scores per week is illustrated below:</p>
 <div class="figure">
-<img src="Vignette1_files/figure-html/unnamed-chunk-3-1.png" alt="**Figure 1**. Mean scores along with 95% confidence interval per week for a program to stop smoking." width="384"><p class="caption">
+<img src="Vignette1_files/figure-html/unnamed-chunk-3-1.png" alt="mean+-95%CI" width="384"><p class="caption">
 <strong>Figure 1</strong>. Mean scores along with 95% confidence
 interval per week for a program to stop smoking.
 </p>
@@ -284,7 +284,7 @@ above would therefore be</p>
 <span>    plotLayout <span class="op">=</span> <span class="st">"line"</span></span>
 <span>    <span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="Vignette1_files/figure-html/unnamed-chunk-5-1.png" alt="**Figure 2**. Mean scores along with difference-adjusted 95% confidence interval per week for a program to stop smoking." width="384"><p class="caption">
+<img src="Vignette1_files/figure-html/unnamed-chunk-5-1.png" alt="mean+-95%CI" width="384"><p class="caption">
 <strong>Figure 2</strong>. Mean scores along with difference-adjusted
 95% confidence interval per week for a program to stop smoking.
 </p>
@@ -394,14 +394,15 @@ adjustment:</p>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">scale_x_discrete</a></span><span class="op">(</span>labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span> <span class="op">=</span> <span class="st">"Week 1"</span>, <span class="st">"2"</span> <span class="op">=</span> <span class="st">"Week 2"</span>, <span class="st">"3"</span><span class="op">=</span><span class="st">"Week 3"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## superb::FYI: The HyunhFeldtEpsilon measure of sphericity per group are  0.545</span></span></code></pre>
 <pre><code><span><span class="co">## superb::FYI: Some of the groups' data are not spherical. Use error bars with caution.</span></span></code></pre>
-<p><img src="Vignette1_files/figure-html/unnamed-chunk-8-1.png" width="384"></p>
+<p><img src="Vignette1_files/figure-html/unnamed-chunk-8-1.png" alt="mean+-95%CI" width="384"></p>
 <p>Unless you change the options to
 <code>options(superb.feedback = 'none')</code>, the command will issue
-some additional information. In the present data set, <span class="math inline">\(\varepsilon\)</span> is 0.54 which is low. A
-Mauchly test of sphericity indicates rejection of sphericity, so
-interpret the error bars with caution. All the messages issued beginning
-with <code>"FYI"</code> are just information. Hereafter, the warnings
-are inhibited.</p>
+some additional information. In the present data set,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>
+is 0.54 which is low. A Mauchly test of sphericity indicates rejection
+of sphericity, so interpret the error bars with caution. All the
+messages issued beginning with <code>"FYI"</code> are just information.
+Hereafter, the warnings are inhibited.</p>
 </div>
 <div class="section level3">
 <h3 id="step-3-specify-the-sampling-procedure-and-the-population-size">Step 3: Specify the sampling procedure and the population size<a class="anchor" aria-label="anchor" href="#step-3-specify-the-sampling-procedure-and-the-population-size"></a>
@@ -443,7 +444,7 @@ additional adjustments, such as</p>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"Cluster- Correlation, and Difference-adjusted\n95% confidence interval"</span><span class="op">)</span><span class="op">+</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_gray</a></span><span class="op">(</span>base_size<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op">+</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">scale_x_discrete</a></span><span class="op">(</span>labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span> <span class="op">=</span> <span class="st">"Week 1"</span>, <span class="st">"2"</span> <span class="op">=</span> <span class="st">"Week 2"</span>, <span class="st">"3"</span><span class="op">=</span><span class="st">"Week 3"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Vignette1_files/figure-html/unnamed-chunk-10-1.png" width="384"></p>
+<p><img src="Vignette1_files/figure-html/unnamed-chunk-10-1.png" alt="mean+-95%CI" width="384"></p>
 <p>As you can see, the adjustments can be obtained with a single option
 inside the <code>adjustments</code> list. They are cumulative, i.e.,
 more than one adjustment can be used, depending on the situation.</p>
@@ -510,9 +511,7 @@ from <a href="https://learningstatisticswithr.com/" class="external-link">https:
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
+      </div>
 
 </div>
 
@@ -525,16 +524,16 @@ from <a href="https://learningstatisticswithr.com/" class="external-link">https:
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer>
 </div>
 
-  
 
 
-  
+
+
 
   </body>
 </html>

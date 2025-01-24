@@ -7,6 +7,28 @@ context("Testing GRD()")
 #################################################
 
 
+test_that("Instrument argument", {
+
+    old <- options()
+    on.exit(options(old))
+    options("superb.feedback" = "none")
+    
+    toto <- function(a,b,c) {
+        GRD( Instruments = list(precision = a, range = c(b, c)))
+    }
+    
+    expect_error( toto( "1", -Inf, +Inf) )
+    expect_error( toto(-0.1, -Inf, +Inf) )
+    expect_error( toto( 0.1, "-Inf", +Inf) )
+    expect_error( toto( 0.1, -Inf, "+Inf") )
+    expect_error( toto( 0.1, 10, 5) )
+    expect_error( toto( "1", -Inf, c(1,2) ) )
+    expect_error( toto( "1", c(1,2), +Inf) )
+    
+    # restores default information
+    options("superb.feedback" = c('design','warnings','summary'))    
+})
+
 test_that("subsidiary function", {
 
     old <- options()

@@ -1,240 +1,82 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>http://dcousin3.github.io/superb/404.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/CustomizingSuperbPlots.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/TheMakingOf.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/Vignette1.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/Vignette2.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/Vignette3.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/Vignette4.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/Vignette5.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/Vignette6.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/Vignette7.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/Vignette8.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/Vignette9.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/VignetteA.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/VignetteB.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/VignetteC.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/VignetteD.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/VignetteE.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/VignetteF.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/VignetteG.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/articles/VignetteH.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/authors.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/index.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/news/index.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/news/news-0.9.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/news/news-0.95.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/news/news-dev.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/biasCorrectionTransform.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/bootstrapPrecisionMeasures.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/CousineauLaurencelleLambda.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/dataFigure1.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/dataFigure2.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/dataFigure3.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/dataFigure4.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/geom_flat_violin.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/geom_superberrorbar.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/GRD.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/HyunhFeldtEpsilon.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/is.formula.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/makeTransparent.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/MauchlySphericityTest.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/measuresWithMissingData.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/poolSDTransform.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/precisionMeasures.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/precisionMeasureWithCustomDF.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/runDebug.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/showSignificance.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/ShroutFleissICC1.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/slope.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/subjectCenteringTransform.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/summaryStatistics.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/superb-package.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/superb.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/superbData.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/superbPlot.bar.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/superbPlot.boxplot.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/superbPlot.circularline.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/superbPlot.circularlineBand.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/superbPlot.circularpoint.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/superbPlot.circularpointjitter.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/superbPlot.circularpointlinejitter.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/superbPlot.corset.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/superbPlot.halfwidthline.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/superbPlot.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/superbPlot.line.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/superbPlot.lineBand.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/superbPlot.point.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/superbPlot.pointindividualline.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/superbPlot.pointjitter.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/superbPlot.pointjitterviolin.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/superbPlot.pointlinejitter.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/superbPlot.raincloud.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/superbShiny.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/superbToWide.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/TMB1964r.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/twoStepTransform.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/WelchDegreeOfFreedom.html</loc>
-  </url>
-  <url>
-    <loc>http://dcousin3.github.io/superb/reference/WinerCompoundSymmetryTest.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>http://dcousin3.github.io/superb/404.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/articles/CustomizingSuperbPlots.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/articles/index.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/articles/TheMakingOf.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/articles/Vignette1.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/articles/Vignette2.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/articles/Vignette3.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/articles/Vignette4.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/articles/Vignette5.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/articles/Vignette6.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/articles/Vignette7.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/articles/Vignette8.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/articles/Vignette9.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/articles/VignetteA.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/articles/VignetteB.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/articles/VignetteC.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/articles/VignetteD.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/articles/VignetteE.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/articles/VignetteF.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/articles/VignetteG.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/articles/VignetteH.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/authors.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/index.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/news/index.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/news/news-0.9.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/news/news-0.95.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/news/news-dev.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/biasCorrectionTransform.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/bootstrapPrecisionMeasures.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/CousineauLaurencelleLambda.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/dataFigure1.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/dataFigure2.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/dataFigure3.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/dataFigure4.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/geom_flat_violin.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/geom_superberrorbar.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/GRD.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/HyunhFeldtEpsilon.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/index.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/is.formula.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/makeTransparent.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/MauchlySphericityTest.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/measuresWithMissingData.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/poolSDTransform.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/precisionMeasures.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/precisionMeasureWithCustomDF.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/runDebug.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/showSignificance.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/ShroutFleissICC1.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/slope.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/subjectCenteringTransform.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/summaryStatistics.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/superb-package.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/superb.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/superbData.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/superbPlot.bar.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/superbPlot.boxplot.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/superbPlot.circularline.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/superbPlot.circularlineBand.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/superbPlot.circularpoint.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/superbPlot.circularpointjitter.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/superbPlot.circularpointlinejitter.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/superbPlot.corset.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/superbPlot.halfwidthline.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/superbPlot.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/superbPlot.line.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/superbPlot.lineBand.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/superbPlot.point.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/superbPlot.pointindividualline.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/superbPlot.pointjitter.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/superbPlot.pointjitterviolin.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/superbPlot.pointlinejitter.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/superbPlot.raincloud.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/superbShiny.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/superbToWide.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/TMB1964r.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/twoStepTransform.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/WelchDegreeOfFreedom.html</loc></url>
+<url><loc>http://dcousin3.github.io/superb/reference/WinerCompoundSymmetryTest.html</loc></url>
 </urlset>
+

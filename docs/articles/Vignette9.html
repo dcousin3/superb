@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -27,7 +27,7 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -53,7 +53,7 @@
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
@@ -124,7 +124,7 @@
 <li>
   <a href="https://github.com/dcousin3/superb/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -135,7 +135,7 @@
 </div>
 <!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
@@ -144,77 +144,101 @@
 </h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/dcousin3/superb/blob/HEAD/../vignettes/Vignette9.Rmd" class="external-link"><code>../vignettes/Vignette9.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/dcousin3/superb/blob/HEAD/vignettes/Vignette9.Rmd" class="external-link"><code>vignettes/Vignette9.Rmd</code></a></small>
       <div class="hidden name"><code>Vignette9.Rmd</code></div>
 
     </div>
 
     
     
-<p>In this vignette, we show how the Cohen’s <span class="math inline">\(d_p\)</span> can be illustrated. See <span class="citation">Goulet-Pelletier &amp; Cousineau (2018)</span>; <span class="citation">Cousineau &amp; Goulet-Pelletier (2020)</span> for
-comprehensive reviews.</p>
+<p>In this vignette, we show how the Cohen’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>p</mi></msub><annotation encoding="application/x-tex">d_p</annotation></semantics></math>
+can be illustrated. See <span class="citation">Goulet-Pelletier &amp;
+Cousineau (2018)</span>; <span class="citation">Cousineau &amp;
+Goulet-Pelletier (2020)</span> for comprehensive reviews.</p>
 <div class="section level3">
-<h3 id="what-is-the-cohens-d_p">What is the Cohen’s <span class="math inline">\(d_p\)</span>?<a class="anchor" aria-label="anchor" href="#what-is-the-cohens-d_p"></a>
+<h3 id="what-is-the-cohens-d_p">What is the Cohen’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>p</mi></msub><annotation encoding="application/x-tex">d_p</annotation></semantics></math>?<a class="anchor" aria-label="anchor" href="#what-is-the-cohens-d_p"></a>
 </h3>
-<p>The Cohen’s <span class="math inline">\(d_p\)</span>, also known as
-the <em>standardized mean difference</em> (smd), is a standardized
-measure of effect size for pairwise conditions. It is standardized using
-the standard deviation, so that it ressemble a <em>z</em> scores. Often,
-the sign of the Cohen’s <span class="math inline">\(d_p\)</span> is
-removed, but it could be positive or negative; it is not bounded but
+<p>The Cohen’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>p</mi></msub><annotation encoding="application/x-tex">d_p</annotation></semantics></math>,
+also known as the <em>standardized mean difference</em> (smd), is a
+standardized measure of effect size for pairwise conditions. It is
+standardized using the standard deviation, so that it ressemble a
+<em>z</em> scores. Often, the sign of the Cohen’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>p</mi></msub><annotation encoding="application/x-tex">d_p</annotation></semantics></math>
+is removed, but it could be positive or negative; it is not bounded but
 usually, it is smaller than 1.</p>
-<p>As an example, a Cohen’s <span class="math inline">\(d_p\)</span> of
-0.5 indicates that the two group’s means are separated by 0.5 standard
-deviations. If you illustrate the two populations with normal,
+<p>As an example, a Cohen’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>p</mi></msub><annotation encoding="application/x-tex">d_p</annotation></semantics></math>
+of 0.5 indicates that the two group’s means are separated by 0.5
+standard deviations. If you illustrate the two populations with normal,
 bell-shape, curves, then their mode would be visibly separated,
 indicating a sizeable difference between the two populations. Cohen
 would call this a medium effect (although in my opinion, this is already
 a large effect; any non-trivially small samples would find this
-difference significant). With a Cohen’s <span class="math inline">\(d_p\)</span> of 0.25, it is harder to see a
-difference between the two populations.</p>
+difference significant). With a Cohen’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>p</mi></msub><annotation encoding="application/x-tex">d_p</annotation></semantics></math>
+of 0.25, it is harder to see a difference between the two
+populations.</p>
 <p>This descriptive statistic is computed from two groups (or two
 repeated measures) with</p>
-<p><span class="math display">\[
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>p</mi></msub><mo>=</mo><mfrac><mrow><mo stretchy="false" form="postfix">|</mo><mspace width="0.278em"></mspace><msub><mi>M</mi><mn>1</mn></msub><mo>−</mo><msub><mi>M</mi><mn>2</mn></msub><mspace width="0.278em"></mspace><mo stretchy="false" form="postfix">|</mo></mrow><msub><mi>S</mi><mi>p</mi></msub></mfrac></mrow><annotation encoding="application/x-tex">
 d_p = \frac{\vert \; M_1 - M_2 \; \vert}{S_p}
-\]</span></p>
-<p>where <span class="math inline">\(S_p\)</span> is the <em>pooled
-standard deviation</em> across the two group’s standard deviations.</p>
+</annotation></semantics></math></p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>S</mi><mi>p</mi></msub><annotation encoding="application/x-tex">S_p</annotation></semantics></math>
+is the <em>pooled standard deviation</em> across the two group’s
+standard deviations.</p>
 <p>Illustrating this measure with a plot is difficult as it is a
 pairwise statistic. For example, if there is 5 groups, that represents
-15 <em>pairs</em> of groups and consequently, 15 Cohen’s <span class="math inline">\(d_p\)</span>.</p>
+15 <em>pairs</em> of groups and consequently, 15 Cohen’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>p</mi></msub><annotation encoding="application/x-tex">d_p</annotation></semantics></math>.</p>
 <p>Here, we propose an alternative representation through an indirect
-statistic, using <span class="math inline">\(d_1\)</span> <span class="citation">(Goulet-Pelletier &amp; Cousineau, 2018)</span>. It is
-given by</p>
-<p><span class="math display">\[
+statistic, using
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mn>1</mn></msub><annotation encoding="application/x-tex">d_1</annotation></semantics></math><span class="citation">(Goulet-Pelletier &amp; Cousineau, 2018)</span>.
+It is given by</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mn>1</mn></msub><mo>=</mo><mfrac><mrow><mo stretchy="false" form="postfix">|</mo><mspace width="0.278em"></mspace><msub><mi>M</mi><mn>1</mn></msub><mo>−</mo><mi>B</mi><mspace width="0.278em"></mspace><mo stretchy="false" form="postfix">|</mo></mrow><msub><mi>S</mi><mn>1</mn></msub></mfrac></mrow><annotation encoding="application/x-tex">
 d_1 = \frac{\vert \; M_1 - B \; \vert}{S_1}
-\]</span></p>
-<p>where <span class="math inline">\(S_1\)</span> is the standard
-deviation in the group (here labeled “1”). The quantity <span class="math inline">\(B\)</span> is a baseline measure. It can be any
-value based on prior knowledge of the measure (for example, if the
-measures are IQ, then <span class="math inline">\(B\)</span> would be
-set to 100). Alternatively, it can also be the <strong>grand
+</annotation></semantics></math></p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>S</mi><mn>1</mn></msub><annotation encoding="application/x-tex">S_1</annotation></semantics></math>
+is the standard deviation in the group (here labeled “1”). The quantity
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
+is a baseline measure. It can be any value based on prior knowledge of
+the measure (for example, if the measures are IQ, then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
+would be set to 100). Alternatively, it can also be the <strong>grand
 mean</strong> across all the conditions. This is the solution we adopt
 herein.</p>
-<p>The statistic <span class="math inline">\(d_1\)</span> is a
-univariate measure, i.e., it is based on a single group’s data. Hence,
-in a plot, you could illustrate one <span class="math inline">\(d_1\)</span> per group.</p>
+<p>The statistic
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mn>1</mn></msub><annotation encoding="application/x-tex">d_1</annotation></semantics></math>
+is a univariate measure, i.e., it is based on a single group’s data.
+Hence, in a plot, you could illustrate one
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mn>1</mn></msub><annotation encoding="application/x-tex">d_1</annotation></semantics></math>
+per group.</p>
 <p>Why is it interesting? The point is that the difference between two
-<span class="math inline">\(d_1\)</span> is the Cohen’s <span class="math inline">\(d_p\)</span>! Likewise, the difference-adjusted
-confidence interval of <span class="math inline">\(d_1\)</span> is the
-same as the confidence interval of a Cohen’s <span class="math inline">\(d_p\)</span>. Hence, in a single plot, it is
-possible to derive all the Cohen’s <span class="math inline">\(d_p\)</span> and their significance.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mn>1</mn></msub><annotation encoding="application/x-tex">d_1</annotation></semantics></math>
+is the Cohen’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>p</mi></msub><annotation encoding="application/x-tex">d_p</annotation></semantics></math>!
+Likewise, the difference-adjusted confidence interval of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mn>1</mn></msub><annotation encoding="application/x-tex">d_1</annotation></semantics></math>
+is the same as the confidence interval of a Cohen’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>p</mi></msub><annotation encoding="application/x-tex">d_p</annotation></semantics></math>.
+Hence, in a single plot, it is possible to derive all the Cohen’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>p</mi></msub><annotation encoding="application/x-tex">d_p</annotation></semantics></math>
+and their significance.</p>
 </div>
 <div class="section level3">
-<h3 id="plotting-d_1-with-its-confidence-interval">Plotting <span class="math inline">\(d_1\)</span> with its
-confidence interval<a class="anchor" aria-label="anchor" href="#plotting-d_1-with-its-confidence-interval"></a>
+<h3 id="plotting-d_1-with-its-confidence-interval">Plotting
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mn>1</mn></msub><annotation encoding="application/x-tex">d_1</annotation></semantics></math>
+with its confidence interval<a class="anchor" aria-label="anchor" href="#plotting-d_1-with-its-confidence-interval"></a>
 </h3>
 <p>Let’s define this statistic and its confidence interval
 estimator:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/shabbychef/sadists" class="external-link">sadists</a></span><span class="op">)</span> <span class="co"># for computing confidence intervals of Cohen's d</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: package 'sadists' was built under R version 4.3.2</span></span></code></pre>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dcousin3.github.io/superb/" class="external-link">superb</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/shabbychef/sadists" class="external-link">sadists</a></span><span class="op">)</span> <span class="co"># for computing confidence intervals of Cohen's d</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://dcousin3.github.io/superb">superb</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">d1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">X</span><span class="op">)</span> <span class="op">{</span></span>
 <span>        <span class="co"># the global variable GM.d1 is obtained from the initializer</span></span>
@@ -233,10 +257,11 @@ variable is initialized.</p>
 <p>In what follow, I use a randomly-generated data with
 <code><a href="../reference/GRD.html">GRD()</a></code> simulating three dosage levels in a between-group
 design. The three groups have different means of 50, 51.2 and 52.4 which
-should translate into observed <span class="math inline">\(d_p\)</span>
+should translate into observed
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>p</mi></msub><annotation encoding="application/x-tex">d_p</annotation></semantics></math>
 of about 0.12 (between group 1 and group 2 as well as between group 2
 and group 3) as the standard deviation in the population is 10:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># let's generate random data with true Cohen's dp </span></span>
 <span><span class="co"># of 0.12 (groups 1 and 2) and 0.24 (groups 1 and 3)</span></span>
 <span><span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span> BSFactors <span class="op">=</span> <span class="st">"Dose(3)"</span>, </span>
@@ -258,7 +283,7 @@ and group 3) as the standard deviation in the population is 10:</p>
 to make a plot. Alternatively, we can create an
 <strong>initializer</strong> that will be run by
 <code><a href="../reference/superbPlot.html">superbPlot()</a></code> automatically. Here it is:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># the exact formulas for Cohen's d1 and dp. Only d1 is used in the plot</span></span>
 <span><span class="va">init.d1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">{</span> </span>
 <span>        <span class="va">GM.d1</span> <span class="op">&lt;&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">DV</span><span class="op">)</span> <span class="co"># will make d1 relative to the grand mean</span></span>
@@ -269,7 +294,7 @@ to access that data frame) in which the measures are collated in the
 column <code>DV</code>.</p>
 <p>Now let’s make the plot, feeding <code>d1</code> as the statistic
 function:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># show a plot with Cohen's d1 and difference-adjusted confidence intervals of d1</span></span>
 <span><span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
 <span>    <span class="va">score</span> <span class="op">~</span> <span class="va">Dose</span>,</span>
@@ -289,16 +314,23 @@ function:</p>
 interval.
 </p>
 </div>
-<p>The difference between two <span class="math inline">\(d_1\)</span>
-is the Cohen’s <span class="math inline">\(d_p\)</span> and the
-difference-adjusted confidence intervals are adequate to compare two
-<span class="math inline">\(d_p\)</span>. For example, the <span class="math inline">\(d_1\)</span> of the first group is not
-<strong>included</strong> in the third group’s <span class="math inline">\(d_1\)</span> which indicates that the Cohen’s
-<span class="math inline">\(d_p\)</span> is significantly different from
-zero.</p>
+<p>The difference between two
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mn>1</mn></msub><annotation encoding="application/x-tex">d_1</annotation></semantics></math>
+is the Cohen’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>p</mi></msub><annotation encoding="application/x-tex">d_p</annotation></semantics></math>
+and the difference-adjusted confidence intervals are adequate to compare
+two
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>p</mi></msub><annotation encoding="application/x-tex">d_p</annotation></semantics></math>.
+For example, the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mn>1</mn></msub><annotation encoding="application/x-tex">d_1</annotation></semantics></math>
+of the first group is not <strong>included</strong> in the third group’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mn>1</mn></msub><annotation encoding="application/x-tex">d_1</annotation></semantics></math>
+which indicates that the Cohen’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>p</mi></msub><annotation encoding="application/x-tex">d_p</annotation></semantics></math>
+is significantly different from zero.</p>
 <p>Note that in the above, the initializer was detected and run
 automatically. You can check that the initializer is detectable with</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">superb</span><span class="fu">:::</span><span class="fu">has.init.function</span><span class="op">(</span><span class="st">"d1"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
 </div>
@@ -306,8 +338,9 @@ automatically. You can check that the initializer is detectable with</p>
 <h3 id="checking-the-results">Checking the results<a class="anchor" aria-label="anchor" href="#checking-the-results"></a>
 </h3>
 <p>To check the above, we could implement the formulas for the Cohen’s
-<span class="math inline">\(d_p\)</span> <span class="citation">(Cousineau &amp; Goulet-Pelletier, 2020)</span>:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>p</mi></msub><annotation encoding="application/x-tex">d_p</annotation></semantics></math><span class="citation">(Cousineau &amp; Goulet-Pelletier,
+2020)</span>:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dp</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span><span class="op">)</span> <span class="op">{</span></span>
 <span>        <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">X</span> <span class="op">-</span> <span class="va">Y</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">var</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">var</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span><span class="op">-</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="op">}</span> </span>
@@ -320,27 +353,27 @@ automatically. You can check that the initializer is detectable with</p>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">dlow</span>, <span class="va">dhig</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">n</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Let’s extract the group’s data for intermediate computations:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">grp1</span> <span class="op">&lt;-</span> <span class="va">dta</span><span class="op">$</span><span class="va">score</span><span class="op">[</span><span class="va">dta</span><span class="op">$</span><span class="va">Dose</span><span class="op">==</span><span class="fl">1</span><span class="op">]</span></span>
 <span><span class="va">grp2</span> <span class="op">&lt;-</span> <span class="va">dta</span><span class="op">$</span><span class="va">score</span><span class="op">[</span><span class="va">dta</span><span class="op">$</span><span class="va">Dose</span><span class="op">==</span><span class="fl">2</span><span class="op">]</span></span>
 <span><span class="va">grp3</span> <span class="op">&lt;-</span> <span class="va">dta</span><span class="op">$</span><span class="va">score</span><span class="op">[</span><span class="va">dta</span><span class="op">$</span><span class="va">Dose</span><span class="op">==</span><span class="fl">3</span><span class="op">]</span></span></code></pre></div>
 <p>so that we can easily compute all three pairwise statistics:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dp12</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu">dp</span><span class="op">(</span><span class="va">grp2</span>, <span class="va">grp1</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">dp13</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu">dp</span><span class="op">(</span><span class="va">grp3</span>, <span class="va">grp1</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">dp23</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu">dp</span><span class="op">(</span><span class="va">grp3</span>, <span class="va">grp2</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">dp12</span>, <span class="va">dp13</span>, <span class="va">dp23</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.147 0.152 0.007</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 0.062 0.146 0.087</span></span></code></pre>
 <p>… and their 95% confidence intervals:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cidp12</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu">CI.dp</span><span class="op">(</span><span class="va">grp2</span>, <span class="va">grp1</span>, <span class="fl">0.95</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">cidp13</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu">CI.dp</span><span class="op">(</span><span class="va">grp3</span>, <span class="va">grp1</span>, <span class="fl">0.95</span> <span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">cidp23</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu">CI.dp</span><span class="op">(</span><span class="va">grp3</span>, <span class="va">grp2</span>, <span class="fl">0.95</span> <span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">cidp12</span>,<span class="va">cidp13</span>,<span class="va">cidp23</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1]  0.023  0.271  0.028  0.276 -0.117  0.131</span></span></code></pre>
+<pre><code><span><span class="co">## [1] -0.062  0.186  0.022  0.270 -0.037  0.211</span></span></code></pre>
 <p>Let’s put these numbers on the plot for easier examination using the
 graphic directives <code><a href="../reference/showSignificance.html">showSignificance()</a></code>:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/superb.html">superb</a></span><span class="op">(</span></span>
 <span>    <span class="va">score</span> <span class="op">~</span> <span class="va">Dose</span>,</span>
 <span>    <span class="va">dta</span>, </span>
@@ -369,11 +402,16 @@ interval.
 interval are of the same sign, then they are on the same side with
 respect to zero, and therefore, excludes zero at a significance level of
 at least 5% (for 95% confidence intervals).</p>
-<p>Let’s examine how good the difference-adjusted CI of <span class="math inline">\(d_1\)</span> are compared to the CI of <span class="math inline">\(d_p\)</span>. The following function (a) get the
-length of the Cohen’s <span class="math inline">\(d_p\)</span> interval;
-(b) average (in the square sense, see <a href="https://dcousin3.github.io/superb/articles/Vignette7.html" class="external-link">here</a>)
-the two difference-adjusted confidence intervals of <span class="math inline">\(d_1\)</span>:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<p>Let’s examine how good the difference-adjusted CI of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mn>1</mn></msub><annotation encoding="application/x-tex">d_1</annotation></semantics></math>
+are compared to the CI of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>p</mi></msub><annotation encoding="application/x-tex">d_p</annotation></semantics></math>.
+The following function (a) get the length of the Cohen’s
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>p</mi></msub><annotation encoding="application/x-tex">d_p</annotation></semantics></math>
+interval; (b) average (in the square sense, see <a href="https://dcousin3.github.io/superb/articles/Vignette7.html" class="external-link">here</a>)
+the two difference-adjusted confidence intervals of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mn>1</mn></msub><annotation encoding="application/x-tex">d_1</annotation></semantics></math>:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">compareCIlength</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">g1</span>, <span class="va">g2</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="co"># compute the Cohen's dp confidence interval length</span></span>
 <span>    <span class="va">cilength.dp</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu">CI.dp</span><span class="op">(</span><span class="va">g1</span>, <span class="va">g2</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">-</span><span class="fu">CI.dp</span><span class="op">(</span><span class="va">g1</span>, <span class="va">g2</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">3</span><span class="op">)</span></span>
@@ -390,11 +428,11 @@ the two difference-adjusted confidence intervals of <span class="math inline">\(
 <span><span class="fu">compareCIlength</span><span class="op">(</span><span class="va">grp1</span>,<span class="va">grp2</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   dp.length d1.average.length</span></span>
 <span><span class="co">## 1     0.248             0.248</span></span></code></pre>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">compareCIlength</span><span class="op">(</span><span class="va">grp1</span>,<span class="va">grp3</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   dp.length d1.average.length</span></span>
 <span><span class="co">## 1     0.248             0.248</span></span></code></pre>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">compareCIlength</span><span class="op">(</span><span class="va">grp2</span>,<span class="va">grp3</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   dp.length d1.average.length</span></span>
 <span><span class="co">## 1     0.248             0.248</span></span></code></pre>
@@ -424,9 +462,7 @@ Psychology</em>, <em>14</em>(4), 242–265. <a href="https://doi.org/10.20982/tq
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
+      </div>
 
 </div>
 
@@ -439,16 +475,16 @@ Psychology</em>, <em>14</em>(4), 242–265. <a href="https://doi.org/10.20982/tq
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer>
 </div>
 
-  
 
 
-  
+
+
 
   </body>
 </html>

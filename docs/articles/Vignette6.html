@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -27,7 +27,7 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -53,7 +53,7 @@
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
@@ -124,7 +124,7 @@
 <li>
   <a href="https://github.com/dcousin3/superb/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -135,7 +135,7 @@
 </div>
 <!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
@@ -144,7 +144,7 @@
 GRD</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/dcousin3/superb/blob/HEAD/../vignettes/Vignette6.Rmd" class="external-link"><code>../vignettes/Vignette6.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/dcousin3/superb/blob/HEAD/vignettes/Vignette6.Rmd" class="external-link"><code>vignettes/Vignette6.Rmd</code></a></small>
       <div class="hidden name"><code>Vignette6.Rmd</code></div>
 
     </div>
@@ -175,13 +175,13 @@ undergrads <span class="citation">(Cousineau, 2020)</span>.</p>
 <span><span class="co">##  ------------------------------------------------------------</span></span></code></pre>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dta</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##   id         DV</span></span>
-<span><span class="co">## 1  1 -0.2399697</span></span>
-<span><span class="co">## 2  2 -0.8144468</span></span>
-<span><span class="co">## 3  3  0.4925198</span></span>
-<span><span class="co">## 4  4 -0.7046896</span></span>
-<span><span class="co">## 5  5  1.0686540</span></span>
-<span><span class="co">## 6  6  0.2686475</span></span></code></pre>
+<pre><code><span><span class="co">##   id          DV</span></span>
+<span><span class="co">## 1  1 -1.40004352</span></span>
+<span><span class="co">## 2  2  0.25531705</span></span>
+<span><span class="co">## 3  3 -2.43726362</span></span>
+<span><span class="co">## 4  4 -0.00557129</span></span>
+<span><span class="co">## 5  5  0.62155272</span></span>
+<span><span class="co">## 6  6  1.14841160</span></span></code></pre>
 <p>By default, one hundred scores are generated from a normal
 distribution with mean 0 and standard deviation of 1. In other words, it
 generate 100 z scores. The dependent variable, the last column in the
@@ -233,7 +233,8 @@ generated with more than one factors, such as</p>
 <span><span class="co">## 3.Subjects per group ( 600 total subjects ):</span></span>
 <span><span class="co">##   100</span></span>
 <span><span class="co">##  ------------------------------------------------------------</span></span></code></pre>
-<p>which will results in 2 <span class="math inline">\(\times\)</span>
+<p>which will results in 2
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>×</mi><annotation encoding="application/x-tex">\times</annotation></semantics></math>
 3, that is, 6 different groups, crossing all the levels of Surgery (1
 and 2) and all the levels of Therapy (1, 2 and 3). The levels can
 receive names rather than number, as in</p>
@@ -303,15 +304,15 @@ Unequal group sizes can be specified with:</p>
 <span><span class="co">##  ------------------------------------------------------------</span></span></code></pre>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dta</span></span></code></pre></div>
-<pre><code><span><span class="co">##   id Therapy         DV</span></span>
-<span><span class="co">## 1  1       1 -0.1287357</span></span>
-<span><span class="co">## 2  2       1 -1.0708954</span></span>
-<span><span class="co">## 3  3       2  0.3013977</span></span>
-<span><span class="co">## 4  4       2 -0.2352354</span></span>
-<span><span class="co">## 5  5       2 -0.9680680</span></span>
-<span><span class="co">## 6  6       2 -0.5611858</span></span>
-<span><span class="co">## 7  7       2 -0.5693311</span></span>
-<span><span class="co">## 8  8       3  2.4603981</span></span></code></pre>
+<pre><code><span><span class="co">##   id Therapy          DV</span></span>
+<span><span class="co">## 1  1       1 -0.03173968</span></span>
+<span><span class="co">## 2  2       1 -1.15996668</span></span>
+<span><span class="co">## 3  3       2  1.95394186</span></span>
+<span><span class="co">## 4  4       2 -1.79987173</span></span>
+<span><span class="co">## 5  5       2 -0.10192789</span></span>
+<span><span class="co">## 6  6       2  0.90432320</span></span>
+<span><span class="co">## 7  7       2  1.04921417</span></span>
+<span><span class="co">## 8  8       3  0.44082485</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="choosing-the-population-distribution">Choosing the population distribution<a class="anchor" aria-label="anchor" href="#choosing-the-population-distribution"></a>
@@ -319,11 +320,13 @@ Unequal group sizes can be specified with:</p>
 <p>To sample random data, it is necessary to specify a theoretical
 population distribution. The default is to use a normal distribution
 (the famous “bell-shaped” curve). That population has a grand mean
-(<code>GM</code>, <span class="math inline">\(\mu\)</span>) given by the
-element <code>mean</code> and standard deviation (<span class="math inline">\(\sigma\)</span>) given by the element
-<code>stddev</code>. These can be redefined using the argument
-<code>Population</code> with a list of the relevant elements. In the
-following example, IQ are being simulated with :</p>
+(<code>GM</code>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>)
+given by the element <code>mean</code> and standard deviation
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math>)
+given by the element <code>stddev</code>. These can be redefined using
+the argument <code>Population</code> with a list of the relevant
+elements. In the following example, IQ are being simulated with :</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GRD.html">GRD</a></span><span class="op">(</span></span>
 <span>    RenameDV <span class="op">=</span> <span class="st">"IQ"</span>,</span>
@@ -339,7 +342,7 @@ following example, IQ are being simulated with :</p>
 <span><span class="co">##  ------------------------------------------------------------</span></span></code></pre>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">IQ</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Vignette6_files/figure-html/unnamed-chunk-9-1.png" width="288"></p>
+<p><img src="Vignette6_files/figure-html/unnamed-chunk-9-1.png" alt="mean+-95%CI" width="288"></p>
 <p>(increase the number of participants using
 <code>SubjectsPerGroup</code> to say 10,000, and the bell-shape curve
 will be evident!).</p>
@@ -393,7 +396,7 @@ standard deviation proportional to the group number, as in:</p>
 <span>    <span class="va">DV</span> <span class="op">~</span> <span class="va">Group</span>,</span>
 <span>    <span class="va">dta</span>,</span>
 <span>    plotLayout <span class="op">=</span> <span class="st">"pointjitterviolin"</span> <span class="op">)</span></span></code></pre></div>
-<p><img src="Vignette6_files/figure-html/unnamed-chunk-11-1.png" width="288"></p>
+<p><img src="Vignette6_files/figure-html/unnamed-chunk-11-1.png" alt="mean+-95%CI" width="288"></p>
 <p>Any valid R instruction could be placed in the <code>scores</code>
 arguments, such as
 <code>scores = "rnorm(1, mean = GM, sd = ifelse(Group==1,10,50) )"</code>
@@ -417,7 +420,7 @@ distributions can also be chosen, as in:</p>
 <span><span class="co">##  ------------------------------------------------------------</span></span></code></pre>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">RT</span>,breaks<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">250</span>,<span class="fl">425</span>,by<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Vignette6_files/figure-html/unnamed-chunk-12-1.png" width="288"></p>
+<p><img src="Vignette6_files/figure-html/unnamed-chunk-12-1.png" alt="mean+-95%CI" width="288"></p>
 </div>
 <div class="section level3">
 <h3 id="getting-effects-on-one-or-some-of-the-factors">Getting effects on one or some of the factors<a class="anchor" aria-label="anchor" href="#getting-effects-on-one-or-some-of-the-factors"></a>
@@ -453,7 +456,7 @@ second, etc.</p>
 <span>    <span class="va">dta</span>,</span>
 <span>    WSFactors <span class="op">=</span> <span class="st">"Contrast(3)"</span>,</span>
 <span>    plotLayout<span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span></span></code></pre></div>
-<p><img src="Vignette6_files/figure-html/unnamed-chunk-13-1.png" width="288"></p>
+<p><img src="Vignette6_files/figure-html/unnamed-chunk-13-1.png" alt="mean+-95%CI" width="288"></p>
 <p>Effects can also be any R code manipulating the factors, using
 <code>Rexpression</code>. One example:</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
@@ -482,7 +485,7 @@ second, etc.</p>
 <span>    <span class="va">dta</span>,</span>
 <span>    WSFactors <span class="op">=</span> <span class="st">"Contrast(3)"</span>,</span>
 <span>    plotLayout<span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span></span></code></pre></div>
-<p><img src="Vignette6_files/figure-html/unnamed-chunk-14-1.png" width="288"></p>
+<p><img src="Vignette6_files/figure-html/unnamed-chunk-14-1.png" alt="mean+-95%CI" width="288"></p>
 <p>Repeated measures can also be generated from a multivariate normal
 distribution with a correlation <code>rho</code>, with, e.g.,</p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
@@ -502,7 +505,7 @@ distribution with a correlation <code>rho</code>, with, e.g.,</p>
 <span><span class="co">##  ------------------------------------------------------------</span></span></code></pre>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">DV.1</span>, <span class="va">dta</span><span class="op">$</span><span class="va">DV.2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Vignette6_files/figure-html/unnamed-chunk-15-1.png" width="288"></p>
+<p><img src="Vignette6_files/figure-html/unnamed-chunk-15-1.png" alt="mean+-95%CI" width="288"></p>
 <p>In the case of a multivariate normal distribution, the parameters for
 the mean and the standard deviations can be vectors of length equal to
 the number of repeated measures. However, covariances are constants.</p>
@@ -523,7 +526,7 @@ the number of repeated measures. However, covariances are constants.</p>
 <span><span class="co">##  ------------------------------------------------------------</span></span></code></pre>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">DV.1</span>, <span class="va">dta</span><span class="op">$</span><span class="va">DV.2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Vignette6_files/figure-html/unnamed-chunk-16-1.png" width="288"></p>
+<p><img src="Vignette6_files/figure-html/unnamed-chunk-16-1.png" alt="mean+-95%CI" width="288"></p>
 </div>
 <div class="section level3">
 <h3 id="contaminate-your-samples">Contaminate your samples!<a class="anchor" aria-label="anchor" href="#contaminate-your-samples"></a>
@@ -548,7 +551,7 @@ in the samples:</p>
 <span><span class="co">##  ------------------------------------------------------------</span></span></code></pre>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">DV</span>,breaks<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">25</span>,<span class="fl">300</span>,by<span class="op">=</span><span class="fl">2.5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Vignette6_files/figure-html/unnamed-chunk-17-1.png" width="288"></p>
+<p><img src="Vignette6_files/figure-html/unnamed-chunk-17-1.png" alt="mean+-95%CI" width="288"></p>
 <p>Contaminants can be normally distributed (as above) or come from any
 theoretical distribution which can be simulated in R:</p>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
@@ -567,7 +570,7 @@ theoretical distribution which can be simulated in R:</p>
 <span><span class="co">##  ------------------------------------------------------------</span></span></code></pre>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">DV</span>,breaks<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">365</span>,by<span class="op">=</span><span class="fl">2.5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Vignette6_files/figure-html/unnamed-chunk-18-1.png" width="288"></p>
+<p><img src="Vignette6_files/figure-html/unnamed-chunk-18-1.png" alt="mean+-95%CI" width="288"></p>
 <p>Finally, contaminants can be used to add missing data (missing
 completely at random) with:</p>
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
@@ -633,9 +636,7 @@ Methods for Psychology</em>, <em>11</em>(3), 127–138. <a href="https://doi.org
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
+      </div>
 
 </div>
 
@@ -648,16 +649,16 @@ Methods for Psychology</em>, <em>11</em>(3), 127–138. <a href="https://doi.org
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer>
 </div>
 
-  
 
 
-  
+
+
 
   </body>
 </html>

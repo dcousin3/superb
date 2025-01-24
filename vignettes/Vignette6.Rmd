@@ -111,7 +111,7 @@ has a grand mean (``GM``, $\mu$) given by the element ``mean`` and standard devi
 by the element ``stddev``. These can be redefined using the argument ``Population`` with a
 list of the relevant elements. In the following example, IQ are being simulated with :
 
-```{r, dpi=72, fig.height=3, fig.width=4}
+```{r, dpi=72, fig.alt="mean+-95%CI", fig.height=3, fig.width=4}
 dta <- GRD(
     RenameDV = "IQ",
     Population=list(mean=100,stddev=15)
@@ -142,7 +142,7 @@ dta <- GRD(
 Using ``scores``, it is possible to alter the parameters, for example, have a mean proportional
 to the group number, or the standard deviation proportional to the group number, as in:
 
-```{r, dpi=72, fig.height=3, fig.width=4}
+```{r, dpi=72, fig.alt="mean+-95%CI", fig.height=3, fig.width=4}
 dta <- GRD(
     BSFactors = "Group(2)",
     Population = list(
@@ -163,7 +163,7 @@ select the standard deviation according to ``Group`` or
 ``scores = "1"`` to generate constants. Other theoretical distributions
 can also be chosen, as in:
 
-```{r, dpi=72, fig.height=3, fig.width=4}
+```{r, dpi=72, fig.alt="mean+-95%CI", fig.height=3, fig.width=4}
 dta <- GRD(SubjectsPerGroup = 5000,
     RenameDV = "RT",
     Population=list(
@@ -183,7 +183,7 @@ the first level of the factor, ``y`` point for the second, etc.
 
 Here is a slope, effect:
 
-```{r, message=FALSE, dpi=72, fig.height=3, fig.width=4}
+```{r, message=FALSE, dpi=72, fig.alt="mean+-95%CI", fig.height=3, fig.width=4}
 dta <- GRD(
     BSFactors = 'Therapy(CBT, Control, Exercise)',
     WSFactors = 'Contrast(3)',
@@ -200,7 +200,7 @@ superb(
 Effects can also be any R code manipulating the factors, using ``Rexpression``.
 One example:
 
-```{r, message=FALSE, dpi=72, fig.height=3, fig.width=4}
+```{r, message=FALSE, dpi=72, fig.alt="mean+-95%CI", fig.height=3, fig.width=4}
 dta <- GRD(
     BSFactors = 'Therapy(CBT,Control,Exercise)',
     WSFactors = 'Contrast(3) ',
@@ -220,7 +220,7 @@ superb(
 Repeated measures can also be generated from a multivariate normal 
 distribution with a correlation ``rho``, with, e.g., 
 
-```{r, dpi=72, fig.width=4, fig.height=4}
+```{r, dpi=72, fig.alt="mean+-95%CI", fig.width=4, fig.height=4}
 dta <- GRD(
     WSFactors = 'Difficulty(1, 2)',
     SubjectsPerGroup = 1000,
@@ -234,7 +234,7 @@ for the mean and the standard deviations can be vectors of length
 equal to the number of repeated measures. However, covariances are
 constants.
 
-```{r, dpi=72, fig.width=4, fig.height=4}
+```{r, dpi=72, fig.alt="mean+-95%CI", fig.width=4, fig.height=4}
 dta <- GRD(
     WSFactors = 'Difficulty(1, 2)',
     SubjectsPerGroup = 1000,
@@ -250,7 +250,7 @@ This argument works exactly like ``Population`` except for the additional
 option ``proportion`` which indicates the proportion of contaminants in
 the samples:
 
-```{r, dpi=72, fig.height=3, fig.width=4}
+```{r, dpi=72, fig.alt="mean+-95%CI", fig.height=3, fig.width=4}
 dta <- GRD(SubjectsPerGroup = 5000,
     Population= list( mean=100, stddev = 15 ),
     Contaminant=list( mean=200, stddev = 15, proportion = 0.10 )
@@ -261,7 +261,7 @@ hist(dta$DV,breaks=seq(-25,300,by=2.5))
 Contaminants can be normally distributed (as above) or come from any
 theoretical distribution which can be simulated in R:
 
-```{r, dpi=72, fig.height=3, fig.width=4}
+```{r, dpi=72, fig.alt="mean+-95%CI", fig.height=3, fig.width=4}
 dta <- GRD(SubjectsPerGroup = 10000,
     Population=list( mean=100, stddev = 15 ),
     Contaminant=list( proportion = 0.10,

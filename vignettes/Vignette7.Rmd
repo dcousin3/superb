@@ -76,7 +76,7 @@ ornate = list(
 ). We are now ready to make a first plot. The adjustment ``purpose = "difference"`` is
 necessary as we plan to compare the two results.
 
-```{r, fig.height=4, fig.width=3, fig.cap = "**Figure 1**. Plot of dtaHerero showing heterogeneous error bars."}
+```{r, fig.alt="mean+-95%CI", fig.height=4, fig.width=3, fig.cap = "**Figure 1**. Plot of dtaHerero showing heterogeneous error bars."}
 pt <- superb(
             score ~ group,
             dtaHetero, 
@@ -167,7 +167,7 @@ the error bar estimator ``errorbar = CIwithDF"`` and then in the ``gamma`` argum
 use a vector with both the confidence level desired and the rectified degree of 
 freedom, as in ``gamma = c(0.95, 26.9965)``. Lets have a small plot of this:
 
-```{r, fig.height=4, fig.width=3, fig.cap = "**Figure 2**. Plot of dtaHerero with rectified degree of freedom."}
+```{r, fig.alt="mean+-95%CI", fig.height=4, fig.width=3, fig.cap = "**Figure 2**. Plot of dtaHerero with rectified degree of freedom."}
 pw <- superb(
             score ~ group,
             dtaHetero, 
@@ -206,7 +206,7 @@ introduced by regular averaging. This transformation is right on so that the
 usual mean of the two error bars, following a Tryon transformation, will precisely 
 indicate whether the means are included in the mean error bar length.
 
-```{r, fig.height=4, fig.width=3, fig.cap = "**Figure 3**. Plot of dtaHerero with rectified degree of freedom and Tryon' difference-adjusted error bars."}
+```{r, fig.alt="mean+-95%CI", fig.height=4, fig.width=3, fig.cap = "**Figure 3**. Plot of dtaHerero with rectified degree of freedom and Tryon' difference-adjusted error bars."}
 pwt <- superb(
             score ~ group, 
             dtaHetero, 
@@ -289,7 +289,7 @@ Lets represent all this:
 
 
 
-```{r fig.height=4, fig.width=9, fig.cap = "**Figure 4**. All three plots with relevant markers in red."}
+```{r fig.alt="mean+-95%CI", fig.height=4, fig.width=9, fig.cap = "**Figure 4**. All three plots with relevant markers in red."}
 # showing all three plots, with reference lines in red
 grid.arrange(
     pt + labs(subtitle="Difference-adjusted 95% CI\n with default degree of freedom") + 

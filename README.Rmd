@@ -75,7 +75,7 @@ of rats  (in which the dependent variable is `len`)
 as a function of the `dose` of 
 vitamin and the form of the vitamin supplements `supp` (pills or juice)
 
-```{r}
+```{r, fig.alt="mean+-95%CI", fig.cap="**Figure 1**. A simple _superb_ plot"}
 superb(len ~ dose + supp, ToothGrowth )
 ```
 
@@ -87,7 +87,7 @@ This second example explicitly indicates to display the
 `median` instead of the default `mean` summary statistics along with the default 95% confidence interval of the median here (the correct
 function is automatically selected):
 
-```{r}
+```{r, fig.alt="median+-95%CI", fig.cap="**Figure 2**. A median _superb_ plot"}
 superb(len ~ dose + supp, ToothGrowth,
     statistic = "median")
 ```
@@ -96,7 +96,7 @@ As a third example, we illustrate the  harmonic means
 `hmean` along with 99.9% confidence intervals of the harmonic
 mean displayed using bars:
 
-```{r}
+```{r, fig.alt="harmonic mean+-95%CI", fig.cap="**Figure 4**. A simple _superb_ plot with 99.9%CI"}
 superb(len ~ dose + supp, ToothGrowth,
     statistic = "hmean", 
     errorbar = "CI", gamma = 0.999,
@@ -128,7 +128,7 @@ just a few adjustments, you can obtained decorrelated error bars
 with the Correlation-adjusted (CA), the Cousineau-Morey (CM) or 
 the Loftus & Masson (CM) techniques:
 
-```{r}
+```{r, fig.alt="mean+-95%CI", fig.cap="**Figure 4**. Multiple _superb_ plots"}
 library(gridExtra)          # for grid.arrange
 library(RColorBrewer)       # for nicer color palette
 
@@ -155,7 +155,7 @@ more elaborate layouts such as the ``pointjitter`` layout which,
 in addition to the mean and confidence interval, shows the raw 
 data using jitter dots:
 
-```{r}
+```{r, fig.alt="mean+-95%CI", fig.cap="**Figure 5**. A decorated _superb_ plot"}
 superb( crange(score.1, score.6) ~ Difficulty, 
     testdata, WSFactors = "Day(6)",
     adjustments = list(purpose = "difference", decorrelation = "CM"),
@@ -173,7 +173,7 @@ When these arguments are used, they override the defaults from ``superb()``.
 
 Lastly, we could aim for a radar (a.k.a. circular) plot with
 
-```{r}
+```{r, fig.alt="mean+-95%CI", fig.cap="**Figure 6**. A simple _superb_ plot"}
 superb( crange(score.1, score.6) ~ Difficulty, testdata, 
     WSFactors = "Day(6)",
     adjustments = list(purpose = "difference", decorrelation = "CM"),

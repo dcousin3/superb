@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -27,7 +27,7 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -53,7 +53,7 @@
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
@@ -124,7 +124,7 @@
 <li>
   <a href="https://github.com/dcousin3/superb/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -135,7 +135,7 @@
 </div>
 <!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
@@ -144,7 +144,7 @@
 repeated measures from transformations</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/dcousin3/superb/blob/HEAD/../vignettes/Vignette8.Rmd" class="external-link"><code>../vignettes/Vignette8.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/dcousin3/superb/blob/HEAD/vignettes/Vignette8.Rmd" class="external-link"><code>vignettes/Vignette8.Rmd</code></a></small>
       <div class="hidden name"><code>Vignette8.Rmd</code></div>
 
     </div>
@@ -157,27 +157,39 @@ Morey, 2008)</span> and <code>LM</code> <span class="citation">(Loftus
 required are considered. In the Cousineau-Morey method, the raw data
 must be subject-centered and bias-corrected.</p>
 <p>Subject centering is obtained from</p>
-<p><span class="math display">\[
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Y</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>=</mo><msub><mi>X</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>−</mo><msub><mover><mi>X</mi><mo accent="true">‾</mo></mover><mrow><mi>i</mi><mo>⋅</mo></mrow></msub><mo>+</mo><mover><mover><mi>X</mi><mo accent="true">‾</mo></mover><mo accent="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">
 Y_{ij} = X_{ij} - \bar{X}_{i\cdot} + \bar{\bar{X}}
-\]</span></p>
-<p>in which <span class="math inline">\(i = 1..n\)</span> and <span class="math inline">\(j=1..C\)</span> where <span class="math inline">\(n\)</span> is the number of participants and <span class="math inline">\(C\)</span> is the number of repeated measures
-(sometimes noted with <span class="math inline">\(J\)</span>).</p>
+</annotation></semantics></math></p>
+<p>in which
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><mn>1</mn><mi>.</mi><mi>.</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">i = 1..n</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>=</mo><mn>1</mn><mi>.</mi><mi>.</mi><mi>C</mi></mrow><annotation encoding="application/x-tex">j=1..C</annotation></semantics></math>
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+is the number of participants and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>
+is the number of repeated measures (sometimes noted with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math>).</p>
 <p>Bias-correction is obtained from</p>
-<p><span class="math display">\[
-Z_{ij} = \sqrt{\frac{C}{C-1}} \left( Y_{ij} - \bar{Y}_{\cdot{}j} \right)
-+ \bar{Y}_{\cdot{}j}
-\]</span></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>=</mo><msqrt><mfrac><mi>C</mi><mrow><mi>C</mi><mo>−</mo><mn>1</mn></mrow></mfrac></msqrt><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>Y</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>−</mo><msub><mover><mi>Y</mi><mo accent="true">‾</mo></mover><mrow><mi>⋅</mi><mrow></mrow><mi>j</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mover><mi>Y</mi><mo accent="true">‾</mo></mover><mrow><mi>⋅</mi><mrow></mrow><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">
+Z_{ij} = \sqrt{\frac{C}{C-1}} \left( Y_{ij} - \bar{Y}_{\cdot{}j} \right) + \bar{Y}_{\cdot{}j}
+</annotation></semantics></math></p>
 <p>These two operations can be performed with two matrix
 transformations. In comparison, the <code>LM</code> method requires one
 additional step, that is, pooling standard deviation, also achievable
 with the following transformation.</p>
-<p><span class="math display">\[
-W_{ij} = \sqrt{\frac{S_p^2}{S_i^2}} \left( Z_{ij} - \bar{Z}_{\cdot{}j}
-\right) + \bar{Z}_{\cdot{}j}
-\]</span></p>
-<p>in which <span class="math inline">\(S_j^2\)</span> is the variance
-in measurement <span class="math inline">\(j\)</span> and <span class="math inline">\(S_p^2\)</span> is the pooled variance across all
-<span class="math inline">\(j\)</span> mesurements.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>=</mo><msqrt><mfrac><msubsup><mi>S</mi><mi>p</mi><mn>2</mn></msubsup><msubsup><mi>S</mi><mi>i</mi><mn>2</mn></msubsup></mfrac></msqrt><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>Z</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>−</mo><msub><mover><mi>Z</mi><mo accent="true">‾</mo></mover><mrow><mi>⋅</mi><mrow></mrow><mi>j</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mover><mi>Z</mi><mo accent="true">‾</mo></mover><mrow><mi>⋅</mi><mrow></mrow><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">
+W_{ij} = \sqrt{\frac{S_p^2}{S_i^2}} \left( Z_{ij} - \bar{Z}_{\cdot{}j} \right) + \bar{Z}_{\cdot{}j}
+</annotation></semantics></math></p>
+<p>in which
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>S</mi><mi>j</mi><mn>2</mn></msubsup><annotation encoding="application/x-tex">S_j^2</annotation></semantics></math>
+is the variance in measurement
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>S</mi><mi>p</mi><mn>2</mn></msubsup><annotation encoding="application/x-tex">S_p^2</annotation></semantics></math>
+is the pooled variance across all
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
+mesurements.</p>
 <p>With this approach, we can categorize all the proposals to repeated
 measure precision as requiring or not certain transformations. Table 1
 shows these.</p>
@@ -232,7 +244,7 @@ post-processing</p>
 </table>
 <p>From that point of view, we see that the Nathoo, Kilshaw and Masson
 NKM <span class="citation">(Nathoo, Kilshaw, &amp; Masson, 2018; but see
-Heck, 2019 )</span> method is missing a bias-correction transformation,
+Heck, 2019)</span> method is missing a bias-correction transformation,
 which explains why these error bars are shorter. The original proposal
 found in Cousineau, 2005, is also missing the bias correction step,
 which led Morey (2008) to supplement this approach. With these four
@@ -364,9 +376,7 @@ Mathematical Psychology</em>, <em>86</em>, 1–9. <a href="https://doi.org/10.10
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
+      </div>
 
 </div>
 
@@ -379,16 +389,16 @@ Mathematical Psychology</em>, <em>86</em>, 1–9. <a href="https://doi.org/10.10
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer>
 </div>
 
-  
 
 
-  
+
+
 
   </body>
 </html>

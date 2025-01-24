@@ -32,7 +32,7 @@
 #' @param Contaminant a list providing the contaminant characteristics 
 #'      and the proportion of contaminant (default 0)
 #' @param Instrument a list providing some characteristics 
-#'      of the measurement instrument (at this time, its precision only)
+#'      of the measurement instrument (at this time, its precision and range only)­.
 #'
 #'
 #' @return a data.frame with the simulated scores.
@@ -80,7 +80,7 @@
 #' 
 #'  # An example in which the moments are correlated
 #'  dta <- GRD( BSFactors = "Difficulty(2)",WSFactors = "Moment (2)", 
-#'      SubjectsPerGroup = 250,
+#'      SubjectsPerGroup = 125,
 #'      Effects = list("Difficulty" = slope(3), "Moment" = slope(1) ),
 #'      Population=list(mean=50,stddev=20,rho=0.85)
 #'  )
@@ -117,7 +117,7 @@
 #'      SubjectsPerGroup = 10,
 #'      Population = list(mean=100,stddev=15), 
 #'      Instrument    = list(
-#'          precision = 0.1
+#'          precision = 0.1, range = c(-100,+100)
 #'      ) 
 #'  )
 #'  
@@ -140,7 +140,7 @@ GRD <- function(
     Effects = list(),
     Population  = list(mean = 0, stddev = 1, rho = 0, scores="rnorm(1, mean = GM, sd = STDDEV)"),
     Contaminant = list(mean = 0, stddev = 1, rho = 0, scores="rnorm(1, mean = CGM, sd = CSTDDEV)", proportion = 0),
-    Instrument  = list(precision = 10^(-8) )
+    Instrument  = list(precision = 10^(-8), range = c(-Inf,+Inf) )
 ){
     #####################################################
     # STEP 0: Load required library
@@ -152,10 +152,9 @@ GRD <- function(
     # STEP 1: Determining experimental design
     #####################################################
 
-    # initialize variables
+    # 1.1: Determining between-group factors
     BSList <- list()
     WSList <- list()
-    # determining between-group factors
     if (!(all(BSFactors==""))) {
         BSList <- grdUnpacker(BSFactors, ':', 'BS')
     }
@@ -163,7 +162,7 @@ GRD <- function(
     runDebug("GRD:1.1", "GRD:1.1: Processing BSFactors", 
         c("BSList","ngroups"),list(BSList,ngroups))
 
-    # determining repeated measures
+    # 1.2: Determining repeated measure factors
     if (!(all(WSFactors==""))) {
         unpacked <- grdUnpacker(WSFactors, ':', 'WS')
         if (any(names(unpacked) %in% names(BSList))) 
@@ -174,18 +173,18 @@ GRD <- function(
     runDebug("GRD:1.2", "GRD:1.2: Processing WSFactors", 
         c("WSList","nreplic"),list(WSList,nreplic))
 
-    # validating groups sizes
+    # 1.3: Validating groups sizes
     if ((length(SubjectsPerGroup)!= 1)&&(length(SubjectsPerGroup)!=ngroups)) 
         stop('GRD::error(2): There is ',ngroups, " groups to be created but only ",length(SubjectsPerGroup), " have been defined. Exiting...")
 
-    # setting matrix size, Columns and Rows
+    # 1.4: Setting matrix size, Columns and Rows
     BSnames  <- names(BSList)
     WSnames  <- names(WSList)
     facnames <- c(BSnames, WSnames)
     if (RenameDV %in% facnames) 
         stop('GRD::error(8): The RenameDV name is already in the within or between subject factor names. Exiting...')
 
-    # check that effect names are in facnames
+    # 1.5: Check that effect names are in facnames
     if (length(Effects) > 0 ) { 
         for (i in 1:length(Effects)) {
             if (Effects[[i]][1] < -90) {  #slope, extent, custom
@@ -195,7 +194,22 @@ GRD <- function(
             }
         }
     }
+    
+    # 1.6: Checking Instruments arguments
+    if (!is.numeric(Instrument$precision))
+        stop('GRD::error(11): Instrument precision not a number. Exiting...')
+    if ( Instrument$precision <0 )
+        stop('GRD::error(12): Instrument precision below zero. Exiting...')
+    if (length(Instrument$range)!=2)
+        stop('GRD::error(13): Instrument range not two numbers')
+    if ((Instrument$range[1]!=-Inf)&(!is.numeric(Instrument$range[1])))
+        stop('GRD::error(14): Instrument lower range not a number or -Inf. Exiting...')
+    if ((Instrument$range[2] != +Inf)&(!is.numeric(Instrument$range[2])))
+        stop('GRD::error(15): Instrument upper range not a number or +Inf. Exiting...')
+    if (Instrument$range[1] >= Instrument$range[2])
+        stop('GRD::error(16): Instrument lower range greater than upper range. Exiting...')
 
+    # 1.7: Set subject number and number of rows
     cols <- 2+ length(facnames) # variables "id" et "DV" ajoutées
     subj <- if(length(SubjectsPerGroup)==1) {
         SubjectsPerGroup * ngroups
@@ -203,13 +217,15 @@ GRD <- function(
         sum(SubjectsPerGroup) 
     }
     rows = subj * nreplic
-    runDebug("GRD:1.3", "GRD:1.3: Processing matrix size", 
-        c("BSnames","WSnames","facnames","cols","rows","subj"   ),
-        list(BSnames,WSnames,facnames,cols,rows,subj))
-
+    
+    # 1.8: Show design if not inhibited
     if ('summary' %in% getOption("superb.feedback") ) {
         grdShowDesign(BSList, WSList, ngroups, nreplic, subj, SubjectsPerGroup)
     }
+
+    runDebug("GRD:1.3", "GRD:1.3: Processing matrix size", 
+        c("BSnames","WSnames","facnames","cols","rows","subj"   ),
+        list(BSnames,WSnames,facnames,cols,rows,subj))
 
   
     #####################################################
@@ -394,6 +410,10 @@ GRD <- function(
     if ( is.numeric(Instrument$precision) ) {
         data$DV <- grdROUND(data$DV, Instrument$precision)
     }
+    if (is.numeric(Instrument$range[1]))
+        data$DV[ data$DV < Instrument$range[1] ] <- Instrument$range[1]
+    if (is.numeric(Instrument$range[2]))
+        data$DV[ data$DV > Instrument$range[2] ] <- Instrument$range[2]
 
     #####################################################
     # STEP 7: Let's clean the place

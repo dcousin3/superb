@@ -61,7 +61,7 @@ and example datasets described in the paper:  \itemize{
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://dcousin3.github.io/superb/}
+  \item \url{http://dcousin3.github.io/superb https://cran.r-project.org/web/packages/superb/index.html}
   \item Report bugs at \url{https://github.com/dcousin3/superb/issues/}
 }
 

@@ -14,7 +14,7 @@ GRD(
     "rnorm(1, mean = GM, sd = STDDEV)"),
   Contaminant = list(mean = 0, stddev = 1, rho = 0, scores =
     "rnorm(1, mean = CGM, sd = CSTDDEV)", proportion = 0),
-  Instrument = list(precision = 10^(-8))
+  Instrument = list(precision = 10^(-8), range = c(-Inf, +Inf))
 )
 }
 \arguments{
@@ -48,7 +48,7 @@ See the last example below.}
 and the proportion of contaminant (default 0)}
 
 \item{Instrument}{a list providing some characteristics
-of the measurement instrument (at this time, its precision only)}
+of the measurement instrument (at this time, its precision and range only)­.}
 }
 \value{
 a data.frame with the simulated scores.
@@ -104,7 +104,7 @@ Note that the \code{range} effect specification has been renamed
 
  # An example in which the moments are correlated
  dta <- GRD( BSFactors = "Difficulty(2)",WSFactors = "Moment (2)", 
-     SubjectsPerGroup = 250,
+     SubjectsPerGroup = 125,
      Effects = list("Difficulty" = slope(3), "Moment" = slope(1) ),
      Population=list(mean=50,stddev=20,rho=0.85)
  )
@@ -141,7 +141,7 @@ Note that the \code{range} effect specification has been renamed
      SubjectsPerGroup = 10,
      Population = list(mean=100,stddev=15), 
      Instrument    = list(
-         precision = 0.1
+         precision = 0.1, range = c(-100,+100)
      ) 
  )
  

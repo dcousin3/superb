@@ -66,7 +66,15 @@ juice)
 superb(len ~ dose + supp, ToothGrowth )
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+<div class="figure">
+
+<img src="README_files/figure-gfm/unnamed-chunk-6-1.png" alt="mean+-95%CI"  />
+<p class="caption">
+
+**Figure 1**. A simple *superb* plot
+</p>
+
+</div>
 
 In the above, the default summary statistic, the mean, is used. The
 error bars are, by default, the 95% confidence intervals (of the mean).
@@ -83,7 +91,15 @@ superb(len ~ dose + supp, ToothGrowth,
     statistic = "median")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+<div class="figure">
+
+<img src="README_files/figure-gfm/unnamed-chunk-7-1.png" alt="median+-95%CI"  />
+<p class="caption">
+
+**Figure 2**. A median *superb* plot
+</p>
+
+</div>
 
 As a third example, we illustrate the harmonic means `hmean` along with
 99.9% confidence intervals of the harmonic mean displayed using bars:
@@ -95,7 +111,15 @@ superb(len ~ dose + supp, ToothGrowth,
     plotLayout = "bar")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+<div class="figure">
+
+<img src="README_files/figure-gfm/unnamed-chunk-8-1.png" alt="harmonic mean+-95%CI"  />
+<p class="caption">
+
+**Figure 4**. A simple *superb* plot with 99.9%CI
+</p>
+
+</div>
 
 The second function, `GRD()`, can be used to generate random data from
 designs with various within- and between-subject factors. This example
@@ -131,17 +155,8 @@ Masson (CM) techniques:
 
 ``` r
 library(gridExtra)          # for grid.arrange
-```
-
-    ## Warning: package 'gridExtra' was built under R version 4.3.3
-
-``` r
 library(RColorBrewer)       # for nicer color palette
-```
 
-    ## Warning: package 'RColorBrewer' was built under R version 4.3.1
-
-``` r
 plt1 <- superb( crange(score.1, score.6) ~ Difficulty, 
     testdata, WSFactors = "Day(6)",
     plotLayout = "line"
@@ -160,7 +175,15 @@ scale_color_brewer(palette="Dark2")
 grid.arrange(plt1,plt2, ncol=2)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+<div class="figure">
+
+<img src="README_files/figure-gfm/unnamed-chunk-10-1.png" alt="mean+-95%CI"  />
+<p class="caption">
+
+**Figure 4**. Multiple *superb* plots
+</p>
+
+</div>
 
 Even better, the simulated scores can be illustrated using more
 elaborate layouts such as the `pointjitter` layout which, in addition to
@@ -178,7 +201,15 @@ theme_bw() + ylab("Score") +
 scale_color_brewer(palette="Dark2")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+<div class="figure">
+
+<img src="README_files/figure-gfm/unnamed-chunk-11-1.png" alt="mean+-95%CI"  />
+<p class="caption">
+
+**Figure 5**. A decorated *superb* plot
+</p>
+
+</div>
 
 In the above example, optional arguments `errorbarParams` and
 `pointParams` are used to inject specifications in the error bars and
@@ -204,7 +235,15 @@ theme(axis.line.y = element_blank(),
 axis.text.y=element_blank(), axis.ticks.y=element_blank())
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+<div class="figure">
+
+<img src="README_files/figure-gfm/unnamed-chunk-12-1.png" alt="mean+-95%CI"  />
+<p class="caption">
+
+**Figure 6**. A simple *superb* plot
+</p>
+
+</div>
 
 Every time, you get error bars for free! no need to compute them on the
 side, no need to worry about the adjustments (whether you want

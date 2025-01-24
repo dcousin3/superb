@@ -39,6 +39,7 @@ twoStepTransform <- function(dta, variables) {
 
 ######################################################################################
 #' @name subjectCenteringTransform
+#'
 #' @title subject-centering transform  
 #'
 #' @md
