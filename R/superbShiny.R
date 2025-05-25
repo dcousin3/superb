@@ -15,6 +15,10 @@
 #'   graphical user interface, nor is it possible to request an adjustment for cluster-
 #'   randomized sampling. These options are available with ``superb()``.
 #'
+#' @param graphicDirectives (optional) used to set graphic directives from the command line. 
+#'    This is useful for in-class demonstrations where the ylim() range should be set before
+#'    reaching the last step of the GIU.
+#'
 #' @return A plot that can be cut-and-paste.
 #'
 #' @references
@@ -39,8 +43,12 @@
 
 
 
-superbShiny <- function() {
+superbShiny <- function( graphicDirectives = NULL ) {
     dir <- system.file("superbShiny", package="superb")
     options(shiny.launch.browser = TRUE) 
+    
+    # send the additional graphic directives into options for easier retrieval by the app
+    options( "superb.shiny.GR" = graphicDirectives )
+    
     shiny::runApp(dir)
 }

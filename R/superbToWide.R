@@ -5,7 +5,7 @@
 #'
 #' @description The function ``suberbToWide()`` is an extension to Navarro's WideToLong function
 #'      with ample checks to make sure all is legit, so that the data 
-#'      is suitably organized for ``suberb``. See \insertCite{cgh21}{superb} for more.
+#'      is suitably organized for ``suberb``. See \insertRef{cgh21}{superb} for more.
 #'      Other techniques are available to transform long to wide, but many asked for 
 #'      it within `superb`.
 #'
@@ -15,7 +15,7 @@
 #' @param WSFactors The name(s) of the within-subject factor(s) as string(s)
 #' @param variable  The dependent variable as string
 #'
-#' @return A wide-format data frame ready for superbPlot() or superbData(). All other 
+#' @return A wide-format data frame ready for `superbPlot()` or `superbData()`. All other 
 #'      variables will be erased.
 #'
 #' @references

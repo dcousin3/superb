@@ -4,7 +4,12 @@
 \alias{superbShiny}
 \title{User Interface to get summary plot of any statistics with adjusted error bars.}
 \usage{
-superbShiny()
+superbShiny(graphicDirectives = NULL)
+}
+\arguments{
+\item{graphicDirectives}{(optional) used to set graphic directives from the command line.
+This is useful for in-class demonstrations where the ylim() range should be set before
+reaching the last step of the GIU.}
 }
 \value{
 A plot that can be cut-and-paste.

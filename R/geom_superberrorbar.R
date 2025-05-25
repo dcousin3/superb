@@ -182,7 +182,7 @@ geom_superberrorbar <- function(
         data        = data,
         mapping     = mapping,
         stat        = stat,
-        geom        = GeomsuperbErrorbar,
+        geom        = GeomSuperbErrorbar,
         position    = position,
         show.legend = show.legend,
         inherit.aes = inherit.aes,
@@ -197,7 +197,7 @@ geom_superberrorbar <- function(
 # from rlang
 `%||%` <- function(x, y) {if (is.null(x)) y else x }
 
-GeomsuperbErrorbar <- ggproto("GeomsuperbErrorbar", Geom,
+GeomSuperbErrorbar <- ggproto("GeomSuperbErrorbar", Geom,
     default_aes = aes( # the parameters
         colour    = "black", 
         linewidth = 0.5, 

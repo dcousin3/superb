@@ -40,7 +40,7 @@ install.packages("superb")
 library(superb)
 ```
 
-The development version 0.95.23 can be accessed through GitHub:
+The development version 0.95.99 can be accessed through GitHub:
 
 ``` r
 devtools::install_github("dcousin3/superb")

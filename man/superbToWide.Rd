@@ -24,13 +24,13 @@ superbToWide(
 \item{variable}{The dependent variable as string}
 }
 \value{
-A wide-format data frame ready for superbPlot() or superbData(). All other
+A wide-format data frame ready for \code{superbPlot()} or \code{superbData()}. All other
 variables will be erased.
 }
 \description{
 The function \code{suberbToWide()} is an extension to Navarro's WideToLong function
 with ample checks to make sure all is legit, so that the data
-is suitably organized for \code{suberb}. See \insertCite{cgh21}{superb} for more.
+is suitably organized for \code{suberb}. See \insertRef{cgh21}{superb} for more.
 Other techniques are available to transform long to wide, but many asked for
 it within \code{superb}.
 }

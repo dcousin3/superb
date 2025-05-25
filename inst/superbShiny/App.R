@@ -14,7 +14,13 @@ library(foreign) # for read.spss
 library(stringr) # for str_remove_all and str_replace_all
 library(dplyr)
 
-appversion <- paste("App version 3.7; shipped with superb", packageVersion("superb")
+appversion <- paste("App version 3.8; shipped with superb", packageVersion("superb"))
+
+# if additional directives were given to superbShiny(), retrieve them now
+initGR <- getOption("superb.shiny.GR")
+initGR <- if(!is.null(initGR)) {initGR} else {""}
+initGR <- gsub("+", "\n", initGR, fixed=TRUE) 
+
 
 ##########################################################
 ##########################################################
@@ -364,7 +370,10 @@ thePage <- fluidPage(
                     uiOutput("linedir3"),
                     uiOutput("linedir4"),
                     uiOutput("linedir5"),
-                    textAreaInput("ornates", "General graphic directives (one per line)", resize = "vertical"),
+                    textAreaInput("ornates", "General graphic directives (one per line)", 
+                        value = initGR,
+                        resize = "vertical"
+                    ),
                     bsButton("S5Prev", "Previous"),
                     bsButton("S5Apply", "Apply", disabled = FALSE),
                     bsButton("S5Next", "Next", disabled = TRUE),
@@ -651,6 +660,12 @@ runAndShowIt <- function( input, output, currentInfo) {
     params$adjustments <- currentInfo$Step4 # the adjustments are in a sub-list
     gattrib <- currentInfo$Step5            # the graphic attributes
     gdirect <- currentInfo$Step6            # the graphic directives
+    ### NEW 2025.05.25, version 0.95.99 ################
+    # retrieve any graphic directive(s) from superbShiny() if any
+    if (!is.something(gdirect)) {
+        if (!is.null(initGR)) {gdirect <- initGR}
+    }
+    ####################################################
 
     # in Step5, all the graphic attributes must be wrapped into lists...
     if (length(gattrib)!=0) {
@@ -677,9 +692,9 @@ runAndShowIt <- function( input, output, currentInfo) {
     resB <- cLogs(superbPlot, modifyList(params, list(showPlot=FALSE)))
 
     #if Step6 then
-    if (!is.null(currentInfo$Step6)) {
+    if (!is.null(gdirect)) {
         # listify the ornates
-        toto <- str_remove_all(currentInfo$Step6, "^[\r\n]|[\r\n]$")
+        toto <- str_remove_all(gdirect, "^[\r\n]|[\r\n]$")
         toto <- str_replace_all(toto,"\n",",\n")
             
         resC    <- cLogs(eval, list(str2lang(paste("list(",toto,"\n)"))))

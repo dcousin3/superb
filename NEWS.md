@@ -1,20 +1,24 @@
-# superb 1.0.0 (March 2025)
+# superb 1.0.0 (anytime soon)
 
 * Codename: 100% confident;
 * Celebrating the fourth anniversary of `superb`! 
 * Corrected minor typos in documentations;
-* Deprecated `plotStyle` in favor of `plotLayout`;
-* Made "line" the default `plotLayer` instead of "bar"
-* Corrected a minor bug when performing Bartlett test
+
+# superb 0.95.99 (May 2025)
+
+* Added an option to `superbShiny()` to preload graphic directives
 
 # superb 0.95.23 (January 17th, 2025)
 
 * Codename: living dangerously;
+* Corrected a minor bug when performing Bartlett test
 * EXPERIMENTAL: Made allowance to accept namespace::function to the 
   statistics functions. Useful if the function may be masked 
   by other packages declaring functions with the same name;
 * Updated options so that EXPERIMENTAL messages can be inhibited;
-* Added `range(low, high)` to the Instrument specification.
+* Added `range(low, high)` to the `GRD()`'s `Instrument` specification.
+* Made "line" the default `plotLayout` instead of "bar"
+* Deprecated `plotStyle` in favor of `plotLayout`;
 
 # superb 0.95.22 (December 30th, 2024)
 
