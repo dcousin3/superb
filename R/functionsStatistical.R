@@ -7,10 +7,10 @@
 #'
 #' @md
 #'
-#' @description superb adds a few summary statistics that can
+#' @description `superb` adds a few summary statistics that can
 #' be used to characterize a dataset. All comes with ``SE.fct()`` and ``CI.fct()``.
 #' See \insertCite{htc14,htc15}{superb} for more.
-#' *superbPlot-compatible* summary statistics functions must have one parameter:
+#' *superb-compatible* summary statistics functions must have a single vector parameter:
 #' 
 #' @usage hmean(x)
 #' @usage gmean(x)
@@ -75,15 +75,15 @@ fisherkurtosis <- function(x) {
 #' @md
 #'
 #' @description The following function computes a confidence interval with
-#' custom degree of freedom. The default is to use N-1 but this number is not
-#' quite appropriate. To get the exact critical value which is used to construct
+#' custom degree of freedom. The default is to use \eqn{N-1} but this number is not
+#' always appropriate. To get the exact critical value from which to construct
 #' the confidence interval, it is necessary to ``pool'' the degrees of freedom.
 #' This last expression means that the degree of freedom is the total number of 
 #' data minus 1 for each condition except the last, and minus 1 for each participant
-#' except the last. In formula, if the number of repeated measures is $p$,
-#' the number of participants is $n$, and the total sample size is $N$ (with
-#' $N = p x n$, then the 
-#' pooled degree of freedom is $(p-1) x (n-1)$ or equivalently $N -p-n+1$.
+#' except the last. In formula, if the number of repeated measures is \eqn{p},
+#' the number of participants is \eqn{n}, and the total sample size is \eqn{N} (with
+#' \eqn{N = p x n}, then the 
+#' pooled degree of freedom is \eqn{(p-1) \times (n-1)} or equivalently \eqn{N -p-n+1}.
 #' Another example where custom degree of freedom can be used is when there are 
 #' heterogeneous variances, 
 #' the confidence interval of the mean should mirror a Welsh test where the
@@ -280,7 +280,8 @@ CIwithDF.mean <- function(x, gamma = 0.95) {
 #' interval of the mean.Note that we hesitated to provide these functions: you 
 #' should deal with missing data prior to making your plot.
 #' Removing NAs from the mean in a univariate setting is equivalent to performing
-#' mean imputation. See @enwiki:1243866876 for more.
+#' mean imputation. See [Wikipedia's missing data](https://en.wikipedia.org/wiki/Missing_data)
+#' for more.
 #' Also note that for repeated-measure design, only CA adjustment is available.
 #' 
 #' @usage meanNArm(x)

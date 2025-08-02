@@ -18,12 +18,12 @@ nice tutorial by Walker (2021).
 The purpose of the function `superb()` is to provide a plot with summary
 statistics and correct error bars. With simple adjustments, the error
 bar are adjusted to the design (within or between), to the purpose
-(single or pair-wise differences), to the sampling method (simple
-randomized samples or cluster randomized samples) and to the population
-size (infinite or of a specific size). The `superb(..., showPlot=FALSE)`
-argument does not generate the plot but returns the summary statistics
-and the interval boundaries. These can afterwards be sent to other
-plotting environments.
+(single, i.e., in isolation, or difference, i.e., for pair-wise
+comparisons), to the sampling method (simple randomized samples or
+cluster randomized samples) and to the population size (infinite or of a
+specific size). The `superb(..., showPlot=FALSE)` argument does not
+generate the plot but returns the summary statistics and the interval
+boundaries. These can afterwards be sent to other plotting environments.
 
 The second, subsidiary, functionality is to *Generate Random Datasets*.
 The function `GRD()` is used to easily generate random data from any
@@ -40,7 +40,7 @@ install.packages("superb")
 library(superb)
 ```
 
-The development version 0.95.99 can be accessed through GitHub:
+The development version 1.0.0 can be accessed through GitHub:
 
 ``` r
 devtools::install_github("dcousin3/superb")
@@ -124,8 +124,9 @@ superb(len ~ dose + supp, ToothGrowth,
 The second function, `GRD()`, can be used to generate random data from
 designs with various within- and between-subject factors. This example
 generates scores for 30 simulated participants in a 3 x 6 design with 6
-daily repeated-measures on `Day`s. Only the factor `Day` is modeled as
-impacting the scores (increasing by 3 points on the second day):
+daily repeated-measures on `Day`s. The factor `Day` is modeled as
+impacting the scores (increasing by 3 points per day) whereas difficulty
+is beneficial for the C level only:
 
 ``` r
 set.seed(663) # for reproducibility

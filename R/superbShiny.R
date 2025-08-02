@@ -11,18 +11,18 @@
 #'   from \insertCite{w21}{superb} for a demo using
 #'   the shinyapps.io installation accessible at 
 #'   \href{https://dcousin3.shinyapps.io/superbshiny/}{dcousin3.shinyapps.io/superbshiny}
-#'   Limitations: it is not possible to use custom-made statistics with the 
+#'   Limitations: it is neither possible to use custom-made statistics with the 
 #'   graphical user interface, nor is it possible to request an adjustment for cluster-
 #'   randomized sampling. These options are available with ``superb()``.
 #'
 #' @param graphicDirectives (optional) used to set graphic directives from the command line. 
-#'    This is useful for in-class demonstrations where the ylim() range should be set before
-#'    reaching the last step of the GIU.
+#'    This is useful for in-class demonstrations where the `ylim()` range should be set before
+#'    reaching the last step of the interface.
 #'
 #' @return A plot that can be cut-and-paste.
 #'
 #' @references
-#' \insertAllCited{}
+#'   \insertAllCited
 #'
 #' @examples
 #' # Launch the user interface: 
@@ -31,10 +31,19 @@
 #'    superbShiny() 
 #' }
 #'
+#' # Example with two graphic directives given 
+#' \donttest{
+#' if (interactive())
+#'    superbShiny( "ylim(65,135)+theme_bw()" )
+#' }
+#' 
+######################################################################################
+#' 
 #' @export superbShiny
 #' @importFrom stringr str_remove_all
 #' @importFrom stringr str_replace_all
 #' @importFrom foreign read.spss
+#' @importFrom Rdpack reprompt
 #' @import ggplot2
 #' @import shiny
 #' @import shinyBS

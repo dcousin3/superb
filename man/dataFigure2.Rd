@@ -36,8 +36,10 @@ plt2a <- superb(
     adjustments=list(purpose = "difference"), 
     plotLayout="bar" ) + 
   xlab("Group") + ylab("Score") + labs(title="Difference-adjusted 95\% CI\n") +
-  coord_cartesian( ylim = c(85,115) ) +
-  geom_hline(yintercept = 100, colour = "black", linewidth = 0.5, linetype=2)
+  coord_cartesian( ylim = c(85,120) ) +
+  geom_hline(yintercept = 100, colour = "black", linewidth = 0.5, linetype=2) +
+  showSignificance( c(0.5, 2.5), 115, -1, "not significant???", 
+                    segmentParams = list( colour = "red" ) )
 plt2b <- superb(
     cbind(pre, post) ~ ., 
     dataFigure2, 
@@ -45,8 +47,10 @@ plt2b <- superb(
     adjustments=list(purpose = "difference", decorrelation = "CA"), 
     plotLayout="bar" ) + 
   xlab("Group") + ylab("Score") + labs(title="Correlation and difference-adjusted\n95\% CI") +
-  coord_cartesian( ylim = c(85,115) ) + 
-  geom_hline(yintercept = 100, colour = "black", linewidth = 0.5, linetype=2)
+  coord_cartesian( ylim = c(85,120) ) + 
+  geom_hline(yintercept = 100, colour = "black", linewidth = 0.5, linetype=2)+
+  showSignificance( c(0.5, 2.5), 115, -1, "highly significant!!!", 
+                    segmentParams = list( colour = "chartreuse3" ) )
 plt2  <- grid.arrange(plt2a,plt2b,ncol=2)
 
 ## realise the correct t-test to see the discrepancy

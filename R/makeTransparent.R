@@ -1,7 +1,7 @@
 ######################################################################################
 #' @title makes ggplots with transparent elements
 #'
-#' @description makeTransparent is an extension to ggplots
+#' @description `makeTransparent()` is an extension to ggplots
 #'      which makes all the elements of the plot transparent
 #'      except the data being displayed. This is useful to 
 #'      superimpose multiple plots, e.g. to generate plots with
@@ -14,10 +14,9 @@
 #' # make a basic plot
 #' superb(len ~ dose + supp, ToothGrowth ) 
 #' # make a basic plot with transparent elements
-#' superb(len ~ dose + supp, ToothGrowth,  
-#'   ) + makeTransparent()
+#' superb(len ~ dose + supp, ToothGrowth) + makeTransparent()
 #'
-#' @return does not return anything; set the elements to transparent.
+#' @return does not return anything new; set the elements of the current plot to transparent.
 #'
 #' @export makeTransparent
 ######################################################################################

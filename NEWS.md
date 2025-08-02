@@ -1,32 +1,35 @@
-# superb 1.0.0 (anytime soon)
+# superb 1.0.0 (August 10,2025)
 
 * Codename: 100% confident;
-* Celebrating the fourth anniversary of `superb`! 
-* Corrected minor typos in documentations;
+* Celebrating the fourth anniversary of `superb`!
+* Corrected small bug for 4-factor designs within `superb()`;
+* Added a check that long-format within-subject datasets have a single
+  score per cell;
+* Corrected minor typos in documentations.
 
 # superb 0.95.99 (May 2025)
 
-* Added an option to `superbShiny()` to preload graphic directives
+* Added an option to `superbShiny()` to preload graphic directives.
 
 # superb 0.95.23 (January 17th, 2025)
 
 * Codename: living dangerously;
-* Corrected a minor bug when performing Bartlett test
+* Corrected a minor bug when performing Bartlett test;
 * EXPERIMENTAL: Made allowance to accept namespace::function to the 
   statistics functions. Useful if the function may be masked 
   by other packages declaring functions with the same name;
 * Updated options so that EXPERIMENTAL messages can be inhibited;
-* Added `range(low, high)` to the `GRD()`'s `Instrument` specification.
-* Made "line" the default `plotLayout` instead of "bar"
-* Deprecated `plotStyle` in favor of `plotLayout`;
+* Added `range(low, high)` to the `GRD()`'s `Instrument` specification;
+* Made "line" the default `plotLayout` instead of "bar";
+* Deprecated `plotStyle` in favor of `plotLayout`.
 
 # superb 0.95.22 (December 30th, 2024)
 
 * Minor bug to `superbToWide()`: if a missing subject was the
-  first of a group, that was converting to long poorly with `reshape()`.
+  first of a group, that was converting to long poorly with `reshape()`;
 * Modified `GRD()` to generate within-subject factors with the first 
   factor cycling more rapidly. This is consistent with `dcast()` and
-  other long-to-wide functions;
+  other long-to-wide functions.
 
 # superb 0.95.21 (December 4th, 2024)
 
@@ -38,30 +41,30 @@
 
 # superb 0.95.20 (November 26th, 2024)
 
-* Added one validation to `GRD()` to exclude DV same as IV.
+* Added one validation to `GRD()` to exclude DV same as IV;
 * Added `Instrument` to `GRD()` to handle instrument-specific impacts
   on the generated scores (for example, the instrument may have
-  only a limited precision)
+  only a limited precision).
   
 # superb 0.95.19 (October 31st, 2024)
 
-* Codename: Spooky
-* Remove deprecated arguments in ggplot2 >=3.5.0
-* Added circular layouts for radar plots with error bars
-* Cleaned a bit the documentation
-* Upgraded a bit the ReadMe page
-* Caught a bug in `GRD()` when more than 9 levels where used on an effect
+* Codename: Spooky;
+* Remove deprecated arguments in ggplot2 >=3.5.0;
+* Added circular layouts for radar plots with error bars;
+* Cleaned a bit the documentation;
+* Upgraded a bit the ReadMe page;
+* Caught a bug in `GRD()` when more than 9 levels where used on an effect;
 * Cleaned a bit the `geom_superberrorbar()` and added the possibility to 
   have two distinct colors in the vertical part of the error bar.
 
 # superb 0.95.18 (October 15th, 2024)
 
-* Corrected a bug with ``geom_superberrorbar()``
+* Corrected a bug with ``geom_superberrorbar()``.
 
 # superb 0.95.17 (September 31th, 2024)
 
-* Added ``superb()``, a formula-based function.
-* Modified separator from '_' to '.' in `superbToWide()`
+* Added ``superb()``, a formula-based function;
+* Modified separator from '_' to '.' in `superbToWide()`.
 
 # superb 0.95.16 (September 13th, 2024)
 
@@ -74,28 +77,28 @@
 
 # superb 0.95.14 (August 11th, 2024)
 
-* Updated the use of & vs. && according to new R credo
-* Corrected a bug related to LD adjustment in mixed designs
+* Updated the use of & vs. && according to new R credo;
+* Corrected a bug related to LD adjustment in mixed designs.
 
 # superb 0.95.13 (August 3rd, 2024)
 
-* Modified violin plots so that half-violins can be displayed
-* The `violinParams` now includes 
+* Modified violin plots so that half-violins can be displayed;
+* The `violinParams` now includes:
   - direction (+1= left-half; -1=right-half; 0=symmetrical);
-  - push (to translate half away from the medial line)
+  - push (to translate half away from the medial line);
   - with these modifications, corset plots can be made easily
-    by superimposing a violin plot with halves and individualline plot
+    by superimposing a violin plot with halves and individualline plot.
 
 # superb 0.95.12 (May 30th, 2024)
 
-* Revise FYI message for un-balanced between-group designs
-* Corrected a small bug for un-balanced within-subject designs
-* Added a check for correlations on data without variance
+* Revise FYI message for un-balanced between-group designs;
+* Corrected a small bug for un-balanced within-subject designs;
+* Added a check for correlations on data without variance.
 
 # superb 0.95.11 (May 7th, 2024)
 
-* Added local decorrelation with option "LDr" where r is the radius.
-* Small correction to `lineBand` without between-subject factors
+* Added local decorrelation with option "LDr" where r is the radius;
+* Small correction to `lineBand` without between-subject factors.
 
 # superb 0.95.10 (March 9th, 2024)
 
@@ -103,14 +106,14 @@
 
 # superb 0.95.9 (February 8th, 2024)
 
-* Added a new plot layout, `boxplot`, to display box plots.
-* Adjusted testthat tests following new release of ggplot2
-* Added unitaryAlpha technique to compute average correlation
+* Added a new plot layout, `boxplot`, to display box plots;
+* Adjusted testthat tests following new release of ggplot2;
+* Added unitaryAlpha technique to compute average correlation;
 * Simplified documentation for within-subject designs.
 
 # superb 0.95.83 (November 11th, 2023)
 
-* Made a message shown based on option
+* Made a message shown based on option.
 
 # superb 0.95.82 (August 19th, 2023)
 
@@ -125,20 +128,20 @@
 * Added `superbToWide()` to ease the conversion to wide format
 * A few tiny corrections to the documentation
 * Updated references
-* Note that updates are spaced more and more as the library is now very stable
+* Note that updates are spaced more and more as the library is now very stable.
 
 # superb 0.95.7 (January 19th, 2023)
 
-* Added pairwise deletion for the computation of the mean correlation in case of missing data with CA
-* Removed ggplot2 depleted functions "aes_string" in favor of "aes"
-* Removed ggplot2 depleted attribute "size" in favor of "linewidth"
-* Added the `lineBand` plot in the Shiny interface
+* Added pairwise deletion for the computation of the mean correlation in case of missing data with CA;
+* Removed ggplot2 depleted functions "aes_string" in favor of "aes";
+* Removed ggplot2 depleted attribute "size" in favor of "linewidth";
+* Added the `lineBand` plot in the Shiny interface.
 
 # superb 0.95.6 (December 24th, 2022)
 
-* Added documentation related to plotting frequencies
-* Harmonized a bit the other vignettes' format.
-* Updated version in shinyapps.io
+* Added documentation related to plotting frequencies;
+* Harmonized a bit the other vignettes' format;
+* Updated version in shinyapps.io.
 
 # superb 0.95.5 (November 18th, 2022)
 

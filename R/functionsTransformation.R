@@ -5,10 +5,10 @@
 #'
 #' @md
 #'
-#' @description `twoStepTransform` is a transformation that can
+#' @description `twoStepTransform()` is a transformation that can
 #'  be applied to a matrix of data. The resulting matrix is both 
 #'  subject-centered and bias corrected, a technique called
-#'  the CM technique \insertCite{b12,c05,m08}{superb}
+#'  the CM technique \insertCite{b12,c05,m08,oc14}{superb}
 #'
 #' @param dta a data.frame containing the data in wide format;
 #' @param variables a vector of column names on which the transformation will be applied.
@@ -44,7 +44,7 @@ twoStepTransform <- function(dta, variables) {
 #'
 #' @md
 #'
-#' @description `subjectCenteringTransform` is a transformation that can
+#' @description `subjectCenteringTransform()` is a transformation that can
 #'  be applied to a matrix of data. the resulting matrix have means
 #'  that are centered on the grand mean, subject-wise \insertCite{c05}{superb}.
 #'
@@ -79,9 +79,9 @@ subjectCenteringTransform <- function(dta, variables) {
 #'
 #' @md
 #'
-#' @description `biasCorrectionTransform`  is a transformation that can
+#' @description `biasCorrectionTransform()`  is a transformation that can
 #'  be applied to a matrix of data. The resulting matrix's variance
-#'  is corrected for bias \insertCite{m08}{superb}
+#'  is corrected for bias \insertCite{m08,b12,co14}{superb};
 #'
 #' @param dta a data.frame containing the data in wide format;
 #' @param variables a vector of column names on which the transformation will be applied.
@@ -116,7 +116,7 @@ biasCorrectionTransform <- function(dta, variables) {
 #'
 #' @md
 #'
-#' @description `poolSDTransform`  is a transformations that can
+#' @description `poolSDTransform()`  is a transformations that can
 #'  be applied to a matrix of data. The resulting matrix has the column-
 #'  standard deviations equal to the pool standard deviations of the 
 #'  individual columns, the solution adopted by \insertCite{lm94}{superb}.

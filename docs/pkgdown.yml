@@ -1,5 +1,5 @@
 pandoc: 3.6.2
-pkgdown: 2.1.1
+pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   CustomizingSuperbPlots: CustomizingSuperbPlots.html
@@ -21,7 +21,7 @@ articles:
   VignetteF: VignetteF.html
   VignetteG: VignetteG.html
   VignetteH: VignetteH.html
-last_built: 2025-05-25T16:33Z
+last_built: 2025-08-02T01:05Z
 urls:
   reference: http://dcousin3.github.io/superb/reference
   article: http://dcousin3.github.io/superb/articles

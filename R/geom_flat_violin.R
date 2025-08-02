@@ -13,13 +13,12 @@
 #'
 #' @description ``geom_flat_violin()`` is a geom for ggplots; it is based on 
 #'      the original script to create  raincloud plots.
-#' It relies largely on code previously written by David Robinson
-#' (https://gist.github.com/dgrtwo/eb7750e74997891d7c20)
-#' and the package ggplot2 by Hadley Wickham.
-#'
+#' It relies largely on [this code](https://gist.github.com/dgrtwo/eb7750e74997891d7c20) 
+#'    previously written by David Robinson and the package ggplot2 by Hadley Wickham.
+#' 
 #' Code from \insertCite{allen2019;textual}{superb}
 #'
-#' It is expanded in tow different ways. First, it is possible to
+#' It is expanded in two different ways. First, it is possible to
 #' decide the direction of the violin using the `direction` argument    
 #' (values are 0 = symmetrical; 1 = extending to the right; -1 = extending
 #' to the left); the last two cases are "half"-violin. The second
@@ -37,8 +36,8 @@
 #'    proportionally to the number of observations. If "width", all
 #'    violins have the same maximum width.
 #' @param ... all additional parameters are sent to the underlying `geom_path()`. It includes
-#'    * ``direction`` (NEW) either -1,0, or +1;
-#'    * ``push`` (NEW) a positive number.
+#'    * ``direction``  either -1,0, or +1;
+#'    * ``push``  a positive number.
 #'    * ``na.rm`` (as usual) see `geom_violin()`
 #'    * ``orientation`` (as usual) see `geom_violin()`
 #' @param show.legend (as usual) see `geom_violin()`
@@ -91,7 +90,7 @@
 #' dta <- transform(dta, dir = ifelse(Vacations == "no", 1, -1))
 #' 
 #' ggplot(dta, aes(y = tiredeness, x = Vacations, direction = dir ) ) +
-#'     geom_flat_violin( fill = "green", push =0.)
+#'     geom_flat_violin( fill = "green", push =0.2)
 #'
 #' @references
 #' \insertAllCited{}

@@ -18,6 +18,7 @@ vignette: >
 cat("this will be hidden; use for general initializations.\n")
 library(superb)
 library(ggplot2)
+options( "superb.feedback" = c('none') )
 ```
 
 The package ``superb`` facilitates the production of 
@@ -159,7 +160,7 @@ superb(
     WSFactors = "Moment(3)",
     adjustments = list(purpose = "difference"),
     plotLayout = "line"
-    )
+)
 ```
 
 ```{r, message=FALSE, echo=FALSE, fig.alt="mean+-95%CI", fig.height=3, fig.width=4, fig.cap="**Figure 2**. Mean scores along with difference-adjusted 95% confidence interval per week for a program to stop smoking."}

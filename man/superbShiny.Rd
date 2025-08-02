@@ -8,8 +8,8 @@ superbShiny(graphicDirectives = NULL)
 }
 \arguments{
 \item{graphicDirectives}{(optional) used to set graphic directives from the command line.
-This is useful for in-class demonstrations where the ylim() range should be set before
-reaching the last step of the GIU.}
+This is useful for in-class demonstrations where the \code{ylim()} range should be set before
+reaching the last step of the interface.}
 }
 \value{
 A plot that can be cut-and-paste.
@@ -23,7 +23,7 @@ Also see this \href{https://www.youtube.com/watch?v=rw_6ll5nVus/}{video}
 from \insertCite{w21}{superb} for a demo using
 the shinyapps.io installation accessible at
 \href{https://dcousin3.shinyapps.io/superbshiny/}{dcousin3.shinyapps.io/superbshiny}
-Limitations: it is not possible to use custom-made statistics with the
+Limitations: it is neither possible to use custom-made statistics with the
 graphical user interface, nor is it possible to request an adjustment for cluster-
 randomized sampling. These options are available with \code{superb()}.
 }
@@ -34,7 +34,14 @@ if (interactive())
    superbShiny() 
 }
 
+# Example with two graphic directives given 
+\donttest{
+if (interactive())
+   superbShiny( "ylim(65,135)+theme_bw()" )
+}
+
+
 }
 \references{
-\insertAllCited{}
+\insertAllCited
 }

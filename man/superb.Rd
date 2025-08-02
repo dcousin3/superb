@@ -39,12 +39,14 @@ groups, horizontal panels, vertical panels)}
 \item{statistic}{The summary statistic function to use as a string}
 
 \item{errorbar}{The function that computes the error bar. Should be "CI" or "SE" or
-any function name if you defined a custom function. Default to "CI"}
+any function name if you defined a custom function (see
+\code{vignette("Vignette4", package = "superb")}).
+Default to "CI"}
 
 \item{gamma}{The coverage factor; necessary when \code{errorbar == "CI"}. Default is 0.95.}
 
 \item{adjustments}{List of adjustments as described below.
-Default is \code{adjustments = list(purpose = "single", popSize = Inf,  decorrelation = "none", samplingDesign = "SRS")}}
+Default is \code{adjustments = list(purpose = "single",  decorrelation = "none", samplingDesign = "SRS",  popSize = Inf)}}
 
 \item{showPlot}{Defaults to TRUE. Set to FALSE if you want the output to be the summary
 statistics and intervals.}
@@ -64,8 +66,8 @@ contains the cluster membership}
 
 \item{...}{In addition to the parameters above, superbPlot also accept a number of
 optional arguments that will be transmitted to the plotting function, such as
-pointParams (a list of ggplot2 parameters to input inside geoms; see ?geom_bar2) and
-errorbarParams (a list of ggplot2 parameters for geom_errorbar; see ?geom_errorbar)}
+\code{pointParams} (a list of ggplot2 parameters to input inside geoms; see \code{?geom_bar2}) and
+\code{errorbarParams} (a list of ggplot2 parameters for geom_errorbar; see \code{?geom_errorbar})}
 }
 \value{
 a plot with the correct error bars or a table of those summary statistics.
@@ -85,11 +87,10 @@ long and wide format.
 \details{
 The possible adjustements are the following
 \itemize{
-\item popsize: Size of the population under study. Defaults to Inf
-\item purpose: The purpose of the comparisons. Defaults to "single".
+\item \code{purpose}: The purpose of the comparisons. Defaults to "single".
 Can be "single", "difference", or "tryon".
-\item decorrelation: Decorrelation method for repeated measure designs.
-Chooses among the methods "CM", "LM", "CA", "UA", "LDr" (with r an integer) or "none".
+\item \code{decorrelation}: Decorrelation method for repeated measure designs.
+Chooses among the methods "CM", "LM", "CA", "UA", "LDr" (with \emph{r} a positive integer) or "none".
 Defaults to "none". "CA" is correlation-adjusted \insertCite{c19}{superb};
 "CM" is Cousineau-Morey \insertCite{b12}{superb}; "LM" is Loftus and Masson
 \insertCite{lm94}{superb};
@@ -97,7 +98,8 @@ Defaults to "none". "CA" is correlation-adjusted \insertCite{c19}{superb};
 see \insertCite{lc22}{superb}).
 "LDr" is local decorrelation (useful for long time series with autoregressive
 correlation structures; see \insertCite{cppf24}{superb}).
-\item samplingDesign: Sampling method to obtain the sample. implemented
+\item \code{popsize}: Size of the population under study. Defaults to Inf
+\item \code{samplingDesign}: Sampling method to obtain the sample. implemented
 sampling is "SRS" (Simple Randomize Sampling) and "CRS"
 (Cluster-Randomized Sampling).
 }
@@ -113,7 +115,7 @@ or for wide format, using cbind() or crange() notation, e.g.,
 \item \code{superb( crange(DV.1.1, DV.2.3) ~ . , dta, WSFactors = c("a(2)","b(3)"))}
 }
 
-The layouts for plots are the following:
+The avaialble \code{plotLayout} are the following:
 \itemize{
 \item These are basic plots:
 \itemize{
@@ -143,13 +145,12 @@ flipped \code{+coord_flip()}
 \item "circularpointjitter" Shows summary statistics and error bars but also jittered dots;
 \item "circularpointlinejitter" Same as previous layout, but connect the points with lines.
 New layouts are added from times to time.
-Personalized layouts can also be created (see Vignette5).
+Personalized layouts can also be created (see
+\code{vignette("Vignette5", package = "superb")})
 }
 }
 }
 \examples{
-######################################################################
-
 # Basic example using a built-in dataframe as data. 
 # By default, the mean is computed and the error bar are 95\% confidence intervals
 superb(len ~ dose + supp, ToothGrowth) 
@@ -170,7 +171,7 @@ superb(len ~ dose + supp, ToothGrowth) +
 xlab("Dose") + ylab("Tooth Growth") +
 theme_bw()
 
-######################################################################
+
 
 # The following examples are based on repeated measures
 library(gridExtra)
@@ -193,7 +194,7 @@ superb(extra ~ group | ID, sleep,
 # The error bars shortened as the correlation is substantial (r = .795).
 
 
-######################################################################
+
 
 # Another example: The Orange data
 # This example contains 5 trees whose diameter (in mm) has been measured at various age (in days):
@@ -215,11 +216,11 @@ p2 <- superb( circumference ~ age | Tree, Orange,
 # You can present both plots side-by-side
 grid.arrange(p1, p2, ncol=2)
 
-######################################################################
+
 
 
 
 }
 \references{
-\insertAllCited{}
+\insertAllCited
 }

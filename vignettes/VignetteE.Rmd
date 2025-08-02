@@ -24,7 +24,7 @@ options(superb.feedback = 'none')
 # Adding labels to your superb plot
 
 It is possible to add labels to your plot. For example, adding the score 
-above a bar. This is done using the `geom_text` graphic directive from
+above a bar. This is done using the `geom_text()` graphic directive from
 `ggplot2` library.
 
 Two situations are possible:
@@ -155,7 +155,7 @@ t + geom_text(aes(x=factor(dose), y=len, label=firstnames),
 
 # In summary
 
-Labels can be added with the usual `geom_text` graphic directives. Additional 
+Labels can be added with the usual `geom_text()` graphic directives. Additional 
 information can be found regarding this method.
 
 

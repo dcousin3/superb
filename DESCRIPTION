@@ -1,8 +1,8 @@
 Package: superb
 Type: Package
 Title: Summary Plots with Adjusted Error Bars
-Version: 0.95.99
-Date: 2025-05-25
+Version: 1.0.0
+Date: 2025-08-01
 Authors@R: c(
              person("Denis", "Cousineau", email = "denis.cousineau@uottawa.ca",
                     role = c("aut", "cre")),
@@ -19,7 +19,7 @@ Author: Denis Cousineau [aut, cre],
     Jesika Walker [art, pre]
 Maintainer: Denis Cousineau <denis.cousineau@uottawa.ca>
 BugReports: https://github.com/dcousin3/superb/issues/
-URL: http://dcousin3.github.io/superb https://cran.r-project.org/web/packages/superb/index.html
+URL: https://github.com/dcousin3/superb/, https://CRAN.R-project.org/package=superb, https://dcousin3.github.io/superb/
 Description: 
     Computes standard error and confidence interval of various descriptive statistics under 
     various designs and sampling schemes. The main function, superb(), return a plot. It can 
@@ -31,6 +31,7 @@ Description:
     <doi:10.3758/s13428-011-0123-7>, Cousineau & Laurencelle (2016) <doi:10.1037/met0000055>,
     Cousineau & O'Brien (2014) <doi:10.3758/s13428-013-0441-z>, Calderini & Harding 
     <doi:10.20982/tqmp.15.1.p001> for specific references.
+    The documentation is available at <https://dcousin3.github.io/superb/> .
 License: GPL-3
 Encoding: UTF-8
 VignetteBuilder: knitr
@@ -39,6 +40,7 @@ RoxygenNote: 7.3.2
 Depends:
     R (>= 4.1.0)
 Imports: 
+    Rdpack (>= 0.7),
     methods,
     utils,
     stats,
@@ -51,8 +53,7 @@ Imports:
     reshape2,
     shiny,
     shinyBS,
-    rrapply,
-    Rdpack (>= 0.7)
+    rrapply
 Suggests: 
     psych,
     rlang,

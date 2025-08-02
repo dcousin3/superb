@@ -29,10 +29,10 @@ fisherkurtosis(x)
 a summary statistic describing the sample.
 }
 \description{
-superb adds a few summary statistics that can
+\code{superb} adds a few summary statistics that can
 be used to characterize a dataset. All comes with \code{SE.fct()} and \code{CI.fct()}.
 See \insertCite{htc14,htc15}{superb} for more.
-\emph{superbPlot-compatible} summary statistics functions must have one parameter:
+\emph{superb-compatible} summary statistics functions must have a single vector parameter:
 }
 \examples{
 # the confidence interval of the mean for default 95\% and 90\% confidence level

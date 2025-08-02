@@ -51,7 +51,7 @@ and the proportion of contaminant (default 0)}
 of the measurement instrument (at this time, its precision and range only)­.}
 }
 \value{
-a data.frame with the simulated scores.
+a \code{data.frame()} with the simulated scores.
 }
 \description{
 The function \code{GRD()} generates a data frame containing
@@ -62,7 +62,7 @@ presented in \insertCite{ch19;textual}{superb}.
 }
 \note{
 Note that the \code{range} effect specification has been renamed
-\code{extent} to avoid masking the base function \code{base::range}.
+\code{extent} to avoid masking the base function \code{base::range()}.
 }
 \examples{
  # Simplest example using all the default arguments: 
@@ -132,8 +132,8 @@ Note that the \code{range} effect specification has been renamed
          "difficulty*gender"=custom(-300,+200,-100,0,0,0) 
      ) 
  )
- 
- 
+
+
  # This last example creates a single group dataset,
  # The instrument is assumed to return readings to 
  # plus or minus 0.1 only
@@ -144,9 +144,11 @@ Note that the \code{range} effect specification has been renamed
          precision = 0.1, range = c(-100,+100)
      ) 
  )
- 
- 
+
+
 }
 \references{
+\insertAllCited
+
 \insertAllCited{}
 }

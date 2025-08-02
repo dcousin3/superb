@@ -57,7 +57,7 @@ test_that("TESTS (3/4)", {
     options("superb.feedback" = c('design','warnings','summary'))
 })
 
-test_that("TESTS (3/4)", {
+test_that("TESTS (4/4)", {
 	old <- options() 
 	on.exit(options(old)) 
     options("superb.feedback" = 'none')
@@ -74,3 +74,43 @@ test_that("TESTS (3/4)", {
     # restores default information
     options("superb.feedback" = c('design','warnings','summary'))
 })
+
+test_that("TESTS (5/4...)", {
+	old <- options() 
+	on.exit(options(old)) 
+    options("superb.feedback" = 'none')
+
+    #### emulate within-subject dataset
+    dta <- GRD( 
+        BSFactors = c("Factor(4)","Replication(2)"),
+        Population = list( mean = 100, stddev = 15),
+        Effects = list( Factor = extent(10) )
+    )
+    dta$id <- ((dta$id-1) %% 100)+1
+
+    # works ok as replication is taken into account
+    superb( DV ~ Factor + Replication  | id,
+        dta,
+        adjustments = list (decorrelation = 'none', purpose = 'difference'),
+        errorbar = 'CI',
+        plotLayout = 'line',
+        errorbarParams = list (linewidth = 0.5, color = 'black'),
+        pointParams = list (size = 3, color = 'black')
+       ) + theme_bw()
+
+    # should return a message as replication is left unspecified
+    expect_message( superb( DV ~ Factor  | id,
+        dta,
+        adjustments = list (decorrelation = 'none', purpose = 'difference'),
+        errorbar = 'CI',
+        plotLayout = 'line',
+        errorbarParams = list (linewidth = 0.5, color = 'black'),
+        pointParams = list (size = 3, color = 'black')
+       ) + theme_bw() )
+
+
+    # restores default information
+    options("superb.feedback" = c('design','warnings','summary'))
+})
+
+

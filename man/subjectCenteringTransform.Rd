@@ -19,7 +19,7 @@ This function is useful when passed to the argument \code{preprocessfct} of \cod
 where it performs a modification of the data matrix.
 }
 \description{
-\code{subjectCenteringTransform} is a transformation that can
+\code{subjectCenteringTransform()} is a transformation that can
 be applied to a matrix of data. the resulting matrix have means
 that are centered on the grand mean, subject-wise \insertCite{c05}{superb}.
 }

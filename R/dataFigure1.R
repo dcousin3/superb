@@ -35,16 +35,20 @@
 #'     adjustments=list(purpose = "single"), 
 #'     plotLayout="bar" ) + 
 #'   xlab("Group") + ylab("Score") + labs(title="95% CI\n") +
-#'   coord_cartesian( ylim = c(85,115) ) +
-#'   geom_hline(yintercept = 100, colour = "black", linewidth = 0.5, linetype=2)
+#'   coord_cartesian( ylim = c(85,120) ) +
+#'   geom_hline(yintercept = 100, colour = "black", linewidth = 0.5, linetype=2) +
+#'   showSignificance( c(0.5, 2.5), 115, -1, "significant???", 
+#'                     segmentParams = list( colour = "red" ) )
 #' plt1b <- superb(
 #'     score ~ grp, 
 #'     dataFigure1, 
 #'     adjustments=list(purpose = "difference"), 
 #'     plotLayout="bar" ) + 
 #'   xlab("Group") + ylab("Score") + labs(title="Difference-adjusted 95% CI\n") +
-#'   coord_cartesian( ylim = c(85,115) ) + 
-#'   geom_hline(yintercept = 100, colour = "black", linewidth = 0.5, linetype=2)
+#'   coord_cartesian( ylim = c(85,120) ) + 
+#'   geom_hline(yintercept = 100, colour = "black", linewidth = 0.5, linetype=2)+
+#'   showSignificance( c(0.5, 2.5), 115, -1, "Not significant!", 
+#'                     segmentParams = list( colour = "chartreuse3" ) )
 #' plt1  <- grid.arrange(plt1a,plt1b,ncol=2)
 #' 
 #' ## realise the correct t-test to see the discrepancy

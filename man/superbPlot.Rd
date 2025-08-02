@@ -66,7 +66,7 @@ contains the cluster membership}
 
 \item{...}{In addition to the parameters above, superbPlot also accept a number of
 optional arguments that will be transmitted to the plotting function, such as
-pointParams (a list of g`lot2 parameters to input inside geoms; see ?geom_bar2) and
+pointParams (a list of gglot2 parameters to input inside geoms; see ?geom_bar2) and
 errorbarParams (a list of ggplot2 parameters for geom_errorbar; see ?geom_errorbar)}
 }
 \value{
@@ -118,8 +118,6 @@ notation "namespace::funcname" in the \code{statistic} argument. The same namesp
 for the errorbar function.
 }
 \examples{
-######################################################################
-
 # Basic example using a built-in dataframe as data. 
 # By default, the mean is computed and the error bar are 95\% confidence intervals
 superbPlot(ToothGrowth, BSFactors = c("dose", "supp"), 
@@ -146,7 +144,7 @@ superbPlot(ToothGrowth, BSFactors = c("dose", "supp"),
 xlab("Dose") + ylab("Tooth Growth") +
 theme_bw()
 
-######################################################################
+
 
 # The following examples are based on repeated measures
 library(gridExtra)
@@ -177,7 +175,7 @@ superbPlot(sleep2,
 # The error bars shortened as the correlation is substantial (r = .795).
 
 
-######################################################################
+
 
 # Another example: The Orange data
 data(Orange)
@@ -207,7 +205,7 @@ p2 <- superbPlot( Orange.wide, WSFactors = "age(7)",
 # You can present both plots side-by-side
 grid.arrange(p1, p2, ncol=2)
 
-######################################################################
+
 
 
 }

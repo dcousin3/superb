@@ -5,9 +5,10 @@
 #'
 #' @description The function ``suberbToWide()`` is an extension to Navarro's WideToLong function
 #'      with ample checks to make sure all is legit, so that the data 
-#'      is suitably organized for ``suberb``. See \insertRef{cgh21}{superb} for more.
+#'      is suitably organized for ``suberb``. See \insertCite{cgh21;textual}{superb} for more.
 #'      Other techniques are available to transform long to wide, but many asked for 
-#'      it within `superb`.
+#'      this function to ship within `superb`. Note that with the function `superb()`
+#'      and a formula, there really is no need anymore to use `superbToWide()`.
 #'
 #' @param data      Dataframe in long format
 #' @param id        A column with unique identifiers per subject
@@ -19,7 +20,7 @@
 #'      variables will be erased.
 #'
 #' @references
-#' \insertAllCited{}
+#'   \insertAllCited
 #'
 #' @examples
 #' library(ggplot2)
@@ -57,7 +58,7 @@
 #'
 #' @export superbToWide
 #' @importFrom utils capture.output
-#  ####@importFrom stats reshape # not anymore, bugging with missings
+#' @importFrom Rdpack reprompt
 #' @importFrom reshape2 dcast
 #
 ######################################################################################
@@ -77,35 +78,35 @@ superbToWide <- function(data,       # long format
 	data <- as.data.frame(data) # coerce to data.frame if tibble or compatible
 
     if(!(is.data.frame(data)))
-        stop("superb::ERROR: data is not a data.frame or similar data structure. Exiting...")
+        stop("superb::error(61): data is not a data.frame or similar data structure. Exiting...")
 	if (is.null(data))
-		stop("superb::ERROR: No data, so do nothing. Exiting...")
+		stop("superb::error(62): No data, so do nothing. Exiting...")
 
     # 1.2: checking empty within-subject factors or id columns
     if (is.null(WSFactors) || length(WSFactors)==0 ) 
-		stop("superb::ERROR: No within-subject factor so nothing to do. Exiting...")
+		stop("superb::error(63): No within-subject factor so nothing to do. Exiting...")
     if (is.null(id) || length(id)==0 ) 
-		stop("superb::ERROR: No identifier column provided. Exiting...")
+		stop("superb::error(64): No identifier column provided. Exiting...")
 
 	# 1.2: checking invalid factors
     if (!(all(id %in% names(data)))) 
-        stop("superb::ERROR: The id column is not found in data. Exiting...")
+        stop("superb::error(65): The id column is not found in data. Exiting...")
     if (!(all(BSFactors %in% names(data)))) 
-        stop("superb::ERROR: One of the BSFactors column is not found in data. Exiting...")
+        stop("superb::error(66): One of the BSFactors column is not found in data. Exiting...")
     if (!(all(WSFactors %in% names(data)))) 
-        stop("superb::ERROR: One of the WSFactors column is not found in data. Exiting...")
+        stop("superb::error(67): One of the WSFactors column is not found in data. Exiting...")
 
 	# 1.3: checking invalid dependent variable 
     complement <- function(x, U) {U[is.na(pmatch(U,x))]}
 	if (is.null(variable)) {
 		if (length(complement( WSFactors, names(data) ) !=1) ) {
-			stop("suberb::ERROR: Unable to determine which is the dependent variable. Use 'variable' argument. Exiting...")
+			stop("superb::error(68): Unable to determine which is the dependent variable. Use 'variable' argument. Exiting...")
 		} else {
 			variable = complement( WSFactors, names(data) )
 		}
 	}
 	if (!(variable %in% names(data))) 
-		stop("superb::ERROR: The dependent variable column is not a column in data. Exiting...")
+		stop("superb::error(69): The dependent variable column is not a column in data. Exiting...")
 
 	# 1.4: preserving only the relevant variables...
 	data <- data[ c(id, BSFactors, WSFactors, variable) ]
@@ -123,10 +124,22 @@ superbToWide <- function(data,       # long format
     # STEP 2: We're all good. Lets do the reshaping
     ##################################################################################
 
+    ## in case there is more than one line for a cell of the design, use
+    ## average, but send a warning (only once) as this is unexpected...
+    temp <- new.env(parent = emptyenv())
+    temp$warningseen  <- FALSE
+    agg <- function(vals) {
+        if ((length(vals)>1)&(!temp$warningseen)) {
+            temp$warningseen  <- TRUE
+            message("superb::WARNING(71): The dataframe contains multiple lines for the content of a cell; 'mean' is used, but you should check that this is what you want..."); 
+        }
+        mean(vals)
+    }
     frm <- paste(paste(c(id, BSFactors), collapse="+"), 
                   paste(WSFactors, collapse="+"), 
                   sep="~")
-    res <- reshape2::dcast( data, frm, value.var = variable )
+    res <- reshape2::dcast( data, frm, value.var = variable, fun.aggregate = agg )
+    remove(temp)
 
     # building the column names is the more complicated part...
     if (length(WSFactors) > 1) { # concatenate the factor levels in a single column 'within'

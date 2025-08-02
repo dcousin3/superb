@@ -35,10 +35,13 @@
 #'      of the measurement instrument (at this time, its precision and range only)­.
 #'
 #'
-#' @return a data.frame with the simulated scores.
+#' @return a `data.frame()` with the simulated scores.
 #'
 #' @note Note that the \code{range} effect specification has been renamed
-#'    \code{extent} to avoid masking the base function \code{base::range}.
+#'    \code{extent} to avoid masking the base function \code{base::range()}.
+#'
+#' @references
+#'   \insertAllCited
 #'
 #' @examples
 #'  # Simplest example using all the default arguments: 
@@ -108,8 +111,8 @@
 #'          "difficulty*gender"=custom(-300,+200,-100,0,0,0) 
 #'      ) 
 #'  )
-#'  
-#'  
+#'
+#'
 #'  # This last example creates a single group dataset,
 #'  # The instrument is assumed to return readings to 
 #'  # plus or minus 0.1 only
@@ -120,11 +123,11 @@
 #'          precision = 0.1, range = c(-100,+100)
 #'      ) 
 #'  )
-#'  
-#'  
+#'
+#'
 #' @references
 #' \insertAllCited{} 
-#' 
+#'
 #' @importFrom Rdpack reprompt
 #' @export GRD
 #' @import stats

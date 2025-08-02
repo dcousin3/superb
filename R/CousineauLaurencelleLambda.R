@@ -3,13 +3,13 @@
 #'
 #' @md
 #'
-#' @description The functions CousineauLaurencelleLambda() returns the correction factor
+#' @description The functions `CousineauLaurencelleLambda()` returns the correction factor
 #'   for cluster-randomized sampling. This correction is then used
 #'   in a variety of ways, for example, to get the effective number of
 #'   participants (in a power study) or to correct a t-test.
 #'   See \insertCite{cl16}{superb}.
 #' 
-#' @param paramvector A vector with, in that order, the intra-class correlation r, 
+#' @param paramvector A vector with, in that order, the intra-class correlation \eqn{r}, 
 #'   the number of clusters, then the number of participants in all the clusters.
 #'
 #' @return lambda the correction factor for cluster-randomized sampling.

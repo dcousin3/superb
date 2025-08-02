@@ -330,8 +330,8 @@ far is ``"line"`` (the default is ``"bar"``). Another basic style is ``"point"``
 connecting the means). 
 
 Other types of plot exists that are apt at showing the summary statistics but also
-the individual scores (the [6th Vignette]
-(https://dcousin3.github.io/superb/articles/Vignette6.html) shows how to 
+the individual scores (the 
+[6th Vignette](https://dcousin3.github.io/superb/articles/Vignette6.html) shows how to 
 develop custom-made layouts). 
 For illustrating individual differences, a style proposed is ``pointindividualline``
 which --- as per Figure 1--- will show the individual scores along with the summary

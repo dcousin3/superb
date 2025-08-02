@@ -60,6 +60,8 @@ repeated-measure variables).
 The function \code{suberbData()} computes standard error or confidence interval for various descriptive
 statistics under various designs, sampling schemes, population size and purposes,
 according to the \code{suberb} framework. See \insertCite{cgh21}{superb} for more.
+The functions \code{superb(..., showPlot = FALSE)} is now the entry point
+to obtain the summary statistics and error bar as numbers.
 }
 \details{
 The possible adjustements are the following

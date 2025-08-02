@@ -39,8 +39,8 @@ violins have the same maximum width.}
 
 \item{...}{all additional parameters are sent to the underlying \code{geom_path()}. It includes
 \itemize{
-\item \code{direction} (NEW) either -1,0, or +1;
-\item \code{push} (NEW) a positive number.
+\item \code{direction}  either -1,0, or +1;
+\item \code{push}  a positive number.
 \item \code{na.rm} (as usual) see \code{geom_violin()}
 \item \code{orientation} (as usual) see \code{geom_violin()}
 }}
@@ -51,13 +51,12 @@ a layer containing violins in a ggplot object
 \description{
 \code{geom_flat_violin()} is a geom for ggplots; it is based on
 the original script to create  raincloud plots.
-It relies largely on code previously written by David Robinson
-(https://gist.github.com/dgrtwo/eb7750e74997891d7c20)
-and the package ggplot2 by Hadley Wickham.
+It relies largely on \href{https://gist.github.com/dgrtwo/eb7750e74997891d7c20}{this code}
+previously written by David Robinson and the package ggplot2 by Hadley Wickham.
 
 Code from \insertCite{allen2019;textual}{superb}
 
-It is expanded in tow different ways. First, it is possible to
+It is expanded in two different ways. First, it is possible to
 decide the direction of the violin using the \code{direction} argument
 (values are 0 = symmetrical; 1 = extending to the right; -1 = extending
 to the left); the last two cases are "half"-violin. The second
@@ -108,7 +107,7 @@ ggplot(dta, aes(y = tiredeness, x = Vacations ) ) +
 dta <- transform(dta, dir = ifelse(Vacations == "no", 1, -1))
 
 ggplot(dta, aes(y = tiredeness, x = Vacations, direction = dir ) ) +
-    geom_flat_violin( fill = "green", push =0.)
+    geom_flat_violin( fill = "green", push =0.2)
 
 }
 \references{

@@ -1,6 +1,6 @@
 #' Data for Figure 4
 #'
-#' The data, inspired from \insertCite{c17}{superb}, shows an example where the
+#' The data, inspired from \insertCite{c17;textual}{superb}, shows an example where the
 #' "stand-alone" 95\% confidence interval of the means returns
 #' a result in contradiction with the result of a statistical test.
 #' The paradoxical result is resolved by using adjusted confidence intervals,
@@ -35,16 +35,20 @@
 #'     adjustments=list(purpose = "single", popSize = Inf), 
 #'     plotLayout="bar" ) + 
 #'   xlab("Group") + ylab("Score") + labs(title="Difference-adjusted 95% CI\n") +
-#'   coord_cartesian( ylim = c(85,115) ) +
-#'   geom_hline(yintercept = 100, colour = "black", linewidth = 0.5, linetype=2)
+#'   coord_cartesian( ylim = c(85,120) ) +
+#'   geom_hline(yintercept = 100, colour = "black", linewidth = 0.5, linetype=2)+
+#'   showSignificance( c(0.5, 1.5), 115, -1, "not significant???", 
+#'                     segmentParams = list( colour = "red" ) )
 #' plt4b = superb(
 #'     score ~ group,
 #'     dataFigure4, 
 #'     adjustments=list(purpose = "single", popSize = 50 ), 
 #'     plotLayout="bar" ) + 
 #'   xlab("Group") + ylab("Score") + labs(title="Population size and difference-\nadjusted 95% CI") +
-#'   coord_cartesian( ylim = c(85,115) ) + 
-#'   geom_hline(yintercept = 100, colour = "black", linewidth = 0.5, linetype=2)
+#'   coord_cartesian( ylim = c(85,120) ) + 
+#'   geom_hline(yintercept = 100, colour = "black", linewidth = 0.5, linetype=2)+
+#'   showSignificance( c(0.5, 1.5), 115, -1, "highly significant!!!", 
+#'                     segmentParams = list( colour = "chartreuse3" ) )
 #' plt4 = grid.arrange(plt4a,plt4b,ncol=2)
 #' 
 #' ## realise the correct t-test to see the discrepancy

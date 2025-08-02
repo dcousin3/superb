@@ -21,15 +21,18 @@
 #'
 #' @param statistic The summary statistic function to use as a string
 #' @param errorbar The function that computes the error bar. Should be "CI" or "SE" or 
-#'      any function name if you defined a custom function. Default to "CI"
+#'      any function name if you defined a custom function (see 
+#'      \code{vignette("Vignette4", package = "superb")}). 
+#'      Default to "CI"
 #' @param gamma The coverage factor; necessary when ``errorbar == "CI"``. Default is 0.95.
 #' @param factorOrder Order of factors as shown in the graph (in that order: x axis,
 #'       groups, horizontal panels, vertical panels)
 #'
 #' @param adjustments List of adjustments as described below.
-#'      Default is ``adjustments = list(purpose = "single", popSize = Inf, 
+#'      Default is ``adjustments = list(purpose = "single", 
 #'                       decorrelation = "none",
-#'                       samplingDesign = "SRS")``
+#'                       samplingDesign = "SRS", 
+#'                       popSize = Inf)``
 #' @param clusterColumn used in conjunction with samplingDesign = "CRS", indicates which column 
 #'    contains the cluster membership
 #'
@@ -45,19 +48,18 @@
 #'
 #' @param ...  In addition to the parameters above, superbPlot also accept a number of 
 #'  optional arguments that will be transmitted to the plotting function, such as
-#'  pointParams (a list of ggplot2 parameters to input inside geoms; see ?geom_bar2) and
-#'  errorbarParams (a list of ggplot2 parameters for geom_errorbar; see ?geom_errorbar)
+#'  `pointParams` (a list of ggplot2 parameters to input inside geoms; see `?geom_bar2`) and
+#'  `errorbarParams` (a list of ggplot2 parameters for geom_errorbar; see `?geom_errorbar`)
 #'
 #' @return a plot with the correct error bars or a table of those summary statistics.
 #'         The plot is a ggplot2 object with can be modified with additional declarations.
 #'
 #'
 #' @details The possible adjustements are the following
-#' * popsize: Size of the population under study. Defaults to Inf
-#' * purpose: The purpose of the comparisons. Defaults to "single". 
+#' * `purpose`: The purpose of the comparisons. Defaults to "single". 
 #'      Can be "single", "difference", or "tryon".
-#' * decorrelation: Decorrelation method for repeated measure designs. 
-#'      Chooses among the methods "CM", "LM", "CA", "UA", "LDr" (with r an integer) or "none".  
+#' * `decorrelation`: Decorrelation method for repeated measure designs. 
+#'      Chooses among the methods "CM", "LM", "CA", "UA", "LDr" (with _r_ a positive integer) or "none".  
 #'      Defaults to "none". "CA" is correlation-adjusted \insertCite{c19}{superb};
 #'      "CM" is Cousineau-Morey \insertCite{b12}{superb}; "LM" is Loftus and Masson
 #'      \insertCite{lm94}{superb};
@@ -65,7 +67,8 @@
 #'      see \insertCite{lc22}{superb}).
 #'      "LDr" is local decorrelation (useful for long time series with autoregressive 
 #'      correlation structures; see \insertCite{cppf24}{superb}).
-#' * samplingDesign: Sampling method to obtain the sample. implemented 
+#' * `popsize`: Size of the population under study. Defaults to Inf
+#' * `samplingDesign`: Sampling method to obtain the sample. implemented 
 #'          sampling is "SRS" (Simple Randomize Sampling) and "CRS" 
 #'          (Cluster-Randomized Sampling).
 #'
@@ -76,7 +79,7 @@
 #' * `superb( cbind(DV.1.1, DV.2.1,DV.1.2, DV.2.2,DV.1.3, DV.2.3) ~ . , dta, WSFactors = c("a(2)","b(3)"))`
 #' * `superb( crange(DV.1.1, DV.2.3) ~ . , dta, WSFactors = c("a(2)","b(3)"))`
 #'
-#' The layouts for plots are the following:
+#' The avaialble `plotLayout` are the following:
 #' * These are basic plots:
 #'     * "bar" Shows the summary statistics with bars and error bars;
 #'     * "line" Shows the summary statistics with lines connecting the conditions 
@@ -100,14 +103,13 @@
 #'     * "circularpointjitter" Shows summary statistics and error bars but also jittered dots;
 #'     * "circularpointlinejitter" Same as previous layout, but connect the points with lines.
 #' New layouts are added from times to time.
-#' Personalized layouts can also be created (see Vignette5).
+#' Personalized layouts can also be created (see 
+#'   \code{vignette("Vignette5", package = "superb")})
 #'
 #' @references
-#' \insertAllCited{}
+#'   \insertAllCited
 #'
 #' @examples
-#' ######################################################################
-#'
 #' # Basic example using a built-in dataframe as data. 
 #' # By default, the mean is computed and the error bar are 95% confidence intervals
 #' superb(len ~ dose + supp, ToothGrowth) 
@@ -128,7 +130,7 @@
 #' xlab("Dose") + ylab("Tooth Growth") +
 #' theme_bw()
 #'
-#' ######################################################################
+#' 
 #'
 #' # The following examples are based on repeated measures
 #' library(gridExtra)
@@ -151,7 +153,7 @@
 #' # The error bars shortened as the correlation is substantial (r = .795).
 #' 
 #' 
-#' ######################################################################
+#' 
 #' 
 #' # Another example: The Orange data
 #' # This example contains 5 trees whose diameter (in mm) has been measured at various age (in days):
@@ -173,11 +175,12 @@
 #' # You can present both plots side-by-side
 #' grid.arrange(p1, p2, ncol=2)
 #'
-#' ######################################################################
+#' 
 #' 
 #'
 ###################################################################################
 #'
+#' @importFrom Rdpack reprompt
 #' @export superb
 #'
 ###################################################################################
@@ -234,15 +237,15 @@ superb <- function(
 
     # 1.0: Are the data actually data?
     if(!(is.data.frame(data)))
-            stop("superb::error(10): Argument `data` is not a data.frame or similar data structure. Exiting...")
+            stop("superb::ERROR(50): Argument `data` is not a data.frame or similar data structure. Exiting...")
 
     # 1.1: Is the formula actually a formula?
     if (!is.formula(formula)) 
-        stop("superb::error(11): Argument `formula` is not a legitimate formula. Exiting...")
+        stop("superb::ERROR(51): Argument `formula` is not a legitimate formula. Exiting...")
 
     # 1.2: has the formula 1 or more DV?
     if (is.one.sided( formula )) {
-            stop("superb::error(12): Argument `formula` has no DV. Exiting...")
+            stop("superb::ERROR(52): Argument `formula` has no DV. Exiting...")
     }
 
     # 1.3: are the columns named in the formula present in the data?
@@ -250,13 +253,13 @@ superb <- function(
 	ALLvars <- ALLvars[!(ALLvars == ".")] # remove .
 
     if (!(all(ALLvars %in% names(data)))) 
-        stop("superb::error(13): Variables in `formula` are not all in `data`. Exiting...")
+        stop("superb::ERROR(53): Variables in `formula` are not all in `data`. Exiting...")
 
 	# 1.4: If wide format with repeated-measures, are the WSFactors given?
 	if ((has.cbind.terms(formula)) && is.null(WSFactors)) 
-		stop("superb::error(14): Argument `WSFactors` must be defined in wide format with repeated measures Exiting...")
+		stop("superb::ERROR(54): Argument `WSFactors` must be defined in wide format with repeated measures Exiting...")
     if ((has.nested.terms(formula))&& !is.null(WSFactors))
-        stop("superb::error(16): If the format is long (as suggested by |), you must not specify argument `WSFactors`. Exiting...")
+        stop("superb::ERROR(56): If the format is long (as suggested by |), you must not specify argument `WSFactors`. Exiting...")
 
     # 1.6: Keep only the columns named
     data <- data[, names(data) %in% c(ALLvars,clusterColumn),  drop=FALSE]
@@ -331,7 +334,8 @@ superb <- function(
         # Widen the data file
         data <- superbToWide( data, IDvar, BSfacts, WSfacts, DVvars)
         # ALLvars must be reactualized...
-        DVvars <- names(data)[!(names(data)==IDvar)&!(names(data)==if(is.null(BSfacts)) "" else BSfacts)]
+        BSfacts2 <- if(is.null(BSfacts)) "" else BSfacts
+        DVvars <- names(data)[!(names(data)==IDvar)&!(names(data) %in% BSfacts2)]
         # print("File has been widened...")
     } else {
         # print("nothing to do...")
@@ -382,7 +386,7 @@ getAfterNested <- function(frm) {
 	if (length(f[[3]]) == 1) {
 		v1 <- f[[3]]
 	} else {
-        stop("superb::error(15): Only a single identifier allowed past |. Exiting...")
+        stop("superb::ERROR(55): Only a single identifier allowed past |. Exiting...")
 	}
 	return( paste(v1)  )
 }

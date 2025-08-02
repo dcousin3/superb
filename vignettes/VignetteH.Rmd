@@ -39,10 +39,10 @@ indicators' order is arbitrary, the incentive to use an horizontal axis is not
 as strong. An alternative to a cartesian coordinate system is a polar (or radial)
 coordinate system.
 
-In polar coordinates, the (x, y) couples are not associated to a specific cell in a 
-grid determined by a left-right position given by x and an up-down position given by y.
-Instead, the (x, y) couples have a location given by an angle given by x, and by a radius
-(distance to the center) given by y.
+In polar coordinates, the $(x, y)$ couples are not associated to a specific cell in a 
+grid determined by a left-right position given by $x$ and an up-down position given by $y$.
+Instead, the $(x, y)$ couples have a location given by an angle given by $x$, and by a radius
+(distance to the center) given by $y$.
 
 When the points are connected, they can be connected by curves following the curves space. 
 in that case, we call such line plot a _polar_ plot. On the other hand, when the points are

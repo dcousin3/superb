@@ -30,9 +30,10 @@ variables will be erased.
 \description{
 The function \code{suberbToWide()} is an extension to Navarro's WideToLong function
 with ample checks to make sure all is legit, so that the data
-is suitably organized for \code{suberb}. See \insertRef{cgh21}{superb} for more.
+is suitably organized for \code{suberb}. See \insertCite{cgh21;textual}{superb} for more.
 Other techniques are available to transform long to wide, but many asked for
-it within \code{superb}.
+this function to ship within \code{superb}. Note that with the function \code{superb()}
+and a formula, there really is no need anymore to use \code{superbToWide()}.
 }
 \examples{
 library(ggplot2)
@@ -70,5 +71,5 @@ superb( DV ~ age | Tree, Orange )
 
 }
 \references{
-\insertAllCited{}
+\insertAllCited
 }

@@ -19,15 +19,15 @@ the confidence interval (CI) where the \code{t} value is based on the custom-set
 }
 \description{
 The following function computes a confidence interval with
-custom degree of freedom. The default is to use N-1 but this number is not
-quite appropriate. To get the exact critical value which is used to construct
+custom degree of freedom. The default is to use \eqn{N-1} but this number is not
+always appropriate. To get the exact critical value from which to construct
 the confidence interval, it is necessary to ``pool'' the degrees of freedom.
 This last expression means that the degree of freedom is the total number of
 data minus 1 for each condition except the last, and minus 1 for each participant
-except the last. In formula, if the number of repeated measures is $p$,
-the number of participants is $n$, and the total sample size is $N$ (with
-$N = p x n$, then the
-pooled degree of freedom is $(p-1) x (n-1)$ or equivalently $N -p-n+1$.
+except the last. In formula, if the number of repeated measures is \eqn{p},
+the number of participants is \eqn{n}, and the total sample size is \eqn{N} (with
+\eqn{N = p x n}, then the
+pooled degree of freedom is \eqn{(p-1) \times (n-1)} or equivalently \eqn{N -p-n+1}.
 Another example where custom degree of freedom can be used is when there are
 heterogeneous variances,
 the confidence interval of the mean should mirror a Welsh test where the

@@ -19,10 +19,10 @@ This function is useful when passed to the argument \code{preprocessfct} of \cod
 where it performs a modification of the data matrix.
 }
 \description{
-\code{twoStepTransform} is a transformation that can
+\code{twoStepTransform()} is a transformation that can
 be applied to a matrix of data. The resulting matrix is both
 subject-centered and bias corrected, a technique called
-the CM technique \insertCite{b12,c05,m08}{superb}
+the CM technique \insertCite{b12,c05,m08,oc14}{superb}
 }
 \references{
 \insertAllCited{}

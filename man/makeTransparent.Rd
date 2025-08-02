@@ -7,10 +7,10 @@
 makeTransparent()
 }
 \value{
-does not return anything; set the elements to transparent.
+does not return anything new; set the elements of the current plot to transparent.
 }
 \description{
-makeTransparent is an extension to ggplots
+\code{makeTransparent()} is an extension to ggplots
 which makes all the elements of the plot transparent
 except the data being displayed. This is useful to
 superimpose multiple plots, e.g. to generate plots with
@@ -21,7 +21,6 @@ multiple error bars for example.
 # make a basic plot
 superb(len ~ dose + supp, ToothGrowth ) 
 # make a basic plot with transparent elements
-superb(len ~ dose + supp, ToothGrowth,  
-  ) + makeTransparent()
+superb(len ~ dose + supp, ToothGrowth) + makeTransparent()
 
 }

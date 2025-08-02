@@ -27,29 +27,29 @@ geom_superberrorbar(
 
 \item{...}{all additional parameters are sent to the underlying geom_path. Includes
 \itemize{
-\item \code{pointing} (NEW) either "up", "down" or "both" up and down;
-\item \code{direction} (NEW) "left", "right" or "both" (Default is "both")
-\item \code{tipformat} (NEW) "single", "double" or "triple" to add additional
+\item \code{pointing} either "up", "down" or "both" up and down (default is "both");
+\item \code{direction}  "left", "right" or "both" (Default is "both")
+\item \code{tipformat}  "single", "double" or "triple" to add additional
 marker lines to the tips (default is "single")
-\item \code{tipgap} (NEW) The spacing between the markers when "double" or "triple" is used (default 0.1)
-\item \code{vcolour} (NEW) for the vertical part of the error bar
-\item \code{wcolour} (NEW) if specified, for the second half of the vertical part of the error bar.
+\item \code{tipgap} The spacing between the markers when "double" or "triple" is used (default 0.1)
+\item \code{vcolour} for the vertical part of the error bar
+\item \code{wcolour} if specified, for the second half of the vertical part of the error bar.
 }}
 
-\item{na.rm}{(as usual) see geom_errorbar}
+\item{na.rm}{(as usual) see \code{geom_errorbar()}}
 
-\item{orientation}{(as usual) see geom_errorbar}
+\item{orientation}{(as usual) see \code{geom_errorbar()}}
 
-\item{show.legend}{(as usual) see geom_errorbar}
+\item{show.legend}{(as usual) see \code{geom_errorbar()}}
 
-\item{inherit.aes}{(as usual) see geom_errorbar}
+\item{inherit.aes}{(as usual) see \code{geom_errorbar()}}
 }
 \value{
 a layer containing error bars in a ggplot object
 }
 \description{
 \code{geom_superberrorbar()} is a geom for ggplots; it is based on
-the original geom_errorbar (and is totally compatible with it) but
+the original \code{geom_errorbar()} (and is totally compatible with it) but
 expands this geom in four different ways. First, it is possible to
 decide the error bar tips \code{direction} which can be unidirectional, pointing to
 the "left" or to the "right" or go in "both" directions.
@@ -127,7 +127,7 @@ plt2 <- superb(
             test, 
             WSFactors = "Moment(5)",  
             adjustments=list(purpose = "difference", decorrelation = "CA"), 
-            errorbarParams = list(direction = "right", tipgap = 0.25, tipformat = "double", 
+            errorbarParams = list(direction = "right", tipgap = 0.40, tipformat = "double", 
                                   width = 0.2, position = position_nudge(+0.05) ),
             gamma     = 0.99,
             plotLayout = "line" ) + ornate 
@@ -175,6 +175,7 @@ ggplot(data = dat,
                            pointing = point, 
                            wcolour = vcolo,  
                            vcolour = "green",
+                           tipgap = 0.40,
                            tipformat = tipfo
        ), 
        width = 4)

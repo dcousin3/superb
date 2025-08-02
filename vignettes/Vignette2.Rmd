@@ -206,8 +206,8 @@ are homogeneous
 are inhomogeneous. It replaces the $\sqrt{2}$ correction factor by a 
 factor $2 \times E$ based on the heterogeneity of the variances. In the
 case where the error bars are roughly homogeneous, there is no visible 
-difference with ``"difference"``. See[Vignette  7]
-(https://dcousin3.github.io/superb/articles/Vignette7.html) for more
+difference with ``"difference"``. See 
+[Vignette  7](https://dcousin3.github.io/superb/articles/Vignette7.html) for more
 
 The option ``"single"`` is used if the purpose is obtain "stand-alone" 
 error bars or error bars that are to be compared to an *a priori* 

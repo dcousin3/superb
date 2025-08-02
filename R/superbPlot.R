@@ -39,7 +39,7 @@
 #'
 #' @param ...  In addition to the parameters above, superbPlot also accept a number of 
 #'  optional arguments that will be transmitted to the plotting function, such as
-#'  pointParams (a list of g`lot2 parameters to input inside geoms; see ?geom_bar2) and
+#'  pointParams (a list of gglot2 parameters to input inside geoms; see ?geom_bar2) and
 #'  errorbarParams (a list of ggplot2 parameters for geom_errorbar; see ?geom_errorbar)
 #'
 #'
@@ -86,8 +86,6 @@
 #' \insertAllCited{}
 #'
 #' @examples
-#' ######################################################################
-#'
 #' # Basic example using a built-in dataframe as data. 
 #' # By default, the mean is computed and the error bar are 95% confidence intervals
 #' superbPlot(ToothGrowth, BSFactors = c("dose", "supp"), 
@@ -114,7 +112,7 @@
 #' xlab("Dose") + ylab("Tooth Growth") +
 #' theme_bw()
 #'
-#' ######################################################################
+#' 
 #'
 #' # The following examples are based on repeated measures
 #' library(gridExtra)
@@ -145,7 +143,7 @@
 #' # The error bars shortened as the correlation is substantial (r = .795).
 #' 
 #' 
-#' ######################################################################
+#' 
 #' 
 #' # Another example: The Orange data
 #' data(Orange)
@@ -175,7 +173,7 @@
 #' # You can present both plots side-by-side
 #' grid.arrange(p1, p2, ncol=2)
 #'
-#' ######################################################################
+#' 
 #' 
 ######################################################################################
 #'
@@ -224,7 +222,7 @@ superbPlot <- function(data,
     # 1.0: are the data actually data!
 	data <- as.data.frame(data) # coerce to data.frame if tibble or compatible
     if(!(is.data.frame(data)))
-            stop("superb::ERROR: data is not a data.frame or similar data structure. Exiting...")
+            stop("superb::ERROR(1): data is not a data.frame or similar data structure. Exiting...")
 
     # 1.1: missing adjustements
     if(is.null(adjustments$purpose))        {adjustments$purpose        <- "single"}
@@ -234,31 +232,31 @@ superbPlot <- function(data,
 
     # 1.2: unknown adjustments listed
     if (!all(names(adjustments) %in% c("purpose","popSize","decorrelation","samplingDesign")))
-            stop("superb::ERROR: one of the adjustment is unknown. Exiting...")
+            stop("superb::ERROR(2): one of the adjustment is unknown. Exiting...")
 
     # 1.3: invalid choice in a list of possible choices
     if (is.character(adjustments$popSize)||!(all(adjustments$popSize >0)))  
-            stop("superb::ERROR: popSize should be a positive number or Inf (or a list of these). Exiting...")
+            stop("superb::ERROR(3): popSize should be a positive number or Inf (or a list of these). Exiting...")
     if (!(adjustments$purpose %in% c("single","difference","tryon"))) 
-            stop("superb::ERROR: Invalid purpose. Did you mean 'difference'? Exiting...")
+            stop("superb::ERROR(4): Invalid purpose. Did you mean 'difference'? Exiting...")
     if (!(substr(adjustments$decorrelation,1,2) %in% c("no","CM","LM","CA","UA","LD"))) 
-            stop("superb::ERROR: Invalid decorrelation method. Did you mean 'CM'? Exiting...")
+            stop("superb::ERROR(5): Invalid decorrelation method. Did you mean 'CM'? Exiting...")
     if (substr(adjustments$decorrelation,1,2) == "LD") {
             radius <- suppressWarnings(as.integer(substr(adjustments$decorrelation, 3, 100)))
             if ((is.na(radius))||(radius<1))
-                stop("superb::ERROR: radius given to LD not an integer or is smaller than 1. Exiting...")
+                stop("superb::ERROR(6): radius given to LD not an integer or is smaller than 1. Exiting...")
     }
     if (!(adjustments$samplingDesign %in% c("SRS","CRS"))) 
-            stop("superb::ERROR: Invalid samplingDesign. Did you mean 'SRS'? Exiting...")
+            stop("superb::ERROR(7): Invalid samplingDesign. Did you mean 'SRS'? Exiting...")
 
     # 1.4a: innapropriate choice for between-subject specifications
     bsLevels <- dim(unique(data[BSFactors]))[1]
     if (!(length(adjustments$popSize) %in% c(1,bsLevels))) 
-        stop("superb::ERROR: popSize is a list whose length does not match the number of groups. Exiting...")
+        stop("superb::ERROR(8): popSize is a list whose length does not match the number of groups. Exiting...")
     
     # 1.4b: invalid within-subject factors
     if (any(unlist(gregexpr("\\w\\((\\d+)\\)", WSFactors))== -1))
-        stop("superb::ERROR: One of the repeated-measure factor not properly formed 'name(nlevel)'. Exiting...")
+        stop("superb::ERROR(9): One of the repeated-measure factor not properly formed 'name(nlevel)'. Exiting...")
     wsMissing <- "DummyWithinSubjectFactor"
     wsLevels <- c(1)
     if (is.null(WSFactors)) {
@@ -283,33 +281,33 @@ superbPlot <- function(data,
     # 1.4d: checking WSFactors based on WSDesign
     if (all(WSDesign == "fullfactorial")) {
         if (!(length(variables) == wslevel)) 
-                stop("superb::ERROR: The number of levels of the within-subject level(s) does not match the number of variables. Exiting...")
+                stop("superb::ERROR(10): The number of levels of the within-subject level(s) does not match the number of variables. Exiting...")
         if ((wslevel == 1)&&(!(adjustments$decorrelation == "none"))) 
-                stop("superb::ERROR: Decorrelation is not to be used when there is no within-subject factors. Exiting...")
+                stop("superb::ERROR(11): Decorrelation is not to be used when there is no within-subject factors. Exiting...")
     } else {
         if (!is.list(WSDesign) )
-                    stop("superb::ERROR: the WSdesign is not 'fullfactorial' (default) or a list. Exiting...")
+                    stop("superb::ERROR(12): the WSdesign is not 'fullfactorial' (default) or a list. Exiting...")
         if (length(WSDesign) != length(variables))
-                    stop("superb::ERROR: the WSDesign list is not of the same length as the variable vector. Exiting...")
+                    stop("superb::ERROR(13): the WSDesign list is not of the same length as the variable vector. Exiting...")
         if (!all(lapply(WSDesign, length)==length(WSFactors)))
-                    stop("superb::ERROR: the WSDesign does not contain vectors of factor levels, one per factor. Exiting...")
+                    stop("superb::ERROR(14): the WSDesign does not contain vectors of factor levels, one per factor. Exiting...")
     }
 
     # 1.5: invalid column names where column names must be listed
     if (!(all(variables %in% names(data)))) 
-            stop("superb::ERROR: One of the variable column is not found in data. Exiting...")
+            stop("superb::ERROR(15): One of the variable column is not found in data. Exiting...")
     if (!(all(BSFactors %in% names(data)))) 
-            stop("superb::ERROR: One of the BSFactors column is not found in data. Exiting...")
+            stop("superb::ERROR(16): One of the BSFactors column is not found in data. Exiting...")
 
     # 1.6: invalid inputs
     if (length(factorOrder[factorOrder != wsMissing] ) > 4)
-            stop("superb::ERROR: Too many factors named on factorOrder. Maximum 4. Exiting...")
+            stop("superb::ERROR(17): Too many factors named on factorOrder. Maximum 4. Exiting...")
     if (length(factorOrder[factorOrder != wsMissing]) < length(WSFactors[WSFactors != wsMissing]) + length(BSFactors)) 
-            stop("superb::ERROR: Too few factors named on factorOrder. Exiting...")
+            stop("superb::ERROR(18): Too few factors named on factorOrder. Exiting...")
     if ((gamma[1] <0)||(gamma[1]>1))
-            stop("superb::ERROR: gamma is not within 0 and 1. Exiting...")
+            stop("superb::ERROR(19): gamma is not within 0 and 1. Exiting...")
     if (!is.logical(showPlot))
-            stop("superb::ERROR: showPlot must be TRUE or FALSE. Exiting...")
+            stop("superb::ERROR(20): showPlot must be TRUE or FALSE. Exiting...")
 
     # 1.7: align levels and corresponding variables
     weird        <-"+!+" # should make sure that these characters are not in the column names
@@ -351,18 +349,18 @@ superbPlot <- function(data,
         package1  <- statfunc[1]  # before ::
         statfunc <- statfunc[2]
         if ('experimental' %in% getOption("superb.feedback")) 
-            message("superb::EXPERIMENTAL: statistic given with namespace ", package1, "::", statfunc)
+            message("superb::EXPERIMENTAL(1): statistic given with namespace ", package1, "::", statfunc)
     }
     widthfunc <- strsplit(errorbar, "::")[[1]]
     if (length(widthfunc) == 2) {
         package2  <- widthfunc[1] # before ::
         errorbar  <- widthfunc[2]
         if ('experimental' %in% getOption("superb.feedback")) 
-            message("superb::EXPERIMENTAL: errorbar given with namespace ",package2, "::", errorbar)
+            message("superb::EXPERIMENTAL(2): errorbar given with namespace ",package2, "::", errorbar)
     }
     # if both have a namespace, they must match
     if ( (!is.null(package1)) & (!is.null(package2)) ) {
-        if (package1 != package2 ) message("superb::WARNING: The namespace given to `errorbar` does not match the namespace given to `statistic`. Ignoring...")
+        if (package1 != package2 ) message("superb::WARNING(1): The namespace given to `errorbar` does not match the namespace given to `statistic`. Ignoring...")
     }
 
     # drop in globalenv() the summary statistic function
@@ -400,33 +398,31 @@ superbPlot <- function(data,
 
 
 
-
-#    if ( !(is.stat.function(statistic)) )
+    # 1.9a: testing valid statistic functions
     if ( !(is.stat.function("superbSTATISTIC")) )
-            stop("superb::ERROR: The function ", statistic, " is not a known descriptive statistic function. Exiting...")
-#    if ( !(is.errorbar.function(widthfct)) )
+            stop("superb::ERROR(21): The function ", statistic, " is not a known descriptive statistic function. Exiting...")
     if ( !(is.errorbar.function("superbERRORBAR")) )
-            stop("superb::ERROR: The function ", widthfct, " is not a known function for error bars. Exiting...")
+            stop("superb::ERROR(22): The function ", widthfct, " is not a known function for error bars. Exiting...")
 
-    # 1.9: testing valid plot function
+    # 1.9b: testing valid plot function
     if (!is.null(plotStyle)) {
-        message("superb::DEPRECATED: The argument `plotStyle` is deprecated; favor the argument `plotLayout`. Continuing...")
+        message("superb::DEPRECATED(1): The argument `plotStyle` is deprecated; favor the argument `plotLayout`. Continuing...")
         plotLayout <- plotStyle
     }
     pltfct <- paste("superbPlot", plotLayout, sep = ".")
     if ( !(is.superbPlot.function(pltfct)) )
-            stop("superb::ERROR: The function ", pltfct, " is not a known function for making plots with superbPlot. Exiting...")
+            stop("superb::ERROR(23): The function ", pltfct, " is not a known function for making plots with superbPlot. Exiting...")
 
     # 1.10: if cluster randomized sampling, check that column cluster is set
     if (adjustments$samplingDesign == "CRS") {
         # make sure that column cluster is defined.
         if(!(clusterColumn %in% names(data))) 
-            stop("superb::ERROR: With samplingDesign = \"CRS\", you must specify a valid column with ClusterColumn. Exiting...")
+            stop("superb::ERROR(24): With samplingDesign = \"CRS\", you must specify a valid column with ClusterColumn. Exiting...")
     }
 
     # 1.11: is there missing data in the scores?
     if (any(is.na(data[,variables])) ) {
-        message("superb::WARNING: There are misssing data in your dependent variable(s).\n\tsuperb may show empty summaries... consult help(measuresWithMissingData)")
+        message("superb::WARNING(2): There are misssing data in your dependent variable(s).\n\tsuperb may show empty summaries... consult help(measuresWithMissingData)")
     }
 
     # We're clear to go!
