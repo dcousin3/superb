@@ -1,10 +1,11 @@
-# superb 1.0.0 (August 10,2025)
+# superb 1.0.0 (August 13,2025)
 
 * Codename: 100% confident;
 * Celebrating the fourth anniversary of `superb`!
 * Corrected small bug for 4-factor designs within `superb()`;
 * Added a check that long-format within-subject datasets have a single
   score per cell;
+* Additional argument validations (strings for statistic, errorbar, plotLayout);
 * Corrected minor typos in documentations.
 
 # superb 0.95.99 (May 2025)

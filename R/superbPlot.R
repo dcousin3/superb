@@ -299,7 +299,7 @@ superbPlot <- function(data,
     if (!(all(BSFactors %in% names(data)))) 
             stop("superb::ERROR(16): One of the BSFactors column is not found in data. Exiting...")
 
-    # 1.6: invalid inputs
+    # 1.6: invalid inputs to factorOrder, gamma or showPlot
     if (length(factorOrder[factorOrder != wsMissing] ) > 4)
             stop("superb::ERROR(17): Too many factors named on factorOrder. Maximum 4. Exiting...")
     if (length(factorOrder[factorOrder != wsMissing]) < length(WSFactors[WSFactors != wsMissing]) + length(BSFactors)) 
@@ -339,7 +339,15 @@ superbPlot <- function(data,
         message(temp) 
     }
 
-    # 1.8: testing valid statistic functions 
+    # 1.8: testing that these arguments are valid strings.
+    if (!(is.single.string(statistic))) 
+        stop("superb::ERROR(26): Argument `statistic` must be a quoted string. Exiting...")
+    if (!(is.single.string(errorbar))) 
+        stop("superb::ERROR(27): Argument `errorbar` must be a quoted string. Exiting...")
+    if (!(is.single.string(plotLayout))) 
+        stop("superb::ERROR(28): Argument `plotLayout` must be a quoted string. Exiting...")
+
+
     ###############################################################
     ##### EXPERIMENTAL: segment function from namespace if provided
     ###############################################################
@@ -765,9 +773,7 @@ gA <- function(w, mu, dim) {
 meanLocalCorrelation <- function(X, cols, w) {
     mat <- mycor( X[cols] )
     nrw <- dim(mat)[2]
-    sapply( 1:nrw, 
-            \(i) sum(mat[i,] * gA(w,i,nrw) )
-    )
+    sapply( 1:nrw, \(i) sum(mat[i,] * gA(w,i,nrw) ) )
 }
 # that simple!
 

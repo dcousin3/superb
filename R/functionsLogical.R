@@ -4,6 +4,14 @@
 # logical functions:    
 #################################################################################
 
+# adapted from https://stackoverflow.com/questions/79733763
+is.single.string <- function(fct) { 
+    tryCatch(
+      { is.character(fct) && length(fct) == 1 },
+      error = function(e) { FALSE }
+    )
+}
+
 
 has.init.function <- function(fctname) {
     # does the function has a "init.fctname" initializer?

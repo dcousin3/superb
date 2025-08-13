@@ -1,7 +1,29 @@
 context("Testing suberb()")
 
+test_that("TESTS that the string arguments are indeed string-ed", {
+	old    <- options() 
+	on.exit(options(old)) 
 
-test_that("ALL THE TESTS in one swoop", {
+	options("superb.feedback" = 'none')
+    set.seed(42)
+    dta <- GRD( BSFactors = c("a(2)"))
+    plt <- superb( DV ~ a , dta)
+    print(plt)
+    expect_equal( "ggplot" %in% class(plt), TRUE)
+
+    expect_error( superb( DV ~ a , dta, statistic = mean) )
+    expect_error( superb( DV ~ a , dta, errorbar = CI) )
+    expect_error( superb( DV ~ a , dta, plotLayout = line ) )
+    
+
+    # restores default information
+    options("superb.feedback" = c('design','warnings','summary'))
+})
+
+
+
+
+test_that("TESTS for the various formats", {
 	old    <- options() 
 	on.exit(options(old)) 
 
