@@ -541,9 +541,10 @@ test_that("page 11", {
       )
     )
     expect_equal( dim(dta), c(200,3))
-    suppressWarnings(library(lawstat))
-    tt <- levene.test(dta$DV, dta$Group, location="mean")
-    expect_output( str(tt), "List of 5" )
+    suppressWarnings(library(rstatix))
+    tt <- levene_test(dta, DV ~ factor(Group) )
+    expect_equal( tt$df1, 1 )
+    expect_equal( tt$df2, 198 )
     # restores default information
     options("superb.feedback" = c('design','warnings','summary'))
 })

@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -341,7 +341,7 @@ elements. In the following example, IQ are being simulated with :</p>
 <span><span class="co">##  ------------------------------------------------------------</span></span></code></pre>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">IQ</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Vignette6_files/figure-html/unnamed-chunk-9-1.png" alt="mean+-95%CI" width="288"></p>
+<p><img src="Vignette6_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="mean+-95%CI" width="288"></p>
 <p>(increase the number of participants using
 <code>SubjectsPerGroup</code> to say 10,000, and the bell-shape curve
 will be evident!).</p>
@@ -395,7 +395,7 @@ standard deviation proportional to the group number, as in:</p>
 <span>    <span class="va">DV</span> <span class="op">~</span> <span class="va">Group</span>,</span>
 <span>    <span class="va">dta</span>,</span>
 <span>    plotLayout <span class="op">=</span> <span class="st">"pointjitterviolin"</span> <span class="op">)</span></span></code></pre></div>
-<p><img src="Vignette6_files/figure-html/unnamed-chunk-11-1.png" alt="mean+-95%CI" width="288"></p>
+<p><img src="Vignette6_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" alt="mean+-95%CI" width="288"></p>
 <p>Any valid R instruction could be placed in the <code>scores</code>
 arguments, such as
 <code>scores = "rnorm(1, mean = GM, sd = ifelse(Group==1,10,50) )"</code>
@@ -419,7 +419,7 @@ distributions can also be chosen, as in:</p>
 <span><span class="co">##  ------------------------------------------------------------</span></span></code></pre>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">RT</span>,breaks<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">250</span>,<span class="fl">425</span>,by<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Vignette6_files/figure-html/unnamed-chunk-12-1.png" alt="mean+-95%CI" width="288"></p>
+<p><img src="Vignette6_files/figure-html/unnamed-chunk-12-1.png" class="r-plt" alt="mean+-95%CI" width="288"></p>
 </div>
 <div class="section level3">
 <h3 id="getting-effects-on-one-or-some-of-the-factors">Getting effects on one or some of the factors<a class="anchor" aria-label="anchor" href="#getting-effects-on-one-or-some-of-the-factors"></a>
@@ -455,7 +455,7 @@ second, etc.</p>
 <span>    <span class="va">dta</span>,</span>
 <span>    WSFactors <span class="op">=</span> <span class="st">"Contrast(3)"</span>,</span>
 <span>    plotLayout<span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span></span></code></pre></div>
-<p><img src="Vignette6_files/figure-html/unnamed-chunk-13-1.png" alt="mean+-95%CI" width="288"></p>
+<p><img src="Vignette6_files/figure-html/unnamed-chunk-13-1.png" class="r-plt" alt="mean+-95%CI" width="288"></p>
 <p>Effects can also be any R code manipulating the factors, using
 <code>Rexpression</code>. One example:</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
@@ -484,7 +484,7 @@ second, etc.</p>
 <span>    <span class="va">dta</span>,</span>
 <span>    WSFactors <span class="op">=</span> <span class="st">"Contrast(3)"</span>,</span>
 <span>    plotLayout<span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span></span></code></pre></div>
-<p><img src="Vignette6_files/figure-html/unnamed-chunk-14-1.png" alt="mean+-95%CI" width="288"></p>
+<p><img src="Vignette6_files/figure-html/unnamed-chunk-14-1.png" class="r-plt" alt="mean+-95%CI" width="288"></p>
 <p>Repeated measures can also be generated from a multivariate normal
 distribution with a correlation <code>rho</code>, with, e.g.,</p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
@@ -504,7 +504,7 @@ distribution with a correlation <code>rho</code>, with, e.g.,</p>
 <span><span class="co">##  ------------------------------------------------------------</span></span></code></pre>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">DV.1</span>, <span class="va">dta</span><span class="op">$</span><span class="va">DV.2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Vignette6_files/figure-html/unnamed-chunk-15-1.png" alt="mean+-95%CI" width="288"></p>
+<p><img src="Vignette6_files/figure-html/unnamed-chunk-15-1.png" class="r-plt" alt="mean+-95%CI" width="288"></p>
 <p>In the case of a multivariate normal distribution, the parameters for
 the mean and the standard deviations can be vectors of length equal to
 the number of repeated measures. However, covariances are constants.</p>
@@ -525,7 +525,7 @@ the number of repeated measures. However, covariances are constants.</p>
 <span><span class="co">##  ------------------------------------------------------------</span></span></code></pre>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">DV.1</span>, <span class="va">dta</span><span class="op">$</span><span class="va">DV.2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Vignette6_files/figure-html/unnamed-chunk-16-1.png" alt="mean+-95%CI" width="288"></p>
+<p><img src="Vignette6_files/figure-html/unnamed-chunk-16-1.png" class="r-plt" alt="mean+-95%CI" width="288"></p>
 </div>
 <div class="section level3">
 <h3 id="contaminate-your-samples">Contaminate your samples!<a class="anchor" aria-label="anchor" href="#contaminate-your-samples"></a>
@@ -550,7 +550,7 @@ in the samples:</p>
 <span><span class="co">##  ------------------------------------------------------------</span></span></code></pre>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">DV</span>,breaks<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">25</span>,<span class="fl">300</span>,by<span class="op">=</span><span class="fl">2.5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Vignette6_files/figure-html/unnamed-chunk-17-1.png" alt="mean+-95%CI" width="288"></p>
+<p><img src="Vignette6_files/figure-html/unnamed-chunk-17-1.png" class="r-plt" alt="mean+-95%CI" width="288"></p>
 <p>Contaminants can be normally distributed (as above) or come from any
 theoretical distribution which can be simulated in R:</p>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
@@ -569,7 +569,7 @@ theoretical distribution which can be simulated in R:</p>
 <span><span class="co">##  ------------------------------------------------------------</span></span></code></pre>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">dta</span><span class="op">$</span><span class="va">DV</span>,breaks<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">365</span>,by<span class="op">=</span><span class="fl">2.5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Vignette6_files/figure-html/unnamed-chunk-18-1.png" alt="mean+-95%CI" width="288"></p>
+<p><img src="Vignette6_files/figure-html/unnamed-chunk-18-1.png" class="r-plt" alt="mean+-95%CI" width="288"></p>
 <p>Finally, contaminants can be used to add missing data (missing
 completely at random) with:</p>
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
@@ -648,7 +648,7 @@ Methods for Psychology</em>, <em>11</em>(3), 127–138. <a href="https://doi.org
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
       </footer>

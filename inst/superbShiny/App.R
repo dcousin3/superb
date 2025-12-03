@@ -702,8 +702,12 @@ runAndShowIt <- function( input, output, currentInfo) {
         if (length(errorsC)==0) errorsC <- NULL
 
         if (is.null(errorsC)) {
-            # use the ggplot's + operator
-            resD <- cLogs(ggplot2:::`+.gg`, list( resA$res, resC$res ) )
+            # use the ggplot's + operator: does not exist anymore since version 4.0 replaced by add_gg()
+            if ( as.integer(numeric_version( packageVersion("ggplot2"), strict=TRUE)[1,1])  < 4.0) {
+                resD <- cLogs(ggplot2:::`+.gg`, list( resA$res, resC$res ) )
+            } else {
+                resD <- cLogs(ggplot2::`add_gg`, list( resA$res, resC$res ) )
+            }
 
             errorsD <- resD$logs[resD$logs$type == "error",  ]$content
             if (length(errorsD)==0) errorsD <- NULL

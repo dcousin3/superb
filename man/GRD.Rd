@@ -141,7 +141,7 @@ Note that the \code{range} effect specification has been renamed
      SubjectsPerGroup = 10,
      Population = list(mean=100,stddev=15), 
      Instrument    = list(
-         precision = 0.1, range = c(-100,+100)
+         precision = 0.1, range = c(+0,+200)
      ) 
  )
 

@@ -24,7 +24,7 @@ whose origin is not zero.
 
 In the following, we need the following libraries:
 
-```{r, message=FALSE, warning=FALSE, echo=TRUE, eval=TRUE}
+```{r intro, message=FALSE, warning=FALSE, echo=TRUE, eval=TRUE}
 ## Load relevant packages
 library(superb)             # for superbPlot
 library(ggplot2)            # for all the graphic directives
@@ -51,7 +51,7 @@ following subsection generates mock data.
 
 We generate two sets of mock data from six sets of means and standard deviations:
 
-```{r}
+```{r chunk1}
 Astats <- data.frame(
     MNs = c(6.75, 6.00, 5.50, 6.50, 8.00, 8.75),
     SDs = c(2.00, 3.00, 3.50, 3.50, 1.25, 1.25)
@@ -80,7 +80,7 @@ The datasets are `data.frame`s called `dtaA` and `dtaB`. Their columns names are
 
 For convenience, we make lists of the desired colors and labels we want to appear on the x-axis:
 
-```{r}
+```{r chunk2}
 mycolors <- c("seagreen","chocolate2","mediumpurple3","deeppink","chartreuse4", "darkgoldenrod1")
 mylabels <- c("Verbal", "Numerical", "Spatial", "Creativity", "Intrapersonal", "Interpersonal")
 ```
@@ -340,8 +340,8 @@ on every 20 units:
 # attached the shifted scale to it
 pltA <- pltA + scale_y_continuous(
     trans = shift_trans(720),      # use translated bars
-    limits = c(720,899),           # limit the plot range
-    breaks = seq(720,880,20),      # define major ticks
+    limits = c(720,919),           # limit the plot range
+    breaks = seq(720,900,20),      # define major ticks
     expand = c(0,0) )              # no expansions over the plotting area
 pltA
 ```

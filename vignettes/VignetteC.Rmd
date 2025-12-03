@@ -66,7 +66,8 @@ around these proportions?
 
 ## The arcsine transformation
 
-First proposed by Fisher, the arcsine transform is one way to represent proportions.
+First proposed by Fisher, trigonometric transformation is one way to represent proportions 
+(Fisher proposed `cosine` transform, but later Zubin proposed the `arcsine` transform).
 This transformation stretches the extremities of the domain (near 0% and near 100%)
 so that the sampling variability is constant for any observed proportion. Also, 
 this transformation make the sampling distribution nearly normal so that $z$
@@ -228,7 +229,8 @@ significantly.
 
 Running an analysis of proportions, it indicates the presence of a
 main effect of Group ($F(2,\infty)= 3.06, p = .047$). How to perform 
-an analysis of proportions (ANOPA) is explained in @lc22.
+an analysis of proportions (ANOPA) is explained in @lc22. Analysis of 
+proportion is now implemented in R with the package `ANOPA`.
 
 We see from the plot that the length of the error bars are about all the same,
 suggesting homogeneous variance (because all the sample are of comparable size).

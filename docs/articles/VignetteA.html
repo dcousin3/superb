@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -235,7 +235,7 @@ the 95% confidence interval of the means, with e.g.,</p>
 <span>    gamma     <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>    plotLayout <span class="op">=</span> <span class="st">"line"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="VignetteA_files/figure-html/unnamed-chunk-7-1.png" alt="**Figure 1**. Mean glucose level as a function of concentration." width="384"><p class="caption">
+<img src="VignetteA_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="**Figure 1**. Mean glucose level as a function of concentration." width="384"><p class="caption">
 <strong>Figure 1</strong>. Mean glucose level as a function of
 concentration.
 </p>
@@ -283,7 +283,7 @@ that won’t change the position of the interval.</p>
 <span>    gamma     <span class="op">=</span> <span class="fl">0.95</span>,   <span class="co"># select the coverage desired</span></span>
 <span>    plotLayout <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="VignetteA_files/figure-html/unnamed-chunk-10-1.png" alt="**Figure 2**. Mean glucose level and 95% reference intervals as a function of concentration." width="384"><p class="caption">
+<img src="VignetteA_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" alt="**Figure 2**. Mean glucose level and 95% reference intervals as a function of concentration." width="384"><p class="caption">
 <strong>Figure 2</strong>. Mean glucose level and 95% reference
 intervals as a function of concentration.
 </p>
@@ -335,7 +335,7 @@ see the uncertainty in the top tips of all the RI:</p>
 <span>    gamma     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.95</span>, <span class="fl">0.90</span><span class="op">)</span>,</span>
 <span>    plotLayout <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> </span></code></pre></div>
 <div class="figure">
-<img src="VignetteA_files/figure-html/unnamed-chunk-12-1.png" alt="**Figure 3**. Mean glucose level and 90% confidence intervals of the upper RI tips." width="384"><p class="caption">
+<img src="VignetteA_files/figure-html/unnamed-chunk-12-1.png" class="r-plt" alt="**Figure 3**. Mean glucose level and 90% confidence intervals of the upper RI tips." width="384"><p class="caption">
 <strong>Figure 3</strong>. Mean glucose level and 90% confidence
 intervals of the upper RI tips.
 </p>
@@ -419,7 +419,7 @@ example) and moved them sligtly to the left (position).</p>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html" class="external-link">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">plt2</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html" class="external-link">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">plt3</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="VignetteA_files/figure-html/unnamed-chunk-15-1.png" alt="**Figure 3a**. Mean glucose level and 95% reference intervals with 95% confidence intervals." width="384"><p class="caption">
+<img src="VignetteA_files/figure-html/unnamed-chunk-15-1.png" class="r-plt" alt="**Figure 3a**. Mean glucose level and 95% reference intervals with 95% confidence intervals." width="384"><p class="caption">
 <strong>Figure 3a</strong>. Mean glucose level and 95% reference
 intervals with 95% confidence intervals.
 </p>
@@ -460,7 +460,7 @@ the layout, then superimpose the plots again, as in</p>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html" class="external-link">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">plt2</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html" class="external-link">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">plt3</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="VignetteA_files/figure-html/unnamed-chunk-16-1.png" alt="**Figure 3b**. Jittered dots showing mean glucose level and 95% reference intervals with 95% confidence intervals." width="384"><p class="caption">
+<img src="VignetteA_files/figure-html/unnamed-chunk-16-1.png" class="r-plt" alt="**Figure 3b**. Jittered dots showing mean glucose level and 95% reference intervals with 95% confidence intervals." width="384"><p class="caption">
 <strong>Figure 3b</strong>. Jittered dots showing mean glucose level and
 95% reference intervals with 95% confidence intervals.
 </p>
@@ -490,7 +490,7 @@ that most of them are indeed within the reference intervals.</p>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html" class="external-link">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">plt2</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html" class="external-link">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">plt3</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="VignetteA_files/figure-html/unnamed-chunk-17-1.png" alt="**Figure 3c**. Jittered dots and violins showing mean glucose level and 95% reference intervals with 95% confidence intervals of the tips' position." width="384"><p class="caption">
+<img src="VignetteA_files/figure-html/unnamed-chunk-17-1.png" class="r-plt" alt="**Figure 3c**. Jittered dots and violins showing mean glucose level and 95% reference intervals with 95% confidence intervals of the tips' position." width="384"><p class="caption">
 <strong>Figure 3c</strong>. Jittered dots and violins showing mean
 glucose level and 95% reference intervals with 95% confidence intervals
 of the tips’ position.
@@ -528,7 +528,7 @@ previous three plots:</p>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html" class="external-link">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">plt3</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html" class="external-link">annotation_custom</a></span><span class="op">(</span>grob<span class="op">=</span><span class="va">plt4</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="VignetteA_files/figure-html/unnamed-chunk-19-1.png" alt="**Figure 3d**. Jittered dots and violins showing mean glucose level +-95% confidence intervals of the mean, and 95% reference intervals with 95% confidence intervals." width="384"><p class="caption">
+<img src="VignetteA_files/figure-html/unnamed-chunk-19-1.png" class="r-plt" alt="**Figure 3d**. Jittered dots and violins showing mean glucose level +-95% confidence intervals of the mean, and 95% reference intervals with 95% confidence intervals." width="384"><p class="caption">
 <strong>Figure 3d</strong>. Jittered dots and violins showing mean
 glucose level +-95% confidence intervals of the mean, and 95% reference
 intervals with 95% confidence intervals.
@@ -594,7 +594,7 @@ Pennsylvania 19087-1898, USA.
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
       </footer>

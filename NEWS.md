@@ -1,3 +1,9 @@
+# superb 1.0.1 (November 30th, 2025)
+
+* Regular maintenance after issue of R 4.5
+* Eliminated package lawStat which no longer exists
+* Adapted to modifications in ggplot2 packages >= 4.0.0
+
 # superb 1.0.0 (August 13,2025)
 
 * Codename: 100% confident;

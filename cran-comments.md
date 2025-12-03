@@ -1,12 +1,10 @@
 ## Submission
 
-* Revised updated version 1.0.0
-* Codename: 100% confident
-* Celebrating 4th year of superb
+* Revised updated version 1.0.1
 
 ## Comment
 
-* Clean up the geoms and revised the docs.
+* Maintenance following issue of R 4.5
 
 ## Test environments
 

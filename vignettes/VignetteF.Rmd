@@ -104,7 +104,7 @@ plt1 <- superb(
     statistic = "identity",                     # the raw data as is
     errorbar  = "none",                         # no error bars
     # the following is for the look of the plot
-    lineParams     = list( size = 1.0)          # thicker lines as well
+    lineParams     = list( linewidth = 1.0)          # thicker lines as well
 )
 plt1
 ```
@@ -162,7 +162,7 @@ plt2 <- superb(
     errorbar  = "CI",                                    # its CI define above
     # the following is for the look of the plot
     errorbarParams = list( width =0.5, linewidth =0.75 ),# have thicker error bars
-    lineParams     = list( size = 1.0)                   # thicker lines as well
+    lineParams     = list( linewidth = 1.0)                   # thicker lines as well
 )
 plt2
 ```

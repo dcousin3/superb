@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">superb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -191,7 +191,7 @@ intervals and is obtained with :</p>
 <span>            plotLayout   <span class="op">=</span> <span class="st">"line"</span> <span class="op">)</span> </span>
 <span><span class="va">plt1a</span></span></code></pre></div>
 <div class="figure">
-<img src="TheMakingOf_files/figure-html/unnamed-chunk-3-1.png" alt="**Figure 1a**. Left panel of Figure 1." width="288"><p class="caption">
+<img src="TheMakingOf_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" alt="**Figure 1a**. Left panel of Figure 1." width="288"><p class="caption">
 <strong>Figure 1a</strong>. Left panel of Figure 1.
 </p>
 </div>
@@ -217,7 +217,7 @@ additional ggplot directives in a list:</p>
 <code class="sourceCode R"><span><span class="va">plt1a</span> <span class="op">&lt;-</span> <span class="va">plt1a</span> <span class="op">+</span> <span class="va">ornateBS</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"(stand-alone)\n95% CI"</span><span class="op">)</span></span>
 <span><span class="va">plt1a</span></span></code></pre></div>
 <div class="figure">
-<img src="TheMakingOf_files/figure-html/unnamed-chunk-5-1.png" alt="**Figure 1b**. Decorating left panel of Figure 1." width="288"><p class="caption">
+<img src="TheMakingOf_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="**Figure 1b**. Decorating left panel of Figure 1." width="288"><p class="caption">
 <strong>Figure 1b</strong>. Decorating left panel of Figure 1.
 </p>
 </div>
@@ -232,7 +232,7 @@ intervals:</p>
 <span><span class="va">plt1b</span> <span class="op">&lt;-</span> <span class="va">plt1b</span> <span class="op">+</span> <span class="va">ornateBS</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"Difference-adjusted\n95% CI"</span><span class="op">)</span> </span>
 <span><span class="va">plt1b</span></span></code></pre></div>
 <div class="figure">
-<img src="TheMakingOf_files/figure-html/unnamed-chunk-6-1.png" alt="**Figure 1c**. Making and decorating central panel of Figure 1." width="288"><p class="caption">
+<img src="TheMakingOf_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" alt="**Figure 1c**. Making and decorating central panel of Figure 1." width="288"><p class="caption">
 <strong>Figure 1c</strong>. Making and decorating central panel of
 Figure 1.
 </p>
@@ -249,7 +249,7 @@ Figure 1.
 <span><span class="va">plt1c</span> <span class="op">&lt;-</span> <span class="va">plt1c</span> <span class="op">+</span> <span class="va">ornateBS</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"Difference-adjusted\n95% CI"</span><span class="op">)</span> </span>
 <span><span class="va">plt1c</span></span></code></pre></div>
 <div class="figure">
-<img src="TheMakingOf_files/figure-html/unnamed-chunk-7-1.png" alt="**Figure 1d**. Making and decorating right panel of Figure 1." width="288"><p class="caption">
+<img src="TheMakingOf_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="**Figure 1d**. Making and decorating right panel of Figure 1." width="288"><p class="caption">
 <strong>Figure 1d</strong>. Making and decorating right panel of Figure
 1.
 </p>
@@ -258,7 +258,7 @@ Figure 1.
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">plt1a</span>, <span class="va">plt1b</span>, <span class="va">plt1c</span>, ncol<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="TheMakingOf_files/figure-html/unnamed-chunk-8-1.png" alt="**Figure 1**. The complete Figure 1." width="864"><p class="caption">
+<img src="TheMakingOf_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" alt="**Figure 1**. The complete Figure 1." width="864"><p class="caption">
 <strong>Figure 1</strong>. The complete Figure 1.
 </p>
 </div>
@@ -344,7 +344,7 @@ a wide format, e.g.,</p>
 <span><span class="va">plt2a</span> <span class="op">&lt;-</span> <span class="va">plt2a</span> <span class="op">+</span> <span class="va">ornateWS</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"Stand-alone\n95% CI"</span><span class="op">)</span></span>
 <span><span class="va">plt2a</span></span></code></pre></div>
 <div class="figure">
-<img src="TheMakingOf_files/figure-html/unnamed-chunk-13-1.png" alt="**Figure 2a**. Making left panel of Figure 2." width="288"><p class="caption">
+<img src="TheMakingOf_files/figure-html/unnamed-chunk-13-1.png" class="r-plt" alt="**Figure 2a**. Making left panel of Figure 2." width="288"><p class="caption">
 <strong>Figure 2a</strong>. Making left panel of Figure 2.
 </p>
 </div>
@@ -362,7 +362,7 @@ a wide format, e.g.,</p>
 <code class="sourceCode R"><span><span class="va">plt2b</span> <span class="op">&lt;-</span> <span class="va">plt2b</span> <span class="op">+</span> <span class="va">ornateWS</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"Correlation and difference-\nadjusted 95% CI"</span><span class="op">)</span> </span>
 <span><span class="va">plt2b</span></span></code></pre></div>
 <div class="figure">
-<img src="TheMakingOf_files/figure-html/unnamed-chunk-14-1.png" alt="**Figure 2b**. Making central panel of Figure 2." width="288"><p class="caption">
+<img src="TheMakingOf_files/figure-html/unnamed-chunk-14-1.png" class="r-plt" alt="**Figure 2b**. Making central panel of Figure 2." width="288"><p class="caption">
 <strong>Figure 2b</strong>. Making central panel of Figure 2.
 </p>
 </div>
@@ -382,7 +382,7 @@ strongly reliable effect of the moment:</p>
 <span><span class="va">plt2c</span> <span class="op">&lt;-</span> <span class="va">plt2c</span> <span class="op">+</span> <span class="va">ornateWS</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"Correlation and difference-\nadjusted 95% CI"</span><span class="op">)</span></span>
 <span><span class="va">plt2c</span> </span></code></pre></div>
 <div class="figure">
-<img src="TheMakingOf_files/figure-html/unnamed-chunk-15-1.png" alt="**Figure 2c**. Making third panel of Figure 2." width="288"><p class="caption">
+<img src="TheMakingOf_files/figure-html/unnamed-chunk-15-1.png" class="r-plt" alt="**Figure 2c**. Making third panel of Figure 2." width="288"><p class="caption">
 <strong>Figure 2c</strong>. Making third panel of Figure 2.
 </p>
 </div>
@@ -412,7 +412,7 @@ and a different range:</p>
 <span><span class="va">plt2d</span> <span class="op">&lt;-</span> <span class="va">plt2d</span> <span class="op">+</span> <span class="va">ornateWS2</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"95% CI \nof the difference"</span><span class="op">)</span></span>
 <span><span class="va">plt2d</span></span></code></pre></div>
 <div class="figure">
-<img src="TheMakingOf_files/figure-html/unnamed-chunk-17-1.png" alt="**Figure 2d**. Making right panel of Figure 2." width="288"><p class="caption">
+<img src="TheMakingOf_files/figure-html/unnamed-chunk-17-1.png" class="r-plt" alt="**Figure 2d**. Making right panel of Figure 2." width="288"><p class="caption">
 <strong>Figure 2d</strong>. Making right panel of Figure 2.
 </p>
 </div>
@@ -425,7 +425,7 @@ improvement)</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">plt2a</span>, <span class="va">plt2b</span>, <span class="va">plt2c</span>, <span class="va">plt2d</span>,  ncol<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="TheMakingOf_files/figure-html/unnamed-chunk-18-1.png" alt="**Figure 2**. The complete Figure 2." width="864"><p class="caption">
+<img src="TheMakingOf_files/figure-html/unnamed-chunk-18-1.png" class="r-plt" alt="**Figure 2**. The complete Figure 2." width="864"><p class="caption">
 <strong>Figure 2</strong>. The complete Figure 2.
 </p>
 </div>
@@ -480,7 +480,7 @@ been recruited by clusters of participants.</p>
 <span><span class="va">plt3a</span> <span class="op">&lt;-</span> <span class="va">plt3a</span> <span class="op">+</span> <span class="va">ornateCRS</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"Stand-alone\n95% CI"</span><span class="op">)</span> </span>
 <span><span class="va">plt3a</span></span></code></pre></div>
 <div class="figure">
-<img src="TheMakingOf_files/figure-html/unnamed-chunk-22-1.png" alt="**Figure 3a**. The left panel of Figure 3." width="288"><p class="caption">
+<img src="TheMakingOf_files/figure-html/unnamed-chunk-22-1.png" class="r-plt" alt="**Figure 3a**. The left panel of Figure 3." width="288"><p class="caption">
 <strong>Figure 3a</strong>. The left panel of Figure 3.
 </p>
 </div>
@@ -502,7 +502,7 @@ identify the column containing the cluster membership information:</p>
 <code class="sourceCode R"><span><span class="va">plt3b</span> <span class="op">&lt;-</span> <span class="va">plt3b</span> <span class="op">+</span> <span class="va">ornateCRS</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>subtitle<span class="op">=</span><span class="st">"Cluster and difference-\nadjusted 95% CI"</span><span class="op">)</span></span>
 <span><span class="va">plt3b</span></span></code></pre></div>
 <div class="figure">
-<img src="TheMakingOf_files/figure-html/unnamed-chunk-23-1.png" alt="**Figure 3b**. The central panel of Figure 3." width="288"><p class="caption">
+<img src="TheMakingOf_files/figure-html/unnamed-chunk-23-1.png" class="r-plt" alt="**Figure 3b**. The central panel of Figure 3." width="288"><p class="caption">
 <strong>Figure 3b</strong>. The central panel of Figure 3.
 </p>
 </div>
@@ -522,7 +522,7 @@ the context of cluster randomized sampling…</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">plt3a</span>, <span class="va">plt3b</span>, <span class="va">plt3c</span>, ncol<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="TheMakingOf_files/figure-html/unnamed-chunk-25-1.png" alt="**Figure 3**. The complete Figure 3." width="768"><p class="caption">
+<img src="TheMakingOf_files/figure-html/unnamed-chunk-25-1.png" class="r-plt" alt="**Figure 3**. The complete Figure 3." width="768"><p class="caption">
 <strong>Figure 3</strong>. The complete Figure 3.
 </p>
 </div>
@@ -601,7 +601,7 @@ violin plot:</p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plt4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">plt4a</span>, <span class="va">plt4b</span>, <span class="va">plt4c</span>, ncol<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="TheMakingOf_files/figure-html/unnamed-chunk-32-1.png" alt="**Figure 4**. The complete Figure 4." width="864"><p class="caption">
+<img src="TheMakingOf_files/figure-html/unnamed-chunk-32-1.png" class="r-plt" alt="**Figure 4**. The complete Figure 4." width="864"><p class="caption">
 <strong>Figure 4</strong>. The complete Figure 4.
 </p>
 </div>
@@ -666,7 +666,7 @@ Thompson, S. K. (2012). <em>Sampling</em>. New York: Wiley.
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
       </footer>
