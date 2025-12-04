@@ -64,7 +64,6 @@ Useful links:
   \item \url{https://github.com/dcousin3/superb/}
   \item \url{https://CRAN.R-project.org/package=superb}
   \item \url{https://dcousin3.github.io/superb/}
-  \item \url{http://dcousin3.github.io/superb}
   \item Report bugs at \url{https://github.com/dcousin3/superb/issues/}
 }
 

@@ -21,8 +21,7 @@ Maintainer: Denis Cousineau <denis.cousineau@uottawa.ca>
 BugReports: https://github.com/dcousin3/superb/issues/
 URL:    https://github.com/dcousin3/superb/,
         https://CRAN.R-project.org/package=superb,
-        https://dcousin3.github.io/superb/,
-        http://dcousin3.github.io/superb
+        https://dcousin3.github.io/superb/
 Description: 
         Computes standard error and confidence interval of various descriptive statistics under 
         various designs and sampling schemes. The main function, superb(), return a plot. It can 
