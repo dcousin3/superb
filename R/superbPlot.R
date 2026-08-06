@@ -371,35 +371,57 @@ superbPlot <- function(data,
         if (package1 != package2 ) message("superb::WARNING(1): The namespace given to `errorbar` does not match the namespace given to `statistic`. Ignoring...")
     }
 
-    # drop in globalenv() the summary statistic function
-    enviro = "globalenv()"
-    if (length(package1) > 0) { enviro = paste("asNamespace('",package1,"')", sep="") } 
+    # Resolve statistic/errorbar functions without creating global objects
+    stat_env <- if (!is.null(package1)) asNamespace(package1) else globalenv()
+    stat_fun <- get(statfunc, mode = "function", envir = stat_env, inherits = TRUE)
 
-    f1 <- paste("superbSTATISTIC <- function(...) {do.call('",statfunc,"', list(...), envir = ",enviro,")}", sep="")
-    #print(f1)
-    eval(parse(text=f1), envir = globalenv() )
-
-    if (has.init.function(statistic)) {
-        f2 <- paste("init.superbSTATISTIC <- function(...) {do.call('init.",statfunc,"', list(...), envir = ",enviro,")}", sep="")
-    #    print(f2)
-        eval(parse(text=f2), envir = globalenv() )
+    init_name <- paste("init", statfunc, sep = ".")
+    init_stat_fun <- if (exists(init_name, envir = stat_env, mode = "function", inherits = TRUE)) {
+        get(init_name, mode = "function", envir = stat_env, inherits = TRUE)
+    } else {
+        NULL
     }
 
     widthfct <- paste(errorbar, statfunc, sep = ".")
-    if (errorbar == "none") { # create a fake function
-        #old instruction to delete
-        eval(parse(text=paste(widthfct, "<-function(X) 0", sep="")), envir = globalenv())
-        # new instruction
-        f3 <- paste("superbERRORBAR  <- function(x) {0}", sep="")
+    if (errorbar == "none") {
+        err_fun <- function(...) 0
     } else {
-        if (is.gamma.required(paste( c(package1,widthfct), collapse="::"))) {
-            f3 <- paste("superbERRORBAR  <- function(..., gamma = 0.95) {do.call('",widthfct,"', list(..., gamma = gamma), envir = ",enviro,")}",sep="")    
-        } else {
-            f3 <- paste("superbERRORBAR  <- function(...) {do.call('",widthfct,"', list(...), envir = ",enviro,")}",sep="")
-        }
+        err_fun <- get(widthfct, mode = "function", envir = stat_env, inherits = TRUE)
     }
-    #print(f3)
-    eval(parse(text=f3), envir = globalenv() )
+
+    stat_is_valid <- tryCatch({
+        if (!is.null(init_stat_fun)) do.call(init_stat_fun, list(data.frame(DV = c(1, 2, 3))))
+        suppressWarnings(do.call(stat_fun, list(c(1, 2, 3))))
+        TRUE
+    }, error = function(cond) { FALSE })
+
+    errorbar_uses_gamma <- if (errorbar == "none") {
+        FALSE
+    } else {
+        tryCatch({
+            suppressWarnings(do.call(err_fun, list(c(1, 2, 3), gamma = 0.95)))
+            TRUE
+        }, error = function(cond) { FALSE })
+    }
+
+    errorbar_is_valid <- if (errorbar == "none") {
+        TRUE
+    } else if (errorbar_uses_gamma) {
+        TRUE
+    } else {
+        tryCatch({
+            suppressWarnings(do.call(err_fun, list(c(1, 2, 3))))
+            TRUE
+        }, error = function(cond) { FALSE })
+    }
+
+    errorbar_is_interval <- if (errorbar == "none") {
+        FALSE
+    } else {
+        tryCatch({
+            length(suppressWarnings(do.call(err_fun, list(c(1, 2, 3))))) == 2
+        }, error = function(cond) { FALSE })
+    }
     ###############################################################
     ##### END EXPERIMENTAL
     ###############################################################
@@ -407,9 +429,9 @@ superbPlot <- function(data,
 
 
     # 1.9a: testing valid statistic functions
-    if ( !(is.stat.function("superbSTATISTIC")) )
+    if (!stat_is_valid)
             stop("superb::ERROR(21): The function ", statistic, " is not a known descriptive statistic function. Exiting...")
-    if ( !(is.errorbar.function("superbERRORBAR")) )
+    if (!errorbar_is_valid)
             stop("superb::ERROR(22): The function ", widthfct, " is not a known function for error bars. Exiting...")
 
     # 1.9b: testing valid plot function
@@ -513,11 +535,11 @@ superbPlot <- function(data,
     }
 
     # if the function has an initializer, run it on the long-format data
-    if (has.init.function("superbSTATISTIC")) {
+    if (!is.null(init_stat_fun)) {
         iname = paste("init",statfunc, sep=".")
         if (!("none" %in% getOption("superb.feedback")))
             message("superb::FYI: Running initializer ", iname)
-        do.call("init.superbSTATISTIC", list(data.untransformed.long) )
+        do.call(init_stat_fun, list(data.untransformed.long))
     }
 
     runDebug("superb.3", "End of Step 3: Reformat data frame into long format", 
@@ -530,14 +552,14 @@ superbPlot <- function(data,
 
     aggregatefct <- function(subsetOfData) { 
         params1 <- list( subsetOfData$DV  )
-        if (is.gamma.required("superbERRORBAR")) {
+        if (errorbar_uses_gamma) {
             paramsV <- list( subsetOfData$DV, gamma = gamma )
         } else {
             paramsV <- list( subsetOfData$DV  )
         }
-        center <- do.call("superbSTATISTIC", params1)
-        limits <- do.call("superbERRORBAR", paramsV)
-        if (is.interval.function("superbERRORBAR")) {
+        center <- do.call(stat_fun, params1)
+        limits <- do.call(err_fun, paramsV)
+        if (errorbar_is_interval) {
             lowerwidth <- ( min(limits) - center)
             upperwidth <- ( max(limits) - center ) 
         } else {
@@ -649,7 +671,7 @@ superbPlot <- function(data,
         if ((adjustments$decorrelation == "CA")||(adjustments$decorrelation == "UA")||(substr(adjustments$decorrelation,1,2) == "LD")) {
             message(paste("superb::FYI: The average correlation per group is ", paste(unique(sprintf("%.4f",mean(round(rs,4)))), collapse=" ")) )
 
-            winers <- suppressWarnings(plyr::ddply(data, .fun = "WinerCompoundSymmetryTest", .variables= BSFactors, variables)) 
+            winers <- suppressWarnings(plyr::ddply(data, .fun = WinerCompoundSymmetryTest, .variables= BSFactors, variables)) 
             winers <- winers[,length(winers)]
             if (any(winers<.05, na.rm = TRUE))
                 message("superb::ADVICE: Some of the groups' data are not compound symmetric. Consider using CM." )
@@ -657,16 +679,16 @@ superbPlot <- function(data,
         
         # 6.3: if decorrelate is CM or LM: show epsilon, test Winer and Mauchly
         if (adjustments$decorrelation %in% c("CM","LM")) {
-            epsGG <- suppressWarnings(plyr::ddply(data, .fun = "HyunhFeldtEpsilon", .variables= BSFactors, variables)) 
+            epsGG <- suppressWarnings(plyr::ddply(data, .fun = HyunhFeldtEpsilon, .variables= BSFactors, variables)) 
             epsGG <- epsGG[,length(epsGG)]
             message(paste("superb::FYI: The HyunhFeldtEpsilon measure of sphericity per group are ", paste(sprintf("%.3f",round(epsGG, 4)), collapse=" ")) )
 
-            winers <- suppressWarnings(plyr::ddply(data, .fun = "WinerCompoundSymmetryTest", .variables= BSFactors, variables) )
+            winers <- suppressWarnings(plyr::ddply(data, .fun = WinerCompoundSymmetryTest, .variables= BSFactors, variables) )
             winers <- winers[,length(winers)]
             if (all(winers>.05, na.rm = TRUE))
                 message("superb::FYI: All the groups' data are compound symmetric. Consider using CA or UA." )
 
-            mauchlys <- plyr::ddply(data, .fun = "MauchlySphericityTest", .variables= BSFactors, variables) 
+            mauchlys <- plyr::ddply(data, .fun = MauchlySphericityTest, .variables= BSFactors, variables) 
             mauchlys <- mauchlys[,length(mauchlys)]
             if (any(mauchlys<.05, na.rm = TRUE))
                 message("superb::FYI: Some of the groups' data are not spherical. Use error bars with caution." )

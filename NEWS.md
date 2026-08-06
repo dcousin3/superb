@@ -1,3 +1,8 @@
+# superb 1.1.0 (August 6th, 2026)
+
+* achetverikov revised the EXPERIMENTAL feature so
+  that no global-environment variables are created.
+
 # superb 1.0.1 (November 30th, 2025)
 
 * Regular maintenance after issue of R 4.5

@@ -1,8 +1,8 @@
 Type:    Package
 Package: superb
 Title:   Summary Plots with Adjusted Error Bars
-Version: 1.0.1
-Date:    2025-11-30
+Version: 1.1.0
+Date:    2026-08-06
 Authors@R: c(
              person("Denis", "Cousineau", email = "denis.cousineau@uottawa.ca",
                     role = c("aut", "cre")),
@@ -21,6 +21,7 @@ Maintainer: Denis Cousineau <denis.cousineau@uottawa.ca>
 BugReports: https://github.com/dcousin3/superb/issues/
 URL:    https://github.com/dcousin3/superb/,
         https://CRAN.R-project.org/package=superb,
+        https://CRAN.R-project.org/package=url,
         https://dcousin3.github.io/superb/
 Description: 
         Computes standard error and confidence interval of various descriptive statistics under 
