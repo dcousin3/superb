@@ -1,14 +1,15 @@
 ## Submission
 
-* Re-revised updated version 1.0.1
+* Re-revised updated version 1.1.0
 
 ## Comment
 
-* Maintenance following issue of R 4.5 and ggplot2 4.0
+* Made experimental features more robust
 
 ## Test environments
 
 * Local: all good
+    - R 4.5.1
     - Platform: x86_64-w64-mingw32/x64
     - Running under: Windows 11 x64 (build 22621)
 
